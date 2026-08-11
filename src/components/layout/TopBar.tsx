@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Bell,
@@ -11,6 +11,7 @@ import {
 import { useApp } from "../../context/AppContext";
 import type { ExamBoard, Subject } from "../../data/navigation";
 import { Button } from "../ui/Button";
+import { Dropdown } from "../ui/Dropdown";
 import "./TopBar.css";
 
 const SUBJECTS: Subject[] = [
@@ -25,6 +26,30 @@ const SUBJECTS: Subject[] = [
 
 const BOARDS: ExamBoard[] = ["OCR", "AQA", "Edexcel", "CIE"];
 
+const NOTIFICATIONS = [
+  {
+    id: "1",
+    title: "Streak reminder",
+    body: "Practise once today to keep your 12-day streak.",
+    time: "2m ago",
+    unread: true,
+  },
+  {
+    id: "2",
+    title: "Marker feedback ready",
+    body: "Paper 2 Q5 marked · 23/25 with improvement notes.",
+    time: "1h ago",
+    unread: true,
+  },
+  {
+    id: "3",
+    title: "A* Memory drill due",
+    body: "Epigenetics is scheduled for today’s spaced review.",
+    time: "Yesterday",
+    unread: false,
+  },
+];
+
 export function TopBar() {
   const {
     subject,
@@ -37,23 +62,7 @@ export function TopBar() {
     initials,
   } = useApp();
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onPointerDown = (e: PointerEvent) => {
-      if (!menuRef.current?.contains(e.target as Node)) setMenuOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [menuOpen]);
+  const [notesOpen, setNotesOpen] = useState(false);
 
   return (
     <header className="topbar">
@@ -69,33 +78,21 @@ export function TopBar() {
         </div>
 
         <div className="topbar__controls">
-          <label className="topbar__select">
-            <span className="sr-only">Subject</span>
-            <select
-              value={subject}
-              onChange={(e) => setSubject(e.target.value as Subject)}
-            >
-              {SUBJECTS.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </label>
+          <Dropdown
+            className="topbar__dd topbar__dd--subject"
+            ariaLabel="Subject"
+            value={subject}
+            options={SUBJECTS.map((s) => ({ value: s, label: s }))}
+            onChange={setSubject}
+          />
 
-          <label className="topbar__select topbar__select--board">
-            <span className="sr-only">Exam board</span>
-            <select
-              value={board}
-              onChange={(e) => setBoard(e.target.value as ExamBoard)}
-            >
-              {BOARDS.map((b) => (
-                <option key={b} value={b}>
-                  {b}
-                </option>
-              ))}
-            </select>
-          </label>
+          <Dropdown
+            className="topbar__dd topbar__dd--board"
+            ariaLabel="Exam board"
+            value={board}
+            options={BOARDS.map((b) => ({ value: b, label: b }))}
+            onChange={setBoard}
+          />
 
           <div className="topbar__stat" title="Streak">
             <Zap size={15} strokeWidth={2} />
@@ -106,21 +103,71 @@ export function TopBar() {
             <span>{points}</span>
           </div>
 
-          <button type="button" className="topbar__icon-btn" aria-label="Notifications">
-            <Bell size={17} strokeWidth={1.75} />
-            <span className="topbar__dot" />
-          </button>
+          <div className="topbar__account">
+            <button
+              type="button"
+              className="topbar__icon-btn"
+              aria-label="Notifications"
+              aria-expanded={notesOpen}
+              aria-haspopup="menu"
+              onClick={() => {
+                setNotesOpen((v) => !v);
+                setMenuOpen(false);
+              }}
+            >
+              <Bell size={17} strokeWidth={1.75} />
+              <span className="topbar__dot" />
+            </button>
+            {notesOpen && (
+              <div
+                className="topbar__menu topbar__menu--notifications"
+                role="menu"
+                onMouseDown={(e) => e.stopPropagation()}
+              >
+                <div className="topbar__menu-head">
+                  <strong>Notifications</strong>
+                  <span>2 unread</span>
+                </div>
+                <ul className="topbar__notify-list">
+                  {NOTIFICATIONS.map((n) => (
+                    <li key={n.id}>
+                      <button
+                        type="button"
+                        className={`topbar__notify-item ${n.unread ? "topbar__notify-item--unread" : ""}`}
+                        role="menuitem"
+                        onClick={() => setNotesOpen(false)}
+                      >
+                        <span className="topbar__notify-title">{n.title}</span>
+                        <span className="topbar__notify-body">{n.body}</span>
+                        <span className="topbar__notify-time">{n.time}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  type="button"
+                  className="topbar__menu-item topbar__menu-item--center"
+                  onClick={() => setNotesOpen(false)}
+                >
+                  Mark all as read
+                </button>
+              </div>
+            )}
+          </div>
 
           <Button size="sm">Upgrade</Button>
 
-          <div className="topbar__account" ref={menuRef}>
+          <div className="topbar__account">
             <button
               type="button"
               className="topbar__avatar"
               aria-label="Account menu"
               aria-expanded={menuOpen}
               aria-haspopup="menu"
-              onClick={() => setMenuOpen((v) => !v)}
+              onClick={() => {
+                setMenuOpen((v) => !v);
+                setNotesOpen(false);
+              }}
             >
               {initials}
             </button>
@@ -153,6 +200,17 @@ export function TopBar() {
           </div>
         </div>
       </div>
+      {(menuOpen || notesOpen) && (
+        <button
+          type="button"
+          className="topbar__backdrop"
+          aria-label="Close menu"
+          onClick={() => {
+            setMenuOpen(false);
+            setNotesOpen(false);
+          }}
+        />
+      )}
     </header>
   );
 }

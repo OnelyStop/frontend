@@ -101,7 +101,6 @@ ol {
 
 .app-content {
   flex: 1;
-  overflow: auto;
   background: var(--color-bg);
 }
 
@@ -349,8 +348,6 @@ ol {
 }
 
 .side-panel {
-  position: sticky;
-  top: 24px;
   padding-top: 8px;
 }
 
@@ -549,8 +546,9 @@ ol {
 }
 
 .note-card {
+  position: relative;
   border-radius: var(--radius-lg);
-  padding: 16px;
+  padding: 28px 16px 16px;
   min-height: 160px;
   border: 1px solid transparent;
   box-shadow: var(--shadow-sm);
@@ -563,10 +561,24 @@ ol {
   transform: translateY(-1px);
 }
 
+.note-card__pin {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: rgba(26, 26, 31, 0.55);
+  background: rgba(255, 255, 255, 0.55);
+}
+
 .note-card__title {
   font-weight: var(--weight-bold);
   font-size: var(--text-base);
   margin-bottom: 8px;
+  padding-left: 4px;
 }
 
 .note-card__body {

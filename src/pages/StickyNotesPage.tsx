@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Pin, Plus } from "lucide-react";
 import { Button } from "../components/ui/Button";
 
 type Note = {
@@ -54,7 +54,14 @@ export function StickyNotesPage() {
 
   return (
     <div className="page">
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 16,
+          flexWrap: "wrap",
+        }}
+      >
         <div>
           <div className="page__eyebrow">Sticky notes</div>
           <h1 className="page__title">Pin what matters</h1>
@@ -70,7 +77,14 @@ export function StickyNotesPage() {
 
       <div className="sticky-board" style={{ marginTop: 28 }}>
         {notes.map((note) => (
-          <article key={note.id} className="note-card" style={{ background: note.color }}>
+          <article
+            key={note.id}
+            className="note-card"
+            style={{ background: note.color }}
+          >
+            <span className="note-card__pin" aria-hidden>
+              <Pin size={13} strokeWidth={2.25} />
+            </span>
             <div className="note-card__title">{note.title}</div>
             <div className="note-card__body">{note.body}</div>
             <div className="note-card__meta">{note.updated}</div>
