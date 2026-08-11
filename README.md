@@ -22,28 +22,30 @@ npm run build
 npm run preview
 ```
 
-## Deploy to Vercel
+## Deploy to Netlify
 
-This repo is Vercel-ready (`vercel.json` configures Vite build output and SPA rewrites for React Router).
+Vercel Hobby cannot deploy private GitHub **organization** repos. Use Netlify instead (free).
 
-### Option A — Vercel Dashboard
+### Option A — Netlify Dashboard
 
-1. Go to [vercel.com/new](https://vercel.com/new)
-2. Import the GitHub repo `OnelyStop/frontend`
-3. Framework Preset: **Vite** (auto-detected)
-4. Build Command: `npm run build`
-5. Output Directory: `dist`
-6. Deploy
+1. Go to [app.netlify.com/start](https://app.netlify.com/start)
+2. Import `OnelyStop/frontend` from GitHub
+3. Build command: `npm run build` · Publish directory: `dist`
+4. Deploy (`netlify.toml` in the repo already configures SPA redirects)
 
-### Option B — Vercel CLI
+### Option B — Netlify CLI
 
 ```bash
-npm i -g vercel
-vercel
-vercel --prod
+npm i -g netlify-cli
+npm run build
+netlify login
+netlify init
+netlify deploy --prod
 ```
 
-Root Directory should be the repo root (this project is already at root).
+## Deploy to Vercel (requires Pro for private org repos)
+
+This repo also includes `vercel.json`. Import `OnelyStop/frontend` on a **Pro** team, or transfer/mirror the repo under a personal GitHub account to use Hobby.
 
 ## Feature routes
 
