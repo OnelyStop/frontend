@@ -64,6 +64,14 @@ export const NAV_GROUPS: NavGroup[] = [
       { id: "notes", label: "Sticky Notes", path: "/notes", icon: "sticky" },
     ],
   },
+  {
+    id: "account",
+    label: "Account",
+    items: [
+      { id: "profile", label: "Profile", path: "/profile", icon: "user" },
+      { id: "settings", label: "Settings", path: "/settings", icon: "settings" },
+    ],
+  },
 ];
 
 export const ESSAY_SUBJECTS: Subject[] = ["Economics", "History", "English Literature"];

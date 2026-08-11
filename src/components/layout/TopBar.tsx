@@ -1,7 +1,11 @@
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Bell,
   Hexagon,
   Search,
+  Settings,
+  User,
   Zap,
 } from "lucide-react";
 import { useApp } from "../../context/AppContext";
@@ -22,7 +26,34 @@ const SUBJECTS: Subject[] = [
 const BOARDS: ExamBoard[] = ["OCR", "AQA", "Edexcel", "CIE"];
 
 export function TopBar() {
-  const { subject, board, setSubject, setBoard, streak, points } = useApp();
+  const {
+    subject,
+    board,
+    setSubject,
+    setBoard,
+    streak,
+    points,
+    profile,
+    initials,
+  } = useApp();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!menuRef.current?.contains(e.target as Node)) setMenuOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
 
   return (
     <header className="topbar">
@@ -82,8 +113,43 @@ export function TopBar() {
 
           <Button size="sm">Upgrade</Button>
 
-          <div className="topbar__avatar" aria-label="Profile">
-            A
+          <div className="topbar__account" ref={menuRef}>
+            <button
+              type="button"
+              className="topbar__avatar"
+              aria-label="Account menu"
+              aria-expanded={menuOpen}
+              aria-haspopup="menu"
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              {initials}
+            </button>
+            {menuOpen && (
+              <div className="topbar__menu" role="menu">
+                <div className="topbar__menu-head">
+                  <strong>{profile.name}</strong>
+                  <span>{profile.email}</span>
+                </div>
+                <Link
+                  to="/profile"
+                  role="menuitem"
+                  className="topbar__menu-item"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <User size={15} strokeWidth={1.75} />
+                  Profile
+                </Link>
+                <Link
+                  to="/settings"
+                  role="menuitem"
+                  className="topbar__menu-item"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <Settings size={15} strokeWidth={1.75} />
+                  Settings
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

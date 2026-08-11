@@ -10,9 +10,11 @@ import {
   Library,
   Mic,
   PenLine,
+  Settings,
   Shapes,
   Shuffle,
   StickyNote,
+  User,
   type LucideIcon,
 } from "lucide-react";
 
@@ -31,6 +33,8 @@ const ICONS: Record<string, LucideIcon> = {
   chart: BarChart3,
   brain: Brain,
   sticky: StickyNote,
+  user: User,
+  settings: Settings,
 };
 
 export function NavIcon({ name, size = 18 }: { name: string; size?: number }) {

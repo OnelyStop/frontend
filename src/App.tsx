@@ -7,10 +7,12 @@ import { InterviewPage } from "./pages/InterviewPage";
 import { MarkerPage } from "./pages/MarkerPage";
 import { MemoryPage } from "./pages/MemoryPage";
 import { PastPapersPage } from "./pages/PastPapersPage";
+import { ProfilePage } from "./pages/ProfilePage";
 import { ProgressPage } from "./pages/ProgressPage";
 import { PYQMixPage } from "./pages/PYQMixPage";
 import { QuestionBankPage } from "./pages/QuestionBankPage";
 import { RevisionPage } from "./pages/RevisionPage";
+import { SettingsPage } from "./pages/SettingsPage";
 import { StickyNotesPage } from "./pages/StickyNotesPage";
 import { TheoryPage } from "./pages/TheoryPage";
 import { TutorPage } from "./pages/TutorPage";
@@ -33,6 +35,8 @@ export default function App() {
         <Route path="progress" element={<ProgressPage />} />
         <Route path="memory" element={<MemoryPage />} />
         <Route path="notes" element={<StickyNotesPage />} />
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
