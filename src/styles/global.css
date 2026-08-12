@@ -81,15 +81,8 @@ ol {
 }
 
 .app-shell {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
   min-height: 100vh;
   background: var(--color-bg);
-  transition: grid-template-columns var(--duration) var(--ease);
-}
-
-.app-shell--sidebar-collapsed {
-  grid-template-columns: var(--sidebar-width-collapsed) 1fr;
 }
 
 .app-main {
@@ -97,6 +90,12 @@ ol {
   flex-direction: column;
   min-width: 0;
   min-height: 100vh;
+  margin-left: var(--dock-gutter);
+  transition: margin-left var(--duration) var(--ease);
+}
+
+.app-shell--dock-pinned .app-main {
+  margin-left: var(--dock-gutter-pinned);
 }
 
 .app-content {
@@ -640,8 +639,9 @@ ol {
 }
 
 @media (max-width: 900px) {
-  .app-shell {
-    grid-template-columns: 1fr;
+  .app-main,
+  .app-shell--dock-pinned .app-main {
+    margin-left: 0;
   }
 
   .grid-3,

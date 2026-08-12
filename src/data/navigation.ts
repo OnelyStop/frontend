@@ -74,6 +74,57 @@ export const NAV_GROUPS: NavGroup[] = [
   },
 ];
 
+// A* Ascent — grade ladder shown in the dock rail. Thresholds are the
+// mastery % needed to be "working at" each grade; the rail interpolates
+// between stops so progress is continuous, not stepped.
+export const GRADE_LADDER = [
+  { grade: "C", threshold: 0 },
+  { grade: "B", threshold: 40 },
+  { grade: "A", threshold: 65 },
+  { grade: "A*", threshold: 85 },
+] as const;
+
+export type Grade = (typeof GRADE_LADDER)[number]["grade"];
+
+// Mastery per learn-feature nav id — mock values until backend wiring
+export const FEATURE_MASTERY: Record<string, number> = {
+  "question-bank": 72,
+  "past-papers": 45,
+  "pyq-mix": 61,
+  "ai-exams": 30,
+  theory: 84,
+  revision: 58,
+};
+
+export function gradeFromMastery(mastery: number): {
+  grade: Grade;
+  next: Grade | null;
+} {
+  let index = 0;
+  for (let i = 0; i < GRADE_LADDER.length; i++) {
+    if (mastery >= GRADE_LADDER[i].threshold) index = i;
+  }
+  return {
+    grade: GRADE_LADDER[index].grade,
+    next: GRADE_LADDER[index + 1]?.grade ?? null,
+  };
+}
+
+// Maps mastery % to a 0–1 position along the rail, piecewise-linear
+// between ladder stops so each grade band occupies one visual segment.
+export function railPositionFromMastery(mastery: number): number {
+  const last = GRADE_LADDER.length - 1;
+  if (mastery >= GRADE_LADDER[last].threshold) return 1;
+  for (let i = last - 1; i >= 0; i--) {
+    const from = GRADE_LADDER[i].threshold;
+    const to = GRADE_LADDER[i + 1].threshold;
+    if (mastery >= from) {
+      return (i + (mastery - from) / (to - from)) / last;
+    }
+  }
+  return 0;
+}
+
 export const ESSAY_SUBJECTS: Subject[] = ["Economics", "History", "English Literature"];
 
 export function getMarkerLabel(subject: Subject): string {

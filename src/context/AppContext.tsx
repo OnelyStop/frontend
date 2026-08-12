@@ -6,8 +6,12 @@ import {
   type ReactNode,
 } from "react";
 import {
+  FEATURE_MASTERY,
   getMarkerLabel,
+  gradeFromMastery,
+  railPositionFromMastery,
   type ExamBoard,
+  type Grade,
   type Subject,
 } from "../data/navigation";
 
@@ -35,6 +39,12 @@ type AppContextValue = {
   markerLabel: string;
   streak: number;
   points: number;
+  mastery: Record<string, number>;
+  overallMastery: number;
+  workingGrade: Grade;
+  nextGrade: Grade | null;
+  railPosition: number;
+  examDaysLeft: number;
   profile: UserProfile;
   setProfile: (p: UserProfile) => void;
   settings: UserSettings;
@@ -58,7 +68,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     name: "Alex Morgan",
     email: "alex@onelystopp.app",
     school: "Northbridge Sixth Form",
-    examYear: "2026",
+    examYear: "2027",
     bio: "Aiming for A* in Biology — focusing on genetics and bioenergetics this term.",
   });
   const [settings, setSettings] = useState<UserSettings>({
@@ -69,8 +79,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
     reduceMotion: false,
   });
 
-  const value = useMemo(
-    () => ({
+  const value = useMemo(() => {
+    const masteryValues = Object.values(FEATURE_MASTERY);
+    const overallMastery = Math.round(
+      masteryValues.reduce((sum, v) => sum + v, 0) / masteryValues.length,
+    );
+    const { grade, next } = gradeFromMastery(overallMastery);
+
+    // A-level exam season opens mid-May of the student's exam year
+    const examDate = new Date(Number(profile.examYear), 4, 11);
+    const examDaysLeft = Math.max(
+      0,
+      Math.ceil((examDate.getTime() - Date.now()) / 86_400_000),
+    );
+
+    return {
       subject,
       board,
       setSubject,
@@ -78,14 +101,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
       markerLabel: getMarkerLabel(subject),
       streak: 12,
       points: 1840,
+      mastery: FEATURE_MASTERY,
+      overallMastery,
+      workingGrade: grade,
+      nextGrade: next,
+      railPosition: railPositionFromMastery(overallMastery),
+      examDaysLeft,
       profile,
       setProfile,
       settings,
       setSettings,
       initials: getInitials(profile.name),
-    }),
-    [subject, board, profile, settings],
-  );
+    };
+  }, [subject, board, profile, settings]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

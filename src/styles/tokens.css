@@ -74,8 +74,12 @@
   --shadow-tooltip: 0 4px 14px rgba(91, 82, 240, 0.25);
 
   /* Layout */
-  --sidebar-width: 232px;
-  --sidebar-width-collapsed: 72px;
+  --dock-width: 68px;
+  --dock-width-expanded: 240px;
+  --dock-inset: 16px;
+  /* Content gutter: resting dock + insets; hover-expansion overlays instead */
+  --dock-gutter: calc(var(--dock-width) + var(--dock-inset) * 2);
+  --dock-gutter-pinned: calc(var(--dock-width-expanded) + var(--dock-inset) * 2);
   --topbar-height: 64px;
   --content-max: 1100px;
   --right-panel-width: 260px;
