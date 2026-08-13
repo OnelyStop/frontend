@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Bell,
   Hexagon,
+  LogOut,
   Search,
   Settings,
   User,
   Zap,
 } from "lucide-react";
 import { useApp } from "../../context/AppContext";
+import { useAuth } from "../../context/AuthContext";
 import type { ExamBoard, Subject } from "../../data/navigation";
 import { Button } from "../ui/Button";
 import { Dropdown } from "../ui/Dropdown";
@@ -61,6 +63,8 @@ export function TopBar() {
     profile,
     initials,
   } = useApp();
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
 
@@ -155,7 +159,9 @@ export function TopBar() {
             )}
           </div>
 
-          <Button size="sm">Upgrade</Button>
+          <Button size="sm" onClick={() => navigate("/upgrade")}>
+            Upgrade
+          </Button>
 
           <div className="topbar__account">
             <button
@@ -195,6 +201,19 @@ export function TopBar() {
                   <Settings size={15} strokeWidth={1.75} />
                   Settings
                 </Link>
+                <button
+                  type="button"
+                  role="menuitem"
+                  className="topbar__menu-item"
+                  onClick={async () => {
+                    setMenuOpen(false);
+                    await signOut();
+                    navigate("/", { replace: true });
+                  }}
+                >
+                  <LogOut size={15} strokeWidth={1.75} />
+                  Sign out
+                </button>
               </div>
             )}
           </div>

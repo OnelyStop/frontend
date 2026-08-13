@@ -75,7 +75,6 @@ export function Dock({ pinned, onTogglePin }: Props) {
                   <li key={item.id}>
                     <NavLink
                       to={item.path}
-                      end={item.path === "/"}
                       title={expanded ? undefined : label}
                       className={({ isActive }) =>
                         `dock__link ${isActive ? "dock__link--active" : ""}`

@@ -1,10 +1,12 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from "react";
+import { useAuth } from "./AuthContext";
 import {
   FEATURE_MASTERY,
   getMarkerLabel,
@@ -62,6 +64,7 @@ function getInitials(name: string) {
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
   const [subject, setSubject] = useState<Subject>("Biology");
   const [board, setBoard] = useState<ExamBoard>("OCR");
   const [profile, setProfile] = useState<UserProfile>({
@@ -71,6 +74,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     examYear: "2027",
     bio: "Aiming for A* in Biology — focusing on genetics and bioenergetics this term.",
   });
+
+  // Seed identity from the signed-in account; the rest of the profile stays
+  // local until there's a profiles table to read from
+  useEffect(() => {
+    if (!user) return;
+    setProfile((prev) => ({
+      ...prev,
+      name: user.user_metadata?.full_name || prev.name,
+      email: user.email ?? prev.email,
+    }));
+  }, [user]);
   const [settings, setSettings] = useState<UserSettings>({
     emailDigest: true,
     weeklyReport: true,

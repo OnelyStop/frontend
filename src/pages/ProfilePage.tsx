@@ -126,7 +126,9 @@ export function ProfilePage() {
             Free · Upgrade for unlimited marking and AI exam generation.
           </div>
           <div style={{ marginTop: 14 }}>
-            <Button size="sm">Upgrade</Button>
+            <Link to="/upgrade">
+              <Button size="sm">Upgrade</Button>
+            </Link>
           </div>
         </div>
         <div className="detail-list">

@@ -29,7 +29,7 @@ export const NAV_GROUPS: NavGroup[] = [
     id: "learn",
     label: "Learn",
     items: [
-      { id: "home", label: "Home", path: "/", icon: "home" },
+      { id: "home", label: "Home", path: "/home", icon: "home" },
       { id: "question-bank", label: "Question Bank", path: "/question-bank", icon: "library" },
       { id: "past-papers", label: "Past Papers", path: "/past-papers", icon: "file-search", badge: "NEW" },
       { id: "pyq-mix", label: "PYQ Mix", path: "/pyq-mix", icon: "shuffle" },
