@@ -1,6 +1,9 @@
+"use client";
+
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MessageSquarePlus, PanelLeftClose, PanelLeftOpen } from "lucide-react";
-import { NavLink } from "react-router-dom";
 import { useApp } from "../../context/AppContext";
 import { NAV_GROUPS } from "../../data/navigation";
 import { Badge } from "../ui/Badge";
@@ -18,6 +21,7 @@ type Props = {
 // the content aside instead.
 export function Dock({ pinned, onTogglePin }: Props) {
   const { markerLabel, mastery } = useApp();
+  const pathname = usePathname();
   const [hovered, setHovered] = useState(false);
   const expanded = pinned || hovered;
 
@@ -73,12 +77,12 @@ export function Dock({ pinned, onTogglePin }: Props) {
                 const itemMastery = mastery[item.id];
                 return (
                   <li key={item.id}>
-                    <NavLink
-                      to={item.path}
+                    <Link
+                      href={item.path}
                       title={expanded ? undefined : label}
-                      className={({ isActive }) =>
-                        `dock__link ${isActive ? "dock__link--active" : ""}`
-                      }
+                      className={`dock__link ${
+                        pathname === item.path ? "dock__link--active" : ""
+                      }`}
                     >
                       <NavIcon name={item.icon} />
                       {expanded && (
@@ -101,7 +105,7 @@ export function Dock({ pinned, onTogglePin }: Props) {
                           )}
                         </>
                       )}
-                    </NavLink>
+                    </Link>
                   </li>
                 );
               })}

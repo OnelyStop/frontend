@@ -1,3 +1,5 @@
+"use client";
+
 import { AlertCircle, Settings2 } from "lucide-react";
 import { Button } from "../ui/Button";
 

@@ -1,6 +1,7 @@
+"use client";
+
 import { useState } from "react";
 import { Check, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
 import { Button } from "../ui/Button";
 import {
   MONTHLY_PRICE,
@@ -8,6 +9,7 @@ import {
   type BillingCycle,
   type Plan,
 } from "../../data/plans";
+import Link from "next/link";
 
 const ANNUAL_SAVING_PCT = Math.round(
   (1 - PLANS[1].annual / MONTHLY_PRICE) * 100,
@@ -22,7 +24,7 @@ type Props = {
 function PlanCta({ plan, billing, variant }: Props & { plan: Plan; billing: BillingCycle }) {
   if (plan.id === "pro") {
     return (
-      <Link to={`/upgrade/checkout?billing=${billing}`}>
+      <Link href={`/upgrade/checkout?billing=${billing}`}>
         <Button className="plan-card__cta">
           {variant === "public" ? "Get Pro" : plan.cta}
         </Button>
@@ -31,7 +33,7 @@ function PlanCta({ plan, billing, variant }: Props & { plan: Plan; billing: Bill
   }
   if (plan.id === "free") {
     return variant === "public" ? (
-      <Link to="/signup">
+      <Link href="/signup">
         <Button variant="outline" className="plan-card__cta">
           Start free
         </Button>

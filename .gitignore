@@ -8,8 +8,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist-ssr
 .vite
 *.local
 
@@ -31,3 +29,8 @@ dist-ssr
 
 # Vercel
 .vercel
+
+# Next.js
+.next/
+out/
+next-env.d.ts

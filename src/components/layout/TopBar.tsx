@@ -1,5 +1,6 @@
+"use client";
+
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import {
   Bell,
   Hexagon,
@@ -15,6 +16,8 @@ import type { ExamBoard, Subject } from "../../data/navigation";
 import { Button } from "../ui/Button";
 import { Dropdown } from "../ui/Dropdown";
 import "./TopBar.css";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SUBJECTS: Subject[] = [
   "Biology",
@@ -64,7 +67,7 @@ export function TopBar() {
     initials,
   } = useApp();
   const { signOut } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
 
@@ -159,7 +162,7 @@ export function TopBar() {
             )}
           </div>
 
-          <Button size="sm" onClick={() => navigate("/upgrade")}>
+          <Button size="sm" onClick={() => router.push("/upgrade")}>
             Upgrade
           </Button>
 
@@ -184,7 +187,7 @@ export function TopBar() {
                   <span>{profile.email}</span>
                 </div>
                 <Link
-                  to="/profile"
+                  href="/profile"
                   role="menuitem"
                   className="topbar__menu-item"
                   onClick={() => setMenuOpen(false)}
@@ -193,7 +196,7 @@ export function TopBar() {
                   Profile
                 </Link>
                 <Link
-                  to="/settings"
+                  href="/settings"
                   role="menuitem"
                   className="topbar__menu-item"
                   onClick={() => setMenuOpen(false)}
@@ -208,7 +211,7 @@ export function TopBar() {
                   onClick={async () => {
                     setMenuOpen(false);
                     await signOut();
-                    navigate("/", { replace: true });
+                    router.replace("/");
                   }}
                 >
                   <LogOut size={15} strokeWidth={1.75} />

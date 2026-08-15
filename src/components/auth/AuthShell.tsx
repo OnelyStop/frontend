@@ -1,8 +1,8 @@
 import { Check } from "lucide-react";
-import { Link } from "react-router-dom";
 import type { ReactNode } from "react";
 import { GradeRail } from "../layout/GradeRail";
 import "./AuthShell.css";
+import Link from "next/link";
 
 const PROOF_POINTS = [
   "Unlimited past papers and PYQ mixes",
@@ -14,14 +14,14 @@ type Props = {
   title: string;
   subtitle: string;
   children: ReactNode;
-  footer: ReactNode;
+  footer: ReactNode | null;
 };
 
 export function AuthShell({ title, subtitle, children, footer }: Props) {
   return (
     <div className="auth-shell">
       <div className="auth-shell__form-side">
-        <Link to="/" className="auth-shell__brand">
+        <Link href="/" className="auth-shell__brand">
           <span className="auth-shell__logo" aria-hidden>
             <span />
             <span />

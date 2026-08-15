@@ -1,40 +1,42 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
-import { useApp } from "../../context/AppContext";
-import { useSmoothScroll } from "../../hooks/useSmoothScroll";
 import { Dock } from "./Dock";
 import { TopBar } from "./TopBar";
 
 const STORAGE_KEY = "onelystopp.dockPinned";
 
-export function AppLayout() {
-  const { settings } = useApp();
-  const [pinned, setPinned] = useState(() => {
-    try {
-      return localStorage.getItem(STORAGE_KEY) === "true";
-    } catch {
-      return false;
-    }
-  });
+export function AppLayout({ children }: { children: React.ReactNode }) {
+  // Client components still render on the server, so localStorage can't seed
+  // initial state — it would throw during SSR and mismatch on hydration.
+  // Start from the default and restore once mounted.
+  const [pinned, setPinned] = useState(false);
+  const [restored, setRestored] = useState(false);
 
   useEffect(() => {
+    try {
+      setPinned(localStorage.getItem(STORAGE_KEY) === "true");
+    } catch {
+      /* ignore */
+    }
+    setRestored(true);
+  }, []);
+
+  useEffect(() => {
+    if (!restored) return; // don't clobber the stored value before reading it
     try {
       localStorage.setItem(STORAGE_KEY, String(pinned));
     } catch {
       /* ignore */
     }
-  }, [pinned]);
-
-  useSmoothScroll(settings.reduceMotion);
+  }, [pinned, restored]);
 
   return (
     <div className={`app-shell ${pinned ? "app-shell--dock-pinned" : ""}`}>
       <Dock pinned={pinned} onTogglePin={() => setPinned((v) => !v)} />
       <div className="app-main">
         <TopBar />
-        <main className="app-content">
-          <Outlet />
-        </main>
+        <main className="app-content">{children}</main>
       </div>
     </div>
   );

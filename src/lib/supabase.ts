@@ -1,12 +1,22 @@
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 
-const url = import.meta.env.VITE_SUPABASE_URL;
-const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Snapshot both halves of the URL at module load: createClient's
-// detectSessionInUrl consumes them once it runs. Magic-link errors come back
-// in the fragment, while OAuth under PKCE returns ?code= / ?error= in the
-// query string — so neither location alone is enough.
+// Auth pages surface a setup notice rather than failing opaquely when the
+// project hasn't been provisioned yet
+export const isSupabaseConfigured = Boolean(url && anonKey);
+
+// createBrowserClient writes the session to cookies rather than localStorage,
+// which is what lets proxy.ts and server components see it
+export const supabase = isSupabaseConfigured
+  ? createBrowserClient(url!, anonKey!)
+  : null;
+
+// Snapshot both halves of the URL on first load: the client consumes them
+// once it detects a session. Magic-link errors come back in the fragment,
+// while OAuth under PKCE returns ?code= / ?error= in the query string — so
+// neither location alone is enough.
 const initialHash =
   typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : "";
 const initialQuery =
@@ -37,27 +47,13 @@ export function hasPendingCodeExchange(): boolean {
   return new URLSearchParams(initialQuery).has("code");
 }
 
-// Auth pages surface a setup notice rather than failing opaquely when the
-// project hasn't been provisioned yet
-export const isSupabaseConfigured = Boolean(url && anonKey);
-
-export const supabase = isSupabaseConfigured
-  ? createClient(url, anonKey, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-      },
-    })
-  : null;
-
 // The GoTrue settings endpoint reports which providers the project has
 // enabled, letting the UI hide OAuth buttons that would just error out
 export async function fetchEnabledProviders(): Promise<{ google: boolean }> {
   if (!isSupabaseConfigured) return { google: false };
   try {
     const res = await fetch(`${url}/auth/v1/settings`, {
-      headers: { apikey: anonKey },
+      headers: { apikey: anonKey! },
     });
     if (!res.ok) return { google: false };
     const data = await res.json();

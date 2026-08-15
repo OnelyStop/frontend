@@ -1,3 +1,5 @@
+"use client";
+
 import { CalendarDays, Flame } from "lucide-react";
 import { useApp } from "../../context/AppContext";
 import { GRADE_LADDER } from "../../data/navigation";
@@ -33,7 +35,9 @@ export function GradeRail({ collapsed }: Props) {
     return (
       <div
         className="grade-rail grade-rail--mini"
-        title={`${summary} · Exam in ${examDaysLeft} days · ${streak}-day streak`}
+        title={`${summary}${
+          examDaysLeft === null ? "" : ` · Exam in ${examDaysLeft} days`
+        } · ${streak}-day streak`}
       >
         <svg viewBox="0 0 40 40" aria-hidden>
           <circle className="grade-rail__ring-bg" cx="20" cy="20" r={RING_RADIUS} />
@@ -104,7 +108,8 @@ export function GradeRail({ collapsed }: Props) {
       <div className="grade-rail__meta">
         <span className="grade-rail__days">
           <CalendarDays size={12} strokeWidth={2} />
-          Exam in {examDaysLeft}d
+          {/* null until mounted — the countdown is clock-dependent */}
+          {examDaysLeft === null ? "Exam soon" : `Exam in ${examDaysLeft}d`}
         </span>
         <span className="grade-rail__streak">
           <Flame size={12} strokeWidth={2} />

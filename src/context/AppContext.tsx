@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createContext,
   useContext,
@@ -46,7 +48,7 @@ type AppContextValue = {
   workingGrade: Grade;
   nextGrade: Grade | null;
   railPosition: number;
-  examDaysLeft: number;
+  examDaysLeft: number | null;
   profile: UserProfile;
   setProfile: (p: UserProfile) => void;
   settings: UserSettings;
@@ -93,19 +95,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
     reduceMotion: false,
   });
 
+  // Clock-dependent, so it can't be computed during render: the server
+  // prerenders at build time and the client hydrates later, and any drift
+  // across the day boundary is a hydration mismatch. null until mounted.
+  const [examDaysLeft, setExamDaysLeft] = useState<number | null>(null);
+
+  useEffect(() => {
+    // A-level exam season opens mid-May of the student's exam year
+    const examDate = new Date(Number(profile.examYear), 4, 11);
+    setExamDaysLeft(
+      Math.max(0, Math.ceil((examDate.getTime() - Date.now()) / 86_400_000)),
+    );
+  }, [profile.examYear]);
+
   const value = useMemo(() => {
     const masteryValues = Object.values(FEATURE_MASTERY);
     const overallMastery = Math.round(
       masteryValues.reduce((sum, v) => sum + v, 0) / masteryValues.length,
     );
     const { grade, next } = gradeFromMastery(overallMastery);
-
-    // A-level exam season opens mid-May of the student's exam year
-    const examDate = new Date(Number(profile.examYear), 4, 11);
-    const examDaysLeft = Math.max(
-      0,
-      Math.ceil((examDate.getTime() - Date.now()) / 86_400_000),
-    );
 
     return {
       subject,
@@ -127,7 +135,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSettings,
       initials: getInitials(profile.name),
     };
-  }, [subject, board, profile, settings]);
+  }, [subject, board, profile, settings, examDaysLeft]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
