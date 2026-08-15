@@ -29,10 +29,18 @@ type AuthContextValue = {
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signInWithGoogle: () => Promise<AuthResult>;
   resetPassword: (email: string) => Promise<AuthResult>;
+  resendConfirmation: (email: string) => Promise<AuthResult>;
   signOut: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
+
+// Every email/OAuth flow returns here; this exact URL must be in the
+// Supabase project's redirect allow-list or it falls back to Site URL
+export const AUTH_CALLBACK_URL =
+  typeof window !== "undefined"
+    ? `${window.location.origin}/auth/callback`
+    : "";
 
 const NOT_CONFIGURED: AuthResult = {
   error:
@@ -88,7 +96,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           password,
           options: {
             data: { full_name: fullName },
-            emailRedirectTo: `${window.location.origin}/home`,
+            emailRedirectTo: AUTH_CALLBACK_URL,
           },
         });
         if (error) return { error: error.message };
@@ -110,7 +118,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (!supabase) return NOT_CONFIGURED;
         const { error } = await supabase.auth.signInWithOAuth({
           provider: "google",
-          options: { redirectTo: `${window.location.origin}/home` },
+          options: { redirectTo: AUTH_CALLBACK_URL },
         });
         return { error: error?.message ?? null };
       },
@@ -118,7 +126,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       resetPassword: async (email) => {
         if (!supabase) return NOT_CONFIGURED;
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/login`,
+          redirectTo: AUTH_CALLBACK_URL,
+        });
+        return { error: error?.message ?? null };
+      },
+
+      resendConfirmation: async (email) => {
+        if (!supabase) return NOT_CONFIGURED;
+        const { error } = await supabase.auth.resend({
+          type: "signup",
+          email,
+          options: { emailRedirectTo: AUTH_CALLBACK_URL },
         });
         return { error: error?.message ?? null };
       },

@@ -3,6 +3,7 @@ import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { AppLayout } from "./components/layout/AppLayout";
 import { MarketingLayout } from "./components/layout/MarketingLayout";
 import { AIExamsPage } from "./pages/AIExamsPage";
+import { AuthCallbackPage } from "./pages/AuthCallbackPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
 import { DiagramPage } from "./pages/DiagramPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
@@ -36,6 +37,7 @@ export default function App() {
       <Route path="login" element={<LoginPage />} />
       <Route path="signup" element={<SignupPage />} />
       <Route path="forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="auth/callback" element={<AuthCallbackPage />} />
 
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout />}>
