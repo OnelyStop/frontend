@@ -27,9 +27,25 @@ export async function proxy(request: NextRequest) {
   // Must start from the incoming request so refreshed auth cookies survive
   let response = NextResponse.next({ request });
 
+  const { pathname, search } = request.nextUrl;
+  const needsAuth = PROTECTED.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!url || !anonKey) {
+    if (!needsAuth) return response;
+    const login = request.nextUrl.clone();
+    login.pathname = "/login";
+    login.search = "";
+    return NextResponse.redirect(login);
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    url,
+    anonKey,
     {
       cookies: {
         getAll: () => request.cookies.getAll(),
@@ -51,11 +67,6 @@ export async function proxy(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const { pathname, search } = request.nextUrl;
-  const needsAuth = PROTECTED.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
 
   if (needsAuth && !user) {
     const url = request.nextUrl.clone();
