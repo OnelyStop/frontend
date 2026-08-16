@@ -1,0 +1,528 @@
+<title>Question Features Spec</title>
+<style>
+  :root {
+    --paper: #f5f6f8;
+    --surface: #ffffff;
+    --surface-2: #eceff3;
+    --line: #dce0e6;
+    --line-soft: #e8ebef;
+    --ink: #191d26;
+    --ink-2: #5a6474;
+    --ink-3: #8b94a3;
+    --accent: #2e4a7d;
+    --accent-soft: #e4eaf3;
+    --good: #2e6b4f;
+    --good-soft: #e2efe8;
+    --warn: #96631a;
+    --warn-soft: #f7edda;
+    --bad: #b03a2e;
+    --bad-soft: #f9e6e3;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: "SF Mono", ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 940px; margin: 0 auto;
+    padding: 48px clamp(18px, 4vw, 36px) 72px;
+    display: flex; flex-direction: column; gap: 40px;
+  }
+  .col { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+
+  .kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height: 1.1;
+    letter-spacing: -0.02em; text-wrap: balance; margin-top: 10px;
+  }
+  .standfirst {
+    font-family: var(--serif); font-size: 1.1rem; line-height: 1.5;
+    color: var(--ink-2); max-width: 58ch; margin-top: 10px;
+  }
+  h2 {
+    font-family: var(--serif); font-weight: 400; font-size: 1.45rem;
+    letter-spacing: -0.01em; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  h3 {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.11em;
+    text-transform: uppercase; color: var(--ink-3); margin-top: 4px;
+  }
+  section { display: flex; flex-direction: column; gap: 16px; }
+  p { color: var(--ink-2); }
+  strong { color: var(--ink); font-weight: 600; }
+  ul { display: flex; flex-direction: column; gap: 7px; padding-left: 17px; color: var(--ink-2); }
+  li::marker { color: var(--ink-3); }
+  code {
+    font-family: var(--mono); font-size: 0.85em; background: var(--surface-2);
+    padding: 1px 5px; border-radius: 3px; color: var(--ink);
+  }
+  pre {
+    font-family: var(--mono); font-size: 11.5px; line-height: 1.55;
+    font-variant-numeric: tabular-nums; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 3px;
+    padding: 13px 15px; overflow-x: auto; color: var(--ink);
+  }
+
+  /* feature block */
+  .feature {
+    border: 1px solid var(--line); border-radius: 3px;
+    background: var(--surface); overflow: hidden;
+  }
+  .feature__head {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding: 16px 20px; border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .feature__n {
+    font-family: var(--mono); font-size: 12px; color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .feature__name { font-family: var(--serif); font-size: 1.25rem; }
+  .feature__time {
+    margin-left: auto; font-family: var(--mono); font-size: 11px;
+    color: var(--ink-2); background: var(--accent-soft);
+    padding: 3px 9px; border-radius: 2px;
+  }
+  .feature__body { padding: 18px 20px; display: flex; flex-direction: column; gap: 16px; }
+
+  .scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  caption {
+    text-align: left; padding: 12px 15px 10px; font-size: 12px;
+    color: var(--ink-3); border-bottom: 1px solid var(--line-soft);
+  }
+  th, td { padding: 8px 13px; text-align: left; vertical-align: top; }
+  thead th {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--ink-3); font-weight: 500;
+    background: var(--surface-2); border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  tbody tr + tr td { border-top: 1px solid var(--line-soft); }
+  tbody td { color: var(--ink-2); }
+  td.f { font-family: var(--mono); font-size: 12px; color: var(--ink); white-space: nowrap; }
+
+  .tag {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 2px 6px; border-radius: 2px; white-space: nowrap;
+  }
+  .tag--ok { background: var(--good-soft); color: var(--good); }
+  .tag--block { background: var(--bad-soft); color: var(--bad); }
+  .tag--part { background: var(--warn-soft); color: var(--warn); }
+
+  .screen {
+    font-family: var(--mono); font-size: 11px; line-height: 1.5;
+    background: var(--surface-2); border: 1px solid var(--line);
+    border-radius: 3px; padding: 14px 16px; white-space: pre; overflow-x: auto;
+    color: var(--ink);
+  }
+
+  .note {
+    border-left: 3px solid var(--warn); background: var(--warn-soft);
+    padding: 12px 15px; border-radius: 0 3px 3px 0; font-size: 13.5px; color: #6b4a12;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); padding-top: 16px;
+    font-size: 12px; color: var(--ink-3);
+  }
+
+  @media print {
+    :root { --paper:#fff; --surface:#fff; --surface-2:#f2f4f7; --ink:#000; --ink-2:#333; --line:#bbb; }
+    body { font-size: 10pt; }
+    .wrap { padding: 0; gap: 26px; max-width: none; }
+    section, .feature, .scroller, .screen, .note { break-inside: avoid; }
+    h2 { break-after: avoid; }
+    .feature { break-before: auto; }
+    pre, .screen { white-space: pre-wrap; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Internal · onelystopp · build spec</div>
+    <h1>Three question features: what students see, what the database needs</h1>
+    <p class="standfirst">
+      Question Bank, PYQ Mix and Past Papers all draw from the same 18,651
+      questions. What separates them is how much time a student has.
+    </p>
+  </header>
+
+  <section>
+    <h2>The three, at a glance</h2>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr><th>Feature</th><th>Session</th><th>Unit</th><th>Clock</th><th>Feedback</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Question Bank</strong></td><td>2 min</td><td>One question</td><td>None</td><td>Instant, per question</td></tr>
+          <tr><td><strong>PYQ Mix</strong></td><td>20 min</td><td>A set of 20</td><td>Yes</td><td>Score at the end</td></tr>
+          <tr><td><strong>Past Papers</strong></td><td>3 hours</td><td>A whole real paper</td><td>Yes, sectional</td><td>Score + section breakdown</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <p>
+        A student picks by the time they have, not by the content — the questions
+        are the same in all three. <strong>AI-Curated Exams is not a fourth
+        feature</strong>; it is PYQ Mix with the questions chosen by weakness
+        instead of at random. One toggle, not one more menu item.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Shared foundation: five tables</h2>
+    <div class="col">
+      <p>
+        Everything below sits on these. Only two of them are about content; the
+        other three record what a student did.
+      </p>
+    </div>
+    <pre>papers            one row per source document
+  paper_id        primary key — which document this is
+  exam_key        which real exam it recalls (many papers → one exam)
+  bank role       SBI / IBPS · PO / Clerk / RRB
+  exam_type year  Prelims / Mains · 2019
+  shift           often null
+  duration_min    total time, for mocks
+  total_marks     for scoring
+  is_canonical    show this one, hide the near-duplicate recalls
+  source_pdf      provenance
+
+directions        passages, shared by several questions
+  paper_id        ← part of the key. IDs repeat across papers
+  direction_id    d001…d030
+  body            the passage text
+
+questions
+  q_id            primary key
+  paper_id        which document it came from
+  q_num           position in that paper
+  section         Reasoning / Quantitative / English / GA
+  topic           finer than section
+  difficulty      1–5
+  direction_id    nullable, resolved with paper_id
+  stem            the question
+  options         { a…e }
+  answer          'a'…'e'
+  explanation     why
+  marks           usually 1
+  negative_marks  usually 0.25 — banking exams penalise wrong answers
+  content_hash    same question from two sources = one row
+  is_active       retire a bad question without deleting it
+
+attempts          one row per sitting
+  attempt_id  user_id  mode('bank'|'mix'|'paper')
+  paper_id    null unless mode='paper'
+  started_at  submitted_at  score
+
+attempt_answers   one row per question answered
+  attempt_id  q_id  chosen  is_correct  time_ms</pre>
+    <div class="col">
+      <p>
+        Two things worth calling out. <strong><code>directions</code> is its own
+        table</strong> because the passage text is currently copied onto every
+        question that shares it — and passage IDs repeat across papers, so the key
+        must be <code>(paper_id, direction_id)</code>. And
+        <strong><code>attempt_answers</code> is what makes mastery possible</strong>;
+        without it the grade rail has nothing to measure.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── 1 ───────────────────────────────────────────── -->
+  <section>
+    <div class="feature">
+      <div class="feature__head">
+        <span class="feature__n">01</span>
+        <span class="feature__name">Question Bank</span>
+        <span class="feature__time">2 minutes</span>
+      </div>
+      <div class="feature__body">
+
+        <h3>What the student sees</h3>
+        <div class="screen">┌────────────────────────────────────────────┐
+│  Question Bank            12 / 240 solved  │
+│  SBI · PO · Reasoning                      │
+│                                            │
+│  Q.  A, B, C, D and E sit in a row…        │
+│                                            │
+│    ( ) 3rd to the right                    │
+│    (•) 5th to the left                     │
+│    ( ) 2nd to the left                     │
+│    ( ) 3rd to the left                     │
+│                                            │
+│              [ Check ]      Skip →         │
+└────────────────────────────────────────────┘</div>
+        <div class="col">
+          <ul>
+            <li>One question at a time. Answer, told right or wrong, next.</li>
+            <li><strong>No clock, no submission.</strong> Close the app mid-question and nothing is lost.</li>
+            <li>The counter is scoped to the filter — <code>12 / 240</code>, not <code>12 / 18,651</code>. A finishable number, not a demoralising one.</li>
+            <li>Filters live in the address, so a link can be shared.</li>
+          </ul>
+        </div>
+
+        <h3>Schema it needs</h3>
+        <div class="scroller">
+          <table>
+            <thead><tr><th>Table</th><th>Fields used</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="f">questions</td><td>stem, options, section, is_active</td><td><span class="tag tag--ok">Have</span></td></tr>
+              <tr><td class="f">questions</td><td>answer, explanation</td><td><span class="tag tag--block">0% filled</span></td></tr>
+              <tr><td class="f">papers</td><td>bank, role, exam_type, year</td><td><span class="tag tag--ok">93–97%</span></td></tr>
+              <tr><td class="f">directions</td><td>body — for comprehension sets</td><td><span class="tag tag--ok">Have</span></td></tr>
+              <tr><td class="f">attempt_answers</td><td>chosen, is_correct — powers the counter</td><td><span class="tag tag--ok">To build</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>How questions are selected</h3>
+        <pre>SELECT q.* FROM questions q
+JOIN papers p USING (paper_id)
+WHERE q.is_active
+  AND p.bank = $1 AND p.year = $2 AND q.section = $3
+  AND q.q_id NOT IN (already answered by this user)
+ORDER BY q.q_num
+LIMIT 1 OFFSET $n</pre>
+        <div class="col">
+          <p>
+            One at a time, skipping what they've already done. No timer means no
+            <code>attempts</code> row — just an <code>attempt_answers</code> entry
+            per question, which is what feeds mastery later.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2 ───────────────────────────────────────────── -->
+  <section>
+    <div class="feature">
+      <div class="feature__head">
+        <span class="feature__n">02</span>
+        <span class="feature__name">PYQ Mix</span>
+        <span class="feature__time">20 minutes</span>
+      </div>
+      <div class="feature__body">
+
+        <h3>What the student sees</h3>
+        <div class="screen">┌────────────────────────────────────────────┐
+│  Build a set                               │
+│                                            │
+│  How many   [ 20 ▾ ]                       │
+│  Section    [ Reasoning ▾ ]                │
+│  Years      [ Any ▾ ]                      │
+│                                            │
+│  Source     (•) Mixed from past years      │
+│             ( ) Target my weak areas       │
+│                                            │
+│                            [ Start ]       │
+└────────────────────────────────────────────┘
+
+  then:   Q 7 of 20        ⏱ 13:42 left</div>
+        <div class="col">
+          <ul>
+            <li>Set it up once, then a timed run with a progress bar.</li>
+            <li><strong>It ends.</strong> That's the point — a finishable task before bed is what builds the daily habit.</li>
+            <li>Score and a per-section breakdown at the end.</li>
+            <li>“Target my weak areas” is the AI mode. It needs <code>topic</code> data we don't have yet.</li>
+          </ul>
+        </div>
+
+        <h3>Schema it needs — everything the Bank uses, plus</h3>
+        <div class="scroller">
+          <table>
+            <thead><tr><th>Table</th><th>Fields used</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="f">attempts</td><td>started_at, submitted_at, score, mode='mix'</td><td><span class="tag tag--ok">To build</span></td></tr>
+              <tr><td class="f">questions</td><td>marks, negative_marks — for scoring</td><td><span class="tag tag--block">Add</span></td></tr>
+              <tr><td class="f">questions</td><td>difficulty — to balance a set</td><td><span class="tag tag--block">Add</span></td></tr>
+              <tr><td class="f">questions</td><td>topic — for the weak-areas mode</td><td><span class="tag tag--block">0% filled</span></td></tr>
+              <tr><td class="f">attempt_answers</td><td>time_ms — per-question pacing</td><td><span class="tag tag--ok">To build</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>How questions are selected</h3>
+        <pre>-- Mixed: spread across years, balanced by difficulty
+SELECT q.* FROM questions q
+JOIN papers p USING (paper_id)
+WHERE q.is_active AND q.answer IS NOT NULL
+  AND q.section = $1 AND p.bank = $2
+ORDER BY random()
+LIMIT 20;
+
+-- Weak areas: same, but weighted toward topics
+-- the student gets wrong most often
+ORDER BY (SELECT accuracy FROM user_topic_mastery
+          WHERE topic = q.topic AND user_id = $me) ASC,
+         random()
+LIMIT 20;</pre>
+        <div class="note">
+          Note the <code>answer IS NOT NULL</code>. A timed set that cannot be
+          scored is worse than no feature — so this screen stays behind the
+          answer-key work.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3 ───────────────────────────────────────────── -->
+  <section>
+    <div class="feature">
+      <div class="feature__head">
+        <span class="feature__n">03</span>
+        <span class="feature__name">Past Papers</span>
+        <span class="feature__time">3 hours</span>
+      </div>
+      <div class="feature__body">
+
+        <h3>What the student sees</h3>
+        <div class="screen">┌────────────────────────────────────────────┐
+│  Past Papers            SBI ▾   PO ▾       │
+│                                            │
+│  Mains                                     │
+│    2022    190 questions   3 hrs      ▶    │
+│    2019    190 questions   3 hrs   ✓ 142   │
+│                                            │
+│  Prelims                                   │
+│    2022    100 questions   1 hr       ▶    │
+└────────────────────────────────────────────┘</div>
+        <div class="col">
+          <ul>
+            <li>Browsed by exam, then stage, then year — the way aspirants already think, and the way Oliveboard and Adda247 arrange it.</li>
+            <li>Papers already attempted show the score instead of a play button.</li>
+            <li>Attempting one is the real thing: sectional timing, negative marking, score at the end.</li>
+            <li>Only one paper per real exam is listed — <code>is_canonical</code> hides the near-duplicate recalls of the same exam.</li>
+          </ul>
+        </div>
+
+        <h3>Schema it needs — the most demanding of the three</h3>
+        <div class="scroller">
+          <table>
+            <thead><tr><th>Table</th><th>Fields used</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="f">papers</td><td>duration_min, total_marks</td><td><span class="tag tag--block">Add</span></td></tr>
+              <tr><td class="f">papers</td><td>exam_key, is_canonical — dedupe recalls</td><td><span class="tag tag--block">Add</span></td></tr>
+              <tr><td class="f">papers</td><td>section_durations — prelims are sectionally timed</td><td><span class="tag tag--block">Add</span></td></tr>
+              <tr><td class="f">questions</td><td>q_num — order must be exact</td><td><span class="tag tag--ok">Have</span></td></tr>
+              <tr><td class="f">questions</td><td>marks, negative_marks</td><td><span class="tag tag--block">Add</span></td></tr>
+              <tr><td class="f">attempts</td><td>mode='paper', paper_id, score</td><td><span class="tag tag--ok">To build</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>How questions are selected</h3>
+        <pre>-- No sampling. The paper is the paper.
+SELECT q.*, d.body AS passage
+FROM questions q
+LEFT JOIN directions d
+  ON d.paper_id = q.paper_id       -- both keys, always
+ AND d.direction_id = q.direction_id
+WHERE q.paper_id = $1
+ORDER BY q.q_num;</pre>
+        <div class="note">
+          The join uses <strong>both</strong> <code>paper_id</code> and
+          <code>direction_id</code>. Passage IDs are only unique inside a paper —
+          all 30 of ours repeat across papers. Join on <code>direction_id</code>
+          alone and students read a passage from the wrong exam.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Extraction: getting questions in</h2>
+    <div class="col">
+      <p>
+        The source is 305 JSON files in the question-bank repo, one per paper,
+        with questions nested inside. Two ways in, one shared function.
+      </p>
+    </div>
+
+    <h3>Bulk — a command, not a screen</h3>
+    <pre>bun run db:import ../question-bank/India/banking/papers-deduped --dry-run
+
+  305 papers · 18,651 questions
+    new          305 papers, 18,651 questions
+    duplicates   0
+  ⚠ 419 questions have no options   → marked inactive
+  ⚠ 18,651 questions have no answer → cannot be used in timed modes</pre>
+    <div class="col">
+      <ul>
+        <li><strong>Dry run first, always.</strong> It reports what would change and writes nothing.</li>
+        <li><strong>Safe to re-run.</strong> Keyed on <code>paper_id</code>, with <code>content_hash</code> per question. Running it twice changes nothing — which matters, because every parser improvement means running it again.</li>
+        <li>Uploading 305 files through a browser is the wrong tool; the questions live in git, so the sync belongs in a script.</li>
+      </ul>
+    </div>
+
+    <h3>Ongoing — the admin screen</h3>
+    <div class="col">
+      <ul>
+        <li>Drop in one or more JSON files.</li>
+        <li>Same preview, then confirm.</li>
+        <li>Calls the same function as the CLI — one code path, so they can't drift.</li>
+      </ul>
+    </div>
+
+    <h3>What extraction still has to solve</h3>
+    <div class="scroller">
+      <table>
+        <thead><tr><th>Gap</th><th>Effect</th><th>Where it comes from</th></tr></thead>
+        <tbody>
+          <tr><td class="f">answer</td><td>0% — blocks PYQ Mix and Past Papers entirely</td><td>Parser must extract answer keys, or key them in</td></tr>
+          <tr><td class="f">explanation</td><td>No learning moment</td><td>Parser, or generated later</td></tr>
+          <tr><td class="f">section</td><td>15.5% — no section filter</td><td>Classifier over the stem</td></tr>
+          <tr><td class="f">topic</td><td>0% — no weak-area mode, no mastery</td><td>Classifier</td></tr>
+          <tr><td class="f">marks</td><td>Not in source at all</td><td>Set per exam pattern, not per question</td></tr>
+          <tr><td class="f">exam_key</td><td>Duplicate mocks of one exam</td><td>Group by bank+role+type+year+shift</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Build order</h2>
+    <div class="scroller">
+      <table>
+        <thead><tr><th>#</th><th>Step</th><th>Blocked by</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Schema — five tables, in Drizzle</td><td>Nothing</td></tr>
+          <tr><td>2</td><td>Import script, dry-run first</td><td>Nothing</td></tr>
+          <tr><td>3</td><td><strong>Question Bank</strong> — browse and filter</td><td>Nothing (answers make it useful, not possible)</td></tr>
+          <tr><td>4</td><td>Answer keys into the data</td><td>Parser work</td></tr>
+          <tr><td>5</td><td><strong>PYQ Mix</strong> — timer, scoring</td><td>Step 4 + marks</td></tr>
+          <tr><td>6</td><td><strong>Past Papers</strong> — sectional timing</td><td>Step 4 + durations</td></tr>
+          <tr><td>7</td><td>Section &amp; topic classification</td><td>Unlocks weak-area mode and mastery</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <p>
+        Steps 1–3 can start today. Everything from 5 onward waits on answer keys —
+        <strong>a timed test that cannot mark itself is not shippable</strong>.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    Counts from every file under <code>India/banking/papers-deduped/</code> at
+    commit <code>0ff28ea</code> — 305 papers, 18,651 questions.
+  </footer>
+
+</div>
