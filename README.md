@@ -11,41 +11,49 @@ Frontend for the onelystopp revision platform — question bank, PYQ mixes, AI e
 ## Local development
 
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 Build:
 
 ```bash
-npm run build
-npm run preview
+bun run build
+bun run start
 ```
 
-## Deploy to Netlify
+## Deploy
 
-Vercel Hobby cannot deploy private GitHub **organization** repos. Use Netlify instead (free).
+Vercel, framework preset **Next.js**. The build output is `.next` — Next.js
+does not produce a `dist` directory.
 
-### Option A — Netlify Dashboard
+If a deploy fails with *"The Next.js output directory `dist` was not found"*,
+the project still has Vite's build settings saved in the dashboard. Fix at
+**Settings → Build and Deployment**:
 
-1. Go to [app.netlify.com/start](https://app.netlify.com/start)
-2. Import `OnelyStop/frontend` from GitHub
-3. Build command: `npm run build` · Publish directory: `dist`
-4. Deploy (`netlify.toml` in the repo already configures SPA redirects)
+| Setting | Value |
+|---|---|
+| Framework Preset | Next.js |
+| Build Command | `bun run build` (or default) |
+| Output Directory | **clear the override** — leave it as the framework default |
+| Install Command | default (`bun.lock` is detected) |
 
-### Option B — Netlify CLI
+Required environment variables — note the `NEXT_PUBLIC_` prefix, not `VITE_`:
 
-```bash
-npm i -g netlify-cli
-npm run build
-netlify login
-netlify init
-netlify deploy --prod
+```
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY
 ```
 
-## Deploy to Vercel (requires Pro for private org repos)
+These are inlined at build time, so **changing them requires a redeploy**.
+`DATABASE_URL` is only needed for migrations, not at runtime.
 
-This repo also includes `vercel.json`. Import `OnelyStop/frontend` on a **Pro** team, or transfer/mirror the repo under a personal GitHub account to use Hobby.
+Supabase → Authentication → URL Configuration → Redirect URLs must include the
+deployed callback, or sign-in silently writes no cookie:
+
+```
+https://<your-domain>/auth/callback
+```
 
 ## Feature routes
 
