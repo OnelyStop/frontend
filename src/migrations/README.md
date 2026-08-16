@@ -64,3 +64,18 @@ Drizzle is **forward-only** — it generates no down migrations. `rollback/` is
 hand-maintained. Read the header of the file before running it; some need a
 dashboard change first, and you must also delete the matching rows from
 `drizzle.__drizzle_migrations` or Drizzle will still consider them applied.
+
+## Supabase URL configuration
+
+Auth cookies are per-origin, so every origin you sign in from must be listed at
+**Authentication → URL Configuration → Redirect URLs**:
+
+```
+http://localhost:3000/auth/callback     # local dev
+https://<your-domain>/auth/callback     # production
+```
+
+Miss one and sign-in appears to work but no cookie is written for that origin —
+the server then sees no session, and every protected route redirects to /login.
+That looks exactly like a broken permission check, so verify the session before
+touching grants or RLS.
