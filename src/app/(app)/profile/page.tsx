@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ProfilePage } from "@/views/ProfilePage";
+import { ProfileView } from "./profile-view";
 
 export const metadata: Metadata = { title: "Profile" };
 
 export default function Page() {
-  return <ProfilePage />;
+  return <ProfileView />;
 }

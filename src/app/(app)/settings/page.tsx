@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { SettingsPage } from "@/views/SettingsPage";
+import { SettingsView } from "./settings-view";
 
 export const metadata: Metadata = { title: "Settings" };
 
 export default function Page() {
-  return <SettingsPage />;
+  return <SettingsView />;
 }

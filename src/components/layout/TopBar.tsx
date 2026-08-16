@@ -10,11 +10,11 @@ import {
   User,
   Zap,
 } from "lucide-react";
-import { useApp } from "../../context/AppContext";
-import { useAuth } from "../../context/AuthContext";
-import type { ExamBoard, Subject } from "../../data/navigation";
-import { Button } from "../ui/Button";
-import { Dropdown } from "../ui/Dropdown";
+import { useApp } from "@/context/AppContext";
+import { useAuth } from "@/features/auth/AuthContext";
+import type { ExamBoard, Subject } from "@/data/navigation";
+import { Button } from "@/components/ui/Button";
+import { Dropdown } from "@/components/ui/Dropdown";
 import "./TopBar.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { RevisionPage } from "@/views/RevisionPage";
+import { RevisionView } from "./revision-view";
 
 export const metadata: Metadata = { title: "Revision Guide" };
 
 export default function Page() {
-  return <RevisionPage />;
+  return <RevisionView />;
 }

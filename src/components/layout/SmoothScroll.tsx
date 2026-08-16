@@ -8,8 +8,7 @@ import { useApp } from "@/context/AppContext";
 // Light smoothing — takes the edge off native scroll without feeling floaty
 const SCROLL_DURATION = 0.5;
 
-// Renders nothing; it exists so the root layout can own scroll behaviour
-// without becoming a client component itself
+// Renders nothing — keeps the root layout a server component.
 export function SmoothScroll() {
   const { settings } = useApp();
   const pathname = usePathname();

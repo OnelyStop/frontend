@@ -3,8 +3,6 @@ import { createBrowserClient } from "@supabase/ssr";
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Auth pages surface a setup notice rather than failing opaquely when the
-// project hasn't been provisioned yet
 export const isSupabaseConfigured = Boolean(url && anonKey);
 
 // createBrowserClient writes the session to cookies rather than localStorage,
@@ -13,10 +11,8 @@ export const supabase = isSupabaseConfigured
   ? createBrowserClient(url!, anonKey!)
   : null;
 
-// Snapshot both halves of the URL on first load: the client consumes them
-// once it detects a session. Magic-link errors come back in the fragment,
-// while OAuth under PKCE returns ?code= / ?error= in the query string — so
-// neither location alone is enough.
+// Snapshot before the client consumes these: magic links report errors in
+// the fragment, PKCE reports them in the query string.
 const initialHash =
   typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : "";
 const initialQuery =
@@ -47,8 +43,7 @@ export function hasPendingCodeExchange(): boolean {
   return new URLSearchParams(initialQuery).has("code");
 }
 
-// The GoTrue settings endpoint reports which providers the project has
-// enabled, letting the UI hide OAuth buttons that would just error out
+// Lets the UI hide OAuth buttons that would only error out.
 export async function fetchEnabledProviders(): Promise<{ google: boolean }> {
   if (!isSupabaseConfigured) return { google: false };
   try {

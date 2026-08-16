@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { AIExamsPage } from "@/views/AIExamsPage";
+import { AiExamsView } from "./ai-exams-view";
 
 export const metadata: Metadata = { title: "AI-Curated Exams" };
 
 export default function Page() {
-  return <AIExamsPage />;
+  return <AiExamsView />;
 }

@@ -4,22 +4,22 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MessageSquarePlus, PanelLeftClose, PanelLeftOpen } from "lucide-react";
-import { useApp } from "../../context/AppContext";
-import { NAV_GROUPS } from "../../data/navigation";
-import { Badge } from "../ui/Badge";
+import { useApp } from "@/context/AppContext";
+import { NAV_GROUPS } from "@/data/navigation";
+import { Badge } from "@/components/ui/Badge";
 import { NavIcon } from "../ui/NavIcon";
+import { LogoMark } from "@/components/ui/Logo";
 import { GradeRail } from "./GradeRail";
 import "./Dock.css";
 
 type Props = {
   pinned: boolean;
+  isAdmin: boolean;
   onTogglePin: () => void;
 };
 
-// Floating glass dock — onelystopp's take on navigation. Rests as an icon
-// rail and expands over the content on hover/focus; pinning it open shifts
-// the content aside instead.
-export function Dock({ pinned, onTogglePin }: Props) {
+// Hover expands over the content; pinning shifts the content aside instead.
+export function Dock({ pinned, isAdmin, onTogglePin }: Props) {
   const { markerLabel, mastery } = useApp();
   const pathname = usePathname();
   const [hovered, setHovered] = useState(false);
@@ -36,10 +36,7 @@ export function Dock({ pinned, onTogglePin }: Props) {
       }}
     >
       <div className="dock__brand">
-        <div className="dock__logo" aria-hidden>
-          <span />
-          <span />
-        </div>
+        <LogoMark />
         {expanded && (
           <>
             <span className="dock__name">onelystopp</span>
@@ -112,6 +109,29 @@ export function Dock({ pinned, onTogglePin }: Props) {
             </ul>
           </div>
         ))}
+        {isAdmin && (
+          <div className="dock__group">
+            {expanded ? (
+              <div className="dock__group-label">Admin</div>
+            ) : (
+              <div className="dock__divider" aria-hidden />
+            )}
+            <ul className="dock__list">
+              <li>
+                <Link
+                  href="/admin"
+                  title={expanded ? undefined : "Admin"}
+                  className={`dock__link ${
+                    pathname.startsWith("/admin") ? "dock__link--active" : ""
+                  }`}
+                >
+                  <NavIcon name="settings" />
+                  {expanded && <span className="dock__link-text">Admin</span>}
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
       </nav>
 
       <div className="dock__footer">

@@ -1,5 +1,5 @@
-import { AuthCallbackPage } from "@/views/AuthCallbackPage";
+import { CallbackView } from "./callback-view";
 
 export default function Page() {
-  return <AuthCallbackPage />;
+  return <CallbackView />;
 }

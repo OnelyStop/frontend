@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { TutorPage } from "@/views/TutorPage";
+import { TutorView } from "./tutor-view";
 
 export const metadata: Metadata = { title: "AI Tutor" };
 
 export default function Page() {
-  return <TutorPage />;
+  return <TutorView />;
 }

@@ -6,10 +6,14 @@ import { TopBar } from "./TopBar";
 
 const STORAGE_KEY = "onelystopp.dockPinned";
 
-export function AppLayout({ children }: { children: React.ReactNode }) {
-  // Client components still render on the server, so localStorage can't seed
-  // initial state — it would throw during SSR and mismatch on hydration.
-  // Start from the default and restore once mounted.
+export function AppLayout({
+  children,
+  isAdmin = false,
+}: {
+  children: React.ReactNode;
+  isAdmin?: boolean;
+}) {
+  // localStorage can't seed state: client components render on the server too.
   const [pinned, setPinned] = useState(false);
   const [restored, setRestored] = useState(false);
 
@@ -33,7 +37,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className={`app-shell ${pinned ? "app-shell--dock-pinned" : ""}`}>
-      <Dock pinned={pinned} onTogglePin={() => setPinned((v) => !v)} />
+      <Dock
+        pinned={pinned}
+        isAdmin={isAdmin}
+        onTogglePin={() => setPinned((v) => !v)}
+      />
       <div className="app-main">
         <TopBar />
         <main className="app-content">{children}</main>

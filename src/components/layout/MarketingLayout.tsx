@@ -1,4 +1,5 @@
-import { Button } from "../ui/Button";
+import { Button } from "@/components/ui/Button";
+import { Brand, LogoMark } from "@/components/ui/Logo";
 import "./MarketingLayout.css";
 import Link from "next/link";
 
@@ -7,13 +8,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="mk-shell">
       <header className="mk-nav">
-        <Link href="/" className="mk-nav__brand">
-          <span className="mk-nav__logo" aria-hidden>
-            <span />
-            <span />
-          </span>
-          onelystopp
-        </Link>
+        <Brand href="/" />
         <nav className="mk-nav__links">
           <a href="#features">Features</a>
           <a href="#pricing">Pricing</a>
@@ -35,10 +30,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
       <footer className="mk-footer">
         <div className="mk-footer__inner">
           <div className="mk-footer__brand">
-            <span className="mk-nav__logo" aria-hidden>
-              <span />
-              <span />
-            </span>
+            <LogoMark />
             <div>
               <div className="mk-footer__name">onelystopp</div>
               <p>Your one stop from first mock to A*.</p>

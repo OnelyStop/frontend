@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { DiagramPage } from "@/views/DiagramPage";
+import { DiagramsView } from "./diagrams-view";
 
 export const metadata: Metadata = { title: "Diagram Generator" };
 
 export default function Page() {
-  return <DiagramPage />;
+  return <DiagramsView />;
 }

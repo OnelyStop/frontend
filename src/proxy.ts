@@ -1,8 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-// Routes that require a session. Everything else — landing, pricing, auth
-// pages — stays public and server-rendered for SEO.
+// Everything not listed here stays public and server-rendered for SEO.
 const PROTECTED = [
   "/home",
   "/question-bank",
@@ -67,12 +66,15 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Admin is gated on a role claim, never on user_metadata — that field is
-  // user-writable and would allow self-promotion
+  // Redirects here are a UX nicety, not the security boundary — server actions
+  // can be invoked without ever passing through the proxy. Every admin page and
+  // action re-checks via requireRole(), and RLS enforces it at the database.
+  //
+  // The role comes from a signed JWT claim set by an auth hook, never from
+  // user_metadata, which the user can write to and could use to self-promote.
   if (pathname.startsWith("/admin")) {
-    const role =
-      (user?.app_metadata as { role?: string } | undefined)?.role ??
-      (user?.app_metadata as { user_role?: string } | undefined)?.user_role;
+    const { data } = await supabase.auth.getClaims();
+    const role = (data?.claims as { user_role?: string } | undefined)?.user_role;
     if (role !== "admin") {
       const url = request.nextUrl.clone();
       url.pathname = "/home";
@@ -81,8 +83,8 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Signed-in users have no business on the auth screens
-  if (user && ["/login", "/signup"].includes(pathname)) {
+  // Only the root — deeper marketing pages stay readable while signed in.
+  if (user && ["/", "/login", "/signup"].includes(pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = "/home";
     url.search = "";

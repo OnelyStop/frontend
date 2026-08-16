@@ -1,8 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-// Server-side client for route handlers and server components. Kept separate
-// from the browser client so `next/headers` never reaches the client bundle.
+// Separate from the browser client so next/headers stays out of that bundle.
 export async function createClient() {
   const cookieStore = await cookies();
 

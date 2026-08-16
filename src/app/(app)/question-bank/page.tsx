@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { QuestionBankPage } from "@/views/QuestionBankPage";
+import { QuestionBankView } from "./question-bank-view";
 
 export const metadata: Metadata = { title: "Question Bank" };
 
 export default function Page() {
-  return <QuestionBankPage />;
+  return <QuestionBankView />;
 }

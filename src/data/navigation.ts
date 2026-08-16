@@ -74,9 +74,7 @@ export const NAV_GROUPS: NavGroup[] = [
   },
 ];
 
-// A* Ascent — grade ladder shown in the dock rail. Thresholds are the
-// mastery % needed to be "working at" each grade; the rail interpolates
-// between stops so progress is continuous, not stepped.
+// Thresholds are the mastery % needed to be "working at" each grade.
 export const GRADE_LADDER = [
   { grade: "C", threshold: 0 },
   { grade: "B", threshold: 40 },

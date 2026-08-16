@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { UpgradePage } from "@/views/UpgradePage";
+import { UpgradeView } from "./upgrade-view";
 
 export const metadata: Metadata = { title: "Upgrade" };
 
 export default function Page() {
-  return <UpgradePage />;
+  return <UpgradeView />;
 }

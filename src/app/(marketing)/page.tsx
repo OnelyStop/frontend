@@ -1,5 +1,5 @@
-import { LandingPage } from "@/views/LandingPage";
+import { LandingView } from "./landing-view";
 
 export default function Page() {
-  return <LandingPage />;
+  return <LandingView />;
 }

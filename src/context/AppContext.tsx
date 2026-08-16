@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "@/features/auth/AuthContext";
 import {
   FEATURE_MASTERY,
   getMarkerLabel,
@@ -17,7 +17,7 @@ import {
   type ExamBoard,
   type Grade,
   type Subject,
-} from "../data/navigation";
+} from "@/data/navigation";
 
 export type UserProfile = {
   name: string;
@@ -95,9 +95,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     reduceMotion: false,
   });
 
-  // Clock-dependent, so it can't be computed during render: the server
-  // prerenders at build time and the client hydrates later, and any drift
-  // across the day boundary is a hydration mismatch. null until mounted.
+  // Not computed in render: prerender happens at build time, so a day-boundary
+  // drift against the client would be a hydration mismatch.
   const [examDaysLeft, setExamDaysLeft] = useState<number | null>(null);
 
   useEffect(() => {

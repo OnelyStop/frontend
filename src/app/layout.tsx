@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { AppProvider } from "@/context/AppContext";
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider } from "@/features/auth/AuthContext";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import "@/styles/tokens.css";
 import "@/styles/global.css";

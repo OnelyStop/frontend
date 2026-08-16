@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { MemoryPage } from "@/views/MemoryPage";
+import { MemoryView } from "./memory-view";
 
 export const metadata: Metadata = { title: "A* Memory" };
 
 export default function Page() {
-  return <MemoryPage />;
+  return <MemoryView />;
 }

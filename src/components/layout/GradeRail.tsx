@@ -1,8 +1,8 @@
 "use client";
 
 import { CalendarDays, Flame } from "lucide-react";
-import { useApp } from "../../context/AppContext";
-import { GRADE_LADDER } from "../../data/navigation";
+import { useApp } from "@/context/AppContext";
+import { GRADE_LADDER } from "@/data/navigation";
 import "./GradeRail.css";
 
 const RING_RADIUS = 16;
@@ -12,9 +12,8 @@ type Props = {
   collapsed: boolean;
 };
 
-// A* Ascent — the dock's signature widget. Shows the student's working
-// grade climbing the C→A* ladder, exam-day countdown, and streak. Collapses
-// into a progress ring so the journey stays visible in the resting dock.
+// Collapses into a progress ring rather than hiding, so the journey stays
+// visible in the resting dock.
 export function GradeRail({ collapsed }: Props) {
   const {
     subject,

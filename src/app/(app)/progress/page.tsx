@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ProgressPage } from "@/views/ProgressPage";
+import { ProgressView } from "./progress-view";
 
 export const metadata: Metadata = { title: "Progress" };
 
 export default function Page() {
-  return <ProgressPage />;
+  return <ProgressView />;
 }

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { InterviewPage } from "@/views/InterviewPage";
+import { InterviewView } from "./interview-view";
 
 export const metadata: Metadata = { title: "AI Interview" };
 
 export default function Page() {
-  return <InterviewPage />;
+  return <InterviewView />;
 }

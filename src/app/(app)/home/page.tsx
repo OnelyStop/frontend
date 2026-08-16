@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { HomePage } from "@/views/HomePage";
+import { HomeView } from "./home-view";
 
 export const metadata: Metadata = { title: "Home" };
 
 export default function Page() {
-  return <HomePage />;
+  return <HomeView />;
 }
