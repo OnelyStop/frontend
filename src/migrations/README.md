@@ -5,8 +5,7 @@ Managed by [Drizzle](https://orm.drizzle.team). The schema lives in
 
 ```
 src/migrations/
-  0000_*.sql          generated from schema.ts
-  0001_*.sql          --custom: plpgsql, grants, seeds
+  0000_rbac.sql       the whole role setup, one file
   meta/               Drizzle's state — never edit by hand
   rollback/           hand-written down migrations
 ```

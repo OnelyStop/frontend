@@ -1,5 +1,5 @@
 {
-  "id": "36a9cd60-4121-4554-a21e-96371930350d",
+  "id": "e18e2733-e90a-46ec-b910-fa49a36ed5ab",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -116,15 +116,6 @@
         }
       },
       "policies": {
-        "auth admin can read user roles": {
-          "name": "auth admin can read user roles",
-          "as": "PERMISSIVE",
-          "for": "SELECT",
-          "to": [
-            "supabase_auth_admin"
-          ],
-          "using": "true"
-        },
         "signed-in users can read their own role": {
           "name": "signed-in users can read their own role",
           "as": "PERMISSIVE",

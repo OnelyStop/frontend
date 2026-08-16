@@ -7,7 +7,7 @@ import {
   unique,
   uuid,
 } from "drizzle-orm/pg-core";
-import { authenticatedRole, supabaseAuthAdminRole } from "drizzle-orm/supabase";
+import { authenticatedRole } from "drizzle-orm/supabase";
 
 export const appRole = pgEnum("app_role", ["admin", "editor"]);
 
@@ -31,14 +31,8 @@ export const userRoles = pgTable(
   (t) => [
     unique("user_roles_user_id_role_key").on(t.userId, t.role),
 
-    // The auth hook runs as supabase_auth_admin and needs to read this.
-    pgPolicy("auth admin can read user roles", {
-      as: "permissive",
-      for: "select",
-      to: supabaseAuthAdminRole,
-      using: sql`true`,
-    }),
-
+    // Paired with a SELECT grant in the migration — Postgres checks grants
+    // before RLS, so the policy is inert without it.
     pgPolicy("signed-in users can read their own role", {
       for: "select",
       to: authenticatedRole,

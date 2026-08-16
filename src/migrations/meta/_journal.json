@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1786855294606,
-      "tag": "0000_colossal_dragon_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1786855309376,
-      "tag": "0001_rbac_hook_and_grants",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1786858505052,
-      "tag": "0002_drop_hook_query_table_directly",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1786860036463,
-      "tag": "0003_grant_select_user_roles",
+      "when": 1786860208486,
+      "tag": "0000_rbac",
       "breakpoints": true
     }
   ]
