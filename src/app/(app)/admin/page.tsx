@@ -22,19 +22,6 @@ async function runChecks(): Promise<Check[]> {
     detail: user?.email ?? "no session",
   });
 
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const claims = claimsData?.claims as
-    | { user_role?: string | null }
-    | undefined;
-  const hasClaim = claims ? "user_role" in claims : false;
-  checks.push({
-    label: "Auth hook is enabled",
-    ok: hasClaim,
-    detail: hasClaim
-      ? `user_role claim present: ${claims?.user_role ?? "null"}`
-      : "no user_role claim — enable the hook, then sign out and back in",
-  });
-
   const role = await getRole();
   checks.push({
     label: "Role resolved",
@@ -111,10 +98,9 @@ export default async function Page() {
           <div className="admin-hint">
             <AlertCircle size={15} />
             <div>
-              Run <code>bun run db:migrate</code>, then enable the hook at
-              Authentication → Hooks → Customize Access Token →{" "}
-              <code>public.custom_access_token_hook</code>, then sign out and
-              back in.
+              Run <code>bun run db:migrate</code>. If a role is missing, grant
+              it with an insert into <code>user_roles</code> from the SQL
+              editor.
             </div>
           </div>
         )}

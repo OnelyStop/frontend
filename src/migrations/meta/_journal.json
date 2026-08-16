@@ -15,6 +15,13 @@
       "when": 1786855309376,
       "tag": "0001_rbac_hook_and_grants",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1786858505052,
+      "tag": "0002_drop_hook_query_table_directly",
+      "breakpoints": true
     }
   ]
 }

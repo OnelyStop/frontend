@@ -70,12 +70,15 @@ export async function proxy(request: NextRequest) {
   // can be invoked without ever passing through the proxy. Every admin page and
   // action re-checks via requireRole(), and RLS enforces it at the database.
   //
-  // The role comes from a signed JWT claim set by an auth hook, never from
-  // user_metadata, which the user can write to and could use to self-promote.
+  // Costs one query, but only on /admin, which one person opens occasionally.
   if (pathname.startsWith("/admin")) {
-    const { data } = await supabase.auth.getClaims();
-    const role = (data?.claims as { user_role?: string } | undefined)?.user_role;
-    if (role !== "admin") {
+    const { data: row } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user!.id)
+      .maybeSingle();
+
+    if (row?.role !== "admin") {
       const url = request.nextUrl.clone();
       url.pathname = "/home";
       url.search = "";

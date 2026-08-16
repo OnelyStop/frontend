@@ -21,14 +21,26 @@ const PERMISSIONS: Record<AppRole, AppPermission[]> = {
   editor: ["questions.create", "questions.update"],
 };
 
-// getClaims verifies the token signature; getSession would only read the
-// cookie, which a client controls.
+// Reads user_roles directly rather than a JWT claim, which is why there's no
+// auth hook to configure. Costs one query, and only admin screens call it.
+// RLS is unaffected — its policies resolve the role inside Postgres.
 export async function getRole(): Promise<AppRole | null> {
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.getClaims();
-  if (error || !data) return null;
 
-  const role = (data.claims as { user_role?: string | null }).user_role;
+  // getUser validates against the auth server; getSession would trust a cookie
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const { data, error } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (error || !data) return null;
+  const role = data.role as string;
   return role === "admin" || role === "editor" ? role : null;
 }
 
@@ -37,9 +49,9 @@ export async function hasPermission(p: AppPermission): Promise<boolean> {
   return role ? PERMISSIONS[role].includes(p) : false;
 }
 
-// Call at the top of every admin page and server action. The proxy redirect is
-// only there to avoid rendering a page the user can't use — it is not the
-// security boundary, because a server action can be invoked directly.
+// Call at the top of every admin page and server action. The proxy redirect
+// only avoids rendering an unusable page — a server action never passes
+// through it, and RLS is what actually protects the data.
 export async function requireRole(role: AppRole) {
   const actual = await getRole();
   if (actual !== role) redirect("/home");

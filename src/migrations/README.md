@@ -45,24 +45,19 @@ Anything in `0001_*` was written by hand via `drizzle-kit generate --custom`:
 
 Keep writing those as custom migrations so they stay in the same pipeline.
 
-## Dashboard step after 0001
+## No dashboard steps
 
-**Authentication → Hooks → Customize Access Token → `public.custom_access_token_hook`**
+Migration 0002 removed the Custom Access Token Hook. The role is read straight
+from `user_roles` — by RLS inside Postgres (a local index lookup), and by the
+app on admin screens only. Nothing to enable in the dashboard.
 
-Until this is set, no token carries a `user_role` claim and every admin check
-fails closed. Sign out and back in afterwards — the hook only runs when a token
-is issued.
-
-Verify:
+Grant a role with SQL:
 
 ```sql
-select u.email, r.role
-from public.user_roles r
-join auth.users u on u.id = r.user_id;
+insert into public.user_roles (user_id, role)
+select id, 'admin' from auth.users where email = 'someone@example.com'
+on conflict (user_id, role) do nothing;
 ```
-
-Expect one row: `onelystop@gmail.com | admin`. Zero means that account hasn't
-signed up yet — create it, then re-run the INSERT at the bottom of `0001`.
 
 ## Rolling back
 
