@@ -11,6 +11,7 @@ import {
   text,
   timestamp,
   unique,
+  uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
 import { anonRole, authenticatedRole } from "drizzle-orm/supabase";
@@ -121,11 +122,14 @@ export const paymentPlans = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
-    unique("payment_plans_plan_interval_currency_key").on(
-      t.plan,
-      t.interval,
-      t.currency,
-    ),
+    // Partial, not a plain unique: Razorpay plan objects are immutable, so
+    // changing a price means creating a new one and retiring the old. Existing
+    // subscribers keep billing against the plan they signed up to, which is the
+    // behaviour we want -- so a slot may hold many retired rows and exactly one
+    // live one.
+    uniqueIndex("payment_plans_active_slot_key")
+      .on(t.plan, t.interval, t.currency)
+      .where(sql`${t.active}`),
     unique("payment_plans_razorpay_plan_id_key").on(t.razorpayPlanId),
 
     // Prices are public -- the marketing page renders them to signed-out

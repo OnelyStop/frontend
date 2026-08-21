@@ -14,6 +14,7 @@
  * alone.
  */
 import { config } from "dotenv";
+import { sql } from "drizzle-orm";
 
 config({ path: ".env.local" });
 
@@ -72,10 +73,13 @@ async function main() {
         razorpayPlanId: created.id,
         amountMinor: p.amountMinor,
       })
-      // Re-running must not create a second plan for the same slot. The unique
-      // key is (plan, interval, currency).
+      // Re-running must not create a second live plan for the same slot. The
+      // index is partial, so Postgres needs the predicate too -- without it
+      // Postgres cannot infer which index this conflicts on and the insert
+      // fails outright instead of being skipped.
       .onConflictDoNothing({
         target: [paymentPlans.plan, paymentPlans.interval, paymentPlans.currency],
+        where: sql`${paymentPlans.active}`,
       });
 
     console.log(`  created  ${name}  ${created.id}`);

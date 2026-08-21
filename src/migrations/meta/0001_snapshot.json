@@ -1,5 +1,5 @@
 {
-  "id": "a2f8d940-01ea-4e0f-9c5f-aee7ae1329a6",
+  "id": "c899c331-62e2-49d9-b2fe-5e5d3b5484fa",
   "prevId": "e18e2733-e90a-46ec-b910-fa49a36ed5ab",
   "version": "7",
   "dialect": "postgresql",
@@ -239,19 +239,39 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "payment_plans_active_slot_key": {
+          "name": "payment_plans_active_slot_key",
+          "columns": [
+            {
+              "expression": "plan",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "interval",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "currency",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"payment_plans\".\"active\"",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "payment_plans_plan_interval_currency_key": {
-          "name": "payment_plans_plan_interval_currency_key",
-          "nullsNotDistinct": false,
-          "columns": [
-            "plan",
-            "interval",
-            "currency"
-          ]
-        },
         "payment_plans_razorpay_plan_id_key": {
           "name": "payment_plans_razorpay_plan_id_key",
           "nullsNotDistinct": false,

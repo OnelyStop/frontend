@@ -33,7 +33,6 @@ CREATE TABLE "payment_plans" (
 	"amount_minor" integer NOT NULL,
 	"active" boolean DEFAULT true NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
-	CONSTRAINT "payment_plans_plan_interval_currency_key" UNIQUE("plan","interval","currency"),
 	CONSTRAINT "payment_plans_razorpay_plan_id_key" UNIQUE("razorpay_plan_id")
 );
 --> statement-breakpoint
@@ -68,6 +67,7 @@ CREATE TABLE "subscriptions" (
 --> statement-breakpoint
 ALTER TABLE "subscriptions" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
 CREATE INDEX "payment_events_event_type_idx" ON "payment_events" USING btree ("event_type");--> statement-breakpoint
+CREATE UNIQUE INDEX "payment_plans_active_slot_key" ON "payment_plans" USING btree ("plan","interval","currency") WHERE "payment_plans"."active";--> statement-breakpoint
 CREATE INDEX "payments_user_id_idx" ON "payments" USING btree ("user_id");--> statement-breakpoint
 CREATE INDEX "payments_subscription_id_idx" ON "payments" USING btree ("subscription_id");--> statement-breakpoint
 CREATE INDEX "subscriptions_user_id_idx" ON "subscriptions" USING btree ("user_id");--> statement-breakpoint
