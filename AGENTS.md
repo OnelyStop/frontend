@@ -12,9 +12,29 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # Working agreements
 
-These two gates apply to every task in this repo. They exist because the
+These three gates apply to every task in this repo. They exist because the
 default failure mode is writing plausible code fast, not correct code that
 survives production.
+
+## Gate 0 — An issue before a PR
+
+Every PR closes an issue. Open the issue first, and put the Gate 1 output in
+it — prior art, the security review, the production plan. The issue is where a
+change is argued; the PR is where it is read.
+
+Link them so the issue closes on merge, and give **each** issue its own
+keyword:
+
+```
+Closes #12, closes #13
+```
+
+`Closes #12, #13` looks equivalent and is not — it closes #12 and leaves #13
+open, silently. Check with
+`gh pr view <n> --json closingIssuesReferences` rather than trusting the text.
+
+A PR with no issue is only for something that cannot be argued in advance: a
+typo, a revert, a build fix that is already broken on `main`.
 
 ## Gate 1 — Research before building
 
