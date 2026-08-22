@@ -1,0 +1,186 @@
+name: Claude review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    # a review costs ~6 min of Opus; these can't carry the bugs it looks for
+    paths-ignore:
+      - "**/*.md"
+      - "LICENSE"
+      - ".gitignore"
+
+# a new push supersedes the review still running on the old commit
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    # drafts are for iterating; review when it's ready
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Review this pull request. The branch is checked out already.
+
+            EVENT: ${{ github.event.action }}
+            If that is "synchronize", earlier commits on this PR were already
+            reviewed. Focus on what changed since — `git diff HEAD~1` — and only
+            revisit older code if the new commits interact with it. Do not
+            re-review the whole PR from scratch on every push.
+
+            This is the OnelyStop app: Next.js App Router, Supabase auth,
+            Postgres via Drizzle, and a Razorpay subscription billing system.
+            Read AGENTS.md — its gates are the working agreement — and
+            src/migrations/README.md if the PR touches the schema.
+
+            This version of Next.js has breaking changes from what you may
+            remember. Before calling an API wrong, check
+            node_modules/next/dist/docs/.
+
+            Weight the review toward what actually costs money or leaks data:
+
+            1. MONEY. Amounts are integers in minor units. A float amount is a
+               rounding error on a real charge and looks like ordinary code:
+               7.99 * 100 is 798.9999… in float64. Amount and currency come
+               from the server-side payment_plans table and the request host —
+               NEVER from the request body, or a caller buys Pro for one paisa.
+               Flag any arithmetic that could round a charge.
+
+            2. SIGNATURES. Two different formulas, and reversing one fails as
+               "invalid signature", which reads like a bad key:
+                 orders:        hmac(order_id + "|" + payment_id)
+                 subscriptions: hmac(payment_id + "|" + subscription_id)
+               Webhook signatures are computed over the RAW request body —
+               request.text(), never JSON.stringify(await request.json()),
+               which reorders keys and drops whitespace. Comparison must be
+               timing-safe and must not throw on a wrong-length input.
+
+            3. IDEMPOTENCY. Razorpay states that the same event can arrive more
+               than once and out of order. A webhook must be safe to redeliver:
+               the unique event id conflicts and the whole transaction rolls
+               back. Granting access, recording a payment and storing the event
+               happen in ONE transaction or the system can bill without
+               granting, or grant without billing. Flag any handler that writes
+               in several statements without a transaction, or that decides
+               "already processed?" with a read followed by a write.
+
+            4. THE CLIENT GRANTS NOTHING. The browser callback is a UX hint —
+               the user closes the tab and it never fires while the payment
+               still succeeded. Only the webhook (or the reconciler) may move an
+               entitlement. Flag any route that grants access from data the
+               browser supplied.
+
+            5. SECRETS. Anything in a NEXT_PUBLIC_ var ships in the browser
+               bundle. RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET and the
+               Supabase service-role key must never be one; only
+               RAZORPAY_KEY_ID and the Supabase anon key may be public.
+
+            6. AUTHORIZATION. Never from user_metadata — it is user-writable, so
+               a user can promote themselves. Roles and entitlements live in
+               tables behind RLS. Postgres checks table GRANTs before RLS, so a
+               new table with a policy and no grant silently returns zero rows —
+               which for an entitlement reads as "this paying customer is not
+               subscribed". A new table needs RLS enabled, a policy, and a grant.
+
+            7. ACCESS IS ONE COLUMN. entitlements.access_until > now(), nothing
+               else. Flag any feature that decides "is this user paid" by
+               reading a subscription status, a payment row, or a provider
+               field. That is how two features come to disagree.
+
+            8. SILENT FAILURE. Code that finds nothing and reports success. A
+               query that returns zero rows, a webhook that swallows an error
+               and answers 2xx, a check that passes because it ran on an empty
+               list. If something can produce an empty result without erroring,
+               that is a finding.
+
+            Be specific and brief. Point at the line, say what breaks, say what
+            to do instead. Do not invent findings to look useful.
+
+            THEN SUBMIT A REVIEW. This is a review, not a comment — the verdict
+            decides whether the PR can merge.
+
+            Post specific lines with
+            `mcp__github_inline_comment__create_inline_comment` (with
+            `confirmed: true`), then submit exactly one of:
+
+              gh pr review $PR --request-changes --body "<what is wrong>"
+              gh pr review $PR --approve --body "<one sentence>"
+
+            Request changes if you found anything in categories 1-8 above, or
+            anything else that would ship wrong data or take money incorrectly.
+
+            Approve ONLY when all of these hold. If you cannot check one of
+            them, request changes instead — never approve on the assumption that
+            something is probably fine:
+
+              - You found nothing this run.
+              - Nothing raised on an EARLIER run of this PR is still open. Check
+                with `gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/comments`
+                and read the code at each one. On a "synchronize" event you only
+                read the latest diff, so an approval based on that alone would
+                approve a PR whose earlier findings were never fixed.
+              - The change is actually verifiable from the code. A claim in the
+                PR body is not evidence.
+
+            Style nits, naming preferences and "consider also doing X" are NOT
+            grounds to request changes. Say them in the body and approve.
+
+          claude_args: |
+            --model claude-opus-4-8
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Read,Grep,Glob,Bash(gh pr comment:*),Bash(gh pr review:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh api:*),Bash(git log:*),Bash(git diff:*),Bash(git show:*)"
+
+      # A review that reviews nothing and reports green is worse than no bot,
+      # because the PR looks reviewed. On question-bank the action once exited 0
+      # after 34 turns and 14 permission denials without ever calling
+      # `gh pr review`. The verdict has to exist, and it has to belong to the
+      # commit that was reviewed: an approval left on an earlier push says
+      # nothing about this one.
+      #
+      # One case cannot produce a verdict however long it runs. The action
+      # refuses to start on a PR that edits .github/workflows — otherwise a PR
+      # could rewrite this file to read the secrets it is handed — and logs
+      # "Action skipped due to workflow validation error" while still exiting 0.
+      # Demanding a verdict there makes every workflow change unmergeable, so
+      # this says so loudly instead and leaves the review to a human.
+      - name: A verdict was actually submitted
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          # The files API, not `gh pr diff --name-only`: a large PR answers 406
+          # above 20,000 diff lines, which would silently stop this from
+          # spotting a workflow change on exactly the PRs where it matters.
+          if gh api "repos/${{ github.repository }}/pulls/$PR/files" --paginate \
+               --jq '.[].filename' | grep -q '^\.github/workflows/'; then
+            echo "::warning::this PR edits .github/workflows, so the review agent" \
+                 "refuses to run on it by design — no automated verdict, needs a human read"
+            exit 0
+          fi
+          verdicts=$(gh api "repos/${{ github.repository }}/pulls/$PR/reviews" --paginate \
+            --jq "[.[] | select(.commit_id == \"$SHA\")
+                       | select(.state == \"APPROVED\" or .state == \"CHANGES_REQUESTED\")] | length")
+          if [ "${verdicts:-0}" -eq 0 ]; then
+            echo "::error::no APPROVED or CHANGES_REQUESTED review for $SHA"
+            echo "The agent ran but submitted no verdict. Check the run log for"
+            echo "permission_denials_count -- a denied tool it needed will end the"
+            echo "run early, and the action still exits 0."
+            exit 1
+          fi
+          echo "OK - $verdicts verdict(s) on $SHA"
