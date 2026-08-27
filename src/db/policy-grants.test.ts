@@ -47,18 +47,16 @@ function grants(text: string): Set<string> {
 describe("RLS policies", () => {
   const text = sql();
 
-  // The premise: if the parser stops finding policies, every assertion below
-  // passes vacuously and the check is worthless.
+  // Without this, a parser that stops matching makes every assertion below pass
+  // vacuously.
   it("parses the migrations it is meant to check", () => {
     expect(policies(text).length).toBeGreaterThan(8);
     expect(grants(text).size).toBeGreaterThan(6);
   });
 
-  // Postgres checks table GRANTs before RLS, so a policy without a matching
-  // grant never runs -- the query returns zero rows and reads as "this user
-  // has no data" rather than as a permissions bug. It has cost this repo real
-  // debugging time twice, and it is invisible in review because the policy
-  // itself looks correct.
+  // Postgres checks GRANTs before RLS, so a policy without one never runs: the
+  // query returns zero rows and reads as missing data, not as denial. Invisible
+  // in review, because the policy itself looks correct.
   it("each has a matching grant, or it never runs", () => {
     const held = grants(text);
     const missing = policies(text)
@@ -72,10 +70,8 @@ describe("RLS policies", () => {
   });
 });
 
-// The user's exam target and the question bank's paper tags are the same two
-// strings. A target written any other way -- 'ibps' lowercase, 'Probationary
-// Officer' spelled out -- joins to none of the 13,360 questions we own, and
-// nothing fails loudly: the user just gets an empty question bank.
+// A seeded pair that does not match the question JSON exactly joins to no
+// questions, and fails silently -- the user just sees an empty question bank.
 describe("exam catalogue", () => {
   const EXPECTED = [
     ["IBPS", "PO"],

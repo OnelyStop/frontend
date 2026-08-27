@@ -36,13 +36,10 @@ CREATE POLICY "signed-in users can read their own targets" ON "user_exam_targets
 CREATE POLICY "signed-in users can add their own targets" ON "user_exam_targets" AS PERMISSIVE FOR INSERT TO "authenticated" WITH CHECK ((select auth.uid()) = "user_exam_targets"."user_id");--> statement-breakpoint
 CREATE POLICY "signed-in users can update their own targets" ON "user_exam_targets" AS PERMISSIVE FOR UPDATE TO "authenticated" USING ((select auth.uid()) = "user_exam_targets"."user_id") WITH CHECK ((select auth.uid()) = "user_exam_targets"."user_id");--> statement-breakpoint
 CREATE POLICY "signed-in users can remove their own targets" ON "user_exam_targets" AS PERMISSIVE FOR DELETE TO "authenticated" USING ((select auth.uid()) = "user_exam_targets"."user_id");
--- ---------------------------------------------------------------------------
+
 -- Hand-written below: drizzle-kit cannot generate references into the
 -- Supabase-managed auth schema, grants, plpgsql, or seed rows.
--- ---------------------------------------------------------------------------
 
--- The profile IS the auth user -- same id, cascading delete. Supabase's own
--- user-management guide is the source of this shape.
 ALTER TABLE "profiles"
   ADD CONSTRAINT "profiles_id_fkey"
   FOREIGN KEY ("id") REFERENCES auth.users(id) ON DELETE CASCADE;
@@ -53,32 +50,26 @@ ALTER TABLE "user_exam_targets"
   FOREIGN KEY ("user_id") REFERENCES auth.users(id) ON DELETE CASCADE;
 --> statement-breakpoint
 
--- RESTRICT, not CASCADE: retiring an exam sets exams.active = false. If
--- deleting one silently deleted every user's target for it, we would lose what
--- people told us they were preparing for.
+-- RESTRICT, not CASCADE: retiring an exam sets active = false, and deleting one
+-- must not silently erase what users told us they were preparing for.
 ALTER TABLE "user_exam_targets"
   ADD CONSTRAINT "user_exam_targets_exam_id_fkey"
   FOREIGN KEY ("exam_id") REFERENCES public.exams(id) ON DELETE RESTRICT;
 --> statement-breakpoint
 
--- Postgres checks table GRANTs before RLS, so without these the policies above
--- never run and every lookup returns zero rows -- which reads as "this user has
--- no profile" rather than as a permissions bug.
+-- Postgres checks GRANTs before RLS, so without these the policies never run
+-- and every lookup returns zero rows, which reads as missing data not denial.
 GRANT SELECT, UPDATE ON public.profiles TO authenticated;
 --> statement-breakpoint
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_exam_targets TO authenticated;
 --> statement-breakpoint
 GRANT SELECT ON public.exams TO anon, authenticated;
 --> statement-breakpoint
-
--- The catalogue is public; a profile is not.
 REVOKE ALL ON public.profiles FROM anon;
 --> statement-breakpoint
 REVOKE ALL ON public.user_exam_targets FROM anon;
 --> statement-breakpoint
 
--- updated_at does not maintain itself, and this is the first table a user
--- writes to directly -- the billing tables are all service-role writes.
 CREATE OR REPLACE FUNCTION public.touch_updated_at()
 RETURNS trigger
 LANGUAGE plpgsql
@@ -96,16 +87,10 @@ CREATE TRIGGER profiles_touch_updated_at
   FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
 --> statement-breakpoint
 
--- Every authenticated request assumes a profile row exists, so it is created
--- with the account rather than lazily. If this raises, signup fails -- which is
--- correct: a user with no profile is a user the app cannot render.
---
--- display_name comes from raw_user_meta_data, which the user controls. That is
--- acceptable for a name and for nothing else; no column on this table is ever
--- read to make an authorization decision.
---
--- country is left at its default here. The trigger cannot see the request host,
--- so the signup route sets it after the account exists.
+-- Every authenticated request assumes a profile row exists, so signup creates
+-- it. display_name comes from user-writable metadata: acceptable for a name,
+-- and the reason no column here is ever read to authorize. country stays at its
+-- default -- the trigger cannot see the request host, so the route sets it.
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = ''
@@ -128,7 +113,6 @@ CREATE TRIGGER on_auth_user_created
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 --> statement-breakpoint
 
--- Backfill: accounts that signed up before this migration have no profile.
 INSERT INTO public.profiles (id, display_name)
 SELECT id,
        NULLIF(TRIM(COALESCE(raw_user_meta_data ->> 'full_name',
@@ -137,14 +121,9 @@ FROM auth.users
 ON CONFLICT (id) DO NOTHING;
 --> statement-breakpoint
 
--- The five exams the question bank holds papers for. bank and role are spelled
--- exactly as the question JSON spells them, because that pair is the join key --
--- any other spelling matches no questions. There is no display_name column:
--- bank || ' ' || role gives "IBPS PO", "SBI Clerk", "IBPS RRB" for all five.
---
--- sort_order is by how much we cover, most first, counted from the committed
--- batches (IBPS PO 3918 questions, SBI Clerk 3216, IBPS RRB 2642, SBI PO 2563,
--- IBPS Clerk 2021). Recount before reordering; do not guess.
+-- bank and role must match the question JSON exactly; that pair is the join key.
+-- sort_order is by coverage, counted from the committed batches (IBPS PO 3918,
+-- SBI Clerk 3216, IBPS RRB 2642, SBI PO 2563, IBPS Clerk 2021).
 INSERT INTO public.exams (slug, bank, role, sort_order) VALUES
   ('ibps-po',    'IBPS', 'PO',    1),
   ('sbi-clerk',  'SBI',  'Clerk', 2),

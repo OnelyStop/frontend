@@ -1,16 +1,10 @@
 -- Reverses 0002_profiles.sql. Drizzle is forward-only, so this is hand-written.
 --
--- This DESTROYS every user's profile and exam target. There is no other copy:
--- display_name can be rebuilt from auth.users, but bio, country and every exam
--- target only exist here. Dump the two tables before running this if the data
--- matters.
---
--- Afterwards delete the matching row from drizzle.__drizzle_migrations, or
--- Drizzle will still consider the migration applied:
---   delete from drizzle.__drizzle_migrations where hash like '%0002_profiles%';
+-- DESTRUCTIVE: bio, country and every exam target exist only here. Dump the
+-- tables first if the data matters. Afterwards delete the matching row from
+-- drizzle.__drizzle_migrations or Drizzle still considers 0002 applied.
 
--- The trigger lives on a Supabase-managed table, so drop it before the function
--- it calls -- otherwise signup raises on a missing function.
+-- Before the function it calls, or signup raises on a missing function.
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 DROP FUNCTION IF EXISTS public.handle_new_user();
 

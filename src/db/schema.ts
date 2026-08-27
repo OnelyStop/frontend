@@ -252,41 +252,16 @@ export const entitlements = pgTable(
   ],
 ).enableRLS();
 
-// ---------------------------------------------------------------------------
-// The user
-//
-// Identity and intent: who someone is, and which exam they are sitting.
-// Deliberately not what they have DONE -- attempts, mastery, streak and points
-// are the product's core loop and get their own model.
-//
-// Both markets share these columns exactly. Nothing here branches on country:
-// .in and .com differ in chrome, prices and seed data, never in shape.
-// ---------------------------------------------------------------------------
-
-// Supabase's documented shape: the primary key IS the auth.users id. The
-// ON DELETE CASCADE lives in the migration because drizzle cannot model a
-// reference into the auth schema.
-//
-// Their example also grants anon SELECT here. We don't -- their profiles hold
-// a public username, ours hold a bio, an institution and an exam target, and
-// no signed-out page needs any of it.
 export const profiles = pgTable(
   "profiles",
   {
     id: uuid("id").primaryKey(),
-
     // One field, not first/last: Indian names don't reliably split in two.
-    // Seeded at signup from raw_user_meta_data, which the user can write --
-    // fine for a name, and the reason nothing here is ever read to authorize.
     displayName: text("display_name"),
     bio: text("bio"),
-
-    // ISO-3166, seeded from the signup host. Segmentation and content only:
-    // price currency is derived from the request host server-side, so editing
-    // this cannot buy the INR plan from .com. Kept despite having no reader
-    // yet because where someone signed up from cannot be recovered later.
+    // Segmentation only. Price currency comes from the request host, never from
+    // here, or a user could edit their way onto the INR plan from .com.
     country: char("country", { length: 2 }).notNull().default("IN"),
-
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
@@ -295,7 +270,6 @@ export const profiles = pgTable(
       to: authenticatedRole,
       using: sql`(select auth.uid()) = ${t.id}`,
     }),
-
     // withCheck as well as using, or a user could rewrite the id and hand the
     // row to someone else.
     pgPolicy("signed-in users can update their own profile", {
@@ -304,26 +278,13 @@ export const profiles = pgTable(
       using: sql`(select auth.uid()) = ${t.id}`,
       withCheck: sql`(select auth.uid()) = ${t.id}`,
     }),
-
-    // No insert or delete policy: the row is created by the signup trigger and
-    // removed by the cascade from auth.users. A user with no profile row is a
-    // user the app cannot render, so neither end of that lifecycle is theirs.
+    // No insert or delete policy: the signup trigger creates the row and the
+    // cascade from auth.users removes it.
   ],
 ).enableRLS();
 
-// The exam catalogue, and the join key into the question bank.
-//
-// (bank, role) are the question bank's own strings, spelled identically --
-// 'IBPS' / 'PO'. That is the entire point of this table: a target written in
-// any other vocabulary joins to none of the questions we own.
-//
-// Note this `role` is the exam's, not app_role. The two tables never join.
-//
-// Prelims/Mains is deliberately absent. Someone preparing for IBPS PO prepares
-// for both, so it is a stage you filter practice by, not part of who they are.
-//
-// A table rather than an enum so adding SSC or Railways is an INSERT, not a
-// migration plus a type change plus a deploy.
+// bank and role are spelled exactly as the question JSON spells them. That pair
+// is the join key into the question bank -- any other spelling matches nothing.
 export const exams = pgTable(
   "exams",
   {
@@ -338,8 +299,6 @@ export const exams = pgTable(
     unique("exams_slug_key").on(t.slug),
     unique("exams_bank_role_key").on(t.bank, t.role),
 
-    // Public like plan prices are: the marketing page lists what we cover, and
-    // onboarding needs it before a profile exists.
     pgPolicy("anyone can read the exam catalogue", {
       for: "select",
       to: [anonRole, authenticatedRole],
@@ -348,28 +307,20 @@ export const exams = pgTable(
   ],
 ).enableRLS();
 
-// What a user is preparing for. A table, not columns on the profile, because
-// one row cannot express the real case: a banking aspirant sits IBPS PO, SBI PO
-// and RRB in the same cycle.
+// One row per exam a user is preparing for -- a banking aspirant sits IBPS PO,
+// SBI PO and RRB in the same cycle.
 export const userExamTargets = pgTable(
   "user_exam_targets",
   {
     userId: uuid("user_id").notNull(),
     examId: bigint("exam_id", { mode: "number" }).notNull(),
-
-    // The attempt cycle. Always known -- it is chosen at onboarding.
     targetYear: integer("target_year").notNull(),
-
     isPrimary: boolean("is_primary").notNull().default(false),
   },
   (t) => [
-    // (user_id, exam_id) is already unique and already the only lookup path,
-    // so it is the primary key -- a surrogate id would earn nothing.
     primaryKey({ columns: [t.userId, t.examId] }),
-
-    // Partial: many targets per user, at most one flagged primary. Enforced
-    // here rather than in the route, so two concurrent requests cannot both
-    // win and leave the dashboard with no defined default.
+    // At most one primary per user, enforced here rather than in the route so
+    // two concurrent writes cannot both win.
     uniqueIndex("user_exam_targets_one_primary_key")
       .on(t.userId)
       .where(sql`${t.isPrimary}`),
