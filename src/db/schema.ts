@@ -3,13 +3,13 @@ import {
   bigint,
   boolean,
   char,
-  date,
   index,
   integer,
   jsonb,
   pgEnum,
   pgPolicy,
   pgTable,
+  primaryKey,
   text,
   timestamp,
   unique,
@@ -279,44 +279,14 @@ export const profiles = pgTable(
     // Seeded at signup from raw_user_meta_data, which the user can write --
     // fine for a name, and the reason nothing here is ever read to authorize.
     displayName: text("display_name"),
-    avatarUrl: text("avatar_url"),
-
-    // ISO-3166, seeded from the signup host. Content and display only: the
-    // price currency is derived from the request host server-side, so editing
-    // this cannot buy the INR plan from .com.
-    countryCode: char("country_code", { length: 2 }).notNull().default("IN"),
-
-    // 'en' | 'hi' -- every TCS iON paper ships both, so this is a real toggle
-    // rather than interface chrome.
-    locale: text("locale").notNull().default("en"),
-
-    // The one that gets forgotten. A streak and a daily free-practice limit
-    // both need a day boundary, and that boundary is per-user: without this a
-    // Kolkata student's day rolls over at 05:30. The client overwrites it with
-    // the browser's IANA zone on first load; the default is the launch market.
-    // Not constrained to pg_timezone_names -- a CHECK can't subquery -- so it
-    // is validated in the app before write.
-    timezone: text("timezone").notNull().default("Asia/Kolkata"),
-
-    // School, college or coaching centre.
-    institution: text("institution"),
     bio: text("bio"),
 
-    // Nullable on purpose: separates a brand-new account from one that reached
-    // onboarding and skipped it. A boolean cannot tell those apart.
-    onboardedAt: timestamp("onboarded_at", { withTimezone: true }),
+    // ISO-3166, seeded from the signup host. Segmentation and content only:
+    // price currency is derived from the request host server-side, so editing
+    // this cannot buy the INR plan from .com. Kept despite having no reader
+    // yet because where someone signed up from cannot be recovered later.
+    country: char("country", { length: 2 }).notNull().default("IN"),
 
-    // The five UserSettings booleans. Here rather than in their own table
-    // because it is one row per user either way, and every extra table is
-    // another policy and another grant that can be forgotten -- see the grant
-    // comment in 0000_rbac.sql for what that failure looks like.
-    emailDigest: boolean("email_digest").notNull().default(true),
-    weeklyReport: boolean("weekly_report").notNull().default(true),
-    practiceReminders: boolean("practice_reminders").notNull().default(true),
-    soundEffects: boolean("sound_effects").notNull().default(false),
-    reduceMotion: boolean("reduce_motion").notNull().default(false),
-
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
@@ -361,8 +331,6 @@ export const exams = pgTable(
     slug: text("slug").notNull(),
     bank: text("bank").notNull(),
     role: text("role").notNull(),
-    displayName: text("display_name").notNull(),
-    countryCode: char("country_code", { length: 2 }).notNull(),
     active: boolean("active").notNull().default(true),
     sortOrder: integer("sort_order").notNull().default(0),
   },
@@ -386,26 +354,18 @@ export const exams = pgTable(
 export const userExamTargets = pgTable(
   "user_exam_targets",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     examId: bigint("exam_id", { mode: "number" }).notNull(),
 
     // The attempt cycle. Always known -- it is chosen at onboarding.
     targetYear: integer("target_year").notNull(),
 
-    // Nullable, and that is the honest model: IBPS publishes its calendar late,
-    // so the date is usually unknown when the target is set. The countdown
-    // renders only once it isn't. AppContext currently does
-    // `new Date(Number(examYear), 4, 11)` -- hardcoding 11 May as every
-    // student's exam date, which is already wrong for an August Prelims.
-    targetDate: date("target_date"),
-
     isPrimary: boolean("is_primary").notNull().default(false),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
-    unique("user_exam_targets_user_id_exam_id_key").on(t.userId, t.examId),
-    index("user_exam_targets_user_id_idx").on(t.userId),
+    // (user_id, exam_id) is already unique and already the only lookup path,
+    // so it is the primary key -- a surrogate id would earn nothing.
+    primaryKey({ columns: [t.userId, t.examId] }),
 
     // Partial: many targets per user, at most one flagged primary. Enforced
     // here rather than in the route, so two concurrent requests cannot both

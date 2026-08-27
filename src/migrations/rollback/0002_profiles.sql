@@ -1,9 +1,9 @@
 -- Reverses 0002_profiles.sql. Drizzle is forward-only, so this is hand-written.
 --
 -- This DESTROYS every user's profile and exam target. There is no other copy:
--- display_name and avatar_url can be rebuilt from auth.users, but bio,
--- institution, timezone, the notification settings and every exam target only
--- exist here. Dump the two tables before running this if the data matters.
+-- display_name can be rebuilt from auth.users, but bio, country and every exam
+-- target only exist here. Dump the two tables before running this if the data
+-- matters.
 --
 -- Afterwards delete the matching row from drizzle.__drizzle_migrations, or
 -- Drizzle will still consider the migration applied:
