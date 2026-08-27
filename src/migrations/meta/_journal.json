@@ -15,6 +15,13 @@
       "when": 1787331498539,
       "tag": "0001_billing",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1787860674599,
+      "tag": "0002_profiles",
+      "breakpoints": true
     }
   ]
 }

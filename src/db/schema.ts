@@ -2,6 +2,7 @@ import { sql } from "drizzle-orm";
 import {
   bigint,
   boolean,
+  char,
   index,
   integer,
   jsonb,
@@ -247,5 +248,31 @@ export const entitlements = pgTable(
       to: authenticatedRole,
       using: sql`(select auth.uid()) = ${t.userId}`,
     }),
+  ],
+).enableRLS();
+
+export const profiles = pgTable(
+  "profiles",
+  {
+    id: uuid("id").primaryKey(),
+    displayName: text("display_name"),
+    bio: text("bio"),
+    // Never used for pricing -- currency comes from the request host.
+    country: char("country", { length: 2 }).notNull().default("IN"),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    pgPolicy("signed-in users can read their own profile", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.id}`,
+    }),
+    pgPolicy("signed-in users can update their own profile", {
+      for: "update",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.id}`,
+      withCheck: sql`(select auth.uid()) = ${t.id}`,
+    }),
+    // No insert or delete policy: the signup trigger and the cascade own those.
   ],
 ).enableRLS();
