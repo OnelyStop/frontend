@@ -14,7 +14,6 @@ function sql(): string {
 
 const unquote = (s: string) => s.replace(/["\s]/g, "");
 const roles = (s: string) => s.split(",").map(unquote).filter(Boolean);
-// Migrations write both "profiles" and public.profiles.
 const table = (s: string) => unquote(s).replace(/^public\./, "");
 
 type Policy = { table: string; verb: string; role: string };
@@ -47,16 +46,14 @@ function grants(text: string): Set<string> {
 describe("RLS policies", () => {
   const text = sql();
 
-  // Without this, a parser that stops matching makes every assertion below pass
-  // vacuously.
+  // Without this, a parser that stops matching passes everything vacuously.
   it("parses the migrations it is meant to check", () => {
     expect(policies(text).length).toBeGreaterThan(8);
     expect(grants(text).size).toBeGreaterThan(6);
   });
 
-  // Postgres checks GRANTs before RLS, so a policy without one never runs: the
-  // query returns zero rows and reads as missing data, not as denial. Invisible
-  // in review, because the policy itself looks correct.
+  // Postgres checks GRANTs before RLS: a policy without one never runs, and the
+  // policy still looks correct in review.
   it("each has a matching grant, or it never runs", () => {
     const held = grants(text);
     const missing = policies(text)
@@ -70,8 +67,7 @@ describe("RLS policies", () => {
   });
 });
 
-// A seeded pair that does not match the question JSON exactly joins to no
-// questions, and fails silently -- the user just sees an empty question bank.
+// A pair not matching the question JSON joins to nothing, silently.
 describe("exam catalogue", () => {
   const EXPECTED = [
     ["IBPS", "PO"],

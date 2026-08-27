@@ -37,8 +37,7 @@ CREATE POLICY "signed-in users can add their own targets" ON "user_exam_targets"
 CREATE POLICY "signed-in users can update their own targets" ON "user_exam_targets" AS PERMISSIVE FOR UPDATE TO "authenticated" USING ((select auth.uid()) = "user_exam_targets"."user_id") WITH CHECK ((select auth.uid()) = "user_exam_targets"."user_id");--> statement-breakpoint
 CREATE POLICY "signed-in users can remove their own targets" ON "user_exam_targets" AS PERMISSIVE FOR DELETE TO "authenticated" USING ((select auth.uid()) = "user_exam_targets"."user_id");
 
--- Hand-written below: drizzle-kit cannot generate references into the
--- Supabase-managed auth schema, grants, plpgsql, or seed rows.
+-- Hand-written: drizzle-kit generates none of the below. Do not regenerate.
 
 ALTER TABLE "profiles"
   ADD CONSTRAINT "profiles_id_fkey"
@@ -50,15 +49,15 @@ ALTER TABLE "user_exam_targets"
   FOREIGN KEY ("user_id") REFERENCES auth.users(id) ON DELETE CASCADE;
 --> statement-breakpoint
 
--- RESTRICT, not CASCADE: retiring an exam sets active = false, and deleting one
--- must not silently erase what users told us they were preparing for.
+-- RESTRICT: retire an exam with active = false; deleting one must not erase
+-- what users told us they are preparing for.
 ALTER TABLE "user_exam_targets"
   ADD CONSTRAINT "user_exam_targets_exam_id_fkey"
   FOREIGN KEY ("exam_id") REFERENCES public.exams(id) ON DELETE RESTRICT;
 --> statement-breakpoint
 
--- Postgres checks GRANTs before RLS, so without these the policies never run
--- and every lookup returns zero rows, which reads as missing data not denial.
+-- Postgres checks GRANTs before RLS: without these the policies never run and
+-- every lookup returns zero rows, reading as missing data rather than denial.
 GRANT SELECT, UPDATE ON public.profiles TO authenticated;
 --> statement-breakpoint
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_exam_targets TO authenticated;
@@ -87,10 +86,8 @@ CREATE TRIGGER profiles_touch_updated_at
   FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
 --> statement-breakpoint
 
--- Every authenticated request assumes a profile row exists, so signup creates
--- it. display_name comes from user-writable metadata: acceptable for a name,
--- and the reason no column here is ever read to authorize. country stays at its
--- default -- the trigger cannot see the request host, so the route sets it.
+-- display_name comes from user-writable metadata: fine for a name, and the
+-- reason no column here is ever read to authorize.
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = ''
@@ -121,9 +118,7 @@ FROM auth.users
 ON CONFLICT (id) DO NOTHING;
 --> statement-breakpoint
 
--- bank and role must match the question JSON exactly; that pair is the join key.
--- sort_order is by coverage, counted from the committed batches (IBPS PO 3918,
--- SBI Clerk 3216, IBPS RRB 2642, SBI PO 2563, IBPS Clerk 2021).
+-- sort_order is by coverage in the committed batches, most first.
 INSERT INTO public.exams (slug, bank, role, sort_order) VALUES
   ('ibps-po',    'IBPS', 'PO',    1),
   ('sbi-clerk',  'SBI',  'Clerk', 2),

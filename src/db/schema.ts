@@ -256,11 +256,9 @@ export const profiles = pgTable(
   "profiles",
   {
     id: uuid("id").primaryKey(),
-    // One field, not first/last: Indian names don't reliably split in two.
     displayName: text("display_name"),
     bio: text("bio"),
-    // Segmentation only. Price currency comes from the request host, never from
-    // here, or a user could edit their way onto the INR plan from .com.
+    // Never used for pricing -- currency comes from the request host.
     country: char("country", { length: 2 }).notNull().default("IN"),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
@@ -270,21 +268,18 @@ export const profiles = pgTable(
       to: authenticatedRole,
       using: sql`(select auth.uid()) = ${t.id}`,
     }),
-    // withCheck as well as using, or a user could rewrite the id and hand the
-    // row to someone else.
     pgPolicy("signed-in users can update their own profile", {
       for: "update",
       to: authenticatedRole,
       using: sql`(select auth.uid()) = ${t.id}`,
       withCheck: sql`(select auth.uid()) = ${t.id}`,
     }),
-    // No insert or delete policy: the signup trigger creates the row and the
-    // cascade from auth.users removes it.
+    // No insert or delete policy: the signup trigger and the cascade own those.
   ],
 ).enableRLS();
 
-// bank and role are spelled exactly as the question JSON spells them. That pair
-// is the join key into the question bank -- any other spelling matches nothing.
+// (bank, role) is the join key into the question bank. Spelling must match the
+// question JSON exactly or it matches nothing, silently.
 export const exams = pgTable(
   "exams",
   {
@@ -307,8 +302,6 @@ export const exams = pgTable(
   ],
 ).enableRLS();
 
-// One row per exam a user is preparing for -- a banking aspirant sits IBPS PO,
-// SBI PO and RRB in the same cycle.
 export const userExamTargets = pgTable(
   "user_exam_targets",
   {
@@ -319,8 +312,6 @@ export const userExamTargets = pgTable(
   },
   (t) => [
     primaryKey({ columns: [t.userId, t.examId] }),
-    // At most one primary per user, enforced here rather than in the route so
-    // two concurrent writes cannot both win.
     uniqueIndex("user_exam_targets_one_primary_key")
       .on(t.userId)
       .where(sql`${t.isPrimary}`),
