@@ -66,25 +66,3 @@ describe("RLS policies", () => {
     expect(missing).toEqual([]);
   });
 });
-
-// A pair not matching the question JSON joins to nothing, silently.
-describe("exam catalogue", () => {
-  const EXPECTED = [
-    ["IBPS", "PO"],
-    ["SBI", "Clerk"],
-    ["IBPS", "RRB"],
-    ["SBI", "PO"],
-    ["IBPS", "Clerk"],
-  ];
-
-  it("seeds exactly the (bank, role) pairs the question bank uses", () => {
-    const seed = readFileSync(join(MIGRATIONS, "0002_profiles.sql"), "utf8");
-    const block = seed.slice(seed.indexOf("INSERT INTO public.exams"));
-    const pairs = [...block.matchAll(/'[\w-]+',\s*'(\w+)',\s*'(\w+)'/g)].map((m) => [
-      m[1],
-      m[2],
-    ]);
-
-    expect(pairs).toEqual(EXPECTED);
-  });
-});

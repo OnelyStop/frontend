@@ -9,7 +9,6 @@ import {
   pgEnum,
   pgPolicy,
   pgTable,
-  primaryKey,
   text,
   timestamp,
   unique,
@@ -275,67 +274,5 @@ export const profiles = pgTable(
       withCheck: sql`(select auth.uid()) = ${t.id}`,
     }),
     // No insert or delete policy: the signup trigger and the cascade own those.
-  ],
-).enableRLS();
-
-// (bank, role) is the join key into the question bank. Spelling must match the
-// question JSON exactly or it matches nothing, silently.
-export const exams = pgTable(
-  "exams",
-  {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
-    slug: text("slug").notNull(),
-    bank: text("bank").notNull(),
-    role: text("role").notNull(),
-    active: boolean("active").notNull().default(true),
-    sortOrder: integer("sort_order").notNull().default(0),
-  },
-  (t) => [
-    unique("exams_slug_key").on(t.slug),
-    unique("exams_bank_role_key").on(t.bank, t.role),
-
-    pgPolicy("anyone can read the exam catalogue", {
-      for: "select",
-      to: [anonRole, authenticatedRole],
-      using: sql`true`,
-    }),
-  ],
-).enableRLS();
-
-export const userExamTargets = pgTable(
-  "user_exam_targets",
-  {
-    userId: uuid("user_id").notNull(),
-    examId: bigint("exam_id", { mode: "number" }).notNull(),
-    targetYear: integer("target_year").notNull(),
-    isPrimary: boolean("is_primary").notNull().default(false),
-  },
-  (t) => [
-    primaryKey({ columns: [t.userId, t.examId] }),
-    uniqueIndex("user_exam_targets_one_primary_key")
-      .on(t.userId)
-      .where(sql`${t.isPrimary}`),
-
-    pgPolicy("signed-in users can read their own targets", {
-      for: "select",
-      to: authenticatedRole,
-      using: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-    pgPolicy("signed-in users can add their own targets", {
-      for: "insert",
-      to: authenticatedRole,
-      withCheck: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-    pgPolicy("signed-in users can update their own targets", {
-      for: "update",
-      to: authenticatedRole,
-      using: sql`(select auth.uid()) = ${t.userId}`,
-      withCheck: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-    pgPolicy("signed-in users can remove their own targets", {
-      for: "delete",
-      to: authenticatedRole,
-      using: sql`(select auth.uid()) = ${t.userId}`,
-    }),
   ],
 ).enableRLS();
