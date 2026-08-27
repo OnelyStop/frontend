@@ -2,6 +2,8 @@ import { sql } from "drizzle-orm";
 import {
   bigint,
   boolean,
+  char,
+  date,
   index,
   integer,
   jsonb,
@@ -244,6 +246,192 @@ export const entitlements = pgTable(
 
     pgPolicy("signed-in users can read their own entitlement", {
       for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+  ],
+).enableRLS();
+
+// ---------------------------------------------------------------------------
+// The user
+//
+// Identity and intent: who someone is, and which exam they are sitting.
+// Deliberately not what they have DONE -- attempts, mastery, streak and points
+// are the product's core loop and get their own model.
+//
+// Both markets share these columns exactly. Nothing here branches on country:
+// .in and .com differ in chrome, prices and seed data, never in shape.
+// ---------------------------------------------------------------------------
+
+// Supabase's documented shape: the primary key IS the auth.users id. The
+// ON DELETE CASCADE lives in the migration because drizzle cannot model a
+// reference into the auth schema.
+//
+// Their example also grants anon SELECT here. We don't -- their profiles hold
+// a public username, ours hold a bio, an institution and an exam target, and
+// no signed-out page needs any of it.
+export const profiles = pgTable(
+  "profiles",
+  {
+    id: uuid("id").primaryKey(),
+
+    // One field, not first/last: Indian names don't reliably split in two.
+    // Seeded at signup from raw_user_meta_data, which the user can write --
+    // fine for a name, and the reason nothing here is ever read to authorize.
+    displayName: text("display_name"),
+    avatarUrl: text("avatar_url"),
+
+    // ISO-3166, seeded from the signup host. Content and display only: the
+    // price currency is derived from the request host server-side, so editing
+    // this cannot buy the INR plan from .com.
+    countryCode: char("country_code", { length: 2 }).notNull().default("IN"),
+
+    // 'en' | 'hi' -- every TCS iON paper ships both, so this is a real toggle
+    // rather than interface chrome.
+    locale: text("locale").notNull().default("en"),
+
+    // The one that gets forgotten. A streak and a daily free-practice limit
+    // both need a day boundary, and that boundary is per-user: without this a
+    // Kolkata student's day rolls over at 05:30. The client overwrites it with
+    // the browser's IANA zone on first load; the default is the launch market.
+    // Not constrained to pg_timezone_names -- a CHECK can't subquery -- so it
+    // is validated in the app before write.
+    timezone: text("timezone").notNull().default("Asia/Kolkata"),
+
+    // School, college or coaching centre.
+    institution: text("institution"),
+    bio: text("bio"),
+
+    // Nullable on purpose: separates a brand-new account from one that reached
+    // onboarding and skipped it. A boolean cannot tell those apart.
+    onboardedAt: timestamp("onboarded_at", { withTimezone: true }),
+
+    // The five UserSettings booleans. Here rather than in their own table
+    // because it is one row per user either way, and every extra table is
+    // another policy and another grant that can be forgotten -- see the grant
+    // comment in 0000_rbac.sql for what that failure looks like.
+    emailDigest: boolean("email_digest").notNull().default(true),
+    weeklyReport: boolean("weekly_report").notNull().default(true),
+    practiceReminders: boolean("practice_reminders").notNull().default(true),
+    soundEffects: boolean("sound_effects").notNull().default(false),
+    reduceMotion: boolean("reduce_motion").notNull().default(false),
+
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    pgPolicy("signed-in users can read their own profile", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.id}`,
+    }),
+
+    // withCheck as well as using, or a user could rewrite the id and hand the
+    // row to someone else.
+    pgPolicy("signed-in users can update their own profile", {
+      for: "update",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.id}`,
+      withCheck: sql`(select auth.uid()) = ${t.id}`,
+    }),
+
+    // No insert or delete policy: the row is created by the signup trigger and
+    // removed by the cascade from auth.users. A user with no profile row is a
+    // user the app cannot render, so neither end of that lifecycle is theirs.
+  ],
+).enableRLS();
+
+// The exam catalogue, and the join key into the question bank.
+//
+// (bank, role) are the question bank's own strings, spelled identically --
+// 'IBPS' / 'PO'. That is the entire point of this table: a target written in
+// any other vocabulary joins to none of the questions we own.
+//
+// Note this `role` is the exam's, not app_role. The two tables never join.
+//
+// Prelims/Mains is deliberately absent. Someone preparing for IBPS PO prepares
+// for both, so it is a stage you filter practice by, not part of who they are.
+//
+// A table rather than an enum so adding SSC or Railways is an INSERT, not a
+// migration plus a type change plus a deploy.
+export const exams = pgTable(
+  "exams",
+  {
+    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    slug: text("slug").notNull(),
+    bank: text("bank").notNull(),
+    role: text("role").notNull(),
+    displayName: text("display_name").notNull(),
+    countryCode: char("country_code", { length: 2 }).notNull(),
+    active: boolean("active").notNull().default(true),
+    sortOrder: integer("sort_order").notNull().default(0),
+  },
+  (t) => [
+    unique("exams_slug_key").on(t.slug),
+    unique("exams_bank_role_key").on(t.bank, t.role),
+
+    // Public like plan prices are: the marketing page lists what we cover, and
+    // onboarding needs it before a profile exists.
+    pgPolicy("anyone can read the exam catalogue", {
+      for: "select",
+      to: [anonRole, authenticatedRole],
+      using: sql`true`,
+    }),
+  ],
+).enableRLS();
+
+// What a user is preparing for. A table, not columns on the profile, because
+// one row cannot express the real case: a banking aspirant sits IBPS PO, SBI PO
+// and RRB in the same cycle.
+export const userExamTargets = pgTable(
+  "user_exam_targets",
+  {
+    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    userId: uuid("user_id").notNull(),
+    examId: bigint("exam_id", { mode: "number" }).notNull(),
+
+    // The attempt cycle. Always known -- it is chosen at onboarding.
+    targetYear: integer("target_year").notNull(),
+
+    // Nullable, and that is the honest model: IBPS publishes its calendar late,
+    // so the date is usually unknown when the target is set. The countdown
+    // renders only once it isn't. AppContext currently does
+    // `new Date(Number(examYear), 4, 11)` -- hardcoding 11 May as every
+    // student's exam date, which is already wrong for an August Prelims.
+    targetDate: date("target_date"),
+
+    isPrimary: boolean("is_primary").notNull().default(false),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    unique("user_exam_targets_user_id_exam_id_key").on(t.userId, t.examId),
+    index("user_exam_targets_user_id_idx").on(t.userId),
+
+    // Partial: many targets per user, at most one flagged primary. Enforced
+    // here rather than in the route, so two concurrent requests cannot both
+    // win and leave the dashboard with no defined default.
+    uniqueIndex("user_exam_targets_one_primary_key")
+      .on(t.userId)
+      .where(sql`${t.isPrimary}`),
+
+    pgPolicy("signed-in users can read their own targets", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("signed-in users can add their own targets", {
+      for: "insert",
+      to: authenticatedRole,
+      withCheck: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("signed-in users can update their own targets", {
+      for: "update",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+      withCheck: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("signed-in users can remove their own targets", {
+      for: "delete",
       to: authenticatedRole,
       using: sql`(select auth.uid()) = ${t.userId}`,
     }),
