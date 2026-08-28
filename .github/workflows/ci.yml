@@ -13,7 +13,11 @@ jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
+      # Full history: the diff-based steps below resolve the PR base sha, and
+      # the default shallow clone does not contain it -- git exits 128.
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - uses: oven-sh/setup-bun@v2
         with:
