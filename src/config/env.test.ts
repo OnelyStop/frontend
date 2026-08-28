@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 /** aiConfig snapshots process.env at import, so each case needs a fresh one. */
-async function load(env: Record<string, string>) {
+async function load(env: Record<string, string> = {}) {
   vi.resetModules();
   for (const [k, v] of Object.entries(env)) vi.stubEnv(k, v);
   return (await import("./env")).aiConfig;
@@ -10,41 +10,45 @@ async function load(env: Record<string, string>) {
 afterEach(() => vi.unstubAllEnvs());
 
 describe("aiConfig", () => {
-  it("has usable defaults with no env set", async () => {
-    const c = await load({});
-    expect(c.provider).toBe("openrouter");
-    expect(c.openrouter.baseUrl).toBe("https://openrouter.ai/api/v1");
-    expect(c.models.default).toContain("/");
-    expect(c.limits.monthlySpendMicros).toBeGreaterThan(0);
+  it("works with nothing set", async () => {
+    const c = await load();
+    expect(c.model).toContain("/");
+    expect(c.baseUrl).toBe("https://openrouter.ai/api/v1");
+    expect(c.maxAttempts).toBeGreaterThan(0);
   });
 
-  it("lets any model be swapped by env, with no code change", async () => {
-    const c = await load({
-      AI_MODEL_DEFAULT: "meta-llama/llama-4-70b",
-      AI_MODEL_FAST: "mistralai/mistral-small",
-      AI_MODEL_FALLBACK: "openai/gpt-4o-mini",
-    });
-    expect(c.models.default).toBe("meta-llama/llama-4-70b");
-    expect(c.models.fast).toBe("mistralai/mistral-small");
-    expect(c.models.fallback).toBe("openai/gpt-4o-mini");
+  it("lets any model be swapped by env", async () => {
+    const c = await load({ AI_MODEL: "meta-llama/llama-4-70b" });
+    expect(c.model).toBe("meta-llama/llama-4-70b");
   });
 
-  it("lets the whole gateway be pointed elsewhere", async () => {
+  it("lets the gateway be pointed elsewhere", async () => {
     const c = await load({ OPENROUTER_BASE_URL: "https://proxy.internal/v1" });
-    expect(c.openrouter.baseUrl).toBe("https://proxy.internal/v1");
+    expect(c.baseUrl).toBe("https://proxy.internal/v1");
   });
 
-  // A typo'd number must not become NaN: NaN as a token ceiling or a spend cap
-  // silently disables the limit rather than failing loudly.
-  it("ignores a non-numeric override rather than producing NaN", async () => {
-    const c = await load({ AI_MAX_TOKENS: "two thousand", AI_MONTHLY_SPEND_MICROS: "" });
-    expect(c.limits.maxTokens).toBe(2000);
-    expect(Number.isFinite(c.limits.monthlySpendMicros)).toBe(true);
-    expect(c.limits.monthlySpendMicros).toBeGreaterThan(0);
+  // NaN or an absurd value silently removes the ceiling it was meant to be.
+  it("ignores a number that is unusable or out of range", async () => {
+    const c = await load({
+      AI_MAX_TOKENS: "nine thousand",
+      AI_TEMPERATURE: "50",
+      AI_MAX_ATTEMPTS: "999",
+    });
+    expect(c.maxTokens).toBe(2000);
+    expect(c.temperature).toBe(0.7);
+    expect(c.maxAttempts).toBe(3);
   });
 
-  it("never ships a default API key", async () => {
-    const c = await load({});
-    expect(c.openrouter.apiKey).toBe("");
+  it("accepts an in-range override", async () => {
+    const c = await load({ AI_TEMPERATURE: "0", AI_MAX_TOKENS: "500" });
+    expect(c.temperature).toBe(0);
+    expect(c.maxTokens).toBe(500);
+  });
+
+  // Logging the config must not be able to leak the key.
+  it("does not carry the API key", async () => {
+    vi.stubEnv("OPENROUTER_API_KEY", "sk-secret");
+    const c = await load();
+    expect(JSON.stringify(c)).not.toContain("sk-secret");
   });
 });
