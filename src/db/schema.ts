@@ -276,23 +276,3 @@ export const profiles = pgTable(
     // No insert or delete policy: the signup trigger and the cascade own those.
   ],
 ).enableRLS();
-
-// Written by the AI gateway on every call. No read policy and no grant: only
-// the service role touches it, like payment_events.
-export const aiUsage = pgTable(
-  "ai_usage",
-  {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
-    userId: uuid("user_id").notNull(),
-    feature: text("feature").notNull(),
-    // What actually answered, which may be a profile's fallback.
-    model: text("model").notNull(),
-    promptTokens: integer("prompt_tokens").notNull(),
-    completionTokens: integer("completion_tokens").notNull(),
-    // Integer micro-dollars. OpenRouter reports a float in credits; storing
-    // that as a float would round on real money.
-    costMicros: integer("cost_micros").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("ai_usage_user_id_created_at_idx").on(t.userId, t.createdAt)],
-).enableRLS();

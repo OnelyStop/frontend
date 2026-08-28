@@ -6,6 +6,7 @@ import {
   RETRYABLE_STATUS,
   type ChatMessage,
   type ChatOptions,
+  type ChatRequest,
   type ChatResponse,
   type LlmClient,
 } from "./types";
@@ -31,11 +32,8 @@ export function getLlmClient(provider = aiConfig.provider): LlmClient {
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export type ResilientOptions = ChatOptions & {
-  /** Tried after the primary is exhausted. Omit to fail instead. */
-  fallbackModel?: string;
+export type ChatArgs = ChatRequest & {
   maxAttempts?: number;
-  /** Injected in tests. */
   client?: LlmClient;
 };
 
@@ -45,12 +43,22 @@ export type ResilientOptions = ChatOptions & {
  */
 export async function chat(
   messages: ChatMessage[],
-  options: ResilientOptions,
+  args: ChatArgs = {},
 ): Promise<ChatResponse> {
-  const client = options.client ?? getLlmClient();
-  const maxAttempts = options.maxAttempts ?? aiConfig.limits.maxAttempts;
-  const chain = options.fallbackModel
-    ? [options.model, options.fallbackModel]
+  const client = args.client ?? getLlmClient();
+  const maxAttempts = args.maxAttempts ?? aiConfig.limits.maxAttempts;
+
+  // Anything the caller left out comes from config, so a call can name only
+  // what it wants to differ.
+  const options: ChatOptions = {
+    model: args.model ?? aiConfig.models.default,
+    temperature: args.temperature ?? aiConfig.limits.temperature,
+    maxTokens: args.maxTokens ?? aiConfig.limits.maxTokens,
+    timeoutMs: args.timeoutMs ?? aiConfig.limits.timeoutMs,
+  };
+
+  const chain = args.fallbackModel
+    ? [options.model, args.fallbackModel]
     : [options.model];
 
   let last: LlmError | undefined;

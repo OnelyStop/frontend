@@ -33,6 +33,7 @@ export const aiConfig = {
   limits: {
     /** Per-user monthly ceiling, integer micro-dollars. */
     monthlySpendMicros: num("AI_MONTHLY_SPEND_MICROS", 2_000_000),
+    temperature: num("AI_TEMPERATURE", 0.7),
     maxTokens: num("AI_MAX_TOKENS", 2000),
     timeoutMs: num("AI_TIMEOUT_MS", 60_000),
     maxAttempts: num("AI_MAX_ATTEMPTS", 3),

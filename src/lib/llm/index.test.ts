@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
+import { aiConfig } from "@/config/env";
+
 import { chat, getLlmClient } from "./index";
 import { LlmError, type ChatOptions, type ChatResponse, type LlmClient } from "./types";
 
@@ -35,7 +37,7 @@ const fail = (status: number) => {
   throw new LlmError(status === 401 ? "unauthorized" : status === 400 ? "bad_request" : "upstream", status, "no");
 };
 
-const send = (client: LlmClient, over: Partial<typeof OPTIONS> & { fallbackModel?: string } = {}) =>
+const send = (client: LlmClient, over: Partial<ChatOptions> & { fallbackModel?: string } = {}) =>
   chat([{ role: "user", content: "hi" }], { ...OPTIONS, ...over, client, maxAttempts: 3 });
 
 describe("chat", () => {
@@ -102,5 +104,38 @@ describe("getLlmClient", () => {
   // default the operator did not ask for.
   it("rejects an unknown provider by name", () => {
     expect(() => getLlmClient("groc")).toThrow(/groc/);
+  });
+});
+
+describe("defaults", () => {
+  // The point of the config: a caller names only what it wants to differ.
+  it("falls back to the configured model when none is passed", async () => {
+    const { client, asked } = fakeClient((m) => answer(m));
+    await chat([{ role: "user", content: "hi" }], { client });
+    expect(asked).toEqual([aiConfig.models.default]);
+  });
+
+  it("uses the model it is given instead", async () => {
+    const { client, asked } = fakeClient((m) => answer(m));
+    await chat([{ role: "user", content: "hi" }], { client, model: "some/other-model" });
+    expect(asked).toEqual(["some/other-model"]);
+  });
+
+  it("fills temperature, token ceiling and timeout from config", async () => {
+    let seen: ChatOptions | undefined;
+    const client: LlmClient = {
+      name: "fake",
+      async chat(_m, options) {
+        seen = options;
+        return answer(options.model);
+      },
+    };
+    await chat([{ role: "user", content: "hi" }], { client });
+    expect(seen).toEqual({
+      model: aiConfig.models.default,
+      temperature: aiConfig.limits.temperature,
+      maxTokens: aiConfig.limits.maxTokens,
+      timeoutMs: aiConfig.limits.timeoutMs,
+    });
   });
 });

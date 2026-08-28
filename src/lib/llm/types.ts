@@ -3,12 +3,17 @@ export type ChatMessage = {
   content: string;
 };
 
-export type ChatOptions = {
-  model: string;
-  temperature: number;
-  maxTokens: number;
-  timeoutMs: number;
+/** What a caller may pass. Anything omitted falls back to config. */
+export type ChatRequest = {
+  model?: string;
+  fallbackModel?: string;
+  temperature?: number;
+  maxTokens?: number;
+  timeoutMs?: number;
 };
+
+/** The same values after config has filled the gaps. */
+export type ChatOptions = Required<Omit<ChatRequest, "fallbackModel">>;
 
 export type ChatResponse = {
   text: string;
