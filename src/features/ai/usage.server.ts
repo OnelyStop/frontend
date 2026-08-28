@@ -4,8 +4,10 @@ import { and, eq, gte, sql } from "drizzle-orm";
 
 import { db } from "@/db";
 import { aiUsage } from "@/db/schema";
-import { MONTHLY_SPEND_CAP_MICROS, type FeatureKey } from "./models";
-import type { Completion } from "./openrouter.server";
+import { aiConfig } from "@/config/env";
+import type { ChatResponse } from "@/lib/llm";
+
+import type { FeatureKey } from "./profiles";
 
 function monthStart(now: Date): Date {
   return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
@@ -13,11 +15,7 @@ function monthStart(now: Date): Date {
 
 export type Budget = { allowed: boolean; spentMicros: number; capMicros: number };
 
-/**
- * Must be consulted before `complete()`. Server-side because a limit the client
- * enforces is not a limit, and a heavy user on a fixed price costs more than
- * they pay.
- */
+/** Server-side because a limit the client enforces is not a limit. */
 export async function withinBudget(userId: string, now = new Date()): Promise<Budget> {
   const [row] = await db
     .select({ spent: sql<string>`coalesce(sum(${aiUsage.costMicros}), 0)` })
@@ -26,20 +24,17 @@ export async function withinBudget(userId: string, now = new Date()): Promise<Bu
 
   const spentMicros = Number(row?.spent ?? 0);
   return {
-    allowed: spentMicros < MONTHLY_SPEND_CAP_MICROS,
+    allowed: spentMicros < aiConfig.limits.monthlySpendMicros,
     spentMicros,
-    capMicros: MONTHLY_SPEND_CAP_MICROS,
+    capMicros: aiConfig.limits.monthlySpendMicros,
   };
 }
 
-/**
- * Stores no prompt and no completion: a student's answers have no reason to sit
- * in a billing table.
- */
+/** Stores no prompt and no completion: they do not belong in a billing table. */
 export async function record(
   userId: string,
   feature: FeatureKey,
-  completion: Completion,
+  completion: ChatResponse,
 ): Promise<void> {
   await db.insert(aiUsage).values({
     userId,
