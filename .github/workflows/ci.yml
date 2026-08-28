@@ -54,11 +54,21 @@ jobs:
 
       - name: No secrets committed
         run: |
-          # service-role keys, provider secrets and connection strings. The
-          # Supabase anon key is deliberately not matched: it is public.
-          if git grep -nIE '(service_role|SUPABASE_SERVICE|RAZORPAY_KEY_SECRET *= *.+|RAZORPAY_WEBHOOK_SECRET *= *.+|sk-[A-Za-z0-9]{20,}|rzp_live_[A-Za-z0-9]+|postgres(ql)?://[^ ]*:[^ @]+@)' \
+          # Two greps, because the two halves have different false-positive
+          # profiles. A literal live key is a leak wherever it appears, tests
+          # included. `NAME = value` is only a leak when the value is a quoted
+          # literal -- a test assigning a fixture (`= KEY_SECRET`) is not one,
+          # and matching it trained us to ignore this check.
+          if git grep -nIE '(sk-[A-Za-z0-9]{20,}|rzp_live_[A-Za-z0-9]+|postgres(ql)?://[^ ]*:[^ @]+@|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.)' \
                -- . ':!*.md' ':!.github/workflows/'; then
-            echo "::error::possible secret committed"
+            echo "::error::a live key, connection string or JWT is committed"
+            exit 1
+          fi
+          # `service_role` as a bare word is not matched: it is the name of a
+          # Postgres role and appears in every RLS policy we write.
+          if git grep -nIE '(SUPABASE_SERVICE_ROLE_KEY|RAZORPAY_KEY_SECRET|RAZORPAY_WEBHOOK_SECRET|DATABASE_URL|DIRECT_URL) *[:=] *["'"'"'][^"'"'"']' \
+               -- . ':!*.md' ':!.github/workflows/' ':!*.test.ts'; then
+            echo "::error::a secret env var is assigned a literal value in source"
             exit 1
           fi
           echo "OK - none found"
