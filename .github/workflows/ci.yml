@@ -1,0 +1,124 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      # Full history: the diff-based steps below resolve the PR base sha, and
+      # the default shallow clone does not contain it -- git exits 128.
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      - name: Types
+        run: bunx tsc --noEmit
+
+      - name: Tests
+        run: bun run test
+
+      # No lint step: `next lint` was removed in Next 16, so `bun run lint` is
+      # already broken here, and ESLint 9 is installed with no config file at
+      # all. Wiring it up is its own change — it will surface a backlog on an
+      # existing codebase, and that belongs in a PR someone can read, not
+      # smuggled in with CI.
+
+      # A NEXT_PUBLIC_ var is compiled into the browser bundle. Naming a secret
+      # one is not a leak that shows up in review -- it looks like every other
+      # env var until it is already public. The anon key is the exception: it is
+      # designed to be public and RLS is what protects the data behind it.
+      - name: No secret is named NEXT_PUBLIC_
+        run: |
+          if git grep -nIE 'NEXT_PUBLIC_[A-Z0-9_]*(SECRET|SERVICE|PRIVATE|TOKEN|PASSWORD)' \
+               -- . ':!.github/workflows/'; then
+            echo "::error::a NEXT_PUBLIC_ var is carrying a secret — it ships in the bundle"
+            exit 1
+          fi
+          if git grep -nIE 'NEXT_PUBLIC_[A-Z0-9_]*KEY' -- . ':!.github/workflows/' \
+               | grep -v 'NEXT_PUBLIC_SUPABASE_ANON_KEY'; then
+            echo "::error::a NEXT_PUBLIC_ key var that is not the anon key"
+            exit 1
+          fi
+          echo "OK - none found"
+
+      - name: No secrets committed
+        run: |
+          # Two greps, because the two halves have different false-positive
+          # profiles. A literal live key is a leak wherever it appears, tests
+          # included. `NAME = value` is only a leak when the value is a quoted
+          # literal -- a test assigning a fixture (`= KEY_SECRET`) is not one,
+          # and matching it trained us to ignore this check.
+          if git grep -nIE '(sk-[A-Za-z0-9]{20,}|rzp_live_[A-Za-z0-9]+|postgres(ql)?://[^ ]*:[^ @]+@|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.)' \
+               -- . ':!*.md' ':!.github/workflows/'; then
+            echo "::error::a live key, connection string or JWT is committed"
+            exit 1
+          fi
+          # `service_role` as a bare word is not matched: it is the name of a
+          # Postgres role and appears in every RLS policy we write.
+          if git grep -nIE '(SUPABASE_SERVICE_ROLE_KEY|RAZORPAY_KEY_SECRET|RAZORPAY_WEBHOOK_SECRET|DATABASE_URL|DIRECT_URL) *[:=] *["'"'"'][^"'"'"']' \
+               -- . ':!*.md' ':!.github/workflows/' ':!*.test.ts'; then
+            echo "::error::a secret env var is assigned a literal value in source"
+            exit 1
+          fi
+          echo "OK - none found"
+
+      # Money is stored in minor units as integers. A float amount is a rounding
+      # error on a real charge -- 7.99 * 100 is 798.9999… in float64 -- and it
+      # reads as perfectly ordinary code.
+      - name: Amounts are integers
+        run: |
+          if git grep -nIE '(amountMinor|amount_minor)[^=\n]*[=:] *[0-9]+\.[0-9]' -- src scripts; then
+            echo "::error::a minor-unit amount was written as a decimal"
+            exit 1
+          fi
+          if git grep -nIE 'parseFloat\([^)]*(amount|price)' -- src scripts; then
+            echo "::error::parseFloat on an amount — use integer minor units"
+            exit 1
+          fi
+          echo "OK - none found"
+
+      # drizzle generates the SQL from src/db/schema.ts. Editing the schema and
+      # forgetting to generate leaves the database behind the code, and the
+      # failure lands at runtime on whoever deploys.
+      - name: Schema changes carry a migration
+        run: |
+          base='${{ github.event.pull_request.base.sha }}'
+          [ -n "$base" ] || base="$(git rev-parse HEAD^ 2>/dev/null || git rev-parse HEAD)"
+          changed="$(git diff --name-only "$base"...HEAD)"
+          if echo "$changed" | grep -q '^src/db/schema.ts$' \
+             && ! echo "$changed" | grep -q '^src/migrations/.*\.sql$'; then
+            echo "::error::src/db/schema.ts changed with no migration — run bun run db:generate"
+            exit 1
+          fi
+          echo "OK"
+
+      - name: No large files added
+        run: |
+          base='${{ github.event.pull_request.base.sha }}'
+          [ -n "$base" ] || base="$(git rev-parse HEAD^ 2>/dev/null || git rev-parse HEAD)"
+          fail=0
+          for f in $(git diff --name-only --diff-filter=A "$base"...HEAD); do
+            [ -f "$f" ] || continue
+            mb=$(( $(wc -c < "$f") / 1024 / 1024 ))
+            if [ "$mb" -gt 10 ]; then
+              echo "::error file=$f::${mb} MB exceeds the 10 MB limit"
+              fail=1
+            fi
+          done
+          [ "$fail" -eq 0 ] && echo "OK - no large additions"
+          exit $fail
