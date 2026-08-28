@@ -10,7 +10,6 @@ export type ChatArgs = {
   temperature?: number;
   maxTokens?: number;
   timeoutMs?: number;
-  /** Injected by tests; nothing else passes it. */
   fetchImpl?: typeof fetch;
 };
 
@@ -52,8 +51,7 @@ async function once(
   timeoutMs: number,
   doFetch: typeof fetch,
 ): Promise<ChatResponse> {
-  // Read here, not in aiConfig: a key inside a printable object leaks the first
-  // time someone logs the config while debugging.
+  // Read here, not in aiConfig, so logging the config cannot leak it.
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) throw new LlmError("unauthorized", undefined, "OPENROUTER_API_KEY is not set");
 
@@ -77,7 +75,7 @@ async function once(
   }
 
   if (!res.ok) {
-    // Kept for our logs; a provider message never reaches a user.
+    // For our logs; a provider message never reaches a user.
     const detail = await res.text().catch(() => "");
     throw new LlmError(classify(res.status), res.status, detail.slice(0, 300));
   }
@@ -98,10 +96,7 @@ async function once(
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/**
- * Send messages to a model. Anything not passed comes from config, so a caller
- * names only what it needs to differ.
- */
+/** Anything not passed comes from config, so a caller names only what differs. */
 export async function chat(messages: ChatMessage[], args: ChatArgs = {}): Promise<ChatResponse> {
   const model = args.model ?? aiConfig.model;
   const fallback = args.fallbackModel ?? aiConfig.fallbackModel;
@@ -110,8 +105,7 @@ export async function chat(messages: ChatMessage[], args: ChatArgs = {}): Promis
   const perAttempt = args.timeoutMs ?? aiConfig.timeoutMs;
   const doFetch = args.fetchImpl ?? fetch;
 
-  // Without an overall deadline, 3 attempts across 2 models plus backoff can
-  // hold a user's request for minutes.
+  // Without this, attempts across two models can hold a request for minutes.
   const deadline = Date.now() + aiConfig.totalTimeoutMs;
   const chain = fallback && fallback !== model ? [model, fallback] : [model];
   let last: LlmError | undefined;

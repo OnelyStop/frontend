@@ -1,15 +1,10 @@
-/**
- * The only place that reads process.env for AI settings, so "what can change
- * without a deploy" has one answer. The API key is deliberately absent: it is
- * read where it is used, so logging this object cannot leak it.
- */
+// The API key is deliberately not here: logging this object must not leak it.
 
 const str = (key: string, fallback: string) => process.env[key] || fallback;
 
 const num = (key: string, fallback: number, min: number, max: number) => {
   const n = Number(process.env[key]);
-  // Out of range is as dangerous as NaN: AI_MAX_TOKENS=9999999 is one very
-  // expensive call, and a NaN ceiling is no ceiling at all.
+  // Out of range is as dangerous as NaN: both remove the ceiling.
   return Number.isFinite(n) && n >= min && n <= max ? n : fallback;
 };
 
