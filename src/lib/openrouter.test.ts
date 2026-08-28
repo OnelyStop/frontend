@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { aiConfig } from "@/config/env";
+import { aiConfig } from "@/config/ai";
 
-import { chat, LlmError } from "./llm";
+import { chat, LlmError } from "./openrouter";
 
 const body = (over: Record<string, unknown> = {}) =>
   JSON.stringify({

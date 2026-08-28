@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 async function load(env: Record<string, string> = {}) {
   vi.resetModules();
   for (const [k, v] of Object.entries(env)) vi.stubEnv(k, v);
-  return (await import("./env")).aiConfig;
+  return (await import("./ai")).aiConfig;
 }
 
 afterEach(() => vi.unstubAllEnvs());

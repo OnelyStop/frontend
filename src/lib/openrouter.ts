@@ -1,6 +1,6 @@
 import "server-only";
 
-import { aiConfig } from "@/config/env";
+import { aiConfig } from "@/config/ai";
 
 export type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 

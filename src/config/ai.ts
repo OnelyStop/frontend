@@ -1,10 +1,7 @@
-// The API key is deliberately not here: logging this object must not leak it.
-
 const str = (key: string, fallback: string) => process.env[key] || fallback;
 
 const num = (key: string, fallback: number, min: number, max: number) => {
   const n = Number(process.env[key]);
-  // Out of range is as dangerous as NaN: both remove the ceiling.
   return Number.isFinite(n) && n >= min && n <= max ? n : fallback;
 };
 
