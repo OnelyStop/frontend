@@ -5,7 +5,7 @@ const num = (key: string, fallback: number, min: number, max: number) => {
   return Number.isFinite(n) && n >= min && n <= max ? n : fallback;
 };
 
-export const aiConfig = {
+export const openrouterConfig = {
   baseUrl: str("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"),
   referer: str("OPENROUTER_REFERER", "https://onelystop.com"),
   title: str("OPENROUTER_TITLE", "OnelyStop"),
