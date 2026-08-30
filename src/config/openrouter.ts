@@ -11,7 +11,6 @@ export const openrouterConfig = {
   title: str("OPENROUTER_TITLE", "OnelyStop"),
 
   model: str("AI_MODEL", "anthropic/claude-sonnet-4.5"),
-  fastModel: str("AI_MODEL_FAST", "google/gemini-2.0-flash"),
   fallbackModel: str("AI_MODEL_FALLBACK", "openai/gpt-4o"),
 
   temperature: num("AI_TEMPERATURE", 0.7, 0, 2),

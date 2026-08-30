@@ -74,6 +74,13 @@ function readAnswer(body: unknown, asked: string, status: number): Answer {
   if (typeof text !== "string") throw new AiError("upstream", status, "no content");
 
   const usage = payload.usage ?? {};
+  // OpenRouter reports cost on every response, so an absent one means the shape
+  // changed or something stripped it. Left silent it reads as a free call, and
+  // any spend cap built on it would be counting zeroes.
+  if (typeof usage.cost !== "number") {
+    log.warn("openrouter.cost_missing", { model: payload.model ?? asked });
+  }
+
   return {
     text,
     model: payload.model ?? asked,
@@ -109,6 +116,11 @@ export class OpenRouterClient {
     let lastError: unknown;
 
     for (const model of settings.models) {
+      // Stop rather than enter a model with no time left: that attempt can only
+      // fail on the deadline, and its synthetic error would replace the real
+      // reason the previous model failed.
+      if (Date.now() >= deadline) break;
+
       try {
         const answer = await this.askModel(model, messages, settings, deadline);
         // Never the prompt or the answer: an operations log, not a transcript.
@@ -179,8 +191,10 @@ export class OpenRouterClient {
           status: error.status,
         });
         if (attempt === settings.maxAttempts) break;
-        // The provider's own Retry-After beats our guess when it sent one.
-        await wait(error.retryAfterMs ?? backoff(attempt));
+        // The provider's own Retry-After beats our guess when it sent one, but
+        // clamped: an unclamped sleep runs past the one thing bounding the call.
+        const asked = error.retryAfterMs ?? backoff(attempt);
+        await wait(Math.min(asked, deadline - Date.now()));
       }
     }
 
