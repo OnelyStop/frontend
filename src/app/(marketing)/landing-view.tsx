@@ -1,137 +1,234 @@
-import {
-  ArrowRight,
-  BrainCircuit,
-  ClipboardList,
-  Flame,
-  PenLine,
-  ShieldCheck,
-  Shuffle,
-  Sparkles,
-  Star,
-} from "lucide-react";
-import { GradeRail } from "@/components/layout/GradeRail";
+import { ArrowUpRight } from "lucide-react";
+import { ButtonLink } from "@/components/marketing/Button";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
-import { Button } from "@/components/ui/Button";
+import { AppWindow } from "./_sections/app-window";
+import { Cta } from "./_sections/cta";
+import { MarkingScene } from "./_sections/marking";
+import { Mosaic } from "./_sections/mosaic";
 import "./landing.css";
-import Link from "next/link";
 
-const FEATURES = [
+const SPEC_CODES = [
+  "OCR A H420",
+  "AQA 7405",
+  "AQA 7408",
+  "Edexcel 9MA0",
+  "CIE 9700",
+  "AQA 8464",
+  "OCR J250",
+  "Edexcel 1MA1",
+];
+
+// The date is the point: a pledge that can be quietly edited is not one.
+const PLEDGE_DATED = "29 August 2026";
+
+const PLEDGE = [
   {
-    icon: PenLine,
-    title: "Answer & essay marking",
-    desc: "Photo or type your answer — marked against official mark schemes with band-by-band feedback.",
+    no: "01",
+    claim: "Every past paper we can legally host is free, forever.",
+    rest: "No trial, no card, no countdown.",
   },
   {
-    icon: Shuffle,
-    title: "PYQ mixes",
-    desc: "Past-year questions blended into fresh, timed sets that target exactly what you haven't mastered.",
+    no: "02",
+    claim: "The marking is a model reading a mark scheme.",
+    rest: "It is fast and it is specific, and it is not your teacher.",
   },
   {
-    icon: ClipboardList,
-    title: "AI-curated exams",
-    desc: "Full custom papers assembled from real PYQs and bank items, matched to your board's blueprint.",
+    no: "03",
+    claim: "You can see why it gave every mark.",
+    rest: "Each one points at the marking point it came from.",
   },
   {
-    icon: BrainCircuit,
-    title: "A* Memory",
-    desc: "Spaced repetition tuned to exam season — the high-yield facts resurface right before you'd forget them.",
+    no: "04",
+    claim: "We launched this month, so there are no reviews yet.",
+    rest: "When there are, they'll be real ones with names on them.",
+  },
+  {
+    no: "05",
+    claim: "Your answers are yours.",
+    rest: "They are not used to train anything, and you can delete the lot in one click.",
+  },
+  {
+    no: "06",
+    claim: "If a mark looks wrong, tell us and it goes to a human.",
+    rest: "That's how the marking gets better.",
+  },
+  {
+    no: "07",
+    claim: "We say when the marking is unsure.",
+    rest: "Low-confidence marks are flagged, not quietly averaged in.",
+  },
+  {
+    no: "08",
+    claim: "You can take your work with you.",
+    rest: "Every answer and mark exports in one file, any time.",
+  },
+];
+
+const MEMORY_ROWS = [
+  {
+    label: "It counts down to your actual exam date.",
+    body: "Set the paper, and the schedule compresses as the date gets closer instead of running the same intervals all year.",
+  },
+  {
+    label: "What you got wrong comes back sooner.",
+    body: "A marking point you dropped in a six-marker becomes a card, automatically.",
+  },
+  {
+    label: "It's the same content as the question bank.",
+    body: "Nothing to re-enter. The facts are already tagged to your spec.",
+  },
+  {
+    label: "Ten minutes is a real session.",
+    body: "Built to fit a bus ride, not to demand a study block you don't have.",
   },
 ];
 
 export function LandingView() {
   return (
     <main className="landing">
-      <section className="landing-hero">
-        <div className="landing-hero__copy">
-          <div className="landing-hero__chip">
-            <Sparkles size={13} strokeWidth={2} />
-            For OCR · AQA · Edexcel · CIE
+      <section className="hero">
+        <div className="pair pair--hero">
+          <div className="hero__copy">
+            <p className="t-overline trim">
+              GCSE &amp; A-Level · OCR · AQA · Edexcel · CIE
+            </p>
+            <h1 className="display d1 trim hero-h1">
+              Your answer marked against the official mark scheme
+            </h1>
+            <div className="hero__actions">
+              <ButtonLink href="/signup" size="lg">
+                Mark my first answer
+              </ButtonLink>
+              <ButtonLink href="#marking" size="lg" variant="outline">
+                See a marked answer
+              </ButtonLink>
+            </div>
           </div>
-          <h1>
-            Your one stop from first mock to <span>A*</span>.
-          </h1>
-          <p>
-            Question bank, past papers, AI marking, and spaced revision — one
-            place that watches your working grade climb, and tells you exactly
-            what to do next.
+          <p className="t-lede trim pair__lede">
+            Questions tagged to your spec points, whole past papers, and a
+            working grade that moves with every mark.
           </p>
-          <div className="landing-hero__actions">
-            <Link href="/signup">
-              <Button size="lg" rightIcon={<ArrowRight size={16} />}>
-                Start revising free
-              </Button>
-            </Link>
-            <a href="#pricing">
-              <Button size="lg" variant="outline">
-                See pricing
-              </Button>
+        </div>
+        <div className="hero__stage">
+          <AppWindow />
+        </div>
+      </section>
+
+      <section className="spec-strip" aria-label="Specifications covered">
+        <div className="spec-strip__inner">
+          <p className="t-overline trim">Specifications covered at launch</p>
+          <ul className="spec-strip__list t-label">
+            {SPEC_CODES.map((code) => (
+              <li key={code}>{code}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <Mosaic />
+
+      <MarkingScene />
+
+      {/* The pledge is drawn as ruled ground, not as eight objects: hairlines
+          divide it into square cells and a marker sits at every intersection,
+          so the promises read as one document with eight clauses. */}
+      <section className="pledge bg-panel/40" id="promises">
+        <div className="mx-auto max-w-[1200px]">
+          <header className="flex flex-wrap items-start justify-between gap-x-16 gap-y-6 pb-12">
+            <div>
+              <p className="text-[15px] text-ink-3">Our promises</p>
+              <h2 className="mt-3 max-w-[16ch] text-[44px] leading-[1.06] tracking-[-0.03em]">
+                Straight answers before you sign up
+              </h2>
+            </div>
+            <p className="max-w-[42ch] text-[16px] leading-[1.55] text-ink-2">
+              Eight of them, numbered and dated. What the marking actually is,
+              what it costs, what happens to your answers, and the one question
+              we can&rsquo;t answer yet.
+            </p>
+          </header>
+
+          <ol className="grid grid-cols-1 border-l border-t border-line sm:grid-cols-2 lg:grid-cols-4">
+            {PLEDGE.map((c) => (
+              <li
+                key={c.no}
+                className="relative border-b border-r border-line p-7 transition-colors duration-200 hover:bg-canvas sm:aspect-square"
+              >
+                <span className="tnum text-[13px] text-ink-3">{c.no}</span>
+                <p className="mt-6 text-[17px] font-medium leading-snug tracking-[-0.01em] text-ink">
+                  {c.claim}
+                </p>
+                <p className="mt-2.5 text-[14px] leading-[1.55] text-ink-2">
+                  {c.rest}
+                </p>
+
+                <span
+                  aria-hidden
+                  className="absolute bottom-[-2.5px] right-[-2.5px] size-[5px] rounded-full bg-ink-4"
+                />
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-6 flex flex-wrap items-baseline justify-between gap-x-10 gap-y-3">
+            <span className="text-[14px] text-ink-3">
+              This version: {PLEDGE_DATED}
+            </span>
+            <a
+              href="/terms"
+              className="inline-flex items-center gap-1.5 text-[14px] text-ink underline decoration-line-2 underline-offset-4 transition-colors hover:decoration-ink"
+            >
+              Every change to this list is dated
+              <ArrowUpRight size={14} />
             </a>
           </div>
-          <div className="landing-hero__proof">
-            <span>
-              <Star size={14} strokeWidth={2} /> 4.9 from 2,400 reviews
-            </span>
-            <span>29,865 students</span>
-            <span>120k answers marked</span>
-          </div>
         </div>
+      </section>
 
-        <div className="landing-hero__art" aria-hidden>
-          <div className="landing-hero__rail">
-            <GradeRail collapsed={false} />
-          </div>
-          <div className="landing-hero__card landing-hero__card--marker">
-            <div className="landing-hero__card-title">Answer Marker</div>
-            <div className="landing-hero__card-band">Band 5 · 14/16</div>
-            <p>"Strong AO3 — link the evaluation back to the data in Q4c."</p>
-          </div>
-          <div className="landing-hero__card landing-hero__card--streak">
-            <Flame size={16} strokeWidth={2} />
-            12-day streak
+      <section className="memory" id="memory">
+        <div className="memory__inner">
+          <header className="pair pair--stack memory__head">
+            <h2 className="display d2 trim">Your exam date sets the schedule</h2>
+            <p className="t-lede trim pair__lede">
+              Not a generic review queue. The intervals are computed back from
+              the paper you are actually sitting, and the cards come from marks
+              you dropped.
+            </p>
+          </header>
+          <div className="memory__rows">
+            {MEMORY_ROWS.map((row, i) => (
+              <details
+                key={row.label}
+                name="memory"
+                className="memory__row"
+                open={i === 0}
+              >
+                <summary className="t-title">
+                  <span>{row.label}</span>
+                </summary>
+                <p className="t-body-sm hushed">{row.body}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="landing-features" id="features">
-        <div className="landing-section-head">
-          <div className="page__eyebrow">Everything in one place</div>
-          <h2>Stop juggling six revision tools</h2>
-        </div>
-        <div className="landing-features__grid">
-          {FEATURES.map((feature) => (
-            <article key={feature.title} className="panel landing-feature">
-              <feature.icon size={20} strokeWidth={1.75} />
-              <h3>{feature.title}</h3>
-              <p>{feature.desc}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="landing-pricing" id="pricing">
-        <div className="landing-section-head">
-          <div className="page__eyebrow">Pricing</div>
-          <h2>Free to start. One plan when you're serious.</h2>
-        </div>
-        <PlanGrid variant="public" />
-        <div className="pricing-guarantee landing-pricing__guarantee">
-          <ShieldCheck size={18} strokeWidth={1.75} />
-          <p>
-            <strong>Grade-jump promise.</strong> Revise with Pro for 3 months —
-            if your working grade doesn't climb, we'll refund you in full.
-          </p>
+      <section className="pricing" id="pricing">
+        <div className="pricing__inner">
+          <header className="pair pair--stack pair--center pricing__head">
+            <h2 className="display d5 trim">The free plan is not a trial</h2>
+            <p className="t-lede trim pair__lede">
+              Free covers the whole question bank, every past paper we can
+              legally host, and your working grade. No card, no expiry. Pro adds
+              unlimited marking, Ask Onely on any paper, and flashcard
+              scheduling tied to your exam dates.
+            </p>
+          </header>
+          <PlanGrid variant="public" headingLevel={3} />
         </div>
       </section>
 
-      <section className="landing-cta">
-        <h2>Start climbing to A* today</h2>
-        <p>Set your board and subject — your first marked answer is free.</p>
-        <Link href="/signup">
-          <Button size="lg" rightIcon={<ArrowRight size={16} />}>
-            Start revising free
-          </Button>
-        </Link>
-      </section>
+      <Cta />
     </main>
   );
 }

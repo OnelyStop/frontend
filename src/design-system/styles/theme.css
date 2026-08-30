@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+/* onelystop design system — light, spacious, elevated.
+   Surfaces do the work: a white card lifted off a cool off-white ground, with
+   colour reserved for the two or three things on a screen that carry meaning. */
+@theme {
+  /* Grounds. The page is white; a card is a flat grey panel with no border and
+     no shadow; anything inset inside a card goes back to white. Depth comes
+     from that alternation, never from a drop shadow. */
+  /* Deliberately NOT named --color-surface: the legacy marketing palette in
+     tokens.css owns that name and loads after this file, so anything shared
+     silently reverts to its value. */
+  --color-canvas: #ffffff;
+  --color-panel: #f0f0f1;
+  --color-inset: #ffffff;
+  --color-track: #e2e2e4;
+  --color-line: rgb(10 10 10 / 0.08);
+  --color-line-2: rgb(10 10 10 / 0.14);
+
+  /* Ink */
+  --color-ink: #0a0a0a;
+  --color-ink-2: #67676d;
+  --color-ink-3: #8b8b92;
+  --color-ink-4: #b2b2b9;
+
+  /* Actions are black. The accent is for data, not for chrome. */
+  --color-brand: #4f46e5;
+  --color-brand-2: #6d63f0;
+  --color-brand-soft: #eeecff;
+
+  /* Meaning, kept low-chroma so nothing shouts */
+  --color-ok: #0f9d70;
+  --color-ok-soft: #e7f7f1;
+  --color-warn: #c07a00;
+  --color-warn-soft: #fcf3e2;
+  --color-bad: #dc4b41;
+  --color-bad-soft: #fdeeec;
+
+  /* Sections — the switcher and the graph, nothing else */
+  --color-quant: #4f46e5;
+  --color-reasoning: #9333ea;
+  --color-english: #0891b2;
+  --color-ga: #ea7317;
+  --color-computer: #db2777;
+
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-ctl: 12px;
+  --radius-card: 24px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* Only things that genuinely float get a shadow: the palette, a tooltip. */
+  --shadow-xs: none;
+  --shadow-card: none;
+  --shadow-pop: 0 2px 6px rgb(10 10 10 / 0.05),
+    0 20px 50px -12px rgb(10 10 10 / 0.22);
+
+  --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Plotted points land one after another, so the eye follows the shape of the
+   cloud forming rather than meeting 19 dots at once. */
+@keyframes plot-in {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@utility plot-in {
+  animation: plot-in 0.45s var(--ease-soft) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plot-in {
+    animation: none;
+  }
+}
+
+/* A panel is white ground inside a hairline, like the code block on a ruled
+   page. No fill and no shadow — grey blocks made every screen look like a
+   dashboard, so the rule does the work instead. */
+@utility card {
+  background: var(--color-canvas);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+
+/* Inside a panel there is nothing left to distinguish: an inset is the same
+   white, held by its own content. */
+@utility inset-panel {
+  background: transparent;
+  border-radius: 16px;
+}
+
+/* Ruled writing surface — the descriptive answer sheet. */
+@utility ruled {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    var(--color-line) 31px,
+    var(--color-line) 32px
+  );
+  line-height: 32px;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Lenis drives the scroll position, so the native bar is decoration that
+       fights the design. Scrolling and keyboard paging are unaffected. */
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    letter-spacing: -0.005em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  /* Headings are large and light, not small and bold. Weight contrast is
+     carried by size and colour instead. */
+  h1,
+  h2,
+  h3 {
+    font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  ::selection {
+    background: var(--color-brand-soft);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+}

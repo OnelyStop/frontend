@@ -12,10 +12,10 @@ import { useAuth } from "@/features/auth/AuthContext";
 import {
   FEATURE_MASTERY,
   getMarkerLabel,
-  gradeFromMastery,
+  bandFromScore,
   railPositionFromMastery,
   type ExamBoard,
-  type Grade,
+  type Band,
   type Subject,
 } from "@/data/navigation";
 
@@ -45,8 +45,8 @@ type AppContextValue = {
   points: number;
   mastery: Record<string, number>;
   overallMastery: number;
-  workingGrade: Grade;
-  nextGrade: Grade | null;
+  workingGrade: Band;
+  nextGrade: Band | null;
   railPosition: number;
   examDaysLeft: number | null;
   profile: UserProfile;
@@ -67,14 +67,14 @@ function getInitials(name: string) {
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
-  const [subject, setSubject] = useState<Subject>("Biology");
-  const [board, setBoard] = useState<ExamBoard>("OCR");
+  const [subject, setSubject] = useState<Subject>("Quantitative Aptitude");
+  const [board, setBoard] = useState<ExamBoard>("IBPS PO");
   const [profile, setProfile] = useState<UserProfile>({
-    name: "Alex Morgan",
-    email: "alex@onelystopp.app",
-    school: "Northbridge Sixth Form",
-    examYear: "2027",
-    bio: "Aiming for A* in Biology — focusing on genetics and bioenergetics this term.",
+    name: "Aarav Mehta",
+    email: "alex@onelystop.app",
+    school: "Self-study",
+    examYear: "2026",
+    bio: "Targeting IBPS PO 2026. Weakest on English; strongest on Computer Aptitude.",
   });
 
   // Seed identity from the signed-in account; the rest of the profile stays
@@ -112,19 +112,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const overallMastery = Math.round(
       masteryValues.reduce((sum, v) => sum + v, 0) / masteryValues.length,
     );
-    const { grade, next } = gradeFromMastery(overallMastery);
+    const { band, next } = bandFromScore(overallMastery);
 
     return {
       subject,
       board,
       setSubject,
       setBoard,
-      markerLabel: getMarkerLabel(subject),
+      markerLabel: getMarkerLabel(board),
       streak: 12,
       points: 1840,
       mastery: FEATURE_MASTERY,
       overallMastery,
-      workingGrade: grade,
+      workingGrade: band,
       nextGrade: next,
       railPosition: railPositionFromMastery(overallMastery),
       examDaysLeft,

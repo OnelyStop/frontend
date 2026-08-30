@@ -1,19 +1,63 @@
-export type ExamBoard = "OCR" | "AQA" | "Edexcel" | "CIE";
+/* Domain: Indian banking exams (IBPS / SBI PO & Clerk, RBI Grade B).
+   Sections replace subjects; the paper replaces the exam board. */
+
+export type ExamBoard =
+  | "IBPS PO"
+  | "IBPS Clerk"
+  | "SBI PO"
+  | "SBI Clerk"
+  | "RBI Grade B";
 
 export type Subject =
-  | "Biology"
-  | "Chemistry"
-  | "Physics"
-  | "Economics"
-  | "History"
-  | "English Literature"
-  | "Maths";
+  | "Quantitative Aptitude"
+  | "Reasoning Ability"
+  | "English Language"
+  | "General Awareness"
+  | "Computer Aptitude";
+
+export const SECTIONS: Subject[] = [
+  "Quantitative Aptitude",
+  "Reasoning Ability",
+  "English Language",
+  "General Awareness",
+  "Computer Aptitude",
+];
+
+export const EXAMS: ExamBoard[] = [
+  "IBPS PO",
+  "IBPS Clerk",
+  "SBI PO",
+  "SBI Clerk",
+  "RBI Grade B",
+];
+
+export const SECTION_KEY: Record<Subject, string> = {
+  "Quantitative Aptitude": "quant",
+  "Reasoning Ability": "reasoning",
+  "English Language": "english",
+  "General Awareness": "ga",
+  "Computer Aptitude": "computer",
+};
+
+export const SECTION_SHORT: Record<Subject, string> = {
+  "Quantitative Aptitude": "Quant",
+  "Reasoning Ability": "Reasoning",
+  "English Language": "English",
+  "General Awareness": "GA",
+  "Computer Aptitude": "Computer",
+};
+
+/* Negative marking is 1/4 of a mark on every wrong answer across IBPS and SBI.
+   It is the single fact that governs attempt strategy, so it lives here. */
+export const NEGATIVE_MARK = 0.25;
 
 export type NavItem = {
   id: string;
   label: string;
   path: string;
   icon: string;
+  /** One line under the label in the header menu — what the screen is for. */
+  hint: string;
   badge?: "NEW" | "BETA";
   dynamicLabel?: boolean;
 };
@@ -26,159 +70,158 @@ export type NavGroup = {
 
 export const NAV_GROUPS: NavGroup[] = [
   {
-    id: "learn",
-    label: "Learn",
+    id: "practise",
+    label: "Practise",
     items: [
-      { id: "home", label: "Home", path: "/home", icon: "home" },
-      { id: "question-bank", label: "Question Bank", path: "/question-bank", icon: "library" },
-      { id: "past-papers", label: "Past Papers", path: "/past-papers", icon: "file-search", badge: "NEW" },
-      { id: "pyq-mix", label: "PYQ Mix", path: "/pyq-mix", icon: "shuffle" },
-      { id: "ai-exams", label: "AI-Curated Exams", path: "/ai-exams", icon: "clipboard" },
-      { id: "theory", label: "Theory & Tricks", path: "/theory", icon: "lightbulb" },
-      { id: "revision", label: "Revision Guide", path: "/revision", icon: "book" },
+      {
+        id: "home",
+        label: "Today",
+        path: "/home",
+        icon: "home",
+        hint: "Every section against its cutoff, and the next hour planned",
+      },
+      {
+        id: "attempt-map",
+        label: "Attempt map",
+        path: "/attempt-map",
+        icon: "library",
+        hint: "Accuracy against pace — what to bank and what to skip",
+      },
+      {
+        id: "mocks",
+        label: "Mocks",
+        path: "/mocks",
+        icon: "file-search",
+        hint: "Full papers under real sectional timing",
+      },
+      {
+        id: "drills",
+        label: "Drills",
+        path: "/drills",
+        icon: "shuffle",
+        hint: "A short set aimed at the topics costing you marks",
+      },
     ],
   },
   {
-    id: "tools",
-    label: "Tools",
+    id: "recall",
+    label: "Recall",
     items: [
       {
-        id: "marker",
-        label: "Answer Marker",
-        path: "/marker",
-        icon: "pen",
-        dynamicLabel: true,
-        badge: "NEW",
+        id: "flashcards",
+        label: "Flashcards",
+        path: "/flashcards",
+        icon: "brain",
+        hint: "Current affairs, banking awareness, formulae — reveal and grade",
       },
-      { id: "diagrams", label: "Diagram Generator", path: "/diagrams", icon: "shapes" },
-      { id: "interview", label: "AI Interview", path: "/interview", icon: "mic", badge: "BETA" },
-      { id: "tutor", label: "AI Tutor", path: "/tutor", icon: "bot" },
+      {
+        id: "notes",
+        label: "Notes",
+        path: "/notes",
+        icon: "sticky",
+        hint: "Formulae, shortcuts and the traps you keep falling for",
+      },
     ],
   },
   {
     id: "grow",
     label: "Grow",
     items: [
-      { id: "progress", label: "Progress Tracker", path: "/progress", icon: "chart" },
-      { id: "memory", label: "A* Memory", path: "/memory", icon: "brain" },
-      { id: "notes", label: "Sticky Notes", path: "/notes", icon: "sticky" },
+      {
+        id: "progress",
+        label: "Progress",
+        path: "/progress",
+        icon: "chart",
+        hint: "Accuracy, pace, and what negative marking took back",
+      },
+      {
+        id: "descriptive",
+        label: "Descriptive",
+        path: "/descriptive",
+        icon: "pen",
+        hint: "Letter and essay against the clock, format checked live",
+        dynamicLabel: true,
+      },
+      {
+        id: "community",
+        label: "Community",
+        path: "/community",
+        icon: "users",
+        hint: "Doubts ranked by how many people are stuck there",
+      },
     ],
   },
   {
     id: "account",
     label: "Account",
     items: [
-      { id: "profile", label: "Profile", path: "/profile", icon: "user" },
-      { id: "settings", label: "Settings", path: "/settings", icon: "settings" },
+      {
+        id: "profile",
+        label: "Profile",
+        path: "/profile",
+        icon: "user",
+        hint: "Your record card — sittings, scores and best sections",
+      },
+      {
+        id: "settings",
+        label: "Settings",
+        path: "/settings",
+        icon: "settings",
+        hint: "Details, the exam you are calibrated to, notifications",
+      },
+      {
+        id: "upgrade",
+        label: "Upgrade",
+        path: "/upgrade",
+        icon: "spark",
+        hint: "Unlimited mocks, marking and current affairs",
+      },
     ],
   },
 ];
 
-// Thresholds are the mastery % needed to be "working at" each grade.
-export const GRADE_LADDER = [
-  { grade: "C", threshold: 0 },
-  { grade: "B", threshold: 40 },
-  { grade: "A", threshold: 65 },
-  { grade: "A*", threshold: 85 },
+/* Readiness is measured against the sectional cutoff, not a grade. */
+export const CUTOFF_LADDER = [
+  { band: "Below cutoff", threshold: 0 },
+  { band: "At cutoff", threshold: 55 },
+  { band: "Safe", threshold: 70 },
+  { band: "Strong", threshold: 85 },
 ] as const;
 
-export type Grade = (typeof GRADE_LADDER)[number]["grade"];
+export type Band = (typeof CUTOFF_LADDER)[number]["band"];
 
-// Mastery per learn-feature nav id — mock values until backend wiring
 export const FEATURE_MASTERY: Record<string, number> = {
-  "question-bank": 72,
-  "past-papers": 45,
-  "pyq-mix": 61,
-  "ai-exams": 30,
-  theory: 84,
-  revision: 58,
+  "attempt-map": 64,
+  mocks: 48,
+  drills: 57,
+  flashcards: 71,
 };
 
-export function gradeFromMastery(mastery: number): {
-  grade: Grade;
-  next: Grade | null;
-} {
+export function bandFromScore(score: number): { band: Band; next: Band | null } {
   let index = 0;
-  for (let i = 0; i < GRADE_LADDER.length; i++) {
-    if (mastery >= GRADE_LADDER[i].threshold) index = i;
+  for (let i = 0; i < CUTOFF_LADDER.length; i++) {
+    if (score >= CUTOFF_LADDER[i].threshold) index = i;
   }
   return {
-    grade: GRADE_LADDER[index].grade,
-    next: GRADE_LADDER[index + 1]?.grade ?? null,
+    band: CUTOFF_LADDER[index].band,
+    next: CUTOFF_LADDER[index + 1]?.band ?? null,
   };
 }
 
-// Maps mastery % to a 0–1 position along the rail, piecewise-linear
-// between ladder stops so each grade band occupies one visual segment.
 export function railPositionFromMastery(mastery: number): number {
-  const last = GRADE_LADDER.length - 1;
-  if (mastery >= GRADE_LADDER[last].threshold) return 1;
+  const last = CUTOFF_LADDER.length - 1;
+  if (mastery >= CUTOFF_LADDER[last].threshold) return 1;
   for (let i = last - 1; i >= 0; i--) {
-    const from = GRADE_LADDER[i].threshold;
-    const to = GRADE_LADDER[i + 1].threshold;
-    if (mastery >= from) {
-      return (i + (mastery - from) / (to - from)) / last;
-    }
+    const from = CUTOFF_LADDER[i].threshold;
+    const to = CUTOFF_LADDER[i + 1].threshold;
+    if (mastery >= from) return (i + (mastery - from) / (to - from)) / last;
   }
   return 0;
 }
 
-export const ESSAY_SUBJECTS: Subject[] = ["Economics", "History", "English Literature"];
+/* Descriptive papers exist only in SBI PO Mains and RBI Grade B. */
+export const DESCRIPTIVE_EXAMS: ExamBoard[] = ["SBI PO", "RBI Grade B"];
 
-export function getMarkerLabel(subject: Subject): string {
-  if (subject === "English Literature") return "Essay Marker";
-  if (ESSAY_SUBJECTS.includes(subject)) return "Long Answer Marker";
-  return "Answer Marker";
+export function getMarkerLabel(exam: ExamBoard): string {
+  return DESCRIPTIVE_EXAMS.includes(exam) ? "Descriptive" : "Descriptive (Mains)";
 }
-
-export const TOPICS = [
-  "Cell Biology",
-  "Genetics",
-  "Ecology",
-  "Organic Chemistry",
-  "Mechanics",
-  "Electricity",
-  "Macroeconomics",
-  "Cold War",
-  "Algebra",
-  "Probability",
-];
-
-export const SAMPLE_LESSONS = [
-  {
-    id: "1",
-    title: "Topic map & exam blueprint",
-    meta: "12 min · Overview",
-    done: true,
-    icon: "map",
-  },
-  {
-    id: "2",
-    title: "High-yield definitions drill",
-    meta: "18 min · Practice",
-    done: true,
-    icon: "drill",
-  },
-  {
-    id: "3",
-    title: "Command words & mark schemes",
-    meta: "22 min · Exam skill",
-    done: false,
-    active: true,
-    icon: "scheme",
-  },
-  {
-    id: "4",
-    title: "Worked PYQs — medium band",
-    meta: "30 min · PYQ",
-    done: false,
-    icon: "pyq",
-  },
-  {
-    id: "5",
-    title: "Timed mixed set",
-    meta: "25 min · Mixed",
-    done: false,
-    icon: "timer",
-  },
-];

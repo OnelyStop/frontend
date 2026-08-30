@@ -1,9 +1,456 @@
+/* The signed-in app is purple-on-white (tokens.css). Marketing runs a separate
+   warm-paper palette scoped to .mk-shell, so none of it reaches the app.
+   Overriding --color-primary inside this scope restyles the shared <Button>
+   without forking the component. */
+
 .mk-shell {
+  /* Surfaces: four z-planes, not one. */
+  --page: #ffffff;
+  --raised: #f7f8fa;
+  --raised-2: #ffffff;
+  --sunken: #eceef2;
+  /* A charcoal, not a void: near-black at panel scale stings against white. */
+  --slab: #262a32;
+
+  /* One ink, three alphas of it. Flipping --ink in .t-slab re-themes all
+     three levels with a single declaration. */
+  --ink: #16181d;
+  --ink-2: rgb(22 24 29 / 0.72);
+  --ink-hushed: rgb(22 24 29 / 0.55);
+  --ink-on-accent: #ffffff;
+
+  /* Alpha lines, so they tint with whatever sits behind them. */
+  --hairline: rgb(22 24 29 / 0.10);
+  --border-strong: rgb(22 24 29 / 0.16);
+  --border-control: rgb(22 24 29 / 0.42);
+  --hairline-w: 0.5px;
+
+  /* The one accent — a green marking pen, nothing else. */
+  --accent: #0b8f63;
+  --accent-wash: #dcf5ec;
+  --accent-line: #a6e4cd;
+  --accent-on-dark: #5fe0a4;
+  --mark-good: var(--accent);
+  --mark-bad: #b4342b;
+
+  /* Shadows carry the ink hue; pure black goes muddy over a warm ground.
+     Every step has four layers so hover interpolates cleanly. */
+  --sh: 22 24 29;
+  --lift-1: 0 0 0 1px rgb(var(--sh) / 0.055), 0 1px 2px -1px rgb(var(--sh) / 0.05),
+    0 3px 8px -3px rgb(var(--sh) / 0.04), 0 8px 20px -10px rgb(var(--sh) / 0.04);
+  --lift-2: 0 0 0 1px rgb(var(--sh) / 0.06), 0 1px 2px -1px rgb(var(--sh) / 0.05),
+    0 6px 12px -4px rgb(var(--sh) / 0.045), 0 14px 28px -12px rgb(var(--sh) / 0.05);
+  --lift-3: 0 0 0 1px rgb(var(--sh) / 0.07), 0 2px 4px -2px rgb(var(--sh) / 0.06),
+    0 10px 20px -6px rgb(var(--sh) / 0.05), 0 24px 48px -20px rgb(var(--sh) / 0.06);
+  --lift-4: 0 0 0 1px rgb(var(--sh) / 0.07), 0 2px 4px -2px rgb(var(--sh) / 0.05),
+    0 8px 16px -4px rgb(var(--sh) / 0.05), 0 24px 48px -16px rgb(var(--sh) / 0.06),
+    0 56px 96px -40px rgb(var(--sh) / 0.09);
+  --sink-1: inset 0 1px 2px rgb(var(--sh) / 0.06),
+    inset 0 0 0 1px rgb(var(--sh) / 0.035);
+  --edge-light: inset 0 1px 0 rgb(255 255 255 / 0.92);
+  --slab-shadow: 0 4px 50px rgb(10 10 11 / 0.22);
+
+  --r-1: 6px;
+  --r-2: 10px;
+  --r-3: 14px;
+  --r-4: 20px;
+  --r-slab: 28px;
+  --r-pill: 999px;
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-14: 56px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-30: 120px;
+  --s-40: 160px;
+
+  --nav-h: 56px;
+  --gutter: clamp(20px, 5vw, 72px);
+  --max: 1200px;
+  --section-y: clamp(64px, 7vw, 104px);
+
+  --font-display: var(--font-instrument);
+  --font-text: var(--font-instrument);
+
+  /* Size, leading and tracking are set together as one step, never mixed. */
+  --d1-fs: clamp(2.25rem, 4.2vw, 3.25rem);
+  --d1-lh: calc(var(--d1-fs) * 1.08);
+  --d1-tr: -0.022em;
+  --d2-fs: 30px;
+  --d2-lh: 34px;
+  --d2-tr: -0.02em;
+  --d3-fs: 24px;
+  --d3-lh: 28px;
+  --d3-tr: -0.016em;
+  --d4-fs: 20px;
+  --d4-lh: 28px;
+  --d4-tr: -0.008em;
+  --d5-fs: clamp(2rem, 4vw, 3rem);
+  --d5-lh: calc(var(--d5-fs) * 1.05);
+  --d5-tr: -0.022em;
+
+  --lede-fs: 17px;
+  --lede-lh: 26px;
+  --lede-tr: -0.005em;
+  --body-fs: 16px;
+  --body-lh: 26px;
+  --body-tr: 0;
+  --bodys-fs: 15px;
+  --bodys-lh: 24px;
+  --bodys-tr: 0;
+  --title-fs: 16px;
+  --title-lh: 24px;
+  --title-tr: -0.012em;
+  --label-fs: 13px;
+  --label-lh: 18px;
+  --label-tr: 0.005em;
+  --over-fs: 12px;
+  --over-lh: 14px;
+  --over-tr: 0.08em;
+  --micro-fs: 11px;
+  --micro-lh: 16px;
+  --micro-tr: 0.02em;
+
+  --sans-ct: 1.22;
+  --sans-over: 0.25;
+  --sans-under: 0.25;
+  /* .trim leaves a box exactly this tall; anything aligning trimmed text to
+     trimmed text derives from it. */
+  --cap: calc(var(--sans-ct) - var(--sans-over) - var(--sans-under));
+  --disp-ct: 1;
+  --disp-over: 0.065;
+  --disp-under: 0.265;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-big: cubic-bezier(0.87, 0, 0.13, 1);
+
+  --dur-micro: 140ms;
+  --dur-lift: 260ms;
+  --dur-reveal: 720ms;
+  --dur-display: 900ms;
+  --dur-exit: 180ms;
+
+  --pinstripe: repeating-linear-gradient(
+    90deg,
+    color-mix(in oklab, #ffffff 78%, transparent) 0 1px,
+    transparent 1px 8px
+  );
+  --rule-28: repeating-linear-gradient(
+    to bottom,
+    transparent 0 27px,
+    rgb(21 21 26 / 0.045) 27px 28px
+  );
+  --glow-a: #bcd4ff;
+  --glow-b: #cfc6ff;
+  --glow-c: #b6ecdd;
+
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.55'/%3E%3C/svg%3E");
+
+  /* The shared app components read these; remapping keeps <Button>, the plan
+     cards and the billing toggle on the marketing palette. */
+  --color-primary: var(--ink);
+  --color-primary-hover: #2c2c33;
+  --color-primary-soft: var(--sunken);
+  --color-text: var(--ink);
+  --color-text-secondary: var(--ink-2);
+  --color-text-muted: var(--ink-hushed);
+  --color-border: var(--hairline);
+  --color-border-strong: var(--border-strong);
+  --color-success: var(--accent);
+  --color-success-soft: var(--accent-wash);
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--color-bg);
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-weight: 400;
+  --f-ct: var(--sans-ct);
+  --f-over: var(--sans-over);
+  --f-under: var(--sans-under);
 }
+
+/* Themes redefine tokens only. No layout rule ever changes. */
+.mk-shell .t-paper {
+  --page: var(--sunken);
+}
+
+.mk-shell .t-slab {
+  --page: var(--slab);
+  --raised: #202027;
+  --raised-2: #1b1b21;
+  --sunken: #101014;
+  --ink: #ffffff;
+  --ink-2: rgb(255 255 255 / 0.78);
+  --ink-hushed: rgb(255 255 255 / 0.66);
+  --hairline: rgb(255 255 255 / 0.12);
+  --border-strong: rgb(255 255 255 / 0.2);
+  --accent: var(--accent-on-dark);
+  --ink-on-accent: var(--slab);
+  --edge-light: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  --color-primary: var(--ink);
+  --color-text: var(--ink);
+  --color-text-secondary: var(--ink-2);
+  background: var(--page);
+  color: var(--ink);
+}
+
+@media (min-width: 48rem) {
+  .mk-shell {
+    --d2-fs: 36px;
+    --d2-lh: 40px;
+    --d3-fs: 26px;
+    --d3-lh: 30px;
+    --d4-fs: 21px;
+    --d4-lh: 30px;
+    --lede-fs: 18px;
+    --lede-lh: 28px;
+  }
+}
+
+@media (min-width: 62rem) {
+  .mk-shell {
+    --d2-fs: 40px;
+    --d2-lh: 44px;
+    --d3-fs: 28px;
+    --d3-lh: 32px;
+    --d4-fs: 22px;
+    --d4-lh: 32px;
+    --lede-fs: 19px;
+    --lede-lh: 30px;
+    --title-fs: 16px;
+    --title-lh: 24px;
+  }
+}
+
+.mk-shell [id] {
+  scroll-margin-top: calc(var(--nav-h) + 24px);
+}
+
+/* Type steps. */
+
+.mk-shell .display {
+  font-family: var(--font-display);
+  font-weight: 450;
+}
+
+.mk-shell .d1 {
+  --fs: var(--d1-fs);
+  --lh: var(--d1-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: var(--d1-tr);
+}
+
+.mk-shell .d2 {
+  --fs: var(--d2-fs);
+  --lh: var(--d2-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: var(--d2-tr);
+}
+
+.mk-shell .d3 {
+  --fs: var(--d3-fs);
+  --lh: var(--d3-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: var(--d3-tr);
+  font-weight: 600;
+}
+
+.mk-shell .d4 {
+  --fs: var(--d4-fs);
+  --lh: var(--d4-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: var(--d4-tr);
+  font-weight: 500;
+}
+
+.mk-shell .d5 {
+  --fs: var(--d5-fs);
+  --lh: var(--d5-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: var(--d5-tr);
+}
+
+.mk-shell .t-lede {
+  --fs: var(--lede-fs);
+  --lh: var(--lede-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: var(--lede-tr);
+  color: var(--ink);
+}
+
+.mk-shell .t-body {
+  --fs: var(--body-fs);
+  --lh: var(--body-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+}
+
+.mk-shell .t-body-sm {
+  --fs: var(--bodys-fs);
+  --lh: var(--bodys-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+}
+
+.mk-shell .t-title {
+  --fs: var(--title-fs);
+  --lh: var(--title-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: var(--title-tr);
+  font-weight: 500;
+  color: var(--ink-hushed);
+}
+
+.mk-shell .t-label {
+  --fs: var(--label-fs);
+  --lh: var(--label-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: var(--label-tr);
+  font-weight: 500;
+}
+
+.mk-shell .t-overline {
+  --fs: var(--bodys-fs);
+  --lh: var(--bodys-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: -0.005em;
+  font-weight: 400;
+  color: var(--ink-hushed);
+}
+
+.mk-shell .t-micro {
+  --fs: var(--micro-fs);
+  --lh: var(--micro-lh);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: var(--micro-tr);
+  font-weight: 500;
+}
+
+.mk-shell .t-num {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* Trimmed to cap-height, asymmetrically: Newsreader's descent is four times
+   its ascent-above-cap, so a symmetric trim sits every heading visibly high. */
+.mk-shell .trim {
+  --half: calc((var(--lh) - var(--fs) * var(--f-ct)) / 2);
+  --trim-top: calc(var(--half) + var(--fs) * var(--f-over));
+  --trim-bottom: calc(var(--half) + var(--fs) * var(--f-under));
+}
+
+@supports (width: round(10px, 1px)) {
+  .mk-shell .trim {
+    --trim-top: round(calc(var(--half) + var(--fs) * var(--f-over)), 1px);
+    --trim-bottom: round(calc(var(--half) + var(--fs) * var(--f-under)), 1px);
+  }
+}
+
+.mk-shell .trim::before {
+  content: "";
+  display: table;
+  margin-bottom: calc(-1 * var(--trim-top));
+}
+
+.mk-shell .trim::after {
+  content: "";
+  display: table;
+  margin-top: calc(-1 * var(--trim-bottom));
+}
+
+.mk-shell h1,
+.mk-shell h2,
+.mk-shell h3 {
+  text-wrap: balance;
+}
+
+.mk-shell .hushed {
+  color: var(--ink-hushed);
+}
+
+@media (max-width: 40rem) {
+  .mk-shell .hero-h1 {
+    letter-spacing: -0.012em;
+  }
+}
+
+/* Shared components, restyled for this scope. */
+
+.mk-shell .btn {
+  border-radius: var(--r-pill);
+  font-family: var(--font-text);
+  font-size: var(--label-fs);
+  font-weight: 500;
+  letter-spacing: var(--label-tr);
+}
+
+.mk-shell .btn--lg {
+  height: 44px;
+  padding: 0 32px;
+  font-size: 15px;
+}
+
+.mk-shell .btn--primary {
+  box-shadow: none;
+}
+
+.mk-shell .btn--outline {
+  background: transparent;
+  border-color: var(--border-strong);
+}
+
+.mk-shell .btn--outline:hover {
+  background: var(--raised);
+  border-color: var(--ink);
+}
+
+.mk-shell .logo-mark {
+  box-shadow: none;
+}
+
+.mk-shell ::selection {
+  background: var(--accent-wash);
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-shell *,
+  .mk-shell *::before,
+  .mk-shell *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Nav */
 
 .mk-nav {
   position: sticky;
@@ -11,107 +458,144 @@
   z-index: 50;
   display: flex;
   align-items: center;
-  gap: 28px;
-  padding: 14px clamp(20px, 5vw, 56px);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--color-border);
+  gap: var(--s-10);
+  height: var(--nav-h);
+  padding: 0 var(--gutter);
+  /* Opaque, not translucent: the page has two dark sections, and any
+     transparency turns the bar a muddy grey as they scroll under it. */
+  background: var(--page);
+  border-bottom: var(--hairline-w) solid var(--hairline);
+}
+
+.mk-nav .brand__name {
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.03em;
 }
 
 .mk-nav__links {
   display: flex;
-  gap: 22px;
+  gap: var(--s-6);
   flex: 1;
 }
 
+/* Ramp's dim-the-siblings: hovering the row hushes every link, then restores
+   the one under the cursor. */
 .mk-nav__links a {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--color-text-secondary);
-  transition: color var(--duration-fast) var(--ease);
+  font-size: var(--label-fs);
+  line-height: var(--label-lh);
+  letter-spacing: var(--label-tr);
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: color var(--dur-micro) var(--ease-standard);
+}
+
+.mk-nav__links:hover a {
+  color: var(--ink-hushed);
 }
 
 .mk-nav__links a:hover {
-  color: var(--color-text);
+  color: var(--ink);
 }
 
 .mk-nav__actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--s-2);
 }
 
+.mk-nav__actions .btn--sm {
+  height: 34px;
+  padding: 0 16px;
+}
+
+/* Footer */
+
+/* One black panel inset from the page edges and rounded at the top two corners.
+   .t-slab flips the ink tokens, so everything inside comes back white without a
+   single hard-coded colour. */
 .mk-footer {
+  --footer-inset: clamp(8px, 1vw, 16px);
+  --footer-black: #000000;
   margin-top: auto;
-  border-top: 1px solid var(--color-border);
-  background: var(--color-bg-subtle);
-  padding: 40px clamp(20px, 5vw, 56px) 24px;
+  padding: 0 var(--footer-inset);
+  background: var(--page);
+}
+
+/* .t-slab paints `background: var(--page)` at a higher specificity than this
+   rule, so the black is set through the token rather than fought over. */
+.mk-footer__panel {
+  --slab: var(--footer-black);
+  --ink-hushed: rgb(255 255 255 / 0.5);
+  padding: var(--s-14) clamp(24px, 3.5vw, 56px) var(--s-8);
+  border-radius: var(--r-slab) var(--r-slab) 0 0;
 }
 
 .mk-footer__inner {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-  max-width: 1100px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) repeat(4, minmax(0, 1fr));
+  gap: var(--s-10);
 }
 
 .mk-footer__brand {
-  display: flex;
-  gap: 12px;
-  max-width: 260px;
+  max-width: 300px;
 }
 
 .mk-footer__name {
-  font-weight: var(--weight-extrabold);
-  letter-spacing: -0.03em;
+  margin-top: var(--s-3);
+  font-size: var(--title-fs);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .mk-footer__brand p {
-  margin-top: 4px;
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+  margin-top: var(--s-2);
+  font-size: var(--bodys-fs);
+  line-height: var(--bodys-lh);
+  color: var(--ink-hushed);
 }
 
 .mk-footer__cols {
-  display: flex;
-  gap: 48px;
-  flex-wrap: wrap;
+  display: contents;
 }
 
 .mk-footer__cols > div {
   display: grid;
-  gap: 8px;
+  gap: var(--s-2);
   align-content: start;
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+  font-size: var(--bodys-fs);
+  line-height: 1.6;
+  /* Not pure white: at footer scale it glares against black. Full white is
+     saved for the hover state so the links still have somewhere to go. */
+  color: rgb(255 255 255 / 0.62);
 }
 
 .mk-footer__cols a:hover {
-  color: var(--color-text);
+  color: #ffffff;
 }
 
 .mk-footer__col-title {
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--color-text-muted);
-  margin-bottom: 4px;
+  font-size: var(--bodys-fs);
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.88);
+  margin-bottom: var(--s-1);
 }
 
 .mk-footer__legal {
-  max-width: 1100px;
-  margin: 28px auto 0;
-  padding-top: 18px;
-  border-top: 1px solid var(--color-divider);
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
+  margin-top: var(--s-14);
+  padding-top: var(--s-5);
+  /* 1px, not --hairline-w: a half-pixel white rule disappears on the panel. */
+  border-top: 1px solid var(--hairline);
+  font-size: var(--micro-fs);
+  letter-spacing: var(--micro-tr);
+  color: var(--ink-hushed);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 45rem) {
+  .mk-nav {
+    gap: var(--s-4);
+  }
+
   .mk-nav__links {
     display: none;
   }
@@ -119,5 +603,99 @@
   /* nav links are hidden here, so let the brand take the freed space */
   .mk-nav .brand {
     flex: 1;
+  }
+}
+
+.mk-footer__legal p + p {
+  margin-top: var(--s-3);
+}
+
+/* Not boilerplate: this is what makes naming real specification codes safe. */
+.mk-footer__disclaimer {
+  max-width: 68ch;
+}
+
+/* Announcement bar */
+
+.mk-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-1);
+  padding: 9px var(--gutter);
+  background: var(--sunken);
+  color: var(--ink-2);
+  font-weight: 500;
+  text-align: center;
+  border-bottom: var(--hairline-w) solid var(--hairline);
+}
+
+.mk-banner:hover {
+  color: var(--ink);
+}
+
+.mk-shell .t-overline + h1,
+.mk-shell .t-overline + h2 {
+  margin-top: var(--s-4);
+}
+
+/* A heading and its sub-line. Both boxes are cap-tight after .trim, so
+   align-items:start aligns CAP-TOPS and the small text floats above the
+   heading's baseline — that is the collision. Dropping the sub-line by the
+   cap-height difference puts the two first baselines on one line. */
+.mk-shell .pair {
+  --pair-fs: var(--d2-fs);
+  --pair-lead: 0px;
+  --pair-baseline: calc(
+    var(--pair-lead) + var(--cap) * (var(--pair-fs) - var(--lede-fs))
+  );
+  --pair-stack: calc((var(--f-under) + var(--cap)) * var(--pair-fs));
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 0 clamp(32px, 6vw, 96px);
+  align-items: start;
+  margin-bottom: clamp(32px, 4.5vw, 64px);
+}
+
+.mk-shell .pair > :is(h1, h2) {
+  max-width: 13em;
+}
+
+.mk-shell .pair > :is(h1, h2) + * {
+  margin-top: var(--pair-baseline);
+}
+
+.mk-shell .pair__lede {
+  max-width: 40ch;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.mk-shell .pair--stack {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.mk-shell .pair--stack > :is(h1, h2) + * {
+  margin-top: var(--pair-stack);
+}
+
+.mk-shell .pair--center {
+  justify-items: center;
+  text-align: center;
+}
+
+.mk-shell .pair--center > :is(h1, h2),
+.mk-shell .pair--center > .pair__lede {
+  max-width: 46ch;
+}
+
+@media (max-width: 61.99rem) {
+  .mk-shell .pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mk-shell .pair > :is(h1, h2) + * {
+    margin-top: var(--pair-stack);
   }
 }

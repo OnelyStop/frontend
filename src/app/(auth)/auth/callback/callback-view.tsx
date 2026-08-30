@@ -10,7 +10,7 @@ import {
 } from "@/lib/supabase";
 import { AuthShell } from "@/features/auth/components/AuthShell";
 import { AuthError } from "@/features/auth/components/AuthBits";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/marketing/Button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

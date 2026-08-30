@@ -4,26 +4,29 @@ import { NextResponse, type NextRequest } from "next/server";
 // Everything not listed here stays public and server-rendered for SEO.
 const PROTECTED = [
   "/home",
-  "/question-bank",
-  "/past-papers",
-  "/pyq-mix",
-  "/ai-exams",
-  "/theory",
-  "/revision",
-  "/marker",
-  "/diagrams",
-  "/interview",
-  "/tutor",
+  "/attempt-map",
+  "/mocks",
+  "/drills",
+  "/descriptive",
   "/progress",
-  "/memory",
   "/notes",
+  "/flashcards",
+  "/community",
   "/upgrade",
   "/profile",
   "/settings",
   "/admin",
 ];
 
+// Local-only escape hatch for working on signed-in screens without an account.
+// Refuses to engage in a production build, so it cannot be turned on by a stray
+// env var on a deployed instance. Server-side only — never NEXT_PUBLIC_.
+const AUTH_DISABLED =
+  process.env.AUTH_DISABLED === "true" && process.env.NODE_ENV !== "production";
+
 export async function proxy(request: NextRequest) {
+  if (AUTH_DISABLED) return NextResponse.next({ request });
+
   // Must start from the incoming request so refreshed auth cookies survive
   let response = NextResponse.next({ request });
 

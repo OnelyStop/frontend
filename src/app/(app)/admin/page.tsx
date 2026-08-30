@@ -1,3 +1,4 @@
+import "@/styles/global.css";
 import type { Metadata } from "next";
 import { AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase-server";

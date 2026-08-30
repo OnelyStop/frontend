@@ -1,46 +1,48 @@
 :root {
-  /* Brand — matched to Uxcel inspiration */
-  --color-primary: #5b52f0;
-  --color-primary-hover: #4a42d9;
-  --color-primary-soft: #eeedfe;
-  --color-primary-muted: #dcd9fc;
-  --color-primary-text: #5b52f0;
+  /* One palette for the whole product: the app and the marketing shell now read
+     the same ink, the same cool neutral ramp and the same green. Primary is the
+     near-black the marketing buttons use, not a brand hue. */
+  --color-primary: #16181d;
+  --color-primary-hover: #2c3038;
+  --color-primary-soft: #eceef2;
+  --color-primary-muted: #dfe3e9;
+  --color-primary-text: #16181d;
 
-  /* Neutrals */
+  /* Neutrals — cool, never warm. */
   --color-bg: #ffffff;
-  --color-bg-subtle: #f7f7f8;
-  --color-bg-muted: #f3f3f5;
-  --color-sidebar: #fafafa;
+  --color-bg-subtle: #f7f8fa;
+  --color-bg-muted: #eceef2;
+  --color-sidebar: #f7f8fa;
   --color-surface: #ffffff;
-  --color-border: #e8e8ec;
-  --color-border-strong: #d9d9e0;
-  --color-divider: #efeff2;
+  --color-border: #e5e8ee;
+  --color-border-strong: #d3d8e0;
+  --color-divider: #eef0f4;
 
   /* Text */
-  --color-text: #1a1a1f;
-  --color-text-secondary: #6b6b76;
-  --color-text-muted: #8f8f9a;
+  --color-text: #16181d;
+  --color-text-secondary: #4d525c;
+  --color-text-muted: #6d727d;
   --color-text-inverse: #ffffff;
 
-  /* Semantic */
-  --color-success: #22a06b;
-  --color-success-soft: #e8f7ef;
-  --color-warning: #e2a336;
-  --color-warning-soft: #fff6e5;
-  --color-danger: #e5484d;
-  --color-danger-soft: #ffecec;
-  --color-info: #3b82f6;
-  --color-star: #f5a524;
+  /* Semantic — green is the marking pen, and it carries through to the app. */
+  --color-success: #0b8f63;
+  --color-success-soft: #dcf5ec;
+  --color-warning: #a86a12;
+  --color-warning-soft: #fdf3e3;
+  --color-danger: #c33a31;
+  --color-danger-soft: #fdeceb;
+  --color-info: #2563eb;
+  --color-star: #d99a1f;
 
-  /* Illustration accents from inspiration */
-  --color-accent-yellow: #f5c518;
-  --color-accent-coral: #f07167;
-  --color-accent-teal: #2ec4b6;
-  --color-accent-navy: #1e2a44;
+  /* Subject / chart accents, tuned to the cool ramp. */
+  --color-accent-yellow: #d99a1f;
+  --color-accent-coral: #d9614f;
+  --color-accent-teal: #0e9c8a;
+  --color-accent-navy: #262a32;
 
-  /* Typography */
-  --font-sans: "Plus Jakarta Sans", "Segoe UI", sans-serif;
-  --font-display: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+  /* Typography — set by next/font in app/fonts.ts. */
+  --font-sans: var(--font-instrument), "Segoe UI", sans-serif;
+  --font-display: var(--font-instrument), "Segoe UI", sans-serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.8125rem;
@@ -68,19 +70,13 @@
   --radius-pill: 999px;
 
   /* Shadows */
-  --shadow-xs: 0 1px 2px rgba(26, 26, 31, 0.04);
-  --shadow-sm: 0 2px 8px rgba(26, 26, 31, 0.06);
-  --shadow-md: 0 8px 24px rgba(26, 26, 31, 0.08);
-  --shadow-tooltip: 0 4px 14px rgba(91, 82, 240, 0.25);
+  --shadow-xs: 0 1px 2px rgba(22, 24, 29, 0.04);
+  --shadow-sm: 0 2px 8px rgba(22, 24, 29, 0.06);
+  --shadow-md: 0 8px 24px rgba(22, 24, 29, 0.08);
+  --shadow-tooltip: 0 4px 14px rgba(22, 24, 29, 0.25);
 
-  /* Layout */
-  --dock-width: 68px;
-  --dock-width-expanded: 240px;
-  --dock-inset: 16px;
-  /* Content gutter: resting dock + insets; hover-expansion overlays instead */
-  --dock-gutter: calc(var(--dock-width) + var(--dock-inset) * 2);
-  --dock-gutter-pinned: calc(var(--dock-width-expanded) + var(--dock-inset) * 2);
-  --topbar-height: 64px;
+  /* Layout — sidebar-less shell: the top bar is the only chrome. */
+  --topbar-height: 60px;
   --content-max: 1100px;
   --right-panel-width: 260px;
 

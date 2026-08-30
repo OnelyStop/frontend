@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Settings2 } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/marketing/Button";
 
 export function GoogleIcon() {
   return (

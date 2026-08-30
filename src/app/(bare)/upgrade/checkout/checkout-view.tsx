@@ -1,4 +1,5 @@
 "use client";
+import "@/styles/global.css";
 
 import { useState, type FormEvent } from "react";
 import {
@@ -10,8 +11,8 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { useApp } from "@/context/AppContext";
-import { Brand } from "@/components/ui/Logo";
-import { Button } from "@/components/ui/Button";
+import { Brand } from "@/components/marketing/Logo";
+import { Button } from "@/components/marketing/Button";
 import { ANNUAL_TOTAL, MONTHLY_PRICE, type BillingCycle } from "@/features/pricing/plans";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -210,7 +211,7 @@ export function CheckoutView({ billing }: { billing: BillingCycle }) {
           <div className="panel__title">Order summary</div>
           <div className="order-summary__plan">
             <div>
-              <div className="order-summary__plan-name">onelystopp Pro</div>
+              <div className="order-summary__plan-name">onelystop Pro</div>
               <div className="order-summary__plan-cycle">
                 {billing === "annual" ? "Annual" : "Monthly"} billing
               </div>

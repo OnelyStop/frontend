@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { Check, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Button, ButtonLink } from "@/components/marketing/Button";
 import {
   MONTHLY_PRICE,
   PLANS,
   type BillingCycle,
   type Plan,
 } from "@/features/pricing/plans";
-import Link from "next/link";
 
 const ANNUAL_SAVING_PCT = Math.round(
   (1 - PLANS[1].annual / MONTHLY_PRICE) * 100,
@@ -18,25 +17,27 @@ const ANNUAL_SAVING_PCT = Math.round(
 type Props = {
   // Drives the CTA: checkout vs signup.
   variant: "app" | "public";
+  // The landing page already owns an <h2> for the pricing section, so plan
+  // names drop a level there to avoid outranking it.
+  headingLevel?: 2 | 3;
 };
 
 function PlanCta({ plan, billing, variant }: Props & { plan: Plan; billing: BillingCycle }) {
   if (plan.id === "pro") {
     return (
-      <Link href={`/upgrade/checkout?billing=${billing}`}>
-        <Button className="plan-card__cta">
-          {variant === "public" ? "Get Pro" : plan.cta}
-        </Button>
-      </Link>
+      <ButtonLink
+        href={`/upgrade/checkout?billing=${billing}`}
+        className="plan-card__cta"
+      >
+        {variant === "public" ? "Get Pro" : plan.cta}
+      </ButtonLink>
     );
   }
   if (plan.id === "free") {
     return variant === "public" ? (
-      <Link href="/signup">
-        <Button variant="outline" className="plan-card__cta">
-          Start free
-        </Button>
-      </Link>
+      <ButtonLink href="/signup" variant="outline" className="plan-card__cta">
+        Start free
+      </ButtonLink>
     ) : (
       <Button variant="outline" className="plan-card__cta" disabled>
         Current plan
@@ -50,7 +51,7 @@ function PlanCta({ plan, billing, variant }: Props & { plan: Plan; billing: Bill
   );
 }
 
-export function PlanGrid({ variant }: Props) {
+export function PlanGrid({ variant, headingLevel = 2 }: Props) {
   const [billing, setBilling] = useState<BillingCycle>("annual");
 
   return (
@@ -95,7 +96,11 @@ export function PlanGrid({ variant }: Props) {
                   Most popular
                 </div>
               )}
-              <h2 className="plan-card__name">{plan.name}</h2>
+              {headingLevel === 3 ? (
+                <h3 className="plan-card__name">{plan.name}</h3>
+              ) : (
+                <h2 className="plan-card__name">{plan.name}</h2>
+              )}
               <p className="plan-card__tagline">{plan.tagline}</p>
               <div className="plan-card__price">
                 <span className="plan-card__amount">
