@@ -1,0 +1,182 @@
+/* Shared by the privacy and terms pages. */
+
+.legal {
+  padding: clamp(48px, 6vw, 96px) var(--gutter) 0;
+}
+
+/* Header runs the full content width; the body below splits into a sticky
+   contents rail and the prose, so the document has the same two-column
+   rhythm as the marketing sections. */
+.legal__head {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-bottom: clamp(40px, 5vw, 72px);
+  border-bottom: var(--hairline-w) solid var(--hairline);
+}
+
+.legal__head h1 {
+  margin-top: var(--s-4);
+  max-width: 12em;
+}
+
+.legal__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-6);
+  margin-top: var(--s-6);
+  color: var(--ink-hushed);
+}
+
+.legal__intro {
+  margin-top: var(--s-6);
+  max-width: 52ch;
+  color: var(--ink-2);
+}
+
+.legal__body {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 96px);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-block: clamp(40px, 5vw, 72px) clamp(64px, 8vw, 120px);
+}
+
+.legal__toc {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--s-8));
+  display: grid;
+  gap: var(--s-1);
+  align-content: start;
+}
+
+.legal__toc-title {
+  margin-bottom: var(--s-3);
+  color: var(--ink-hushed);
+}
+
+/* Counter drives both the rail and the headings, so the numbering can never
+   drift out of step with the sections. */
+.legal__toc a {
+  counter-increment: toc;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  padding-block: var(--s-2);
+  color: var(--ink-2);
+  border-top: var(--hairline-w) solid var(--hairline);
+  transition: color var(--dur-micro) var(--ease-standard);
+}
+
+.legal__toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--ink-hushed);
+  font-variant-numeric: tabular-nums;
+}
+
+.legal__toc a:hover {
+  color: var(--ink);
+}
+
+.legal__content {
+  counter-reset: sec;
+  max-width: 68ch;
+}
+
+.legal__content section {
+  padding-top: clamp(36px, 4vw, 56px);
+}
+
+.legal__content section + section {
+  margin-top: clamp(36px, 4vw, 56px);
+  border-top: var(--hairline-w) solid var(--hairline);
+}
+
+.legal__content section:first-child {
+  padding-top: 0;
+}
+
+.legal__content h2 {
+  counter-increment: sec;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  font-size: var(--d3-fs);
+  line-height: var(--d3-lh);
+  letter-spacing: var(--d3-tr);
+  font-weight: 600;
+}
+
+.legal__content h2::before {
+  content: counter(sec, decimal-leading-zero);
+  font-size: var(--bodys-fs);
+  line-height: inherit;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.legal__content h3 {
+  margin-top: var(--s-8);
+  font-size: var(--title-fs);
+  line-height: var(--title-lh);
+  letter-spacing: var(--title-tr);
+  font-weight: 600;
+}
+
+.legal__content p,
+.legal__content li {
+  margin-top: var(--s-3);
+  font-size: var(--body-fs);
+  line-height: var(--body-lh);
+  color: var(--ink-2);
+}
+
+.legal__content h2 + p,
+.legal__content h3 + p {
+  margin-top: var(--s-4);
+}
+
+/* Ruled rows rather than bullets, matching the promises and marking sections. */
+.legal__content ul {
+  margin-top: var(--s-5);
+}
+
+.legal__content li {
+  padding-bottom: var(--s-4);
+  border-bottom: var(--hairline-w) solid var(--hairline);
+}
+
+.legal__content li:first-child {
+  border-top: var(--hairline-w) solid var(--hairline);
+  padding-top: var(--s-4);
+}
+
+.legal__content a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal__content strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* A point that needs a real value before launch. Marked in the accent so it
+   is impossible to miss in review, and greppable by class name. */
+.legal__todo {
+  display: block;
+  margin-top: var(--s-5);
+  padding: var(--s-4) var(--s-5);
+  border-left: 2px solid var(--accent);
+  background: var(--raised);
+  color: var(--ink-2);
+}
+
+@media (max-width: 61.99rem) {
+  .legal__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .legal__toc {
+    position: static;
+  }
+}

@@ -1,84 +1,9 @@
 @import "./tokens.css";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-html,
-body,
-#root {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  line-height: var(--leading-normal);
-  color: var(--color-text);
-  background: var(--color-bg);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
-}
-
-img,
-svg {
-  display: block;
-  max-width: 100%;
-}
-
-ul,
-ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-::selection {
-  background: var(--color-primary-soft);
-  color: var(--color-text);
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
+/* Element resets live in theme.css's @layer base. Unlayered rules here would
+   out-specify every Tailwind utility — a bare `button { padding: 0 }` silently
+   flattened every padded button in the app. Nothing global belongs in this
+   file any more; it holds marketing component classes only. */
 
 .app-shell {
   min-height: 100vh;
@@ -90,12 +15,6 @@ ol {
   flex-direction: column;
   min-width: 0;
   min-height: 100vh;
-  margin-left: var(--dock-gutter);
-  transition: margin-left var(--duration) var(--ease);
-}
-
-.app-shell--dock-pinned .app-main {
-  margin-left: var(--dock-gutter-pinned);
 }
 
 .app-content {
@@ -363,7 +282,7 @@ ol {
   width: 100%;
   height: 140px;
   border-radius: var(--radius-lg);
-  background: linear-gradient(160deg, #fff 0%, #f0f0f5 100%);
+  background: linear-gradient(160deg, var(--color-surface) 0%, var(--color-bg-muted) 100%);
   border: 1px solid var(--color-border);
   display: grid;
   place-items: center;
@@ -569,7 +488,7 @@ ol {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: rgba(26, 26, 31, 0.55);
+  color: rgba(22, 24, 29, 0.55);
   background: rgba(255, 255, 255, 0.55);
 }
 
@@ -583,13 +502,13 @@ ol {
 .note-card__body {
   font-size: var(--text-sm);
   line-height: 1.5;
-  color: rgba(26, 26, 31, 0.78);
+  color: rgba(22, 24, 29, 0.78);
 }
 
 .note-card__meta {
   margin-top: 14px;
   font-size: 11px;
-  color: rgba(26, 26, 31, 0.5);
+  color: rgba(22, 24, 29, 0.5);
   font-weight: var(--weight-medium);
 }
 
@@ -639,11 +558,6 @@ ol {
 }
 
 @media (max-width: 900px) {
-  .app-main,
-  .app-shell--dock-pinned .app-main {
-    margin-left: 0;
-  }
-
   .grid-3,
   .grid-4 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -730,7 +644,7 @@ ol {
 
 .plan-card--featured {
   border-color: var(--color-primary);
-  box-shadow: 0 12px 32px rgba(91, 82, 240, 0.16);
+  box-shadow: 0 12px 32px rgba(22, 24, 29, 0.16);
 }
 
 .plan-card__flag {
@@ -809,13 +723,9 @@ ol {
   margin-top: auto;
 }
 
-.plan-card a {
+.plan-card a:not(.btn) {
   display: block;
   margin-top: auto;
-}
-
-.plan-card a .plan-card__cta {
-  margin-top: 0;
 }
 
 .pricing-guarantee {

@@ -1,0 +1,255 @@
+.mosaic-section__inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.mosaic-section h2 {
+  max-width: 16em;
+  margin-bottom: var(--s-6);
+}
+
+/* The gaps are the borders: no cell carries one, so junctions never
+   double-seam and the grid reads as a single object. */
+.mosaic {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 1px;
+  padding: 1px;
+  background: var(--border-strong);
+  border-radius: var(--r-3);
+  overflow: hidden;
+}
+
+.tile {
+  position: relative;
+  grid-column: var(--col);
+  grid-row: var(--row);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-5);
+  background: var(--raised-2);
+  overflow: hidden;
+  transition: background var(--dur-lift) var(--ease-standard);
+}
+
+.tile__body {
+  max-width: 34ch;
+}
+
+.tile__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Mercury's overlay anchor: the whole tile is clickable without nesting one
+   interactive element inside another. */
+.tile-overlay {
+  position: static;
+}
+
+.tile-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.tile__badge {
+  position: absolute;
+  top: var(--s-4);
+  right: var(--s-4);
+  display: grid;
+  place-items: center;
+  inline-size: 24px;
+  block-size: 24px;
+  border-radius: var(--r-pill);
+  background: color-mix(in oklab, var(--ink) 5%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity var(--dur-lift) var(--ease-standard),
+    background var(--dur-lift) var(--ease-standard);
+}
+
+.tile__badge svg {
+  transform: rotate(-45deg);
+  transition: transform var(--dur-lift) var(--ease-standard);
+}
+
+/* Linked tiles DIM rather than lift — the sunken ground shows through. */
+@media (hover: hover) {
+  .tile--link:hover {
+    background: var(--raised);
+  }
+
+  .tile--link:hover .tile__badge {
+    opacity: 1;
+    background: color-mix(in oklab, var(--ink) 10%, transparent);
+  }
+
+  .tile--link:hover .tile__badge svg {
+    transform: rotate(0deg);
+  }
+}
+
+.tile:focus-within .tile__badge {
+  opacity: 1;
+}
+
+.tile__mock {
+  margin-top: var(--s-5);
+}
+
+.tile__grade {
+  display: flex;
+  gap: var(--s-2);
+  align-items: baseline;
+}
+
+.tile__grade span {
+  flex: 1;
+  padding-block: var(--s-1);
+  text-align: center;
+  font-size: var(--label-fs);
+  font-weight: 600;
+  color: var(--ink-hushed);
+  border-top: 2px solid var(--hairline);
+}
+
+.tile__grade .is-now {
+  color: var(--accent);
+  border-top-color: var(--accent);
+}
+
+.tile__posts {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.tile__posts > div {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  padding-bottom: var(--s-2);
+  border-bottom: var(--hairline-w) solid var(--hairline);
+  font-size: var(--micro-fs);
+}
+
+.tile__post-who {
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.tile__post-q {
+  color: var(--ink-hushed);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tile__papers {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.tile__papers > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-3);
+  padding-bottom: var(--s-2);
+  border-bottom: var(--hairline-w) solid var(--hairline);
+}
+
+.tile__codes {
+  display: grid;
+  gap: var(--s-1);
+  color: var(--ink-hushed);
+}
+
+@media (max-width: 61.99rem) {
+  .mosaic {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .tile {
+    grid-column: span 2;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .mosaic {
+    grid-template-columns: 1fr;
+  }
+
+  .tile {
+    grid-area: auto;
+  }
+}
+
+.tile__filters {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.tile__filters span {
+  padding: 6px 10px;
+  border-radius: var(--r-1);
+  border: var(--hairline-w) solid var(--hairline);
+  font-size: var(--micro-fs);
+  color: var(--ink-hushed);
+}
+
+.tile__filters .is-on {
+  border-color: var(--accent-line);
+  background: var(--accent-wash);
+  color: var(--accent);
+}
+
+.tile__queue {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.tile__queue > div {
+  display: flex;
+  gap: var(--s-3);
+  padding-bottom: var(--s-2);
+  border-bottom: var(--hairline-w) solid var(--hairline);
+  font-size: var(--micro-fs);
+  color: var(--ink-hushed);
+}
+
+.tile__timer {
+  margin-top: var(--s-1);
+  font-size: var(--title-fs);
+  color: var(--ink);
+}
+
+.tile__due {
+  display: flex;
+  gap: var(--s-4);
+}
+
+.tile__due > div {
+  display: grid;
+  gap: var(--s-2);
+  justify-items: center;
+  font-size: var(--micro-fs);
+  color: var(--ink-hushed);
+}
+
+.tile__due i {
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+}

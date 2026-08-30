@@ -1,14 +1,13 @@
+import "@/styles/global.css";
 import { Check } from "lucide-react";
 import type { ReactNode } from "react";
-import { Brand } from "@/components/ui/Logo";
-import { GradeRail } from "@/components/layout/GradeRail";
+import { Brand } from "@/components/marketing/Logo";
 import "./AuthShell.css";
-import Link from "next/link";
 
 const PROOF_POINTS = [
-  "Unlimited past papers and PYQ mixes",
-  "Answers marked against official mark schemes",
-  "Your working grade tracked all the way to A*",
+  "Sectional mocks with real IBPS and SBI timing",
+  "Negative marking priced into every attempt decision",
+  "Daily current affairs, filed the way GA asks it",
 ];
 
 type Props = {
@@ -34,13 +33,11 @@ export function AuthShell({ title, subtitle, children, footer }: Props) {
       </div>
 
       <aside className="auth-shell__brand-side" aria-hidden>
-        <div className="auth-shell__rail">
-          <GradeRail collapsed={false} />
-        </div>
         <blockquote className="auth-shell__quote">
-          “I went from a low B to an A* in Biology. The marker told me exactly
-          which AO I kept dropping marks on.”
-          <cite>Priya · OCR Biology, 2026</cite>
+          “I was clearing the total and failing the English cutoff every time.
+          The attempt map showed me I was answering the questions I should have
+          been skipping.”
+          <cite>Priya · IBPS PO 2025</cite>
         </blockquote>
         <ul className="auth-shell__proof">
           {PROOF_POINTS.map((point) => (

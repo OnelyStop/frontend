@@ -2,37 +2,32 @@
 
 import { ShieldCheck } from "lucide-react";
 import { useApp } from "@/context/AppContext";
+import { PageHeader } from "@/design-system";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
 
 export function UpgradeView() {
   const { workingGrade, nextGrade } = useApp();
 
   return (
-    <div className="page">
-      <div className="pricing-header">
-        <div className="page__eyebrow">Upgrade</div>
-        <h1 className="page__title">
-          You're working at {workingGrade}.{" "}
-          {nextGrade
-            ? `Pro is built to get you to ${nextGrade} — and beyond.`
-            : "Pro keeps you there."}
-        </h1>
-        <p className="page__desc">
-          Unlimited marking, exams, and AI tools — everything on your path to
-          A*, one plan.
-        </p>
-      </div>
+    <>
+      <PageHeader
+        title={`You are tracking ${workingGrade}.${
+          nextGrade ? ` Pro moves you to ${nextGrade}.` : " Pro keeps you there."
+        }`}
+        sub="Unlimited mocks with real sectional timing, unlimited descriptive marking, and daily current affairs — one plan, no per-paper credits."
+      />
 
       <PlanGrid variant="app" />
 
-      <div className="pricing-guarantee">
-        <ShieldCheck size={18} strokeWidth={1.75} />
-        <p>
-          <strong>Grade-jump promise.</strong> Revise with Pro for 3 months —
-          if your working grade doesn't climb the A* Ascent rail, we'll refund
-          you in full.
+      <div className="card mt-8 flex items-start gap-3 p-5">
+        <ShieldCheck size={18} strokeWidth={1.75} className="mt-0.5 shrink-0" />
+        <p className="max-w-[74ch] text-[13.5px] leading-relaxed text-ink-2">
+          <strong className="font-semibold text-ink">Cutoff promise.</strong> Sit
+          at least eight full mocks on Pro in three months. If your weakest
+          section has not crossed its sectional cutoff, we refund the three
+          months in full.
         </p>
       </div>
-    </div>
+    </>
   );
 }

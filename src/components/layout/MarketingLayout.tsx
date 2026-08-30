@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/Button";
-import { Brand, LogoMark } from "@/components/ui/Logo";
+import "@/styles/global.css";
+import { ButtonLink } from "@/components/marketing/Button";
+import { Brand } from "@/components/marketing/Logo";
 import "./MarketingLayout.css";
 import Link from "next/link";
 
@@ -7,6 +8,10 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="mk-shell">
+      <Link href="/signup" className="mk-banner t-label">
+        Every past paper we can legally host is free, forever
+        <span aria-hidden>&nbsp;→</span>
+      </Link>
       <header className="mk-nav">
         <Brand href="/" />
         <nav className="mk-nav__links">
@@ -14,27 +19,19 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
           <a href="#pricing">Pricing</a>
         </nav>
         <div className="mk-nav__actions">
-          <Link href="/login">
-            <Button variant="ghost" size="sm">
-              Log in
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button size="sm">Start free</Button>
-          </Link>
+          <ButtonLink href="/login" variant="outline" size="sm">Log in</ButtonLink>
+          <ButtonLink href="/signup" size="sm">Start free</ButtonLink>
         </div>
       </header>
 
       {children}
 
       <footer className="mk-footer">
-        <div className="mk-footer__inner">
+        <div className="mk-footer__panel t-slab">
+          <div className="mk-footer__inner">
           <div className="mk-footer__brand">
-            <LogoMark />
-            <div>
-              <div className="mk-footer__name">onelystopp</div>
-              <p>Your one stop from first mock to A*.</p>
-            </div>
+            <div className="mk-footer__name">onelystop</div>
+            <p>Your one stop from first mock to A*.</p>
           </div>
           <div className="mk-footer__cols">
             <div>
@@ -49,17 +46,36 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
               <span>AQA</span>
               <span>Edexcel</span>
               <span>CIE</span>
+              <span>WJEC</span>
+            </div>
+            <div>
+              <div className="mk-footer__col-title">Revise</div>
+              <span>Past papers</span>
+              <span>PYQ mixes</span>
+              <span>AI exams</span>
+              <span>Memory</span>
             </div>
             <div>
               <div className="mk-footer__col-title">Company</div>
               <span>About</span>
               <span>Contact</span>
-              <span>Privacy</span>
+              <Link href="/privacy">Privacy</Link>
+              <Link href="/terms">Terms</Link>
             </div>
           </div>
         </div>
-        <div className="mk-footer__legal">
-          © {new Date().getFullYear()} onelystopp. All rights reserved.
+          <div className="mk-footer__legal">
+            <p>
+              © onelystop {new Date().getFullYear()} · Made for people sitting
+              these papers.
+            </p>
+            <p className="mk-footer__disclaimer">
+              onelystop is not affiliated with, endorsed by, or connected to
+              OCR, AQA, Pearson Edexcel or Cambridge International.
+              Specification codes are used to identify the syllabus a question
+              belongs to.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

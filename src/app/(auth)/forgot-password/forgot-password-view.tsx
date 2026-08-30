@@ -6,7 +6,7 @@ import { useAuth } from "@/features/auth/AuthContext";
 import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
 import { AuthShell } from "@/features/auth/components/AuthShell";
 import { AuthError, SetupNotice } from "@/features/auth/components/AuthBits";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/marketing/Button";
 import Link from "next/link";
 
 export function ForgotPasswordView() {

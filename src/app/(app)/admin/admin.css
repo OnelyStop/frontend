@@ -81,7 +81,7 @@
   padding: 12px 14px;
   border-radius: var(--radius-md);
   background: var(--color-warning-soft);
-  color: #8a6116;
+  color: var(--color-warning);
   font-size: var(--text-sm);
   line-height: var(--leading-snug);
 }
@@ -93,7 +93,7 @@
 
 .admin-hint code {
   font-size: 12px;
-  background: rgba(26, 26, 31, 0.07);
+  background: rgba(22, 24, 29, 0.07);
   padding: 1px 5px;
   border-radius: 4px;
 }

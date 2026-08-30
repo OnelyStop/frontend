@@ -5,8 +5,11 @@ import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { useApp } from "@/context/AppContext";
 
-// Light smoothing — takes the edge off native scroll without feeling floaty
-const SCROLL_DURATION = 0.5;
+const SCROLL_DURATION = 1.4;
+
+// Exponential ease-out: moves immediately on input, then settles. A linear or
+// symmetric curve at this duration is what reads as floaty.
+const SCROLL_EASING = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
 // Renders nothing — keeps the root layout a server component.
 export function SmoothScroll() {
@@ -20,7 +23,11 @@ export function SmoothScroll() {
     ) {
       return;
     }
-    const lenis = new Lenis({ duration: SCROLL_DURATION, smoothWheel: true });
+    const lenis = new Lenis({
+      duration: SCROLL_DURATION,
+      easing: SCROLL_EASING,
+      smoothWheel: true,
+    });
     let frame = requestAnimationFrame(function raf(time) {
       lenis.raf(time);
       frame = requestAnimationFrame(raf);
