@@ -142,7 +142,7 @@ jobs:
             grounds to request changes. Say them in the body and approve.
 
           track_progress: true
-          show_full_output: true
+          show_full_output: false
 
           claude_args: |
             --model claude-opus-4-8
