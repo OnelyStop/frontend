@@ -402,11 +402,13 @@ describe("the total deadline is a real ceiling", () => {
   // A 60s Retry-After against a 200ms budget previously slept the full 60s:
   // the sleep was never clamped, so the deadline bounded nothing.
   it("does not sleep past the deadline on a large Retry-After", async () => {
-    stubFetch((n) => (n === 1 ? badWith(429, { "retry-after": "30" }) : ok()));
+    stubFetch((n) => (n === 1 ? badWith(429, { "retry-after": "2" }) : ok()));
     const client = new OpenRouterClient({ totalTimeoutMs: 200, maxAttempts: 2 });
     const started = Date.now();
-    await expect(client.ask({ prompt: "hi" })).rejects.toBeInstanceOf(AiError);
-    expect(Date.now() - started).toBeLessThan(3_000);
+    // Whether the second attempt fits inside the remaining budget is a race, so
+    // the outcome is not the assertion -- the elapsed time is.
+    await client.ask({ prompt: "hi" }).catch(() => undefined);
+    expect(Date.now() - started).toBeLessThan(1_000);
   });
 
   // Entering the fallback with no time left throws a synthetic "deadline
