@@ -378,3 +378,62 @@ describe("an unexpected throw", () => {
     expect(entry.detail).toContain("SyntaxError");
   });
 });
+
+const slow = (ms: number, make: () => Response) => {
+  let n = 0;
+  const f = vi.fn(async (_u: RequestInfo | URL, init?: RequestInit) => {
+    calls.push(init!);
+    n++;
+    await new Promise((r) => setTimeout(r, ms));
+    return make();
+  });
+  vi.stubGlobal("fetch", f);
+  return f;
+};
+
+const logged = () =>
+  [
+    ...(console.log as unknown as { mock: { calls: unknown[][] } }).mock.calls,
+    ...(console.warn as unknown as { mock: { calls: unknown[][] } }).mock.calls,
+    ...(console.error as unknown as { mock: { calls: unknown[][] } }).mock.calls,
+  ].map(([l]) => JSON.parse(l as string));
+
+describe("the total deadline is a real ceiling", () => {
+  // A 60s Retry-After against a 200ms budget previously slept the full 60s:
+  // the sleep was never clamped, so the deadline bounded nothing.
+  it("does not sleep past the deadline on a large Retry-After", async () => {
+    stubFetch((n) => (n === 1 ? badWith(429, { "retry-after": "30" }) : ok()));
+    const client = new OpenRouterClient({ totalTimeoutMs: 200, maxAttempts: 2 });
+    const started = Date.now();
+    await expect(client.ask({ prompt: "hi" })).rejects.toBeInstanceOf(AiError);
+    expect(Date.now() - started).toBeLessThan(3_000);
+  });
+
+  // Entering the fallback with no time left throws a synthetic "deadline
+  // exceeded" that replaced the real reason the primary failed.
+  it("keeps the real failure instead of a synthetic timeout", async () => {
+    slow(200, () => bad(429));
+    const client = new OpenRouterClient({ totalTimeoutMs: 150, maxAttempts: 1 });
+    await expect(client.ask({ prompt: "hi" })).rejects.toMatchObject({
+      kind: "rate_limited",
+    });
+    expect(logged().find((l) => l.event === "openrouter.failed").kind).toBe("rate_limited");
+  });
+});
+
+describe("cost reporting", () => {
+  // OpenRouter sends cost on every response. An absent one silently reads as a
+  // free call, and a spend cap built on it would be counting zeroes.
+  it("says so when the provider reports no cost", async () => {
+    stubFetch(() => ok({ usage: { prompt_tokens: 10, completion_tokens: 4 } }));
+    const answer = await openrouter.ask({ prompt: "hi" });
+    expect(answer.costMicros).toBe(0);
+    expect(logged().map((l) => l.event)).toContain("openrouter.cost_missing");
+  });
+
+  it("stays quiet when cost is reported", async () => {
+    stubFetch(() => ok());
+    await openrouter.ask({ prompt: "hi" });
+    expect(logged().map((l) => l.event)).not.toContain("openrouter.cost_missing");
+  });
+});
