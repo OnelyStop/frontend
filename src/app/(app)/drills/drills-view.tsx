@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
-import { SECTIONS, SECTION_SHORT, type Subject } from "@/data/navigation";
+import { SECTIONS, SECTION_DB, SECTION_SHORT, type Subject } from "@/data/navigation";
+import type { DrillQuestion } from "@/features/question-bank/types";
 
 /* Drills. Defaults are the feature: land, press Start, you are practising.
    The set is already aimed at whatever the attempt map says is costing marks. */
@@ -11,24 +12,33 @@ import { SECTIONS, SECTION_SHORT, type Subject } from "@/data/navigation";
 const LENGTHS = [10, 20, 30] as const;
 const MODES = ["Weak topics", "Speed", "Mixed"] as const;
 
-const OPTIONS = ["arrive", "reach", "conclude", "gather"];
-
-export function DrillsView() {
+export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
   const { board } = useApp();
   const [section, setSection] = useState<Subject>(SECTIONS[2]);
   const [len, setLen] = useState<(typeof LENGTHS)[number]>(20);
   const [mode, setMode] = useState<(typeof MODES)[number]>("Weak topics");
   const [running, setRunning] = useState(false);
+  const [qIdx, setQIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
 
   const mins = Math.round((len * 45) / 60);
+  // "Weak topics"/"Speed"/"Mixed" don't change the pool yet — none of them
+  // have attempt data to aim at (see attempts/user_topic_stats in
+  // src/db/schema.ts: created, but nothing writes them until scoring lands).
+  const set = pool.filter((q) => q.section === SECTION_DB[section]).slice(0, len);
+  const q = set[qIdx];
 
-  if (running) {
+  function advance() {
+    setQIdx((i) => Math.min(set.length - 1, i + 1));
+    setPicked(null);
+  }
+
+  if (running && q) {
     return (
       <div>
         <PageHeader
           title={`${SECTION_SHORT[section]} drill`}
-          sub={`Question 1 of ${len} · ${mode.toLowerCase()}`}
+          sub={`Question ${qIdx + 1} of ${set.length} · ${mode.toLowerCase()}`}
           actions={
             <Button variant="secondary" onClick={() => setRunning(false)}>
               End drill
@@ -46,19 +56,17 @@ export function DrillsView() {
             <span className="tnum text-[13px] text-ink-3">11s / 45s</span>
           </div>
 
-          <p className="text-[17px] leading-relaxed">
-            In the following passage one word is missing. Choose the option that
-            best fits the blank.
-          </p>
-          <p className="mt-4 rounded-[14px] bg-canvas p-5 text-[16px] leading-relaxed text-ink-2 ring-1 ring-line">
-            The committee was unable to ______ a consensus despite three
-            sittings.
-          </p>
+          {q.direction ? (
+            <p className="mt-4 rounded-[14px] bg-canvas p-5 text-[16px] leading-relaxed text-ink-2 ring-1 ring-line">
+              {q.direction}
+            </p>
+          ) : null}
+          <p className="text-[17px] leading-relaxed">{q.stem}</p>
 
           <div className="mt-5 grid gap-2.5">
-            {OPTIONS.map((o, i) => (
+            {q.options.map((o, i) => (
               <button
-                key={o}
+                key={o.key}
                 onClick={() => setPicked(i)}
                 className={`flex items-center gap-3 rounded-ctl border px-4 py-3.5 text-left text-[15px] transition-all ${
                   picked === i
@@ -73,16 +81,22 @@ export function DrillsView() {
                       : "bg-line text-ink-3"
                   }`}
                 >
-                  {String.fromCharCode(65 + i)}
+                  {o.key.toUpperCase()}
                 </span>
-                {o}
+                {o.text}
               </button>
             ))}
           </div>
 
           <div className="mt-6 flex items-center gap-3 border-t border-line pt-5">
-            <Button disabled={picked === null}>Submit answer</Button>
-            <Button variant="ghost">Skip · costs nothing</Button>
+            {/* No `answer` exists on any question yet (pipeline step 4 hasn't
+                run), so this can only advance, not mark right or wrong. */}
+            <Button disabled={picked === null} onClick={advance}>
+              Submit answer
+            </Button>
+            <Button variant="ghost" onClick={advance}>
+              Skip · costs nothing
+            </Button>
           </div>
         </Card>
       </div>
@@ -94,7 +108,18 @@ export function DrillsView() {
       <PageHeader
         title={`${len} questions · ${SECTION_SHORT[section]} · ${mins} min`}
         sub={`Already aimed at the topics costing you marks in ${board}. Change anything, or just start.`}
-        actions={<Button onClick={() => setRunning(true)}>Start drill</Button>}
+        actions={
+          <Button
+            disabled={set.length === 0}
+            onClick={() => {
+              setQIdx(0);
+              setPicked(null);
+              setRunning(true);
+            }}
+          >
+            Start drill
+          </Button>
+        }
       />
 
       <Card>
@@ -124,8 +149,9 @@ export function DrillsView() {
         </div>
 
         <p className="mt-6 border-t border-line pt-4 text-[13px] leading-relaxed text-ink-3">
-          Weak topics pulls from the bottom-left of your attempt map. Speed
-          keeps the accuracy you have and cuts the clock.
+          {set.length === 0
+            ? `No ${SECTION_SHORT[section]} questions in the pool right now.`
+            : "Weak topics pulls from the bottom-left of your attempt map. Speed keeps the accuracy you have and cuts the clock."}
         </p>
       </Card>
     </div>

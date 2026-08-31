@@ -4,33 +4,14 @@ import { useEffect, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { Card, PageHeader, Segmented } from "@/design-system";
 import { SECTIONS, SECTION_SHORT } from "@/data/navigation";
+import type { Mock } from "@/features/question-bank/types";
 
 /* Mocks. Sectional timing is the thing banking aspirants actually train for —
    each section locks when its clock runs out, and you cannot go back. */
 
-type Mock = {
-  id: string;
-  name: string;
-  year: number;
-  stage: "Prelims" | "Mains";
-  qs: number;
-  mins: number;
-  score: number | null;
-  cutoff: number;
-};
-
-const MOCKS: Mock[] = [
-  { id: "m1", name: "IBPS PO", year: 2024, stage: "Prelims", qs: 100, mins: 60, score: 68, cutoff: 58 },
-  { id: "m2", name: "IBPS PO", year: 2023, stage: "Prelims", qs: 100, mins: 60, score: 54, cutoff: 56 },
-  { id: "m3", name: "SBI PO", year: 2024, stage: "Prelims", qs: 100, mins: 60, score: null, cutoff: 62 },
-  { id: "m4", name: "SBI PO", year: 2023, stage: "Mains", qs: 155, mins: 180, score: null, cutoff: 74 },
-  { id: "m5", name: "IBPS Clerk", year: 2024, stage: "Prelims", qs: 100, mins: 60, score: 79, cutoff: 60 },
-  { id: "m6", name: "RBI Grade B", year: 2024, stage: "Prelims", qs: 200, mins: 120, score: null, cutoff: 88 },
-];
-
 const STAGES = ["All", "Prelims", "Mains"] as const;
 
-export function MocksView() {
+export function MocksView({ mocks }: { mocks: Mock[] }) {
   const { board } = useApp();
   const [stage, setStage] = useState<(typeof STAGES)[number]>("All");
   const [live, setLive] = useState<Mock | null>(null);
@@ -39,7 +20,7 @@ export function MocksView() {
   const [qIdx, setQIdx] = useState(0);
   const [picked, setPicked] = useState<Record<number, number>>({});
 
-  const shown = MOCKS.filter((m) => stage === "All" || m.stage === stage);
+  const shown = mocks.filter((m) => stage === "All" || m.stage === stage);
 
   useEffect(() => {
     if (!live) return;

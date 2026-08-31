@@ -47,6 +47,18 @@ export const SECTION_SHORT: Record<Subject, string> = {
   "Computer Aptitude": "Computer",
 };
 
+/* The question bank labels sections with one word each (its own
+   classifier's vocabulary, in pipeline/2-classify/topic_taxonomy.json);
+   navigation uses the exam's full subject name. Joining a DB query on the
+   wrong one of these silently returns zero rows, not an error. */
+export const SECTION_DB: Record<Subject, string> = {
+  "Quantitative Aptitude": "Quantitative",
+  "Reasoning Ability": "Reasoning",
+  "English Language": "English",
+  "General Awareness": "GA",
+  "Computer Aptitude": "Computer",
+};
+
 /* Negative marking is 1/4 of a mark on every wrong answer across IBPS and SBI.
    It is the single fact that governs attempt strategy, so it lives here. */
 export const NEGATIVE_MARK = 0.25;
