@@ -4,9 +4,15 @@ import { MocksView } from "./mocks-view";
 
 export const metadata: Metadata = { title: "Mocks" };
 
-// Question-bank content only changes when the import script reruns, not on
-// every request — fetch on the server per docs/rendering.md, cache for an hour.
-export const revalidate = 3600;
+// ISR (revalidate) would be the ideal steady state per docs/rendering.md --
+// this data only changes when the import script reruns -- but ISR pre-renders
+// at build/deploy time too ("cooked at deploy"), which means every future
+// build queries `papers`/`questions` whether or not the migration from #14
+// has been applied to whatever database that build points at. force-dynamic
+// defers the query to request time instead, so a build never depends on
+// live schema state. Switch back to `export const revalidate = 3600` once
+// the migration + import are confirmed applied wherever this deploys.
+export const dynamic = "force-dynamic";
 
 export default async function Page() {
   const mocks = await listMockPapers();
