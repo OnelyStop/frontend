@@ -59,8 +59,6 @@ jobs:
       - name: Formatting
         run: bun run format:check
 
-      # A folder invented mid-PR looks reasonable in the diff and is expensive
-      # to undo once things import from it.
       - name: Every file sits in the folder that owns it
         run: bun run check:layout
 
@@ -79,26 +77,20 @@ jobs:
           }
 
       # One script, shared with .husky/pre-commit, so the two cannot drift.
-      # ESLint cannot run here — eslint-config-next loads typescript-eslint,
-      # which refuses TypeScript 7 — so these greps stand in for it.
       - name: Source guards
         run: bun run check:source
 
-      # tsc type-checks; it does not build. A route that fails to compile, a
-      # bad import, a server/client boundary violation — all of those pass
-      # types and break on deploy, where the feedback costs a Vercel round trip.
+      # tsc type-checks; it does not build. A bad import or a server/client
+      # boundary violation passes types and breaks on deploy.
       - name: Build
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
           NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
         run: bun run build
 
-      # Asks drizzle whether the schema and the migrations still agree, rather
-      # than comparing which files a PR happened to touch. The filename version
-      # failed on this very PR: schema.ts was reformatted and a comment
-      # removed, no SQL changed, and it reported a missing migration.
-      #
-      # generate never connects — the URL only has to parse.
+      # Asks drizzle, rather than comparing which files a PR touched — the
+      # filename version failed on a PR that only reformatted schema.ts.
+      # generate never connects, so the URL only has to parse.
       - name: Schema and migrations agree
         env:
           DATABASE_URL: postgresql://placeholder:placeholder@localhost:5432/placeholder

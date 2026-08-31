@@ -2,10 +2,6 @@
 # Fast gates only. Anything slower than a second or two gets bypassed with
 # --no-verify, and a hook people skip is worse than none because it looks like
 # cover. Types and tests run in pre-push, where the wait is already expected.
-#
-#     git config core.hooksPath .githooks
-#
-# One command, once per clone. Not a security control -- --no-verify skips it.
 
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)" || exit 1

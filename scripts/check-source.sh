@@ -1,15 +1,7 @@
 #!/bin/bash
 # The source guards, in one place so CI and the pre-commit hook cannot drift.
-#
-# Every one of these is a defect that reads as ordinary code: a focused test
-# that turns the suite green while running one case, a secret named so it ships
-# in the browser bundle, an amount written as a float. They are greps rather
-# than lint rules because ESLint cannot run here at all — eslint-config-next
-# loads typescript-eslint, which refuses TypeScript 7 (typescript-eslint#10940).
-#
-#     scripts/check-source.sh
-#
-# Exits non-zero on the first failing guard, listing what it found.
+# Each one is a defect that reads as ordinary code. Runs them all, then exits
+# non-zero if any failed, so one run names everything wrong.
 
 set -uo pipefail
 
@@ -53,10 +45,8 @@ guard "no @ts-ignore" \
   '@ts-ignore' \
   src
 
-# A NEXT_PUBLIC_ var is compiled into the browser bundle. Naming a secret one is
-# not a leak that shows up in review -- it looks like every other env var until
-# it is already public. The anon key is the exception: it is designed to be
-# public, and RLS is what protects the data behind it.
+# The anon key is the exception: it is public by design, and RLS is what
+# protects the data behind it.
 guard "no secret is named NEXT_PUBLIC_" \
   "a NEXT_PUBLIC_ var is carrying a secret — it ships in the bundle" \
   'NEXT_PUBLIC_[A-Z0-9_]*(SECRET|SERVICE|PRIVATE|TOKEN|PASSWORD)' \
@@ -84,9 +74,8 @@ guard "no secret assigned a literal" \
   '(SUPABASE_SERVICE_ROLE_KEY|RAZORPAY_KEY_SECRET|RAZORPAY_WEBHOOK_SECRET|DATABASE_URL|DIRECT_URL) *[:=] *["'"'"'][^"'"'"']' \
   . ':!*.md' ':!.github/workflows/' ':!scripts/' ':!*.test.ts'
 
-# Money is stored in minor units as integers. A float amount is a rounding error
-# on a real charge -- 7.99 * 100 is 798.9999… in float64 -- and it reads as
-# perfectly ordinary code.
+# 7.99 * 100 is 798.9999… in float64, and a rounding error on a real charge
+# reads as ordinary code.
 guard "amounts are integers" \
   "a minor-unit amount was written as a decimal" \
   '(amountMinor|amount_minor)[^=]*[=:] *[0-9]+\.[0-9]' \

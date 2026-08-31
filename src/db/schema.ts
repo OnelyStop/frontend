@@ -74,11 +74,8 @@ export const rolePermissions = pgTable(
   ],
 ).enableRLS();
 
-// Billing. Access is decided by one column: entitlements.access_until.
-// Everything else here -- Razorpay's subscription states, the payments, the
-// webhook events -- is the audit trail explaining how that timestamp got its
-// value. A feature asks "is access_until in the future", never "what is
-// Razorpay saying".
+// Access is one column: entitlements.access_until. Everything below is the
+// audit trail explaining how that timestamp got its value, never the check.
 
 export const billingInterval = pgEnum("billing_interval", [
   "monthly",

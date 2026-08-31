@@ -1,14 +1,10 @@
 #!/usr/bin/env node
 /**
- * Reject files that sit outside the folder that owns them.
+ * Reject files that sit outside the folder that owns them. This repo has
+ * already had an invented `src/infrastructure/` duplicating `src/lib/`.
  *
- * A folder invented mid-PR is how a codebase loses its shape: it looks
- * reasonable in the diff and is expensive to undo once things import from it.
- * This repo has already had one — an `src/infrastructure/` that duplicated
- * `src/lib/` and was only caught by a human reading the tree.
- *
- * Checked against what a commit would contain: tracked files plus untracked
- * non-ignored ones, so a new file in the wrong place fails before it lands.
+ * Checked against what a commit would contain — tracked plus untracked
+ * non-ignored — so a new file in the wrong place fails before it lands.
  */
 
 import { execFileSync } from "node:child_process";

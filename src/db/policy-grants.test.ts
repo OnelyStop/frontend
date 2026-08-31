@@ -70,9 +70,8 @@ describe("RLS policies", () => {
   });
 });
 
-// A table shipped without RLS is readable by anyone holding the anon key,
-// which is a public value. Nothing errors and no query fails — the data is
-// simply available, and it stays that way until someone notices.
+// A table without RLS is readable by anyone holding the anon key, which is
+// public by design. Nothing errors; the data is simply available.
 describe("row level security", () => {
   const text = sql();
 
@@ -98,9 +97,8 @@ describe("row level security", () => {
   });
 });
 
-// Drizzle is forward-only, so every rollback here is hand-written. A missing
-// one is discovered at the worst possible time — mid-incident, when the answer
-// needed is "how do I undo this".
+// Drizzle is forward-only, so every rollback is hand-written. A missing one is
+// found mid-incident.
 describe("rollbacks", () => {
   it("exist for every migration", () => {
     const forward = readdirSync(MIGRATIONS)

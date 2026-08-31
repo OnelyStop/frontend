@@ -1,14 +1,9 @@
 #!/bin/bash
-# The gates worth waiting for, plus a refusal to push straight to main.
-#
 # Types and tests live here rather than in pre-commit because they take about
-# fifteen seconds together. That is fine once per push and intolerable on every
-# commit, and a hook people bypass protects nothing.
+# fifteen seconds together: fine once per push, intolerable on every commit.
 #
-#     git config core.hooksPath .githooks
-#
-# Not a security control -- --no-verify skips it, and the protect-main ruleset
-# is the actual enforcement. This just saves the round trip.
+# The main refusal is a convenience — the protect-main ruleset is what actually
+# stops it, and --no-verify skips this. It saves the round trip.
 
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)" || exit 1
