@@ -209,22 +209,39 @@ async function main() {
           });
         directionsWritten += dirRows.length;
       }
+      const resolvedDirectionIds = new Set(dirRows.map((d) => d.directionId));
 
-      const qRows = paper.questions.map((q) => ({
-        qId: q.q_id,
-        paperId: q.paper_id,
-        qNum: q.q_num,
-        stem: q.stem ?? "",
-        options: q.options ?? {},
-        answer: q.answer ?? null,
-        explanation: q.explanation ?? null,
-        section: q.section ?? null,
-        topic: q.topic ?? null,
-        difficulty: q.difficulty ?? null,
-        directionId: q.direction_id ?? null,
-        contentHash: contentHash(q),
-        isActive: isActive(q),
-      }));
+      const qRows = paper.questions.map((q) => {
+        // A question can carry a direction_id with no direction_text anywhere
+        // in the paper (a real, rare extraction gap — confirmed: 1 of 15,399
+        // questions in the current bank). questions' FK into directions is on
+        // the (paper_id, direction_id) pair, so importing that id unresolved
+        // would violate it. Treat the question as standalone instead of
+        // failing the whole paper's import over one missing passage.
+        let directionId = q.direction_id ?? null;
+        if (directionId && !resolvedDirectionIds.has(directionId)) {
+          console.warn(
+            `[import-question-bank] ${q.q_id}: direction_id "${directionId}" has no ` +
+              `direction_text anywhere in this paper — importing as standalone.`,
+          );
+          directionId = null;
+        }
+        return {
+          qId: q.q_id,
+          paperId: q.paper_id,
+          qNum: q.q_num,
+          stem: q.stem ?? "",
+          options: q.options ?? {},
+          answer: q.answer ?? null,
+          explanation: q.explanation ?? null,
+          section: q.section ?? null,
+          topic: q.topic ?? null,
+          difficulty: q.difficulty ?? null,
+          directionId,
+          contentHash: contentHash(q),
+          isActive: isActive(q),
+        };
+      });
 
       for (const batch of chunk(qRows, CHUNK)) {
         await tx
