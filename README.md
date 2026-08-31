@@ -22,6 +22,32 @@ bun run build
 bun run start
 ```
 
+## Git hooks
+
+Husky installs them on `bun install` — there is nothing to run by hand.
+
+| Hook         | What it does                                                              | Cost    |
+| ------------ | ------------------------------------------------------------------------- | ------- |
+| `pre-commit` | formats the files you staged, then the source guards and the layout check | ~1.5s   |
+| `pre-push`   | types and tests, and refuses a direct push to `main`                      | ~15s    |
+| `commit-msg` | strips AI co-author trailers                                              | instant |
+
+The split is deliberate: anything slower than a second or two in `pre-commit`
+gets bypassed with `--no-verify`, and a hook people skip is worse than none
+because it looks like cover.
+
+None of them is enforcement — `--no-verify` skips all three, and CI plus the
+`protect-main` ruleset are what gate a merge. They exist to save the round trip.
+
+Run the same checks by hand:
+
+```bash
+bun run format        # write
+bun run format:check  # CI's version
+bun run check:layout
+bun run check:source
+```
+
 ## Deploy
 
 Vercel, framework preset **Next.js**. The build output is `.next` — Next.js
