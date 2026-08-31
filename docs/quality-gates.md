@@ -14,6 +14,7 @@ this is their enforcement.
 | Types | | ✓ | ✓ |
 | Tests | | ✓ | ✓ |
 | Build | | | ✓ |
+| Dependency advisories | | | ✓ |
 | Schema ↔ migrations | | | ✓ |
 | No direct push to `main` | | ✓ | ruleset |
 | Attribution trailers | commit-msg | | |
@@ -82,8 +83,27 @@ and a TODO with no ticket.
 The highest-value one is `.only`: it narrows a run to a single test and still
 exits 0, so CI goes green having stopped checking almost everything.
 
+**Dependencies.** `scripts/check-deps.mjs` fails on a high or critical
+advisory and reports the rest. The threshold is deliberate: the tree carries a
+moderate dev-only advisory today, and a gate that is red the day it lands gets
+bypassed rather than fixed.
+
 **In the test suite.** A table created without RLS, and a migration with no
 rollback.
+
+## Outside CI
+
+GitHub's own features are on for both repos, and they are free because the
+repos are public:
+
+- **Secret scanning with push protection.** This blocks a push carrying a
+  recognised credential, against GitHub's catalogue of hundreds of provider
+  formats. `check-source.sh` knows four patterns that we wrote; this is the
+  wider net, and it stops the push rather than reporting after.
+- **Dependabot security updates and vulnerability alerts.**
+
+History was scanned once when these were turned on: no credential has ever
+been committed, and `.env.local` has never been tracked.
 
 ## Adding a gate
 
@@ -116,3 +136,7 @@ biggest hole.
 cost of the TypeScript 7 choice.
 
 **No spend cap on AI calls.** One user can run up the bill.
+
+**Secret-scanning validity checks** stayed disabled — it did not take through
+the API. It tells you whether a detected credential is still live, which is
+worth turning on by hand in Settings → Code security.

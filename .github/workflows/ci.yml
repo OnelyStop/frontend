@@ -80,6 +80,11 @@ jobs:
       - name: Source guards
         run: bun run check:source
 
+      # Advisories are found by GitHub's Dependabot too, but only after a
+      # merge. This is the same information before one.
+      - name: Dependencies
+        run: bun run check:deps
+
       # tsc type-checks; it does not build. A bad import or a server/client
       # boundary violation passes types and breaks on deploy.
       - name: Build

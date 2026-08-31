@@ -10,6 +10,7 @@
     "format:check": "prettier --check .",
     "check:layout": "node scripts/check-layout.mjs",
     "check:source": "./scripts/check-source.sh",
+    "check:deps": "node scripts/check-deps.mjs",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
