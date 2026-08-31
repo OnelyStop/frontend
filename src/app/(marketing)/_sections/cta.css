@@ -34,7 +34,8 @@
   /* Two masks intersected: the horizontal one clears the middle, the vertical
      one fades the field out at the top and bottom so the band has no hard edge
      against the page. */
-  -webkit-mask-image: linear-gradient(
+  -webkit-mask-image:
+    linear-gradient(
       to right,
       #000 0%,
       transparent 36%,
@@ -49,7 +50,8 @@
       transparent 100%
     );
   -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(
+  mask-image:
+    linear-gradient(
       to right,
       #000 0%,
       transparent 36%,

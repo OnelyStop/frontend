@@ -74,7 +74,7 @@ export function DesignView() {
           {TOKENS.map(([name, value]) => (
             <div key={name} className="w-[112px]">
               <div
-                className="h-16 rounded-ctl border border-line"
+                className="rounded-ctl border-line h-16 border"
                 style={{ background: value }}
               />
               <p className="mt-2 text-[13px]">{name}</p>
@@ -87,9 +87,13 @@ export function DesignView() {
         <div className="grid gap-5">
           {TYPE.map(([name, cls, meta]) => (
             <div key={name} className="flex items-baseline gap-6">
-              <span className="w-28 shrink-0 text-[13px] text-ink-3">{name}</span>
+              <span className="text-ink-3 w-28 shrink-0 text-[13px]">
+                {name}
+              </span>
               <span className={cls}>The quick brown fox</span>
-              <span className="tnum ml-auto text-[13px] text-ink-4">{meta}</span>
+              <span className="tnum text-ink-4 ml-auto text-[13px]">
+                {meta}
+              </span>
             </div>
           ))}
         </div>
@@ -114,10 +118,17 @@ export function DesignView() {
         </div>
       </Section>
 
-      <Section title="Lattice" note="The signature layout — ruled ground, not objects">
+      <Section
+        title="Lattice"
+        note="The signature layout — ruled ground, not objects"
+      >
         <Lattice cols={4}>
           <LatticeCell>
-            <Stat label="Marks per minute" value="1.97" note="1.26 if you attempt everything" />
+            <Stat
+              label="Marks per minute"
+              value="1.97"
+              note="1.26 if you attempt everything"
+            />
           </LatticeCell>
           <LatticeCell>
             <Stat label="Bankable topics" value="9" note="fast and accurate" />
@@ -135,12 +146,12 @@ export function DesignView() {
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
           <Card>
             <SectionTitle aside="aside text">Card</SectionTitle>
-            <p className="text-[15px] leading-relaxed text-ink-2">
+            <p className="text-ink-2 text-[15px] leading-relaxed">
               White ground inside a hairline. No fill, no shadow — only menus
               and palettes lift.
             </p>
             <Divider className="my-5" />
-            <p className="text-[13px] text-ink-3">Divider above.</p>
+            <p className="text-ink-3 text-[13px]">Divider above.</p>
           </Card>
           <DarkPanel>
             <p className="text-[14px] text-white/50">DarkPanel</p>
@@ -155,7 +166,7 @@ export function DesignView() {
       <Section title="Data">
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
-            <p className="mb-3 text-[13px] text-ink-3">Badge</p>
+            <p className="text-ink-3 mb-3 text-[13px]">Badge</p>
             <div className="flex flex-wrap gap-2">
               <Badge>Neutral</Badge>
               <Badge tone="ok">Cleared</Badge>
@@ -164,7 +175,7 @@ export function DesignView() {
               <Badge tone="brand">Brand</Badge>
             </div>
 
-            <p className="mb-3 mt-8 text-[13px] text-ink-3">
+            <p className="text-ink-3 mt-8 mb-3 text-[13px]">
               CutoffBar — read against the notch, not a maximum
             </p>
             <div className="grid gap-4">
@@ -173,22 +184,29 @@ export function DesignView() {
               <CutoffBar value={null} cutoff={62} />
             </div>
 
-            <p className="mb-3 mt-8 text-[13px] text-ink-3">Meter</p>
+            <p className="text-ink-3 mt-8 mb-3 text-[13px]">Meter</p>
             <Meter value={71} />
           </div>
 
           <div>
-            <p className="mb-3 text-[13px] text-ink-3">Avatar and Kbd</p>
+            <p className="text-ink-3 mb-3 text-[13px]">Avatar and Kbd</p>
             <div className="flex items-center gap-4">
               <Avatar initials="AM" />
               <Avatar initials="AM" size={32} />
               <Kbd>⌘K</Kbd>
             </div>
 
-            <p className="mb-3 mt-8 text-[13px] text-ink-3">Popover rows</p>
-            <div className="rounded-[18px] border border-line p-1.5">
-              <MenuRow label="Attempt map" hint="Accuracy against pace" current />
-              <MenuRow label="Mocks" hint="Full papers under sectional timing" />
+            <p className="text-ink-3 mt-8 mb-3 text-[13px]">Popover rows</p>
+            <div className="border-line rounded-[18px] border p-1.5">
+              <MenuRow
+                label="Attempt map"
+                hint="Accuracy against pace"
+                current
+              />
+              <MenuRow
+                label="Mocks"
+                hint="Full papers under sectional timing"
+              />
             </div>
           </div>
         </div>
@@ -211,16 +229,24 @@ export function DesignView() {
               <Td>
                 <Badge tone="ok">Attempt first</Badge>
               </Td>
-              <Td align="right" className="tnum">92%</Td>
-              <Td align="right" className="tnum">2.45</Td>
+              <Td align="right" className="tnum">
+                92%
+              </Td>
+              <Td align="right" className="tnum">
+                2.45
+              </Td>
             </Tr>
             <Tr onClick={() => undefined}>
               <Td>Puzzles &amp; Seating</Td>
               <Td>
                 <Badge tone="bad">Skip in the exam</Badge>
               </Td>
-              <Td align="right" className="tnum">66%</Td>
-              <Td align="right" className="tnum">0.36</Td>
+              <Td align="right" className="tnum">
+                66%
+              </Td>
+              <Td align="right" className="tnum">
+                0.36
+              </Td>
             </Tr>
           </Table>
         </Card>
@@ -241,9 +267,17 @@ export function DesignView() {
           </div>
           <div className="mt-5 grid gap-5">
             <Field label="Bio" htmlFor="ds-bio">
-              <Textarea id="ds-bio" rows={3} defaultValue="Targeting IBPS PO 2026." />
+              <Textarea
+                id="ds-bio"
+                rows={3}
+                defaultValue="Targeting IBPS PO 2026."
+              />
             </Field>
-            <Field label="Email" htmlFor="ds-err" error="That address is already in use">
+            <Field
+              label="Email"
+              htmlFor="ds-err"
+              error="That address is already in use"
+            >
               <Input id="ds-err" defaultValue="taken@onelystop.app" />
             </Field>
             <Checkbox
@@ -253,7 +287,7 @@ export function DesignView() {
               onChange={(e) => setChecked(e.target.checked)}
             />
             <div>
-              <p className="mb-3 text-[13px] text-ink-3">Segmented</p>
+              <p className="text-ink-3 mb-3 text-[13px]">Segmented</p>
               <Segmented
                 value={seg}
                 options={["One", "Two", "Three"] as const}
@@ -288,9 +322,9 @@ function Section({
 }) {
   return (
     <section className="mb-16">
-      <div className="mb-6 flex items-baseline gap-4 border-b border-line pb-3">
+      <div className="border-line mb-6 flex items-baseline gap-4 border-b pb-3">
         <h2 className="text-[20px] tracking-[-0.02em]">{title}</h2>
-        {note ? <span className="text-[13px] text-ink-3">{note}</span> : null}
+        {note ? <span className="text-ink-3 text-[13px]">{note}</span> : null}
       </div>
       {children}
     </section>

@@ -109,6 +109,17 @@ jobs:
                list. If something can produce an empty result without erroring,
                that is a finding.
 
+            9. PLACEMENT. Every new file sits in the layer that owns it, and no
+               PR invents a folder that duplicates one. src/lib is shared
+               infrastructure a feature calls; src/features is one product area;
+               src/components and src/design-system are React; src/config holds
+               values and no behaviour; src/db, src/data and src/context each
+               own one thing. A new top-level folder, or a file whose job
+               belongs to a layer it does not sit in, is a finding — say which
+               existing folder it should go to. scripts/check-layout.mjs
+               enforces the extensions; it cannot tell whether a module is in
+               the right layer, which is the part worth reading for.
+
             Be specific and brief. Point at the line, say what breaks, say what
             to do instead. Do not invent findings to look useful.
 

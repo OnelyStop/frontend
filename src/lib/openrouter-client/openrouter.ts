@@ -23,7 +23,9 @@ type Settings = {
 
 function messagesFor(input: AskInput): Message[] {
   return [
-    ...(input.system ? [{ role: "system" as const, content: input.system }] : []),
+    ...(input.system
+      ? [{ role: "system" as const, content: input.system }]
+      : []),
     ...(input.history ?? []),
     { role: "user" as const, content: input.prompt },
   ];
@@ -59,7 +61,9 @@ function failureFields(error: unknown) {
 function retryAfterMs(header: string | null): number | undefined {
   if (!header) return undefined;
   const seconds = Number(header);
-  const ms = Number.isFinite(seconds) ? seconds * 1000 : Date.parse(header) - Date.now();
+  const ms = Number.isFinite(seconds)
+    ? seconds * 1000
+    : Date.parse(header) - Date.now();
   return ms > 0 && ms <= 60_000 ? ms : undefined;
 }
 
@@ -67,11 +71,16 @@ function readAnswer(body: unknown, asked: string, status: number): Answer {
   const payload = body as {
     model?: string;
     choices?: { message?: { content?: unknown } }[];
-    usage?: { prompt_tokens?: number; completion_tokens?: number; cost?: number };
+    usage?: {
+      prompt_tokens?: number;
+      completion_tokens?: number;
+      cost?: number;
+    };
   };
 
   const text = payload?.choices?.[0]?.message?.content;
-  if (typeof text !== "string") throw new AiError("upstream", status, "no content");
+  if (typeof text !== "string")
+    throw new AiError("upstream", status, "no content");
 
   const usage = payload.usage ?? {};
   // OpenRouter reports cost on every response, so an absent one means the shape
@@ -144,13 +153,16 @@ export class OpenRouterClient {
       ms: Date.now() - startedAt,
       ...failureFields(lastError),
     });
-    throw lastError ?? new AiError("upstream", undefined, "no model was attempted");
+    throw (
+      lastError ?? new AiError("upstream", undefined, "no model was attempted")
+    );
   }
 
   private settingsFor(input: AskInput): Settings {
     const d = this.defaults;
     const model = input.model ?? d.model ?? config.model;
-    const fallback = input.fallbackModel ?? d.fallbackModel ?? config.fallbackModel;
+    const fallback =
+      input.fallbackModel ?? d.fallbackModel ?? config.fallbackModel;
 
     return {
       models: fallback && fallback !== model ? [model, fallback] : [model],
@@ -168,7 +180,11 @@ export class OpenRouterClient {
     settings: Settings,
     deadline: number,
   ): Promise<Answer> {
-    let lastError: unknown = new AiError("timeout", undefined, "deadline exceeded");
+    let lastError: unknown = new AiError(
+      "timeout",
+      undefined,
+      "deadline exceeded",
+    );
 
     for (let attempt = 1; attempt <= settings.maxAttempts; attempt++) {
       const remaining = deadline - Date.now();
@@ -209,7 +225,12 @@ export class OpenRouterClient {
   ): Promise<Answer> {
     // Read here rather than in the config object, so logging it cannot leak the key.
     const key = process.env.OPENROUTER_API_KEY;
-    if (!key) throw new AiError("unauthorized", undefined, "OPENROUTER_API_KEY is not set");
+    if (!key)
+      throw new AiError(
+        "unauthorized",
+        undefined,
+        "OPENROUTER_API_KEY is not set",
+      );
 
     let response: Response;
     try {
@@ -232,7 +253,11 @@ export class OpenRouterClient {
       });
     } catch (error) {
       const timedOut = error instanceof Error && error.name === "TimeoutError";
-      throw new AiError(timedOut ? "timeout" : "upstream", undefined, String(error));
+      throw new AiError(
+        timedOut ? "timeout" : "upstream",
+        undefined,
+        String(error),
+      );
     }
 
     if (!response.ok) {

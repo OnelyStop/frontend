@@ -13,7 +13,8 @@ const payload = (over: Record<string, unknown> = {}) =>
     ...over,
   });
 
-const ok = (over?: Record<string, unknown>) => new Response(payload(over), { status: 200 });
+const ok = (over?: Record<string, unknown>) =>
+  new Response(payload(over), { status: 200 });
 const bad = (status: number) => new Response("no", { status });
 
 let calls: RequestInit[];
@@ -49,7 +50,10 @@ afterEach(() => {
 describe("shaping the request", () => {
   it("puts the system prompt first, then the question", async () => {
     stubFetch(() => ok());
-    await openrouter.ask({ system: "You are a tutor.", prompt: "What is CRR?" });
+    await openrouter.ask({
+      system: "You are a tutor.",
+      prompt: "What is CRR?",
+    });
     expect(sent().messages).toEqual([
       { role: "system", content: "You are a tutor." },
       { role: "user", content: "What is CRR?" },
@@ -59,7 +63,9 @@ describe("shaping the request", () => {
   it("sends only the question when there is no system prompt", async () => {
     stubFetch(() => ok());
     await openrouter.ask({ prompt: "What is CRR?" });
-    expect(sent().messages).toEqual([{ role: "user", content: "What is CRR?" }]);
+    expect(sent().messages).toEqual([
+      { role: "user", content: "What is CRR?" },
+    ]);
   });
 
   it("puts earlier turns between the system prompt and the new question", async () => {
@@ -82,7 +88,10 @@ describe("shaping the request", () => {
 
   it("sends history with no system prompt", async () => {
     stubFetch(() => ok());
-    await openrouter.ask({ history: [{ role: "user", content: "hi" }], prompt: "again" });
+    await openrouter.ask({
+      history: [{ role: "user", content: "hi" }],
+      prompt: "again",
+    });
     expect(sent().messages).toEqual([
       { role: "user", content: "hi" },
       { role: "user", content: "again" },
@@ -113,7 +122,9 @@ describe("shaping the request", () => {
     const f = stubFetch(() => ok());
     await openrouter.ask({ prompt: "hi" });
     expect(calls[0].body).not.toContain("test-key");
-    expect((calls[0].headers as Record<string, string>).Authorization).toBe("Bearer test-key");
+    expect((calls[0].headers as Record<string, string>).Authorization).toBe(
+      "Bearer test-key",
+    );
     expect(String(f.mock.calls[0][0])).not.toContain("test-key");
   });
 });
@@ -134,13 +145,17 @@ describe("the answer", () => {
 
   it("fails rather than returning an empty answer", async () => {
     stubFetch(() => ok({ choices: [] }));
-    await expect(openrouter.ask({ prompt: "hi" })).rejects.toMatchObject({ kind: "upstream" });
+    await expect(openrouter.ask({ prompt: "hi" })).rejects.toMatchObject({
+      kind: "upstream",
+    });
   });
 
   it("fails clearly with no key", async () => {
     vi.stubEnv("OPENROUTER_API_KEY", "");
     const f = stubFetch(() => ok());
-    await expect(openrouter.ask({ prompt: "hi" })).rejects.toBeInstanceOf(AiError);
+    await expect(openrouter.ask({ prompt: "hi" })).rejects.toBeInstanceOf(
+      AiError,
+    );
     expect(f).not.toHaveBeenCalled();
   });
 });
@@ -148,14 +163,17 @@ describe("the answer", () => {
 describe("failure handling", () => {
   it("does not retry a bad key", async () => {
     stubFetch(() => bad(401));
-    await expect(openrouter.ask({ prompt: "hi", fallbackModel: "backup/m" }))
-      .rejects.toMatchObject({ kind: "unauthorized" });
+    await expect(
+      openrouter.ask({ prompt: "hi", fallbackModel: "backup/m" }),
+    ).rejects.toMatchObject({ kind: "unauthorized" });
     expect(modelsAsked()).toEqual([config.model]);
   });
 
   it("does not retry a malformed request", async () => {
     const f = stubFetch(() => bad(400));
-    await expect(openrouter.ask({ prompt: "hi" })).rejects.toMatchObject({ kind: "bad_request" });
+    await expect(openrouter.ask({ prompt: "hi" })).rejects.toMatchObject({
+      kind: "bad_request",
+    });
     expect(f).toHaveBeenCalledTimes(1);
   });
 
@@ -177,8 +195,15 @@ describe("failure handling", () => {
   it("reports a timeout as a timeout", async () => {
     const boom = new Error("aborted");
     boom.name = "TimeoutError";
-    vi.stubGlobal("fetch", vi.fn(async () => { throw boom; }));
-    await expect(openrouter.ask({ prompt: "hi" })).rejects.toMatchObject({ kind: "timeout" });
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw boom;
+      }),
+    );
+    await expect(openrouter.ask({ prompt: "hi" })).rejects.toMatchObject({
+      kind: "timeout",
+    });
   });
 });
 
@@ -193,7 +218,11 @@ describe("fallback", () => {
 
   it("tries the fallback only after the primary is exhausted", async () => {
     stubFetch((n) => (n <= config.maxAttempts ? bad(503) : ok()));
-    await openrouter.ask({ prompt: "hi", model: "primary/m", fallbackModel: "backup/m" });
+    await openrouter.ask({
+      prompt: "hi",
+      model: "primary/m",
+      fallbackModel: "backup/m",
+    });
     expect(modelsAsked()).toEqual([
       ...Array(config.maxAttempts).fill("primary/m"),
       "backup/m",
@@ -202,8 +231,13 @@ describe("fallback", () => {
 
   it("does not try the same model twice when it is also the fallback", async () => {
     const f = stubFetch(() => bad(503));
-    await expect(openrouter.ask({ prompt: "hi", model: "same/m", fallbackModel: "same/m" }))
-      .rejects.toBeInstanceOf(AiError);
+    await expect(
+      openrouter.ask({
+        prompt: "hi",
+        model: "same/m",
+        fallbackModel: "same/m",
+      }),
+    ).rejects.toBeInstanceOf(AiError);
     expect(new Set(modelsAsked())).toEqual(new Set(["same/m"]));
     expect(f).toHaveBeenCalledTimes(config.maxAttempts);
   });
@@ -212,9 +246,12 @@ describe("fallback", () => {
 describe("logging", () => {
   const lines = () =>
     [
-      ...(console.log as unknown as { mock: { calls: unknown[][] } }).mock.calls,
-      ...(console.warn as unknown as { mock: { calls: unknown[][] } }).mock.calls,
-      ...(console.error as unknown as { mock: { calls: unknown[][] } }).mock.calls,
+      ...(console.log as unknown as { mock: { calls: unknown[][] } }).mock
+        .calls,
+      ...(console.warn as unknown as { mock: { calls: unknown[][] } }).mock
+        .calls,
+      ...(console.error as unknown as { mock: { calls: unknown[][] } }).mock
+        .calls,
     ].map(([l]) => JSON.parse(l as string));
 
   it("records the model, duration and cost of a successful call", async () => {
@@ -249,7 +286,9 @@ describe("logging", () => {
 
   it("records each failed attempt and the final failure", async () => {
     stubFetch(() => bad(503));
-    await expect(openrouter.ask({ prompt: "hi" })).rejects.toBeInstanceOf(AiError);
+    await expect(openrouter.ask({ prompt: "hi" })).rejects.toBeInstanceOf(
+      AiError,
+    );
     const events = lines().map((l) => l.event);
     expect(events.filter((e) => e === "openrouter.attempt_failed").length).toBe(
       config.maxAttempts * 2,
@@ -260,7 +299,9 @@ describe("logging", () => {
   it("says when the answer came from the fallback", async () => {
     stubFetch((n) => (n <= config.maxAttempts ? bad(503) : ok()));
     await openrouter.ask({ prompt: "hi" });
-    expect(lines().find((l) => l.event === "openrouter.ok")).toMatchObject({ fellBack: true });
+    expect(lines().find((l) => l.event === "openrouter.ok")).toMatchObject({
+      fellBack: true,
+    });
   });
 });
 
@@ -293,14 +334,22 @@ describe("per-feature instances", () => {
   // the same time, without either seeing the other's settings.
   it("keeps two features' settings apart", async () => {
     stubFetch(() => ok());
-    const tutor = new OpenRouterClient({ temperature: 0.7, model: "tutor/model" });
-    const news = new OpenRouterClient({ temperature: 0.3, model: "news/model" });
+    const tutor = new OpenRouterClient({
+      temperature: 0.7,
+      model: "tutor/model",
+    });
+    const news = new OpenRouterClient({
+      temperature: 0.3,
+      model: "news/model",
+    });
 
     await tutor.ask({ prompt: "hi" });
     await news.ask({ prompt: "hi" });
     await tutor.ask({ prompt: "hi" });
 
-    expect(calls.map((c) => JSON.parse(c.body as string).temperature)).toEqual([0.7, 0.3, 0.7]);
+    expect(calls.map((c) => JSON.parse(c.body as string).temperature)).toEqual([
+      0.7, 0.3, 0.7,
+    ]);
     expect(modelsAsked()).toEqual(["tutor/model", "news/model", "tutor/model"]);
   });
 
@@ -335,7 +384,9 @@ describe("deadlines and attempt limits", () => {
 
   it("still uses the config limit when the instance sets none", async () => {
     const f = stubFetch(() => bad(503));
-    await expect(openrouter.ask({ prompt: "hi" })).rejects.toBeInstanceOf(AiError);
+    await expect(openrouter.ask({ prompt: "hi" })).rejects.toBeInstanceOf(
+      AiError,
+    );
     expect(f).toHaveBeenCalledTimes(config.maxAttempts * 2);
   });
 });
@@ -352,7 +403,9 @@ describe("retry-after", () => {
   });
 
   it("ignores an absurd Retry-After rather than hanging", async () => {
-    const f = stubFetch((n) => (n === 1 ? badWith(429, { "retry-after": "9999" }) : ok()));
+    const f = stubFetch((n) =>
+      n === 1 ? badWith(429, { "retry-after": "9999" }) : ok(),
+    );
     const client = new OpenRouterClient({ maxAttempts: 2 });
     const started = Date.now();
     await client.ask({ prompt: "hi" });
@@ -366,11 +419,14 @@ describe("an unexpected throw", () => {
   // AiError. It must not be retried, and the log must keep its message.
   it("is not retried, and is logged with its detail rather than kind: undefined", async () => {
     const f = stubFetch(() => new Response("not json at all", { status: 200 }));
-    await expect(openrouter.ask({ prompt: "hi" })).rejects.toBeInstanceOf(Error);
+    await expect(openrouter.ask({ prompt: "hi" })).rejects.toBeInstanceOf(
+      Error,
+    );
     expect(f).toHaveBeenCalledTimes(1);
 
     const entry = [
-      ...(console.error as unknown as { mock: { calls: unknown[][] } }).mock.calls,
+      ...(console.error as unknown as { mock: { calls: unknown[][] } }).mock
+        .calls,
     ]
       .map(([l]) => JSON.parse(l as string))
       .find((l) => l.event === "openrouter.failed");
@@ -395,7 +451,8 @@ const logged = () =>
   [
     ...(console.log as unknown as { mock: { calls: unknown[][] } }).mock.calls,
     ...(console.warn as unknown as { mock: { calls: unknown[][] } }).mock.calls,
-    ...(console.error as unknown as { mock: { calls: unknown[][] } }).mock.calls,
+    ...(console.error as unknown as { mock: { calls: unknown[][] } }).mock
+      .calls,
   ].map(([l]) => JSON.parse(l as string));
 
 describe("the total deadline is a real ceiling", () => {
@@ -403,7 +460,10 @@ describe("the total deadline is a real ceiling", () => {
   // the sleep was never clamped, so the deadline bounded nothing.
   it("does not sleep past the deadline on a large Retry-After", async () => {
     stubFetch((n) => (n === 1 ? badWith(429, { "retry-after": "2" }) : ok()));
-    const client = new OpenRouterClient({ totalTimeoutMs: 200, maxAttempts: 2 });
+    const client = new OpenRouterClient({
+      totalTimeoutMs: 200,
+      maxAttempts: 2,
+    });
     const started = Date.now();
     // Whether the second attempt fits inside the remaining budget is a race, so
     // the outcome is not the assertion -- the elapsed time is.
@@ -415,11 +475,16 @@ describe("the total deadline is a real ceiling", () => {
   // exceeded" that replaced the real reason the primary failed.
   it("keeps the real failure instead of a synthetic timeout", async () => {
     slow(200, () => bad(429));
-    const client = new OpenRouterClient({ totalTimeoutMs: 150, maxAttempts: 1 });
+    const client = new OpenRouterClient({
+      totalTimeoutMs: 150,
+      maxAttempts: 1,
+    });
     await expect(client.ask({ prompt: "hi" })).rejects.toMatchObject({
       kind: "rate_limited",
     });
-    expect(logged().find((l) => l.event === "openrouter.failed").kind).toBe("rate_limited");
+    expect(logged().find((l) => l.event === "openrouter.failed").kind).toBe(
+      "rate_limited",
+    );
   });
 });
 
@@ -436,6 +501,8 @@ describe("cost reporting", () => {
   it("stays quiet when cost is reported", async () => {
     stubFetch(() => ok());
     await openrouter.ask({ prompt: "hi" });
-    expect(logged().map((l) => l.event)).not.toContain("openrouter.cost_missing");
+    expect(logged().map((l) => l.event)).not.toContain(
+      "openrouter.cost_missing",
+    );
   });
 });

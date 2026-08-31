@@ -1,0 +1,41 @@
+#!/bin/bash
+# Types and tests live here rather than in pre-commit because they take about
+# fifteen seconds together: fine once per push, intolerable on every commit.
+#
+# The main refusal is a convenience — the protect-main ruleset is what actually
+# stops it, and --no-verify skips this. It saves the round trip.
+
+set -uo pipefail
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+while read -r _local_ref _local_sha remote_ref _remote_sha; do
+  case "$remote_ref" in
+    refs/heads/main)
+      current=$(git rev-parse --abbrev-ref HEAD)
+      cat >&2 <<EOF
+
+  Direct push to main is not allowed.
+
+  You are on: $current
+
+  Open a pull request instead:
+
+      git switch -c <area>/<what-you-did>
+      git push -u origin <branch>
+      gh pr create
+
+  The protect-main ruleset would reject this anyway; this just saves the wait.
+
+EOF
+      exit 1
+      ;;
+  esac
+done
+
+echo "  types…"
+./node_modules/.bin/tsc --noEmit || exit 1
+
+echo "  tests…"
+./node_modules/.bin/vitest run --silent || exit 1
+
+echo "  ok"

@@ -2,11 +2,7 @@
    Sections replace subjects; the paper replaces the exam board. */
 
 export type ExamBoard =
-  | "IBPS PO"
-  | "IBPS Clerk"
-  | "SBI PO"
-  | "SBI Clerk"
-  | "RBI Grade B";
+  "IBPS PO" | "IBPS Clerk" | "SBI PO" | "SBI Clerk" | "RBI Grade B";
 
 export type Subject =
   | "Quantitative Aptitude"
@@ -197,7 +193,10 @@ export const FEATURE_MASTERY: Record<string, number> = {
   flashcards: 71,
 };
 
-export function bandFromScore(score: number): { band: Band; next: Band | null } {
+export function bandFromScore(score: number): {
+  band: Band;
+  next: Band | null;
+} {
   let index = 0;
   for (let i = 0; i < CUTOFF_LADDER.length; i++) {
     if (score >= CUTOFF_LADDER[i].threshold) index = i;
@@ -223,5 +222,7 @@ export function railPositionFromMastery(mastery: number): number {
 export const DESCRIPTIVE_EXAMS: ExamBoard[] = ["SBI PO", "RBI Grade B"];
 
 export function getMarkerLabel(exam: ExamBoard): string {
-  return DESCRIPTIVE_EXAMS.includes(exam) ? "Descriptive" : "Descriptive (Mains)";
+  return DESCRIPTIVE_EXAMS.includes(exam)
+    ? "Descriptive"
+    : "Descriptive (Mains)";
 }

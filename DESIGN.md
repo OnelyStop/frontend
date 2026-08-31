@@ -74,14 +74,14 @@ and the fill only turns red when it misses. `Meter` is for plain proportions.
 Defined in `styles/theme.css` under `@theme`, so every one is a real Tailwind
 utility (`bg-panel`, `text-ink-2`, `rounded-card`).
 
-| Group | Tokens |
-|---|---|
-| Ground | `canvas` (white page), `panel` (grey — hover and recessed only), `line`, `line-2` |
-| Ink | `ink`, `ink-2`, `ink-3`, `ink-4` |
-| Meaning | `ok`, `warn`, `bad`, `brand` — each with a `-soft` fill |
-| Sections | `quant`, `reasoning`, `english`, `ga`, `computer` |
-| Radius | `ctl` 12, `card` 24, `xl` 28, `pill` |
-| Shadow | `pop` — the only one. `card` and `xs` are `none` by design. |
+| Group    | Tokens                                                                            |
+| -------- | --------------------------------------------------------------------------------- |
+| Ground   | `canvas` (white page), `panel` (grey — hover and recessed only), `line`, `line-2` |
+| Ink      | `ink`, `ink-2`, `ink-3`, `ink-4`                                                  |
+| Meaning  | `ok`, `warn`, `bad`, `brand` — each with a `-soft` fill                           |
+| Sections | `quant`, `reasoning`, `english`, `ga`, `computer`                                 |
+| Radius   | `ctl` 12, `card` 24, `xl` 28, `pill`                                              |
+| Shadow   | `pop` — the only one. `card` and `xs` are `none` by design.                       |
 
 Custom utilities: `tnum` (tabular figures — use on every number that changes),
 `card`, `ruled` (the answer-sheet lines), `plot-in` (staggered entrance).

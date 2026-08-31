@@ -8,14 +8,7 @@ type Tile = {
   href?: string;
   col: string;
   row: string;
-  mock?:
-    | "grade"
-    | "papers"
-    | "codes"
-    | "filters"
-    | "queue"
-    | "due"
-    | "posts";
+  mock?: "grade" | "papers" | "codes" | "filters" | "queue" | "due" | "posts";
 };
 
 // Hand-placed and deliberately non-uniform — the non-uniformity is the cure
@@ -119,11 +112,13 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
   if (kind === "filters") {
     return (
       <div className="tile__mock tile__filters" aria-hidden>
-        {["3.1.2 Enzymes", "3.1.4 Transport", "4.2 Gas exchange"].map((f, i) => (
-          <span key={f} className={i === 1 ? "is-on" : undefined}>
-            {f}
-          </span>
-        ))}
+        {["3.1.2 Enzymes", "3.1.4 Transport", "4.2 Gas exchange"].map(
+          (f, i) => (
+            <span key={f} className={i === 1 ? "is-on" : undefined}>
+              {f}
+            </span>
+          ),
+        )}
       </div>
     );
   }
@@ -183,7 +178,7 @@ export function Mosaic() {
           {TILES.map((tile) => (
             <article
               key={tile.title}
-              className={`tile${tile.href ? " tile--link" : ""}`}
+              className={`tile${tile.href ? "tile--link" : ""}`}
               style={
                 { "--col": tile.col, "--row": tile.row } as React.CSSProperties
               }
