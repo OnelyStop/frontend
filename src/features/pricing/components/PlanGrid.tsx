@@ -22,7 +22,11 @@ type Props = {
   headingLevel?: 2 | 3;
 };
 
-function PlanCta({ plan, billing, variant }: Props & { plan: Plan; billing: BillingCycle }) {
+function PlanCta({
+  plan,
+  billing,
+  variant,
+}: Props & { plan: Plan; billing: BillingCycle }) {
   if (plan.id === "pro") {
     return (
       <ButtonLink
@@ -78,7 +82,9 @@ export function PlanGrid({ variant, headingLevel = 2 }: Props) {
           onClick={() => setBilling("annual")}
         >
           Annual
-          <span className="billing-toggle__save">Save {ANNUAL_SAVING_PCT}%</span>
+          <span className="billing-toggle__save">
+            Save {ANNUAL_SAVING_PCT}%
+          </span>
         </button>
       </div>
 

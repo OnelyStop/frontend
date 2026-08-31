@@ -27,16 +27,16 @@ bun run start
 Vercel, framework preset **Next.js**. The build output is `.next` — Next.js
 does not produce a `dist` directory.
 
-If a deploy fails with *"The Next.js output directory `dist` was not found"*,
+If a deploy fails with _"The Next.js output directory `dist` was not found"_,
 the project still has Vite's build settings saved in the dashboard. Fix at
 **Settings → Build and Deployment**:
 
-| Setting | Value |
-|---|---|
-| Framework Preset | Next.js |
-| Build Command | `bun run build` (or default) |
+| Setting          | Value                                                      |
+| ---------------- | ---------------------------------------------------------- |
+| Framework Preset | Next.js                                                    |
+| Build Command    | `bun run build` (or default)                               |
 | Output Directory | **clear the override** — leave it as the framework default |
-| Install Command | default (`bun.lock` is detected) |
+| Install Command  | default (`bun.lock` is detected)                           |
 
 Required environment variables — note the `NEXT_PUBLIC_` prefix, not `VITE_`:
 
@@ -57,19 +57,19 @@ https://<your-domain>/auth/callback
 
 ## Feature routes
 
-| Route | Feature |
-| --- | --- |
-| `/` | Home study path |
-| `/question-bank` | Question bank |
-| `/past-papers` | Past paper finder |
-| `/pyq-mix` | PYQ mix generator |
-| `/ai-exams` | AI-curated exams |
-| `/theory` | Theory & tricks |
-| `/revision` | Revision guide |
-| `/marker` | Answer / Essay / Long Answer Marker |
-| `/diagrams` | Diagram generator |
-| `/interview` | AI Interview |
-| `/tutor` | AI tutor |
-| `/progress` | Progress tracker |
-| `/memory` | A* memory |
-| `/notes` | Sticky notes |
+| Route            | Feature                             |
+| ---------------- | ----------------------------------- |
+| `/`              | Home study path                     |
+| `/question-bank` | Question bank                       |
+| `/past-papers`   | Past paper finder                   |
+| `/pyq-mix`       | PYQ mix generator                   |
+| `/ai-exams`      | AI-curated exams                    |
+| `/theory`        | Theory & tricks                     |
+| `/revision`      | Revision guide                      |
+| `/marker`        | Answer / Essay / Long Answer Marker |
+| `/diagrams`      | Diagram generator                   |
+| `/interview`     | AI Interview                        |
+| `/tutor`         | AI tutor                            |
+| `/progress`      | Progress tracker                    |
+| `/memory`        | A* memory                           |
+| `/notes`         | Sticky notes                        |

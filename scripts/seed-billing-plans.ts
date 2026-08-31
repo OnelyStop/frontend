@@ -30,11 +30,35 @@ import { createPlan } from "../src/features/billing/razorpay.server";
 // 1_500_000 paise stops renewing silently and starts interrupting the customer
 // once a year.
 const PLANS = [
-  { plan: "pro", interval: "monthly", currency: "INR", period: "monthly", amountMinor: 49_900 },
-  { plan: "pro", interval: "yearly", currency: "INR", period: "yearly", amountMinor: 499_900 },
+  {
+    plan: "pro",
+    interval: "monthly",
+    currency: "INR",
+    period: "monthly",
+    amountMinor: 49_900,
+  },
+  {
+    plan: "pro",
+    interval: "yearly",
+    currency: "INR",
+    period: "yearly",
+    amountMinor: 499_900,
+  },
   // USD mirrors the current pricing page: $7.99/mo, $59/yr.
-  { plan: "pro", interval: "monthly", currency: "USD", period: "monthly", amountMinor: 799 },
-  { plan: "pro", interval: "yearly", currency: "USD", period: "yearly", amountMinor: 5_900 },
+  {
+    plan: "pro",
+    interval: "monthly",
+    currency: "USD",
+    period: "monthly",
+    amountMinor: 799,
+  },
+  {
+    plan: "pro",
+    interval: "yearly",
+    currency: "USD",
+    period: "yearly",
+    amountMinor: 5_900,
+  },
 ] as const;
 
 const INR_AFA_LIMIT_MINOR = 1_500_000; // ₹15,000 in paise
@@ -52,7 +76,9 @@ async function main() {
 
     const name = `OnelyStop ${p.plan} (${p.interval}, ${p.currency})`;
     if (!apply) {
-      console.log(`  would create  ${name}  amount=${p.amountMinor} ${p.currency}`);
+      console.log(
+        `  would create  ${name}  amount=${p.amountMinor} ${p.currency}`,
+      );
       continue;
     }
 
@@ -78,14 +104,19 @@ async function main() {
       // Postgres cannot infer which index this conflicts on and the insert
       // fails outright instead of being skipped.
       .onConflictDoNothing({
-        target: [paymentPlans.plan, paymentPlans.interval, paymentPlans.currency],
+        target: [
+          paymentPlans.plan,
+          paymentPlans.interval,
+          paymentPlans.currency,
+        ],
         where: sql`${paymentPlans.active}`,
       });
 
     console.log(`  created  ${name}  ${created.id}`);
   }
 
-  if (!apply) console.log("\n  dry run — pass --apply to create these for real");
+  if (!apply)
+    console.log("\n  dry run — pass --apply to create these for real");
 }
 
 main()

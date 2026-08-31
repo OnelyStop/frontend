@@ -9,5 +9,7 @@ export default async function Page({
   searchParams: Promise<{ billing?: string }>;
 }) {
   const { billing } = await searchParams;
-  return <CheckoutView billing={billing === "monthly" ? "monthly" : "annual"} />;
+  return (
+    <CheckoutView billing={billing === "monthly" ? "monthly" : "annual"} />
+  );
 }

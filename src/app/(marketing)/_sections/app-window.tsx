@@ -13,9 +13,17 @@ const NAV_REVISE = [
 ];
 
 const ANSWER_ROWS = [
-  { mp: "MP1", text: "Oxygen diffuses from the alveolus into the blood", hit: true },
+  {
+    mp: "MP1",
+    text: "Oxygen diffuses from the alveolus into the blood",
+    hit: true,
+  },
   { mp: "MP2", text: "The alveolus wall is one cell thick", hit: true },
-  { mp: "MP3", text: "Blood flow maintains the concentration gradient", hit: false },
+  {
+    mp: "MP3",
+    text: "Blood flow maintains the concentration gradient",
+    hit: false,
+  },
   { mp: "MP4", text: "Many alveoli give a large surface area", hit: true },
 ];
 
@@ -44,7 +52,10 @@ export function AppWindow() {
             Aarav · Year 13
           </div>
           {NAV_MAIN.map(([label, count], i) => (
-            <span key={label} className={i === 3 ? "win__nav is-on" : "win__nav"}>
+            <span
+              key={label}
+              className={i === 3 ? "win__nav is-on" : "win__nav"}
+            >
               {label}
               {count ? <i>{count}</i> : null}
             </span>
@@ -75,10 +86,10 @@ export function AppWindow() {
 
           <div className="win__paper">
             <p>
-              Oxygen diffuses from the alveolus into the blood because there is a
-              higher concentration in the air sac. The alveolus wall is one cell
-              thick, so the diffusion distance is short. There are many alveoli,
-              which gives a large surface area for exchange.
+              Oxygen diffuses from the alveolus into the blood because there is
+              a higher concentration in the air sac. The alveolus wall is one
+              cell thick, so the diffusion distance is short. There are many
+              alveoli, which gives a large surface area for exchange.
             </p>
           </div>
 

@@ -59,7 +59,10 @@ describe("RLS policies", () => {
     const missing = policies(text)
       .filter(({ table, verb, role }) => {
         if (role === "service_role") return false; // bypasses RLS entirely
-        return !held.has(`${table}:${verb}:${role}`) && !held.has(`${table}:ALL:${role}`);
+        return (
+          !held.has(`${table}:${verb}:${role}`) &&
+          !held.has(`${table}:ALL:${role}`)
+        );
       })
       .map(({ table, verb, role }) => `${table}: FOR ${verb} TO ${role}`);
 

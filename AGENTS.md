@@ -61,14 +61,14 @@ useful conclusion.
 
 Check the feature against the relevant OWASP material before designing it:
 
-| Feature touches | Read |
-|---|---|
-| Anything user-facing | [OWASP Top 10](https://owasp.org/www-project-top-ten/) |
-| Login, sessions, password reset | Authentication + Session Management cheat sheets |
-| Roles, admin, permissions | Authorization + Access Control cheat sheets |
-| Forms, uploads, imports | Input Validation + File Upload cheat sheets |
-| Payments, webhooks | Verify signatures; never trust client-reported amounts |
-| LLM calls | [OWASP Top 10 for LLM Apps](https://owasp.org/www-project-top-10-for-large-language-model-applications/) — prompt injection, output handling, cost/DoS |
+| Feature touches                 | Read                                                                                                                                                   |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Anything user-facing            | [OWASP Top 10](https://owasp.org/www-project-top-ten/)                                                                                                 |
+| Login, sessions, password reset | Authentication + Session Management cheat sheets                                                                                                       |
+| Roles, admin, permissions       | Authorization + Access Control cheat sheets                                                                                                            |
+| Forms, uploads, imports         | Input Validation + File Upload cheat sheets                                                                                                            |
+| Payments, webhooks              | Verify signatures; never trust client-reported amounts                                                                                                 |
+| LLM calls                       | [OWASP Top 10 for LLM Apps](https://owasp.org/www-project-top-10-for-large-language-model-applications/) — prompt injection, output handling, cost/DoS |
 
 Stack-specific rules that have already bitten this codebase:
 

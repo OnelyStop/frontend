@@ -5,7 +5,6 @@ import "./MarketingLayout.css";
 import Link from "next/link";
 
 export function MarketingLayout({ children }: { children: React.ReactNode }) {
-
   return (
     <div className="mk-shell">
       <Link href="/signup" className="mk-banner t-label">
@@ -19,8 +18,12 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
           <a href="#pricing">Pricing</a>
         </nav>
         <div className="mk-nav__actions">
-          <ButtonLink href="/login" variant="outline" size="sm">Log in</ButtonLink>
-          <ButtonLink href="/signup" size="sm">Start free</ButtonLink>
+          <ButtonLink href="/login" variant="outline" size="sm">
+            Log in
+          </ButtonLink>
+          <ButtonLink href="/signup" size="sm">
+            Start free
+          </ButtonLink>
         </div>
       </header>
 
@@ -29,41 +32,41 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
       <footer className="mk-footer">
         <div className="mk-footer__panel t-slab">
           <div className="mk-footer__inner">
-          <div className="mk-footer__brand">
-            <div className="mk-footer__name">onelystop</div>
-            <p>Your one stop from first mock to A*.</p>
+            <div className="mk-footer__brand">
+              <div className="mk-footer__name">onelystop</div>
+              <p>Your one stop from first mock to A*.</p>
+            </div>
+            <div className="mk-footer__cols">
+              <div>
+                <div className="mk-footer__col-title">Product</div>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <Link href="/signup">Question bank</Link>
+              </div>
+              <div>
+                <div className="mk-footer__col-title">Boards</div>
+                <span>OCR</span>
+                <span>AQA</span>
+                <span>Edexcel</span>
+                <span>CIE</span>
+                <span>WJEC</span>
+              </div>
+              <div>
+                <div className="mk-footer__col-title">Revise</div>
+                <span>Past papers</span>
+                <span>PYQ mixes</span>
+                <span>AI exams</span>
+                <span>Memory</span>
+              </div>
+              <div>
+                <div className="mk-footer__col-title">Company</div>
+                <span>About</span>
+                <span>Contact</span>
+                <Link href="/privacy">Privacy</Link>
+                <Link href="/terms">Terms</Link>
+              </div>
+            </div>
           </div>
-          <div className="mk-footer__cols">
-            <div>
-              <div className="mk-footer__col-title">Product</div>
-              <a href="#features">Features</a>
-              <a href="#pricing">Pricing</a>
-              <Link href="/signup">Question bank</Link>
-            </div>
-            <div>
-              <div className="mk-footer__col-title">Boards</div>
-              <span>OCR</span>
-              <span>AQA</span>
-              <span>Edexcel</span>
-              <span>CIE</span>
-              <span>WJEC</span>
-            </div>
-            <div>
-              <div className="mk-footer__col-title">Revise</div>
-              <span>Past papers</span>
-              <span>PYQ mixes</span>
-              <span>AI exams</span>
-              <span>Memory</span>
-            </div>
-            <div>
-              <div className="mk-footer__col-title">Company</div>
-              <span>About</span>
-              <span>Contact</span>
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/terms">Terms</Link>
-            </div>
-          </div>
-        </div>
           <div className="mk-footer__legal">
             <p>
               © onelystop {new Date().getFullYear()} · Made for people sitting

@@ -9,10 +9,30 @@ import { SECTION_KEY, SECTION_SHORT, SECTIONS } from "@/data/navigation";
    cleared, and where the marks went. */
 
 const SITTINGS = [
-  { paper: "IBPS PO Prelims · Mock 14", date: "26 Aug", score: 58.5, cleared: 4 },
-  { paper: "SBI PO Prelims · Mock 09", date: "22 Aug", score: 54.25, cleared: 3 },
-  { paper: "IBPS PO Prelims · Mock 13", date: "18 Aug", score: 61.0, cleared: 5 },
-  { paper: "IBPS Clerk Prelims · Mock 06", date: "14 Aug", score: 66.75, cleared: 5 },
+  {
+    paper: "IBPS PO Prelims · Mock 14",
+    date: "26 Aug",
+    score: 58.5,
+    cleared: 4,
+  },
+  {
+    paper: "SBI PO Prelims · Mock 09",
+    date: "22 Aug",
+    score: 54.25,
+    cleared: 3,
+  },
+  {
+    paper: "IBPS PO Prelims · Mock 13",
+    date: "18 Aug",
+    score: 61.0,
+    cleared: 5,
+  },
+  {
+    paper: "IBPS Clerk Prelims · Mock 06",
+    date: "14 Aug",
+    score: 66.75,
+    cleared: 5,
+  },
 ];
 
 const SECTION_BEST = [72, 68, 54, 81, 88];
@@ -28,7 +48,7 @@ export function ProfileView() {
         actions={
           <Link
             href="/settings"
-            className="inline-flex h-9 items-center rounded-ctl border border-line bg-canvas px-3.5 text-[14px] font-medium transition-colors hover:border-line-2"
+            className="rounded-ctl border-line bg-canvas hover:border-line-2 inline-flex h-9 items-center border px-3.5 text-[14px] font-medium transition-colors"
           >
             Edit in settings
           </Link>
@@ -37,20 +57,20 @@ export function ProfileView() {
 
       <Card className="flex flex-wrap items-center gap-5">
         <span
-          className="grid size-16 shrink-0 place-items-center rounded-full bg-ink text-xl text-white"
+          className="bg-ink grid size-16 shrink-0 place-items-center rounded-full text-xl text-white"
           aria-hidden
         >
           {initials}
         </span>
         <div className="min-w-[200px] flex-1">
           <p className="text-[20px]">{profile.name}</p>
-          <p className="mt-0.5 text-[14px] text-ink-3">{profile.email}</p>
-          <p className="text-[14px] text-ink-3">
+          <p className="text-ink-3 mt-0.5 text-[14px]">{profile.email}</p>
+          <p className="text-ink-3 text-[14px]">
             {profile.school} · Target {profile.examYear}
           </p>
         </div>
         {profile.bio ? (
-          <p className="max-w-[46ch] border-l border-line pl-5 text-[14px] leading-relaxed text-ink-2">
+          <p className="border-line text-ink-2 max-w-[46ch] border-l pl-5 text-[14px] leading-relaxed">
             {profile.bio}
           </p>
         ) : null}
@@ -64,10 +84,8 @@ export function ProfileView() {
           ["Points", points.toLocaleString("en-IN")],
         ].map(([label, value]) => (
           <Card key={label} className="p-5">
-            <div className="tnum text-[28px] leading-none">
-              {value}
-            </div>
-            <div className="mt-2 text-[13px] text-ink-3">{label}</div>
+            <div className="tnum text-[28px] leading-none">{value}</div>
+            <div className="text-ink-3 mt-2 text-[13px]">{label}</div>
           </Card>
         ))}
       </div>
@@ -87,30 +105,28 @@ export function ProfileView() {
                     }}
                   />
                 </div>
-                <div className="tnum mt-2 text-[13px]">
-                  {SECTION_BEST[i]}
-                </div>
-                <div className="text-[12px] text-ink-4">{SECTION_SHORT[s]}</div>
+                <div className="tnum mt-2 text-[13px]">{SECTION_BEST[i]}</div>
+                <div className="text-ink-4 text-[12px]">{SECTION_SHORT[s]}</div>
               </div>
             ))}
           </div>
         </Card>
 
         <Card pad={false}>
-          <div className="px-6 pb-2 pt-6">
+          <div className="px-6 pt-6 pb-2">
             <SectionTitle>Recent sittings</SectionTitle>
           </div>
-          <div className="divide-y divide-line">
+          <div className="divide-line divide-y">
             {SITTINGS.map((s) => (
               <div key={s.paper} className="flex items-center gap-4 px-6 py-4">
                 <span className="min-w-0 flex-1 truncate text-[14px] font-medium">
                   {s.paper}
                 </span>
-                <span className="tnum shrink-0 text-[13px] text-ink-3">
+                <span className="tnum text-ink-3 shrink-0 text-[13px]">
                   {s.date}
                 </span>
                 <span
-                  className={`tnum shrink-0 rounded-pill px-2 py-0.5 text-[11.5px] font-medium ${
+                  className={`tnum rounded-pill shrink-0 px-2 py-0.5 text-[11.5px] font-medium ${
                     s.cleared === 5
                       ? "bg-ok-soft text-ok"
                       : "bg-warn-soft text-warn"

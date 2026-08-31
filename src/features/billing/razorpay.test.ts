@@ -46,7 +46,10 @@ describe("subscription callback signature", () => {
   });
 
   it("rejects a signature made with a different secret", () => {
-    const signature = sign("someone_elses_secret", `${paymentId}|${subscriptionId}`);
+    const signature = sign(
+      "someone_elses_secret",
+      `${paymentId}|${subscriptionId}`,
+    );
     expect(
       verifySubscriptionSignature({ paymentId, subscriptionId, signature }),
     ).toBe(false);
@@ -73,7 +76,9 @@ describe("webhook signature", () => {
   const rawBody = '{ "event": "subscription.charged", "payload": { "a": 1 } }';
 
   it("accepts a signature over the raw body", () => {
-    expect(verifyWebhookSignature(rawBody, sign(WEBHOOK_SECRET, rawBody))).toBe(true);
+    expect(verifyWebhookSignature(rawBody, sign(WEBHOOK_SECRET, rawBody))).toBe(
+      true,
+    );
   });
 
   // Parsing and re-serialising changes key order and whitespace, so the hash no
@@ -89,7 +94,9 @@ describe("webhook signature", () => {
   });
 
   it("rejects the key secret used in place of the webhook secret", () => {
-    expect(verifyWebhookSignature(rawBody, sign(KEY_SECRET, rawBody))).toBe(false);
+    expect(verifyWebhookSignature(rawBody, sign(KEY_SECRET, rawBody))).toBe(
+      false,
+    );
   });
 
   it("throws when the webhook secret is missing, rather than accepting", () => {

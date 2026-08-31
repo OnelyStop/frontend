@@ -33,11 +33,7 @@ export type Answer = {
 };
 
 export type AiFailure =
-  | "unauthorized"
-  | "rate_limited"
-  | "timeout"
-  | "upstream"
-  | "bad_request";
+  "unauthorized" | "rate_limited" | "timeout" | "upstream" | "bad_request";
 
 export class AiError extends Error {
   constructor(

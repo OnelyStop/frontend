@@ -72,7 +72,9 @@ export async function listPlans(
   const rows = await db
     .select()
     .from(paymentPlans)
-    .where(and(eq(paymentPlans.currency, currency), eq(paymentPlans.active, true)));
+    .where(
+      and(eq(paymentPlans.currency, currency), eq(paymentPlans.active, true)),
+    );
 
   return rows.map(({ id, plan, interval, amountMinor }) => ({
     id,
