@@ -16,12 +16,14 @@ src/design-system/
   index.ts                 single entry — import everything from "@/design-system"
   styles/theme.css         tokens (@theme) + base layer + custom utilities
   lib/cn.ts                clsx + tailwind-merge, so a caller's class always wins
+  lib/motion.ts            shared framer-motion constants — springs, easings, variants
   components/
     button.tsx             Button, ButtonLink, IconButton
     surface.tsx            Card, DarkPanel, Lattice, LatticeCell, Popover, MenuRow
     form.tsx               Field, Input, Textarea, Select, Checkbox, Segmented
     data.tsx               Badge, Stat, Meter, CutoffBar, Avatar, Kbd, Table
     page.tsx               PageHeader, SectionTitle, Empty, Divider
+    option.tsx             OptionRow — the MCQ answer control
 ```
 
 This mirrors what production systems do — `components/` + `styles/` + `lib/`
@@ -69,10 +71,41 @@ ghost is text. One height per size, one radius.
 in this domain the threshold is the whole story, so the track carries a notch
 and the fill only turns red when it misses. `Meter` is for plain proportions.
 
+## Motion
+
+Two rules drive every animation in the system:
+
+- **Colour and opacity never overshoot.** A border or fill change is a plain
+  eased tween. Only a transform (scale) is allowed to spring.
+- **Deselecting is faster than selecting, and runs concurrently.** Sequencing
+  them reads as lag.
+
+`.press` (a `@utility` in `theme.css`) is the default tap feedback — `scale(0.97)`
+on `:active`, asymmetric: 120ms down, 200ms back up. It ships on `Button` and
+`IconButton` already; add it to any other clickable element by hand.
+
+`lib/motion.ts` holds the framer-motion equivalents (`EASE_SWIFT`,
+`INDICATOR_SPRING`, `questionVariants`) so components can't drift onto
+different numbers than the CSS tokens below.
+
+**`OptionRow`** is the MCQ answer control, shared by `/mocks` and `/drills` —
+don't hand-roll a second one. Border/fill tween on select; the A/B/C/D badge
+stays visible always (it's a label, not a checkmark) and springs on selection,
+since scale is the one transform allowed to overshoot.
+
+**Reduced motion.** `AppProvider` wraps the app in `MotionConfig`, driven by
+whichever fires first: the Settings "Reduce motion" toggle or the OS
+`prefers-reduced-motion`. It also mirrors the flag onto
+`<html data-reduce-motion>`, because framer-motion's own handling doesn't
+reach plain CSS — that's what `.press` checks.
+
 ## Tokens
 
-Defined in `styles/theme.css` under `@theme`, so every one is a real Tailwind
-utility (`bg-panel`, `text-ink-2`, `rounded-card`).
+Defined in `styles/theme.css` under `@theme`, so most become real Tailwind
+utilities (`bg-panel`, `text-ink-2`, `rounded-card`). Exception: the
+`duration-*` tokens — Tailwind's `duration-<N>` utilities take a bare
+millisecond number, not a theme lookup, so those two only work via `var()`
+in raw CSS (that's how `.press` itself uses them).
 
 | Group | Tokens |
 |---|---|
@@ -82,14 +115,20 @@ utility (`bg-panel`, `text-ink-2`, `rounded-card`).
 | Sections | `quant`, `reasoning`, `english`, `ga`, `computer` |
 | Radius | `ctl` 12, `card` 24, `xl` 28, `pill` |
 | Shadow | `pop` — the only one. `card` and `xs` are `none` by design. |
+| Motion | `ease-soft`, `ease-swift`, `ease-decelerate`, `ease-accelerate`, `duration-press` 120ms, `duration-slow` 200ms |
 
 Custom utilities: `tnum` (tabular figures — use on every number that changes),
-`card`, `ruled` (the answer-sheet lines), `plot-in` (staggered entrance).
+`card`, `ruled` (the answer-sheet lines), `plot-in` (staggered entrance),
+`press` (tap feedback — see Motion above).
 
-**Never name a token something the legacy `src/styles/tokens.css` also
-defines.** It loads after the theme on marketing pages, and a collision
-silently reverts the value — `--color-surface` did exactly this and made every
-panel render white for an afternoon. That is why the ground token is `panel`.
+**Never name a token something a legacy stylesheet also defines** —
+`src/styles/tokens.css` (marketing/auth/admin pages) or
+`components/layout/MarketingLayout.css`. Either loads after the theme on the
+pages that use it, and a same-named token silently reverts to their value
+instead of erroring. Two incidents so far: `--color-surface` did this and made
+every panel render white for an afternoon (the ground token is `panel` because
+of it); the obvious motion name `--ease-standard` was already claimed with a
+*different* value by those two files, so the token here is `-swift` instead.
 
 ## Adding a component
 

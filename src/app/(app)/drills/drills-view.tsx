@@ -1,8 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { useApp } from "@/context/AppContext";
-import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
+import {
+  Button,
+  Card,
+  OptionRow,
+  PageHeader,
+  SectionTitle,
+  questionVariants,
+} from "@/design-system";
 import { SECTIONS, SECTION_DB, SECTION_SHORT, type Subject } from "@/data/navigation";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
@@ -56,36 +64,39 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
             <span className="tnum text-[13px] text-ink-3">11s / 45s</span>
           </div>
 
-          {q.direction ? (
-            <p className="mt-4 rounded-[14px] bg-canvas p-5 text-[16px] leading-relaxed text-ink-2 ring-1 ring-line">
-              {q.direction}
-            </p>
-          ) : null}
-          <p className="text-[17px] leading-relaxed">{q.stem}</p>
-
-          <div className="mt-5 grid gap-2.5">
-            {q.options.map((o, i) => (
-              <button
-                key={o.key}
-                onClick={() => setPicked(i)}
-                className={`flex items-center gap-3 rounded-ctl border px-4 py-3.5 text-left text-[15px] transition-all ${
-                  picked === i
-                    ? "border-brand bg-brand-soft"
-                    : "border-line bg-canvas hover:border-line-2"
-                }`}
+          {/* min-h so mode="wait" doesn't collapse the card to 0 in the gap
+              between the outgoing question unmounting and the next mounting. */}
+          <div className="relative min-h-[280px]">
+            <AnimatePresence mode="wait" custom={1}>
+              <motion.div
+                key={qIdx}
+                custom={1}
+                variants={questionVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
               >
-                <span
-                  className={`grid size-6 shrink-0 place-items-center rounded-full text-[12px] ${
-                    picked === i
-                      ? "bg-brand text-white"
-                      : "bg-line text-ink-3"
-                  }`}
-                >
-                  {o.key.toUpperCase()}
-                </span>
-                {o.text}
-              </button>
-            ))}
+                {q.direction ? (
+                  <p className="mt-4 rounded-[14px] bg-canvas p-5 text-[16px] leading-relaxed text-ink-2 ring-1 ring-line">
+                    {q.direction}
+                  </p>
+                ) : null}
+                <p className="text-[17px] leading-relaxed">{q.stem}</p>
+
+                <div className="mt-5 grid gap-2.5">
+                  {q.options.map((o, i) => (
+                    <OptionRow
+                      key={o.key}
+                      label={o.key.toUpperCase()}
+                      selected={picked === i}
+                      onSelect={() => setPicked(i)}
+                    >
+                      {o.text}
+                    </OptionRow>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           <div className="mt-6 flex items-center gap-3 border-t border-line pt-5">
@@ -185,7 +196,7 @@ function Pick({
   return (
     <button
       onClick={onClick}
-      className={`tnum h-9 rounded-ctl border px-4 text-[13px] font-medium transition-colors ${
+      className={`press tnum h-9 rounded-ctl border px-4 text-[13px] font-medium transition-colors duration-150 ease-[var(--ease-swift)] ${
         on
           ? "border-ink bg-ink text-white"
           : "border-line bg-canvas text-ink-2 hover:border-line-2"

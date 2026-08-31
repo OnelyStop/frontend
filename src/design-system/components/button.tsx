@@ -22,7 +22,7 @@ const SIZE: Record<ButtonSize, string> = {
 };
 
 const BASE =
-  "inline-flex shrink-0 items-center justify-center rounded-pill transition-colors disabled:cursor-not-allowed disabled:opacity-40";
+  "press inline-flex shrink-0 items-center justify-center rounded-pill disabled:cursor-not-allowed disabled:opacity-40";
 
 export function buttonClass(
   variant: ButtonVariant = "primary",
@@ -95,7 +95,7 @@ export function IconButton({
       type="button"
       aria-label={label}
       className={cn(
-        "grid size-9 shrink-0 place-items-center rounded-pill text-ink-3 transition-colors hover:text-ink",
+        "press grid size-9 shrink-0 place-items-center rounded-pill text-ink-3 hover:text-ink",
         className,
       )}
       {...rest}

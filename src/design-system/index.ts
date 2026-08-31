@@ -7,6 +7,7 @@
    reach for it. */
 
 export { cn } from "./lib/cn";
+export * from "./lib/motion";
 
 export {
   Button,
@@ -50,3 +51,5 @@ export {
 } from "./components/data";
 
 export { Divider, Empty, PageHeader, SectionTitle } from "./components/page";
+
+export { OptionRow } from "./components/option";

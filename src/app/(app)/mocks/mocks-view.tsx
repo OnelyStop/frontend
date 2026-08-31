@@ -1,8 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { useApp } from "@/context/AppContext";
-import { Card, PageHeader, Segmented } from "@/design-system";
+import {
+  Button,
+  Card,
+  OptionRow,
+  PageHeader,
+  Segmented,
+  questionVariants,
+} from "@/design-system";
 import { SECTIONS, SECTION_SHORT } from "@/data/navigation";
 import type { Mock } from "@/features/question-bank/types";
 
@@ -18,6 +26,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
   const [left, setLeft] = useState(0);
   const [secIdx, setSecIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);
+  const [dir, setDir] = useState<1 | -1>(1);
   const [picked, setPicked] = useState<Record<number, number>>({});
 
   const shown = mocks.filter((m) => stage === "All" || m.stage === stage);
@@ -50,11 +59,11 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
     const answered = Object.keys(picked).length;
 
     return (
-      <div className="fixed inset-0 z-100 flex flex-col bg-[#0b0b0c] text-white">
-        <header className="flex items-center gap-6 border-b border-white/10 px-8 py-4">
+      <div className="fixed inset-0 z-100 flex flex-col bg-canvas text-ink">
+        <header className="flex items-center gap-6 border-b border-line px-8 py-4">
           <span className="text-[15px]">
             {live.name} {live.year}
-            <span className="ml-2 text-white/40">{live.stage}</span>
+            <span className="ml-2 text-ink-3">{live.stage}</span>
           </span>
 
           {/* Sections are locked in order, so they read as a track you are
@@ -63,12 +72,12 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
             {SECTIONS.map((s, i) => (
               <span
                 key={s}
-                className={`rounded-pill px-2.5 py-1 text-[12.5px] ${
+                className={`rounded-pill px-2.5 py-1 text-[12.5px] transition-colors duration-150 ease-[var(--ease-swift)] ${
                   i === secIdx
-                    ? "bg-white text-[#0b0b0c]"
+                    ? "bg-ink text-white"
                     : i < secIdx
-                      ? "text-white/30 line-through"
-                      : "text-white/40"
+                      ? "text-ink-4 line-through"
+                      : "text-ink-3"
                 }`}
               >
                 {SECTION_SHORT[s]}
@@ -78,12 +87,12 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
 
           <span className="flex-1" />
 
-          <span className="text-[13px] text-white/40">
+          <span className="text-[13px] text-ink-3">
             section {secIdx + 1} of {SECTIONS.length}
           </span>
           <span
-            className={`tnum rounded-pill px-3 py-1 text-[24px] tracking-[-0.02em] ${
-              low ? "bg-bad/15 text-bad" : ""
+            className={`tnum rounded-pill px-3 py-1 text-[24px] tracking-[-0.02em] transition-colors duration-150 ease-[var(--ease-swift)] ${
+              low ? "bg-bad/15 text-bad" : "text-ink"
             }`}
           >
             {mm}:{ss}
@@ -93,76 +102,82 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
         <div className="flex min-h-0 flex-1">
           <div className="flex-1 overflow-y-auto px-8 py-12">
             <div className="mx-auto max-w-[680px]">
-              <p className="tnum text-[13px] text-white/40">
-                Question {qIdx + 1} of {perSection} ·{" "}
-                {SECTION_SHORT[SECTIONS[secIdx]]}
-              </p>
-              <p className="mt-4 text-[21px] leading-relaxed">
-                A sum of ₹12,000 amounts to ₹15,120 in 2 years at simple
-                interest. What is the rate of interest per annum?
-              </p>
+              {/* min-h so mode="wait" doesn't collapse the column to 0 in the
+                  gap between the outgoing question unmounting and the next
+                  one mounting. */}
+              <div className="relative min-h-[380px]">
+                <AnimatePresence mode="wait" custom={dir}>
+                  <motion.div
+                    key={`${secIdx}-${qIdx}`}
+                    custom={dir}
+                    variants={questionVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                  >
+                    <p className="tnum text-[13px] text-ink-3">
+                      Question {qIdx + 1} of {perSection} ·{" "}
+                      {SECTION_SHORT[SECTIONS[secIdx]]}
+                    </p>
+                    <p className="mt-4 text-[21px] leading-relaxed">
+                      A sum of ₹12,000 amounts to ₹15,120 in 2 years at simple
+                      interest. What is the rate of interest per annum?
+                    </p>
 
-              <div className="mt-8 grid gap-2.5">
-                {["11%", "12%", "13%", "14%"].map((o, i) => {
-                  const on = picked[qIdx] === i;
-                  return (
-                    <button
-                      key={o}
-                      onClick={() => setPicked({ ...picked, [qIdx]: i })}
-                      className={`flex items-center gap-3.5 rounded-[14px] border px-4 py-3.5 text-left text-[16px] transition-colors ${
-                        on
-                          ? "border-white bg-white/10"
-                          : "border-white/15 hover:border-white/35 hover:bg-white/5"
-                      }`}
-                    >
-                      <span
-                        className={`grid size-7 shrink-0 place-items-center rounded-full text-[13px] ${
-                          on ? "bg-white text-[#0b0b0c]" : "bg-white/10"
-                        }`}
-                      >
-                        {String.fromCharCode(65 + i)}
-                      </span>
-                      {o}
-                    </button>
-                  );
-                })}
+                    <div className="mt-8 grid gap-2.5">
+                      {["11%", "12%", "13%", "14%"].map((o, i) => (
+                        <OptionRow
+                          key={o}
+                          label={String.fromCharCode(65 + i)}
+                          selected={picked[qIdx] === i}
+                          onSelect={() => setPicked({ ...picked, [qIdx]: i })}
+                        >
+                          {o}
+                        </OptionRow>
+                      ))}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
               <div className="mt-8 flex items-center gap-3">
-                <button
-                  onClick={() => setQIdx((n) => Math.max(0, n - 1))}
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    setDir(-1);
+                    setQIdx((n) => Math.max(0, n - 1));
+                  }}
                   disabled={qIdx === 0}
-                  className="h-10 rounded-pill border border-white/20 px-5 text-[14px] transition-colors hover:bg-white/5 disabled:opacity-30"
                 >
                   Previous
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="ghost"
                   onClick={() => {
                     const next = { ...picked };
                     delete next[qIdx];
                     setPicked(next);
                   }}
-                  className="h-10 rounded-pill px-4 text-[14px] text-white/50 transition-colors hover:text-white"
                 >
                   Clear
-                </button>
+                </Button>
                 <span className="flex-1" />
-                <button
-                  onClick={() =>
-                    setQIdx((n) => Math.min(perSection - 1, n + 1))
-                  }
-                  className="h-10 rounded-pill bg-white px-5 text-[14px] text-[#0b0b0c] transition-opacity hover:opacity-90"
+                <Button
+                  onClick={() => {
+                    setDir(1);
+                    setQIdx((n) => Math.min(perSection - 1, n + 1));
+                  }}
                 >
                   Save &amp; next
-                </button>
+                </Button>
               </div>
             </div>
           </div>
 
-          <aside className="hidden w-[268px] shrink-0 flex-col border-l border-white/10 xl:flex">
-            <div className="border-b border-white/10 px-6 py-4">
+          <aside className="hidden w-[268px] shrink-0 flex-col border-l border-line xl:flex">
+            <div className="border-b border-line px-6 py-4">
               <p className="text-[14px]">Question palette</p>
-              <p className="tnum mt-1 text-[13px] text-white/40">
+              <p className="tnum mt-1 text-[13px] text-ink-3">
                 {answered} answered · {perSection - answered} left
               </p>
             </div>
@@ -173,13 +188,16 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                 return (
                   <button
                     key={i}
-                    onClick={() => setQIdx(i)}
-                    className={`tnum grid size-8 place-items-center rounded-md text-[12.5px] transition-colors ${
+                    onClick={() => {
+                      setDir(i > qIdx ? 1 : -1);
+                      setQIdx(i);
+                    }}
+                    className={`tnum grid size-8 place-items-center rounded-md text-[12.5px] transition-colors duration-150 ease-[var(--ease-swift)] ${
                       here
-                        ? "bg-white text-[#0b0b0c]"
+                        ? "bg-ink text-white"
                         : done
-                          ? "bg-white/25 text-white"
-                          : "bg-white/[0.06] text-white/45 hover:bg-white/15"
+                          ? "bg-brand-soft text-brand"
+                          : "bg-panel text-ink-3 hover:bg-line-2"
                     }`}
                   >
                     {i + 1}
@@ -190,13 +208,14 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           </aside>
         </div>
 
-        <footer className="flex items-center gap-3 border-t border-white/10 px-8 py-4">
-          <span className="text-[13px] text-white/40">Esc to leave</span>
+        <footer className="flex items-center gap-3 border-t border-line px-8 py-4">
+          <span className="text-[13px] text-ink-3">Esc to leave</span>
           <span className="flex-1" />
-          <button
-            className="h-10 rounded-pill border border-white/20 px-5 text-[14px] transition-colors hover:bg-white/5"
+          <Button
+            variant="secondary"
             onClick={() => {
               if (secIdx < SECTIONS.length - 1) {
+                setDir(1);
                 setSecIdx(secIdx + 1);
                 setLeft(secMins * 60);
                 setQIdx(0);
@@ -207,7 +226,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
             {secIdx < SECTIONS.length - 1
               ? "Submit section and continue"
               : "Finish paper"}
-          </button>
+          </Button>
         </footer>
       </div>
     );

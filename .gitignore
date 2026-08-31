@@ -34,6 +34,7 @@ node_modules
 .next/
 out/
 next-env.d.ts
+*.tsbuildinfo
 
 # Question-bank working copies. The parser and its extracted batches live in the
 # question-bank repo; these are local copies for eyeballing output and are 200MB+
