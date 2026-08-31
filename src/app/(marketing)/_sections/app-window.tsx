@@ -137,7 +137,7 @@ export function AppWindow() {
 
           <p className="win__section">Recent</p>
           <div className="win__activity">
-            {ACTIVITY.map(([state, q, mark, done]) => (
+            {ACTIVITY.map(([, q, mark, done]) => (
               <div key={q as string}>
                 <span className={done ? "win__pip is-done" : "win__pip"} />
                 <span className="win__act">{q}</span>

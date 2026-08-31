@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useApp } from "@/context/AppContext";
-import { Card, PageHeader, Segmented } from "@/design-system";
+import { PageHeader, Segmented } from "@/design-system";
 import { SECTIONS, SECTION_SHORT } from "@/data/navigation";
 
 /* Mocks. Sectional timing is the thing banking aspirants actually train for —

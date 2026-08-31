@@ -133,7 +133,6 @@ export function RunningHead() {
 
   const spec = params.get("spec");
   const sit = params.get("sit");
-  const trail = crumbTrail(pathname, spec, sit);
   const parent = upOne(pathname, Boolean(spec || sit));
   const entry =
     ENTERED.find((e) => e.board === board) ??
