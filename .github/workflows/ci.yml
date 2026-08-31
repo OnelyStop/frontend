@@ -38,11 +38,15 @@ jobs:
         run: bun run check:layout
 
       # A suite that runs nothing reports green, so the count is checked too.
+      # The ANSI strip is load-bearing: vitest colours the summary here but not
+      # through a local pipe, so a pattern that works on a laptop reads
+      # "Tests \e[22m \e[1m\e[32m68 passed" in CI and matches nothing.
       - name: Tests
         run: |
           set -o pipefail
           bun run test 2>&1 | tee /tmp/vitest.log
-          grep -qE 'Tests +[1-9][0-9]* passed' /tmp/vitest.log || {
+          sed -E $'s/\x1b\\[[0-9;]*m//g' /tmp/vitest.log \
+            | grep -qE 'Tests +[1-9][0-9]* passed' || {
             echo "::error::vitest reported no passing tests — the suite ran nothing"
             exit 1
           }
