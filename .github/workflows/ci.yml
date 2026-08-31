@@ -66,17 +66,25 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
         run: bun run build
 
-      - name: Schema changes carry a migration
+      # Asks drizzle whether the schema and the migrations still agree, rather
+      # than comparing which files a PR happened to touch. The filename version
+      # failed on this very PR: schema.ts was reformatted and a comment
+      # removed, no SQL changed, and it reported a missing migration.
+      #
+      # generate never connects — the URL only has to parse.
+      - name: Schema and migrations agree
+        env:
+          DATABASE_URL: postgresql://placeholder:placeholder@localhost:5432/placeholder
         run: |
-          base='${{ github.event.pull_request.base.sha }}'
-          [ -n "$base" ] || base="$(git rev-parse HEAD^ 2>/dev/null || git rev-parse HEAD)"
-          changed="$(git diff --name-only "$base"...HEAD)"
-          if echo "$changed" | grep -q '^src/db/schema.ts$' \
-             && ! echo "$changed" | grep -q '^src/migrations/.*\.sql$'; then
-            echo "::error::src/db/schema.ts changed with no migration — run bun run db:generate"
+          before="$(ls src/migrations/*.sql | wc -l)"
+          bun run db:generate
+          after="$(ls src/migrations/*.sql | wc -l)"
+          if [ "$after" -ne "$before" ] || ! git diff --quiet -- src/migrations; then
+            echo "::error::schema.ts has changes the migrations do not carry — run bun run db:generate and commit the result"
+            git status --short -- src/migrations
             exit 1
           fi
-          echo "OK"
+          echo "OK - schema and migrations agree"
 
       - name: No large files added
         run: |
