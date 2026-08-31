@@ -26,7 +26,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-pill px-2.5 py-1 text-[12.5px]",
+        "rounded-pill inline-flex items-center px-2.5 py-1 text-[12.5px]",
         TONE[tone],
         className,
       )}
@@ -48,23 +48,31 @@ export function Stat({
 }) {
   return (
     <>
-      <p className="text-[14px] text-ink-2">{label}</p>
+      <p className="text-ink-2 text-[14px]">{label}</p>
       <p className="tnum mt-3 text-[38px] leading-none tracking-[-0.03em]">
         {value}
       </p>
       {note ? (
-        <p className="mt-3 text-[13px] leading-relaxed text-ink-3">{note}</p>
+        <p className="text-ink-3 mt-3 text-[13px] leading-relaxed">{note}</p>
       ) : null}
     </>
   );
 }
 
 /** A plain proportion — one weight, no threshold. */
-export function Meter({ value, className }: { value: number; className?: string }) {
+export function Meter({
+  value,
+  className,
+}: {
+  value: number;
+  className?: string;
+}) {
   return (
-    <div className={cn("h-1.5 overflow-hidden rounded-pill bg-line", className)}>
+    <div
+      className={cn("rounded-pill bg-line h-1.5 overflow-hidden", className)}
+    >
       <div
-        className="h-full rounded-pill bg-ink"
+        className="rounded-pill bg-ink h-full"
         style={{ width: `${Math.max(0, Math.min(100, value))}%` }}
       />
     </div>
@@ -87,18 +95,19 @@ export function CutoffBar({
 }) {
   const scale = max ?? Math.max(cutoff, value ?? 0) * 1.3;
   const cleared = value !== null && value >= cutoff;
-  const pct = (n: number) => `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
+  const pct = (n: number) =>
+    `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
 
   return (
-    <div className={cn("relative h-1.5 rounded-pill bg-line", className)}>
+    <div className={cn("rounded-pill bg-line relative h-1.5", className)}>
       {value !== null ? (
         <div
-          className={cn("h-full rounded-pill", cleared ? "bg-ink" : "bg-bad")}
+          className={cn("rounded-pill h-full", cleared ? "bg-ink" : "bg-bad")}
           style={{ width: pct(value) }}
         />
       ) : null}
       <span
-        className="absolute -top-1 h-[14px] w-px bg-ink-3"
+        className="bg-ink-3 absolute -top-1 h-[14px] w-px"
         style={{ left: pct(cutoff) }}
         aria-hidden
       />
@@ -119,7 +128,7 @@ export function Avatar({
     <span
       style={{ width: size, height: size, fontSize: size / 3 }}
       className={cn(
-        "grid shrink-0 place-items-center rounded-full border border-line-2",
+        "border-line-2 grid shrink-0 place-items-center rounded-full border",
         className,
       )}
       aria-hidden
@@ -131,7 +140,7 @@ export function Avatar({
 
 export function Kbd({ children }: { children: ReactNode }) {
   return (
-    <kbd className="rounded-pill border border-line px-2 py-0.5 text-[11px] text-ink-3">
+    <kbd className="rounded-pill border-line text-ink-3 border px-2 py-0.5 text-[11px]">
       {children}
     </kbd>
   );
@@ -150,12 +159,11 @@ export function Table({
 }) {
   return (
     <div className="overflow-x-auto">
-      <table
-        style={{ minWidth }}
-        className="w-full border-collapse text-left"
-      >
+      <table style={{ minWidth }} className="w-full border-collapse text-left">
         <thead>
-          <tr className="border-y border-line text-[13px] text-ink-3">{head}</tr>
+          <tr className="border-line text-ink-3 border-y text-[13px]">
+            {head}
+          </tr>
         </thead>
         <tbody>{children}</tbody>
       </table>
@@ -226,7 +234,7 @@ export function Tr({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={cn(
-        "border-b border-line last:border-0",
+        "border-line border-b last:border-0",
         onClick && "cursor-pointer transition-colors",
         active ? "bg-brand-soft/60" : onClick && "hover:bg-brand-soft/40",
       )}

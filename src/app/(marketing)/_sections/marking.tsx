@@ -31,8 +31,7 @@ const SCRIPT: Clause[] = [
     post: ", so the oxygen has less far to travel.",
     mp: "MP2",
     quote: "only one cell thick",
-    gloss:
-      "One mark, not two. The oblique offers alternative wordings.",
+    gloss: "One mark, not two. The oblique offers alternative wordings.",
   },
   {
     pre: "There are ",
@@ -116,8 +115,8 @@ export function MarkingScene() {
           </h2>
           <p className="t-lede trim marking__lede">
             A real six-marker, marked. Everything in the margin is the
-            examiner&rsquo;s ink. Each tick names the marking point it
-            came from and points at the exact words that earned it.
+            examiner&rsquo;s ink. Each tick names the marking point it came from
+            and points at the exact words that earned it.
           </p>
         </header>
 
@@ -226,9 +225,9 @@ export function MarkingScene() {
               </div>
 
               <p className="verdict t-body-sm">
-                <strong>Four of six.</strong> Length was never the problem
-                . MP5 and MP6 are simply not written down. The band is
-                decided by the points you hit, not by how much you wrote.
+                <strong>Four of six.</strong> Length was never the problem . MP5
+                and MP6 are simply not written down. The band is decided by the
+                points you hit, not by how much you wrote.
               </p>
             </div>
           </div>

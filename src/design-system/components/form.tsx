@@ -22,14 +22,14 @@ export function Field({
 }) {
   return (
     <div className="block">
-      <label htmlFor={htmlFor} className="block text-[13px] text-ink-2">
+      <label htmlFor={htmlFor} className="text-ink-2 block text-[13px]">
         {label}
       </label>
       <div className="mt-1.5">{children}</div>
       {error ? (
-        <p className="mt-1.5 text-[13px] text-bad">{error}</p>
+        <p className="text-bad mt-1.5 text-[13px]">{error}</p>
       ) : hint ? (
-        <p className="mt-1.5 text-[13px] text-ink-3">{hint}</p>
+        <p className="text-ink-3 mt-1.5 text-[13px]">{hint}</p>
       ) : null}
     </div>
   );
@@ -42,13 +42,21 @@ export function Input({ className, ...rest }: ComponentProps<"input">) {
 export function Textarea({ className, ...rest }: ComponentProps<"textarea">) {
   return (
     <textarea
-      className={cn(CONTROL, "resize-none px-3.5 py-2.5 leading-relaxed", className)}
+      className={cn(
+        CONTROL,
+        "resize-none px-3.5 py-2.5 leading-relaxed",
+        className,
+      )}
       {...rest}
     />
   );
 }
 
-export function Select({ className, children, ...rest }: ComponentProps<"select">) {
+export function Select({
+  className,
+  children,
+  ...rest
+}: ComponentProps<"select">) {
   return (
     <select className={cn(CONTROL, "h-10 px-3", className)} {...rest}>
       {children}
@@ -77,7 +85,7 @@ export function Checkbox({
       <span>
         <span className="block text-[14px]">{label}</span>
         {hint ? (
-          <span className="mt-0.5 block text-[13px] leading-relaxed text-ink-3">
+          <span className="text-ink-3 mt-0.5 block text-[13px] leading-relaxed">
             {hint}
           </span>
         ) : null}
@@ -102,7 +110,12 @@ export function Segmented<T extends string>({
   className?: string;
 }) {
   return (
-    <div className={cn("inline-flex rounded-pill border border-line p-1", className)}>
+    <div
+      className={cn(
+        "rounded-pill border-line inline-flex border p-1",
+        className,
+      )}
+    >
       {options.map((o) => (
         <button
           key={o}

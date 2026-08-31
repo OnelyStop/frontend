@@ -6,7 +6,8 @@
   border-radius: var(--radius-md);
   font-weight: var(--weight-bold);
   letter-spacing: -0.01em;
-  transition: background var(--duration-fast) var(--ease),
+  transition:
+    background var(--duration-fast) var(--ease),
     border-color var(--duration-fast) var(--ease),
     color var(--duration-fast) var(--ease),
     transform var(--duration-fast) var(--ease),

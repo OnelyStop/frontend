@@ -7,7 +7,9 @@ let written: string[];
 beforeEach(() => {
   written = [];
   for (const m of ["log", "warn", "error"] as const) {
-    vi.spyOn(console, m).mockImplementation((line) => void written.push(line as string));
+    vi.spyOn(console, m).mockImplementation(
+      (line) => void written.push(line as string),
+    );
   }
 });
 afterEach(() => vi.restoreAllMocks());
@@ -18,7 +20,11 @@ describe("log", () => {
   it("writes one parseable JSON object per line", () => {
     log.info("thing.happened", { count: 2 });
     expect(written).toHaveLength(1);
-    expect(parsed()[0]).toMatchObject({ level: "info", event: "thing.happened", count: 2 });
+    expect(parsed()[0]).toMatchObject({
+      level: "info",
+      event: "thing.happened",
+      count: 2,
+    });
     expect(typeof parsed()[0].at).toBe("string");
   });
 

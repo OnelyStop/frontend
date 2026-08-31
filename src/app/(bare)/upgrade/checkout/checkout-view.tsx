@@ -13,7 +13,11 @@ import type { ReactNode } from "react";
 import { useApp } from "@/context/AppContext";
 import { Brand } from "@/components/marketing/Logo";
 import { Button } from "@/components/marketing/Button";
-import { ANNUAL_TOTAL, MONTHLY_PRICE, type BillingCycle } from "@/features/pricing/plans";
+import {
+  ANNUAL_TOTAL,
+  MONTHLY_PRICE,
+  type BillingCycle,
+} from "@/features/pricing/plans";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

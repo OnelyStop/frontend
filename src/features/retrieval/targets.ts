@@ -257,7 +257,13 @@ function topicTarget([
   };
 }
 
-function mockTarget([exam, year, stage, length, cutoff]: (typeof MOCKS)[number]): Target {
+function mockTarget([
+  exam,
+  year,
+  stage,
+  length,
+  cutoff,
+]: (typeof MOCKS)[number]): Target {
   return {
     id: `p-${exam}-${year}-${stage}`.replace(/\s+/g, "-").toLowerCase(),
     kind: "paper",

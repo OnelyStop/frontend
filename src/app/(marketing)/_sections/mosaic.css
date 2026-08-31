@@ -73,7 +73,8 @@
   backdrop-filter: blur(8px);
   color: var(--ink);
   opacity: 0;
-  transition: opacity var(--dur-lift) var(--ease-standard),
+  transition:
+    opacity var(--dur-lift) var(--ease-standard),
     background var(--dur-lift) var(--ease-standard);
 }
 

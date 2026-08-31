@@ -3,7 +3,11 @@ type Fields = Record<string, string | number | boolean | null | undefined>;
 type Level = "info" | "warn" | "error";
 
 const emit = (level: Level, event: string, fields: Fields = {}) => {
-  const line: Record<string, unknown> = { level, event, at: new Date().toISOString() };
+  const line: Record<string, unknown> = {
+    level,
+    event,
+    at: new Date().toISOString(),
+  };
   for (const [key, value] of Object.entries(fields)) {
     if (value !== undefined) line[key] = value;
   }

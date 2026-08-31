@@ -24,10 +24,10 @@ bun run db:migrate     # applies pending migrations
 
 Two connection strings, from Supabase → Settings → Database:
 
-| Var | Port | Used by | Why |
-|---|---|---|---|
+| Var            | Port | Used by            | Why                                                         |
+| -------------- | ---- | ------------------ | ----------------------------------------------------------- |
 | `DATABASE_URL` | 6543 | the app at runtime | Transaction pooler — serverless exhausts direct connections |
-| `DIRECT_URL` | 5432 | `drizzle-kit` | The pooler rejects some DDL |
+| `DIRECT_URL`   | 5432 | `drizzle-kit`      | The pooler rejects some DDL                                 |
 
 `postgres.js` is configured with `prepare: false`, which the transaction pooler
 requires.

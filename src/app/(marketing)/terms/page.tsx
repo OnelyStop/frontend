@@ -153,7 +153,9 @@ export default function Page() {
                 upload unlawful content, or anything containing another
                 person&rsquo;s personal information;
               </li>
-              <li>attempt to break, overload or reverse-engineer the service.</li>
+              <li>
+                attempt to break, overload or reverse-engineer the service.
+              </li>
             </ul>
           </section>
 

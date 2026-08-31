@@ -1,0 +1,41 @@
+#!/bin/bash
+# Fast gates only. Anything slower than a second or two gets bypassed with
+# --no-verify, and a hook people skip is worse than none because it looks like
+# cover. Types and tests run in pre-push, where the wait is already expected.
+
+set -uo pipefail
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+staged() {
+  git diff --cached --name-only --diff-filter=ACMR -z | tr '\0' '\n' | grep -E "$1" || true
+}
+
+# Formatting. A file that is only partly staged is formatted in the working
+# tree, so writing it and re-adding would sweep the unstaged half into the
+# commit. Those get checked and reported instead.
+fmt=$(staged '\.(ts|tsx|css|json|mjs|mts|md)$')
+if [ -n "$fmt" ]; then
+  clean=""
+  partial=""
+  while IFS= read -r f; do
+    [ -f "$f" ] || continue
+    if git diff --quiet -- "$f"; then clean+="$f"$'\n'; else partial+="$f"$'\n'; fi
+  done <<< "$fmt"
+
+  if [ -n "${clean//[$'\n']/}" ]; then
+    printf '%s' "$clean" | xargs -r ./node_modules/.bin/prettier --write --log-level warn
+    printf '%s' "$clean" | xargs -r git add
+  fi
+
+  if [ -n "${partial//[$'\n']/}" ]; then
+    if ! printf '%s' "$partial" | xargs -r ./node_modules/.bin/prettier --check --log-level warn; then
+      echo
+      echo "  Those files are staged only in part, so this hook will not rewrite them."
+      echo "  Run: bun run format   then stage the result."
+      exit 1
+    fi
+  fi
+fi
+
+./scripts/check-source.sh || exit 1
+node scripts/check-layout.mjs || exit 1

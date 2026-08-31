@@ -31,7 +31,9 @@ describe("currency from host", () => {
 
   it("falls back for previews, localhost and a missing header", () => {
     expect(currencyForHost("localhost:3000")).toBe(DEFAULT_CURRENCY);
-    expect(currencyForHost("onelystop-git-main.vercel.app")).toBe(DEFAULT_CURRENCY);
+    expect(currencyForHost("onelystop-git-main.vercel.app")).toBe(
+      DEFAULT_CURRENCY,
+    );
     expect(currencyForHost(null)).toBe(DEFAULT_CURRENCY);
     expect(currencyForHost(undefined)).toBe(DEFAULT_CURRENCY);
     expect(currencyForHost("")).toBe(DEFAULT_CURRENCY);

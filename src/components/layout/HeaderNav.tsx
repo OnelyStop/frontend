@@ -51,7 +51,7 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
               aria-haspopup="menu"
               aria-expanded={isOpen}
               onClick={() => setOpen(isOpen ? null : g.id)}
-              className={`flex h-9 items-center gap-1 rounded-pill px-3 text-[14px] transition-colors hover:text-ink ${
+              className={`rounded-pill hover:text-ink flex h-9 items-center gap-1 px-3 text-[14px] transition-colors ${
                 live || isOpen ? "text-ink" : "text-ink-2"
               }`}
             >
@@ -66,7 +66,7 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
               <div
                 role="menu"
                 aria-label={g.label}
-                className="absolute left-0 top-11 z-50 w-[320px] rounded-[18px] border border-line bg-canvas p-1.5 shadow-pop"
+                className="border-line bg-canvas shadow-pop absolute top-11 left-0 z-50 w-[320px] rounded-[18px] border p-1.5"
               >
                 {g.items.map((i) => {
                   const on = pathname.startsWith(i.path);
@@ -76,12 +76,12 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
                       href={i.path}
                       role="menuitem"
                       aria-current={on ? "page" : undefined}
-                      className={`block rounded-ctl px-3 py-2.5 transition-colors ${
+                      className={`rounded-ctl block px-3 py-2.5 transition-colors ${
                         on ? "bg-brand-soft" : "hover:bg-brand-soft"
                       }`}
                     >
                       <span className="block text-[14px]">{i.label}</span>
-                      <span className="mt-0.5 block text-[13px] leading-snug text-ink-3">
+                      <span className="text-ink-3 mt-0.5 block text-[13px] leading-snug">
                         {i.hint}
                       </span>
                     </Link>

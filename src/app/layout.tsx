@@ -28,10 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${instrument.variable} ${jakarta.variable}`}
-    >
+    <html lang="en" className={`${instrument.variable} ${jakarta.variable}`}>
       <body>
         <AuthProvider>
           <AppProvider>

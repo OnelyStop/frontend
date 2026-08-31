@@ -32,7 +32,9 @@ export const appPermission = pgEnum("app_permission", [
 export const userRoles = pgTable(
   "user_roles",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     role: appRole("role").notNull(),
   },
@@ -55,7 +57,9 @@ export const userRoles = pgTable(
 export const rolePermissions = pgTable(
   "role_permissions",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     role: appRole("role").notNull(),
     permission: appPermission("permission").notNull(),
   },
@@ -70,16 +74,13 @@ export const rolePermissions = pgTable(
   ],
 ).enableRLS();
 
-// ---------------------------------------------------------------------------
-// Billing
-//
-// Access is decided by one column: entitlements.access_until. Everything else
-// here -- Razorpay's subscription states, the payments, the webhook events --
-// is the audit trail that explains how that timestamp got its value. A feature
-// asks "is access_until in the future", never "what is Razorpay saying".
-// ---------------------------------------------------------------------------
+// Access is one column: entitlements.access_until. Everything below is the
+// audit trail explaining how that timestamp got its value, never the check.
 
-export const billingInterval = pgEnum("billing_interval", ["monthly", "yearly"]);
+export const billingInterval = pgEnum("billing_interval", [
+  "monthly",
+  "yearly",
+]);
 
 // One plan object exists in Razorpay per currency, because Razorpay fixes the
 // currency on the plan itself -- so .in and .com are different plan ids for the
@@ -110,7 +111,9 @@ export const planKey = pgEnum("plan_key", ["pro", "school"]);
 export const paymentPlans = pgTable(
   "payment_plans",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     plan: planKey("plan").notNull(),
     interval: billingInterval("interval").notNull(),
     currency: currencyCode("currency").notNull(),
@@ -120,7 +123,9 @@ export const paymentPlans = pgTable(
     // float64, and a rounding error in an amount is a real charge.
     amountMinor: integer("amount_minor").notNull(),
     active: boolean("active").notNull().default(true),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     // Partial, not a plain unique: Razorpay plan objects are immutable, so
@@ -146,18 +151,26 @@ export const paymentPlans = pgTable(
 export const subscriptions = pgTable(
   "subscriptions",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     razorpaySubscriptionId: text("razorpay_subscription_id").notNull(),
     planId: bigint("plan_id", { mode: "number" }).notNull(),
     status: subscriptionStatus("status").notNull(),
     currentPeriodEnd: timestamp("current_period_end", { withTimezone: true }),
     cancelledAt: timestamp("cancelled_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
-    unique("subscriptions_razorpay_subscription_id_key").on(t.razorpaySubscriptionId),
+    unique("subscriptions_razorpay_subscription_id_key").on(
+      t.razorpaySubscriptionId,
+    ),
     index("subscriptions_user_id_idx").on(t.userId),
 
     pgPolicy("signed-in users can read their own subscriptions", {
@@ -173,7 +186,9 @@ export const subscriptions = pgTable(
 export const payments = pgTable(
   "payments",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     subscriptionId: bigint("subscription_id", { mode: "number" }),
     razorpayPaymentId: text("razorpay_payment_id").notNull(),
@@ -182,7 +197,9 @@ export const payments = pgTable(
     status: text("status").notNull(),
     method: text("method"),
     capturedAt: timestamp("captured_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     // Razorpay may deliver the same payment on more than one event. This is
@@ -206,11 +223,15 @@ export const payments = pgTable(
 export const paymentEvents = pgTable(
   "payment_events",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     eventId: text("event_id").notNull(),
     eventType: text("event_type").notNull(),
     payload: jsonb("payload").notNull(),
-    receivedAt: timestamp("received_at", { withTimezone: true }).notNull().defaultNow(),
+    receivedAt: timestamp("received_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     unique("payment_events_event_id_key").on(t.eventId),
@@ -227,7 +248,9 @@ export const paymentEvents = pgTable(
 export const entitlements = pgTable(
   "entitlements",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     plan: planKey("plan").notNull(),
     // The single access check: access_until > now(). One comparison, in one
@@ -236,7 +259,9 @@ export const entitlements = pgTable(
     // Informational -- why access_until says what it does. Never the check.
     status: subscriptionStatus("status").notNull(),
     subscriptionId: bigint("subscription_id", { mode: "number" }),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     // One live entitlement per user. Renewals move access_until forward on
@@ -259,7 +284,9 @@ export const profiles = pgTable(
     bio: text("bio"),
     // Never used for pricing -- currency comes from the request host.
     country: char("country", { length: 2 }).notNull().default("IN"),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     pgPolicy("signed-in users can read their own profile", {

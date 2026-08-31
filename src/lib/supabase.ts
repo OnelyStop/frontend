@@ -16,7 +16,9 @@ export const supabase = isSupabaseConfigured
 const initialHash =
   typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : "";
 const initialQuery =
-  typeof window !== "undefined" ? window.location.search.replace(/^\?/, "") : "";
+  typeof window !== "undefined"
+    ? window.location.search.replace(/^\?/, "")
+    : "";
 
 export type AuthUrlError = { code: string; description: string };
 
