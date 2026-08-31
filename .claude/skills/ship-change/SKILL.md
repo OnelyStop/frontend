@@ -17,10 +17,10 @@ is no boundary to notice. Run them anyway.
 
 | #   | Step                                      | Done when                                                                 |
 | --- | ----------------------------------------- | ------------------------------------------------------------------------- |
-| 1   | Issue first, with the Gate 1 output in it | Issue open; prior art, security review and production plan written down   |
+| 1   | Issue first, with the Gate 1 output in it | Issue open and linked; CI blocks a PR that closes nothing                 |
 | 2   | Branch off `origin/main`                  | `git fetch origin && git checkout -b <area>/<what> origin/main`           |
 | 3   | Build against the plan                    | Scope stays inside what was asked                                         |
-| 4   | Comment audit on the full diff            | Every added or touched comment listed, justified or deleted               |
+| 4   | Production comments pass on the full diff | Every added or touched comment listed, justified or deleted               |
 | 5   | Verify every gate, naming real files      | `format:check`, `check:layout`, `check:source`, `tsc`, `vitest`, `build`  |
 | 6   | Prove each new check can go red           | Violation planted, check fails, restored, check passes                    |
 | 7   | Commit, push, PR, watch CI                | Only when asked. PR open, CI reported, `closingIssuesReferences` verified |
@@ -34,6 +34,10 @@ is the default branch.** A stacked PR shows `closingIssuesReferences: []`, so
 check it with `gh pr view <n> --json closingIssuesReferences` rather than
 trusting the text, and say so in the PR body if it will not link until retarget.
 
+CI enforces this: a PR closing no issue fails before anything else runs. The
+exceptions `AGENTS.md` names — a typo, a revert, a fix for something already
+broken on `main` — carry the `no-issue` label instead.
+
 **2. Branch.** Off `origin/main`, never a stale local one. `main` is protected:
 squash-only, one approving review, strict status checks.
 
@@ -45,13 +49,28 @@ symlink `node_modules` to run anything. Remove it afterwards.
 rejected here, and rightly. If a guard, a table or an interface seems needed
 but was not named, say it belongs in its own issue and leave it out.
 
-**4. Comments.** Run `git diff origin/main...HEAD` and list every comment added
-or touched. Keep one only where its absence lets someone make a mistake that
-fails **silently** — a spelling that joins to nothing, a missing grant that
-reads as missing data, a value that looks like dollars and is micro-dollars.
-Delete restatements, banners, and defences of ordinary choices. `check:source`
-rejects divider comments and commented-out code, so it will tell you about the
-obvious ones; it cannot tell you a comment is merely useless.
+**4. Production comments pass.** Run `git diff origin/main...HEAD`, list every
+comment added or touched, and justify or delete each one. Do this as a pass of
+its own, not while writing — the comment that felt necessary mid-edit almost
+never survives being read back.
+
+Keep one only where its absence lets someone make a mistake that fails
+**silently**. The ones earning their place in this repo all mark that: a
+spelling that joins to no questions, a missing grant that reads as missing
+data, `costMicros` that looks like dollars, `408` that must stay retryable, an
+API key read outside the config object so logging cannot leak it.
+
+Delete anything that restates the code, defends an ordinary choice, explains a
+language or framework basic, or has drifted out of sync. Section banners and
+decorative dividers go without argument — `check:source` rejects those and
+commented-out code, but it cannot tell you a comment is merely useless.
+
+One line where one line does. A multi-line block above a function has to earn
+every line of it. Match the density of the file you are in: a file with no
+comments is telling you its convention.
+
+Density is not a quality signal. Two rewrites in this repo cut 86 comment lines
+to 22, then 21 to 10, and both files read better afterwards.
 
 **5. Verify.** From the repo root:
 

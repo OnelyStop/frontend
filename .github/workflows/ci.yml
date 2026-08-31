@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   checks:
@@ -22,6 +23,32 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+
+      - name: PR closes an issue
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          n=$(gh pr view "$PR" --json closingIssuesReferences \
+                --jq '[.closingIssuesReferences[].number] | length')
+          if [ "${n:-0}" -gt 0 ]; then
+            echo "OK - closes $n issue(s)"
+            exit 0
+          fi
+          if gh pr view "$PR" --json labels --jq '.labels[].name' | grep -qx 'no-issue'; then
+            echo "OK - labelled no-issue"
+            exit 0
+          fi
+          echo "::error::this PR closes no issue — open one with the Gate 1 output, then add 'Closes #N' to the body"
+          echo "Give each issue its own keyword: 'Closes #12, closes #13'."
+          echo "'Closes #12, #13' closes only the first, silently."
+          echo
+          echo "GitHub registers a closing reference only when the base is the"
+          echo "default branch, so a PR stacked on another shows none. Retarget"
+          echo "to main, or label it no-issue if it is a typo, a revert, or a"
+          echo "fix for something already broken on main."
+          exit 1
 
       - name: Install
         run: bun install --frozen-lockfile
