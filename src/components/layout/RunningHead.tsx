@@ -203,7 +203,7 @@ export function RunningHead() {
             aria-haspopup="menu"
             aria-expanded={switching}
             onClick={() => setSwitching((v) => !v)}
-            className="flex h-9 items-center gap-2 rounded-pill pl-2 pr-2.5 text-[14px] transition-colors hover:text-ink"
+            className="press flex h-9 items-center gap-2 rounded-pill pl-2 pr-2.5 text-[14px] hover:text-ink"
           >
             <span
               className="size-1.5 rounded-full"
@@ -231,7 +231,7 @@ export function RunningHead() {
                   role="menuitemradio"
                   aria-checked={e.board === board}
                   onClick={() => switchTo(e)}
-                  className={`flex w-full items-center gap-2 rounded-ctl px-2.5 py-2 text-left transition-colors ${
+                  className={`press flex w-full items-center gap-2 rounded-ctl px-2.5 py-2 text-left ${
                     e.board === board ? "bg-brand-soft" : "hover:bg-brand-soft"
                   }`}
                 >
@@ -257,7 +257,7 @@ export function RunningHead() {
         <button
           type="button"
           onClick={() => setRetrievalOpen(true)}
-          className="flex h-10 items-center gap-5 rounded-pill border border-line-2 pl-4 pr-2 text-[14px] text-ink-3 transition-colors hover:border-ink/25"
+          className="press flex h-10 items-center gap-5 rounded-pill border border-line-2 pl-4 pr-2 text-[14px] text-ink-3 hover:border-ink/25"
         >
           <span className="flex items-center gap-2">
             <Search size={14} />
@@ -282,7 +282,7 @@ export function RunningHead() {
             aria-expanded={account}
             aria-label="Account"
             onClick={() => setAccount((v) => !v)}
-            className="grid size-10 place-items-center rounded-full border border-line-2 text-[13px] transition-colors hover:border-ink/25"
+            className="press grid size-10 place-items-center rounded-full border border-line-2 text-[13px] hover:border-ink/25"
           >
             {initials}
           </button>
@@ -299,7 +299,7 @@ export function RunningHead() {
                   href={i.path}
                   role="menuitem"
                   onClick={() => setAccount(false)}
-                  className="block rounded-ctl px-3 py-2.5 transition-colors hover:bg-brand-soft"
+                  className="press block rounded-ctl px-3 py-2.5 hover:bg-brand-soft"
                 >
                   <span className="block text-[14px]">{i.label}</span>
                   <span className="mt-0.5 block text-[13px] leading-snug text-ink-3">
@@ -314,7 +314,7 @@ export function RunningHead() {
                   setAccount(false);
                   void signOut().then(() => router.replace("/"));
                 }}
-                className="mt-1 block w-full rounded-ctl border-t border-line px-3 py-2.5 text-left text-[14px] text-ink-2 transition-colors hover:bg-brand-soft hover:text-ink"
+                className="press mt-1 block w-full rounded-ctl border-t border-line px-3 py-2.5 text-left text-[14px] text-ink-2 hover:bg-brand-soft hover:text-ink"
               >
                 Sign out
               </button>

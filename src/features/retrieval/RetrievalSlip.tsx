@@ -141,7 +141,7 @@ export function RetrievalSlip() {
                 aria-selected={i === sel}
                 onMouseEnter={() => setSel(i)}
                 onClick={() => fire(t)}
-                className={`flex w-full items-center gap-3 rounded-ctl px-3 py-2.5 text-left transition-colors ${
+                className={`press flex w-full items-center gap-3 rounded-ctl px-3 py-2.5 text-left ${
                   i === sel ? "bg-brand-soft" : "hover:bg-brand-soft/50"
                 }`}
               >

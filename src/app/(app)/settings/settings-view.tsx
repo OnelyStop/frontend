@@ -173,7 +173,7 @@ export function SettingsView() {
                 type="checkbox"
                 checked={prefs[key]}
                 onChange={(e) => setPrefs({ ...prefs, [key]: e.target.checked })}
-                className="mt-0.5 size-4 accent-[#4f46e5]"
+                className="mt-0.5 size-4 accent-brand"
               />
               <span>
                 <span className="block text-[14px] font-medium">{title}</span>
