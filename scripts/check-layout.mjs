@@ -26,6 +26,7 @@ const ROOT_ALLOWED = new Set([
   "DESIGN.md",
   "LICENSE",
   "README.md",
+  "STANDARDS.md",
   "bun.lock",
   "docs",
   "drizzle.config.ts",

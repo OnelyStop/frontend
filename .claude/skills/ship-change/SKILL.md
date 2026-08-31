@@ -49,28 +49,16 @@ symlink `node_modules` to run anything. Remove it afterwards.
 rejected here, and rightly. If a guard, a table or an interface seems needed
 but was not named, say it belongs in its own issue and leave it out.
 
-**4. Production comments pass.** Run `git diff origin/main...HEAD`, list every
-comment added or touched, and justify or delete each one. Do this as a pass of
-its own, not while writing — the comment that felt necessary mid-edit almost
-never survives being read back.
+**4. Production comments.** Run `git diff origin/main...HEAD`, list every
+comment added or touched, and for each ask whether its absence would let
+someone make a mistake that fails silently. If it restates the code, explains
+what rather than why, or defends an ordinary choice, delete it. One line where
+one line does; a multi-line block has to earn every line. Match the density of
+the file you are in — a file with no comments is telling you its convention.
 
-Keep one only where its absence lets someone make a mistake that fails
-**silently**. The ones earning their place in this repo all mark that: a
-spelling that joins to no questions, a missing grant that reads as missing
-data, `costMicros` that looks like dollars, `408` that must stay retryable, an
-API key read outside the config object so logging cannot leak it.
-
-Delete anything that restates the code, defends an ordinary choice, explains a
-language or framework basic, or has drifted out of sync. Section banners and
-decorative dividers go without argument — `check:source` rejects those and
-commented-out code, but it cannot tell you a comment is merely useless.
-
-One line where one line does. A multi-line block above a function has to earn
-every line of it. Match the density of the file you are in: a file with no
-comments is telling you its convention.
-
-Density is not a quality signal. Two rewrites in this repo cut 86 comment lines
-to 22, then 21 to 10, and both files read better afterwards.
+Run it as its own pass. The comment that felt necessary mid-edit almost never
+survives being read back: two passes in this repo cut 86 comment lines to 22,
+then 21 to 10, and both files read better after.
 
 **5. Verify.** From the repo root:
 

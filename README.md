@@ -4,9 +4,21 @@ Frontend for the onelystopp revision platform — question bank, PYQ mixes, AI e
 
 ## Stack
 
-- Vite + React + TypeScript
-- React Router
-- Design system matched to the Uxcel-inspired reference in `public/inspiration-uxcel.png`
+- Next.js App Router + React + TypeScript
+- Supabase for auth, Postgres via Drizzle
+- Razorpay subscriptions
+- Tailwind and an in-repo design system
+
+## Where things are written down
+
+|                                                        |                                 |
+| ------------------------------------------------------ | ------------------------------- |
+| [`AGENTS.md`](AGENTS.md)                               | the gates a change goes through |
+| [`STANDARDS.md`](STANDARDS.md)                         | how code is written here        |
+| [`DESIGN.md`](DESIGN.md)                               | the design system               |
+| [`docs/quality-gates.md`](docs/quality-gates.md)       | what CI checks, and why those   |
+| [`docs/rendering.md`](docs/rendering.md)               | server and client rendering     |
+| [`src/migrations/README.md`](src/migrations/README.md) | migrations                      |
 
 ## Local development
 
