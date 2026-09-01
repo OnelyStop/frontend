@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "exam-skills",
+  "chapterName": "Exam question skills",
+  "chapterPosition": 2,
+  "topicSlug": "error-detection",
+  "topicPosition": 10,
+  "title": "Error Detection",
+  "summary": "How the spot-the-error question is built, a checklist of the error types it draws on, and a method for scanning a split sentence quickly without second-guessing the parts that are correct.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "subject-verb-agreement",
+    "tenses",
+    "prepositions",
+    "articles-and-determiners"
+  ],
+  "learningObjectives": [
+    "Describe the standard format of a spot-the-error item and the 'no error' option.",
+    "Run a fixed checklist of error categories over a split sentence.",
+    "Identify agreement, pronoun, tense, parallelism, preposition and article errors on sight.",
+    "Avoid changing a part that is already correct."
+  ],
+  "tags": ["exam-skills", "error-detection", "grammar", "spot-the-error"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Consulted only to confirm that error detection is a standard question type and its rough format. No text, questions or explanations were taken from it."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Determining_Parts_of_Speech",
+      "title": "English Grammar/Basic Parts of Speech/Determining Parts of Speech",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the grammar rules behind each error category. All sentences and explanations here are original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "how-the-question-works",
+      "type": "introduction",
+      "title": "How the question is built",
+      "markdown": "A spot-the-error item gives you one sentence split into three, four or five labelled parts, with a final option for \"no error\". Exactly one part carries a grammatical mistake, or none does.\n\nThe sentence is written to sound natural when read straight through, so the error hides behind fluency. The fix is not to re-read for meaning but to test each part against a short list of the rules these questions repeatedly use.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "spot the error format",
+        "no error option",
+        "labelled parts"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-checklist",
+      "type": "method",
+      "title": "The scanning checklist",
+      "markdown": "Run these in order over the sentence:\n\n1. **Subject-verb agreement.** Find the real subject; ignore words between it and the verb. Watch *one of*, *each*, *the number of*, *either or*.\n2. **Pronouns.** Does each pronoun agree with its noun in number, and is it clear what it refers to? Check *its* versus *it's*, *who* versus *whom*.\n3. **Tense.** Is the sequence consistent? Is the past perfect used for the earlier of two past actions?\n4. **Prepositions.** Check every verb-plus-preposition and adjective-plus-preposition pair against the fixed forms.\n5. **Articles.** Is an article missing, extra, or *a* where *an* is needed by sound?\n6. **Parallelism.** In a list or a comparison, are the items the same grammatical form?\n7. **Word choice and redundancy.** *fewer* versus *less*, *between* versus *among*, and double words like *return back*, *more better*.\n8. **Adjective versus adverb.** After an action verb use the adverb; after *be/seem* use the adjective.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "error detection checklist",
+        "agreement pronoun tense preposition",
+        "parallelism redundancy"
+      ],
+      "position": 20
+    },
+    {
+      "id": "agreement-and-pronouns",
+      "type": "concept",
+      "title": "Agreement and pronoun errors",
+      "markdown": "The two most common categories.\n\n- **Hidden subject:** *The list of shortlisted candidates have been published* - subject is *list*, so *has*.\n- **Additive phrases:** *The chairman, along with the directors, were present* - *along with* does not change the subject; use *was*.\n- **Pronoun-antecedent number:** *Every employee must submit their form* is now widely accepted, but exams still often expect *his or her*; a plural noun (*All employees ... their*) is the safe rewrite.\n- **Vague reference:** *When the manager met the auditor, he was annoyed* - who is *he*? An exam error if the option targets it.\n- **Case:** *between you and I* is wrong; a preposition takes the object form, *between you and me*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "hidden subject error",
+        "along with agreement",
+        "pronoun antecedent",
+        "between you and me"
+      ],
+      "position": 30
+    },
+    {
+      "id": "tense-and-parallelism",
+      "type": "concept",
+      "title": "Tense and parallelism errors",
+      "markdown": "- **Tense shift:** *She opened the file and finds it empty* - keep both past: *found*.\n- **Missing past perfect:** *After the auditor left, the team completes the report* - the earlier action needs the past perfect and the sentence needs one consistent past frame: *After the auditor had left, the team completed the report.*\n- **Faulty parallelism in a list:** *The role involves planning, to coordinate, and execution* - make the three items match: *planning, coordinating and executing* (or all nouns).\n- **Parallelism with correlatives:** *not only ... but also*, *either ... or*, *both ... and* must be followed by the same kind of phrase on each side.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "tense shift error",
+        "past perfect after",
+        "faulty parallelism list",
+        "not only but also"
+      ],
+      "position": 40
+    },
+    {
+      "id": "preposition-article-word-choice",
+      "type": "concept",
+      "title": "Preposition, article and word-choice errors",
+      "markdown": "- **Preposition:** *comply to the norms* (should be *with*), *discuss about the plan* (drop *about*), *senior than me* (should be *to*).\n- **Article:** *He is honest man* (needs *an*), *The honesty is the best policy* (drop *The*).\n- **Countable and uncountable:** *less mistakes* should be *fewer mistakes*; *many informations* should be *much information*.\n- **Confusable pairs:** *affect* (verb) versus *effect* (noun), *principal* versus *principle*, *stationary* versus *stationery*, *its* versus *it's*.\n- **Redundancy:** *revert back*, *repeat again*, *free gift*, *advance planning*, *cancel out* - the second word adds nothing.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "preposition error comply to",
+        "fewer versus less",
+        "affect effect principal principle",
+        "revert back redundancy"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**Item 1.** (a) One of the officers / (b) who was transferred last month / (c) have returned to the branch / (d) No error.\n\nThe verb *have* in part (c) has *One* as its subject, and *One* is singular. It should be *has returned*. The error is in **part (c)**.\n\n**Item 2.** (a) The new policy is expected to reduce costs, / (b) improve turnaround, / (c) and increasing customer trust. / (d) No error.\n\nThe list runs *reduce ... improve ... increasing*. For parallelism the third item must be *increase*. The error is in **part (c)**.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "spot the error worked example",
+        "one of the officers has returned",
+        "parallelism reduce improve increase"
+      ],
+      "position": 60
+    },
+    {
+      "id": "strategy",
+      "type": "exam_tip",
+      "title": "Doing it under time",
+      "markdown": "- First read: does anything jar? If a part clearly breaks a rule, mark it and move on. Do not keep reading for a \"better\" error.\n- If nothing jars, run the checklist part by part, agreement first.\n- Trust \"no error\" when the checklist comes up clean; a fair share of items have no error, and hunting for one wastes time.\n- Do not rewrite the sentence in your head. You are only asked which part is wrong, not how to fix it.\n- Budget about 30 to 40 seconds per item; if it is still unclear, flag it and return later.",
+      "sourceIds": ["SATHEE_ENGLISH"],
+      "searchKeywords": [
+        "error detection strategy timing",
+        "trust no error",
+        "30 seconds per item"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- One part is wrong, or none is; the sentence is written to sound fine.\n- Checklist order: agreement, pronouns, tense, prepositions, articles, parallelism, word choice and redundancy, adjective versus adverb.\n- Find the true subject before judging the verb; ignore *along with*, *as well as*, phrases and clauses in between.\n- Keep tenses consistent; use the past perfect for the earlier of two past events.\n- Match items in a list or after a correlative pair.\n- Watch fixed prepositions, missing or extra articles, *fewer/less*, and redundant second words.\n- \"No error\" is a real answer; do not force an error that is not there.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "error detection summary",
+        "revision",
+        "checklist recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "one-part-wrong",
+      "front": "In a spot-the-error item, how many parts carry a mistake?",
+      "back": "Exactly one, or none (the 'no error' option). The sentence is written to sound natural.",
+      "explanation": "So you test rules, not fluency.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["how-the-question-works"],
+      "position": 10
+    },
+    {
+      "id": "checklist-order",
+      "front": "What is the first check to run on a split sentence?",
+      "back": "Subject-verb agreement: find the real subject and ignore anything between it and the verb.",
+      "explanation": "Agreement and pronoun errors are the most common categories.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-checklist"],
+      "position": 20
+    },
+    {
+      "id": "one-of-the-verb",
+      "front": "\"One of the officers who was transferred ____ returned.\" has / have?",
+      "back": "\"has returned\" - the subject of the main verb is \"One\" (singular).",
+      "explanation": "The verb inside the 'who' clause agrees with 'officers'; the main verb agrees with 'One'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 30
+    },
+    {
+      "id": "parallel-list",
+      "front": "Fix the list: \"to reduce costs, improve turnaround, and increasing trust\".",
+      "back": "Make the third item parallel: \"...and increase trust\". Items in a list share one grammatical form.",
+      "explanation": "Correlative pairs (not only...but also) need the same test.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["tense-and-parallelism"],
+      "position": 40
+    },
+    {
+      "id": "between-you-and-me",
+      "front": "\"between you and I\" or \"between you and me\"?",
+      "back": "\"between you and me\" - a preposition takes the object pronoun.",
+      "explanation": "Case error, common in error detection.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["agreement-and-pronouns"],
+      "position": 50
+    },
+    {
+      "id": "fewer-less",
+      "front": "\"fewer\" or \"less\": ____ mistakes, ____ information?",
+      "back": "\"fewer mistakes\" (countable), \"less information\" (uncountable).",
+      "explanation": "fewer for count nouns, less for mass nouns.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["preposition-article-word-choice"],
+      "position": 60
+    },
+    {
+      "id": "trust-no-error",
+      "front": "Under time pressure, when should you choose 'No error'?",
+      "back": "When the checklist comes up clean. A real share of items have no error; forcing one wastes time.",
+      "explanation": "You are asked which part is wrong, not to improve the sentence.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["strategy"],
+      "position": 70
+    }
+  ]
+}

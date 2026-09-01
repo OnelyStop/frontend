@@ -127,6 +127,9 @@ export function schemaErrors(schema, value, root = schema, path = "") {
 
 // --- domain gates ---------------------------------------------------------
 
+// Blocks that assert facts and therefore need an allowlisted, non-scope-only
+// source. exam_tip / warning / shortcut / summary / practice / objectives are
+// author-created guidance (spec §4.5, §16) and do not.
 const FACTUAL_BLOCK_TYPES = new Set([
   "introduction",
   "concept",
@@ -135,7 +138,6 @@ const FACTUAL_BLOCK_TYPES = new Set([
   "method",
   "worked_example",
   "comparison",
-  "exam_tip",
 ]);
 
 // Raw HTML, script, inline handlers, javascript:/data: URLs, embedded images.

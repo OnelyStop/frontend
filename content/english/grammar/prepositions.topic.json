@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "prepositions",
+  "topicPosition": 40,
+  "title": "Prepositions",
+  "summary": "Prepositions of time and place (in, on, at), preposition collocations that go with particular verbs and adjectives, telling a preposition from a conjunction or an adverb particle, and the fixed pairs the exams test again and again.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech"],
+  "learningObjectives": [
+    "Use in, on and at correctly for time and for place.",
+    "Recall the standard preposition that follows common verbs and adjectives.",
+    "Distinguish a preposition from a subordinating conjunction and from a phrasal-verb particle.",
+    "Fix the fixed-pair errors that recur in error detection (different from, comply with, and so on)."
+  ],
+  "tags": ["grammar", "prepositions", "collocation", "error-detection"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Prepositions",
+      "title": "English Grammar/Basic Parts of Speech/Prepositions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the definition and role of prepositions. All collocation lists, example sentences and exercises here are original and reflect current usage."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "What a preposition does",
+      "markdown": "A preposition links a noun or pronoun to the rest of the sentence and shows a relation: place, time, direction, cause, manner. The noun after it is its object: *in the drawer*, *after the audit*, *because of the delay*.\n\nMost preposition errors are not about meaning; they are about the fixed word that a particular verb, adjective or noun expects. English fixes these by convention, so they have to be learned as pairs.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "what a preposition does",
+        "object of a preposition",
+        "relation place time"
+      ],
+      "position": 10
+    },
+    {
+      "id": "in-on-at-time",
+      "type": "concept",
+      "title": "In, on, at for time",
+      "markdown": "- **at** for clock times and short points: *at 10 a.m.*, *at noon*, *at midnight*, *at the moment*.\n- **on** for days and dates: *on Monday*, *on 3 March*, *on the due date*, *on my birthday*.\n- **in** for longer periods: *in June*, *in 2026*, *in the morning*, *in the last quarter*, *in a week's time*.\n\nNo preposition before *last*, *next*, *this*, *every*: *last week*, *next month*, *this Friday*, *every day*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "in on at time",
+        "at 10 am on Monday in June",
+        "no preposition with last next"
+      ],
+      "position": 20
+    },
+    {
+      "id": "in-on-at-place",
+      "type": "concept",
+      "title": "In, on, at for place",
+      "markdown": "- **at** for a point or a place seen as a point: *at the counter*, *at the entrance*, *at the bus stop*, *at head office*.\n- **on** for a surface or a line: *on the shelf*, *on the wall*, *on page 4*, *on the second floor*, *on the coast*.\n- **in** for an enclosed space or an area: *in the branch*, *in the drawer*, *in Kolkata*, *in the file*.\n\nTransport takes *on* for large or public vehicles (*on the bus*, *on a train*, *on a flight*) but *in* for cars and taxis (*in the car*).",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "in on at place",
+        "at the counter on the shelf in the branch",
+        "on the bus in the car"
+      ],
+      "position": 30
+    },
+    {
+      "id": "collocations",
+      "type": "method",
+      "title": "Verbs and adjectives with fixed prepositions",
+      "markdown": "Learn these as units. A sample that recurs in bank exams:\n\n- **comply with**, **abide by**, **adhere to** a rule\n- **consist of**, **comprise** (no *of*), **account for** a figure\n- **depend on**, **rely on**, **insist on** something\n- **refer to**, **respond to**, **subscribe to**, **object to**\n- **differ from** / **be different from** (Indian and British English), **similar to**\n- **capable of**, **confident of**, **guilty of**, **aware of**\n- **eligible for**, **responsible for**, **liable for**, **suitable for**\n- **married to**, **superior to**, **prior to**, **senior to** (not *than*)\n- **congratulate on**, **accuse of**, **blame for**, **prevent from**\n\nWhere a verb already implies the relation, no preposition follows: *discuss the matter* (not *discuss about*), *reach the office* (not *reach to*), *enter the hall* (not *enter into* unless it means \"begin\", as in *enter into an agreement*).",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "preposition collocations",
+        "comply with depend on different from",
+        "discuss about error"
+      ],
+      "position": 40
+    },
+    {
+      "id": "preposition-versus-others",
+      "type": "comparison",
+      "title": "Preposition, conjunction or particle?",
+      "markdown": "The same word can appear in more than one class.\n\n- *before* / *after* / *since* / *until*: a **preposition** before a noun (*before the meeting*), a **conjunction** before a clause (*before the meeting started*).\n- *up*, *out*, *off*, *on*: a **preposition** when followed by an object showing place (*up the stairs*), a **particle** of a phrasal verb when it is part of the verb's meaning (*fill up the form*, *carry out the audit*).\n- *like*: a preposition meaning \"similar to\" (*a leader like her*); avoid it as a conjunction in formal writing (*as I said*, not *like I said*).",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "preposition versus conjunction versus particle",
+        "before after since until",
+        "phrasal verb particle"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: choosing the preposition",
+      "markdown": "1. *All staff must comply ____ the revised dress code.* The fixed pair is *comply with*: **with**.\n\n2. *The training will begin ____ 9 a.m. ____ Monday.* A clock time takes *at*; a day takes *on*: **at ... on**.\n\n3. *Her approach is quite different ____ her predecessor's.* Standard Indian and British usage is *different from*: **from**.\n\n4. *The officer was senior ____ everyone else on the panel.* *senior*, *junior*, *superior*, *prior* take *to*, not *than*: **to**.\n\n5. *They will discuss ____ the proposal tomorrow.* *discuss* takes a direct object, so **(no preposition)**.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "choose the preposition exercise",
+        "comply with senior to different from",
+        "discuss no preposition"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **discuss about, reach to, enter into (a room), order for.** The verb already carries the relation; drop the preposition.\n- **senior/junior/superior/prior than.** These take *to*.\n- **different than** in formal Indian and British writing - prefer *different from*.\n- **married with** - the correct pair is *married to*.\n- **comprise of** - *comprise* takes no *of*; use *consist of* or *be composed of* instead.\n- **on / in a newspaper** - an item is *in* a newspaper, but *on* a website or *on* television.\n- **since / for** - *since* a point in time, *for* a length of time.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "preposition mistakes",
+        "discuss about reach to",
+        "comprise of married with",
+        "different than"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Time: *at* a clock time, *on* a day or date, *in* a month, year or longer period. No preposition with *last*, *next*, *this*, *every*.\n- Place: *at* a point, *on* a surface or line, *in* an enclosed space or area.\n- Collocations are fixed: *comply with*, *depend on*, *different from*, *capable of*, *eligible for*, *senior to*.\n- Verbs that already imply the relation take a direct object: *discuss*, *reach*, *enter (a place)*, *request*, *order*.\n- Before a clause use the conjunction form (*before it started*); before a noun use the preposition (*before the start*).",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "prepositions summary",
+        "revision",
+        "collocation recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "in-on-at-time",
+      "front": "at / on / in for: 9 a.m., Monday, June?",
+      "back": "at 9 a.m. (clock time), on Monday (day), in June (month). Longer period takes 'in'.",
+      "explanation": "Point in time = at; day/date = on; month/year/part-of-day = in.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["in-on-at-time"],
+      "position": 10
+    },
+    {
+      "id": "no-prep-last-next",
+      "front": "Which preposition before \"last week\", \"next month\", \"every day\"?",
+      "back": "None. \"last\", \"next\", \"this\" and \"every\" take no preposition before a time word.",
+      "explanation": "\"on last Monday\" is wrong; just \"last Monday\".",
+      "difficulty": "medium",
+      "sourceBlockIds": ["in-on-at-time"],
+      "position": 20
+    },
+    {
+      "id": "comply-with",
+      "front": "Complete: \"All staff must comply ____ the code.\"",
+      "back": "\"with\". Also: abide by, adhere to, conform to.",
+      "explanation": "These are fixed verb-plus-preposition pairs.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["collocations"],
+      "position": 30
+    },
+    {
+      "id": "different-from",
+      "front": "different ____ : from, than or to?",
+      "back": "\"different from\" in standard Indian and British usage. \"similar to\", but \"different from\".",
+      "explanation": "\"different than\" is avoided in formal writing here.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 40
+    },
+    {
+      "id": "senior-to",
+      "front": "senior, junior, superior, prior — which preposition, never 'than'?",
+      "back": "\"to\": senior to, junior to, superior to, prior to.",
+      "explanation": "These Latin comparatives already carry the comparison.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 50
+    },
+    {
+      "id": "discuss-no-prep",
+      "front": "Is \"discuss about the proposal\" correct?",
+      "back": "No. \"discuss\" takes a direct object: \"discuss the proposal\". Same with reach, enter (a place), request, order.",
+      "explanation": "The verb already contains the relation.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60
+    },
+    {
+      "id": "prep-vs-conj-before",
+      "front": "\"before\" the meeting vs \"before\" the meeting started — same word, what changes?",
+      "back": "Before a noun (the meeting) it is a preposition; before a clause (the meeting started) it is a conjunction.",
+      "explanation": "Check whether a subject-plus-verb follows.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["preposition-versus-others"],
+      "position": 70
+    }
+  ]
+}
