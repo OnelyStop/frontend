@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "sentence-structure",
+  "topicPosition": 15,
+  "title": "Sentence Structure",
+  "summary": "What a grammatical sentence must contain, the difference between a phrase and a clause and between independent and dependent clauses, the four sentence types, and how to spot and repair a fragment or a run-on.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech"],
+  "learningObjectives": [
+    "State the two things every sentence needs and find them in a given sentence.",
+    "Tell a phrase from a clause, and an independent clause from a dependent one.",
+    "Classify a sentence as simple, compound, complex or compound-complex.",
+    "Identify a fragment or a run-on and correct it."
+  ],
+  "tags": ["grammar", "sentence-structure", "clauses", "fragments", "run-ons"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Subject_and_Predicate/What_is_a_Sentence",
+      "title": "English Grammar/Subject and Predicate/What is a Sentence",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the definition of a sentence and its parts. All example sentences and exercises here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-sentence-needs",
+      "type": "introduction",
+      "title": "What a sentence needs",
+      "markdown": "A grammatical sentence expresses a complete thought and contains at least one **subject** and one **finite verb** that agree with each other.\n\n- The **subject** is who or what the sentence is about: *The audit team* submitted the report.\n- The **predicate** is everything said about the subject, built around a **finite verb** (one that shows tense): the team *submitted the report on Friday*.\n\nA string of words with no finite verb, or no subject, is not a sentence, however long it looks. \"Having reviewed the accounts in detail over three days\" has no subject and no finite verb — it is a fragment.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "sentence needs subject and finite verb",
+        "subject predicate",
+        "complete thought",
+        "no finite verb is a fragment"
+      ],
+      "position": 10
+    },
+    {
+      "id": "phrase-vs-clause",
+      "type": "concept",
+      "title": "Phrase and clause",
+      "markdown": "- A **phrase** is a group of words that works as a unit but has **no subject-plus-finite-verb pair**: *in the strong room*, *the newly appointed officer*, *to verify the balance*, *having signed the form*.\n- A **clause** does have a subject and a finite verb: *the officer signed the form*.\n\nEvery clause is either independent or dependent (see the next block). Being able to point to the subject and the finite verb is what tells you a clause from a phrase.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrase has no subject verb pair",
+        "clause has subject and finite verb",
+        "prepositional phrase noun phrase infinitive phrase participle phrase"
+      ],
+      "position": 20
+    },
+    {
+      "id": "independent-vs-dependent",
+      "type": "concept",
+      "title": "Independent and dependent clauses",
+      "markdown": "- An **independent (main) clause** can stand alone as a sentence: *the branch reopened*.\n- A **dependent (subordinate) clause** has a subject and a verb but begins with a word that stops it standing alone — a subordinating conjunction (*because*, *although*, *when*, *if*, *while*, *since*) or a relative pronoun (*who*, *which*, *that*): *because the branch reopened*, *which the auditor had flagged*.\n\nA dependent clause must attach to an independent one: *Because the branch reopened, footfall rose.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "independent main clause stands alone",
+        "dependent subordinate clause",
+        "subordinating conjunction relative pronoun",
+        "dependent clause must attach"
+      ],
+      "position": 30
+    },
+    {
+      "id": "the-four-types",
+      "type": "comparison",
+      "title": "The four sentence types",
+      "markdown": "- **Simple:** one independent clause, no dependent clause. *The manager approved the transfer.*\n- **Compound:** two or more independent clauses joined by a coordinating conjunction (*and*, *but*, *or*, *so*, ...) with a comma, or by a semicolon. *The manager approved the transfer, but the system rejected it.*\n- **Complex:** one independent clause plus at least one dependent clause. *When the manager approved the transfer, the system rejected it.*\n- **Compound-complex:** at least two independent clauses and at least one dependent clause. *When the manager approved the transfer, the system rejected it, so the clerk raised a ticket.*\n\nCount the finite verbs and the clause-starting words to classify.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "simple compound complex compound-complex sentence",
+        "one independent clause",
+        "two independent clauses coordinating conjunction",
+        "independent plus dependent clause"
+      ],
+      "position": 40
+    },
+    {
+      "id": "fragments-and-run-ons",
+      "type": "warning",
+      "title": "Fragments and run-ons",
+      "markdown": "- **Fragment:** a phrase or a dependent clause punctuated as if it were a sentence. *Although the reconciliation was complete.* — no main clause. Fix by attaching it: *Although the reconciliation was complete, the report was still pending.*\n- **Run-on (fused sentence):** two independent clauses with nothing between them. *The reconciliation was complete the report was still pending.* Fix with a full stop, a semicolon, or a comma plus a coordinating conjunction.\n- **Comma splice:** two independent clauses joined by only a comma. *The reconciliation was complete, the report was still pending.* Fix the same three ways, or make one clause dependent.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "sentence fragment no main clause",
+        "run-on fused sentence",
+        "comma splice",
+        "fix with full stop semicolon or comma plus conjunction"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: classify and fix",
+      "markdown": "**1. Classify:** *The trainer explained the new process, and the recruits took notes while she spoke.*\n\nFinite verbs: *explained*, *took*, *spoke*. \"The trainer explained the new process\" and \"the recruits took notes\" are independent, joined by *and* with a comma. \"While she spoke\" is dependent. Two independent clauses plus a dependent clause makes it **compound-complex**.\n\n**2. Fix:** *Because the courier arrived late the documents missed the last dispatch.*\n\nThis is a run-on: \"the documents missed the last dispatch\" is a full independent clause following a dependent clause, but there is no comma after *late*. The clean fix is **\"Because the courier arrived late, the documents missed the last dispatch.\"** A comma is needed after an opening dependent clause.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "classify sentence compound-complex example",
+        "count finite verbs and clause starters",
+        "add comma after opening dependent clause"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Every sentence needs a subject and a finite verb that agree, and must express a complete thought.\n- Phrase: no subject-plus-finite-verb. Clause: has both.\n- Independent clause stands alone; a dependent clause starts with a subordinating conjunction or a relative pronoun and must attach to an independent clause.\n- Types: simple (1 independent), compound (2+ independent, joined by a comma and a coordinating conjunction or a semicolon), complex (1 independent + 1+ dependent), compound-complex (2+ independent + 1+ dependent).\n- Fragment: no main clause. Run-on: two independent clauses with nothing between. Comma splice: two independent clauses joined by only a comma. Fix with a full stop, a semicolon, or a comma plus a coordinating conjunction — or subordinate one clause.\n- Put a comma after an opening dependent clause.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "sentence structure summary",
+        "revision",
+        "phrase clause types fragment run-on recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Classify each as simple, compound, complex or compound-complex; then repair items 5 and 6.\n\n1. The regional office issued a circular about the revised charges.\n2. The clerk verified the signature, and the cashier counted the notes.\n3. Since the network was down, the branch processed withdrawals manually.\n4. After the auditor left, the team finalised the report, and the manager signed it that evening.\n5. Whenever the quarterly targets are announced. (repair)\n6. The queue was long the counter staff were slow. (repair)",
+      "searchKeywords": [
+        "sentence structure practice questions",
+        "classify simple compound complex repair fragment run-on exercises"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "sentence-minimum",
+      "front": "What two things must every grammatical sentence contain?",
+      "back": "At least one subject and one finite verb (a verb showing tense) that agree, expressing a complete thought.",
+      "explanation": "\"Having reviewed the accounts\" fails both tests — a fragment.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-a-sentence-needs"],
+      "position": 10
+    },
+    {
+      "id": "phrase-clause",
+      "front": "How do you tell a phrase from a clause?",
+      "back": "A clause has a subject + finite verb pair; a phrase does not. \"in the strong room\" is a phrase; \"the officer signed it\" is a clause.",
+      "explanation": "Point to the subject and the tensed verb.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["phrase-vs-clause"],
+      "position": 20
+    },
+    {
+      "id": "dependent-clause",
+      "front": "What makes a clause dependent?",
+      "back": "It begins with a subordinating conjunction (because, although, when, if…) or a relative pronoun (who, which, that), so it cannot stand alone.",
+      "explanation": "It must attach to an independent clause.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["independent-vs-dependent"],
+      "position": 30
+    },
+    {
+      "id": "compound-vs-complex",
+      "front": "Compound vs complex sentence?",
+      "back": "Compound: two or more independent clauses (comma + coordinating conjunction, or semicolon). Complex: one independent clause plus one or more dependent clauses.",
+      "explanation": "Compound-complex has both: 2+ independent and 1+ dependent.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-four-types"],
+      "position": 40
+    },
+    {
+      "id": "comma-splice",
+      "front": "What is a comma splice, and how do you fix it?",
+      "back": "Two independent clauses joined by only a comma. Fix with a full stop, a semicolon, a comma + coordinating conjunction, or by subordinating one clause.",
+      "explanation": "A comma alone cannot join two main clauses.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["fragments-and-run-ons"],
+      "position": 50
+    },
+    {
+      "id": "opening-dependent-comma",
+      "front": "\"Because the courier arrived late___ the documents missed dispatch.\" What goes in the blank?",
+      "back": "A comma. An opening dependent clause is followed by a comma before the main clause.",
+      "explanation": "No comma is needed when the dependent clause comes second.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 60
+    },
+    {
+      "id": "classify-method",
+      "front": "Quick method to classify a sentence?",
+      "back": "Count the finite verbs and the clause-starting words. That tells you how many independent and dependent clauses there are.",
+      "explanation": "Independent clause count → simple/compound; any dependent clause → complex.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["the-four-types"],
+      "position": 70
+    }
+  ]
+}
