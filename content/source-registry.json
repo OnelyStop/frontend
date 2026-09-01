@@ -1,0 +1,274 @@
+{
+  "$comment": "Machine-readable mirror of docs/study-module-spec.md §5. A source may be used by a content author only if its id appears here. scripts/study-validate.mjs enforces: every block sourceId resolves here, usageMode matches, and no bannedDomain appears in any source URL. Adding a source is a human decision — it needs a reviewed mode and licence.",
+  "usageModes": {
+    "scope_only": "Determine exam sections, topic coverage or format only. Do not adapt or reproduce lesson text or questions.",
+    "reference_only": "Cross-check factual propositions, then write a genuinely original explanation. No close paraphrase.",
+    "open_adaptable": "Adaptation permitted only if the exact item/page licence is captured and all attribution / share-alike conditions are followed.",
+    "public_domain": "May be adapted; still cite, and confirm public-domain status for the intended jurisdiction.",
+    "policy": "A licensing/terms page, cited for provenance. Not a content source.",
+    "prohibited": "Do not send to the model, scrape, quote, or use to create app content."
+  },
+  "safeDefault": "reference_only",
+  "sources": [
+    {
+      "id": "SBI_CAREERS",
+      "title": "SBI Careers / current openings",
+      "url": "https://sbi.co.in/web/careers/current-openings",
+      "publisher": "State Bank of India",
+      "usageMode": "scope_only",
+      "use": "Locate the latest official advertisement and handout."
+    },
+    {
+      "id": "SBI_PO_OVERVIEW",
+      "title": "SBI PO information",
+      "url": "https://sbi.co.in/web/careers/probationary-officers",
+      "publisher": "State Bank of India",
+      "usageMode": "scope_only",
+      "use": "Cross-check phases, named sections and general rules; latest cycle notification wins."
+    },
+    {
+      "id": "IBPS_HOME",
+      "title": "IBPS",
+      "url": "https://www.ibps.in/",
+      "publisher": "Institute of Banking Personnel Selection",
+      "usageMode": "scope_only",
+      "use": "Locate the latest official CRP notification and information handout."
+    },
+    {
+      "id": "SATHEE_BANK",
+      "title": "SATHEE Bank Exam",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "use": "Discover topic taxonomy and exam-oriented coverage only. Not cleared for republication."
+    },
+    {
+      "id": "SATHEE_ENGLISH",
+      "title": "SATHEE Bank English section",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "use": "Determine exam question types and expected breadth; do not copy questions, passages or explanations."
+    },
+    {
+      "id": "WIKIBOOKS_MATH",
+      "title": "Wikibooks mathematics collection",
+      "url": "https://en.wikibooks.org/wiki/Subject:Mathematics",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "use": "Cross-check concepts and formulas. Adapted expression must comply with CC BY-SA 4.0 and preserve attribution."
+    },
+    {
+      "id": "WIKIBOOKS_COPYRIGHT",
+      "title": "Wikibooks reuse terms",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "use": "Verify attribution and ShareAlike obligations for every adapted page."
+    },
+    {
+      "id": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "title": "Wikibooks English Grammar",
+      "url": "https://en.wikibooks.org/wiki/Category:Book:English_Grammar",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "use": "Grammar taxonomy and rule cross-checking; CC BY-SA obligations apply to adapted expression."
+    },
+    {
+      "id": "GUTENBERG_GRAMMAR",
+      "title": "The Grammar of English Grammars",
+      "url": "https://www.gutenberg.org/ebooks/11615",
+      "publisher": "Project Gutenberg",
+      "usageMode": "public_domain",
+      "use": "Historical grammar reference; modern usage must be independently verified and phrased. Jurisdiction check required."
+    },
+    {
+      "id": "RBI_HOME",
+      "title": "Reserve Bank of India",
+      "url": "https://www.rbi.org.in/",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "use": "Primary authority; locate current pages, FAQs, directions and circulars."
+    },
+    {
+      "id": "RBI_MASTER_DIRECTIONS",
+      "title": "RBI Master Directions index",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "use": "Current regulatory facts; follow the latest consolidated direction."
+    },
+    {
+      "id": "RBI_FAME",
+      "title": "RBI financial-literacy material",
+      "url": "https://www.rbi.org.in/commonperson/English/Scripts/PressReleases.aspx?Id=2123",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "use": "Accounts, KYC, payments, safe banking and consumer education."
+    },
+    {
+      "id": "RBI_ROLES",
+      "title": "RBI current roles",
+      "url": "https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=1983",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "use": "RBI functions and institutional role."
+    },
+    {
+      "id": "RBI_OMBUDSMAN",
+      "title": "RBI Integrated Ombudsman FAQ",
+      "url": "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=153",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "use": "High-level grievance-redress concepts; verify the live page."
+    },
+    {
+      "id": "NPCI_UPI",
+      "title": "NPCI UPI overview",
+      "url": "https://www.npci.org.in/product/upi/about-upi",
+      "publisher": "National Payments Corporation of India",
+      "usageMode": "reference_only",
+      "use": "UPI concepts and participants; reverify changing limits/features."
+    },
+    {
+      "id": "NPCI_IMPS",
+      "title": "NPCI IMPS overview",
+      "url": "https://www.npci.org.in/product/imps",
+      "publisher": "National Payments Corporation of India",
+      "usageMode": "reference_only",
+      "use": "IMPS concepts; reverify changing limits/features."
+    },
+    {
+      "id": "DICGC_FAQ",
+      "title": "DICGC FAQ",
+      "url": "https://www.dicgc.org.in/FAQs",
+      "publisher": "Deposit Insurance and Credit Guarantee Corporation",
+      "usageMode": "reference_only",
+      "use": "Deposit-insurance facts; verify amount and applicability before publication."
+    },
+    {
+      "id": "INDIACODE_RBI_ACT",
+      "title": "RBI Act, 1934",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2398",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "use": "Statutory foundation and definitions."
+    },
+    {
+      "id": "INDIACODE_BANKING_ACT",
+      "title": "Banking Regulation Act, 1949",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1885",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "use": "Statutory banking concepts."
+    },
+    {
+      "id": "INDIACODE_NI_ACT",
+      "title": "Negotiable Instruments Act, 1881",
+      "url": "https://www.indiacode.nic.in/indiacode/handle/123456789/2189",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "use": "Promissory note, bill of exchange, cheque and related terms."
+    },
+    {
+      "id": "INDIACODE_PSS_ACT",
+      "title": "Payment and Settlement Systems Act, 2007",
+      "url": "https://www.indiacode.nic.in/indiacode/handle/123456789/2082",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "use": "Payment-system statutory framework."
+    },
+    {
+      "id": "BIS_BASEL",
+      "title": "BIS Basel Framework",
+      "url": "https://www.bis.org/committees/bcbs/basel-framework",
+      "publisher": "Bank for International Settlements",
+      "usageMode": "reference_only",
+      "use": "International Basel concepts; use RBI sources for Indian implementation."
+    },
+    {
+      "id": "NIST_GLOSSARY",
+      "title": "NIST CSRC glossary",
+      "url": "https://csrc.nist.gov/glossary",
+      "publisher": "NIST",
+      "usageMode": "open_adaptable",
+      "use": "Security terminology. Cite the underlying NIST publication identified by the glossary."
+    },
+    {
+      "id": "NIST_COPYRIGHT",
+      "title": "NIST copyright and licensing",
+      "url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
+      "publisher": "NIST",
+      "usageMode": "policy",
+      "use": "NIST-authored technical-series works have worldwide reuse permission; third-party material can differ."
+    },
+    {
+      "id": "WIKIBOOKS_COMPUTING",
+      "title": "Wikibooks Basic Computing",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "use": "Hardware, files, OS and network taxonomy; check currency and CC BY-SA requirements."
+    },
+    {
+      "id": "LIBREOFFICE_GUIDES",
+      "title": "LibreOffice guides",
+      "url": "https://books.libreoffice.org/",
+      "publisher": "The Document Foundation",
+      "usageMode": "open_adaptable",
+      "use": "Office-suite concepts. Exact guide licences and attribution must be recorded."
+    },
+    {
+      "id": "LIBREOFFICE_LICENSE",
+      "title": "LibreOffice licence page",
+      "url": "https://www.libreoffice.org/licenses/",
+      "publisher": "The Document Foundation",
+      "usageMode": "policy",
+      "use": "Website text/images are generally CC BY-SA unless otherwise marked."
+    }
+  ],
+  "prohibitedSourceIds": {
+    "OPENSTAX_OLD_REFERENCE": {
+      "title": "OpenStax Prealgebra index",
+      "url": "https://openstax.org/books/prealgebra/pages/index",
+      "reason": "The current page expressly restricts LLM ingestion. Do not send it to the model or copy it into generated content."
+    }
+  },
+  "bannedDomains": [
+    "openstax.org",
+    "ncert.nic.in",
+    "epathshala.nic.in",
+    "learn.microsoft.com",
+    "docs.microsoft.com",
+    "youtube.com",
+    "youtu.be",
+    "toppr.com",
+    "byjus.com",
+    "unacademy.com",
+    "testbook.com",
+    "adda247.com",
+    "gradeup.co",
+    "oliveboard.in",
+    "careerpower.in",
+    "bankersadda.com",
+    "jagranjosh.com",
+    "indianexpress.com",
+    "thehindu.com",
+    "timesofindia.indiatimes.com",
+    "livemint.com",
+    "economictimes.indiatimes.com"
+  ],
+  "fabricatedProvenancePhrases": [
+    "previous year",
+    "previous-year",
+    "asked in",
+    "appeared in",
+    "official question",
+    "pyq",
+    "memory based",
+    "memory-based"
+  ]
+}

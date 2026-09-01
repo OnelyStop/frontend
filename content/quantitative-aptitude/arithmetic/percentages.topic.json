@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "arithmetic",
+  "chapterName": "Arithmetic",
+  "chapterPosition": 2,
+  "topicSlug": "percentages",
+  "topicPosition": 10,
+  "title": "Percentages",
+  "summary": "What a percentage is, how it links to fractions and decimals, and how to handle percentage change, successive change and reverse-percentage questions at bank-exam speed.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 25,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["fractions-and-decimals"],
+  "learningObjectives": [
+    "Convert freely between a percentage, a fraction and a decimal.",
+    "Apply the percentage-change formula and read it in both directions.",
+    "Combine two successive percentage changes into one net change.",
+    "Recover an original amount from a figure that already includes a percentage change."
+  ],
+  "tags": ["arithmetic", "percentage", "percentage-change", "bank-exams"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Percentages",
+      "title": "Arithmetic/Percentages",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used only to cross-check the definition of percent and the percentage-change relationship. All wording, worked examples and practice items here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-percentage-means",
+      "type": "introduction",
+      "title": "What a percentage means",
+      "markdown": "A percentage is just a fraction whose denominator is fixed at 100. \"Per cent\" is Latin for \"per hundred\", so 37 per cent means 37 out of every 100, or the fraction 37/100.\n\nBecause the denominator never changes, a percentage is a convenient common language for comparing parts of different wholes. Saying one section was cleared by 62 per cent of candidates and another by 58 per cent is instantly comparable, even if the two sections had different numbers of candidates.\n\nIn bank exams percentages appear everywhere: data interpretation, profit and loss, simple and compound interest, and direct percentage questions in the arithmetic set. Treat this topic as a tool you will reuse, not a stand-alone chapter.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": ["percent", "per hundred", "meaning of percentage"],
+      "position": 10
+    },
+    {
+      "id": "percentage-fraction-decimal",
+      "type": "concept",
+      "title": "Percentage, fraction and decimal are the same number",
+      "markdown": "Every percentage has a fraction form and a decimal form, and switching between them is where most speed is won or lost.\n\n- Percentage to decimal: divide by 100. So 45 per cent becomes 0.45.\n- Decimal to percentage: multiply by 100. So 0.6 becomes 60 per cent.\n- Percentage to fraction: write it over 100 and reduce. So 40 per cent is 40/100, which reduces to 2/5.\n\nLearn the common conversions by heart, because recognising them removes a calculation step:\n\n- 1/2 is 50 per cent, 1/3 is 33.33 per cent, 2/3 is 66.67 per cent\n- 1/4 is 25 per cent, 3/4 is 75 per cent\n- 1/5 is 20 per cent, 1/8 is 12.5 per cent\n- 1/6 is 16.67 per cent, 1/9 is 11.11 per cent, 1/11 is 9.09 per cent\n\nWhen a question asks for 37.5 per cent of a number, seeing it as 3/8 of that number is faster than multiplying by 0.375.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "convert percentage fraction decimal",
+        "common fractions",
+        "percentage table"
+      ],
+      "position": 20
+    },
+    {
+      "id": "core-relationships",
+      "type": "formula",
+      "title": "The three relationships you actually use",
+      "markdown": "Almost every direct percentage question is one of these three, rearranged.\n\n1. **A percentage of a number.** Part equals rate divided by 100, times the whole. For example, 15 per cent of 240 is 15/100 times 240, which is 36.\n\n2. **One number as a percentage of another.** Rate equals part divided by whole, times 100. If 36 marks are scored out of 240, that is 36/240 times 100, which is 15 per cent.\n\n3. **Percentage change.** Change percentage equals the difference divided by the original value, times 100. The denominator is always the starting value, never the final value. A rise from 200 to 250 is a change of 50 over 200, times 100, which is a 25 per cent increase. Going back from 250 to 200 is a change of 50 over 250, times 100, which is a 20 per cent decrease. The two percentages differ because the base differs.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "percentage of a number",
+        "percentage change formula",
+        "base value"
+      ],
+      "position": 30
+    },
+    {
+      "id": "increase-decrease-multiplier",
+      "type": "method",
+      "title": "Turn an increase or decrease into a single multiplier",
+      "markdown": "Adding a percentage and then working with the result is slow. Instead, use a multiplier.\n\n- Increasing a quantity by r per cent multiplies it by (1 + r/100). A 20 per cent rise is a multiplier of 1.20.\n- Decreasing a quantity by r per cent multiplies it by (1 - r/100). A 15 per cent fall is a multiplier of 0.85.\n\nThe multiplier form has two payoffs. First, several changes just multiply together. Second, it makes reverse questions easy: if a price after a 12 per cent increase is 560, then the original price is 560 divided by 1.12, which is 500. A very common wrong answer is to take 12 per cent of 560 and subtract it; that uses the wrong base and gives 492.8.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "multiplier method",
+        "reverse percentage",
+        "original value from final"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-concession",
+      "type": "worked_example",
+      "title": "Worked example: a fee concession",
+      "markdown": "A recruitment portal charges an application fee of 850 rupees. Candidates in a certain category get a concession of 32 per cent on the fee.\n\n**Find the concession in rupees, and the amount such a candidate actually pays.**\n\nStep 1. The concession is 32 per cent of 850, which is 0.32 times 850, equal to 272 rupees.\n\nStep 2. The amount payable is the fee minus the concession, 850 minus 272, equal to 578 rupees. You can also get this in one step with the decrease multiplier: 850 times (1 minus 0.32), that is 850 times 0.68, which is 578 rupees.\n\nThe one-step multiplier route is the one to practise, because it removes the separate subtraction and the chance of a slip in it.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "percentage discount example",
+        "concession",
+        "decrease multiplier"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "concession in rupees",
+          "value": 272,
+          "expression": "0.32 * 850"
+        },
+        {
+          "label": "amount payable in rupees",
+          "value": 578,
+          "expression": "850 * (1 - 0.32)"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-successive-change",
+      "type": "worked_example",
+      "title": "Worked example: successive percentage change",
+      "markdown": "A trader marks a product up by 20 per cent for a festival, then a week later reduces the new price by 15 per cent in a clearance.\n\n**Find the net percentage change, and the final price of an item that originally cost 500 rupees.**\n\nStep 1. Multipliers combine. The mark-up multiplier is 1.20 and the reduction multiplier is 0.85, so the overall multiplier is 1.20 times 0.85, which is 1.02.\n\nStep 2. An overall multiplier of 1.02 is a net increase of 2 per cent, because 1.02 minus 1 is 0.02.\n\nStep 3. The item that cost 500 rupees now costs 500 times 1.02, which is 510 rupees.\n\nNote that the two percentages do not simply cancel. There is a shortcut for two changes a and b: the net change is a plus b plus (a times b divided by 100). Here that is 20 minus 15 minus 300/100, which is 5 minus 3, equal to 2 per cent.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "successive percentage change",
+        "net change formula",
+        "combined multiplier"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "net percentage change",
+          "value": 2,
+          "expression": "((1.20 * 0.85) - 1) * 100"
+        },
+        {
+          "label": "final price in rupees",
+          "value": 510,
+          "expression": "500 * 1.20 * 0.85"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using the wrong base for a change.** The denominator in a percentage change is the original value. A fall from 250 to 200 is 20 per cent, not 25 per cent.\n- **Treating successive changes as additive.** A 20 per cent rise then a 20 per cent fall is not zero; it is a net 4 per cent fall, because 1.2 times 0.8 is 0.96.\n- **Reversing a percentage by subtracting from the final figure.** If 560 already includes a 12 per cent increase, divide by 1.12; do not take 12 per cent of 560.\n- **Confusing percentage points with per cent.** If a rate goes from 4 per cent to 6 per cent, that is a rise of 2 percentage points but a 50 per cent increase in the rate itself.\n- **Rounding too early.** Keep fractions like 1/3 as fractions until the final step.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "percentage mistakes",
+        "percentage points versus percent",
+        "successive change error"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A percentage is a fraction over 100. Divide by 100 for the decimal, multiply by 100 to go back.\n- Percentage of a number: rate over 100, times the whole. One number as a percentage of another: part over whole, times 100.\n- Percentage change uses the original value as the base.\n- Increase by r per cent means multiply by (1 + r/100); decrease means multiply by (1 - r/100).\n- Successive changes multiply. For two changes, net change equals a plus b plus ab/100.\n- To reverse a change, divide by the multiplier, never subtract from the final figure.\n- Learn the standard fraction equivalents so 37.5 per cent is read as 3/8 on sight.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": ["percentage summary", "revision", "formula recap"],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Try these, then check with the multiplier method.\n\n1. A salary of 42,000 rupees is increased by 8 per cent. What is the new salary?\n2. A number falls from 320 to 272. What is the percentage decrease?\n3. After a 25 per cent discount, a jacket sells for 1,350 rupees. What was the marked price?\n4. A quantity is increased by 10 per cent and then decreased by 10 per cent. What is the net percentage change?\n5. In a class, 40 per cent of students are boys and there are 30 girls. How many students are there in total?",
+      "searchKeywords": ["percentage practice questions", "exercises"],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "meaning-of-percent",
+      "front": "What does 37% mean as a fraction?",
+      "back": "37 out of every 100, i.e. the fraction 37/100. \"Per cent\" means \"per hundred\".",
+      "explanation": "A percentage is a fraction with a fixed denominator of 100.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-a-percentage-means"],
+      "position": 10
+    },
+    {
+      "id": "percent-to-decimal",
+      "front": "How do you convert a percentage to a decimal, and back?",
+      "back": "Percentage to decimal: divide by 100 (45% becomes 0.45). Decimal to percentage: multiply by 100 (0.6 becomes 60%).",
+      "explanation": "The two forms are the same number written differently.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["percentage-fraction-decimal"],
+      "position": 20
+    },
+    {
+      "id": "fraction-equivalents",
+      "front": "Give the percentage equivalents of 1/8, 3/8 and 1/6.",
+      "back": "1/8 = 12.5%, 3/8 = 37.5%, 1/6 = 16.67% (16 and two-thirds per cent).",
+      "explanation": "Recognising these removes a multiplication step under time pressure.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["percentage-fraction-decimal"],
+      "position": 30
+    },
+    {
+      "id": "percentage-change-base",
+      "front": "In a percentage-change calculation, which value is the base (denominator)?",
+      "back": "Always the original (starting) value, never the final value. A fall from 250 to 200 is 50/250 = 20%.",
+      "explanation": "Using the final value as the base is the most common error in change questions.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["core-relationships"],
+      "position": 40
+    },
+    {
+      "id": "increase-multiplier",
+      "front": "What single multiplier represents an increase of r%? A decrease of r%?",
+      "back": "Increase: multiply by (1 + r/100). Decrease: multiply by (1 - r/100). A 20% rise is x1.20; a 15% fall is x0.85.",
+      "explanation": "Multipliers let several changes be combined by multiplication.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["increase-decrease-multiplier"],
+      "position": 50
+    },
+    {
+      "id": "reverse-percentage",
+      "front": "A price is 560 after a 12% increase. How do you find the original price?",
+      "back": "Divide by the multiplier: 560 / 1.12 = 500. Do not take 12% of 560 and subtract it.",
+      "explanation": "The 12% was applied to the original, not to 560, so 560 must be divided by 1.12.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["increase-decrease-multiplier"],
+      "position": 60
+    },
+    {
+      "id": "successive-change-formula",
+      "front": "Net effect of two successive changes of a% then b%?",
+      "back": "a + b + ab/100 (per cent). A 20% rise then a 20% fall gives 20 - 20 - 400/100 = -4%.",
+      "explanation": "Equivalent to multiplying the two multipliers: 1.2 x 0.8 = 0.96.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-successive-change"],
+      "position": 70
+    },
+    {
+      "id": "percentage-points",
+      "front": "A rate rises from 4% to 6%. Is that a 2% increase?",
+      "back": "It is a rise of 2 percentage points, but a 50% increase in the rate itself (2/4 = 50%).",
+      "explanation": "Percentage points and per cent are different; watch which the question asks for.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 80
+    }
+  ]
+}

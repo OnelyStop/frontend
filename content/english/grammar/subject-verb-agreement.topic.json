@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "subject-verb-agreement",
+  "topicPosition": 30,
+  "title": "Subject-Verb Agreement",
+  "summary": "How a verb agrees with its real subject in number and person, and the recurring traps banks test: intervening phrases, indefinite pronouns, compound subjects, collective nouns and quantity expressions.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech"],
+  "learningObjectives": [
+    "Identify the true subject of a sentence and ignore words that merely sit between it and the verb.",
+    "Apply the standard rules for indefinite pronouns and for subjects joined by 'and', 'or' and 'nor'.",
+    "Decide when a collective noun or a quantity takes a singular verb and when it takes a plural one.",
+    "Spot a subject-verb error quickly in an error-detection or sentence-improvement question."
+  ],
+  "tags": ["grammar", "concord", "subject-verb-agreement", "error-detection"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Agreement",
+      "title": "English Grammar/Agreement",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the standard agreement rules. All example sentences, exercises and explanations here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "What agreement means",
+      "markdown": "A verb must agree with its subject in number and person. A singular subject takes a singular verb, and a plural subject takes a plural verb: \"The report is ready\" but \"The reports are ready\".\n\nIn the present tense the difference usually shows up as an -s on the third-person singular verb: \"she writes\", \"the officer signs\", against \"they write\", \"the officers sign\". With the verb \"to be\" it shows up as is/are and was/were.\n\nBank exams rarely ask about a plain subject next to its verb. They separate the two with extra words, or they use a subject whose number is not obvious, and then ask you to find the mistake. The rest of this topic is those cases.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": ["agreement", "concord", "singular plural verb"],
+      "position": 10
+    },
+    {
+      "id": "find-the-real-subject",
+      "type": "concept",
+      "title": "Find the real subject",
+      "markdown": "The subject of a verb is the noun or pronoun that performs it, not whatever noun happens to be nearest. Strip the sentence to its bones.\n\n\"The list of approved candidates **has** been published.\" The subject is \"list\", which is singular, so \"has\" is correct. \"Candidates\" is inside a prepositional phrase describing the list and cannot be the subject.\n\nA reliable method in the exam: cross out every prepositional phrase (starting with words like of, in, on, with, along with, as well as, together with, including) and every relative clause, then read the subject straight into the verb.\n\n\"The manager, along with two clerks, **was** present.\" Crossing out \"along with two clerks\" leaves \"The manager was present\". Phrases added with \"along with\", \"as well as\" and \"together with\" do not make a singular subject plural.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "intervening phrase",
+        "prepositional phrase",
+        "along with as well as",
+        "true subject"
+      ],
+      "position": 20
+    },
+    {
+      "id": "one-of-the-trap",
+      "type": "method",
+      "title": "The 'one of the ...' trap",
+      "markdown": "Two patterns look similar and behave differently.\n\n\"One of the officers **has** resigned.\" Here the subject is \"one\", so the verb is singular.\n\n\"He is one of those officers who **have** resigned.\" Here the verb inside the relative clause agrees with \"officers\", not with \"one\", because \"who\" refers back to \"officers\". The people who resigned are the officers, and he is one of them.\n\nCompare \"the only one of\": \"She is the only one of the officers who **has** an audit background.\" \"The only one\" pushes the reference back to \"one\", so the verb is singular again.\n\nExam shortcut: find the word \"who\", \"which\" or \"that\", then look at the noun immediately before it. That noun controls the verb in the relative clause.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "one of the who",
+        "relative clause agreement",
+        "the only one of"
+      ],
+      "position": 30
+    },
+    {
+      "id": "indefinite-pronouns",
+      "type": "concept",
+      "title": "Indefinite pronouns",
+      "markdown": "Some pronouns are always singular even though they feel like groups: each, either, neither, everyone, everybody, everything, someone, somebody, anyone, anybody, no one, nobody, nothing.\n\n\"Each of the branches **submits** a monthly return.\" \"Every one of the forms **was** incomplete.\"\n\nA few are always plural: both, few, many, several. \"Several of the entries **are** duplicated.\"\n\nA third group takes its number from the noun that follows \"of\": some, any, all, most, none, half, more. \"Most of the budget **has** been spent\" but \"Most of the branches **have** reported\". Treat \"none\" this way too in modern usage: \"None of the money **was** recovered\", \"None of the officers **were** available\".",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "indefinite pronoun",
+        "each either neither",
+        "some any all none",
+        "everyone singular"
+      ],
+      "position": 40
+    },
+    {
+      "id": "compound-subjects",
+      "type": "comparison",
+      "title": "Subjects joined by 'and', 'or', 'nor'",
+      "markdown": "**Joined by 'and':** normally plural. \"The chairman and the secretary **were** informed.\"\n\nTwo exceptions. When the two nouns name a single thing or idea, the verb is singular: \"Bread and butter **is** a simple breakfast.\" When \"each\" or \"every\" comes before them, the verb is singular: \"Every officer and every clerk **has** signed.\"\n\n**Joined by 'or' or 'nor':** the verb agrees with the nearer subject. \"Neither the manager nor the clerks **were** aware.\" \"Neither the clerks nor the manager **was** aware.\" Because of this, careful writing puts the plural subject second so the sentence does not sound odd.\n\n\"Either the branches or the head office **is** at fault\" is correct but jarring; rephrasing is usually better in real writing, though in the exam you simply apply the nearer-subject rule.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "compound subject",
+        "either or neither nor",
+        "nearer subject rule",
+        "and singular"
+      ],
+      "position": 50
+    },
+    {
+      "id": "collective-nouns-and-quantities",
+      "type": "concept",
+      "title": "Collective nouns and quantities",
+      "markdown": "A collective noun (committee, team, staff, jury, board, public, government) takes a singular verb when the group acts as one unit, and a plural verb when the members act separately.\n\n\"The committee **has** issued its report\" (one unit). \"The committee **are** divided over the decision\" (individual members). Indian and British usage accepts both; if the sentence gives no signal, treat the collective noun as singular.\n\nAmounts of money, distance, time and weight are treated as a single quantity and take a singular verb: \"Ten thousand rupees **is** the penalty\", \"Five years **is** a long tenure\", \"Two kilometres **is** not far\".\n\n\"The number of\" takes a singular verb; \"a number of\" takes a plural verb. \"The number of applicants **has** risen.\" \"A number of applicants **have** withdrawn.\"",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "collective noun verb",
+        "committee is are",
+        "sum of money singular",
+        "the number of a number of"
+      ],
+      "position": 60
+    },
+    {
+      "id": "worked-example-error-spotting",
+      "type": "worked_example",
+      "title": "Worked example: spotting the error",
+      "markdown": "**Find the part with the error:** (a) The set of instructions / (b) that came with the machine / (c) were not clear / (d) to the new operators.\n\nWork through it. The verb is \"were\" in part (c). Its subject is not \"instructions\" and not \"machine\"; both sit inside modifiers. Strip \"of instructions\" and the relative clause \"that came with the machine\", and the skeleton is \"The set ... was not clear\". \"Set\" is singular, so \"were\" is wrong. The error is in part (c); it should be \"was not clear\".\n\n**A second one:** (a) Neither the auditor / (b) nor her assistants / (c) was able to explain / (d) the discrepancy.\n\nThe subjects are joined by \"nor\", so the verb agrees with the nearer subject, \"assistants\", which is plural. \"Was able\" should be \"were able\". The error is in part (c).",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "error detection example",
+        "sentence improvement agreement",
+        "spot the error verb"
+      ],
+      "position": 70
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Agreeing with the nearest noun instead of the subject.** \"The quality of the responses **were** poor\" is wrong; the subject is \"quality\".\n- **Thinking 'along with' or 'as well as' adds to the subject.** \"The principal as well as the teachers **were** invited\" is wrong; it should be \"was invited\".\n- **Making 'each' or 'everyone' plural.** \"Everyone of the members **have** paid\" is wrong; use \"has paid\".\n- **Using a plural verb after 'the number of'.** \"The number of defaulters **have** increased\" is wrong; use \"has increased\".\n- **Forgetting the nearer-subject rule with 'or' and 'nor'.** With \"Neither X nor Y\", the verb follows Y.\n- **Treating a sum of money as plural.** \"Fifty lakh rupees **were** sanctioned\" is usually corrected to \"was sanctioned\" when it is one amount.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "subject verb agreement mistakes",
+        "as well as verb",
+        "the number of has"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- The verb agrees with the true subject, not the nearest noun. Cross out prepositional phrases and relative clauses first.\n- \"Along with\", \"as well as\" and \"together with\" do not change the subject's number.\n- Each, either, neither, everyone, everybody, someone, anyone, no one, nobody: singular.\n- Both, few, many, several: plural. Some, any, all, most, none, half: number comes from the noun after \"of\".\n- \"And\" gives a plural verb, except for a single combined idea or after \"each/every\".\n- \"Or\" and \"nor\": the verb agrees with the nearer subject.\n- Collective nouns: singular for the group as a unit. Sums of money, time and distance: singular.\n- \"The number of\" is singular; \"a number of\" is plural.\n- In \"one of those X who ...\", the verb after \"who\" agrees with X.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "agreement summary",
+        "revision rules",
+        "concord recap"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "true-subject",
+      "front": "\"The list of approved candidates (has / have) been published.\" Which verb, and why?",
+      "back": "\"has\" - the subject is \"list\" (singular). \"of approved candidates\" is a prepositional phrase and cannot be the subject.",
+      "explanation": "Agreement is with the true subject, not the nearest noun.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["find-the-real-subject"],
+      "position": 10
+    },
+    {
+      "id": "along-with",
+      "front": "Do \"along with\", \"as well as\" and \"together with\" make a singular subject plural?",
+      "back": "No. \"The manager, along with two clerks, was present.\" The verb stays with \"manager\".",
+      "explanation": "These phrases add information but do not join subjects the way \"and\" does.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["find-the-real-subject"],
+      "position": 20
+    },
+    {
+      "id": "one-of-those-who",
+      "front": "\"He is one of those officers who (has / have) resigned.\" Which verb?",
+      "back": "\"have\" - \"who\" refers to \"officers\" (plural). Contrast: \"One of the officers has resigned\" (subject is \"one\").",
+      "explanation": "In the relative clause, the verb agrees with the noun just before \"who\".",
+      "difficulty": "hard",
+      "sourceBlockIds": ["one-of-the-trap"],
+      "position": 30
+    },
+    {
+      "id": "each-every",
+      "front": "Are \"each\", \"either\", \"neither\" and \"everyone\" singular or plural?",
+      "back": "Singular. \"Each of the branches submits a return.\" \"Everyone of the forms was incomplete.\"",
+      "explanation": "They refer to members individually, so the verb is singular.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["indefinite-pronouns"],
+      "position": 40
+    },
+    {
+      "id": "some-all-none",
+      "front": "What decides the verb after \"some\", \"all\", \"most\" or \"none\"?",
+      "back": "The noun after \"of\". \"Most of the budget has been spent\" but \"Most of the branches have reported\".",
+      "explanation": "This group takes its number from the following noun, unlike \"each\" or \"both\".",
+      "difficulty": "medium",
+      "sourceBlockIds": ["indefinite-pronouns"],
+      "position": 50
+    },
+    {
+      "id": "or-nor-nearer",
+      "front": "\"Neither the manager nor the clerks (was / were) aware.\" Which verb?",
+      "back": "\"were\" - with \"or\"/\"nor\", the verb agrees with the nearer subject, here \"clerks\".",
+      "explanation": "Reverse the order and it flips: \"Neither the clerks nor the manager was aware.\"",
+      "difficulty": "medium",
+      "sourceBlockIds": ["compound-subjects"],
+      "position": 60
+    },
+    {
+      "id": "number-of",
+      "front": "\"The number of\" vs \"a number of\": which takes a singular verb?",
+      "back": "\"The number of\" is singular (\"The number of applicants has risen\"). \"A number of\" is plural (\"A number of applicants have withdrawn\").",
+      "explanation": "\"A number of\" simply means \"several\".",
+      "difficulty": "hard",
+      "sourceBlockIds": ["collective-nouns-and-quantities"],
+      "position": 70
+    },
+    {
+      "id": "sum-of-money",
+      "front": "\"Ten thousand rupees (is / are) the penalty.\" Which verb?",
+      "back": "\"is\" - a sum of money is treated as a single quantity and takes a singular verb. Same for time and distance.",
+      "explanation": "\"Five years is a long tenure\", \"Two kilometres is not far\".",
+      "difficulty": "medium",
+      "sourceBlockIds": ["collective-nouns-and-quantities"],
+      "position": 80
+    }
+  ]
+}

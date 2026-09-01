@@ -4,6 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 // Everything not listed here stays public and server-rendered for SEO.
 const PROTECTED = [
   "/home",
+  "/study",
   "/attempt-map",
   "/mocks",
   "/drills",
