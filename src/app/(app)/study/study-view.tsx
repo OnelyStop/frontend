@@ -14,6 +14,8 @@ const BLURB: Record<string, string> = {
     "The Indian financial system, the RBI, deposits and instruments, and the payment rails — evergreen, not current affairs.",
   "computer-awareness":
     "Functional units, memory, operating systems, databases, networks and cyber-security basics, kept vendor-neutral.",
+  "reasoning-ability":
+    "Coding, blood relations, directions, ranking, seating arrangements and syllogisms — plus series, statements and analytical puzzles.",
   "exam-guidance":
     "How to read a notification, handle negative marking, manage sectional time, and analyse a mock.",
 };

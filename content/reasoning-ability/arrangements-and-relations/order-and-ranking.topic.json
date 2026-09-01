@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "arrangements-and-relations",
+  "chapterName": "Arrangements and relations",
+  "chapterPosition": 1,
+  "topicSlug": "order-and-ranking",
+  "topicPosition": 35,
+  "title": "Order and Ranking",
+  "summary": "Working out a total from two ranks, converting a rank from one end to the other, counting people between two positions, chaining taller-than and older-than comparisons, and the least-and-most-people questions.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Find the size of a row or list from a person's rank at each end.",
+    "Convert a rank from the top into the matching rank from the bottom.",
+    "Count how many people sit between two given positions.",
+    "Chain comparison statements into one order and read a rank off it.",
+    "Answer 'minimum number of people' questions by overlapping the two groups."
+  ],
+  "tags": ["reasoning", "order-and-ranking", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Combinatorics/Permutations",
+      "title": "Combinatorics/Permutations",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for counting positions in a line. All rows, lists and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm order and ranking is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-ranking-asks",
+      "type": "introduction",
+      "title": "What ranking questions ask",
+      "markdown": "A ranking question puts people in a single line — a row of seats, a queue, or a merit list from top to bottom — and gives each person's place from one end or the other. You are then asked for the size of the line, someone's place from the other end, the count between two people, or who holds a particular rank.\n\nEvery one of these comes down to careful counting, and the single trap running through all of them is whether a particular person is counted once or twice. Draw a short line of dashes and mark positions on it rather than working in your head.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "ranking question single line row queue merit list place from each end",
+        "size of the line place from the other end count between two people",
+        "trap is counting a person once or twice"
+      ],
+      "position": 10
+    },
+    {
+      "id": "total-from-two-ranks",
+      "type": "method",
+      "title": "Total from two ranks",
+      "markdown": "When one person's place is given from **both** ends, the size of the line is:\n\n```\ntotal = rank from one end + rank from the other end - 1\n```\n\nThe minus one is because that person is counted in both ranks, so the plain sum counts them once too many. If A is 7th from the left and 11th from the right, the row has 7 + 11 - 1 = 17 people.\n\nThe same formula runs backwards: if the row has 17 and A is 7th from the left, then A is 17 - 7 + 1 = 11th from the right.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "total equals rank from one end plus rank from other end minus one",
+        "minus one because the person is counted in both ranks",
+        "seven from left eleven from right seventeen in the row"
+      ],
+      "position": 20
+    },
+    {
+      "id": "converting-a-rank",
+      "type": "method",
+      "title": "Converting a rank from one end to the other",
+      "markdown": "Given the total size, swap a rank from the top into a rank from the bottom with:\n\n```\nrank from the bottom = total - rank from the top + 1\n```\n\nIn a class of 40, a student 16th from the top is 40 - 16 + 1 = 25th from the bottom. The plus one keeps the student in the count; without it you land one place off.\n\nA quick sanity check: the two ranks of any one person must always add up to the total plus one.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "rank from bottom equals total minus rank from top plus one",
+        "class of forty sixteenth from top is twenty fifth from bottom",
+        "two ranks of one person add to total plus one"
+      ],
+      "position": 30
+    },
+    {
+      "id": "between-and-chains",
+      "type": "concept",
+      "title": "Counting between, and comparison chains",
+      "markdown": "- **People between two positions.** If A is at place `p` and B is at place `q` in the same line with `q` larger, the number strictly between them is `q - p - 1`. Positions 9 and 19 have 19 - 9 - 1 = 9 people between them.\n- **\"Above\" is not \"just above\".** \"P is ranked above Q\" only says P's place is better, not that they are next to each other. Only \"immediately above\" or \"just above\" fixes adjacent places.\n- **Comparison chains.** Statements like \"P is taller than Q\", \"R is taller than P\", \"Q is taller than T\" link into one order: R > P > Q > T. Build the whole chain, then read off the tallest, the shortest, or the person at a given position. \"Taller\", \"older\", \"heavier\", \"scores more\" all chain the same way.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "people between two positions q minus p minus one",
+        "above is not just above only immediately above fixes adjacent",
+        "comparison chain taller older heavier link into one order read off"
+      ],
+      "position": 40
+    },
+    {
+      "id": "minimum-and-maximum",
+      "type": "method",
+      "title": "Minimum and maximum people",
+      "markdown": "Some questions give facts about **two different** people and ask for the least, or the most, the line could hold.\n\n- **Minimum:** make the two people's counted groups overlap as much as the wording allows. If \"5 are ahead of A\" and \"8 are behind B\" and nothing fixes the order of A and B, the smallest line puts their groups on top of each other.\n- **Maximum:** when the question caps a gap with \"at most k between them\", the largest line takes that gap at its full k and keeps the groups separate.\n- If the wording **does** fix the order (\"B stands behind A\") or a definite gap (\"exactly 3 between\"), there is only one answer, not a range.\n\nAlways ask first whether the order of the two people is pinned down; that decides whether you are finding a single value or a bound.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "minimum people overlap the two counted groups as much as allowed",
+        "maximum people take the capped gap at full length keep groups separate",
+        "fixed order or definite gap gives one answer not a range"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. Size from two ranks.** In a row, Ravi is 7th from the left and 11th from the right. How many people are in the row?\n\nRavi is counted in both ranks, so the total is 7 + 11 - 1 = **17**.\n\n**2. Minimum people.** In a queue, 5 people stand ahead of Anil, and 8 people stand behind Bhavna, who is somewhere behind Anil. At least 3 people stand between them. What is the smallest the queue can be?\n\nAnil has 5 ahead, so he is 6th from the front. Bhavna is behind him with at least 3 between, so the smallest place for Bhavna is 6 + 3 + 1 = 10th from the front. With 8 behind Bhavna, the queue is at least 10 + 8 = **18** people. Any smaller and either the gap or the 8-behind fact breaks.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example ravi seventh from left eleventh from right seventeen",
+        "minimum queue five ahead of anil eight behind bhavna three between eighteen",
+        "smallest place for bhavna six plus three plus one"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "1. people in the row",
+          "value": 17,
+          "expression": "7 + 11 - 1"
+        },
+        {
+          "label": "2. minimum queue length",
+          "value": 18,
+          "expression": "6 + 3 + 1 + 8"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Adding the two ranks without subtracting one**, so every total comes out one too big.\n- **Dropping the plus one** when converting a rank from the top into a rank from the bottom.\n- **Counting an endpoint** as one of the people \"between\" two positions.\n- **Reading \"above\" or \"before\" as adjacent** when only \"immediately\" guarantees it.\n- **Giving a range for a fixed question**, or a single number when the order of the two people is not pinned and a range was asked.\n- **Building the comparison chain from the middle**, which loses track of who is at each end.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "ranking mistakes adding ranks without minus one dropping plus one",
+        "counting an endpoint as between reading above as adjacent",
+        "range for a fixed question chain from the middle"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Two ranks of one person: total = rank from one end + rank from the other end - 1.\n- Convert: rank from the bottom = total - rank from the top + 1; the two ranks always sum to total + 1.\n- People strictly between places `p` and `q` (with `q` larger): `q - p - 1`.\n- Chain every \"taller / older / scores more\" statement into one order, then read off the position asked.\n- \"Minimum people\" means overlap the two groups as far as the wording allows; a fixed order or an exact gap gives one answer, not a range.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "ranking summary total formula convert rank between formula",
+        "chain comparison statements read off position",
+        "minimum people overlap groups fixed order one answer"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer with a one-line reason.\n\n1. Kiran is 12th from the left and 18th from the right in a row. How many people are in the row?\n2. In a class of 40 with no ties, Neha is 16th from the top. What is her rank from the bottom?\n3. In a row of 25 children, Rahul is 9th from the left and Priya is 7th from the right. How many children sit between them?\n4. Meena is 10th from the top and 20th from the bottom of a merit list with no ties. How many students are in the list?\n5. In a queue, Sam is 7th from the front. Tina stands behind Sam with exactly 4 people between them, and Tina is 5th from the back. How long is the queue?\n6. Amit is 8th from the top. Sunil is exactly 5 ranks below Amit and is 10th from the bottom. How many students are in the class?\n7. Heights: P is taller than Q but shorter than R; S is taller than R; Q is taller than T. Who is the tallest?\n8. In the same group of five, who is the third tallest?",
+      "searchKeywords": [
+        "order ranking practice size from two ranks convert rank between people",
+        "queue exact gap fifth from back comparison chain tallest third tallest",
+        "single defensible answer with reason"
+      ],
+      "position": 90,
+      "expectedAnswers": [
+        {
+          "label": "1. people in the row",
+          "value": 29,
+          "expression": "12 + 18 - 1"
+        },
+        {
+          "label": "2. Neha's rank from the bottom",
+          "value": 25,
+          "expression": "40 - 16 + 1"
+        },
+        {
+          "label": "3. children between Rahul and Priya",
+          "value": 9,
+          "expression": "(25 - 7 + 1) - 9 - 1"
+        },
+        {
+          "label": "4. students in the list",
+          "value": 29,
+          "expression": "10 + 20 - 1"
+        },
+        {
+          "label": "5. length of the queue",
+          "value": 16,
+          "expression": "7 + 4 + 1 + 5 - 1"
+        },
+        {
+          "label": "6. students in the class",
+          "value": 22,
+          "expression": "8 + 5 + 10 - 1"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "total-formula",
+      "front": "Someone is 6th from the top and 9th from the bottom of a list. How many people are in it?",
+      "back": "14. total = rank from one end + rank from the other end - 1 = 6 + 9 - 1, because that person is counted in both ranks.",
+      "explanation": "The plain sum, 15, counts the person once too many.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["total-from-two-ranks"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "why-minus-one",
+      "front": "Why is the size formula 'rank from top + rank from bottom - 1' rather than just the sum?",
+      "back": "The person whose ranks you are adding is included in the count from the top and again in the count from the bottom, so the sum counts them twice; subtracting one fixes it.",
+      "explanation": "Every 'off by one' in ranking traces back to this double count.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["total-from-two-ranks"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "convert-rank",
+      "front": "A class has 30 students and no ties. X is 12th from the top. What is X's rank from the bottom?",
+      "back": "19. rank from the bottom = total - rank from the top + 1 = 30 - 12 + 1.",
+      "explanation": "Check: 12 + 19 = 31 = total + 1, as it must for any one person.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["converting-a-rank"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "between-count",
+      "front": "A is 5th from the left and B is 9th from the left in the same row. How many people sit between them?",
+      "back": "3. The count strictly between places p and q (q larger) is q - p - 1 = 9 - 5 - 1.",
+      "explanation": "Counting A or B themselves is the usual slip here.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["between-and-chains"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "minimum-overlap",
+      "front": "A 'minimum number of people' question gives facts about two different people. What is the trick?",
+      "back": "Overlap the two people's counted groups as much as the wording allows; the minimum is the smallest line in which both facts still hold.",
+      "explanation": "If the order of the two people or the gap is fixed, there is one answer, not a minimum.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["minimum-and-maximum"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "above-not-adjacent",
+      "front": "'P is ranked above Q.' Are P and Q in consecutive places?",
+      "back": "Not necessarily. 'Above' or 'before' only says P's place is better. Only 'immediately above' or 'just above' makes them consecutive.",
+      "explanation": "Treating 'above' as adjacency invents information the puzzle never gave.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["between-and-chains"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "comparison-chain",
+      "front": "How do you handle several 'taller than' or 'older than' statements?",
+      "back": "Link them into one order, for example R > P > Q > T, building from the ends inward, then read off the tallest, the shortest, or the person at a named position.",
+      "explanation": "The same chaining works for age, weight and score comparisons.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["between-and-chains"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}
