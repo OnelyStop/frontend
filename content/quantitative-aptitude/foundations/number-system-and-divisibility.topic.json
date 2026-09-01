@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "foundations",
+  "chapterName": "Foundations",
+  "chapterPosition": 1,
+  "topicSlug": "number-system-and-divisibility",
+  "topicPosition": 10,
+  "title": "Number System and Divisibility",
+  "summary": "The sets of numbers, the divisibility rules for 2 through 11, counting factors and their sum from a prime factorisation, unit-digit cyclicity for powers, and the basics of remainders — the toolkit that makes the rest of arithmetic fast.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Name the sets of numbers and place a given number in them.",
+    "Apply the divisibility rules for 2, 3, 4, 5, 6, 8, 9 and 11.",
+    "Count the number of factors of an integer from its prime factorisation.",
+    "Find the unit digit of a large power using cyclicity."
+  ],
+  "tags": [
+    "arithmetic",
+    "foundations",
+    "number-system",
+    "divisibility",
+    "factors"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Types_of_Numbers",
+      "title": "Arithmetic/Types of Numbers",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the classification of numbers. Divisibility rules, examples and practice here are original and independently verified."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-number-sets",
+      "type": "concept",
+      "title": "The sets of numbers",
+      "markdown": "Numbers stack in layers, each containing the one before it.\n\n- **Natural numbers:** 1, 2, 3, ... — the counting numbers.\n- **Whole numbers:** the naturals together with 0.\n- **Integers:** the whole numbers together with their negatives: ..., -2, -1, 0, 1, 2, ...\n- **Rational numbers:** anything expressible as a ratio p/q of two integers with q not zero. Their decimal form either terminates (0.75) or repeats (0.333...).\n- **Irrational numbers:** real numbers that are not rational — their decimals neither terminate nor repeat, such as the square root of 2 or pi.\n- **Real numbers:** the rationals and irrationals together.\n\nAmong the naturals, a **prime** has exactly two factors, 1 and itself (2, 3, 5, 7, 11, ...); a **composite** has more than two. 1 is neither. 2 is the only even prime.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "natural whole integer rational irrational real",
+        "prime composite",
+        "2 is the only even prime",
+        "1 is neither prime nor composite"
+      ],
+      "position": 10
+    },
+    {
+      "id": "divisibility-rules",
+      "type": "method",
+      "title": "Divisibility rules",
+      "markdown": "A number is divisible by:\n\n- **2** — its last digit is even.\n- **3** — the sum of its digits is divisible by 3.\n- **4** — the number formed by its last two digits is divisible by 4.\n- **5** — its last digit is 0 or 5.\n- **6** — it passes the tests for both 2 and 3.\n- **8** — the number formed by its last three digits is divisible by 8.\n- **9** — the sum of its digits is divisible by 9.\n- **10** — its last digit is 0.\n- **11** — the difference between the sum of the digits in odd positions and the sum in even positions is 0 or a multiple of 11.\n\nFor a composite divisor made of coprime parts, test the parts: divisibility by 12 means divisibility by 3 and by 4; by 72 means by 8 and by 9.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "divisibility rules 2 3 4 5 6 8 9 11",
+        "digit sum test",
+        "last two digits last three digits",
+        "alternating digit sum for 11"
+      ],
+      "position": 20
+    },
+    {
+      "id": "counting-factors",
+      "type": "method",
+      "title": "Counting factors from a prime factorisation",
+      "markdown": "Write the number as a product of prime powers: N equals p1 to the power a, times p2 to the power b, times p3 to the power c, and so on.\n\n- **Number of factors** equals (a plus 1) times (b plus 1) times (c plus 1) ...\n- **Number of factors that are perfect squares** counts only the even exponents 0, 2, 4, ... in each bracket.\n- **Sum of all factors** equals the product, over each prime, of (p to the power (exponent plus 1) minus 1) divided by (p minus 1).\n\nA number has an odd number of factors exactly when it is a perfect square, because only then does one factor (the square root) pair with itself.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "number of factors from prime factorisation",
+        "(a+1)(b+1)(c+1)",
+        "sum of factors formula",
+        "perfect square has odd number of factors"
+      ],
+      "position": 30
+    },
+    {
+      "id": "unit-digit-cyclicity",
+      "type": "concept",
+      "title": "Unit digit of a power",
+      "markdown": "The unit digit of successive powers of a fixed digit repeats in a short cycle.\n\n- 2: 2, 4, 8, 6 (length 4)\n- 3: 3, 9, 7, 1 (length 4)\n- 7: 7, 9, 3, 1 (length 4)\n- 8: 8, 4, 2, 6 (length 4)\n- 4: 4, 6 (length 2); 9: 9, 1 (length 2)\n- 0, 1, 5, 6: always 0, 1, 5, 6 (length 1)\n\nTo find the unit digit of a base raised to a power, take the unit digit of the base, find the remainder when the exponent is divided by the cycle length, and read that position in the cycle. A remainder of 0 means the last entry of the cycle.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "unit digit of a power cyclicity",
+        "cycle of 2 3 7 8 is length 4",
+        "exponent mod cycle length",
+        "remainder 0 means last of cycle"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-divisibility",
+      "type": "worked_example",
+      "title": "Worked example: divisibility checks",
+      "markdown": "**Is 453,192 divisible by 8? By 9?**\n\nBy 8: look at the last three digits, 192. Since 192 divided by 8 is 24, a whole number, 453,192 is divisible by 8.\n\nBy 9: the digit sum is 4 plus 5 plus 3 plus 1 plus 9 plus 2, which is 24. Since 24 is not divisible by 9, 453,192 is not divisible by 9. (It is divisible by 3, because 24 is.)",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "is 453192 divisible by 8 and 9",
+        "last three digits 192",
+        "digit sum 24"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "last three digits 192 divided by 8",
+          "value": 24,
+          "expression": "192/8"
+        },
+        {
+          "label": "digit sum of 453192",
+          "value": 24,
+          "expression": "4+5+3+1+9+2"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-factors",
+      "type": "worked_example",
+      "title": "Worked example: counting factors",
+      "markdown": "**How many factors does 360 have, and how many of them are odd?**\n\nPrime factorise: 360 equals 2 to the power 3, times 3 to the power 2, times 5 to the power 1.\n\nNumber of factors: (3 plus 1) times (2 plus 1) times (1 plus 1), which is 4 times 3 times 2, equal to 24.\n\nOdd factors: ignore the power of 2 (an odd factor uses 2 to the power 0). That leaves (2 plus 1) times (1 plus 1), which is 3 times 2, equal to 6.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "how many factors does 360 have",
+        "360 equals 2^3 3^2 5",
+        "24 factors 6 odd factors"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "number of factors of 360",
+          "value": 24,
+          "expression": "(3+1)*(2+1)*(1+1)"
+        },
+        {
+          "label": "number of odd factors of 360",
+          "value": 6,
+          "expression": "(2+1)*(1+1)"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-unit-digit",
+      "type": "worked_example",
+      "title": "Worked example: unit digit of a power",
+      "markdown": "**Find the unit digit of 7 raised to the power 83.**\n\nThe unit digit of 7's powers cycles as 7, 9, 3, 1, with length 4.\n\nDivide the exponent by 4: 83 divided by 4 leaves a remainder of 3.\n\nThe 3rd entry in the cycle 7, 9, 3, 1 is 3. So the unit digit of 7 to the power 83 is **3**.\n\nAs a check, 7 to the power 4 ends in 1, so 7 to the power 80 ends in 1, and 7 to the power 83 ends like 7 cubed, which is 343 — unit digit 3.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "unit digit of 7 to the power 83",
+        "cycle 7 9 3 1",
+        "83 mod 4 is 3",
+        "answer 3"
+      ],
+      "position": 70,
+      "expectedAnswers": [
+        {
+          "label": "83 divided by 4, remainder (position in the cycle)",
+          "value": 3,
+          "expression": "83 % 4"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Calling 1 a prime.** A prime has exactly two distinct factors; 1 has one.\n- **Testing divisibility by 8 with two digits.** Use the last three digits for 8, two for 4.\n- **Forgetting to reduce the exponent modulo the cycle length** for unit digits. A remainder of 0 points to the last entry of the cycle, not the first.\n- **Adding 1 to the wrong number when counting factors.** It is (exponent plus 1) for each prime, then multiply the brackets.\n- **Assuming an even number of factors.** Perfect squares have an odd number.\n- **Mixing up the rule for 11.** It is the alternating sum (odd positions minus even positions), not the plain digit sum.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "number system mistakes",
+        "1 is not prime",
+        "8 uses last three digits",
+        "factor count exponent plus one",
+        "perfect square odd factors"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Sets: natural, whole, integer, rational (terminating or repeating decimals), irrational, real. Primes have exactly two factors; 1 is neither; 2 is the only even prime.\n- Divisibility: 2 (even last digit), 3 (digit sum), 4 (last two digits), 5 (0 or 5), 6 (2 and 3), 8 (last three digits), 9 (digit sum), 11 (alternating digit sum). For composite divisors, test coprime parts.\n- Factor count from N = p1^a p2^b ... is (a+1)(b+1)... ; odd number of factors means a perfect square.\n- Unit digit of a power: take the base's unit digit, reduce the exponent modulo the cycle length (usually 4), read that position; remainder 0 means the last entry.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "number system summary",
+        "revision",
+        "divisibility factor count unit digit recap"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "1. Is 7,20,918 divisible by 11?\n2. How many factors does 1,200 have?\n3. Find the unit digit of 3 raised to the power 100.\n4. What is the smallest number that must be added to 5,834 to make it divisible by 9?\n5. How many numbers between 1 and 200 are divisible by 6 but not by 4?\n6. The number 34A6 is divisible by 4. What digit can A be?",
+      "searchKeywords": [
+        "number system practice questions",
+        "divisibility factors unit digit exercises"
+      ],
+      "position": 100
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "prime-one",
+      "front": "Is 1 a prime number? Is 2?",
+      "back": "1 is neither prime nor composite (only one factor). 2 is prime — the only even prime.",
+      "explanation": "A prime has exactly two distinct factors.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-number-sets"],
+      "position": 10
+    },
+    {
+      "id": "rule-8",
+      "front": "Divisibility rule for 8?",
+      "back": "The number formed by the last three digits is divisible by 8. (For 4, it is the last two digits.)",
+      "explanation": "8 = 2³, so it depends on the last three digits.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["divisibility-rules"],
+      "position": 20
+    },
+    {
+      "id": "rule-11",
+      "front": "Divisibility rule for 11?",
+      "back": "The difference between the sum of digits in odd positions and the sum in even positions is 0 or a multiple of 11.",
+      "explanation": "It is an alternating sum, not the plain digit sum.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["divisibility-rules"],
+      "position": 30
+    },
+    {
+      "id": "factor-count",
+      "front": "360 = 2³ · 3² · 5. How many factors does it have?",
+      "back": "(3+1)(2+1)(1+1) = 4 × 3 × 2 = 24.",
+      "explanation": "Add 1 to each exponent, then multiply.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-factors"],
+      "position": 40
+    },
+    {
+      "id": "odd-factor-count",
+      "front": "When does a number have an odd number of factors?",
+      "back": "Exactly when it is a perfect square — the square root pairs with itself instead of with a distinct factor.",
+      "explanation": "Every other factor comes in a pair.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["counting-factors"],
+      "position": 50
+    },
+    {
+      "id": "cyclicity-7",
+      "front": "What is the unit-digit cycle of powers of 7, and its length?",
+      "back": "7, 9, 3, 1 — length 4. Reduce the exponent mod 4 and read that position; remainder 0 → last entry (1).",
+      "explanation": "2, 3, 7 and 8 all have a length-4 cycle.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["unit-digit-cyclicity"],
+      "position": 60
+    },
+    {
+      "id": "divisible-by-12",
+      "front": "How do you test divisibility by 12?",
+      "back": "Test divisibility by 3 and by 4 (its coprime parts). Both must hold.",
+      "explanation": "Do not test by 2 and 6 — those share a factor.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["divisibility-rules"],
+      "position": 70
+    }
+  ]
+}

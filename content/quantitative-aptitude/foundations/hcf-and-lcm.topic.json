@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "foundations",
+  "chapterName": "Foundations",
+  "chapterPosition": 1,
+  "topicSlug": "hcf-and-lcm",
+  "topicPosition": 20,
+  "title": "HCF and LCM",
+  "summary": "Finding the highest common factor and lowest common multiple by prime factorisation and by division, the product relation HCF × LCM = product of two numbers, HCF and LCM of fractions, and the standard applications — tolling bells, tiling, and the largest measuring unit.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["number-system-and-divisibility"],
+  "learningObjectives": [
+    "Compute HCF and LCM by prime factorisation and by the division method.",
+    "Use HCF × LCM = product for a pair of numbers.",
+    "Find the HCF and LCM of a set of fractions.",
+    "Recognise which everyday problems call for HCF and which call for LCM."
+  ],
+  "tags": ["arithmetic", "foundations", "hcf", "lcm", "gcd"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Highest_Common_Factor",
+      "title": "Arithmetic/Highest Common Factor",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the prime-factorisation method for HCF. The division method, the product relation, the fraction rule, examples and practice here are original and independently verified."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "definitions",
+      "type": "definition",
+      "title": "What HCF and LCM are",
+      "markdown": "The **highest common factor (HCF)**, also called the greatest common divisor, of two or more numbers is the largest number that divides all of them exactly.\n\nThe **lowest common multiple (LCM)** is the smallest number that all of them divide into exactly.\n\nAn easy sense check: the HCF is never larger than the smallest number given, and the LCM is never smaller than the largest number given. If one number divides another, the HCF is the smaller and the LCM is the larger.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "highest common factor greatest common divisor",
+        "lowest common multiple",
+        "HCF not larger than smallest LCM not smaller than largest"
+      ],
+      "position": 10
+    },
+    {
+      "id": "finding-hcf-and-lcm",
+      "type": "method",
+      "title": "Finding HCF and LCM",
+      "markdown": "**By prime factorisation.** Write each number as a product of prime powers.\n\n- **HCF:** for each prime that appears in every number, take the **lowest** power it has anywhere, and multiply those together.\n- **LCM:** for every prime that appears in any number, take the **highest** power it has anywhere, and multiply those together.\n\nExample: 12 equals 2 squared times 3; 18 equals 2 times 3 squared; 24 equals 2 cubed times 3. Primes common to all are 2 and 3, each to the lowest power 1, so the HCF is 2 times 3, which is 6. For the LCM take 2 cubed and 3 squared, giving 8 times 9, which is 72.\n\n**By division.** HCF by successive division (the Euclidean method): divide the larger number by the smaller; then divide the divisor by the remainder; repeat until the remainder is 0 — the last non-zero divisor is the HCF. For more than two numbers, chain it. LCM by common division: write the numbers in a row, divide repeatedly by a prime that divides at least one of them (carrying the rest down), and stop when the last row is all 1s; the product of every divisor used is the LCM.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "HCF LCM by prime factorisation",
+        "lowest power common primes for HCF",
+        "highest power all primes for LCM",
+        "HCF by successive division Euclidean method",
+        "LCM by common division ladder"
+      ],
+      "position": 20
+    },
+    {
+      "id": "product-relation",
+      "type": "formula",
+      "title": "The product relation, and fractions",
+      "markdown": "**For exactly two numbers:** HCF times LCM equals the product of the two numbers. So if you know three of the four, you can find the fourth. This does not extend to three or more numbers.\n\n**For fractions:**\n\n- HCF of fractions equals HCF of the numerators divided by LCM of the denominators.\n- LCM of fractions equals LCM of the numerators divided by HCF of the denominators.\n\nReduce each fraction to lowest terms first.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "HCF times LCM equals product of two numbers",
+        "only for two numbers",
+        "HCF of fractions numerators over LCM denominators",
+        "LCM of fractions"
+      ],
+      "position": 40
+    },
+    {
+      "id": "which-one",
+      "type": "concept",
+      "title": "HCF or LCM — which does the problem want?",
+      "markdown": "- **HCF** when you are cutting or grouping into the **largest equal parts**: the largest tile that fits a floor exactly, the greatest length that measures several rods, the largest number of identical gift bags from different quantities of items.\n- **LCM** when you are asking when events **coincide again** or the **smallest quantity that fits several groupings**: bells that toll together, lights that blink together, the least number of sweets that can be shared equally among 6, 8 or 12 children.\n- \"Largest that divides\" points to HCF; \"smallest that is divisible\" points to LCM.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "HCF for largest equal parts tiling measuring",
+        "LCM for events coinciding bells lights",
+        "largest that divides versus smallest that is divisible"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example-set",
+      "type": "worked_example",
+      "title": "Worked example: HCF and LCM of a set",
+      "markdown": "**Find the HCF and LCM of 12, 18 and 24.**\n\nPrime factorise: 12 equals 2 squared times 3; 18 equals 2 times 3 squared; 24 equals 2 cubed times 3.\n\nHCF: primes in all three are 2 and 3, each to the lowest power 1. HCF equals 2 times 3, which is 6.\n\nLCM: highest powers anywhere are 2 cubed and 3 squared. LCM equals 8 times 9, which is 72.\n\nCheck: 72 divided by 12 is 6, by 18 is 4, by 24 is 3 — all whole numbers.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "HCF and LCM of 12 18 24",
+        "answer HCF 6 LCM 72",
+        "check 72 divisible by each"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        { "label": "HCF of 12, 18, 24", "value": 6, "expression": "2*3" },
+        { "label": "LCM of 12, 18, 24", "value": 72, "expression": "8*9" }
+      ]
+    },
+    {
+      "id": "worked-example-bells",
+      "type": "worked_example",
+      "title": "Worked example: tolling bells",
+      "markdown": "**Three bells toll at intervals of 6, 8 and 12 seconds. If they toll together at the start, how many more times do they toll together in the next hour?**\n\nThey toll together every LCM of 6, 8 and 12 seconds. 6 equals 2 times 3; 8 equals 2 cubed; 12 equals 2 squared times 3. LCM equals 2 cubed times 3, which is 24 seconds.\n\nOne hour is 3,600 seconds. The number of 24-second gaps in 3,600 seconds is 3,600 divided by 24, which is 150.\n\nSo they toll together **150 more times** in the hour (151 including the start).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "bells toll at 6 8 12 seconds together",
+        "LCM 24 seconds",
+        "3600 divided by 24 is 150"
+      ],
+      "position": 70,
+      "expectedAnswers": [
+        {
+          "label": "gap in seconds (LCM of 6, 8, 12)",
+          "value": 24,
+          "expression": "8*3"
+        },
+        {
+          "label": "times together in an hour",
+          "value": 150,
+          "expression": "3600/24"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-product",
+      "type": "worked_example",
+      "title": "Worked example: the product relation",
+      "markdown": "**Two numbers have HCF 13 and LCM 546. One of the numbers is 78. Find the other.**\n\nFor two numbers, HCF times LCM equals their product. So the product is 13 times 546, which is 7,098.\n\nThe other number is 7,098 divided by 78, which is **91**.\n\nCheck: HCF of 78 and 91 is 13 (78 equals 13 times 6, 91 equals 13 times 7), and LCM is 13 times 6 times 7, which is 546.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "HCF 13 LCM 546 one number 78 find other",
+        "product 7098 divided by 78 is 91",
+        "product relation two numbers"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        { "label": "the other number", "value": 91, "expression": "13*546/78" }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using HCF times LCM equals product for three or more numbers.** It only holds for two.\n- **Taking the highest power for HCF or the lowest for LCM.** HCF uses the lowest power of the common primes; LCM uses the highest power of all primes.\n- **Forgetting that HCF needs a prime to appear in every number.** A prime in only one number contributes to the LCM but not the HCF.\n- **Fraction rule inverted.** HCF of fractions is HCF(numerators) over LCM(denominators); the LCM rule swaps them.\n- **Picking HCF when the question asks when things coincide.** Coinciding again is LCM; largest equal grouping is HCF.\n- **Counting the starting instant.** \"How many more times\" excludes the start.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "HCF LCM mistakes",
+        "product relation only for two numbers",
+        "HCF lowest power LCM highest power",
+        "fraction rule inverted",
+        "coincide means LCM"
+      ],
+      "position": 90
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- HCF: largest number dividing all; take the lowest power of each common prime. LCM: smallest number all divide into; take the highest power of every prime.\n- Division: HCF by successive division (last non-zero divisor); LCM by the common-division ladder (product of divisors).\n- For two numbers only: HCF times LCM equals the product.\n- Fractions: HCF equals HCF(numerators) over LCM(denominators); LCM equals LCM(numerators) over HCF(denominators).\n- HCF for largest equal parts (tiling, measuring). LCM for coincidence (bells, blinking) and smallest shareable quantity.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "HCF LCM summary",
+        "revision",
+        "prime powers division product relation fractions which one recap"
+      ],
+      "position": 100
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "1. Find the HCF and LCM of 24, 36 and 60.\n2. The HCF of two numbers is 12 and their LCM is 720. If one number is 48, what is the other?\n3. Find the greatest length that can measure 7 m, 3 m 85 cm and 12 m 95 cm an exact number of times.\n4. Find the least number of soldiers that can be arranged in rows of 12, 15 or 18 with none left over.\n5. Find the HCF of 3/4, 6/7 and 9/8.\n6. Traffic lights at three crossings change every 48, 72 and 108 seconds. If they change together at 8:00 a.m., when do they next change together?",
+      "searchKeywords": [
+        "HCF LCM practice questions",
+        "measuring soldiers traffic lights fractions exercises"
+      ],
+      "position": 110
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "hcf-lcm-powers",
+      "front": "In prime factorisation, which power do you take for HCF and which for LCM?",
+      "back": "HCF: the lowest power of each prime that appears in every number. LCM: the highest power of every prime that appears in any number.",
+      "explanation": "HCF needs the prime in all numbers; LCM needs it in at least one.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["finding-hcf-and-lcm"],
+      "position": 10
+    },
+    {
+      "id": "product-relation",
+      "front": "State HCF × LCM for two numbers, and its limitation.",
+      "back": "HCF × LCM = product of the two numbers. It holds only for exactly two numbers, not for three or more.",
+      "explanation": "Given any three of the four quantities, you can find the fourth.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["product-relation"],
+      "position": 20
+    },
+    {
+      "id": "euclidean",
+      "front": "How does the successive-division (Euclidean) method give the HCF?",
+      "back": "Divide larger by smaller, then divisor by remainder, repeat until remainder 0. The last non-zero divisor is the HCF.",
+      "explanation": "For 3+ numbers, chain it: HCF of the first two, then with the next.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["finding-hcf-and-lcm"],
+      "position": 30
+    },
+    {
+      "id": "fraction-hcf",
+      "front": "HCF of fractions = ?",
+      "back": "HCF of the numerators divided by LCM of the denominators. (LCM of fractions swaps: LCM of numerators over HCF of denominators.)",
+      "explanation": "Reduce each fraction first.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["product-relation"],
+      "position": 40
+    },
+    {
+      "id": "which-one",
+      "front": "Bells toll together again — HCF or LCM? Largest tile for a floor — HCF or LCM?",
+      "back": "Coinciding again → LCM. Largest equal part → HCF. \"Smallest that is divisible\" = LCM; \"largest that divides\" = HCF.",
+      "explanation": "Read the question for 'largest that divides' vs 'smallest divisible'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["which-one"],
+      "position": 50
+    },
+    {
+      "id": "bells-example",
+      "front": "Bells at 6, 8, 12 s toll together at the start. Gap till they next toll together?",
+      "back": "LCM(6, 8, 12) = 24 seconds. In an hour: 3600/24 = 150 more times.",
+      "explanation": "\"How many more times\" excludes the starting instant.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-bells"],
+      "position": 60
+    },
+    {
+      "id": "sense-check",
+      "front": "Quick sanity check on an HCF and an LCM answer?",
+      "back": "HCF ≤ the smallest number given; LCM ≥ the largest number given. If one number divides another, HCF is the smaller and LCM is the larger.",
+      "explanation": "Catches sign/method slips instantly.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["definitions"],
+      "position": 70
+    }
+  ]
+}
