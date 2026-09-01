@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "exam-guidance",
+  "subjectName": "Exam Guidelines and Strategy",
+  "subjectPosition": 5,
+  "chapterSlug": "strategy",
+  "chapterName": "Strategy",
+  "chapterPosition": 1,
+  "topicSlug": "prelims-versus-mains",
+  "topicPosition": 10,
+  "title": "Prelims versus Mains",
+  "summary": "How the preliminary and main stages of a typical SBI/IBPS selection differ in purpose, weight and difficulty, and how that difference should shape what a candidate practises at each stage. This is study guidance, not an official rule; the current notification always governs.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 18,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Explain the different roles of the prelims and mains stages in a selection.",
+    "Describe how question style and depth typically change from prelims to mains.",
+    "Decide what to prioritise while preparing for each stage.",
+    "Read a notification for the details that actually decide the final result."
+  ],
+  "tags": [
+    "exam-guidance",
+    "strategy",
+    "prelims",
+    "mains",
+    "selection-process"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SBI_PO_OVERVIEW",
+      "url": "https://sbi.co.in/web/careers/probationary-officers",
+      "title": "SBI - Probationary Officers information",
+      "publisher": "State Bank of India",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Used only to cross-check that the selection has a preliminary and a main stage and their broad roles. The current recruitment notification for each cycle governs; no text was reused."
+    },
+    {
+      "sourceId": "IBPS_HOME",
+      "url": "https://www.ibps.in/",
+      "title": "IBPS - home",
+      "publisher": "Institute of Banking Personnel Selection",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Used only to confirm the two-stage structure of the CRP process. Candidates must read the official information handout for their cycle."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-two-roles",
+      "type": "concept",
+      "title": "Two stages, two jobs",
+      "markdown": "A typical SBI or IBPS officer or clerk selection runs in stages. The **preliminary examination** is a screening test: it is short, mostly on core aptitude, and its job is only to shortlist a manageable number of candidates for the next stage. In most such selections the prelims score is **qualifying**, meaning it does not carry forward into the final merit list.\n\nThe **main examination** is where selection is actually decided. It is longer, broader, harder, and its marks - often together with an interview or a descriptive paper - form the **final merit list**. Always confirm from the current notification whether the prelims score carries forward, because this varies by exam and by year.",
+      "sourceIds": ["SBI_PO_OVERVIEW", "IBPS_HOME"],
+      "searchKeywords": [
+        "prelims is a screening test",
+        "prelims qualifying not counted",
+        "mains decides final merit",
+        "confirm from notification"
+      ],
+      "position": 10
+    },
+    {
+      "id": "what-changes",
+      "type": "comparison",
+      "title": "How the paper changes",
+      "markdown": "Broadly, moving from prelims to mains:\n\n- **Sections widen.** Prelims usually cover reasoning, quantitative aptitude and English. Mains add general, economy and banking awareness, and computer aptitude, and sometimes merge reasoning with computer aptitude and quant with data analysis.\n- **Depth increases.** Quant moves from single-step arithmetic to multi-set data interpretation and data sufficiency; reasoning moves to long, linked puzzles; English adds longer passages and subtler usage.\n- **A descriptive paper** (letter and essay) may appear at mains for some officer posts.\n- **Time pressure shifts.** Mains give more time per question in absolute terms but far more to read and process.\n\nTreat these as general tendencies; the exact section list, marks and timing are in the notification.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "prelims sections reasoning quant english",
+        "mains adds banking awareness computer",
+        "data interpretation data sufficiency puzzles",
+        "descriptive paper mains"
+      ],
+      "position": 20
+    },
+    {
+      "id": "preparing-for-prelims",
+      "type": "exam_tip",
+      "title": "Preparing for prelims",
+      "markdown": "Because prelims reward speed on core topics, useful priorities are:\n\n- Build raw speed and accuracy in arithmetic, simplification and approximation, basic DI, and the high-frequency reasoning types (seating, puzzles, inequalities, syllogism).\n- Get comfortable clearing an easy set fast, since prelims often has a sectional time limit and each section has its own cut-off.\n- Practise deciding within a few seconds whether to attempt a question or skip it.\n- Take timed sectional drills more often than full mocks at this stage.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "prepare for prelims speed accuracy",
+        "sectional time limit sectional cutoff",
+        "attempt or skip decision",
+        "sectional drills"
+      ],
+      "position": 30
+    },
+    {
+      "id": "preparing-for-mains",
+      "type": "exam_tip",
+      "title": "Preparing for mains",
+      "markdown": "Mains reward breadth, stamina and careful reading:\n\n- Start banking and computer awareness early; they take weeks to build and are pure marks once learnt.\n- Shift quant practice to caselet and multi-graph DI, data sufficiency, and word problems that combine two topics.\n- Do full-length mains mocks under real timing to build endurance and to learn set selection - which puzzle or DI set to open first.\n- If a descriptive paper applies, practise letters and essays to a fixed word count and structure, on a timer.\n- Review current affairs of the notified window if the exam includes it - but only if this study module's scope covers it; current affairs is otherwise out of scope here.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "prepare for mains breadth stamina",
+        "banking computer awareness early",
+        "caselet DI data sufficiency",
+        "full length mains mocks set selection descriptive"
+      ],
+      "position": 40
+    },
+    {
+      "id": "reading-the-notification",
+      "type": "method",
+      "title": "Reading the notification",
+      "markdown": "Every cycle's official notification is the only authority on the process. When it is released, note:\n\n1. Which stages exist, and whether the prelims score carries forward.\n2. The exact sections, number of questions, marks and time for each stage, and whether timing is sectional or overall.\n3. The negative-marking fraction for wrong answers.\n4. Any minimum qualifying marks per section and overall (cut-offs).\n5. The weight of the interview or descriptive paper in the final merit list.\n6. Eligibility, age and attempt limits, and important dates.\n\nWrite these down for your target exam and let them shape your practice, rather than relying on last year's pattern.",
+      "sourceIds": ["IBPS_HOME", "SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "read the official notification",
+        "stages sections marks time negative marking",
+        "sectional cutoffs interview weight",
+        "eligibility age attempts dates"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Treating prelims marks as part of the final score.** In most of these exams they are only qualifying - confirm for your cycle.\n- **Leaving banking and computer awareness for the last week.** They are slow to build and easy to score, so they belong early.\n- **Practising only full mocks in the prelims phase.** Short sectional drills build the speed prelims actually tests.\n- **Assuming this year's pattern equals last year's.** The notification can change section names, timing and weights.\n- **Ignoring sectional cut-offs.** A strong overall score can still fail if one section misses its minimum.\n- **Reading strategy advice, including this page, as an official rule.** It is guidance; the notification governs, and no method guarantees selection.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "prelims mains mistakes",
+        "prelims marks qualifying only",
+        "awareness sections early",
+        "pattern can change",
+        "sectional cutoff"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Prelims: short screening test, core aptitude, usually qualifying (not added to the final score). Mains: longer, broader, harder; its marks plus interview/descriptive decide the merit list.\n- From prelims to mains: more sections (awareness, computer added), more depth (multi-set DI, linked puzzles, longer passages), possibly a descriptive paper.\n- Prelims prep: raw speed and accuracy on core topics, skip decisions, sectional drills.\n- Mains prep: start awareness early, harder DI and data sufficiency, full mocks for stamina and set selection, timed descriptive practice.\n- The current notification is the only authority: stages, sections, marks, timing, negative marking, cut-offs, interview weight, eligibility.\n- All of this is guidance, not an official rule or a guarantee.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "prelims versus mains summary",
+        "revision",
+        "screening versus selection prep priorities notification recap"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "prelims-role",
+      "front": "What is the role of the preliminary examination, and does its score count toward selection?",
+      "back": "It is a screening test to shortlist candidates for mains. In most SBI/IBPS selections the prelims score is only qualifying and is not added to the final merit list - but confirm from the current notification.",
+      "explanation": "Mains marks (plus interview/descriptive) decide selection.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-two-roles"],
+      "position": 10
+    },
+    {
+      "id": "sections-widen",
+      "front": "Which sections typically appear at mains but not at prelims?",
+      "back": "General/economy/banking awareness, and computer aptitude. Mains also deepen quant into multi-set DI and data sufficiency, and may add a descriptive paper.",
+      "explanation": "The exact list is in each cycle's notification.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-changes"],
+      "position": 20
+    },
+    {
+      "id": "prelims-prep",
+      "front": "What should prelims preparation prioritise?",
+      "back": "Raw speed and accuracy on core topics (arithmetic, simplification, basic DI, high-frequency reasoning), fast attempt/skip decisions, and timed sectional drills.",
+      "explanation": "Prelims rewards clearing easy sets quickly under sectional timing.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["preparing-for-prelims"],
+      "position": 30
+    },
+    {
+      "id": "awareness-early",
+      "front": "When should you start banking and computer awareness?",
+      "back": "Early. They take weeks to build and are reliable marks once learnt; leaving them to the last week is a common mistake.",
+      "explanation": "They mainly matter at mains.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["preparing-for-mains", "common-mistakes"],
+      "position": 40
+    },
+    {
+      "id": "notification-checklist",
+      "front": "Name four things to check in a new exam notification.",
+      "back": "Whether prelims carries forward; sections/marks/time and whether timing is sectional; the negative-marking fraction; sectional and overall cut-offs (also interview weight, eligibility, dates).",
+      "explanation": "The notification, not last year's pattern, is the authority.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["reading-the-notification"],
+      "position": 50
+    },
+    {
+      "id": "sectional-cutoff-risk",
+      "front": "Can a high overall score still fail the exam?",
+      "back": "Yes, if a section misses its minimum qualifying mark (sectional cut-off). Every section has to clear its own bar.",
+      "explanation": "This is why no section can be fully sacrificed.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60
+    },
+    {
+      "id": "guidance-not-rule",
+      "front": "How should strategy pages like this be treated?",
+      "back": "As study guidance, not as official rules. The current notification governs the process, and no method guarantees selection.",
+      "explanation": "Always verify structure and rules against the official source.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["quick-revision"],
+      "position": 70
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "networks-and-security",
+  "chapterName": "Networks and security",
+  "chapterPosition": 3,
+  "topicSlug": "cyber-security-basics",
+  "topicPosition": 20,
+  "title": "Cyber Security Basics",
+  "summary": "The CIA triad, categories of malware, phishing and social engineering, authentication versus authorisation and multi-factor authentication, symmetric and asymmetric encryption and what a digital certificate does, firewalls, and safe-backup practice.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["computer-networks"],
+  "learningObjectives": [
+    "State the CIA triad and what each property protects.",
+    "Distinguish the main malware types and how each spreads.",
+    "Tell authentication from authorisation and give the three authentication factors.",
+    "Explain symmetric vs asymmetric encryption and the role of a digital certificate; describe what a firewall does."
+  ],
+  "tags": [
+    "computer-awareness",
+    "cyber-security",
+    "malware",
+    "encryption",
+    "authentication"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "NIST_GLOSSARY",
+      "url": "https://csrc.nist.gov/glossary",
+      "title": "NIST CSRC Glossary",
+      "publisher": "NIST",
+      "usageMode": "open_adaptable",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the definitions of phishing, malware, authentication, encryption and firewall. Each was restated in original teaching wording; the glossary cites the underlying NIST Special Publications (e.g. SP 800-12 Rev.1, SP 800-63) for phishing and related terms."
+    },
+    {
+      "sourceId": "NIST_COPYRIGHT",
+      "url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
+      "title": "NIST copyright, fair use and licensing statements",
+      "publisher": "NIST",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "NIST-authored technical-series works carry worldwide reuse permission; third-party content within them may differ. Only NIST-authored definitions were consulted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-cia-triad",
+      "type": "definition",
+      "title": "The CIA triad",
+      "markdown": "Information security is usually framed as protecting three properties:\n\n- **Confidentiality:** only authorised people can read the data.\n- **Integrity:** the data is not altered or destroyed without authorisation, and any change is detectable.\n- **Availability:** the data and services are usable when legitimately needed.\n\nAn attack usually targets one or more of these. Ransomware attacks availability and confidentiality; tampering with a record attacks integrity; a denial-of-service flood attacks availability.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "CIA triad confidentiality integrity availability",
+        "information security properties",
+        "ransomware denial of service",
+        "which property an attack targets"
+      ],
+      "position": 10
+    },
+    {
+      "id": "malware-types",
+      "type": "concept",
+      "title": "Types of malware",
+      "markdown": "**Malware** is software written to harm or misuse a system.\n\n- **Virus:** attaches to a host file or program and spreads when that file is run and shared.\n- **Worm:** self-replicating; spreads across a network on its own, without a host file or user action.\n- **Trojan:** disguised as something useful; does not self-replicate, but opens a door once run.\n- **Ransomware:** encrypts the victim's files and demands payment for the key.\n- **Spyware / keylogger:** secretly records activity, keystrokes or credentials.\n- **Adware:** forces unwanted advertisements; often bundled.\n- **Rootkit:** hides deep in the system to conceal other malware and resist removal.\n- **Botnet:** a network of compromised machines controlled remotely, used for spam or denial-of-service attacks.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "malware types",
+        "virus worm trojan ransomware",
+        "spyware keylogger adware rootkit botnet",
+        "self-replicating worm no host virus needs host"
+      ],
+      "position": 20
+    },
+    {
+      "id": "phishing-social-engineering",
+      "type": "concept",
+      "title": "Phishing and social engineering",
+      "markdown": "**Social engineering** is manipulating a person into revealing information or performing an action, rather than breaking a technical control.\n\n- **Phishing:** a fraudulent message, usually email, that impersonates a trusted organisation to trick the reader into giving passwords, card numbers or one-time codes, or into opening a malicious attachment or link.\n- **Spear phishing:** phishing aimed at a specific person, using details about them.\n- **Vishing** and **smishing:** the same idea by phone call and by SMS.\n- **Pretexting, baiting, tailgating:** inventing a scenario, leaving infected media, or following someone through a secure door.\n\nDefences are mostly human: verify the sender through a known channel, never act on urgency or threats, never share a one-time password, and check links before clicking.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "social engineering",
+        "phishing spear phishing vishing smishing",
+        "pretexting baiting tailgating",
+        "never share one time password verify sender"
+      ],
+      "position": 30
+    },
+    {
+      "id": "authn-vs-authz",
+      "type": "comparison",
+      "title": "Authentication and authorisation",
+      "markdown": "- **Authentication** answers \"who are you?\" - proving identity.\n- **Authorisation** answers \"what are you allowed to do?\" - the permissions granted to that identity.\n\nAuthentication comes first; authorisation follows. Identity can be proven by three kinds of **factor**:\n\n1. **Something you know** - a password, PIN, security answer.\n2. **Something you have** - a phone receiving an OTP, a hardware token, a smart card.\n3. **Something you are** - a fingerprint, face or iris (biometrics).\n\n**Multi-factor authentication (MFA)** requires factors from two or more different categories; two passwords are not MFA.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "authentication versus authorisation",
+        "who are you what can you do",
+        "something you know have are",
+        "multi-factor authentication two categories"
+      ],
+      "position": 40
+    },
+    {
+      "id": "encryption",
+      "type": "concept",
+      "title": "Encryption and digital certificates",
+      "markdown": "**Encryption** turns readable data (plaintext) into unreadable form (ciphertext) using an algorithm and a key; only a party with the right key can reverse it.\n\n- **Symmetric encryption:** the same secret key encrypts and decrypts. Fast, good for bulk data; the problem is sharing the key safely.\n- **Asymmetric (public-key) encryption:** a key pair - a **public key** anyone may hold and a **private key** kept secret. Data encrypted with the public key can only be opened with the private key, which solves key distribution. Slower, so it is often used just to exchange a symmetric key.\n- **Digital signature:** signing a message's hash with a private key proves who sent it and that it was not altered.\n- **Digital certificate:** a trusted **Certificate Authority** vouches that a public key really belongs to a named site or person. This is what the padlock in a browser relies on.\n\n**Hashing** (a one-way fingerprint) is not encryption - it cannot be reversed - and is used to store passwords and check integrity.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "encryption plaintext ciphertext key",
+        "symmetric same key asymmetric public private key",
+        "digital signature certificate authority",
+        "hashing one way not encryption"
+      ],
+      "position": 50
+    },
+    {
+      "id": "firewalls-and-backups",
+      "type": "concept",
+      "title": "Firewalls and backups",
+      "markdown": "- A **firewall** monitors and filters network traffic against a set of rules, allowing or blocking connections by address, port or application. It can be hardware, software, or built into the operating system, and it is a boundary control - it does not clean an already-infected machine.\n- **Backups** are the main defence against ransomware, hardware failure and mistakes. Good practice is the **3-2-1 rule**: at least **3** copies of the data, on **2** different media, with **1** copy kept **off-site** (or offline). Test that a backup can actually be restored; an untested backup is a hope, not a plan.\n- Other everyday controls: keep software patched, use unique strong passwords with a password manager, enable MFA, and grant least privilege.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "firewall filters network traffic rules boundary control",
+        "backup 3-2-1 rule off-site",
+        "test the restore",
+        "patching least privilege password manager MFA"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **A worm self-replicates and spreads on its own; a virus needs a host file and user action.**\n- **A Trojan does not self-replicate** - it relies on the user running it.\n- **Authentication is proving who you are; authorisation is what you may do.** Authentication is first.\n- **MFA needs factors from different categories** - two passwords, or a password and a security question, are still one factor (something you know).\n- **Hashing is one-way and is not encryption;** you cannot \"decrypt\" a hash.\n- **Symmetric = one shared key; asymmetric = a public/private key pair.** The public key encrypts; the private key decrypts.\n- **A firewall controls traffic at a boundary;** it does not remove malware already on the machine - that is antivirus.\n- **HTTPS and a certificate secure the connection**, not the trustworthiness of the site's owner.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "cyber security confusions",
+        "worm versus virus versus trojan",
+        "authentication first then authorisation",
+        "MFA different categories",
+        "hashing not encryption firewall not antivirus"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- CIA triad: confidentiality (only authorised read), integrity (no undetected change), availability (usable when needed).\n- Malware: virus (needs host + action), worm (self-spreads on a network), trojan (disguised, run by user), ransomware (encrypts for payment), spyware/keylogger, adware, rootkit (hides), botnet (remote-controlled army).\n- Social engineering targets people: phishing (email), spear phishing (targeted), vishing (call), smishing (SMS). Never share an OTP; verify the sender.\n- Authentication = who you are; authorisation = what you may do. Factors: know, have, are. MFA needs two different categories.\n- Symmetric = one shared key (fast, bulk). Asymmetric = public/private pair (solves key sharing). Digital certificate: a CA vouches a public key belongs to a named party. Hashing is one-way, not encryption.\n- Firewall filters traffic at a boundary (not an antivirus). Backups: 3-2-1 rule, and test the restore.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "cyber security basics summary",
+        "revision",
+        "CIA malware phishing authn authz encryption firewall backup recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "cia-triad",
+      "front": "What does the CIA triad stand for in security?",
+      "back": "Confidentiality (only authorised can read), Integrity (no undetected alteration), Availability (usable when legitimately needed).",
+      "explanation": "Every attack targets one or more of these.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-cia-triad"],
+      "position": 10
+    },
+    {
+      "id": "virus-worm-trojan",
+      "front": "Virus vs worm vs Trojan - how does each spread?",
+      "back": "Virus: attaches to a host file, spreads when that file runs and is shared. Worm: self-replicates across a network with no host or user action. Trojan: disguised as useful, spreads only when a user runs it; does not self-replicate.",
+      "explanation": "Self-replication is the key divider.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["malware-types"],
+      "position": 20
+    },
+    {
+      "id": "phishing",
+      "front": "What is phishing, and what should you never do in response?",
+      "back": "A fraudulent message impersonating a trusted body to steal passwords, card details or OTPs, or to plant malware. Never share a one-time password or act on urgency; verify the sender through a known channel.",
+      "explanation": "Vishing is by call, smishing by SMS, spear phishing is targeted.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["phishing-social-engineering"],
+      "position": 30
+    },
+    {
+      "id": "authn-authz",
+      "front": "Authentication vs authorisation?",
+      "back": "Authentication proves who you are; authorisation decides what you are allowed to do. Authentication happens first.",
+      "explanation": "Factors: something you know, have, or are.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["authn-vs-authz"],
+      "position": 40
+    },
+    {
+      "id": "mfa",
+      "front": "Is a password plus a security question multi-factor authentication?",
+      "back": "No. Both are 'something you know' - one factor. MFA needs factors from two different categories (e.g. password + OTP on your phone).",
+      "explanation": "The three categories are know / have / are.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["authn-vs-authz"],
+      "position": 50
+    },
+    {
+      "id": "symmetric-asymmetric",
+      "front": "Symmetric vs asymmetric encryption?",
+      "back": "Symmetric: one shared secret key for both encrypt and decrypt - fast, but key sharing is hard. Asymmetric: a public key (shareable) and a private key (secret); the public encrypts, the private decrypts - solves key distribution but is slower.",
+      "explanation": "Often combined: asymmetric to swap a symmetric key, then symmetric for bulk data.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["encryption"],
+      "position": 60
+    },
+    {
+      "id": "hashing-not-encryption",
+      "front": "Why is hashing not the same as encryption?",
+      "back": "Hashing is a one-way fingerprint - it cannot be reversed to recover the input. It is used to store passwords and verify integrity, not to keep data readable later.",
+      "explanation": "Encryption is reversible with the right key; hashing is not.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["encryption"],
+      "position": 70
+    },
+    {
+      "id": "backup-321",
+      "front": "State the 3-2-1 backup rule.",
+      "back": "At least 3 copies of the data, on 2 different media, with 1 copy kept off-site or offline. And test that a restore actually works.",
+      "explanation": "Backups are the main defence against ransomware.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["firewalls-and-backups"],
+      "position": 80
+    }
+  ]
+}

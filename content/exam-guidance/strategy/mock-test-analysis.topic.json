@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "exam-guidance",
+  "subjectName": "Exam Guidelines and Strategy",
+  "subjectPosition": 5,
+  "chapterSlug": "strategy",
+  "chapterName": "Strategy",
+  "chapterPosition": 1,
+  "topicSlug": "mock-test-analysis",
+  "topicPosition": 40,
+  "title": "Mock-Test Analysis",
+  "summary": "Why the analysis of a mock matters more than the mock itself, the numbers to pull from every attempt (attempts, accuracy, time per section, error types), how to categorise mistakes, and how to turn one mock's analysis into the next week's practice. Guidance only.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 20,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "negative-marking-strategy",
+    "sectional-time-management"
+  ],
+  "learningObjectives": [
+    "Explain why the review of a mock is more valuable than taking it.",
+    "List the metrics to record after every mock, by section.",
+    "Sort wrong answers into knowledge, application, careless and time-pressure errors.",
+    "Convert a mock analysis into concrete changes for the next week."
+  ],
+  "tags": ["exam-guidance", "strategy", "mock-analysis", "error-log", "review"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SBI_PO_OVERVIEW",
+      "url": "https://sbi.co.in/web/careers/probationary-officers",
+      "title": "SBI - Probationary Officers information",
+      "publisher": "State Bank of India",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Used only to confirm the objective-paper format (sections, timing, negative marking) that mock analysis is built around. No text was reused; the analysis method here is author-created guidance."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "why-analysis",
+      "type": "concept",
+      "title": "Why the analysis matters more than the score",
+      "markdown": "Taking a mock tells you where you stand today. **Analysing** it tells you what to change so that next week you stand somewhere better. A candidate who takes three mocks and reviews each deeply will usually improve faster than one who takes ten and only checks the score.\n\nPlan roughly **one and a half to two times the test duration** for analysis: re-attempt every question you got wrong or skipped, understand why, and record it. A mock without this review is mostly wasted time.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "analysis matters more than score",
+        "one and a half to two times test duration for review",
+        "re-attempt every wrong and skipped question",
+        "mock without review wasted"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-metrics",
+      "type": "method",
+      "title": "Numbers to record after every mock",
+      "markdown": "Keep a simple sheet, one row per mock, with per-section columns:\n\n- **Attempts** and **correct** - from which **accuracy** (correct divided by attempts).\n- **Net score** after the negative-marking penalty.\n- **Time spent** in the section (if the platform reports it) and time per question.\n- **Unattempted** count, split into \"didn't reach\" and \"chose to skip\".\n- **Sectional cut-off status** - did you clear the likely minimum for that section.\n\nOver several mocks these columns show trends: is accuracy rising while attempts hold, is one section always the time sink, are you consistently just below a cut-off somewhere.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "metrics after a mock",
+        "attempts correct accuracy net score",
+        "time per section unattempted didn't reach versus skipped",
+        "sectional cutoff status trend sheet"
+      ],
+      "position": 20
+    },
+    {
+      "id": "categorise-errors",
+      "type": "method",
+      "title": "Categorising every wrong answer",
+      "markdown": "For each wrong answer, tag it with one cause:\n\n- **Knowledge gap:** you did not know the concept, formula or rule. Fix: study that topic.\n- **Application error:** you knew the idea but set up or executed it wrongly. Fix: more practice on that question type, focusing on the setup step.\n- **Careless error:** misread the question, wrong option marked, arithmetic slip, missed a \"not\". Fix: a checking habit, not more study.\n- **Time-pressure error:** rushed because the clock was low. Fix: pacing and set selection, from the time-management topic.\n\nCount how many of each you make. Careless and time-pressure errors are usually the fastest to cut and the most common in borderline scores.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "categorise wrong answers",
+        "knowledge gap application error careless error time pressure error",
+        "fix per category",
+        "careless errors fastest to cut"
+      ],
+      "position": 30
+    },
+    {
+      "id": "the-error-log",
+      "type": "exam_tip",
+      "title": "Keeping an error log",
+      "markdown": "Maintain a running list of the questions you got wrong or found slow, with: the topic, the error category, the correct method in one or two lines, and the specific lesson (\"read the DI table headings before the questions\", \"remember senior takes 'to' not 'than'\").\n\nRe-read the log before your next mock and before the exam. Many candidates find that the same five or six lessons appear again and again; getting those to zero moves the score more than learning new topics.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "error log",
+        "topic category correct method one line lesson",
+        "re-read log before next mock and exam",
+        "same lessons repeat"
+      ],
+      "position": 40
+    },
+    {
+      "id": "close-the-loop",
+      "type": "method",
+      "title": "Turning analysis into next week's plan",
+      "markdown": "End every analysis with two or three concrete actions, not vague resolutions:\n\n- If a topic caused several knowledge-gap errors: schedule two study sessions on it and a topic-specific drill this week.\n- If one section is a time sink: do three timed sectional drills of that section and set a tighter walk-away limit.\n- If careless errors are high: add a fixed 10-second check (units, sign, the word \"not\", the option letter) before marking, and watch the careless count in the next mock.\n\nThen take the next mock and check whether those specific numbers moved. That feedback loop - measure, change one or two things, measure again - is the whole point.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "turn analysis into plan",
+        "two or three concrete actions",
+        "study sessions timed drills tighter walk away limit",
+        "10 second check feedback loop"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Only looking at the score and rank.** They tell you nothing about what to fix.\n- **Reviewing only wrong answers.** Also review the ones you got right slowly, or by luck.\n- **No error categories.** Without them you cannot tell a study problem from a checking problem, and you fix the wrong thing.\n- **Taking mocks back to back with no analysis in between.** Two analysed mocks beat five unanalysed ones.\n- **Vague resolutions.** \"Be more careful\" is not an action; \"do a 10-second units-and-sign check before marking\" is.\n- **Changing many things at once.** Change one or two, measure, then change more - otherwise you cannot tell what worked.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "mock analysis mistakes",
+        "only score and rank",
+        "review slow correct answers too",
+        "no error categories",
+        "vague resolutions change one thing at a time"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Analysing a mock matters more than taking it; budget 1.5 to 2 times the test length for review and re-attempt every wrong or skipped question.\n- Record per section, every mock: attempts, correct, accuracy, net score, time, unattempted (didn't-reach vs skipped), cut-off status. Watch the trends.\n- Tag every wrong answer: knowledge gap (study it), application error (practise the type), careless (build a checking habit), time-pressure (fix pacing).\n- Keep an error log with topic, category, the right method in one line, and the specific lesson; re-read it before each mock and the exam.\n- Close each analysis with two or three concrete actions, take the next mock, and check whether those numbers moved. Change one or two things at a time.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "mock test analysis summary",
+        "revision",
+        "metrics error categories log feedback loop recap"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "analysis-vs-score",
+      "front": "Why is analysing a mock more valuable than taking it?",
+      "back": "The score tells you where you stand; the analysis tells you what to change so you stand higher next time. Three deeply reviewed mocks usually beat ten unreviewed ones.",
+      "explanation": "Budget 1.5-2x the test length for review.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["why-analysis"],
+      "position": 10
+    },
+    {
+      "id": "metrics-list",
+      "front": "Name four per-section numbers to record after every mock.",
+      "back": "Attempts, correct (hence accuracy), net score after penalty, time spent; also unattempted split into 'didn't reach' vs 'skipped', and sectional cut-off status.",
+      "explanation": "Trends over several mocks are what you act on.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-metrics"],
+      "position": 20
+    },
+    {
+      "id": "error-categories",
+      "front": "What are the four error categories for a wrong answer, and the fix for each?",
+      "back": "Knowledge gap - study the topic. Application error - practise the question type's setup. Careless - build a checking habit. Time-pressure - fix pacing and set selection.",
+      "explanation": "Careless and time-pressure errors are usually fastest to cut.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["categorise-errors"],
+      "position": 30
+    },
+    {
+      "id": "error-log",
+      "front": "What goes in an error log entry?",
+      "back": "The topic, the error category, the correct method in one or two lines, and the specific lesson to remember. Re-read it before each mock and before the exam.",
+      "explanation": "The same few lessons tend to repeat; driving those to zero moves the score.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-error-log"],
+      "position": 40
+    },
+    {
+      "id": "close-the-loop",
+      "front": "How should a mock analysis end?",
+      "back": "With two or three concrete actions (e.g. 'three timed drills of DI', '10-second units-and-sign check before marking'), then the next mock to check whether those specific numbers moved.",
+      "explanation": "Measure, change one or two things, measure again.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["close-the-loop"],
+      "position": 50
+    },
+    {
+      "id": "review-slow-correct",
+      "front": "Besides wrong answers, what else should you review in a mock?",
+      "back": "Questions you got right but slowly, or by luck - they are future mistakes waiting to happen.",
+      "explanation": "Reviewing only wrongs misses hidden weaknesses.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60
+    },
+    {
+      "id": "one-change-at-a-time",
+      "front": "Why change only one or two things between mocks?",
+      "back": "So you can tell which change actually helped. Changing many things at once makes the feedback loop useless.",
+      "explanation": "Isolate the variable, then measure.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70
+    }
+  ]
+}

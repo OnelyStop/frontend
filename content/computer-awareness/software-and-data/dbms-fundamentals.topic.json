@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "software-and-data",
+  "chapterName": "Software and data",
+  "chapterPosition": 2,
+  "topicSlug": "dbms-fundamentals",
+  "topicPosition": 20,
+  "title": "Database and DBMS Fundamentals",
+  "summary": "Data versus information, what a database and a DBMS are, the relational model and its terms (table, row, column, primary key, foreign key), the categories of SQL commands, and the ACID properties of a reliable transaction.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["operating-systems-and-software"],
+  "learningObjectives": [
+    "Distinguish data from information and a database from a DBMS.",
+    "State what a DBMS provides over ordinary files.",
+    "Use the relational-model terms: table, record, field, primary key, foreign key.",
+    "Name the categories of SQL commands and the ACID properties."
+  ],
+  "tags": ["computer-awareness", "database", "dbms", "sql", "primary-key"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Basic Computing Using Windows",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to cross-check the general vocabulary of databases. Explained in original, vendor-neutral wording; no product documentation used."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "data-vs-information",
+      "type": "definition",
+      "title": "Data, information and a database",
+      "markdown": "- **Data** are raw, unorganised facts - a number, a name, a date - with no context.\n- **Information** is data that has been processed and given context so it means something - \"average deposit per branch this quarter\".\n- A **database** is an organised, structured collection of related data, stored so it can be efficiently searched, updated and shared, with the relationships between items preserved.\n\nA database keeps data **once** and lets many applications and users work from that single, consistent copy.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "data versus information",
+        "raw facts versus processed context",
+        "database organised collection",
+        "single consistent copy"
+      ],
+      "position": 10
+    },
+    {
+      "id": "what-a-dbms-does",
+      "type": "concept",
+      "title": "What a DBMS provides",
+      "markdown": "A **Database Management System (DBMS)** is software that sits between the users and the database and manages all access to it. Compared with keeping data in ordinary files, a DBMS provides:\n\n- **Reduced redundancy and controlled consistency:** data is not duplicated in many files that drift apart.\n- **Data independence:** applications do not break when the physical storage changes.\n- **Concurrent access control:** many users read and write safely at the same time.\n- **Integrity constraints:** rules the data must always satisfy (a balance cannot be null, an account must belong to a real customer).\n- **Security:** access granted per user and per operation.\n- **Backup and recovery:** the database can be restored to a consistent state after a failure.\n\nA **relational DBMS (RDBMS)** organises data as tables and is queried with SQL.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "DBMS software manages access",
+        "reduced redundancy consistency",
+        "data independence concurrency integrity security backup recovery",
+        "RDBMS SQL"
+      ],
+      "position": 20
+    },
+    {
+      "id": "relational-terms",
+      "type": "concept",
+      "title": "The relational model",
+      "markdown": "In the relational model, data lives in **tables (relations)**:\n\n- A **row (record or tuple)** is one item - one customer, one transaction.\n- A **column (field or attribute)** is one property - name, balance, date.\n- A **primary key** is a column, or set of columns, whose value uniquely identifies each row and cannot be null.\n- A **candidate key** is any column set that could serve as the primary key; the ones not chosen are **alternate keys**.\n- A **foreign key** is a column in one table whose values must match a primary key in another table, which is how tables are linked - a transaction's account number is a foreign key to the accounts table.\n\n**Normalisation** is the process of splitting tables to remove redundancy and update problems.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "relational model table row column",
+        "record tuple field attribute",
+        "primary key candidate key alternate key",
+        "foreign key links tables",
+        "normalisation"
+      ],
+      "position": 30
+    },
+    {
+      "id": "sql-categories",
+      "type": "concept",
+      "title": "SQL command categories",
+      "markdown": "**SQL (Structured Query Language)** is the standard language for relational databases. Its commands group into:\n\n- **DDL (Data Definition Language):** define structure - `CREATE`, `ALTER`, `DROP`, `TRUNCATE`.\n- **DML (Data Manipulation Language):** work with rows - `INSERT`, `UPDATE`, `DELETE` (and `SELECT`, which some texts place in a separate **DQL** category).\n- **DCL (Data Control Language):** permissions - `GRANT`, `REVOKE`.\n- **TCL (Transaction Control Language):** manage transactions - `COMMIT`, `ROLLBACK`, `SAVEPOINT`.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "SQL command categories",
+        "DDL create alter drop truncate",
+        "DML insert update delete select DQL",
+        "DCL grant revoke",
+        "TCL commit rollback savepoint"
+      ],
+      "position": 40
+    },
+    {
+      "id": "acid",
+      "type": "concept",
+      "title": "Transactions and ACID",
+      "markdown": "A **transaction** is a group of database operations that must be treated as a single unit - a fund transfer that debits one account and credits another is one transaction, not two.\n\nA reliable DBMS guarantees the **ACID** properties:\n\n- **Atomicity:** all operations in the transaction happen, or none do.\n- **Consistency:** the database moves from one valid state to another, respecting all constraints.\n- **Isolation:** concurrent transactions do not see each other's incomplete work.\n- **Durability:** once committed, the change survives a crash or power loss.\n\n`COMMIT` makes a transaction's changes permanent; `ROLLBACK` undoes them.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "transaction single unit fund transfer",
+        "ACID atomicity consistency isolation durability",
+        "commit rollback"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **A database is the data; a DBMS is the software that manages it.**\n- **A primary key cannot be null and must be unique;** a foreign key can repeat and can sometimes be null.\n- **A foreign key points to another table's primary key**, and that is how relationships are enforced.\n- **`DELETE` is DML and can be rolled back; `TRUNCATE` is DDL** and removes all rows quickly with less logging.\n- **`SELECT` retrieves data and changes nothing;** it is sometimes called DQL.\n- **ACID isolation is about concurrent transactions**, not about network isolation.\n- **Data is raw; information is processed data with context** - the terms are not interchangeable.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "database DBMS confusions",
+        "primary key not null foreign key can repeat",
+        "delete DML truncate DDL",
+        "select DQL",
+        "ACID isolation concurrent"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Data are raw facts; information is processed data with context. A database is a structured, shareable collection of related data.\n- A DBMS manages access and provides low redundancy, consistency, data independence, concurrency control, integrity constraints, security, and backup/recovery. An RDBMS uses tables and SQL.\n- Relational terms: table (relation), row (record/tuple), column (field/attribute), primary key (unique, not null), candidate/alternate keys, foreign key (matches another table's primary key). Normalisation removes redundancy.\n- SQL groups: DDL (CREATE/ALTER/DROP/TRUNCATE), DML (INSERT/UPDATE/DELETE, SELECT/DQL), DCL (GRANT/REVOKE), TCL (COMMIT/ROLLBACK/SAVEPOINT).\n- A transaction is one unit; ACID = atomicity, consistency, isolation, durability. COMMIT persists, ROLLBACK undoes.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "database DBMS summary",
+        "revision",
+        "relational terms SQL categories ACID recap"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "data-info",
+      "front": "Difference between data and information?",
+      "back": "Data are raw, context-free facts. Information is data that has been processed and given context so it carries meaning.",
+      "explanation": "A DBMS turns stored data into information via queries.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["data-vs-information"],
+      "position": 10
+    },
+    {
+      "id": "db-vs-dbms",
+      "front": "Database vs DBMS?",
+      "back": "The database is the organised collection of data. The DBMS is the software that stores, secures, and controls all access to it.",
+      "explanation": "An RDBMS is a DBMS that uses tables and SQL.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-a-dbms-does"],
+      "position": 20
+    },
+    {
+      "id": "primary-foreign-key",
+      "front": "Primary key vs foreign key?",
+      "back": "A primary key uniquely identifies each row and cannot be null. A foreign key is a column whose values must match a primary key in another table, linking the two.",
+      "explanation": "A foreign key can repeat and can sometimes be null.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["relational-terms"],
+      "position": 30
+    },
+    {
+      "id": "sql-categories",
+      "front": "Which SQL category do CREATE, INSERT, GRANT and COMMIT belong to?",
+      "back": "CREATE - DDL; INSERT - DML; GRANT - DCL; COMMIT - TCL.",
+      "explanation": "SELECT is DML (sometimes called DQL).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sql-categories"],
+      "position": 40
+    },
+    {
+      "id": "delete-vs-truncate",
+      "front": "DELETE vs TRUNCATE?",
+      "back": "DELETE is DML, can target specific rows, and can be rolled back. TRUNCATE is DDL, removes all rows quickly with minimal logging.",
+      "explanation": "A frequent trap in DBMS questions.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 50
+    },
+    {
+      "id": "acid",
+      "front": "What do the letters in ACID stand for?",
+      "back": "Atomicity (all or nothing), Consistency (valid state to valid state), Isolation (concurrent transactions don't see each other's partial work), Durability (committed changes survive a crash).",
+      "explanation": "They define a reliable transaction.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["acid"],
+      "position": 60
+    },
+    {
+      "id": "transaction",
+      "front": "Why is a bank fund transfer treated as one transaction?",
+      "back": "The debit and the credit must both happen or neither must - atomicity. COMMIT makes both permanent; ROLLBACK undoes both.",
+      "explanation": "Half a transfer would break consistency.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["acid"],
+      "position": 70
+    }
+  ]
+}

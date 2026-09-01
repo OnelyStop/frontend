@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "exam-guidance",
+  "subjectName": "Exam Guidelines and Strategy",
+  "subjectPosition": 5,
+  "chapterSlug": "strategy",
+  "chapterName": "Strategy",
+  "chapterPosition": 1,
+  "topicSlug": "negative-marking-strategy",
+  "topicPosition": 20,
+  "title": "Negative-Marking Strategy",
+  "summary": "How the standard one-fourth penalty for a wrong answer changes the maths of guessing, when a guess is worth it and when it is not, and how to build a habit of disciplined attempting. Guidance only; the notification states the actual penalty.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 18,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "State the usual negative-marking fraction and compute the expected value of a guess.",
+    "Decide when a partial guess (after eliminating options) is worthwhile.",
+    "Explain why a low, controlled wrong-answer count protects a score.",
+    "Recognise the review habits that reduce avoidable negatives."
+  ],
+  "tags": [
+    "exam-guidance",
+    "strategy",
+    "negative-marking",
+    "guessing",
+    "accuracy"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SBI_PO_OVERVIEW",
+      "url": "https://sbi.co.in/web/careers/probationary-officers",
+      "title": "SBI - Probationary Officers information",
+      "publisher": "State Bank of India",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Used only to confirm that the objective papers carry a penalty for wrong answers. The exact fraction and any exceptions are stated in each cycle's notification; no text was reused."
+    },
+    {
+      "sourceId": "IBPS_HOME",
+      "url": "https://www.ibps.in/",
+      "title": "IBPS - home",
+      "publisher": "Institute of Banking Personnel Selection",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Used only to confirm that CRP objective tests apply negative marking. Candidates must read the official information handout."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-penalty",
+      "type": "concept",
+      "title": "The usual penalty",
+      "markdown": "Across SBI and IBPS objective papers, a wrong answer typically costs **one-fourth of the mark** allotted to that question, while an unattempted question costs nothing. So on a one-mark question, a correct answer is +1, a blank is 0, and a wrong answer is -0.25.\n\nThis fraction is a long-standing convention, not a guarantee. Some tests or sections have used different values, and the descriptive paper is marked differently. Always take the exact penalty from the current notification.",
+      "sourceIds": ["SBI_PO_OVERVIEW", "IBPS_HOME"],
+      "searchKeywords": [
+        "negative marking one fourth",
+        "wrong answer minus 0.25",
+        "blank costs nothing",
+        "penalty from notification"
+      ],
+      "position": 10
+    },
+    {
+      "id": "expected-value",
+      "type": "method",
+      "title": "The maths of a guess",
+      "markdown": "With a penalty of one-fourth on a question with five options, a **pure blind guess** has an expected value of zero: on average, 1 in 5 guesses is right (+1) and 4 in 5 are wrong (4 times -0.25 = -1), which cancels out. Blind guessing neither helps nor hurts on average, but it adds variance - it can swing a borderline result either way.\n\nThe picture changes once you can **eliminate options**:\n\n- Eliminate 1 option (4 left): a guess now averages slightly positive.\n- Eliminate 2 options (3 left): clearly positive - worth taking.\n- Eliminate 3 options (2 left): strongly positive - take it.\n\nSo the rule of thumb is: guess only when you have removed at least two options; otherwise leave it blank.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "expected value of a guess",
+        "blind guess expected value zero",
+        "eliminate two options then guess",
+        "variance borderline result"
+      ],
+      "position": 20
+    },
+    {
+      "id": "why-control-negatives",
+      "type": "concept",
+      "title": "Why a low wrong-answer count matters",
+      "markdown": "Every wrong answer is a **double loss**: you forgo the mark you could have earned by spending that time on a question you knew, and you pay the penalty on top. Four careless wrong answers wipe out a fifth correct one.\n\nBecause selection is decided by small margins and by sectional cut-offs, a candidate who attempts fewer questions at high accuracy often outscores one who attempts more with a scatter of errors. Controlling negatives is usually more productive than chasing a few extra attempts.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "wrong answer double loss",
+        "four wrong wipe out one right",
+        "fewer attempts high accuracy outscore",
+        "control negatives over extra attempts"
+      ],
+      "position": 30
+    },
+    {
+      "id": "habits",
+      "type": "exam_tip",
+      "title": "Habits that reduce avoidable negatives",
+      "markdown": "- **Read the full question and all options** before marking - many negatives come from missing a \"not\", \"except\" or \"cannot\".\n- **Mark as you go only when sure;** flag doubtful ones and return, rather than committing under time pressure.\n- **Do a units-and-sign check** on quantitative answers before moving on.\n- **Avoid last-minute panic filling.** In the final minute, resist the urge to guess a block of unread questions.\n- **Track your accuracy in every mock,** not just your attempts. If accuracy drops below the high-eighties in a section, you are attempting too many marginal questions.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "reduce avoidable negatives",
+        "read the full question except not cannot",
+        "flag and return",
+        "no panic filling",
+        "track accuracy not just attempts"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two candidates",
+      "markdown": "One-mark questions, penalty one-fourth. Two candidates take the same 100-question section.\n\n**Candidate A** attempts 70: 60 correct, 10 wrong. Score = 60 minus 10 times 0.25, that is 60 minus 2.5, which is 57.5.\n\n**Candidate B** attempts 55: 52 correct, 3 wrong. Score = 52 minus 3 times 0.25, that is 52 minus 0.75, which is 51.25.\n\n**Candidate C** attempts 62: 58 correct, 4 wrong. Score = 58 minus 4 times 0.25, that is 58 minus 1, which is 57.\n\nCandidate A wins here, but only because their accuracy (60 of 70, about 86 percent) stayed high. Had A instead gone 55 correct and 15 wrong from the same 70 attempts, the score would be 55 minus 3.75, that is 51.25 - the same as the cautious Candidate B, from far riskier play.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "negative marking worked example",
+        "60 correct 10 wrong score 57.5",
+        "accuracy 86 percent",
+        "cautious versus aggressive attempting"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "Candidate A score",
+          "value": 57.5,
+          "expression": "60 - 10*0.25"
+        },
+        {
+          "label": "Candidate B score",
+          "value": 51.25,
+          "expression": "52 - 3*0.25"
+        },
+        {
+          "label": "Candidate C score",
+          "value": 57,
+          "expression": "58 - 4*0.25"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Blind guessing to \"use up\" the paper.** With five options and a one-fourth penalty, that averages to zero and only adds risk.\n- **Guessing after eliminating just one option.** The edge is tiny; wait until two are gone.\n- **Treating a blank as a failure.** A blank is a neutral, deliberate choice; a wrong answer is a loss.\n- **Ignoring \"except\" and \"not\" in the stem.** These reversed questions cause a large share of avoidable negatives.\n- **Measuring only attempts in mock analysis.** Accuracy per section is the number that predicts your real score.\n- **Assuming the penalty is always one-fourth.** Confirm it from the current notification for your exam.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "negative marking mistakes",
+        "blind guessing to finish paper",
+        "guess after one elimination",
+        "blank is neutral not failure",
+        "except not questions"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Usual penalty: minus one-fourth of the question's mark for a wrong answer; zero for a blank. Confirm from the notification.\n- Five options, one-fourth penalty: a blind guess averages zero and only adds variance.\n- Guess only after eliminating at least two options; then the expected value is clearly positive.\n- A wrong answer is a double loss - the mark not earned plus the penalty. Four wrongs cancel one right.\n- Fewer attempts at high accuracy usually beat more attempts with scattered errors, given sectional cut-offs.\n- Reduce negatives by reading the full stem (watch \"not\"/\"except\"), flagging doubtful items, checking units and signs, and never panic-filling.\n- Track accuracy per section in every mock, not just the attempt count.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "negative marking strategy summary",
+        "revision",
+        "penalty guess rule double loss accuracy recap"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "usual-penalty",
+      "front": "What is the usual penalty for a wrong answer in SBI/IBPS objective papers, and for a blank?",
+      "back": "About one-fourth (0.25) of that question's mark for a wrong answer; zero for an unattempted question. Confirm the exact figure from the current notification.",
+      "explanation": "The descriptive paper is marked separately.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-penalty"],
+      "position": 10
+    },
+    {
+      "id": "blind-guess-ev",
+      "front": "With five options and a one-fourth penalty, what is the expected value of a blind guess?",
+      "back": "Zero. On average 1 in 5 is right (+1) and 4 in 5 are wrong (4 x -0.25 = -1). It only adds variance.",
+      "explanation": "So blind guessing is not a scoring strategy.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["expected-value"],
+      "position": 20
+    },
+    {
+      "id": "when-to-guess",
+      "front": "After how many eliminated options is a guess clearly worth it?",
+      "back": "At least two. With three options left (two eliminated) the expected value is clearly positive; with two left it is strongly positive.",
+      "explanation": "Eliminating just one gives only a tiny edge.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["expected-value"],
+      "position": 30
+    },
+    {
+      "id": "double-loss",
+      "front": "Why is a wrong answer called a 'double loss'?",
+      "back": "You lose the mark you could have earned by spending that time on a question you knew, and you also pay the penalty. Roughly four wrongs cancel one right.",
+      "explanation": "Hence controlling negatives beats chasing extra attempts.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["why-control-negatives"],
+      "position": 40
+    },
+    {
+      "id": "accuracy-example",
+      "front": "70 attempts, 60 correct, 10 wrong, penalty 1/4. Score?",
+      "back": "60 - 10 x 0.25 = 60 - 2.5 = 57.5. The same 70 attempts at 55 correct / 15 wrong would score only 51.25.",
+      "explanation": "Accuracy, not attempt count, drives the score.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 50
+    },
+    {
+      "id": "except-not",
+      "front": "Which words in a question stem cause a large share of avoidable negatives?",
+      "back": "\"not\", \"except\", \"cannot\" - reversed questions. Read the full stem and all options before marking.",
+      "explanation": "A quick re-read of the stem prevents many wrong marks.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["habits"],
+      "position": 60
+    },
+    {
+      "id": "track-accuracy",
+      "front": "In mock analysis, which number best predicts your real score - attempts or accuracy?",
+      "back": "Accuracy per section. If it falls below the high-eighties in a section, you are attempting too many marginal questions.",
+      "explanation": "Attempts alone can hide a rising error rate.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["habits"],
+      "position": 70
+    }
+  ]
+}

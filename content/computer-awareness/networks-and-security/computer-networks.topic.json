@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "networks-and-security",
+  "chapterName": "Networks and security",
+  "chapterPosition": 3,
+  "topicSlug": "computer-networks",
+  "topicPosition": 10,
+  "title": "Computer Networks",
+  "summary": "What a network is and why it is useful, networks by size (LAN, MAN, WAN), common topologies, the devices that connect networks, and the basic vocabulary of the internet and the web - IP addresses, DNS, URLs, HTTP and HTTPS.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["computer-fundamentals-and-functional-units"],
+  "learningObjectives": [
+    "Classify networks by geographic scale: LAN, MAN, WAN.",
+    "Describe bus, star, ring and mesh topologies and their trade-offs.",
+    "Match network devices (hub, switch, router, modem, access point) to their job.",
+    "Explain IP address, DNS, URL, and the difference between HTTP and HTTPS."
+  ],
+  "tags": ["computer-awareness", "networks", "lan-wan", "topology", "dns"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Basic Computing Using Windows",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to cross-check the general networking vocabulary. Explained in original, vendor-neutral wording."
+    },
+    {
+      "sourceId": "NIST_GLOSSARY",
+      "url": "https://csrc.nist.gov/glossary",
+      "title": "NIST CSRC Glossary",
+      "publisher": "NIST",
+      "usageMode": "open_adaptable",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for precise definitions of network terms (LAN, WAN, router). Definitions restated in original wording; underlying NIST publications are cited by the glossary."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-network-is",
+      "type": "definition",
+      "title": "What a network is",
+      "markdown": "A **computer network** is two or more computing devices connected so they can exchange data and share resources - files, printers, an internet connection, applications.\n\nA network needs a **transmission medium** (cable or radio), a set of **rules (protocols)** that both ends follow, and hardware to join it all up. Benefits are resource sharing, communication, central management and backup, and access to remote services. The costs are setup, and new security and reliability risks.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "NIST_GLOSSARY"],
+      "searchKeywords": [
+        "computer network definition",
+        "share data and resources",
+        "transmission medium protocol",
+        "benefits and risks of networking"
+      ],
+      "position": 10
+    },
+    {
+      "id": "networks-by-size",
+      "type": "concept",
+      "title": "Networks by geographic scale",
+      "markdown": "- **LAN (Local Area Network):** covers a small area - a room, a building, a campus. Owned by one organisation, high speed, low error rate. Office and branch networks are LANs.\n- **MAN (Metropolitan Area Network):** spans a city or a large campus, often linking several LANs; may be run by a service provider.\n- **WAN (Wide Area Network):** covers a region, country or the world, usually over leased lines or public infrastructure. The **internet** is the largest WAN.\n- Smaller: a **PAN (Personal Area Network)** around one person, for example Bluetooth devices.\n\nAs the area grows, speed tends to fall and cost and latency rise.",
+      "sourceIds": ["NIST_GLOSSARY", "WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "LAN MAN WAN PAN",
+        "local metropolitan wide area network",
+        "internet is the largest WAN",
+        "speed falls as area grows"
+      ],
+      "position": 20
+    },
+    {
+      "id": "topologies",
+      "type": "comparison",
+      "title": "Topologies",
+      "markdown": "The **topology** is how devices are arranged and connected.\n\n- **Bus:** all devices share one backbone cable. Cheap and simple; a break in the backbone can down the whole network; performance falls as traffic grows. Largely historical.\n- **Star:** every device connects to a central switch or hub. Easy to add or remove a device; a failed link affects only that device; the central node is a single point of failure. The common LAN topology today.\n- **Ring:** each device connects to two neighbours, data passing around the loop. A single break can disrupt the ring unless it is dual.\n- **Mesh:** devices interconnect with many redundant links. Very reliable and fault-tolerant, but expensive and complex - used for network backbones.\n- **Tree / hybrid:** stars connected in a hierarchy.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "network topology bus star ring mesh tree",
+        "single point of failure star central node",
+        "mesh redundant reliable expensive",
+        "bus historical"
+      ],
+      "position": 30
+    },
+    {
+      "id": "network-devices",
+      "type": "concept",
+      "title": "Network devices",
+      "markdown": "- **Network Interface Card (NIC):** gives a device its network connection and its hardware (MAC) address.\n- **Hub:** repeats an incoming signal to every port. No intelligence; obsolete.\n- **Switch:** forwards a frame only to the port where the destination device is, using MAC addresses. The standard device for building a LAN.\n- **Router:** forwards packets **between** different networks using IP addresses, and picks a path. It is what joins a LAN to the internet.\n- **Modem:** converts between the computer's digital signals and the signals a phone, cable or fibre line carries.\n- **Access point:** lets wireless devices join a wired network.\n- **Gateway:** connects networks that use different protocols, translating between them.",
+      "sourceIds": ["NIST_GLOSSARY", "WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "network devices NIC hub switch router modem access point gateway",
+        "switch uses MAC router uses IP",
+        "hub obsolete",
+        "gateway translates protocols"
+      ],
+      "position": 40
+    },
+    {
+      "id": "internet-and-web",
+      "type": "concept",
+      "title": "Internet and web vocabulary",
+      "markdown": "- The **internet** is the global network of networks; the **World Wide Web** is one service on it - linked documents and applications accessed with a browser. The web is not the internet.\n- An **IP address** identifies a device on the network. **IPv4** addresses are four numbers 0-255 (about 4 billion possible); **IPv6** uses a much larger 128-bit space to overcome exhaustion.\n- **DNS (Domain Name System)** translates a human name like `example.org` into the IP address of its server - the internet's phone book.\n- A **URL (Uniform Resource Locator)** is a web address: scheme (`https`), host (`www.example.org`), optional path and query.\n- **HTTP** carries web pages; **HTTPS** is HTTP secured with TLS encryption, so the traffic cannot be read or altered in transit. Prefer HTTPS, especially for anything with a login or payment.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "NIST_GLOSSARY"],
+      "searchKeywords": [
+        "internet versus world wide web",
+        "IP address IPv4 IPv6",
+        "DNS domain name system phone book",
+        "URL scheme host path",
+        "HTTP HTTPS TLS"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **The web is a service on the internet, not the internet itself.**\n- **A switch works within one network using MAC addresses; a router works between networks using IP addresses.**\n- **A hub is not a switch** - a hub floods every port; a switch is selective. Hubs are obsolete.\n- **DNS resolves names to IP addresses;** it does not host websites.\n- **HTTPS is HTTP plus TLS encryption**, not a different protocol family - and it protects the connection, not the site's honesty.\n- **A star topology's weak point is the central device;** a bus topology's weak point is the shared backbone.\n- **A gateway connects dissimilar networks;** a router connects networks that speak the same protocol.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "network confusions",
+        "web is not the internet",
+        "switch MAC router IP",
+        "hub versus switch",
+        "DNS resolves names not hosts sites",
+        "HTTPS is HTTP plus TLS"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A network connects devices to share data and resources, using a medium, protocols and connecting hardware.\n- By scale: PAN, LAN (building/campus, fast, one owner), MAN (city), WAN (region/world; the internet is the biggest).\n- Topologies: bus (shared backbone, historical), star (central switch, today's LAN, central single point of failure), ring, mesh (redundant, reliable, costly), tree/hybrid.\n- Devices: NIC, hub (obsolete), switch (MAC, within a LAN), router (IP, between networks), modem (digital-to-line), access point (wireless join), gateway (protocol translation).\n- Internet vs web (a service on it). IP address (IPv4 four octets, IPv6 128-bit). DNS maps names to IPs. URL = scheme + host + path. HTTPS = HTTP over TLS.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "computer networks summary",
+        "revision",
+        "LAN WAN topology devices internet web DNS HTTPS recap"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "lan-man-wan",
+      "front": "LAN, MAN, WAN - by area, and which is the internet?",
+      "back": "LAN: a building or campus (one owner, fast). MAN: a city. WAN: a region, country or the world. The internet is the largest WAN.",
+      "explanation": "Speed tends to fall and latency rise as the area grows.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["networks-by-size"],
+      "position": 10
+    },
+    {
+      "id": "star-weakness",
+      "front": "What is the single point of failure in a star topology?",
+      "back": "The central switch or hub. A failed link only affects the one device attached to it, but if the centre fails the whole network goes down.",
+      "explanation": "In a bus topology the weak point is the shared backbone cable.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["topologies"],
+      "position": 20
+    },
+    {
+      "id": "switch-vs-router",
+      "front": "Switch vs router - what address does each use, and what does each connect?",
+      "back": "A switch forwards frames within one network using MAC addresses. A router forwards packets between different networks using IP addresses.",
+      "explanation": "A router is what joins a LAN to the internet.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["network-devices"],
+      "position": 30
+    },
+    {
+      "id": "hub-vs-switch",
+      "front": "How does a hub differ from a switch?",
+      "back": "A hub repeats an incoming signal to every port (flooding). A switch sends a frame only to the port of the destination device. Hubs are obsolete.",
+      "explanation": "The switch's selectivity cuts collisions and traffic.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["network-devices"],
+      "position": 40
+    },
+    {
+      "id": "dns",
+      "front": "What does DNS do?",
+      "back": "It translates a human-readable name like example.org into the IP address of the server hosting it - the internet's phone book.",
+      "explanation": "DNS resolves names; it does not host sites.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["internet-and-web"],
+      "position": 50
+    },
+    {
+      "id": "http-https",
+      "front": "Difference between HTTP and HTTPS?",
+      "back": "HTTPS is HTTP carried over a TLS-encrypted connection, so the traffic cannot be read or altered in transit. HTTP is plaintext.",
+      "explanation": "HTTPS protects the connection; it does not vouch for the site's content.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["internet-and-web"],
+      "position": 60
+    },
+    {
+      "id": "web-vs-internet",
+      "front": "Is the World Wide Web the same as the internet?",
+      "back": "No. The internet is the global network of networks; the web is one service running on it (linked documents and apps accessed with a browser). Email is another service.",
+      "explanation": "A very common exam trap.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["internet-and-web"],
+      "position": 70
+    }
+  ]
+}

@@ -309,9 +309,15 @@ export function validateTopic(topic, ctx = {}) {
         );
     }
     if (FACTUAL_BLOCK_TYPES.has(b.type)) {
+      // Exam-guidance topics describe exam structure and rules, for which the
+      // only allowlisted sources are the official SBI/IBPS pages, marked
+      // scope_only (spec §5.2: "cross-check phases, named sections and general
+      // rules"). For every other subject a scope_only source is not enough.
+      const scopeOnlyOk = topic.subjectSlug === "exam-guidance";
       const usable = ids.filter(
         (id) =>
-          allowedById.has(id) && allowedById.get(id).usageMode !== "scope_only",
+          allowedById.has(id) &&
+          (scopeOnlyOk || allowedById.get(id).usageMode !== "scope_only"),
       );
       if (usable.length === 0)
         push(
@@ -320,13 +326,15 @@ export function validateTopic(topic, ctx = {}) {
         );
     }
 
-    // Quantitative worked examples must recompute.
-    if (
-      topic.subjectSlug === "quantitative-aptitude" &&
-      b.type === "worked_example"
-    ) {
+    // Quantitative worked examples MUST carry recomputable answers; any block
+    // in any subject that declares expectedAnswers gets them recomputed.
+    {
       const answers = Array.isArray(b.expectedAnswers) ? b.expectedAnswers : [];
-      if (answers.length === 0)
+      if (
+        topic.subjectSlug === "quantitative-aptitude" &&
+        b.type === "worked_example" &&
+        answers.length === 0
+      )
         push(
           errors,
           `blocks[${i}] ("${b.id}"): quantitative worked_example has no expectedAnswers to recompute`,
