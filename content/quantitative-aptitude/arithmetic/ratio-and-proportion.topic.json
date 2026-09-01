@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "arithmetic",
+  "chapterName": "Arithmetic",
+  "chapterPosition": 2,
+  "topicSlug": "ratio-and-proportion",
+  "topicPosition": 20,
+  "title": "Ratio and Proportion",
+  "summary": "How to read a ratio, divide a quantity in a given ratio, and use proportion (direct and inverse) to solve the scaling questions that run through data interpretation, partnership, mixtures and time-and-work.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["fractions-and-decimals", "percentages"],
+  "learningObjectives": [
+    "Express and simplify a ratio, and convert between a ratio and a fraction.",
+    "Divide a quantity among two or more shares in a given ratio.",
+    "Set up and solve a proportion, including inverse proportion.",
+    "Recognise when a real problem is really a ratio problem in disguise."
+  ],
+  "tags": ["arithmetic", "ratio", "proportion", "bank-exams"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Ratios,_Proportions,_and_Their_Uses",
+      "title": "Ratios, Proportions, and Their Uses",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the definitions of ratio, proportion and equivalent ratios. All wording, worked examples and practice questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-ratio-is",
+      "type": "introduction",
+      "title": "What a ratio is",
+      "markdown": "A ratio compares two quantities of the same kind by division. Writing the ratio of A to B as A ratio B, or as the fraction A over B, means only that A is that many times B. The ratio 3 ratio 2 tells you A is one and a half times B; it does not tell you whether A is 3 and B is 2, or A is 30 and B is 20.\n\nBecause a ratio is a comparison, it has no units and does not change when both terms are multiplied or divided by the same non-zero number. So 12 ratio 8, 6 ratio 4 and 3 ratio 2 are the same ratio. Always reduce to lowest terms before working, exactly as you would a fraction.\n\nIn bank exams ratio is rarely the whole question. It is the tool inside partnership, mixtures and alligation, ages, and most of data interpretation, so fluency here pays off across the section.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "ratio meaning",
+        "compare quantities",
+        "reduce a ratio"
+      ],
+      "position": 10
+    },
+    {
+      "id": "ratio-and-fraction",
+      "type": "concept",
+      "title": "Ratio, fraction and share",
+      "markdown": "Three related ideas get mixed up under time pressure.\n\n- The **ratio** A ratio B is the comparison itself.\n- The **fraction** A over B is A written as a multiple of B.\n- A **share** is A as a part of the whole. If A ratio B is 3 ratio 2, then A is 3 parts out of 5, so A is three-fifths of the total and B is two-fifths.\n\nMoving to shares is what lets you split an amount. For a three-term ratio 5 ratio 4 ratio 3 the total is 12 parts, so the three shares are five-twelfths, four-twelfths and three-twelfths of the whole.\n\nTo compare two ratios such as 4 ratio 5 and 7 ratio 9, cross-multiply: 4 times 9 is 36 and 5 times 7 is 35, so 4 ratio 5 is the larger ratio.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "ratio as fraction",
+        "share of total",
+        "compare two ratios"
+      ],
+      "position": 20
+    },
+    {
+      "id": "dividing-in-a-ratio",
+      "type": "method",
+      "title": "Dividing a quantity in a ratio",
+      "markdown": "To split an amount M in the ratio a ratio b ratio c:\n\n1. Add the ratio terms to get the number of equal parts, a plus b plus c.\n2. One part is M divided by that sum.\n3. Each share is its ratio term times one part.\n\nThe check is that the shares add back to M. This is the single most common ratio task in the exam, and it also handles partnership profit-sharing (split profit in the ratio of capital times time) and mixtures (split a batch in the ratio of ingredients).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "divide amount in ratio",
+        "shares",
+        "sum of ratio terms"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-shares",
+      "type": "worked_example",
+      "title": "Worked example: splitting a fund",
+      "markdown": "A staff welfare fund of 6,300 rupees is to be divided among three sections in the ratio 5 ratio 4 ratio 3.\n\n**Find each section's share.**\n\nStep 1. The ratio has 5 plus 4 plus 3, that is 12 equal parts.\n\nStep 2. One part is 6,300 divided by 12, which is 525 rupees.\n\nStep 3. The shares are 5 times 525, 4 times 525 and 3 times 525, that is 2,625 rupees, 2,100 rupees and 1,575 rupees.\n\nCheck: 2,625 plus 2,100 plus 1,575 is 6,300. Correct.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "divide 6300 in ratio",
+        "three-term ratio share",
+        "welfare fund"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        { "label": "one part", "value": 525, "expression": "6300/(5+4+3)" },
+        {
+          "label": "first share",
+          "value": 2625,
+          "expression": "5*6300/(5+4+3)"
+        },
+        {
+          "label": "second share",
+          "value": 2100,
+          "expression": "4*6300/(5+4+3)"
+        },
+        {
+          "label": "third share",
+          "value": 1575,
+          "expression": "3*6300/(5+4+3)"
+        }
+      ]
+    },
+    {
+      "id": "proportion",
+      "type": "formula",
+      "title": "Proportion: direct and inverse",
+      "markdown": "A **proportion** states that two ratios are equal: a ratio b equals c ratio d. The cross-products are then equal, a times d equals b times c, which is what you use to find a missing term.\n\nTwo quantities are in **direct proportion** when one is a fixed multiple of the other: double one and the other doubles. More workers finish more work; more litres cost more money. Set up as a over b equals c over d.\n\nTwo quantities are in **inverse proportion** when their product is constant: double one and the other halves. More workers take less time; a faster speed takes fewer hours. Set up as a times b equals c times d.\n\nDeciding which kind applies is the whole skill. Ask: if the first quantity goes up, does the second go up (direct) or down (inverse)?",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "proportion",
+        "cross multiplication",
+        "direct proportion",
+        "inverse proportion"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example-inverse",
+      "type": "worked_example",
+      "title": "Worked example: inverse proportion",
+      "markdown": "Eight identical pumps fill a tank in 21 hours. **How long would 12 such pumps take?**\n\nMore pumps means less time, so pumps and time are in inverse proportion. Their product is constant:\n\n8 times 21 equals 12 times T.\n\nSo T equals 8 times 21 divided by 12, which is 14 hours.\n\nAs a sense check, 12 pumps is 1.5 times as many as 8, and 21 divided by 1.5 is 14.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "inverse proportion example",
+        "pumps and time",
+        "constant product"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "time for 12 pumps (hours)",
+          "value": 14,
+          "expression": "8*21/12"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-direct",
+      "type": "worked_example",
+      "title": "Worked example: direct proportion",
+      "markdown": "A press prints 25,000 sheets with 15 machines running. **How many sheets would 24 machines print in the same time**, assuming machines print at the same rate?\n\nMore machines means more sheets, so machines and output are in direct proportion:\n\n15 ratio 25,000 equals 24 ratio S.\n\nCross-multiplying, 15 times S equals 25,000 times 24, so S equals 25,000 times 24 divided by 15, which is 40,000 sheets.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "direct proportion example",
+        "machines and output",
+        "cross multiply"
+      ],
+      "position": 70,
+      "expectedAnswers": [
+        {
+          "label": "sheets from 24 machines",
+          "value": 40000,
+          "expression": "25000*24/15"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Treating a ratio as actual amounts.** 3 ratio 2 is not 3 and 2; scale it by the common multiple the question fixes.\n- **Adding ratios wrongly.** You cannot add 2 ratio 3 and 1 ratio 4 term by term. Bring them to a common first term or common total.\n- **Choosing direct when it should be inverse.** Speed and time for a fixed distance are inverse; workers and time for a fixed job are inverse; workers and work done are direct.\n- **Forgetting to check the sum.** After splitting an amount, the shares must add back to the original.\n- **Mismatching the order.** In a ratio A ratio B, keep A's quantities on one side throughout; swapping mid-solution flips the answer.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "ratio mistakes",
+        "direct vs inverse",
+        "adding ratios"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A ratio is a unit-free comparison; reduce it like a fraction.\n- If A ratio B is a ratio b, then A is a over (a plus b) of the total.\n- To divide M in a ratio: one part is M over the sum of terms; each share is its term times one part; shares add back to M.\n- Proportion a ratio b equals c ratio d gives a times d equals b times c.\n- Direct proportion: a over b equals c over d (both rise together).\n- Inverse proportion: a times b equals c times d (one rises, the other falls).\n- Decide direct or inverse before writing anything: does the second quantity increase or decrease when the first increases?",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "ratio proportion summary",
+        "revision",
+        "direct inverse recap"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "ratio-not-amounts",
+      "front": "Does the ratio 3 : 2 mean the quantities are 3 and 2?",
+      "back": "No. It means the first is 1.5 times the second. The actual values are 3k and 2k for some k the question fixes.",
+      "explanation": "A ratio is a comparison, not a pair of amounts.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-a-ratio-is"],
+      "position": 10
+    },
+    {
+      "id": "share-of-total",
+      "front": "If A : B = 3 : 2, what fraction of the total is A?",
+      "back": "3/(3+2) = 3/5 of the total. B is 2/5.",
+      "explanation": "Move from ratio to share by dividing each term by the sum of terms.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["ratio-and-fraction"],
+      "position": 20
+    },
+    {
+      "id": "divide-in-ratio",
+      "front": "How do you divide an amount M in the ratio a : b : c?",
+      "back": "One part = M/(a+b+c). Shares are a, b and c times one part. They must add back to M.",
+      "explanation": "The sum of ratio terms is the number of equal parts.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["dividing-in-a-ratio"],
+      "position": 30
+    },
+    {
+      "id": "compare-ratios",
+      "front": "Which is larger, 4 : 5 or 7 : 9?",
+      "back": "4 : 5. Cross-multiply: 4×9 = 36 > 5×7 = 35, so 4/5 > 7/9.",
+      "explanation": "Compare a/b and c/d by comparing ad with bc.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["ratio-and-fraction"],
+      "position": 40
+    },
+    {
+      "id": "proportion-cross-product",
+      "front": "If a : b = c : d, what equation relates the four terms?",
+      "back": "a×d = b×c (the cross-products are equal). Use it to find a missing term.",
+      "explanation": "This is the definition of a proportion.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["proportion"],
+      "position": 50
+    },
+    {
+      "id": "direct-vs-inverse",
+      "front": "Workers and time to finish a fixed job: direct or inverse proportion?",
+      "back": "Inverse — more workers, less time, so workers × time is constant. Workers and work done would be direct.",
+      "explanation": "Ask whether the second quantity rises or falls as the first rises.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["proportion"],
+      "position": 60
+    },
+    {
+      "id": "inverse-setup",
+      "front": "8 pumps fill a tank in 21 h. Time for 12 pumps?",
+      "back": "Inverse: 8×21 = 12×T, so T = 168/12 = 14 hours.",
+      "explanation": "Pump count and time have a constant product.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-inverse"],
+      "position": 70
+    },
+    {
+      "id": "ratio-order",
+      "front": "Common slip when solving a ratio problem across several steps?",
+      "back": "Swapping which quantity is the first term partway through. Keep the same quantity in the first position throughout.",
+      "explanation": "Order matters: A : B is not B : A.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 80
+    }
+  ]
+}

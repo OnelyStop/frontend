@@ -1390,8 +1390,6 @@ No content-generating subagent may mark its own content as published.
  
 ## 14. Claude Code coordinator prompt
  
-Copy the prompt below into the root Claude Code session. Replace bracketed paths only if the repository differs.
- 
 ```text
 
 You are the coordinator for a structured SBI/IBPS study-content production

@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "work-and-motion",
+  "chapterName": "Work and motion",
+  "chapterPosition": 3,
+  "topicSlug": "time-speed-and-distance",
+  "topicPosition": 20,
+  "title": "Time, Speed and Distance",
+  "summary": "The speed-distance-time relationship, converting between km/h and m/s, relative speed for objects moving in the same and opposite directions, trains crossing objects and platforms, and average speed over a there-and-back trip.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["ratio-and-proportion"],
+  "learningObjectives": [
+    "Use speed equals distance over time and its rearrangements, with consistent units.",
+    "Convert between km/h and m/s using the 5/18 factor.",
+    "Apply relative speed for same-direction and opposite-direction motion.",
+    "Solve train problems where the length of the train matters."
+  ],
+  "tags": ["arithmetic", "speed-distance-time", "trains", "bank-exams"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Subject:Mathematics",
+      "title": "Subject:Mathematics (Wikibooks mathematics collection)",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Collection used to cross-check the definition speed = distance / time. All examples and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "The one relationship",
+      "markdown": "Everything in this topic comes from speed equals distance divided by time, rearranged as distance equals speed times time, or time equals distance divided by speed.\n\nThe only real discipline is units. Speed in kilometres per hour needs distance in kilometres and time in hours. Speed in metres per second needs metres and seconds. Mixed units are the main source of wrong answers.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "speed distance time",
+        "units consistency",
+        "km per hour metres per second"
+      ],
+      "position": 10
+    },
+    {
+      "id": "unit-conversion",
+      "type": "formula",
+      "title": "Converting km/h and m/s",
+      "markdown": "One kilometre is 1,000 metres and one hour is 3,600 seconds, so:\n\n- To go from km/h to m/s, multiply by 1,000 over 3,600, that is 5 over 18.\n- To go from m/s to km/h, multiply by 18 over 5.\n\nSo 54 km/h is 54 times 5 over 18, that is 15 m/s. Learn a few by heart: 36 km/h is 10 m/s, 72 km/h is 20 m/s.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": ["km/h to m/s", "5 by 18 factor", "18 by 5"],
+      "position": 20
+    },
+    {
+      "id": "relative-speed",
+      "type": "method",
+      "title": "Relative speed",
+      "markdown": "When two bodies move along the same line:\n\n- **Opposite directions:** they approach at the sum of their speeds. The gap closes fast.\n- **Same direction:** the faster overtakes the slower at the difference of their speeds.\n\nFor a train passing something, the distance covered relative to that thing is the sum of the lengths involved: train length plus platform length to cross a platform, train length plus other train's length for two trains passing, just the train length for a pole or a standing person.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "relative speed",
+        "same direction difference",
+        "opposite direction sum",
+        "train crossing"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-platform",
+      "type": "worked_example",
+      "title": "Worked example: a train crossing a platform",
+      "markdown": "A train 180 metres long runs at 54 km/h. **How long does it take to cross a platform 240 metres long?**\n\nSpeed in m/s is 54 times 5 over 18, that is 15 m/s.\n\nDistance to cover is the train length plus the platform length: 180 plus 240, that is 420 metres.\n\nTime is 420 divided by 15, which is 28 seconds.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "train 180 m 54 km/h platform 240 m",
+        "time to cross platform",
+        "28 seconds"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        { "label": "speed in m/s", "value": 15, "expression": "54*5/18" },
+        {
+          "label": "time to cross (seconds)",
+          "value": 28,
+          "expression": "(180 + 240)/(54*5/18)"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-two-trains",
+      "type": "worked_example",
+      "title": "Worked example: two trains passing",
+      "markdown": "Two trains, 120 metres and 130 metres long, move towards each other at 45 km/h and 27 km/h. **How long do they take to pass each other completely?**\n\nMoving in opposite directions, the relative speed is 45 plus 27, that is 72 km/h, which is 72 times 5 over 18, that is 20 m/s.\n\nThe distance to clear is the sum of the two lengths: 120 plus 130, that is 250 metres.\n\nTime is 250 divided by 20, which is 12.5 seconds.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "two trains opposite directions",
+        "relative speed 72 km/h",
+        "time to cross each other"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "relative speed in m/s",
+          "value": 20,
+          "expression": "(45 + 27)*5/18"
+        },
+        {
+          "label": "time to pass (seconds)",
+          "value": 12.5,
+          "expression": "(120 + 130)/((45 + 27)*5/18)"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-average-speed",
+      "type": "worked_example",
+      "title": "Worked example: there and back",
+      "markdown": "A cyclist rides from town A to town B at 40 km/h and returns along the same route at 60 km/h. **Find the average speed for the round trip.**\n\nAverage speed is total distance over total time. For a distance d each way, the times are d over 40 and d over 60.\n\nFor two equal distances at speeds a and b, average speed is 2 times a times b divided by (a plus b): here 2 times 40 times 60 divided by 100, which is 48 km/h.\n\nIt is below 50, the plain mean, because more time is spent at the slower 40.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "average speed there and back",
+        "40 and 60 km/h",
+        "harmonic mean speed"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "average speed (km/h)",
+          "value": 48,
+          "expression": "2*40*60/(40 + 60)"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Mixing units.** Convert every speed and length to one system before dividing.\n- **Forgetting the train's own length.** To cross a platform, the train covers its length plus the platform's; to pass a pole, just its own length.\n- **Adding speeds for same-direction motion.** Overtaking uses the difference of speeds, not the sum.\n- **Taking the mean of two speeds for a round trip.** That is only correct for equal times; for equal distances use 2ab over (a plus b).\n- **Using minutes where the rate is per hour.** Keep time in hours with a km/h speed.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "time speed distance mistakes",
+        "train length",
+        "relative speed direction"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- speed equals distance over time; keep units consistent.\n- km/h to m/s: multiply by 5 over 18; m/s to km/h: multiply by 18 over 5.\n- Opposite directions: relative speed is the sum. Same direction: the difference.\n- Crossing a platform: distance is train length plus platform length. Passing a pole: just the train length. Two trains: the sum of both lengths.\n- Round trip, equal distances at a and b: average speed is 2ab over (a plus b).\n- Equal times at a and b: average speed is (a plus b) over 2.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "time speed distance summary",
+        "revision",
+        "relative speed recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "sdt-core",
+      "front": "State the three forms of the speed relationship.",
+      "back": "speed = distance/time; distance = speed × time; time = distance/speed. Units must match throughout.",
+      "explanation": "Everything in the topic is this, rearranged.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["introduction"],
+      "position": 10
+    },
+    {
+      "id": "kmh-to-ms",
+      "front": "Convert 54 km/h to m/s.",
+      "back": "54 × 5/18 = 15 m/s. (m/s to km/h: multiply by 18/5.)",
+      "explanation": "1 km/h = 1000 m per 3600 s = 5/18 m/s.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["unit-conversion"],
+      "position": 20
+    },
+    {
+      "id": "relative-direction",
+      "front": "Same direction vs opposite direction — which uses the sum of speeds?",
+      "back": "Opposite directions use the sum (they approach). Same direction uses the difference (the faster overtakes).",
+      "explanation": "Relative speed is what covers the gap.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["relative-speed"],
+      "position": 30
+    },
+    {
+      "id": "platform-distance",
+      "front": "A 180 m train at 54 km/h crossing a 240 m platform — time?",
+      "back": "Speed 15 m/s; distance 180 + 240 = 420 m; time 420/15 = 28 s.",
+      "explanation": "The train must clear its own length plus the platform.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-platform"],
+      "position": 40
+    },
+    {
+      "id": "two-trains",
+      "front": "Trains 120 m and 130 m, at 45 and 27 km/h towards each other — time to pass?",
+      "back": "Relative speed 72 km/h = 20 m/s; distance 250 m; time 250/20 = 12.5 s.",
+      "explanation": "Opposite directions add; distance is the sum of lengths.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["worked-example-two-trains"],
+      "position": 50
+    },
+    {
+      "id": "round-trip-speed",
+      "front": "Ride out at 40 km/h, back at 60 km/h. Average speed?",
+      "back": "2×40×60/(40+60) = 48 km/h, not 50 — more time is spent at 40.",
+      "explanation": "Equal distances weight by time, giving the harmonic mean.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-average-speed"],
+      "position": 60
+    },
+    {
+      "id": "pole-vs-platform",
+      "front": "What distance does a train cover to pass a pole, versus a platform?",
+      "back": "A pole (or standing person): just the train's length. A platform: train length + platform length.",
+      "explanation": "The 'object' has length only when it is a platform or another train.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70
+    }
+  ]
+}

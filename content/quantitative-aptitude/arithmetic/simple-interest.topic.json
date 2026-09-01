@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "arithmetic",
+  "chapterName": "Arithmetic",
+  "chapterPosition": 2,
+  "topicSlug": "simple-interest",
+  "topicPosition": 50,
+  "title": "Simple Interest",
+  "summary": "The simple-interest formula and its rearrangements, why simple interest grows the amount in an arithmetic progression, and the standard exam patterns: doubling and tripling times, and recovering the principal from two amounts at different times.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["percentages"],
+  "learningObjectives": [
+    "Apply the simple-interest formula and solve it for principal, rate or time.",
+    "Use the fact that simple interest per year is constant.",
+    "Find the time for a sum to double or triple at a given simple-interest rate.",
+    "Recover the principal and rate from amounts known at two different times."
+  ],
+  "tags": ["arithmetic", "simple-interest", "interest", "bank-exams"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Financial_Math_FM/Formulas",
+      "title": "Financial Math FM/Formulas",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the simple-interest accumulation relationship. All wording, examples and questions here are original and written for exam arithmetic in rupees."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "What simple interest is",
+      "markdown": "Simple interest is interest calculated only on the original principal, for the whole term. Nothing is added to the principal along the way, so the interest earned in each year is the same.\n\nThat makes simple interest a linear process: the amount after t years is the principal plus a fixed yearly interest times t. Most exam questions exploit this straight-line behaviour rather than the formula itself.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simple interest meaning",
+        "interest on principal only",
+        "linear growth"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-formula",
+      "type": "formula",
+      "title": "The formula and its rearrangements",
+      "markdown": "With principal P, annual rate R percent and time T years:\n\n- Simple interest equals P times R times T, all divided by 100.\n- Amount equals P plus simple interest.\n\nRearranged:\n\n- R equals 100 times SI divided by (P times T)\n- T equals 100 times SI divided by (P times R)\n- P equals 100 times SI divided by (R times T)\n\nKeep T in years. A period given in months is that many twelfths of a year; 9 months is three-quarters of a year.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simple interest formula",
+        "PRT over 100",
+        "solve for rate time principal"
+      ],
+      "position": 20
+    },
+    {
+      "id": "doubling-tripling",
+      "type": "method",
+      "title": "Doubling and tripling",
+      "markdown": "A sum doubles under simple interest when the interest earned equals the principal. So if a sum doubles in n years, the interest of P was earned in n years, which means the yearly interest is P over n, and the rate is 100 over n percent.\n\nOnce you have the rate, any multiple follows. To triple, the interest must equal twice the principal, so the time is 2 divided by (R over 100), that is 200 over R years. To become k times the original, the time is (k minus 1) times 100 over R years.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "sum doubles simple interest",
+        "time to triple",
+        "rate from doubling time"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-basic",
+      "type": "worked_example",
+      "title": "Worked example: interest and amount",
+      "markdown": "Find the simple interest and the amount on 15,000 rupees at 8 percent per annum for two and a half years.\n\nSimple interest equals 15,000 times 8 times 2.5, divided by 100.\n\nThat is 15,000 times 20, divided by 100, which is 3,000 rupees.\n\nThe amount is 15,000 plus 3,000, that is 18,000 rupees.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simple interest 8 percent example",
+        "15000 for 2.5 years",
+        "amount"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "simple interest",
+          "value": 3000,
+          "expression": "15000*8*2.5/100"
+        },
+        {
+          "label": "amount",
+          "value": 18000,
+          "expression": "15000 + 15000*8*2.5/100"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-doubling",
+      "type": "worked_example",
+      "title": "Worked example: doubling and tripling times",
+      "markdown": "A sum of money doubles itself in 8 years under simple interest. **Find the rate, and the time it takes to triple.**\n\nDoubling in 8 years means the interest equalled the principal in 8 years, so the rate is 100 divided by 8, that is 12.5 percent per annum.\n\nTo triple, the interest must be twice the principal. At 12.5 percent, each year adds 0.125 of the principal in interest, so reaching 2 principals of interest takes 2 divided by 0.125, that is 16 years.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "sum doubles in 8 years",
+        "rate",
+        "time to triple simple interest"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "rate percent per annum",
+          "value": 12.5,
+          "expression": "100/8"
+        },
+        { "label": "years to triple", "value": 16, "expression": "2/0.125" }
+      ]
+    },
+    {
+      "id": "worked-example-two-amounts",
+      "type": "worked_example",
+      "title": "Worked example: principal from two amounts",
+      "markdown": "A sum invested at simple interest amounts to 4,200 rupees in 3 years and to 4,800 rupees in 5 years. **Find the principal and the rate.**\n\nBetween year 3 and year 5, two years' interest is 4,800 minus 4,200, that is 600 rupees. So one year's interest is 300 rupees.\n\nThe amount at year 3 is principal plus 3 years' interest, so the principal is 4,200 minus 3 times 300, that is 3,300 rupees.\n\nThe rate is 100 times 300 divided by 3,300, which is about 9.09 percent per annum.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "amount in 3 years and 5 years",
+        "find principal simple interest",
+        "yearly interest"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "one year's interest",
+          "value": 300,
+          "expression": "(4800 - 4200)/2"
+        },
+        { "label": "principal", "value": 3300, "expression": "4200 - 3*300" }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Leaving time in months.** Convert to years: divide the month count by 12.\n- **Compounding by habit.** Under simple interest the principal never changes; do not apply the rate to a growing balance.\n- **Confusing interest and amount.** The formula gives interest; add the principal for the amount.\n- **Rate as a decimal in the wrong place.** In PRT over 100, R is the percentage number itself, so 8, not 0.08.\n- **Assuming triple takes 1.5 times the doubling time.** It takes twice the doubling time, because the interest needed goes from one principal to two.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simple interest mistakes",
+        "months to years",
+        "interest vs amount"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Simple interest equals P times R times T over 100; amount equals P plus SI.\n- Interest per year is constant, so the amount grows in an arithmetic progression.\n- Doubling in n years means a rate of 100 over n percent.\n- Time to become k times the sum is (k minus 1) times 100 over R years.\n- Given amounts at two times, the difference over the year gap is one year's interest; back out the principal from either amount.\n- Keep time in years; a rate of R percent means the number R, not R over 100, inside the formula.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simple interest summary",
+        "revision",
+        "doubling tripling recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "si-formula",
+      "front": "State the simple-interest formula and the amount.",
+      "back": "SI = P·R·T/100 (R is the percentage number, T in years). Amount = P + SI.",
+      "explanation": "Interest is on the original principal only.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-formula"],
+      "position": 10
+    },
+    {
+      "id": "si-linear",
+      "front": "Under simple interest, how does the amount grow year on year?",
+      "back": "By a fixed amount each year (P·R/100), so the amount forms an arithmetic progression.",
+      "explanation": "The principal never changes, so yearly interest is constant.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["introduction"],
+      "position": 20
+    },
+    {
+      "id": "si-doubling-rate",
+      "front": "A sum doubles in 8 years at simple interest. What is the rate?",
+      "back": "100/8 = 12.5% per annum. Doubling means the interest equalled the principal.",
+      "explanation": "Rate for doubling in n years is 100/n percent.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-doubling"],
+      "position": 30
+    },
+    {
+      "id": "si-triple-time",
+      "front": "If a sum doubles in 8 years (SI), how long to triple?",
+      "back": "16 years — twice the doubling time, because the interest needed goes from one principal to two.",
+      "explanation": "Time to become k times is (k−1)×100/R years.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["worked-example-doubling"],
+      "position": 40
+    },
+    {
+      "id": "si-two-amounts",
+      "front": "A sum amounts to 4200 in 3 years and 4800 in 5 years (SI). One year's interest?",
+      "back": "(4800 − 4200)/2 = 300. Then principal = 4200 − 3×300 = 3300.",
+      "explanation": "The gap between the two amounts is that many years' interest.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["worked-example-two-amounts"],
+      "position": 50
+    },
+    {
+      "id": "si-months",
+      "front": "How is a period of 9 months used in the SI formula?",
+      "back": "As 9/12 = 0.75 years. Always convert months to years before applying PRT/100.",
+      "explanation": "T must be in years to match an annual rate.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60
+    },
+    {
+      "id": "si-interest-vs-amount",
+      "front": "The SI formula gives you what — the interest or the amount?",
+      "back": "The interest. Add the principal to get the amount.",
+      "explanation": "A frequent slip is to report P·R·T/100 as the amount.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70
+    }
+  ]
+}

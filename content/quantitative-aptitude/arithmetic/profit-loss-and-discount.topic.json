@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "arithmetic",
+  "chapterName": "Arithmetic",
+  "chapterPosition": 2,
+  "topicSlug": "profit-loss-and-discount",
+  "topicPosition": 40,
+  "title": "Profit, Loss and Discount",
+  "summary": "Cost price, selling price, marked price and discount; profit and loss as percentages of cost price; the marked-up-then-discounted chain; and why selling two items at the same price for equal gain and loss percentages always loses money.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["percentages"],
+  "learningObjectives": [
+    "Use cost price, selling price and marked price correctly, and know which is the base for each percentage.",
+    "Convert between a profit or loss percentage and a single multiplier on cost price.",
+    "Handle a mark-up followed by a discount in one calculation.",
+    "Explain and compute the standard 'same selling price, equal gain and loss percent' result."
+  ],
+  "tags": ["arithmetic", "profit-and-loss", "discount", "bank-exams"],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Percents_Decimals_and_Fractions",
+      "title": "Arithmetic/Percents Decimals and Fractions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used only to cross-check percentage arithmetic. All commercial-maths definitions, examples and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-four-prices",
+      "type": "introduction",
+      "title": "Four prices, and what each means",
+      "markdown": "Commercial-maths questions turn on four quantities.\n\n- **Cost price (CP):** what the seller paid, including any freight or overhead the question adds in.\n- **Selling price (SP):** what the buyer actually pays.\n- **Marked price (MP), or list price:** the tag price, before any discount.\n- **Discount:** a reduction from the marked price.\n\nProfit and loss are always measured against cost price. Discount is always measured against marked price. Keeping those two bases straight removes most errors in this topic.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cost price selling price marked price",
+        "discount",
+        "profit loss basics"
+      ],
+      "position": 10
+    },
+    {
+      "id": "core-formulas",
+      "type": "formula",
+      "title": "Core relationships",
+      "markdown": "- Profit equals SP minus CP; loss equals CP minus SP.\n- Profit percent equals (SP minus CP) divided by CP, times 100. Loss percent uses the same denominator, CP.\n- SP equals CP times (1 plus profit percent over 100), or CP times (1 minus loss percent over 100).\n- CP equals SP divided by that same multiplier. This is how you recover cost price from a sale.\n- Discount equals MP minus SP; discount percent equals (MP minus SP) divided by MP, times 100.\n- SP equals MP times (1 minus discount percent over 100).\n\nEverything else is these, rearranged.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "profit percent formula",
+        "SP from CP",
+        "discount percent",
+        "recover cost price"
+      ],
+      "position": 20
+    },
+    {
+      "id": "markup-then-discount",
+      "type": "method",
+      "title": "Mark up, then discount",
+      "markdown": "A shop typically marks goods above cost, then offers a discount off that marked price. Chain the multipliers on CP:\n\nSP equals CP times (1 plus mark-up percent over 100) times (1 minus discount percent over 100).\n\nThe overall profit percent is then (that product minus 1) times 100. Because the discount acts on the marked price, not on cost, a 20 percent mark-up and a 20 percent discount do not cancel: the result is a small loss.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "markup and discount",
+        "chain multipliers",
+        "overall profit percent"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-markup-discount",
+      "type": "worked_example",
+      "title": "Worked example: mark-up and discount",
+      "markdown": "A trader buys an item for 800 rupees, marks it 25 percent above cost, then sells it at a 10 percent discount. **Find the selling price and the profit percent.**\n\nMarked price is 800 times 1.25, that is 1,000 rupees.\n\nSelling price is 1,000 times 0.90, that is 900 rupees.\n\nProfit is 900 minus 800, that is 100 rupees, so profit percent is 100 divided by 800, times 100, which is 12.5 percent.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "markup 25 percent discount 10 percent",
+        "profit percent example"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "selling price",
+          "value": 900,
+          "expression": "800*1.25*0.90"
+        },
+        {
+          "label": "profit percent",
+          "value": 12.5,
+          "expression": "(800*1.25*0.90 - 800)/800*100"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-recover-cp",
+      "type": "worked_example",
+      "title": "Worked example: recover the cost price",
+      "markdown": "An article sold for 1,140 rupees at a 5 percent loss. **Find the cost price, and the price needed for a 10 percent gain.**\n\nSP equals CP times 0.95, so CP equals 1,140 divided by 0.95, which is 1,200 rupees.\n\nFor a 10 percent gain, sell at 1,200 times 1.10, that is 1,320 rupees.\n\nThe common wrong move is to add 5 percent of 1,140 back; that uses the wrong base and gives 1,197.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "recover cost price from loss",
+        "sold at 5 percent loss",
+        "price for 10 percent gain"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        { "label": "cost price", "value": 1200, "expression": "1140/0.95" },
+        {
+          "label": "price for a 10% gain",
+          "value": 1320,
+          "expression": "1140/0.95*1.10"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-two-articles",
+      "type": "worked_example",
+      "title": "Worked example: same price, equal percent gain and loss",
+      "markdown": "Two articles are each sold for 960 rupees. On one the seller gains 20 percent; on the other the seller loses 20 percent. **What is the overall result?**\n\nCost of the first is 960 divided by 1.20, that is 800 rupees.\n\nCost of the second is 960 divided by 0.80, that is 1,200 rupees.\n\nTotal cost is 2,000 rupees; total selling price is 1,920 rupees. So there is a loss of 80 rupees, that is 80 divided by 2,000, times 100, a 4 percent loss.\n\nThis is a fixed result: selling two items at the same price with equal gain and loss percentages x always gives a loss of x squared over 100 percent. Here 20 squared over 100 is 4.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "equal gain and loss percent",
+        "same selling price two articles",
+        "net loss x squared over 100"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "cost of first article",
+          "value": 800,
+          "expression": "960/1.20"
+        },
+        {
+          "label": "cost of second article",
+          "value": 1200,
+          "expression": "960/0.80"
+        },
+        {
+          "label": "overall loss percent",
+          "value": 4,
+          "expression": "(2000 - 1920)/2000*100"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using SP as the base for profit percent.** The base is always CP.\n- **Using CP as the base for discount.** Discount is a percentage of the marked price.\n- **Recovering CP by subtracting from SP.** Divide SP by the multiplier; do not take the loss percent of SP.\n- **Assuming mark-up percent equals profit percent.** It only does when there is no discount.\n- **Believing equal gain and loss percent cancels.** It is always a net loss of (percent squared over 100) percent.\n- **Mixing up two successive discounts.** 10 percent then 20 percent off is 0.9 times 0.8, that is 0.72, a single 28 percent discount, not 30 percent.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "profit loss mistakes",
+        "successive discounts",
+        "wrong base"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Profit and loss percent are on CP; discount percent is on MP.\n- SP equals CP times (1 plus or minus percent over 100); CP equals SP divided by that multiplier.\n- Mark-up then discount: SP equals CP times mark-up multiplier times discount multiplier.\n- Two successive discounts multiply: 1 minus a over 100 times 1 minus b over 100.\n- Same SP, equal gain and loss percent x: net loss is x squared over 100 percent.\n- To find profit percent from a multiplier m on CP: (m minus 1) times 100.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "profit loss discount summary",
+        "revision",
+        "formula recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "base-for-profit",
+      "front": "Profit percent and discount percent — what is the base of each?",
+      "back": "Profit (and loss) percent is a percentage of cost price. Discount percent is a percentage of marked price.",
+      "explanation": "Keeping the two bases separate removes most errors in this topic.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-four-prices"],
+      "position": 10
+    },
+    {
+      "id": "sp-from-cp",
+      "front": "How do you write selling price from cost price and a profit percent p?",
+      "back": "SP = CP × (1 + p/100). For a loss, SP = CP × (1 − loss%/100). CP = SP ÷ that multiplier.",
+      "explanation": "One multiplier does the whole job.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["core-formulas"],
+      "position": 20
+    },
+    {
+      "id": "markup-not-profit",
+      "front": "If an item is marked up 25% and then discounted 10%, is the profit 15%?",
+      "back": "No. SP = CP × 1.25 × 0.90 = 1.125 × CP, a 12.5% profit. The discount acts on the marked price, not on cost.",
+      "explanation": "Chain the multipliers on cost price.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-markup-discount"],
+      "position": 30
+    },
+    {
+      "id": "recover-cp",
+      "front": "An article sold for 1140 at a 5% loss. Cost price?",
+      "back": "CP = 1140 ÷ 0.95 = 1200. Do not subtract 5% of 1140.",
+      "explanation": "SP = CP × 0.95, so divide to invert.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-recover-cp"],
+      "position": 40
+    },
+    {
+      "id": "equal-gain-loss",
+      "front": "Two items sold at the same price, one at 20% gain, one at 20% loss. Net result?",
+      "back": "Always a loss: (20²)/100 = 4%. Here total CP 2000, total SP 1920.",
+      "explanation": "The costs are unequal (800 and 1200), so the loss outweighs the gain.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["worked-example-two-articles"],
+      "position": 50
+    },
+    {
+      "id": "successive-discounts",
+      "front": "Successive discounts of 10% and 20% equal a single discount of what?",
+      "back": "1 − 0.9 × 0.8 = 1 − 0.72 = 0.28, i.e. 28%, not 30%.",
+      "explanation": "Discounts multiply, like any successive percentage changes.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60
+    },
+    {
+      "id": "multiplier-to-percent",
+      "front": "A sale works out to SP = 1.125 × CP. What is the profit percent?",
+      "back": "(1.125 − 1) × 100 = 12.5%.",
+      "explanation": "Profit percent is (multiplier − 1) × 100.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["quick-revision"],
+      "position": 70
+    },
+    {
+      "id": "discount-base",
+      "front": "SP is 900 and MP is 1000. What is the discount percent?",
+      "back": "(1000 − 900)/1000 × 100 = 10%. The base is the marked price.",
+      "explanation": "Discount percent = (MP − SP)/MP × 100.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["core-formulas"],
+      "position": 80
+    }
+  ]
+}
