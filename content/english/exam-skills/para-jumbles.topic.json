@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "exam-skills",
+  "chapterName": "Exam question skills",
+  "chapterPosition": 2,
+  "topicSlug": "para-jumbles",
+  "topicPosition": 80,
+  "title": "Para Jumbles",
+  "summary": "Rearranging shuffled sentences into one coherent paragraph. Anchoring the first and last sentence, linking the rest by pronoun reference, connectors and time order, spotting mandatory pairs, and testing candidate orders against the given options.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 30,
+  "examTags": ["sbi-po", "ibps-po", "sbi-clerk", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "sentence-structure",
+    "conjunctions-and-connectors",
+    "reading-comprehension-strategy"
+  ],
+  "learningObjectives": [
+    "Identify the opening sentence by its full subject and the absence of back-reference.",
+    "Identify the closing sentence by its conclusive sense and lack of anything depending on it.",
+    "Link the middle sentences using pronouns, demonstratives, connectors and time order.",
+    "Find mandatory pairs that must sit next to each other and use them to cut the option space.",
+    "Confirm an order against the given answer options rather than permuting every arrangement."
+  ],
+  "tags": [
+    "exam-skills",
+    "para-jumbles",
+    "coherence",
+    "sentence-rearrangement"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm para jumbles are a standard question type and their usual 4-5 sentence format. No content reused."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Pronouns",
+      "title": "English Grammar/Pronouns",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for pronoun-antecedent reasoning used in the linking method. All paragraphs and sentences here are original."
+    },
+    {
+      "sourceId": "GUTENBERG_GRAMMAR",
+      "url": "https://www.gutenberg.org/ebooks/37134",
+      "title": "The Elements of Style (1918), public-domain edition",
+      "publisher": "Project Gutenberg",
+      "usageMode": "public_domain",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "General principle only that a paragraph develops one idea in order. No text reproduced."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-format",
+      "type": "introduction",
+      "title": "The format",
+      "markdown": "You are given four to six sentences of a paragraph, labelled P-T or A-E, in the wrong order, and you choose the order that reads as **one coherent paragraph developing a single idea**. Each option gives a full sequence, such as *QSPTR*.\n\nIn the **all-movable** variant every sentence can move; in the **fixed-anchor** variant the first sentence (sometimes the last) is given in place. Either way the paragraph runs from a starting point to a conclusion, each sentence connecting to the one before it.",
+      "sourceIds": [
+        "SATHEE_ENGLISH",
+        "WIKIBOOKS_ENGLISH_GRAMMAR",
+        "GUTENBERG_GRAMMAR"
+      ],
+      "searchKeywords": [
+        "para jumble format four to six sentences PQRST ABCDE wrong order",
+        "one coherent paragraph single idea",
+        "all movable vs fixed anchor variant",
+        "options give a full sequence"
+      ],
+      "position": 10
+    },
+    {
+      "id": "anchor-first-last",
+      "type": "method",
+      "title": "Anchor the first and last sentence",
+      "markdown": "Fix the two ends before touching the middle.\n\n**The opening sentence** introduces the subject with a full noun phrase — not a pronoun (*it, they, this, such*), not *the former / the latter* — does not begin with a backward-pointing connector (*however, but, so, therefore, also, as a result*), and gives the background the rest builds on.\n\n**The closing sentence** carries a conclusion, a result or a recommendation, often with *finally, today, since then, whatever the verdict*, and has nothing after it that depends on it.\n\nIf two sentences both look like openers, the real one is the sentence the other could follow.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "anchor the first and last sentence para jumble",
+        "opening sentence full noun phrase no pronoun no backward connector background",
+        "closing sentence conclusion result nothing depends on it",
+        "two sentences look like openers pick the one the other could follow"
+      ],
+      "position": 20
+    },
+    {
+      "id": "link-the-sentences",
+      "type": "method",
+      "title": "Link the middle sentences",
+      "markdown": "Join the rest using three kinds of link.\n\n**Pronoun and reference.** A sentence hinging on *it, they, this, these, such, that, the former, the latter* must come after the sentence that names what the word points to. *\"Such an account\"* needs an earlier sentence describing that kind of account.\n\n**Connectors.** *However / but / yet* follow the idea they contradict; *so / therefore / as a result / to that end* follow their cause or purpose; *also / moreover* follow a same-direction point; *for example* follows the general statement it illustrates.\n\n**Time and sequence.** Dated or sequenced events run in order; *then, next, later, since, finally* fix a sentence's position against its neighbour.\n\nEvery middle sentence should attach to one clear sentence. If it attaches nowhere, the sentence before it is wrong.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "link middle sentences para jumble pronoun reference it they this such comes after antecedent",
+        "connectors however but so therefore also moreover for example",
+        "time and sequence chronological order then later since finally",
+        "every middle sentence attaches to one clear sentence"
+      ],
+      "position": 30
+    },
+    {
+      "id": "mandatory-pairs",
+      "type": "method",
+      "title": "Find the mandatory pairs",
+      "markdown": "A **mandatory pair** is two sentences that must sit next to each other in a fixed order: a claim and the example that backs it, a question and its answer, a term and its definition, a cause and its immediate effect, or *not only ...* → *but also ...*.\n\nFind these first. Each pair collapses two sentences into one block and usually kills two or three options at once. Then place the blocks using the opener, the closer and the links.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "mandatory pair para jumble two sentences must be adjacent fixed order",
+        "statement and example question and answer term and definition cause and effect",
+        "not only but also",
+        "each pair kills two or three options"
+      ],
+      "position": 40
+    },
+    {
+      "id": "use-the-options",
+      "type": "shortcut",
+      "title": "Use the answer options",
+      "markdown": "With five sentences there are 120 arrangements but only four or five options. Work against the options.\n\n1. Decide the first sentence; cross out every option that does not start with it.\n2. Decide one strong link or mandatory pair — say *S* immediately before *P* — and cross out every option where *SP* is not together in that order.\n3. Check the last sentence on what remains.\n4. You are usually down to one option. Read that full paragraph once to confirm it flows.\n\nIf the first sentence will not resolve, start from the last sentence or the clearest pair instead.",
+      "sourceIds": ["SATHEE_ENGLISH"],
+      "searchKeywords": [
+        "use the answer options para jumble 120 arrangements only four or five options",
+        "decide first sentence cross out options",
+        "decide one mandatory pair eliminate options",
+        "check last sentence read full paragraph to confirm",
+        "start from last sentence if first is hard"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example-1",
+      "type": "worked_example",
+      "title": "Worked example 1",
+      "markdown": "Arrange P, Q, R, S, T.\n\n- **P.** A display above the counters then calls the numbers in order, so customers can sit and wait instead of standing in line.\n- **Q.** The Ranchi main branch had struggled for years with long, disorderly queues at its cash counters.\n- **R.** The regional office has since asked four other large branches to copy the arrangement.\n- **S.** In January the branch manager introduced a token system: on arrival, each customer takes a numbered slip from a machine near the door.\n- **T.** Within two months, complaints about queue-jumping had almost disappeared and the average wait had fallen by a third.\n\n**Opener:** Q — full subject (*The Ranchi main branch*), no pronoun, no backward connector. None of the others can start: P has *then*, R has *since* and *the arrangement*, S has *the branch manager*, T has *Within two months*.\n\n**Mandatory pair:** S → P — S introduces the *numbered slip*, and P's *the numbers* and *then* can only follow it.\n\n**Links:** T is the result of S+P, so it follows P. R is the conclusion and nothing depends on it, so it is last.\n\n**Order: Q S P T R.**",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "para jumble worked example Ranchi branch token system queue",
+        "opener names subject in full no pronoun no connector",
+        "mandatory pair numbered slip then the numbers",
+        "result sentence within two months last sentence has since",
+        "order QSPTR"
+      ],
+      "position": 60
+    },
+    {
+      "id": "worked-example-2",
+      "type": "worked_example",
+      "title": "Worked example 2 (two apparent openers)",
+      "markdown": "Arrange P, Q, R, S, T.\n\n- **P.** A nomination avoids all of that: the bank pays the nominee on proof of death and identity alone.\n- **Q.** Many customers, however, still open accounts without naming a nominee, often because no one asks them to.\n- **R.** Every bank deposit account in India can carry a nomination — the name of the person who receives the balance if the account holder dies.\n- **S.** Banks could close much of this gap simply by making the nomination field a required step when an account is opened.\n- **T.** When such an account holder dies, the family must produce a will or a succession certificate, which can take months.\n\nR and Q both look like openers, but Q begins with *however* (it must contradict an earlier sentence) and treats *a nominee* as known; R defines the term with no back-reference. **R opens; Q follows.**\n\nT's *such an account holder* is the Q customer who named no nominee, so T follows Q. P's *all of that* is the process in T, so P follows T. S is the recommendation and nothing depends on it, so it is last.\n\n**Order: R Q T P S.**",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "para jumble worked example nomination deposit account nominee",
+        "two apparent openers resolved by however and known reference",
+        "such an account holder follows the no-nominee customer",
+        "all of that refers to the succession process",
+        "order RQTPS"
+      ],
+      "position": 70
+    },
+    {
+      "id": "why-candidates-lose-marks",
+      "type": "warning",
+      "title": "Why candidates lose marks",
+      "markdown": "- **Forcing a pronoun sentence to the front.** A paragraph never opens with *It / They / This / Such* pointing at nothing.\n- **Ignoring a connector at the start of a sentence.** Read the first word of every option's first sentence — *however*, *therefore*, *also* each fix what comes before.\n- **Building the chain from the middle.** A linked pair can sit anywhere as a block until an end is anchored. Fix the opener and closer first.\n- **Stopping at the first option that survives two filters.** A wrong order can pass two checks and still break later — read the whole paragraph once.\n- **Choosing by topic instead of by link.** Sentences about the same subject are not automatically adjacent.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "para jumble mistakes forcing pronoun sentence to the front",
+        "ignoring connector at start of sentence however therefore also",
+        "building the chain from the middle anchor ends first",
+        "stopping at first option that survives two filters read whole paragraph",
+        "choosing by topic instead of by link"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "1. **Anchor the first sentence** — full noun phrase, no pronoun, no backward connector, gives the background.\n2. **Anchor the last sentence** — conclusion or recommendation; nothing in the set depends on it.\n3. **Fix mandatory pairs** — statement + example, term + definition, cause + effect.\n4. **Link the rest** — pronoun after its antecedent; *however* after the contrasted idea; *so* after its cause; events in time order.\n5. **Test against the options** — eliminate on the first sentence, then one strong link, then the last.\n6. **Read the winning paragraph once** before marking it.",
+      "sourceIds": ["SATHEE_ENGLISH"],
+      "searchKeywords": [
+        "para jumble summary sequence anchor first last fix mandatory pairs link by pronoun connector time test against options read winning paragraph"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the order and, in one line, the link that fixes it.\n\n**1. Arrange A-E.**\n- A. UPI, India's instant mobile payment system, was launched in 2016 with a handful of banks.\n- B. That openness let it grow fast: by 2023 it was handling more than ten billion transactions a month.\n- C. Its growth came from a simple design — any app can pay any bank account using only a short address.\n- D. Small shops adopted it quickly because a printed QR code cost them nothing.\n- E. Today a vegetable seller and a large retailer often accept payment the same way.\n\n**2. Fixed opener S1; arrange P, Q, R, S after it.**\n- S1. A bank reconciles its books with the RBI's records at the end of every working day.\n- P. Any mismatch is flagged the same night and must be explained before the next day's business.\n- Q. This daily check is called the day-end settlement.\n- R. Because it happens every day, errors are caught while they are still small.\n- S. A monthly reconciliation, by contrast, would let a mistake grow for weeks before anyone noticed.\n\n**3. Arrange A-E.**\n- A. In 1969 the government nationalised fourteen large private banks in a single night.\n- B. To that end, branches once concentrated in cities were pushed out into villages and small towns.\n- C. The stated aim was to direct credit towards farming and small industry rather than a few big firms.\n- D. Critics argued that the same goal could have been reached without taking the banks over.\n- E. Whatever the verdict, the map of Indian banking looked completely different ten years later.",
+      "searchKeywords": [
+        "para jumble practice UPI launch growth",
+        "fixed opener day-end settlement reconciliation",
+        "1969 bank nationalisation aim branches critics",
+        "give the order and the link that fixes it"
+      ],
+      "position": 100
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "opener-test",
+      "front": "How do you recognise the opening sentence of a para jumble?",
+      "back": "It names the subject with a full noun phrase (no 'it/they/this/such'), does not start with a backward connector ('however/so/also'), and gives the background the rest builds on.",
+      "explanation": "If two sentences look like openers, the real one is the sentence the other could follow.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["anchor-first-last"],
+      "position": 10
+    },
+    {
+      "id": "closer-test",
+      "front": "How do you recognise the closing sentence?",
+      "back": "It reads as a conclusion, result or recommendation, often with 'finally/today/since then/whatever the verdict', and nothing else in the set refers back to it.",
+      "explanation": "Anchoring both ends before the middle is the core of the method.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["anchor-first-last"],
+      "position": 20
+    },
+    {
+      "id": "pronoun-link",
+      "front": "A sentence starts with 'Such an account holder ...'. Where can it go?",
+      "back": "Only after a sentence that has already described that kind of account holder. A pronoun or demonstrative always follows its antecedent.",
+      "explanation": "'it / they / this / these / such / the former / the latter' all work this way.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["link-the-sentences"],
+      "position": 30
+    },
+    {
+      "id": "connector-link",
+      "front": "What does a sentence beginning with 'However' tell you about its position?",
+      "back": "It must follow the sentence whose idea it contradicts. 'So/therefore/as a result' follow a cause; 'also/moreover' follow a same-direction point; 'for example' follows the general claim.",
+      "explanation": "Read the first word of every candidate first sentence in the options.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["link-the-sentences"],
+      "position": 40
+    },
+    {
+      "id": "mandatory-pair-def",
+      "front": "What is a mandatory pair, and why find it first?",
+      "back": "Two sentences that must sit adjacent in a fixed order — a claim and its example, a term and its definition, a cause and its effect. It collapses two sentences into one block and usually eliminates two or three options.",
+      "explanation": "Statement->example, question->answer, not only->but also.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["mandatory-pairs"],
+      "position": 50
+    },
+    {
+      "id": "use-options",
+      "front": "Five sentences give 120 orders. How do you avoid checking them all?",
+      "back": "Work against the four or five options: eliminate on the first sentence, then on one strong link or mandatory pair, then on the last sentence. Usually one option remains.",
+      "explanation": "Then read that full paragraph once to confirm.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["use-the-options"],
+      "position": 60
+    },
+    {
+      "id": "two-openers",
+      "front": "Two sentences both look like the opener. How do you break the tie?",
+      "back": "Check for a backward-pointing word: a connector like 'however', or a noun treated as already known. The sentence with such a word goes second; the self-contained one opens.",
+      "explanation": "In worked example 2, 'however' in Q puts R first.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["anchor-first-last", "worked-example-2"],
+      "position": 70
+    },
+    {
+      "id": "dont-build-from-middle",
+      "front": "You've spotted two sentences that clearly link. Should you build the order out from them?",
+      "back": "Not yet. A linked pair can sit anywhere as a block until an end is anchored. Fix the opener and closer first, then place the block.",
+      "explanation": "Building from the middle is a common way to lock in a wrong order.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["why-candidates-lose-marks"],
+      "position": 80
+    },
+    {
+      "id": "confirm-read",
+      "front": "One option has survived all your filters. What's the last step?",
+      "back": "Read that whole paragraph once, start to finish, to confirm it flows. A wrong order can pass two filters and still break later.",
+      "explanation": "The confirm-read is not optional.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["use-the-options", "why-candidates-lose-marks"],
+      "position": 90
+    }
+  ]
+}
