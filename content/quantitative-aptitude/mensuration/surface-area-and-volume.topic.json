@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "mensuration",
+  "chapterName": "Mensuration",
+  "chapterPosition": 5,
+  "topicSlug": "surface-area-and-volume",
+  "topicPosition": 20,
+  "title": "Surface Area and Volume",
+  "summary": "Volume, curved surface area and total surface area for the cuboid, cube, cylinder, cone, sphere and hemisphere, how the three quantities differ, and how to handle a solid made of two simple shapes.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 27,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["areas-and-perimeters"],
+  "learningObjectives": [
+    "State the volume, CSA and TSA formula for each standard solid.",
+    "Tell which of volume, curved surface area or total surface area a question wants.",
+    "Convert between cubic units and litres, and keep length units matched.",
+    "Find the surface area of a solid built from two simple shapes by counting the exposed faces."
+  ],
+  "tags": ["mensuration", "volume", "surface-area", "solids", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Geometry/Volume",
+      "title": "Geometry/Volume",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the standard volume and surface-area formulas. All wording and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm mensuration is part of the quantitative-aptitude scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "three-quantities",
+      "type": "introduction",
+      "title": "Three different questions about a solid",
+      "markdown": "A solid figure has three quantities that a question can ask for, and they are not interchangeable:\n\n- **Volume** — the space inside, measured in cubic units. This is what a tank holds or a block weighs.\n- **Curved (or lateral) surface area, CSA** — the area of the side surface only, leaving out the flat top and bottom. This is what a label wraps or a wall of paint covers.\n- **Total surface area, TSA** — every outer face added together, including the top and base.\n\nRead the question for which one it wants: \"how much water\", \"volume\" and \"capacity\" mean volume; \"painted\", \"wrapped\", \"sheet needed\" mean a surface area, and then you decide whether the ends are included.\n\nThis topic uses pi = 22/7 when the radius is a multiple of 7 and 3.14159 otherwise.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "volume vs curved surface area vs total surface area",
+        "capacity means volume painted means surface area",
+        "cubic units",
+        "pi convention"
+      ],
+      "position": 10
+    },
+    {
+      "id": "cuboid-cube",
+      "type": "formula",
+      "title": "Cuboid and cube",
+      "markdown": "**Cuboid** with length l, breadth b, height h:\n\n- Volume = l x b x h\n- TSA = 2(lb + bh + hl)\n- CSA (four walls, no top or base) = 2h(l + b)\n- Space diagonal = (l² + b² + h²) to the power one half\n\n**Cube** of edge a is the l = b = h case:\n\n- Volume = a³\n- TSA = 6a²\n- CSA = 4a²\n- Diagonal = a x (3 to the power one half)",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cuboid volume l b h TSA 2 lb bh hl",
+        "cuboid four walls 2 h l plus b",
+        "cube volume a cubed TSA 6 a squared",
+        "space diagonal formula"
+      ],
+      "position": 20
+    },
+    {
+      "id": "cylinder",
+      "type": "formula",
+      "title": "Cylinder",
+      "markdown": "For a right circular cylinder of base radius r and height h:\n\n- Volume = pi x r² x h\n- CSA = 2 x pi x r x h  (the rectangle you get by unrolling the side; width 2 pi r, height h)\n- TSA = 2 pi r h + 2 pi r² = 2 pi r (h + r)  (side plus the two circular ends)\n\nA **hollow pipe** with outer radius R and inner radius r, length h, has material volume pi x (R² - r²) x h.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cylinder volume pi r squared h",
+        "cylinder CSA 2 pi r h unrolled rectangle",
+        "cylinder TSA 2 pi r h plus r",
+        "hollow pipe volume pi R squared minus r squared times length"
+      ],
+      "position": 30
+    },
+    {
+      "id": "cone-sphere",
+      "type": "formula",
+      "title": "Cone, sphere and hemisphere",
+      "markdown": "**Cone** with base radius r, vertical height h, slant height l = (r² + h²) to the power one half:\n\n- Volume = one third x pi x r² x h  (a third of the cylinder on the same base)\n- CSA = pi x r x l\n- TSA = pi r l + pi r² = pi r (l + r)\n\n**Sphere** of radius r:\n\n- Volume = four thirds x pi x r³\n- Surface area = 4 x pi x r²\n\n**Hemisphere** of radius r:\n\n- Volume = two thirds x pi x r³\n- CSA (curved part only) = 2 pi r²\n- TSA (curved part plus the flat circle) = 3 pi r²",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cone volume one third pi r squared h",
+        "cone slant height root r squared plus h squared CSA pi r l",
+        "sphere volume four thirds pi r cubed surface 4 pi r squared",
+        "hemisphere volume two thirds pi r cubed TSA 3 pi r squared"
+      ],
+      "position": 40
+    },
+    {
+      "id": "combined-solids",
+      "type": "method",
+      "title": "Solids made of two shapes, and unit care",
+      "markdown": "1. **Volume of a combined solid adds up.** A cone standing on a cylinder holds (cylinder volume) + (cone volume). A capsule is a cylinder plus two hemispheres.\n2. **Surface area does not simply add** — the faces where the two shapes join are hidden. For the cone-on-cylinder toy the outside is: the cylinder's CSA + the cylinder's one open base + the cone's CSA. Draw it and count only what you could touch.\n3. **Match units first.** Convert every length to the same unit before multiplying; the factor between metres and centimetres is cubed for volume (1,000,000).\n4. **Capacity in litres:** 1 m³ = 1000 litres, and 1000 cm³ = 1 litre.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "combined solid volume adds cone on cylinder",
+        "combined solid surface area exclude the joined faces",
+        "convert units before multiplying volume factor 1000000",
+        "1 cubic metre is 1000 litres 1000 cc is 1 litre"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. A cuboidal water tank** measures 3 m x 2 m x 1.5 m.\n\n(a) Volume = 3 x 2 x 1.5 = **9 m³**.\n(b) Capacity in litres = 9 x 1000 = **9,000 litres**.\n\n**2. A solid metal cylinder** has radius 7 cm and height 20 cm. Take pi = 22/7.\n\n(a) Volume = pi x r² x h = (22/7) x 7² x 20 = (22/7) x 49 x 20 = **3,080 cm³**.\n(b) Curved surface area = 2 x pi x r x h = 2 x (22/7) x 7 x 20 = **880 cm²**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cuboid tank volume and capacity in litres worked example",
+        "solid cylinder volume and curved surface area pi 22 by 7",
+        "1 cubic metre 1000 litres"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "1a. tank volume (m^3)",
+          "value": 9,
+          "expression": "3*2*1.5"
+        },
+        {
+          "label": "1b. tank capacity (litres)",
+          "value": 9000,
+          "expression": "3*2*1.5*1000"
+        },
+        {
+          "label": "2a. cylinder volume (cm^3)",
+          "value": 3080,
+          "expression": "(22/7)*7**2*20"
+        },
+        {
+          "label": "2b. cylinder CSA (cm^2)",
+          "value": 880,
+          "expression": "2*(22/7)*7*20"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Answering TSA when the question wanted CSA**, or including a base that is actually open.\n- **Adding surface areas of a combined solid** without removing the hidden joining faces.\n- **Using the slant height for volume** or the vertical height for the cone's CSA. Volume uses the vertical height h; CSA uses the slant height l.\n- **Cube of the unit conversion.** Between metres and centimetres the volume factor is 1,000,000, not 100.\n- **Forgetting the one third for a cone** or the four thirds for a sphere.\n- **Radius vs diameter** — halve a given diameter before substituting.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "surface area volume mistakes CSA vs TSA",
+        "combined solid do not add hidden faces",
+        "cone volume uses vertical height CSA uses slant height",
+        "volume unit factor is cubed"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Cuboid: V = lbh, TSA = 2(lb + bh + hl), four walls = 2h(l + b). Cube: V = a³, TSA = 6a².\n- Cylinder: V = pi r² h, CSA = 2 pi r h, TSA = 2 pi r (h + r).\n- Cone: V = one third pi r² h, CSA = pi r l with l = (r² + h²) to the power one half.\n- Sphere: V = four thirds pi r³, surface 4 pi r². Hemisphere: V = two thirds pi r³, TSA 3 pi r².\n- Volume of a combined solid adds; surface area needs the hidden faces removed.\n- 1 m³ = 1000 litres; the m-to-cm volume factor is 1,000,000.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "surface area and volume formula recap",
+        "cylinder cone sphere hemisphere formulas",
+        "combined solid rule",
+        "litre conversion"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Take pi as 22/7 unless a value of 3.14159 is stated. Give the value with units.\n\n1. A cube has edge 9 cm. Find its volume.\n2. A cube has edge 9 cm. Find its total surface area.\n3. A cuboid is 12 cm x 8 cm x 5 cm. Find its total surface area.\n4. A cylinder has radius 7 cm and height 10 cm. Find its volume.\n5. A sphere has radius 3 cm. Find its volume (answer to two decimals).\n6. A cone has radius 6 cm and height 8 cm. Find its volume using pi = 3.14159 (answer to two decimals).\n7. A hemisphere has radius 7 cm. Find its curved surface area.\n8. A cylinder has radius 14 cm and height 5 cm. Find its curved surface area.",
+      "searchKeywords": [
+        "surface area and volume practice questions",
+        "cube cuboid cylinder cone sphere hemisphere exercises"
+      ],
+      "position": 90,
+      "expectedAnswers": [
+        {
+          "label": "1. cube volume (cm^3)",
+          "value": 729,
+          "expression": "9**3"
+        },
+        { "label": "2. cube TSA (cm^2)", "value": 486, "expression": "6*9**2" },
+        {
+          "label": "3. cuboid TSA (cm^2)",
+          "value": 392,
+          "expression": "2*(12*8+8*5+12*5)"
+        },
+        {
+          "label": "4. cylinder volume (cm^3)",
+          "value": 1540,
+          "expression": "(22/7)*7**2*10"
+        },
+        {
+          "label": "5. sphere volume (cm^3)",
+          "value": 113.14,
+          "tolerance": 0.01,
+          "expression": "(4/3)*(22/7)*3**3"
+        },
+        {
+          "label": "6. cone volume (cm^3)",
+          "value": 301.59,
+          "tolerance": 0.05,
+          "expression": "(1/3)*3.14159*6**2*8"
+        },
+        {
+          "label": "7. hemisphere CSA (cm^2)",
+          "value": 308,
+          "expression": "2*(22/7)*7**2"
+        },
+        {
+          "label": "8. cylinder CSA (cm^2)",
+          "value": 440,
+          "expression": "2*(22/7)*14*5"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "csa-vs-tsa",
+      "front": "Difference between CSA and TSA of a solid?",
+      "back": "CSA (curved/lateral surface area) is the side surface only. TSA adds the flat top and base as well. A question about painting or a label usually wants CSA.",
+      "explanation": "Deciding which one the question wants is half the battle.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["three-quantities"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "cuboid-formulas",
+      "front": "Volume and TSA of a cuboid (l, b, h)?",
+      "back": "Volume = l x b x h. TSA = 2(lb + bh + hl). The four walls (no top or base) = 2h(l + b).",
+      "explanation": "The cube is the l = b = h case: V = a cubed, TSA = 6 a squared.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["cuboid-cube"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "cylinder-formulas",
+      "front": "Volume, CSA and TSA of a cylinder (r, h)?",
+      "back": "Volume = pi r squared h. CSA = 2 pi r h. TSA = 2 pi r (h + r).",
+      "explanation": "CSA is the side unrolled into a rectangle of width 2 pi r and height h.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cylinder"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "cone-formulas",
+      "front": "Volume and CSA of a cone (r, h), and its slant height?",
+      "back": "Slant height l = (r squared + h squared) to the power one half. Volume = one third pi r squared h. CSA = pi r l.",
+      "explanation": "Volume uses the vertical height h; CSA uses the slant height l.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cone-sphere"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "sphere-hemisphere",
+      "front": "Volume and surface area of a sphere, and TSA of a hemisphere (radius r)?",
+      "back": "Sphere: volume four thirds pi r cubed, surface 4 pi r squared. Hemisphere TSA = 3 pi r squared (curved 2 pi r squared plus the flat circle pi r squared).",
+      "explanation": "A hemisphere's curved part alone is 2 pi r squared.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cone-sphere"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "combined-solid-rule",
+      "front": "How do volume and surface area behave for a solid made of two shapes joined together?",
+      "back": "Volume adds directly. Surface area does not — the faces where the two shapes meet are hidden, so count only the outside you could touch.",
+      "explanation": "Cone-on-cylinder: cylinder CSA + one cylinder base + cone CSA.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["combined-solids"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "litre-conversion",
+      "front": "1 m^3 in litres? 1 litre in cm^3?",
+      "back": "1 m^3 = 1000 litres. 1 litre = 1000 cm^3. The metre-to-centimetre factor for volume is 1,000,000.",
+      "explanation": "Capacity questions hinge on these.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["combined-solids"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}
