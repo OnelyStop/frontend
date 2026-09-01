@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "vocabulary",
+  "chapterName": "Vocabulary",
+  "chapterPosition": 4,
+  "topicSlug": "one-word-substitution",
+  "topicPosition": 20,
+  "title": "One-Word Substitution",
+  "summary": "The question that gives a defining phrase and asks for the single word it names, a method built on prefixes and roots, and a domain-grouped set of the words that recur - people, government, fears and studies, speech and writing, places.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech"],
+  "learningObjectives": [
+    "State what a one-word-substitution item asks for and how the options differ.",
+    "Use common roots and prefixes to narrow the options.",
+    "Recall high-frequency substitutions grouped by domain.",
+    "Separate a near-synonym distractor from the exact word."
+  ],
+  "tags": ["vocabulary", "one-word-substitution", "roots", "prefixes"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar",
+      "title": "English Grammar",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for word-formation (prefixes, roots, suffixes). Every definition phrase and example sentence here is original."
+    },
+    {
+      "sourceId": "GUTENBERG_GRAMMAR",
+      "url": "https://www.gutenberg.org/ebooks/37134",
+      "title": "The Elements of English Grammar (public domain)",
+      "publisher": "Project Gutenberg",
+      "usageMode": "public_domain",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted for classical word-formation only. No text reproduced."
+    },
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm one-word substitution is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-it-asks",
+      "type": "introduction",
+      "title": "What the question asks",
+      "markdown": "You are given a phrase that defines something - *a person who does not believe in God*, *a place where weapons are stored* - and four words. One word is the exact term for that phrase; the others are close in area but not exact.\n\nThe skill is precision, not vocabulary size. Most of the four options are words you know; the item turns on which one matches every part of the phrase - *the study of* versus *the fear of*, *one who writes* versus *one who compiles*.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "one word substitution defining phrase pick the exact term",
+        "precision not vocabulary size",
+        "match every part of the phrase"
+      ],
+      "position": 10
+    },
+    {
+      "id": "roots-and-prefixes",
+      "type": "method",
+      "title": "Using roots and prefixes",
+      "markdown": "Break the option into its parts:\n\n- **-cracy** = rule/government (demo-, pluto-, bureau-, oligo-, theo-).\n- **-phobia** = fear; **-philia / -phile** = love.\n- **-logy / -ics** = study of (ornitho- birds, entomo- insects, numismat- coins, etymo- word origins).\n- **-cide** = killing; **-vore** = eater; **-graphy** = writing.\n- **omni-** = all (omniscient = knowing all, omnipresent = present everywhere).\n- **-arium / -ary** = a place for (aqu-, avi-, api-, gran-).\n\nWhen two options share a root, the prefix decides: *theocracy* (rule by religious leaders) versus *plutocracy* (rule by the wealthy). When you do not know the word at all, the root still tells you the category and rules out two options.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR", "GUTENBERG_GRAMMAR"],
+      "searchKeywords": [
+        "roots and prefixes -cracy -phobia -logy -cide -vore omni- -arium",
+        "when two options share a root the prefix decides",
+        "unknown word the root gives the category"
+      ],
+      "position": 20
+    },
+    {
+      "id": "people",
+      "type": "concept",
+      "title": "People by trait or role",
+      "markdown": "- one who does not believe in God - **atheist**; one who believes there is no way to know - **agnostic**\n- one who is indifferent to pleasure and pain - **stoic**\n- one who can use both hands equally well - **ambidextrous**\n- one who speaks many languages - **polyglot**\n- one who walks in their sleep - **somnambulist**\n- one who compiles dictionaries - **lexicographer**\n- one appointed to settle a dispute - **arbitrator**\n- one who does something for pleasure, not as a profession - **amateur**\n- one who is new to a skill or field - **novice**\n- one who loves humankind and gives to good causes - **philanthropist**; one who hates humankind - **misanthrope**\n- a person unwilling to spend money - **miser**\n- a person who deliberately sets fire to property - **arsonist**\n\n*The bank appointed an external arbitrator to settle the vendor dispute.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "people one word substitution atheist agnostic stoic ambidextrous polyglot",
+        "somnambulist lexicographer arbitrator amateur novice",
+        "philanthropist misanthrope miser arsonist"
+      ],
+      "position": 30
+    },
+    {
+      "id": "government",
+      "type": "concept",
+      "title": "Government and rule",
+      "markdown": "- government by the people - **democracy**\n- government by a king or queen - **monarchy**\n- government by the wealthy - **plutocracy**\n- government by officials - **bureaucracy**\n- government by a small privileged group - **oligarchy**\n- rule by religious leaders - **theocracy**\n- absence of government; lawlessness - **anarchy**\n- a state that governs itself - **autonomous** (adjective)\n\n*Critics said the committee had turned into a small oligarchy that answered to no one.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "government one word substitution democracy monarchy plutocracy bureaucracy",
+        "oligarchy theocracy anarchy autonomous",
+        "-cracy rule prefix decides"
+      ],
+      "position": 40
+    },
+    {
+      "id": "fears-studies-speech",
+      "type": "concept",
+      "title": "Fears, studies, speech and writing",
+      "markdown": "**Fear of**\n- enclosed spaces - **claustrophobia**; heights - **acrophobia**; water - **hydrophobia**; foreigners or strangers - **xenophobia**\n\n**Study of**\n- birds - **ornithology**; insects - **entomology**; coins - **numismatics**; the origin of words - **etymology**; ancient societies through their remains - **archaeology**\n\n**Speech and writing**\n- a short, pointed saying that states a truth - **aphorism**\n- a speech a character makes alone, to themselves - **soliloquy**\n- words spoken in praise of someone who has died - **eulogy**\n- the story of a person's life written by someone else - **biography**; written by that person - **autobiography**\n- an official count of a population - **census**\n\n*The keynote was full of aphorisms but short on figures.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR", "GUTENBERG_GRAMMAR"],
+      "searchKeywords": [
+        "fear of one word claustrophobia acrophobia hydrophobia xenophobia",
+        "study of ornithology entomology numismatics etymology archaeology",
+        "speech aphorism soliloquy eulogy biography autobiography census"
+      ],
+      "position": 50
+    },
+    {
+      "id": "places",
+      "type": "concept",
+      "title": "Places",
+      "markdown": "- a place where money is coined - **mint**\n- a place for keeping birds - **aviary**\n- a place where bees are kept - **apiary**\n- a tank or building where fish are kept - **aquarium**\n- a place where grain is stored - **granary**\n- a place where weapons are stored - **armoury**\n- a place where public or historical records are kept - **archive**\n- a home for children without parents - **orphanage**\n- a place where the dead are buried - **cemetery**\n\n*The old records were moved from the strong room to the regional archive.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "places one word substitution mint aviary apiary aquarium granary",
+        "armoury archive orphanage cemetery",
+        "-ary -arium place for"
+      ],
+      "position": 60
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**1.** *A person who can use both hands equally well.*\n(a) ambivalent (b) ambidextrous (c) versatile (d) dexterous\n\n*Ambi-* = both, *-dexter* = right hand/skill, so **(b) ambidextrous**. *Dexterous* means merely skilful with the hands; *versatile* means able to do many things; *ambivalent* means having mixed feelings - the near-miss that shares the *ambi-* prefix.\n\n**2.** *The study of coins and medals.*\n(a) numerology (b) numismatics (c) etymology (d) philately\n\n*Numismatics* is coins and medals - **(b)**. *Philately* is stamp collecting, *etymology* is word origins, *numerology* is the supposed significance of numbers - each a real study, only one exact.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "one word substitution worked example ambidextrous both hands ambi- dexter",
+        "numismatics coins versus philately stamps etymology numerology"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- The item rewards precision: most options are real words in the right area; one matches every part of the phrase.\n- Split the option into prefix + root: *-cracy* rule, *-phobia* fear, *-logy/-ics* study, *-cide* killing, *-vore* eater, *omni-* all, *-ary/-arium* a place for.\n- When two options share a root, the prefix decides (*theo-* vs *pluto-* cracy).\n- Watch the near-miss that shares a prefix but not the meaning (*ambidextrous* vs *ambivalent*).\n- If the word is unknown, the root still fixes the category and removes two options.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "one word substitution summary revision prefix root method near miss recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Pick the exact word; give a one-line reason.\n\n1. *One appointed to settle a dispute between two parties.* (a) mediator (b) arbitrator (c) advocate (d) referee\n2. *Government by officials rather than elected representatives.* (a) autocracy (b) bureaucracy (c) monarchy (d) oligarchy\n3. *A speech made by a character alone on stage, to themselves.* (a) dialogue (b) monologue (c) soliloquy (d) eulogy\n4. *A place where grain is stored.* (a) granary (b) cellar (c) pantry (d) silo-yard\n5. *The study of the origin and history of words.* (a) etymology (b) entomology (c) ethnology (d) etiology\n6. *One who speaks or writes several languages.* (a) linguist (b) polyglot (c) interpreter (d) orator\n7. *A person who is unwilling to spend money.* (a) frugal (b) miser (c) pauper (d) economist\n8. *Words spoken in praise of a person who has just died.* (a) elegy (b) eulogy (c) epitaph (d) obituary",
+      "searchKeywords": [
+        "one word substitution practice arbitrator bureaucracy soliloquy granary",
+        "etymology polyglot miser eulogy near miss options"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "precision-not-size",
+      "front": "What does a one-word-substitution item actually test?",
+      "back": "Precision: the options are usually all real words in the right area; you pick the one that matches every part of the defining phrase.",
+      "explanation": "'Study of' vs 'fear of', 'writes' vs 'compiles'.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-it-asks"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "cracy-root",
+      "front": "The suffix '-cracy' means what? Give two examples.",
+      "back": "Rule or government. Plutocracy = rule by the wealthy; bureaucracy = rule by officials.",
+      "explanation": "When two options share the root, the prefix decides.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["roots-and-prefixes", "government"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "ambidextrous",
+      "front": "One word for 'able to use both hands equally well'.",
+      "back": "Ambidextrous (ambi- = both, -dexter = right hand/skill).",
+      "explanation": "Near-miss: 'ambivalent' shares the prefix but means having mixed feelings.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "numismatics",
+      "front": "The study of coins and medals is called ___.",
+      "back": "Numismatics.",
+      "explanation": "Philately = stamps; etymology = word origins; numerology = significance of numbers.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["fears-studies-speech", "worked-example"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "arbitrator",
+      "front": "One appointed to settle a dispute between two parties.",
+      "back": "Arbitrator.",
+      "explanation": "A mediator only helps them talk; an arbitrator decides.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["people"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "soliloquy",
+      "front": "A speech a character makes alone, to themselves.",
+      "back": "Soliloquy.",
+      "explanation": "A monologue can be delivered to others; a soliloquy is alone.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["fears-studies-speech"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "aviary-apiary",
+      "front": "Aviary vs apiary?",
+      "back": "Aviary = a place for keeping birds; apiary = a place where bees are kept.",
+      "explanation": "Both use '-ary' = a place for; the root (avi- bird, api- bee) decides.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["places"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}
