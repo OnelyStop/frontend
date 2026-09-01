@@ -11,7 +11,7 @@ import {
   Segmented,
   questionVariants,
 } from "@/design-system";
-import { SECTIONS, SECTION_SHORT } from "@/data/navigation";
+import { SECTIONS, SECTION_LABEL } from "@/data/navigation";
 import type { Mock } from "@/features/question-bank/types";
 
 /* Mocks. Sectional timing is the thing banking aspirants actually train for —
@@ -80,7 +80,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                       : "text-ink-3"
                 }`}
               >
-                {SECTION_SHORT[s]}
+                {SECTION_LABEL[s]}
               </span>
             ))}
           </span>
@@ -117,7 +117,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                   >
                     <p className="tnum text-[13px] text-ink-3">
                       Question {qIdx + 1} of {perSection} ·{" "}
-                      {SECTION_SHORT[SECTIONS[secIdx]]}
+                      {SECTION_LABEL[SECTIONS[secIdx]]}
                     </p>
                     <p className="mt-4 text-[21px] leading-relaxed">
                       A sum of ₹12,000 amounts to ₹15,120 in 2 years at simple

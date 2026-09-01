@@ -4,7 +4,7 @@ import { useState } from "react";
 import { PageHeader, Empty, Segmented } from "@/design-system";
 import {
   SECTION_KEY,
-  SECTION_SHORT,
+  SECTION_LABEL,
   SECTIONS,
   type Subject,
 } from "@/data/navigation";
@@ -55,7 +55,7 @@ export function NotesView() {
           value={section}
           options={["All", ...SECTIONS] as const}
           onChange={(v) => setSection(v as Subject | "All")}
-          labels={{ ...SECTION_SHORT, All: "All" }}
+          labels={{ ...SECTION_LABEL, All: "All" }}
         />
         <span className="text-[13px] text-ink-3">
           {shown.length} of {notes.length}
@@ -79,7 +79,7 @@ export function NotesView() {
                   className="text-[13px]"
                   style={{ color: `var(--color-${SECTION_KEY[n.section]})` }}
                 >
-                  {SECTION_SHORT[n.section]}
+                  {SECTION_LABEL[n.section]}
                 </span>
                 <button
                   className="text-[13px] text-ink-4 opacity-0 transition-opacity hover:text-bad group-hover:opacity-100"

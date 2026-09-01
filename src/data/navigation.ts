@@ -39,12 +39,15 @@ export const SECTION_KEY: Record<Subject, string> = {
   "Computer Aptitude": "computer",
 };
 
-export const SECTION_SHORT: Record<Subject, string> = {
-  "Quantitative Aptitude": "Quant",
-  "Reasoning Ability": "Reasoning",
-  "English Language": "English",
-  "General Awareness": "GA",
-  "Computer Aptitude": "Computer",
+/* Official subject names, not abbreviations — every UI spot that shows a
+   section name uses this, so there's one place to change if that ever
+   needs to be shorthand again. */
+export const SECTION_LABEL: Record<Subject, string> = {
+  "Quantitative Aptitude": "Quantitative Aptitude",
+  "Reasoning Ability": "Reasoning Ability",
+  "English Language": "English Language",
+  "General Awareness": "General Awareness",
+  "Computer Aptitude": "Computer Aptitude",
 };
 
 /* The question bank labels sections with one word each (its own

@@ -2,7 +2,7 @@
 
 import { Card, PageHeader, SectionTitle } from "@/design-system";
 import { useApp } from "@/context/AppContext";
-import { NEGATIVE_MARK, SECTIONS, SECTION_SHORT } from "@/data/navigation";
+import { NEGATIVE_MARK, SECTIONS, SECTION_LABEL } from "@/data/navigation";
 
 /* Progress. Speed and accuracy are the two numbers that decide a banking
    result, so they are the two the page is built on — plus the marks negative
@@ -65,7 +65,7 @@ export function ProgressView() {
               return (
                 <div key={r.s} className="grid gap-2">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[14.5px]">{SECTION_SHORT[r.s]}</span>
+                    <span className="text-[14.5px]">{SECTION_LABEL[r.s]}</span>
                     <span className="flex-1" />
                     <span className="tnum text-[14.5px]">{a}%</span>
                     <span

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useApp, type UserProfile, type UserSettings } from "@/context/AppContext";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
-import { EXAMS, SECTIONS, SECTION_SHORT } from "@/data/navigation";
+import { EXAMS, SECTIONS, SECTION_LABEL } from "@/data/navigation";
 
 const PREFS: [keyof UserSettings, string, string][] = [
   ["emailDigest", "Daily digest", "One mail at 7am: what is due and which section is under cutoff"],
@@ -152,7 +152,7 @@ export function SettingsView() {
                     : "border-line bg-canvas hover:border-line-2"
                 }`}
               >
-                {SECTION_SHORT[s]}
+                {SECTION_LABEL[s]}
               </button>
             ))}
           </div>

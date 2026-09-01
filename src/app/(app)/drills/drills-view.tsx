@@ -11,7 +11,7 @@ import {
   SectionTitle,
   questionVariants,
 } from "@/design-system";
-import { SECTIONS, SECTION_DB, SECTION_SHORT, type Subject } from "@/data/navigation";
+import { SECTIONS, SECTION_DB, SECTION_LABEL, type Subject } from "@/data/navigation";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
 /* Drills. Defaults are the feature: land, press Start, you are practising.
@@ -45,7 +45,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
     return (
       <div>
         <PageHeader
-          title={`${SECTION_SHORT[section]} drill`}
+          title={`${SECTION_LABEL[section]} drill`}
           sub={`Question ${qIdx + 1} of ${set.length} · ${mode.toLowerCase()}`}
           actions={
             <Button variant="secondary" onClick={() => setRunning(false)}>
@@ -117,7 +117,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
   return (
     <div>
       <PageHeader
-        title={`${len} questions · ${SECTION_SHORT[section]} · ${mins} min`}
+        title={`${len} questions · ${SECTION_LABEL[section]} · ${mins} min`}
         sub={`Already aimed at the topics costing you marks in ${board}. Change anything, or just start.`}
         actions={
           <Button
@@ -139,7 +139,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
           <Field label="Section">
             {SECTIONS.map((s) => (
               <Pick key={s} on={section === s} onClick={() => setSection(s)}>
-                {SECTION_SHORT[s]}
+                {SECTION_LABEL[s]}
               </Pick>
             ))}
           </Field>
@@ -161,7 +161,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
 
         <p className="mt-6 border-t border-line pt-4 text-[13px] leading-relaxed text-ink-3">
           {set.length === 0
-            ? `No ${SECTION_SHORT[section]} questions in the pool right now.`
+            ? `No ${SECTION_LABEL[section]} questions in the pool right now.`
             : "Weak topics pulls from the bottom-left of your attempt map. Speed keeps the accuracy you have and cuts the clock."}
         </p>
       </Card>
