@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "networks-and-security",
+  "chapterName": "Networks and security",
+  "chapterPosition": 3,
+  "topicSlug": "information-security-basics-and-attacks",
+  "topicPosition": 40,
+  "title": "Information Security: Attacks and Safe Banking",
+  "summary": "Building on cyber security basics: the malware families and attack types exams name, how to spot a phishing message, the scams that specifically target bank customers and what a bank will never ask, and a practical defence checklist.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["cyber-security-basics"],
+  "learningObjectives": [
+    "Classify the common malware families by how each spreads and what it does.",
+    "Name the main attack types, including social-engineering variants, MITM and DoS.",
+    "Work through the signs that a message is phishing.",
+    "State what a bank will never ask a customer for, and list the everyday defences."
+  ],
+  "tags": [
+    "computer-awareness",
+    "cyber-security",
+    "phishing",
+    "malware",
+    "safe-banking"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "NIST_GLOSSARY",
+      "url": "https://csrc.nist.gov/glossary",
+      "title": "NIST CSRC glossary",
+      "publisher": "NIST",
+      "usageMode": "open_adaptable",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for malware, phishing, social-engineering, MITM, DoS and brute-force definitions (the glossary cites the underlying NIST Special Publications). Each restated in original teaching wording; the sample phishing email and the banking-scam list are original."
+    },
+    {
+      "sourceId": "NIST_COPYRIGHT",
+      "url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
+      "title": "NIST copyright and licensing",
+      "publisher": "NIST",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "NIST-authored technical-series works carry worldwide reuse permission; only NIST-authored definitions were consulted."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Wikibooks Basic Computing",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for firewall, antivirus and backup terminology; wording is original."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm cyber security and safe-banking awareness are part of the syllabus. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "scope",
+      "type": "introduction",
+      "title": "Where this fits",
+      "markdown": "This topic assumes the cyber-security-basics ground — the CIA triad, authentication vs authorisation, MFA, and encryption vs hashing. Here the focus is narrower and more practical: **naming the attacks** exams list, **spotting a phishing message**, and the **frauds aimed at bank customers**.\n\nOne recurring exam idea: most successful attacks on individuals are **social engineering** — tricking a person — not code that breaks a technical control. The defence is largely habit.",
+      "sourceIds": ["NIST_GLOSSARY", "SATHEE_BANK"],
+      "searchKeywords": [
+        "information security attacks safe banking scope",
+        "assumes cia triad authentication mfa encryption hashing",
+        "focus naming attacks spotting phishing bank customer fraud",
+        "most attacks on individuals are social engineering not code"
+      ],
+      "position": 10
+    },
+    {
+      "id": "malware-families",
+      "type": "concept",
+      "title": "Malware families",
+      "markdown": "**Malware** is any software written to harm or misuse a system.\n\n| Type | How it spreads / what it does |\n| --- | --- |\n| **Virus** | attaches to a host file; spreads when that file is run and shared |\n| **Worm** | self-replicates across a network on its own, no host file, no user action |\n| **Trojan** | disguised as something useful; runs when the user opens it; does not self-replicate |\n| **Ransomware** | encrypts the victim's files and demands payment for the key |\n| **Spyware** | secretly records activity and sends it to the attacker |\n| **Keylogger** | a form of spyware that captures keystrokes, including passwords and OTPs |\n| **Adware** | forces unwanted adverts; often bundled with free software |\n| **Rootkit** | hides deep in the system to conceal other malware and resist removal |\n| **Botnet** | a network of compromised machines controlled remotely for spam or DDoS |\n\nThe dividing line examiners test: **a worm self-replicates and needs no host or user action; a virus needs a host file and user action; a Trojan does not self-replicate at all.**",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "malware families virus worm trojan ransomware spyware keylogger adware rootkit botnet",
+        "virus needs host file user action worm self-replicates on network",
+        "trojan disguised does not self-replicate",
+        "ransomware encrypts for payment keylogger captures keystrokes"
+      ],
+      "position": 20
+    },
+    {
+      "id": "attack-types",
+      "type": "concept",
+      "title": "Attack types",
+      "markdown": "- **Phishing:** a fraudulent message impersonating a trusted body to steal credentials or plant malware. **Spear phishing** targets one named person; **vishing** is by phone call, **smishing** by SMS.\n- **Social engineering (general):** pretexting (inventing a scenario), baiting (leaving infected media), tailgating (following someone through a secure door).\n- **Brute force:** trying every possible password. **Dictionary attack:** trying a list of likely passwords. **Credential stuffing:** reusing username/password pairs leaked from another site.\n- **Man-in-the-middle (MITM):** an attacker secretly relays and can alter traffic between two parties — a risk on open Wi-Fi; HTTPS defeats the common form.\n- **Denial of Service (DoS)** and **Distributed DoS (DDoS):** flooding a service with traffic so real users cannot reach it; DDoS uses many machines (often a botnet).\n- **SQL injection:** feeding crafted input into a web form so it is treated as database commands — a server-side flaw, not a user mistake.\n- **Shoulder surfing:** simply watching someone type a PIN or password.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "attack types phishing spear vishing smishing social engineering pretexting baiting tailgating",
+        "brute force dictionary attack credential stuffing",
+        "man in the middle mitm open wifi https defeats it",
+        "dos ddos flood botnet sql injection server side shoulder surfing"
+      ],
+      "position": 30
+    },
+    {
+      "id": "spot-phishing",
+      "type": "worked_example",
+      "title": "Worked example: is this email phishing?",
+      "markdown": "> **From:** \"Bank Security\" &lt;alerts@secure-bank-verify.com&gt;\n> **Subject:** URGENT: your account will be blocked in 24 hours\n>\n> Dear Customer, we detected an unusual login. To avoid suspension, verify your details now: **[Verify Account]** (link points to `http://secure-bank-verify.com/login`). Enter your card number, PIN and the OTP sent to your phone. — Bank Security Team\n\nWork through the signs:\n\n1. **Sender domain.** `secure-bank-verify.com` is not the bank's real domain. A display name of \"Bank Security\" proves nothing.\n2. **Urgency and threat.** \"blocked in 24 hours\" pressures you to act before thinking — a standard tactic.\n3. **Generic greeting.** \"Dear Customer\", not your name.\n4. **Link mismatch.** Hover: the visible text says \"Verify Account\" but the URL is an unrelated `http://` (not even HTTPS) address.\n5. **Asks for secrets.** Card number, PIN and OTP together — no legitimate bank page asks for all three.\n\n**Verdict: phishing.** Do not click. Reach the bank through its official app or a number printed on your card.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "spot phishing email worked example sender domain mismatch",
+        "urgency threat account blocked 24 hours generic greeting dear customer",
+        "hover link text says verify url is unrelated http not https",
+        "asks for card number pin otp verdict phishing reach bank official app"
+      ],
+      "position": 40
+    },
+    {
+      "id": "banking-scams",
+      "type": "warning",
+      "title": "Scams aimed at bank customers",
+      "markdown": "**What a bank will never ask you for:** your full card number by email or call, your **PIN**, **CVV**, **online-banking password**, or an **OTP**. Anyone asking for these is an attacker, even if they know your name and last transaction.\n\nCommon frauds:\n\n- **OTP / \"verification code\" call:** a caller claiming to be from the bank asks you to read out the code you just received. That code authorises *their* transaction.\n- **Fake KYC-update link:** an SMS or email says your account will be frozen unless you \"complete KYC\" through a link. The link leads to a credential-harvesting page.\n- **Remote-access app:** you are told to install a screen-sharing app \"so support can help\", which lets the fraudster see your screen and control the device.\n- **UPI collect-request trick:** you are sent a *request-money* notification dressed up as \"receive your refund — enter your PIN to accept\". Approving it pays them. **You never enter a PIN to receive money.**\n- **QR code to receive money:** scanning a QR and entering a PIN sends money out, it does not bring money in.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "what a bank will never ask card number pin cvv password otp",
+        "otp verification code call reads out authorises attacker transaction",
+        "fake kyc update link account frozen credential harvesting",
+        "remote access screen sharing app fraud upi collect request enter pin to receive qr code scam"
+      ],
+      "position": 50
+    },
+    {
+      "id": "defences",
+      "type": "concept",
+      "title": "Everyday defences",
+      "markdown": "- **Multi-factor authentication** on every account that offers it — a stolen password alone then is not enough.\n- **Unique, long passwords** kept in a **password manager**; never reuse the banking password anywhere else.\n- **Patch promptly** — operating system, browser and apps; many attacks use flaws already fixed.\n- **Antivirus** for known malware and a **firewall** at the boundary; neither replaces the other.\n- **Backups** on the 3-2-1 pattern (3 copies, 2 media, 1 off-site/offline) — the real defence against ransomware.\n- **Check before you trust:** the sender's real address, the padlock and exact domain in the address bar, and reach the bank only through its official app or a printed number.\n- **Avoid banking on open public Wi-Fi;** if unavoidable, use a **VPN**.\n- **Lock devices** with a PIN/biometric and enable remote wipe.",
+      "sourceIds": ["NIST_GLOSSARY", "WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "everyday defences mfa unique passwords password manager patch promptly",
+        "antivirus firewall backups 3-2-1 ransomware",
+        "check sender address padlock domain reach bank official app",
+        "avoid banking on public wifi use vpn lock devices remote wipe"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **A worm spreads by itself; a virus needs a host file and a user action; a Trojan never self-replicates.**\n- **Phishing is the message; vishing is by call, smishing by SMS; spear phishing is targeted.**\n- **A DoS floods one service from one source; a DDoS floods it from many** (usually a botnet).\n- **SQL injection is a server-side coding flaw**, not something a careful user can prevent by being cautious.\n- **A firewall filters traffic at a boundary; antivirus removes malware on the machine.** Different jobs.\n- **HTTPS stops the common man-in-the-middle**, but it does not vouch that the site owner is honest.\n- **You never enter a UPI PIN to *receive* money** — a PIN only authorises money going out.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "information security confusions worm virus trojan phishing vishing smishing",
+        "dos one source ddos many botnet",
+        "sql injection server side not user caution firewall versus antivirus",
+        "https stops mitm not owner honesty upi pin only sends money"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Malware: virus (host + action), worm (self-spreads on a network), Trojan (disguised, no self-replication), ransomware (encrypts for payment), spyware/keylogger, adware, rootkit (hides), botnet (remote army).\n- Attacks: phishing/spear/vishing/smishing, pretexting/baiting/tailgating, brute force vs dictionary vs credential stuffing, MITM, DoS/DDoS, SQL injection (server-side), shoulder surfing.\n- Phishing signs: wrong sender domain, urgency/threat, generic greeting, link text vs real URL mismatch, asks for PIN/CVV/OTP.\n- A bank never asks for card number, PIN, CVV, password or OTP. You never enter a PIN to receive money.\n- Defences: MFA, unique passwords + manager, prompt patching, antivirus + firewall, 3-2-1 backups, verify sender and domain, avoid/secure public Wi-Fi.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "information security attacks summary revision",
+        "malware attack types phishing signs bank never asks defences recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer and a one-line reason.\n\n1. Malware that self-replicates across a network with no host file and no user action.\n2. A fraudulent phone call pretending to be the bank and asking you to read out a code.\n3. An attacker on the same open Wi-Fi silently relaying and altering your traffic.\n4. Flooding a website from thousands of machines so real users cannot reach it.\n5. You get an SMS: \"KYC pending, account will be frozen, click here.\" What is this, and what do you do?\n6. Someone from \"support\" asks you to install a screen-sharing app to fix a problem. Safe or not?\n7. A UPI notification says \"accept to receive your ₹2,000 refund — enter UPI PIN.\" Should you?\n8. Which is a server-side flaw a cautious user cannot avoid by being careful: shoulder surfing or SQL injection?",
+      "searchKeywords": [
+        "information security practice worm vishing mitm ddos fake kyc remote access upi pin sql injection"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "worm-virus-trojan-card",
+      "front": "Worm vs virus vs Trojan — how does each spread?",
+      "back": "Worm: self-replicates across a network, no host file or user action. Virus: attaches to a host file, spreads when that file is run and shared. Trojan: disguised as useful, runs only when the user opens it, and does not self-replicate.",
+      "explanation": "Self-replication is the divider examiners test.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["malware-families", "common-mistakes"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "phishing-variants-card",
+      "front": "Phishing, spear phishing, vishing, smishing?",
+      "back": "Phishing: a fraudulent message (usually email) impersonating a trusted body. Spear phishing: aimed at one named person using details about them. Vishing: by voice call. Smishing: by SMS.",
+      "explanation": "All are social engineering — tricking a person, not breaking a control.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["attack-types"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "phishing-signs-card",
+      "front": "List the signs that an email is phishing.",
+      "back": "Sender domain not the real one, urgency or a threat, generic greeting, link text that doesn't match the real URL (hover to check), and a request for secrets like PIN, CVV or OTP.",
+      "explanation": "Reach the organisation through its official app or a printed number instead.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["spot-phishing"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "bank-never-asks-card",
+      "front": "What will a bank never ask a customer for?",
+      "back": "Full card number by email/call, PIN, CVV, online-banking password, or an OTP. Anyone asking — even if they know your name and last transaction — is an attacker.",
+      "explanation": "The OTP authorises the caller's transaction, not a 'verification'.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["banking-scams"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "upi-pin-card",
+      "front": "Do you ever enter a UPI PIN to receive money?",
+      "back": "No. A UPI PIN only authorises money leaving your account. A 'collect request' or QR that asks for your PIN to 'accept a refund' is a scam to make you pay.",
+      "explanation": "Receiving money never needs your PIN.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["banking-scams", "common-mistakes"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "dos-ddos-card",
+      "front": "DoS vs DDoS?",
+      "back": "Both flood a service with traffic so genuine users cannot reach it. A DoS comes from one source; a DDoS comes from many machines at once, typically a botnet.",
+      "explanation": "It attacks availability, the A of the CIA triad.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["attack-types", "common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "mitm-card",
+      "front": "What is a man-in-the-middle attack, and what defeats the common form?",
+      "back": "An attacker secretly relays — and can alter — traffic between two parties who think they are talking directly, a risk on open Wi-Fi. HTTPS (TLS with a verified certificate) defeats the common form.",
+      "explanation": "A VPN also protects traffic on untrusted networks.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["attack-types"],
+      "position": 70,
+      "status": "approved"
+    },
+    {
+      "id": "brute-vs-dictionary-card",
+      "front": "Brute force vs dictionary attack vs credential stuffing?",
+      "back": "Brute force: try every possible password. Dictionary: try a list of likely passwords. Credential stuffing: reuse username/password pairs leaked from another breach.",
+      "explanation": "MFA and unique passwords blunt all three.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["attack-types", "defences"],
+      "position": 80,
+      "status": "approved"
+    }
+  ]
+}
