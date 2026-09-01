@@ -1,9 +1,12 @@
+import { desc, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
+import { getDb } from "@/lib/gazette/db";
+import { questions } from "@/lib/gazette/db/schema";
+import { json, serializeQuestion, todayIst } from "@/lib/gazette/http";
 
-// Same-origin proxy to the Gazette Engine backend. Keeps GAZETTE_API_URL (and
-// the fact that there's a separate service at all) out of the browser bundle,
-// and sidesteps CORS. Server env var — never NEXT_PUBLIC_.
+// Current affairs questions endpoint — now integrated from Gazette Engine.
+// Serves questions for a given day with auth guard for page proxy.
 export const dynamic = "force-dynamic";
 
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -28,39 +31,29 @@ export async function GET(request: Request) {
     }
   }
 
-  const base = process.env.GAZETTE_API_URL;
-  if (!base) {
-    return NextResponse.json(
-      { error: "GAZETTE_API_URL is not configured" },
-      { status: 503 },
-    );
-  }
-
   const incoming = new URL(request.url);
-  const day = incoming.searchParams.get("extracted_day");
+  const day = incoming.searchParams.get("extracted_day") ?? todayIst();
   const limit = incoming.searchParams.get("limit");
 
-  const target = new URL("/v1/questions/daily", base);
-  if (day && DAY_RE.test(day)) target.searchParams.set("extracted_day", day);
-  
+  if (!DAY_RE.test(day)) {
+    return json({ error: "extracted_day must be YYYY-MM-DD" }, 400);
+  }
+
   // Clamp limit to a reasonable range to prevent unbounded requests
   const parsedLimit = Number(limit) || DEFAULT_LIMIT;
   const clampedLimit = Math.min(Math.max(parsedLimit, 1), MAX_LIMIT);
-  target.searchParams.set("limit", String(clampedLimit));
 
-  try {
-    const res = await fetch(target, {
-      cache: "no-store",
-      signal: AbortSignal.timeout(15_000),
-    });
-    return new NextResponse(await res.text(), {
-      status: res.status,
-      headers: { "content-type": "application/json" },
-    });
-  } catch {
-    return NextResponse.json(
-      { error: "Gazette Engine is unreachable" },
-      { status: 502 },
-    );
-  }
+  const db = await getDb();
+  const rows = await db
+    .select()
+    .from(questions)
+    .where(eq(questions.extractedDay, day))
+    .orderBy(desc(questions.createdAt))
+    .limit(clampedLimit);
+
+  return json({
+    extracted_day: day,
+    count: rows.length,
+    questions: rows.map(serializeQuestion),
+  });
 }
