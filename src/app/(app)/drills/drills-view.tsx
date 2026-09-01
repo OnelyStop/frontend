@@ -105,9 +105,6 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
             <Button disabled={picked === null} onClick={advance}>
               Submit answer
             </Button>
-            <Button variant="ghost" onClick={advance}>
-              Skip · costs nothing
-            </Button>
           </div>
         </Card>
       </div>
