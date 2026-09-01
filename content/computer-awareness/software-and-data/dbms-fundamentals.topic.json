@@ -21,7 +21,7 @@
     "Name the categories of SQL commands and the ACID properties."
   ],
   "tags": ["computer-awareness", "database", "dbms", "sql", "primary-key"],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": "2026-09-01T00:00:00Z",
@@ -157,7 +157,8 @@
       "explanation": "A DBMS turns stored data into information via queries.",
       "difficulty": "easy",
       "sourceBlockIds": ["data-vs-information"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "db-vs-dbms",
@@ -166,7 +167,8 @@
       "explanation": "An RDBMS is a DBMS that uses tables and SQL.",
       "difficulty": "easy",
       "sourceBlockIds": ["what-a-dbms-does"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "primary-foreign-key",
@@ -175,7 +177,8 @@
       "explanation": "A foreign key can repeat and can sometimes be null.",
       "difficulty": "medium",
       "sourceBlockIds": ["relational-terms"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "sql-categories",
@@ -184,7 +187,8 @@
       "explanation": "SELECT is DML (sometimes called DQL).",
       "difficulty": "medium",
       "sourceBlockIds": ["sql-categories"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "delete-vs-truncate",
@@ -193,7 +197,8 @@
       "explanation": "A frequent trap in DBMS questions.",
       "difficulty": "hard",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "acid",
@@ -202,7 +207,8 @@
       "explanation": "They define a reliable transaction.",
       "difficulty": "medium",
       "sourceBlockIds": ["acid"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "transaction",
@@ -211,7 +217,8 @@
       "explanation": "Half a transfer would break consistency.",
       "difficulty": "medium",
       "sourceBlockIds": ["acid"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }

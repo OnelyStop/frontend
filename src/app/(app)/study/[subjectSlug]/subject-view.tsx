@@ -21,13 +21,11 @@ export function SubjectView({
   name,
   description,
   chapters,
-  preview,
 }: {
   subjectSlug: string;
   name: string;
   description: string | null;
   chapters: ChapterOutline[];
-  preview: boolean;
 }) {
   const topicCount = chapters.reduce((n, c) => n + c.topics.length, 0);
 
@@ -46,11 +44,6 @@ export function SubjectView({
         sub={
           description ??
           `${topicCount} topic${topicCount === 1 ? "" : "s"} across ${chapters.length} chapter${chapters.length === 1 ? "" : "s"}.`
-        }
-        actions={
-          preview ? (
-            <Badge tone="warn">Preview — includes unpublished</Badge>
-          ) : null
         }
       />
 

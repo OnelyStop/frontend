@@ -21,7 +21,7 @@
     "Solve problems where a worker joins or leaves partway through."
   ],
   "tags": ["arithmetic", "time-and-work", "rates", "bank-exams"],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": null,
@@ -183,7 +183,8 @@
       "explanation": "Scaling the job avoids fraction arithmetic.",
       "difficulty": "easy",
       "sourceBlockIds": ["lcm-method"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "combine-rates",
@@ -192,7 +193,8 @@
       "explanation": "Add outputs, then divide total work by the combined output.",
       "difficulty": "easy",
       "sourceBlockIds": ["worked-example-together"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "add-rates-not-days",
@@ -201,7 +203,8 @@
       "explanation": "Averaging or adding the day counts is the classic error.",
       "difficulty": "easy",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "isolate-worker",
@@ -210,7 +213,8 @@
       "explanation": "One worker's rate = combined rate minus the other's.",
       "difficulty": "medium",
       "sourceBlockIds": ["worked-example-subtract-rate"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "worker-leaves",
@@ -219,7 +223,8 @@
       "explanation": "Compute the fraction completed, then the remainder.",
       "difficulty": "hard",
       "sourceBlockIds": ["worked-example-leaves"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "man-days-rule",
@@ -228,7 +233,8 @@
       "explanation": "Only valid when every worker has the same rate.",
       "difficulty": "medium",
       "sourceBlockIds": ["man-days"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "days-from-rate",
@@ -237,7 +243,8 @@
       "explanation": "Convert the rate back to a time at the end.",
       "difficulty": "easy",
       "sourceBlockIds": ["quick-revision"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }

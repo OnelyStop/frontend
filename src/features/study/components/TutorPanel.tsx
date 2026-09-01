@@ -39,6 +39,19 @@ export function TutorPanel({
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
   }, [messages, busy]);
 
+  // Esc closes the drawer, not the running head walking up the URL.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      onClose();
+    };
+    window.addEventListener("keydown", onKey, { capture: true });
+    return () =>
+      window.removeEventListener("keydown", onKey, { capture: true });
+  }, [onClose]);
+
   const send = async () => {
     const question = draft.trim();
     if (!question || busy) return;

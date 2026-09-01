@@ -21,7 +21,7 @@
     "Use option elimination to separate a defensible answer from a plausible distractor."
   ],
   "tags": ["exam-skills", "reading-comprehension", "strategy", "inference"],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": null,
@@ -163,7 +163,8 @@
       "explanation": "RC tests reading, not general awareness.",
       "difficulty": "easy",
       "sourceBlockIds": ["introduction"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "inference-necessary",
@@ -172,7 +173,8 @@
       "explanation": "\"Could be true\" options are the classic inference distractor.",
       "difficulty": "medium",
       "sourceBlockIds": ["question-types"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "tone-from-wording",
@@ -181,7 +183,8 @@
       "explanation": "\"Analytical\" and \"alarmed\" can describe passages on the same event.",
       "difficulty": "medium",
       "sourceBlockIds": ["tone-and-vocab"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "vocab-in-context",
@@ -190,7 +193,8 @@
       "explanation": "The common dictionary sense is often the trap option.",
       "difficulty": "medium",
       "sourceBlockIds": ["tone-and-vocab"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "main-idea-scope",
@@ -199,7 +203,8 @@
       "explanation": "Main idea = the whole passage, at the passage's own scope.",
       "difficulty": "medium",
       "sourceBlockIds": ["question-types"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "extreme-distractor",
@@ -208,7 +213,8 @@
       "explanation": "Match the strength of the wording to the passage.",
       "difficulty": "medium",
       "sourceBlockIds": ["elimination"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "timing-order",
@@ -217,7 +223,8 @@
       "explanation": "Bank the certain marks before the slow ones.",
       "difficulty": "hard",
       "sourceBlockIds": ["strategy"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }

@@ -25,20 +25,41 @@ const TONE_ACCENT: Record<string, string> = {
 
 type Panel = "notes" | "tutor" | null;
 
+// Deterministic across server and browser — toLocaleDateString() formats in the
+// runtime's locale/timezone and mismatches on hydration (docs/rendering.md).
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+function fmtDate(iso: string): string {
+  const d = new Date(iso);
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+}
+
 export function Reader({
   subjectSlug,
   chapterSlug,
   outline,
   chapters,
   initialNotes,
-  preview,
+  signedIn,
 }: {
   subjectSlug: string;
   chapterSlug: string;
   outline: TopicOutline;
   chapters: ChapterOutline[];
   initialNotes: StudyNote[];
-  preview: boolean;
+  signedIn: boolean;
 }) {
   const [panel, setPanel] = useState<Panel>(null);
   const [selectedBlockKey, setSelectedBlockKey] = useState<string | null>(null);
@@ -64,6 +85,7 @@ export function Reader({
 
   const postProgress = useCallback(
     (pct: number) => {
+      if (!signedIn) return;
       const rounded = Math.round(pct);
       if (rounded <= savedPctRef.current) return;
       savedPctRef.current = rounded;
@@ -73,7 +95,7 @@ export function Reader({
         body: JSON.stringify({ progressPercent: rounded }),
       }).catch(() => {});
     },
-    [outline.id],
+    [outline.id, signedIn],
   );
 
   // Scroll-driven reading progress, throttled and only ever increasing.
@@ -175,23 +197,26 @@ export function Reader({
             </span>
             {outline.lastReviewedAt ? (
               <span className="text-ink-3 text-[13px]">
-                · reviewed{" "}
-                {new Date(outline.lastReviewedAt).toLocaleDateString()}
+                · reviewed {fmtDate(outline.lastReviewedAt)}
               </span>
             ) : null}
-            {preview ? <Badge tone="warn">Preview — unpublished</Badge> : null}
           </div>
           <p className="text-ink-2 mt-4 max-w-[68ch] text-[15.5px] leading-[1.6]">
             {outline.summary}
           </p>
 
-          <div className="mt-5 flex flex-wrap gap-2">
-            <Button size="sm" onClick={() => setPanel("tutor")}>
+          <div className="mt-5 flex flex-wrap items-center gap-2">
+            <Button
+              size="sm"
+              disabled={!signedIn}
+              onClick={() => setPanel("tutor")}
+            >
               Ask the tutor
             </Button>
             <Button
               size="sm"
               variant="secondary"
+              disabled={!signedIn}
               onClick={() => setPanel("notes")}
             >
               Notes{notes.length ? ` (${notes.length})` : ""}
@@ -210,6 +235,11 @@ export function Reader({
             >
               Sources ({outline.sources.length})
             </Button>
+            {!signedIn ? (
+              <span className="text-ink-4 text-[12px]">
+                Sign in to take notes or ask the tutor
+              </span>
+            ) : null}
           </div>
 
           {sourcesOpen ? (
@@ -233,7 +263,7 @@ export function Reader({
                       {" "}
                       — {s.publisher}
                       {s.license ? `, ${s.license}` : ""} · {s.usageMode} ·
-                      retrieved {new Date(s.retrievedAt).toLocaleDateString()}
+                      retrieved {fmtDate(s.retrievedAt)}
                     </span>
                   </li>
                 ))}
@@ -266,12 +296,14 @@ export function Reader({
               <section
                 key={b.stableKey}
                 id={`block-${b.stableKey}`}
-                className={`scroll-mt-24 border-l-2 pl-5 ${TONE_ACCENT[meta.tone] ?? "border-line"}`}
+                className={
+                  meta.tone === "neutral"
+                    ? "scroll-mt-24"
+                    : `scroll-mt-24 border-l-2 pl-5 ${TONE_ACCENT[meta.tone]}`
+                }
               >
-                <div className="mb-2 flex items-center gap-2">
-                  <span className="text-ink-4 text-[11px] tracking-wide uppercase">
-                    {meta.label}
-                  </span>
+                <div className="mb-1.5 flex items-center gap-2">
+                  <span className="text-ink-3 text-[13px]">{meta.label}</span>
                   {notesByBlock.get(b.stableKey) ? (
                     <span
                       className="bg-warn size-1.5 rounded-full"
@@ -284,18 +316,22 @@ export function Reader({
                 </h2>
                 <Markdown source={b.bodyMarkdown} />
                 <div className="mt-3 flex items-center gap-3">
-                  <button
-                    onClick={() => askAbout(b.stableKey)}
-                    className="text-ink-4 hover:text-brand text-[12px] transition-colors"
-                  >
-                    Ask about this section
-                  </button>
-                  <button
-                    onClick={() => noteOn(b.stableKey)}
-                    className="text-ink-4 hover:text-brand text-[12px] transition-colors"
-                  >
-                    Add a note
-                  </button>
+                  {signedIn ? (
+                    <>
+                      <button
+                        onClick={() => askAbout(b.stableKey)}
+                        className="text-ink-4 hover:text-brand text-[12px] transition-colors"
+                      >
+                        Ask about this section
+                      </button>
+                      <button
+                        onClick={() => noteOn(b.stableKey)}
+                        className="text-ink-4 hover:text-brand text-[12px] transition-colors"
+                      >
+                        Add a note
+                      </button>
+                    </>
+                  ) : null}
                   {b.sourceKeys.length ? (
                     <span className="text-ink-4 text-[12px]">
                       source: {b.sourceKeys.join(", ")}

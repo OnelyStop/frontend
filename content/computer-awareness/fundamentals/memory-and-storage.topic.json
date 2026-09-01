@@ -21,7 +21,7 @@
     "Name the main secondary-storage technologies and their trade-offs."
   ],
   "tags": ["computer-awareness", "memory", "ram-rom", "cache", "storage"],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": "2026-09-01T00:00:00Z",
@@ -158,7 +158,8 @@
       "explanation": "A program must be loaded from secondary into primary to run.",
       "difficulty": "easy",
       "sourceBlockIds": ["primary-vs-secondary"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "hierarchy-order",
@@ -167,7 +168,8 @@
       "explanation": "Faster levels are smaller and costlier per byte, and buffer the level below.",
       "difficulty": "medium",
       "sourceBlockIds": ["memory-hierarchy"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "dram-sram",
@@ -176,7 +178,8 @@
       "explanation": "Both are volatile.",
       "difficulty": "medium",
       "sourceBlockIds": ["ram"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "rom-variants",
@@ -185,7 +188,8 @@
       "explanation": "All are non-volatile.",
       "difficulty": "medium",
       "sourceBlockIds": ["rom"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "ssd-vs-hdd",
@@ -194,7 +198,8 @@
       "explanation": "Both are non-volatile secondary storage with direct access.",
       "difficulty": "medium",
       "sourceBlockIds": ["secondary-technologies"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "random-access-meaning",
@@ -203,7 +208,8 @@
       "explanation": "Contrast with tape, which is sequential access.",
       "difficulty": "hard",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "cache-not-ram",
@@ -212,7 +218,8 @@
       "explanation": "Main memory is DRAM; cache is SRAM.",
       "difficulty": "medium",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }

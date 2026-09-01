@@ -27,7 +27,7 @@
     "ascii-unicode",
     "storage-units"
   ],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": "2026-09-01T00:00:00Z",
@@ -194,7 +194,8 @@
       "explanation": "Every value is built from bits.",
       "difficulty": "easy",
       "sourceBlockIds": ["why-binary"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "octal-hex-bits",
@@ -203,7 +204,8 @@
       "explanation": "This is why octal and hex are compact shorthands for binary.",
       "difficulty": "easy",
       "sourceBlockIds": ["the-four-systems"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "binary-to-decimal",
@@ -212,7 +214,8 @@
       "explanation": "Multiply each bit by its place value and add.",
       "difficulty": "easy",
       "sourceBlockIds": ["worked-example-conversions"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "decimal-to-binary",
@@ -221,7 +224,8 @@
       "explanation": "Same method works for any target base.",
       "difficulty": "medium",
       "sourceBlockIds": ["converting"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "units-ladder",
@@ -230,7 +234,8 @@
       "explanation": "Steps by 1024 for memory, 1000 in marketing.",
       "difficulty": "easy",
       "sourceBlockIds": ["bits-bytes-units"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "ascii-unicode",
@@ -239,7 +244,8 @@
       "explanation": "Unicode extends ASCII rather than replacing it.",
       "difficulty": "medium",
       "sourceBlockIds": ["character-encoding"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "bit-vs-byte-notation",
@@ -248,7 +254,8 @@
       "explanation": "A frequent trap in speed-vs-size questions.",
       "difficulty": "hard",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }

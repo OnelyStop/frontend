@@ -2,9 +2,10 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 // Everything not listed here stays public and server-rendered for SEO.
+// The knowledge base (/study) is deliberately public: published lessons are
+// discoverable content. Its note, progress and tutor APIs still require a user.
 const PROTECTED = [
   "/home",
-  "/study",
   "/attempt-map",
   "/mocks",
   "/drills",

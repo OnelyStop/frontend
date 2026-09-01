@@ -32,7 +32,6 @@ export default async function Page({
       name={data.name}
       description={data.description}
       chapters={data.chapters}
-      preview={preview}
     />
   );
 }

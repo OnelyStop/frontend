@@ -5,7 +5,6 @@ import { StudyBrowseView } from "./study-view";
 export const metadata: Metadata = { title: "Knowledge base" };
 
 export default async function Page() {
-  const preview = await canPreview();
-  const subjects = await listSubjects({ preview });
-  return <StudyBrowseView subjects={subjects} preview={preview} />;
+  const subjects = await listSubjects({ preview: await canPreview() });
+  return <StudyBrowseView subjects={subjects} />;
 }

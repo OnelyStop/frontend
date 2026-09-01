@@ -27,7 +27,7 @@
     "encryption",
     "authentication"
   ],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": "2026-09-01T00:00:00Z",
@@ -175,7 +175,8 @@
       "explanation": "Every attack targets one or more of these.",
       "difficulty": "easy",
       "sourceBlockIds": ["the-cia-triad"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "virus-worm-trojan",
@@ -184,7 +185,8 @@
       "explanation": "Self-replication is the key divider.",
       "difficulty": "medium",
       "sourceBlockIds": ["malware-types"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "phishing",
@@ -193,7 +195,8 @@
       "explanation": "Vishing is by call, smishing by SMS, spear phishing is targeted.",
       "difficulty": "easy",
       "sourceBlockIds": ["phishing-social-engineering"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "authn-authz",
@@ -202,7 +205,8 @@
       "explanation": "Factors: something you know, have, or are.",
       "difficulty": "medium",
       "sourceBlockIds": ["authn-vs-authz"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "mfa",
@@ -211,7 +215,8 @@
       "explanation": "The three categories are know / have / are.",
       "difficulty": "hard",
       "sourceBlockIds": ["authn-vs-authz"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "symmetric-asymmetric",
@@ -220,7 +225,8 @@
       "explanation": "Often combined: asymmetric to swap a symmetric key, then symmetric for bulk data.",
       "difficulty": "medium",
       "sourceBlockIds": ["encryption"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "hashing-not-encryption",
@@ -229,7 +235,8 @@
       "explanation": "Encryption is reversible with the right key; hashing is not.",
       "difficulty": "hard",
       "sourceBlockIds": ["encryption"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     },
     {
       "id": "backup-321",
@@ -238,7 +245,8 @@
       "explanation": "Backups are the main defence against ransomware.",
       "difficulty": "medium",
       "sourceBlockIds": ["firewalls-and-backups"],
-      "position": 80
+      "position": 80,
+      "status": "approved"
     }
   ]
 }

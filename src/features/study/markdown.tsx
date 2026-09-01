@@ -182,7 +182,23 @@ export function parseMarkdown(src: string): MdNode[] {
     nodes.push({ kind: "paragraph", text: parseInline(buf.join(" ")) });
   }
 
-  return nodes;
+  // Authors space list items with a blank line for readability, which the loop
+  // above splits into separate lists — merge adjacent lists of the same kind so
+  // an ordered list keeps counting instead of restarting at 1.
+  const merged: MdNode[] = [];
+  for (const node of nodes) {
+    const prev = merged[merged.length - 1];
+    if (
+      node.kind === "list" &&
+      prev?.kind === "list" &&
+      prev.ordered === node.ordered
+    ) {
+      prev.items.push(...node.items);
+    } else {
+      merged.push(node);
+    }
+  }
+  return merged;
 }
 
 /** Flatten to plain text — used to build the tutor context and to search. */

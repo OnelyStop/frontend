@@ -21,7 +21,7 @@
     "Use this classification to locate the faulty word in an error-detection item."
   ],
   "tags": ["grammar", "parts-of-speech", "word-classes", "error-detection"],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": null,
@@ -163,7 +163,8 @@
       "explanation": "Each names a job a word can do in a sentence.",
       "difficulty": "easy",
       "sourceBlockIds": ["the-eight-classes"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "adj-vs-adv",
@@ -172,7 +173,8 @@
       "explanation": "The adjective describes the subject via the linking verb.",
       "difficulty": "medium",
       "sourceBlockIds": ["adjective-vs-adverb"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "prep-vs-conj",
@@ -181,7 +183,8 @@
       "explanation": "Check what follows: a noun or a subject-plus-verb.",
       "difficulty": "medium",
       "sourceBlockIds": ["preposition-vs-conjunction"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "despite-of",
@@ -190,7 +193,8 @@
       "explanation": "\"Despite of\" mixes the two acceptable forms.",
       "difficulty": "medium",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "function-over-form",
@@ -199,7 +203,8 @@
       "explanation": "Always read the full sentence before labelling.",
       "difficulty": "medium",
       "sourceBlockIds": ["function-over-form"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "ly-adjectives",
@@ -208,7 +213,8 @@
       "explanation": "The -ly ending is a hint, not a rule.",
       "difficulty": "hard",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "however-punctuation",
@@ -217,7 +223,8 @@
       "explanation": "\"The queue was long; however, it moved fast.\"",
       "difficulty": "hard",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }

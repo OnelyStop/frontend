@@ -43,7 +43,14 @@ export function FlashcardPlayer({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") return onClose();
+      if (e.key === "Escape") {
+        // Capture phase + stopImmediatePropagation so this closes the player
+        // rather than the running head walking a level up the URL.
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        onClose();
+        return;
+      }
       if (!cards) return;
       if (e.key === " ") {
         e.preventDefault();
@@ -52,8 +59,9 @@ export function FlashcardPlayer({
       }
       if (shown && GRADES.some((g) => g.key === e.key)) advance();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKey, { capture: true });
+    return () =>
+      window.removeEventListener("keydown", onKey, { capture: true });
   }, [cards, shown, advance, onClose]);
 
   const done = cards ? i >= cards.length : false;

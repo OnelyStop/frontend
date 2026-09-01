@@ -21,7 +21,7 @@
     "Compute average speed correctly for equal distances and for equal times."
   ],
   "tags": ["arithmetic", "average", "mean", "bank-exams"],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": null,
@@ -187,7 +187,8 @@
       "explanation": "This 'replace every value' view is what makes average questions really total questions.",
       "difficulty": "easy",
       "sourceBlockIds": ["introduction"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "sum-from-average",
@@ -196,7 +197,8 @@
       "explanation": "Given an average and a count, write the sum first.",
       "difficulty": "easy",
       "sourceBlockIds": ["sum-count-average"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "shift-rule",
@@ -205,7 +207,8 @@
       "explanation": "A direct consequence of sum = average × count.",
       "difficulty": "medium",
       "sourceBlockIds": ["sum-count-average"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "value-removed",
@@ -214,7 +217,8 @@
       "explanation": "Adjust the sum and the count together.",
       "difficulty": "medium",
       "sourceBlockIds": ["worked-example-removed"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "target-score",
@@ -223,7 +227,8 @@
       "explanation": "The new innings must also lift each earlier innings to the new average.",
       "difficulty": "hard",
       "sourceBlockIds": ["worked-example-target"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "avg-speed-equal-distance",
@@ -232,7 +237,8 @@
       "explanation": "Average speed = total distance / total time.",
       "difficulty": "medium",
       "sourceBlockIds": ["worked-example-speed"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "avg-of-averages",
@@ -241,7 +247,8 @@
       "explanation": "Group size weights the contribution.",
       "difficulty": "medium",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     },
     {
       "id": "equal-time-speed",
@@ -250,7 +257,8 @@
       "explanation": "The weighting is by time, not distance.",
       "difficulty": "hard",
       "sourceBlockIds": ["quick-revision"],
-      "position": 80
+      "position": 80,
+      "status": "approved"
     }
   ]
 }

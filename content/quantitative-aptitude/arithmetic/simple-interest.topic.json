@@ -21,7 +21,7 @@
     "Recover the principal and rate from amounts known at two different times."
   ],
   "tags": ["arithmetic", "simple-interest", "interest", "bank-exams"],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": null,
@@ -131,7 +131,11 @@
           "value": 12.5,
           "expression": "100/8"
         },
-        { "label": "years to triple", "value": 16, "expression": "2/0.125" }
+        {
+          "label": "years to triple",
+          "value": 16,
+          "expression": "2/0.125"
+        }
       ]
     },
     {
@@ -152,7 +156,11 @@
           "value": 300,
           "expression": "(4800 - 4200)/2"
         },
-        { "label": "principal", "value": 3300, "expression": "4200 - 3*300" }
+        {
+          "label": "principal",
+          "value": 3300,
+          "expression": "4200 - 3*300"
+        }
       ]
     },
     {
@@ -190,7 +198,8 @@
       "explanation": "Interest is on the original principal only.",
       "difficulty": "easy",
       "sourceBlockIds": ["the-formula"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "si-linear",
@@ -199,7 +208,8 @@
       "explanation": "The principal never changes, so yearly interest is constant.",
       "difficulty": "easy",
       "sourceBlockIds": ["introduction"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "si-doubling-rate",
@@ -208,7 +218,8 @@
       "explanation": "Rate for doubling in n years is 100/n percent.",
       "difficulty": "medium",
       "sourceBlockIds": ["worked-example-doubling"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "si-triple-time",
@@ -217,7 +228,8 @@
       "explanation": "Time to become k times is (k−1)×100/R years.",
       "difficulty": "hard",
       "sourceBlockIds": ["worked-example-doubling"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "si-two-amounts",
@@ -226,7 +238,8 @@
       "explanation": "The gap between the two amounts is that many years' interest.",
       "difficulty": "hard",
       "sourceBlockIds": ["worked-example-two-amounts"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "si-months",
@@ -235,7 +248,8 @@
       "explanation": "T must be in years to match an annual rate.",
       "difficulty": "easy",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "si-interest-vs-amount",
@@ -244,7 +258,8 @@
       "explanation": "A frequent slip is to report P·R·T/100 as the amount.",
       "difficulty": "easy",
       "sourceBlockIds": ["common-mistakes"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }

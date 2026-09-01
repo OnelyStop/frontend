@@ -27,7 +27,7 @@
     "guessing",
     "accuracy"
   ],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": "2026-09-01T00:00:00Z",
@@ -178,7 +178,8 @@
       "explanation": "The descriptive paper is marked separately.",
       "difficulty": "easy",
       "sourceBlockIds": ["the-penalty"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "blind-guess-ev",
@@ -187,7 +188,8 @@
       "explanation": "So blind guessing is not a scoring strategy.",
       "difficulty": "medium",
       "sourceBlockIds": ["expected-value"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "when-to-guess",
@@ -196,7 +198,8 @@
       "explanation": "Eliminating just one gives only a tiny edge.",
       "difficulty": "medium",
       "sourceBlockIds": ["expected-value"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "double-loss",
@@ -205,7 +208,8 @@
       "explanation": "Hence controlling negatives beats chasing extra attempts.",
       "difficulty": "medium",
       "sourceBlockIds": ["why-control-negatives"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "accuracy-example",
@@ -214,7 +218,8 @@
       "explanation": "Accuracy, not attempt count, drives the score.",
       "difficulty": "medium",
       "sourceBlockIds": ["worked-example"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "except-not",
@@ -223,7 +228,8 @@
       "explanation": "A quick re-read of the stem prevents many wrong marks.",
       "difficulty": "easy",
       "sourceBlockIds": ["habits"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "track-accuracy",
@@ -232,7 +238,8 @@
       "explanation": "Attempts alone can hide a rising error rate.",
       "difficulty": "medium",
       "sourceBlockIds": ["habits"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }

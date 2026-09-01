@@ -45,7 +45,7 @@ export default async function Page({ params }: { params: Params }) {
       outline={outline}
       chapters={subject?.chapters ?? []}
       initialNotes={notes}
-      preview={preview}
+      signedIn={Boolean(userId)}
     />
   );
 }

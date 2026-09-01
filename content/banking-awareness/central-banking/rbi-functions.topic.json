@@ -27,7 +27,7 @@
     "note-issue",
     "lender-of-last-resort"
   ],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": "2026-09-01T00:00:00Z",
@@ -163,7 +163,8 @@
       "explanation": "Recommended by the Hilton Young Commission.",
       "difficulty": "easy",
       "sourceBlockIds": ["establishment"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "one-rupee-note",
@@ -172,7 +173,8 @@
       "explanation": "The RBI is the currency authority for higher-denomination notes.",
       "difficulty": "medium",
       "sourceBlockIds": ["traditional-functions"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "minimum-reserve-system",
@@ -181,7 +183,8 @@
       "explanation": "Replaced the older proportional reserve system.",
       "difficulty": "medium",
       "sourceBlockIds": ["traditional-functions"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "lender-of-last-resort",
@@ -190,7 +193,8 @@
       "explanation": "It is emergency liquidity, not a bailout of a failed bank.",
       "difficulty": "medium",
       "sourceBlockIds": ["traditional-functions"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "rbi-governance",
@@ -199,7 +203,8 @@
       "explanation": "Four regional Local Boards advise the Central Board.",
       "difficulty": "medium",
       "sourceBlockIds": ["governance"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "rbi-fema",
@@ -208,7 +213,8 @@
       "explanation": "FEMA replaced the older FERA regime.",
       "difficulty": "medium",
       "sourceBlockIds": ["regulatory-and-supervisory"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "rbi-institutions",
@@ -217,7 +223,8 @@
       "explanation": "Part of the RBI's developmental function.",
       "difficulty": "hard",
       "sourceBlockIds": ["developmental-functions"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }

@@ -27,7 +27,7 @@
     "crossing",
     "cts"
   ],
-  "contentStatus": "draft",
+  "contentStatus": "published",
   "contentVersion": 1,
   "authoredBy": "content-pipeline",
   "lastReviewedAt": "2026-09-01T00:00:00Z",
@@ -176,7 +176,8 @@
       "explanation": "A cheque is a bill of exchange drawn on a banker and payable on demand.",
       "difficulty": "easy",
       "sourceBlockIds": ["the-three"],
-      "position": 10
+      "position": 10,
+      "status": "approved"
     },
     {
       "id": "cheque-parties",
@@ -185,7 +186,8 @@
       "explanation": "The one who endorses it on the back is the endorser; the recipient is the endorsee.",
       "difficulty": "easy",
       "sourceBlockIds": ["parties-to-a-cheque"],
-      "position": 20
+      "position": 20,
+      "status": "approved"
     },
     {
       "id": "stale-cheque",
@@ -194,7 +196,8 @@
       "explanation": "A post-dated cheque cannot be paid before its date.",
       "difficulty": "easy",
       "sourceBlockIds": ["parties-to-a-cheque"],
-      "position": 30
+      "position": 30,
+      "status": "approved"
     },
     {
       "id": "special-crossing",
@@ -203,7 +206,8 @@
       "explanation": "General crossing (just two lines) can be collected by any bank.",
       "difficulty": "medium",
       "sourceBlockIds": ["crossing"],
-      "position": 40
+      "position": 40,
+      "status": "approved"
     },
     {
       "id": "not-negotiable",
@@ -212,7 +216,8 @@
       "explanation": "A common trap: 'not negotiable' is not 'not transferable'.",
       "difficulty": "hard",
       "sourceBlockIds": ["crossing"],
-      "position": 50
+      "position": 50,
+      "status": "approved"
     },
     {
       "id": "blank-endorsement",
@@ -221,7 +226,8 @@
       "explanation": "A full endorsement also names the next payee.",
       "difficulty": "medium",
       "sourceBlockIds": ["endorsement"],
-      "position": 60
+      "position": 60,
+      "status": "approved"
     },
     {
       "id": "cts",
@@ -230,7 +236,8 @@
       "explanation": "This cuts clearing time and removes physical-movement risk.",
       "difficulty": "medium",
       "sourceBlockIds": ["cheque-truncation"],
-      "position": 70
+      "position": 70,
+      "status": "approved"
     }
   ]
 }
