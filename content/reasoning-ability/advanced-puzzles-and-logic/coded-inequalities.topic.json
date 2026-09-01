@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "advanced-puzzles-and-logic",
+  "chapterName": "Advanced puzzles and logic",
+  "chapterPosition": 3,
+  "topicSlug": "coded-inequalities",
+  "topicPosition": 10,
+  "title": "Coded Inequalities",
+  "summary": "Symbols stand in for the relations greater-than, less-than, equal, at-least and at-most. How to decode the symbols, build one combined chain, test each conclusion for a definite result, and spot the either-or complementary pair.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["syllogisms"],
+  "learningObjectives": [
+    "Replace each coded symbol with its plain relation before doing anything else.",
+    "Join the statements into a single chain and read the relation between two letters off it.",
+    "Decide whether a conclusion is definitely true, not just possibly true.",
+    "Recognise the either-or case: two conclusions that are individually uncertain but together exhaustive."
+  ],
+  "tags": ["reasoning", "inequalities", "coded", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Order_of_Operations",
+      "title": "Arithmetic (inequality relations)",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the transitivity of the order relations. All coded sets here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm coded inequalities are a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-format",
+      "type": "introduction",
+      "title": "What the question gives you",
+      "markdown": "A key defines symbols in terms of relations, for example:\n\n- `P @ Q` means **P is not smaller than Q** (so P ≥ Q)\n- `P & Q` means **P is not greater than Q** (so P ≤ Q)\n- `P # Q` means **P is neither smaller than nor equal to Q** (so P > Q)\n- `P © Q` means **P is neither greater than nor smaller than Q** (so P = Q)\n- `P % Q` means **P is neither greater than nor equal to Q** (so P < Q)\n\nThen you get two or three coded statements and two or three coded conclusions, and you decide which conclusions **definitely** follow.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "coded inequality key symbols not smaller than not greater than",
+        "neither greater nor equal means less than",
+        "two or three statements and conclusions which definitely follow"
+      ],
+      "position": 10
+    },
+    {
+      "id": "decode-then-chain",
+      "type": "method",
+      "title": "Decode, then build one chain",
+      "markdown": "1. **Rewrite every symbol** as `>`, `<`, `≥`, `≤` or `=`. Do this before you look at the conclusions.\n2. **Line the statements up on their shared letters** so they form one chain, e.g. `A ≥ B`, `B > C`, `C ≤ D` → `A ≥ B > C ≤ D`.\n3. **Read the relation between two letters straight off the chain.** Between A and C every link points the same way and at least one is strict, so `A > C`.\n4. **A chain that changes direction gives nothing.** In `B > C ≤ D` there is no fixed relation between B and D — the chain breaks at C.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "decode every symbol first then build one chain on shared letters",
+        "read relation between two letters off the chain same direction one strict",
+        "chain that changes direction gives nothing breaks at the pivot"
+      ],
+      "position": 20
+    },
+    {
+      "id": "definite-not-possible",
+      "type": "method",
+      "title": "Definite, not merely possible",
+      "markdown": "A conclusion follows only if it is true in **every** case the statements allow.\n\n- `A ≥ C` makes the conclusion `A > C` **not** follow — A could equal C.\n- `A ≥ C` makes `A = C` **not** follow either — A could be larger.\n- `A ≥ C` **does** make `A ≥ C` follow, and makes `C > A` fail.\n\nSo `≥` on the chain kills both the strict `>` conclusion and the `=` conclusion when each is offered alone. Test the conclusion by asking: can I find one allowed case where it is false? If yes, it does not follow.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "conclusion follows only if true in every allowed case definite not possible",
+        "A greater or equal C makes strict greater not follow and equal not follow",
+        "test by finding one allowed case where the conclusion is false"
+      ],
+      "position": 30
+    },
+    {
+      "id": "either-or",
+      "type": "concept",
+      "title": "The either-or case",
+      "markdown": "Sometimes two conclusions between the **same pair** of letters are each uncertain on their own, but together they cover every case. Then the answer is **either–or**.\n\nExample: the chain gives `A ≥ C`. Two conclusions are offered:\n\n- I. `A > C`\n- II. `A = C`\n\nNeither is definite. But `A ≥ C` means A is greater than C **or** equal to C — there is no third option — so **either I or II follows**.\n\nCheck two things before you call either-or: the two conclusions must be about the **same two letters**, and they must be **complementary** (`>` with `=`, or `≥` with `<`, or `>` with `≤`). If both can be true at once, or a gap is left, it is not either-or.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "either or case two conclusions same pair each uncertain together exhaustive",
+        "chain gives greater or equal so either strict greater or equal follows",
+        "conclusions must be same two letters and complementary no gap no overlap"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "Key: `#` is `>`, `%` is `<`, `@` is `≥`, `&` is `≤`, `©` is `=`.\n\n**Set 1.** Statements: `A @ B`, `B # C`, `C & D`. Conclusions: I. `A # C`  II. `D # C`.\n\nChain: `A ≥ B > C ≤ D`. A to C: `≥` then `>`, same direction, one strict → `A > C`, so **I follows**. D to C: only `C ≤ D`, i.e. `D ≥ C`; `D > C` is not definite → **II does not follow**. Answer: **only I**.\n\n**Set 2.** Statements: `P @ Q`, `Q @ R`. Conclusions: I. `P # R`  II. `P © R`  III. `R # P`.\n\nChain: `P ≥ Q ≥ R` → `P ≥ R`. I (`P > R`) not definite; II (`P = R`) not definite; III (`R > P`) is definitely false. I and II are about the same pair and are complementary over `P ≥ R`, so **either I or II follows**; III does not.\n\n**Set 3.** Statements: `M % N`, `N & O`. Conclusions: I. `M % O`  II. `O # M`.\n\nChain: `M < N ≤ O` → `M < O`. That is the same as `O > M`. So **both I and II follow** — they say the same thing from the two ends.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example chain A ge B gt C le D only I follows",
+        "P ge Q ge R either P gt R or P eq R follows reverse false",
+        "M lt N le O both conclusions follow same relation from two ends"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Reading a conclusion off before decoding** — the symbols in the conclusions use the same key, decode those too.\n- **Treating `≥` as `>`.** `A ≥ C` does not let you conclude `A > C`.\n- **Joining across a broken chain.** `B > C ≤ D` says nothing about B and D.\n- **Calling either-or when the two conclusions are about different pairs**, or when they overlap (both could be true), or when they leave a case uncovered.\n- **Forgetting that `>` and `<` between the same pair from opposite ends are the same conclusion**, not two.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "coded inequality mistakes decode the conclusions too not just statements",
+        "treating greater-or-equal as strict greater joining across a broken chain",
+        "false either or different pairs overlap or uncovered case"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Decode every symbol in the statements **and** the conclusions to `>`, `<`, `≥`, `≤`, `=`.\n- Build one chain on shared letters. A relation between two letters follows only if every link between them points the same way, with at least one strict for a strict conclusion.\n- A chain that changes direction gives no relation across the pivot.\n- `≥` between a pair blocks both `>` alone and `=` alone; if `>` and `=` for that pair are both offered, the answer is **either–or**.\n- Either–or needs the two conclusions to be the same pair and exactly complementary.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "coded inequality summary decode build one chain same direction one strict",
+        "direction change gives nothing ge blocks strict and equal alone",
+        "either or needs same pair and complementary"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Key: `#` is `>`, `%` is `<`, `@` is `≥`, `&` is `≤`, `©` is `=`. For each, say which conclusions follow — only I, only II, either I or II, both, or neither — with a one-line reason.\n\n1. Statements: `A # B`, `B @ C`. Conclusions: I. `A # C`  II. `C % A`.\n2. Statements: `P # Q`, `Q @ R`. Conclusions: I. `R # P`  II. `P © R`.\n3. Statements: `L @ M`, `M @ N`. Conclusions: I. `L # N`  II. `L © N`.\n4. Statements: `X % Y`, `Y & Z`. Conclusions: I. `X # Z`  II. `Z # X`.\n5. Statements: `D © E`, `E & F`. Conclusions: I. `F @ D`  II. `F # D`.\n6. Statements: `G & H`, `H # K`. Conclusions: I. `G # K`  II. `K @ G`.\n7. Statements: `R @ S`, `S # T`, `T @ U`. Conclusions: I. `R # T`  II. `R # U`.",
+      "searchKeywords": [
+        "coded inequality practice which conclusions follow only I only II either or both neither",
+        "chain testing definite versus possible either or complementary pair exercises"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "decode-first",
+      "front": "What is the very first step on a coded-inequality question?",
+      "back": "Rewrite every symbol — in the statements and the conclusions — as >, <, ≥, ≤ or =, before doing anything else.",
+      "explanation": "The conclusions use the same key and must be decoded too.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["decode-then-chain"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "chain-direction",
+      "front": "When does a relation between two letters follow from the chain?",
+      "back": "When every link between them points the same way; for a strict (>) conclusion at least one of those links must be strict.",
+      "explanation": "A ≥ B > C gives A > C; A ≥ B ≥ C gives only A ≥ C.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["decode-then-chain", "definite-not-possible"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "broken-chain",
+      "front": "What can you conclude between B and D from 'B > C ≤ D'?",
+      "back": "Nothing. The chain changes direction at C, so there is no fixed relation between B and D.",
+      "explanation": "Both B > D and B < D are possible.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["decode-then-chain"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "ge-blocks-both",
+      "front": "The chain gives A ≥ C. Does 'A > C' follow? Does 'A = C' follow?",
+      "back": "Neither follows on its own — A could equal C, or could be larger. Only 'A ≥ C' follows.",
+      "explanation": "This is the setup for an either-or answer.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["definite-not-possible"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "either-or-rule",
+      "front": "When is the answer 'either I or II'?",
+      "back": "When I and II are about the same pair of letters, are exactly complementary (e.g. > with =), and together cover every case the chain allows — while neither is definite alone.",
+      "explanation": "A ≥ C with conclusions 'A > C' and 'A = C'.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["either-or"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "same-conclusion-two-ends",
+      "front": "Statements give M < O. Conclusions: I. 'M < O'  II. 'O > M'. What follows?",
+      "back": "Both. They state the same relation read from the two ends, so both follow — it is not an either-or.",
+      "explanation": "Either-or needs complementary conclusions, not identical ones.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "false-reverse",
+      "front": "The chain gives P ≥ R. Does 'R > P' follow?",
+      "back": "No — it is definitely false. P ≥ R rules out R being greater than P.",
+      "explanation": "A conclusion that contradicts the chain never follows.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["worked-example"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}
