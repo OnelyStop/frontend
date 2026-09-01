@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "prudential-regulation",
+  "chapterName": "Prudential regulation and risk",
+  "chapterPosition": 5,
+  "topicSlug": "asset-quality-and-npas",
+  "topicPosition": 10,
+  "title": "Asset Quality and Non-Performing Assets",
+  "summary": "When a loan turns bad, how NPAs are classified as sub-standard, doubtful or loss, the SMA early-warning buckets, and the gross NPA, net NPA and provision coverage ratios — with a worked calculation and the life-cycle of a bad loan from slippage to resolution.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["types-of-banks-in-india"],
+  "learningObjectives": [
+    "State the 90-day rule and how the NPA trigger differs across loan types.",
+    "Classify an NPA as sub-standard, doubtful or loss and order the SMA buckets.",
+    "Compute the gross NPA ratio, net NPA ratio and provision coverage ratio from a balance-sheet extract.",
+    "Explain slippage, upgradation, write-off versus waiver, restructuring and the IBC resolution route."
+  ],
+  "tags": ["banking-awareness", "npa", "asset-quality", "provisioning", "irac"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_MASTER_DIRECTIONS",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "title": "RBI Master Directions and prudential norms on income recognition, asset classification and provisioning",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the 90-day rule, the four-way asset classification, SMA buckets and the direction of provisioning. Restated in original wording; no percentages quoted verbatim."
+    },
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm current terminology (CRILC reporting, SMA framework)."
+    },
+    {
+      "sourceId": "INDIACODE_BANKING_ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1885",
+      "title": "Banking Regulation Act, 1949",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Statutory backdrop for the RBI's power to prescribe provisioning and to direct write-offs and recovery action."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "why-asset-quality-matters",
+      "type": "introduction",
+      "title": "Why asset quality matters",
+      "markdown": "A loan is an asset on a bank's balance sheet: it is meant to earn interest and be repaid. When a borrower stops servicing a loan, that asset stops *performing* — it earns nothing and may not be recovered in full.\n\nAsset quality is watched closely because bad loans hit a bank three ways: interest income stops being recognised, the bank must set aside **provisions** (a charge against profit) for the expected loss, and sustained losses erode **capital**, which limits how much the bank can lend. Supervisors therefore prescribe exactly when a loan turns bad and how much must be held against it.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "RBI_HOME"],
+      "searchKeywords": [
+        "why asset quality matters bank",
+        "bad loans hit income provisions capital",
+        "provisioning charge against profit"
+      ],
+      "position": 10
+    },
+    {
+      "id": "what-is-an-npa",
+      "type": "definition",
+      "title": "What makes an asset non-performing",
+      "markdown": "A **non-performing asset (NPA)** is a loan or advance where interest or principal has been *overdue* for more than **90 days**. The precise trigger depends on the facility:\n\n- **Term loan:** interest or a principal instalment overdue for more than 90 days.\n- **Cash credit / overdraft:** the account stays *out of order* — the balance is continuously over the sanctioned limit, or there are no credits for 90 days, or credits are not enough to cover the interest debited.\n- **Bills purchased or discounted:** the bill remains overdue for more than 90 days.\n- **Short-duration crop loans:** overdue for two crop seasons; **long-duration crop loans:** one crop season.\n\nOnce an account is NPA, the *whole* outstanding is treated as non-performing, not only the overdue part.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "NPA definition 90 days overdue",
+        "out of order cash credit overdraft",
+        "crop loan two seasons NPA",
+        "whole outstanding becomes NPA"
+      ],
+      "position": 20
+    },
+    {
+      "id": "classification",
+      "type": "concept",
+      "title": "Four-way classification",
+      "markdown": "NPAs are graded by how long they have stayed bad and how likely recovery is:\n\n- **Standard:** performing normally; not an NPA. A small general provision still applies.\n- **Sub-standard:** an NPA for up to 12 months.\n- **Doubtful:** an NPA for more than 12 months.\n- **Loss:** identified by the bank, its auditors or the RBI inspector as uncollectible — little or no salvage value — though not yet written off.\n\nProvisioning rises as the grade worsens: a small percentage on standard assets, more on sub-standard, still more on doubtful (increasing with age and split between the secured and unsecured portions), and effectively the full amount on loss assets. The *direction* matters more for the exam than the exact percentages, which the RBI revises.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "standard sub-standard doubtful loss classification",
+        "sub-standard NPA up to 12 months",
+        "doubtful beyond 12 months",
+        "provisioning rises with grade"
+      ],
+      "position": 30
+    },
+    {
+      "id": "sma-buckets",
+      "type": "concept",
+      "title": "SMA early-warning buckets",
+      "markdown": "Before an account becomes an NPA, banks must flag it as a **special mention account (SMA)** so stress is caught early:\n\n- **SMA-0:** principal or interest not overdue for more than 30 days, but the account already shows signs of stress.\n- **SMA-1:** principal or interest overdue between 31 and 60 days.\n- **SMA-2:** principal or interest overdue between 61 and 90 days.\n\nAt 90 days overdue the account crosses into NPA. For large borrowers, banks also report SMA status to the RBI's **Central Repository of Information on Large Credits (CRILC)**, so the whole system can see building stress on a common exposure.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "RBI_HOME"],
+      "searchKeywords": [
+        "SMA-0 SMA-1 SMA-2 overdue days",
+        "special mention account early warning",
+        "CRILC large credit reporting",
+        "31 to 60 days 61 to 90 days"
+      ],
+      "position": 40
+    },
+    {
+      "id": "gross-net-pcr",
+      "type": "concept",
+      "title": "Gross NPA, net NPA and provision coverage",
+      "markdown": "Three ratios summarise a bank's asset quality:\n\n- **Gross NPA ratio** = gross NPAs / gross advances. The headline stock of bad loans, before any provisioning.\n- **Net NPA ratio** = (gross NPAs − provisions held against NPAs) / (gross advances − those provisions). What is left after the buffer the bank has already built.\n- **Provision coverage ratio (PCR)** = provisions held against NPAs / gross NPAs. How much of the bad book is already absorbed by provisions; a higher PCR means a smaller shock still to come.\n\nA bank with a high gross NPA ratio but a high PCR is better placed than one with the same gross ratio and a low PCR.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "gross NPA ratio formula",
+        "net NPA ratio nets provisions",
+        "provision coverage ratio PCR definition",
+        "high PCR smaller future shock"
+      ],
+      "position": 50
+    },
+    {
+      "id": "reading-the-numbers",
+      "type": "worked_example",
+      "title": "Reading a bank's asset-quality numbers",
+      "markdown": "An extract from a bank's year-end accounts:\n\n- Gross advances: ₹10,000 crore\n- Gross NPAs: ₹800 crore\n- Provisions held against NPAs: ₹500 crore\n\n**Gross NPA ratio** = 800 / 10,000 × 100 = **8%**.\n\n**Net NPAs** = 800 − 500 = **₹300 crore**.\n\n**Net NPA ratio** = 300 / (10,000 − 500) × 100 = 300 / 9,500 × 100 = **3.16%**.\n\n**PCR** = 500 / 800 × 100 = **62.5%**.\n\nReading: about one rupee in twelve of the loan book is bad, but the bank has already provided for nearly two-thirds of it, so the unprovided hit is around 3.2% of net advances.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "worked example gross NPA net NPA PCR calculation",
+        "gross advances 10000 gross NPA 800 provisions 500",
+        "net NPA ratio 3.16 percent"
+      ],
+      "expectedAnswers": [
+        {
+          "label": "Gross NPA ratio (%)",
+          "value": 8,
+          "expression": "800/10000*100"
+        },
+        { "label": "Net NPAs (crore)", "value": 300, "expression": "800-500" },
+        {
+          "label": "Net NPA ratio (%)",
+          "value": 3.16,
+          "tolerance": 0.01,
+          "expression": "(800-500)/(10000-500)*100"
+        },
+        {
+          "label": "Provision coverage ratio (%)",
+          "value": 62.5,
+          "expression": "500/800*100"
+        }
+      ],
+      "position": 60
+    },
+    {
+      "id": "life-cycle",
+      "type": "concept",
+      "title": "Life-cycle of a bad loan",
+      "markdown": "- **Slippage:** a standard account turning into an NPA during the period. The *slippage ratio* tracks fresh NPAs against opening standard advances.\n- **Upgradation:** an NPA moving back to standard *after the borrower clears all arrears of interest and principal*. A part-payment is not enough.\n- **Write-off:** removing a fully provided NPA from the balance sheet. It cleans the books and can be *technical* — recovery efforts continue and the borrower is not released. A **loan waiver**, by contrast, is a policy decision (often government-funded) that cancels the borrower's dues.\n- **Restructuring:** changing repayment terms for a borrower in difficulty — longer tenor, lower rate, a moratorium. A restructured standard account is normally *reclassified as NPA* and draws higher provisioning, except within specific RBI-notified windows.\n- **Resolution under the IBC:** for large defaults a lender can refer the borrower to the **National Company Law Tribunal**; a resolution professional runs the company while a plan is agreed, and failing that the firm is liquidated. The **SARFAESI** route runs alongside — a secured lender enforcing collateral without going to court.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "INDIACODE_BANKING_ACT"],
+      "searchKeywords": [
+        "slippage upgradation write-off waiver restructuring",
+        "upgradation needs all arrears cleared",
+        "write-off is not loan waiver",
+        "IBC NCLT resolution SARFAESI enforcement"
+      ],
+      "position": 70
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **It is 90 days *overdue*, not 90 days late on one payment cycle** — the period the amount stays unpaid.\n- **The entire outstanding becomes NPA**, not only the overdue instalment.\n- **Sub-standard = up to 12 months as an NPA; doubtful = beyond 12 months.** Age is counted from the date the account became NPA, not the date of first default.\n- **Write-off is not loan waiver.** The bank still pursues recovery after a write-off.\n- **Upgradation needs full clearance of arrears**, not a token payment.\n- **A restructured account is generally NPA**, not standard, outside a special regulatory window.\n- **Net NPA can be near zero** even with a large gross NPA book, if provisioning is high.",
+      "searchKeywords": [
+        "NPA common confusions",
+        "overdue not late",
+        "write-off versus waiver",
+        "restructured account is NPA"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- An NPA is a loan overdue for more than 90 days (out-of-order for cash credit / overdraft; two crop seasons for short-duration crop loans).\n- Grades: standard, then sub-standard (NPA up to 12 months), doubtful (beyond 12 months), loss; provisioning rises down the ladder.\n- SMA-0 / SMA-1 / SMA-2 flag stress at up-to-30 / 31–60 / 61–90 days overdue; large exposures are reported to CRILC.\n- Gross NPA ratio = gross NPAs / gross advances; net NPA ratio nets off provisions; PCR = provisions / gross NPAs.\n- Slippage = fresh NPAs; upgradation needs all arrears cleared; write-off is not a waiver; restructured accounts are usually NPA; large defaults can be resolved through the NCLT under the IBC or via SARFAESI enforcement.",
+      "searchKeywords": [
+        "asset quality NPA summary revision",
+        "classification SMA ratios life-cycle recap"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. A term-loan instalment has been unpaid for 96 days. Standard or NPA?\n2. An account has been an NPA for 15 months. Sub-standard or doubtful?\n3. Principal on a loan is overdue by 74 days. Which SMA bucket?\n4. Gross NPAs ₹600 crore, provisions against them ₹390 crore. What is the PCR?\n5. A bank writes off a loan that was already fully provided. What happens to gross NPAs, and to net NPAs?\n6. A borrower pays half the overdue interest and asks for the account to be made standard again. Can it be upgraded?\n7. Gross advances ₹20,000 crore, gross NPAs ₹1,500 crore. Gross NPA ratio?\n8. A viable account is restructured with a longer tenor, outside any special RBI window. Does it stay classified as standard?\n\n**Answers:** 1 NPA — more than 90 days overdue. 2 Doubtful — an NPA for more than 12 months. 3 SMA-2 — overdue 61–90 days. 4 65% — 390 / 600 × 100. 5 Gross NPAs fall by the written-off amount; net NPAs are unchanged, because that loan was already fully provided. 6 No — upgradation needs *all* arrears of principal and interest cleared. 7 7.5% — 1,500 / 20,000 × 100. 8 No — it is normally reclassified as NPA and provided for more heavily.",
+      "expectedAnswers": [
+        {
+          "label": "Q4 provision coverage ratio (%)",
+          "value": 65,
+          "expression": "390/600*100"
+        },
+        {
+          "label": "Q7 gross NPA ratio (%)",
+          "value": 7.5,
+          "expression": "1500/20000*100"
+        }
+      ],
+      "position": 100
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "npa-90-days",
+      "front": "When does a loan become a non-performing asset (NPA)?",
+      "back": "When interest or principal is overdue for more than 90 days. For cash credit / overdraft, when the account stays 'out of order'; for short-duration crop loans, when overdue for two crop seasons.",
+      "explanation": "Once NPA, the whole outstanding is non-performing, not just the overdue part.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-is-an-npa"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "npa-classes",
+      "front": "The four asset classifications, in order of deterioration?",
+      "back": "Standard, sub-standard (an NPA for up to 12 months), doubtful (an NPA for more than 12 months), loss (uncollectible, not yet written off). Provisioning rises at each step.",
+      "explanation": "Age runs from the date the account became NPA.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["classification"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "sma-buckets",
+      "front": "What overdue periods define SMA-0, SMA-1 and SMA-2?",
+      "back": "SMA-0: stress but not overdue beyond 30 days. SMA-1: overdue 31–60 days. SMA-2: overdue 61–90 days. At 90 days the account becomes an NPA.",
+      "explanation": "Large exposures are also reported to CRILC.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sma-buckets"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "gross-vs-net-npa",
+      "front": "Difference between the gross NPA ratio and the net NPA ratio?",
+      "back": "Gross NPA ratio = gross NPAs / gross advances (bad loans before provisioning). Net NPA ratio nets provisions held against NPAs out of both the numerator and the denominator — the exposure still uncovered.",
+      "explanation": "Net NPA can be near zero if provisioning is high.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["gross-net-pcr"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "pcr",
+      "front": "What does the provision coverage ratio (PCR) measure?",
+      "back": "Provisions held against NPAs / gross NPAs — the share of the bad-loan book already absorbed by provisions. A higher PCR means a smaller future shock.",
+      "explanation": "Two banks with the same gross NPA ratio differ sharply if their PCRs differ.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["gross-net-pcr"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "upgradation",
+      "front": "What must happen before an NPA can be upgraded to 'standard'?",
+      "back": "The borrower must clear all arrears of interest and principal. A part-payment does not qualify.",
+      "explanation": "Contrast with slippage, which is a standard account turning NPA.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["life-cycle"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "writeoff-vs-waiver",
+      "front": "Write-off versus loan waiver?",
+      "back": "A write-off removes a fully provided bad loan from the balance sheet, but the bank keeps pursuing recovery and the borrower still owes the money. A waiver cancels the borrower's dues, usually as a government-funded policy measure.",
+      "explanation": "A write-off can be purely 'technical'.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["life-cycle"],
+      "status": "approved",
+      "position": 70
+    },
+    {
+      "id": "restructuring",
+      "front": "How is a stressed account that has been restructured usually classified?",
+      "back": "As an NPA, with higher provisioning — unless the restructuring is done within a specific RBI-notified window. Restructuring changes repayment terms (tenor, rate, moratorium) for a borrower in difficulty.",
+      "explanation": "The classification benefit of special windows is time-bound.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["life-cycle"],
+      "status": "approved",
+      "position": 80
+    },
+    {
+      "id": "ibc-nclt",
+      "front": "What is the IBC / NCLT route for a large bad loan?",
+      "back": "The lender refers the defaulting company to the National Company Law Tribunal under the Insolvency and Bankruptcy Code; a resolution professional runs it while a plan is negotiated, and liquidation follows if none is approved. SARFAESI is the parallel route to enforce collateral without a court.",
+      "explanation": "Both sit on top of the RBI's classification and provisioning norms.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["life-cycle"],
+      "status": "approved",
+      "position": 90
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "prudential-regulation",
+  "chapterName": "Prudential regulation and risk",
+  "chapterPosition": 5,
+  "topicSlug": "basel-norms-and-capital-adequacy",
+  "topicPosition": 20,
+  "title": "Basel Norms and Capital Adequacy",
+  "summary": "Why banks hold regulatory capital, how risk-weighted assets work, the CRAR formula and its CET1 and Tier 1 sub-ratios, the Basel III minimums and buffers, and RBI's stricter Indian implementation — with a worked capital-adequacy calculation.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["asset-quality-and-npas"],
+  "learningObjectives": [
+    "Explain why capital is measured against risk-weighted assets, not total assets.",
+    "Write the CRAR formula and identify the CET1, Tier 1 and total-capital layers.",
+    "State the Basel III minimum ratios and the capital conservation buffer, and RBI's stricter figures.",
+    "Compute CRAR and its sub-ratios from capital and RWA figures and judge compliance."
+  ],
+  "tags": ["banking-awareness", "basel", "capital-adequacy", "crar", "cet1"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "BIS_BASEL",
+      "url": "https://www.bis.org/committees/bcbs/basel-framework",
+      "title": "The Basel Framework",
+      "publisher": "Bank for International Settlements",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the international Basel III minimum ratios, the capital tiers, buffers and the leverage ratio. Explained in original wording."
+    },
+    {
+      "sourceId": "RBI_MASTER_DIRECTIONS",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "title": "RBI Master Directions and Basel III capital regulations",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the RBI's Indian implementation — minimum CRAR of 9%, CET1 and Tier 1 minimums, the conservation buffer, and the LCR / NSFR standards. Restated originally; exact percentages treated as revisable."
+    },
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm current terminology for buffers and liquidity standards."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "why-capital",
+      "type": "introduction",
+      "title": "Why banks must hold capital",
+      "markdown": "When a loan goes bad, the loss is first absorbed by the bank's **capital** — shareholders' funds and similar instruments that rank behind depositors. Capital is the cushion that lets a bank take losses and still repay depositors, so a regulator's central prudential question is: *does this bank hold enough capital for the risks on its books?*\n\nThe **Basel framework**, issued by the Basel Committee at the Bank for International Settlements, is the international answer. India applies it through RBI regulations, currently a version of **Basel III**, which was tightened after the 2008 global financial crisis.",
+      "sourceIds": ["BIS_BASEL", "RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "why banks hold regulatory capital",
+        "capital absorbs losses ahead of depositors",
+        "Basel framework BIS Basel Committee",
+        "Basel III after 2008 crisis"
+      ],
+      "position": 10
+    },
+    {
+      "id": "rwa",
+      "type": "concept",
+      "title": "Risk-weighted assets",
+      "markdown": "Capital is not measured against total assets but against **risk-weighted assets (RWA)**. Each exposure is multiplied by a **risk weight** that reflects its credit risk:\n\n- cash and government securities: close to 0%\n- claims on well-rated banks and corporates: low weights\n- ordinary retail and corporate loans: roughly 75–100%\n- unrated or high-risk exposures: 100% or more\n\nA ₹100 crore loan at a 50% risk weight adds ₹50 crore to RWA. Market risk and operational risk are converted into RWA-equivalents and added. Dividing capital by RWA rather than by total assets means a bank holding safer assets needs less capital for the same book size.",
+      "sourceIds": ["BIS_BASEL", "RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "risk weighted assets RWA risk weight",
+        "government securities near zero weight",
+        "retail loans 75 to 100 percent weight",
+        "market risk operational risk RWA equivalent"
+      ],
+      "position": 20
+    },
+    {
+      "id": "crar",
+      "type": "formula",
+      "title": "The capital adequacy ratio",
+      "markdown": "The **Capital to Risk-weighted Assets Ratio (CRAR)**, also called the Capital Adequacy Ratio (CAR):\n\n**CRAR = (Tier 1 capital + Tier 2 capital) / Risk-weighted assets × 100**\n\nTwo sub-ratios are tested the same way: the **CET1 ratio** (CET1 / RWA) and the **Tier 1 ratio** (Tier 1 / RWA). A bank must clear every one of the three minimums, not just the headline CRAR.",
+      "sourceIds": ["BIS_BASEL", "RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "CRAR formula capital adequacy ratio",
+        "capital divided by risk weighted assets",
+        "CET1 ratio Tier 1 ratio sub-ratios",
+        "must clear all three minimums"
+      ],
+      "position": 30
+    },
+    {
+      "id": "capital-stack",
+      "type": "concept",
+      "title": "The capital stack: CET1, AT1, Tier 2",
+      "markdown": "Capital is tiered by how well it absorbs losses while the bank is a going concern:\n\n- **Common Equity Tier 1 (CET1):** paid-up equity, free reserves, retained earnings. The highest quality — permanent and fully loss-absorbing.\n- **Additional Tier 1 (AT1):** perpetual instruments with no maturity date, discretionary coupons, and write-down or conversion features. CET1 + AT1 = **Tier 1 (going-concern) capital**.\n- **Tier 2:** subordinated debt with a minimum maturity, plus certain reserves and general provisions. **Gone-concern** capital — it mainly protects depositors in liquidation.\n\nDeductions such as goodwill and certain investments are taken mostly from CET1.",
+      "sourceIds": ["BIS_BASEL", "RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "CET1 common equity tier 1 equity reserves",
+        "additional tier 1 AT1 perpetual instruments",
+        "tier 2 subordinated debt gone concern",
+        "CET1 plus AT1 equals tier 1"
+      ],
+      "position": 40
+    },
+    {
+      "id": "minimums-buffers",
+      "type": "concept",
+      "title": "Basel III minimums and buffers",
+      "markdown": "Basel III minimum ratios, as a share of RWA:\n\n- CET1: **4.5%**\n- Tier 1: **6%**\n- Total capital (CRAR): **8%**\n\nOn top of the minimum sit **buffers**:\n\n- **Capital conservation buffer (CCB): 2.5%** of RWA, met with CET1. Fall into the buffer and the bank faces automatic limits on dividends and bonuses.\n- **Countercyclical capital buffer (CCyB): 0 to 2.5%**, switched on by the regulator when system-wide credit growth looks excessive.\n- A **leverage ratio** — Tier 1 / total (unweighted) exposure — is a backstop that does not depend on risk weights.\n- **Systemically important banks** carry an additional surcharge.",
+      "sourceIds": ["BIS_BASEL"],
+      "searchKeywords": [
+        "Basel III minimum CET1 4.5 Tier 1 6 total 8",
+        "capital conservation buffer 2.5 percent CET1",
+        "countercyclical capital buffer 0 to 2.5",
+        "leverage ratio backstop unweighted exposure"
+      ],
+      "position": 50
+    },
+    {
+      "id": "india-rbi",
+      "type": "concept",
+      "title": "India: RBI's stricter figures",
+      "markdown": "RBI's implementation is stricter than the Basel floor:\n\n- Minimum **CRAR: 9%** (against Basel's 8%).\n- Minimum **CET1: 5.5%**; minimum **Tier 1: 7%**.\n- **CCB: 2.5%** in CET1, so a fully compliant bank holds CET1 of about **8%** and total capital of about **11.5%**.\n- Public-sector and systemically important banks carry further add-ons.\n\nTwo liquidity standards run alongside the capital rules: the **Liquidity Coverage Ratio (LCR)** — enough high-quality liquid assets to survive a 30-day stress outflow — and the **Net Stable Funding Ratio (NSFR)** — enough stable funding to support assets over a one-year horizon.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "RBI_HOME"],
+      "searchKeywords": [
+        "RBI minimum CRAR 9 percent versus Basel 8",
+        "RBI CET1 5.5 Tier 1 7 conservation buffer",
+        "compliant bank CET1 near 8 total near 11.5",
+        "LCR 30 day NSFR one year liquidity"
+      ],
+      "position": 60
+    },
+    {
+      "id": "compute-crar",
+      "type": "worked_example",
+      "title": "Computing CRAR and checking compliance",
+      "markdown": "A bank reports:\n\n- CET1 capital: ₹800 crore\n- Additional Tier 1: ₹100 crore\n- Tier 2 capital: ₹350 crore\n- Risk-weighted assets: ₹10,000 crore\n\n**CET1 ratio** = 800 / 10,000 × 100 = **8%**.\n\n**Tier 1 ratio** = (800 + 100) / 10,000 × 100 = **9%**.\n\n**CRAR** = (800 + 100 + 350) / 10,000 × 100 = **12.5%**.\n\n**Check:** RBI's minimum CRAR including the conservation buffer is 9% + 2.5% = **11.5%**. At 12.5% the bank is above that, and its CET1 (8%) meets the 5.5% + 2.5% = 8% requirement exactly. The bank is compliant, with a thin CET1 margin.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "worked example CRAR CET1 Tier 1 calculation",
+        "CET1 800 AT1 100 Tier 2 350 RWA 10000",
+        "CRAR 12.5 percent compliant conservation buffer 11.5"
+      ],
+      "expectedAnswers": [
+        {
+          "label": "CET1 ratio (%)",
+          "value": 8,
+          "expression": "800/10000*100"
+        },
+        {
+          "label": "Tier 1 ratio (%)",
+          "value": 9,
+          "expression": "(800+100)/10000*100"
+        },
+        {
+          "label": "CRAR (%)",
+          "value": 12.5,
+          "expression": "(800+100+350)/10000*100"
+        },
+        {
+          "label": "Minimum CRAR incl. conservation buffer (%)",
+          "value": 11.5,
+          "expression": "9+2.5"
+        }
+      ],
+      "position": 70
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **Capital adequacy is measured against risk-weighted assets, not total assets.**\n- **CRAR 9% is the RBI minimum; 8% is the Basel III minimum.** India is stricter.\n- **CET1 is part of Tier 1, which is part of total capital.** AT1 sits inside Tier 1; Tier 2 is separate.\n- **The capital conservation buffer is not optional headroom** — breaching it triggers restrictions on payouts even though the bank is above the bare minimum.\n- **The leverage ratio ignores risk weights** deliberately; it is a floor, not the main test.\n- **LCR is the 30-day liquidity test; NSFR is the one-year funding test.** Neither is a capital ratio.\n- Exact percentages are set by the RBI and revised — learn the structure.",
+      "searchKeywords": [
+        "Basel capital confusions",
+        "CRAR 9 RBI versus 8 Basel",
+        "conservation buffer not optional",
+        "leverage ratio risk blind LCR NSFR not capital"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Capital absorbs losses ahead of depositors; the Basel framework (BIS) sets the international rules, the RBI applies Basel III in India.\n- CRAR = (Tier 1 + Tier 2) / risk-weighted assets × 100; the CET1 and Tier 1 sub-ratios are tested too.\n- Capital stack: CET1 (equity, reserves) + AT1 = Tier 1 (going concern); Tier 2 = gone concern.\n- Basel III minimums: CET1 4.5%, Tier 1 6%, total 8%, plus a 2.5% conservation buffer and a 0–2.5% countercyclical buffer; a leverage ratio backstops it.\n- RBI minimums: CRAR 9%, CET1 5.5%, Tier 1 7%, plus the 2.5% buffer — so a compliant bank runs CET1 near 8% and CRAR near 11.5%. LCR and NSFR cover liquidity.",
+      "searchKeywords": [
+        "Basel norms capital adequacy summary revision",
+        "CRAR formula tiers minimums RBI figures recap"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. RWA ₹5,000 crore, total capital ₹450 crore. What is the CRAR, and does it clear the RBI minimum?\n2. Which is the highest-quality capital: CET1, AT1 or Tier 2?\n3. What is the Basel III minimum total capital ratio, before buffers?\n4. What is the size of the capital conservation buffer, and which capital must meet it?\n5. A ₹200 crore exposure carries a 50% risk weight. How much does it add to RWA?\n6. Which ratio tests survival over a 30-day stress period — LCR or NSFR?\n7. Does the leverage ratio use risk-weighted or total exposure?\n\n**Answers:** 1 CRAR = 450 / 5,000 × 100 = 9% — it just meets the RBI minimum but leaves nothing for the 2.5% conservation buffer, so payouts would be restricted. 2 CET1 — permanent, fully loss-absorbing equity and reserves. 3 8%. 4 2.5% of RWA, met with CET1. 5 ₹100 crore — 200 × 0.5. 6 LCR. 7 Total (unweighted) exposure — it is a deliberately risk-blind backstop.",
+      "expectedAnswers": [
+        { "label": "Q1 CRAR (%)", "value": 9, "expression": "450/5000*100" },
+        {
+          "label": "Q5 RWA added (crore)",
+          "value": 100,
+          "expression": "200*0.5"
+        }
+      ],
+      "position": 100
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "crar-formula",
+      "front": "Write the CRAR (capital adequacy ratio) formula.",
+      "back": "CRAR = (Tier 1 capital + Tier 2 capital) / risk-weighted assets × 100. The CET1 ratio and Tier 1 ratio are tested the same way against RWA.",
+      "explanation": "A bank must clear all three minimums, not just the headline.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["crar"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "rwa",
+      "front": "Why is capital measured against risk-weighted assets rather than total assets?",
+      "back": "Each exposure is multiplied by a risk weight reflecting its credit risk — near 0% for government securities, up to 100% or more for risky loans — so a bank holding safer assets needs less capital for the same book size.",
+      "explanation": "Market and operational risk are added as RWA-equivalents.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["rwa"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "capital-tiers",
+      "front": "What makes up Tier 1 capital, and how does Tier 2 differ?",
+      "back": "Tier 1 = CET1 (equity, reserves, retained earnings) + Additional Tier 1 (perpetual instruments); it absorbs losses as a going concern. Tier 2 (subordinated debt, some provisions) is 'gone-concern' capital that mainly protects depositors in liquidation.",
+      "explanation": "Deductions come mostly from CET1.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["capital-stack"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "basel3-minimums",
+      "front": "Basel III minimum CET1, Tier 1 and total capital ratios?",
+      "back": "CET1 4.5%, Tier 1 6%, total capital 8% of risk-weighted assets, plus a 2.5% capital conservation buffer held in CET1.",
+      "explanation": "A 0–2.5% countercyclical buffer can be switched on too.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["minimums-buffers"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "rbi-crar",
+      "front": "What minimum CRAR and CET1 does the RBI require, versus Basel?",
+      "back": "RBI: CRAR 9% (Basel 8%), CET1 5.5%, Tier 1 7%, plus a 2.5% conservation buffer — so a compliant bank holds roughly 11.5% total capital and 8% CET1.",
+      "explanation": "Public-sector and systemically important banks carry add-ons.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["india-rbi"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "conservation-buffer",
+      "front": "What happens if a bank dips into its capital conservation buffer?",
+      "back": "It faces automatic limits on discretionary payouts — dividends and staff bonuses — even though it is still above the bare regulatory minimum.",
+      "explanation": "The buffer is 2.5% of RWA, held in CET1.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["minimums-buffers"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "leverage-ratio",
+      "front": "What does the leverage ratio measure, and why is it 'risk-blind'?",
+      "back": "Tier 1 capital / total unweighted exposure. It ignores risk weights on purpose, acting as a backstop in case risk-weighting understates true risk.",
+      "explanation": "It is a floor, not the primary adequacy test.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["minimums-buffers"],
+      "status": "approved",
+      "position": 70
+    },
+    {
+      "id": "lcr-nsfr",
+      "front": "LCR versus NSFR?",
+      "back": "LCR: enough high-quality liquid assets to cover a 30-day stress outflow. NSFR: enough stable funding to support assets over one year. Both are liquidity standards, not capital ratios.",
+      "explanation": "They sit alongside the CRAR rules.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["india-rbi"],
+      "status": "approved",
+      "position": 80
+    }
+  ]
+}
