@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "products",
+  "chapterName": "Banking products and operations",
+  "chapterPosition": 2,
+  "topicSlug": "negotiable-instruments",
+  "topicPosition": 20,
+  "title": "Negotiable Instruments: Cheques, Bills and Promissory Notes",
+  "summary": "What a negotiable instrument is under the Negotiable Instruments Act, 1881, the three named instruments, the parties to a cheque, crossing and endorsement, and how cheque truncation (CTS) clears a cheque without moving the paper.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["deposit-accounts"],
+  "learningObjectives": [
+    "Define a negotiable instrument and name the three under the 1881 Act.",
+    "Identify the drawer, drawee and payee of a cheque, and the endorser and endorsee.",
+    "Explain general and special crossing and 'account payee' crossing.",
+    "Describe how the Cheque Truncation System clears a cheque."
+  ],
+  "tags": [
+    "banking-awareness",
+    "negotiable-instruments",
+    "cheque",
+    "crossing",
+    "cts"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "INDIACODE_NI_ACT",
+      "url": "https://www.indiacode.nic.in/indiacode/handle/123456789/2189",
+      "title": "Negotiable Instruments Act, 1881",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm the statutory definitions of a promissory note, a bill of exchange and a cheque, and the concepts of crossing and endorsement. Restated in original wording."
+    },
+    {
+      "sourceId": "RBI_FAME",
+      "url": "https://www.rbi.org.in/commonperson/English/Scripts/PressReleases.aspx?Id=2123",
+      "title": "RBI consumer material on cheques and clearing",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the RBI's description of cheque clearing and the truncation system. Explained in original wording."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-is-negotiable",
+      "type": "definition",
+      "title": "What a negotiable instrument is",
+      "markdown": "A **negotiable instrument** is a written document that contains an unconditional promise or order to pay a certain sum of money, and whose ownership can be transferred by delivery (or by endorsement and delivery) so that the transferee, if a **holder in due course**, gets a good title even if the transferor's title was defective.\n\nThe **Negotiable Instruments Act, 1881** names three: the **promissory note**, the **bill of exchange**, and the **cheque**. Instruments negotiable by custom, such as bearer bonds, exist but the three named ones are the exam focus.",
+      "sourceIds": ["INDIACODE_NI_ACT"],
+      "searchKeywords": [
+        "negotiable instrument definition",
+        "unconditional promise or order to pay",
+        "holder in due course good title",
+        "NI Act 1881 three instruments"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-three",
+      "type": "concept",
+      "title": "The three instruments",
+      "markdown": "- **Promissory note:** a written, signed **promise by the maker to pay** a certain sum to a specified person or to bearer. Two parties: the **maker** and the **payee**. A currency note is not treated as a promissory note for the Act's purposes.\n- **Bill of exchange:** a written, signed **order by the drawer to the drawee** to pay a certain sum to a specified person. Three parties: **drawer**, **drawee** (who becomes the **acceptor** on accepting), and **payee**. Used heavily in trade credit.\n- **Cheque:** a bill of exchange **drawn on a specified banker** and payable **on demand**. It includes the electronic image of a truncated cheque and a cheque in electronic form.",
+      "sourceIds": ["INDIACODE_NI_ACT"],
+      "searchKeywords": [
+        "promissory note maker payee",
+        "bill of exchange drawer drawee acceptor payee",
+        "cheque drawn on banker payable on demand",
+        "truncated cheque electronic form"
+      ],
+      "position": 20
+    },
+    {
+      "id": "parties-to-a-cheque",
+      "type": "concept",
+      "title": "Parties to a cheque",
+      "markdown": "- **Drawer:** the account holder who writes and signs the cheque.\n- **Drawee:** the bank on which the cheque is drawn - always a specified banker.\n- **Payee:** the person to whom, or to whose order, the amount is to be paid.\n\nWhen the payee signs the back to transfer the cheque, that person is the **endorser** and the person it is transferred to is the **endorsee**. A cheque payable to \"bearer\" passes by delivery alone; a cheque payable to \"order\" needs endorsement and delivery.\n\nA cheque is normally **stale** (out of date) after three months from its date.",
+      "sourceIds": ["INDIACODE_NI_ACT", "RBI_FAME"],
+      "searchKeywords": [
+        "drawer drawee payee cheque",
+        "endorser endorsee",
+        "bearer versus order cheque",
+        "stale cheque three months"
+      ],
+      "position": 30
+    },
+    {
+      "id": "crossing",
+      "type": "concept",
+      "title": "Crossing",
+      "markdown": "**Crossing** a cheque - drawing two parallel transverse lines across the face - directs that it be paid **into a bank account**, not in cash over the counter. It makes the cheque safer if lost.\n\n- **General crossing:** just the two lines, with or without the words \"and company\" or \"not negotiable\". Any bank may collect it.\n- **Special crossing:** the name of a **particular bank** is written between the lines; only that bank may collect it.\n- **Account payee (A/c payee) crossing:** a direction to the collecting bank to credit the proceeds only to the account of the named payee. It is not defined in the Act but is universally honoured.\n- **\"Not negotiable\" crossing:** the cheque can still be transferred, but a transferee gets no better title than the transferor had - it removes holder-in-due-course protection.",
+      "sourceIds": ["INDIACODE_NI_ACT"],
+      "searchKeywords": [
+        "crossing a cheque two parallel lines",
+        "general special crossing",
+        "account payee crossing",
+        "not negotiable crossing no better title"
+      ],
+      "position": 40
+    },
+    {
+      "id": "endorsement",
+      "type": "concept",
+      "title": "Endorsement",
+      "markdown": "**Endorsement** is signing on the back of an instrument to transfer it.\n\n- **Blank (general) endorsement:** the endorser only signs; the instrument becomes payable to bearer.\n- **Full (special) endorsement:** the endorser signs and names the person to whom payment is to be made.\n- **Restrictive endorsement:** limits further transfer, e.g. \"Pay X only\".\n- **Conditional / qualified endorsement:** adds a condition or limits the endorser's liability, e.g. \"sans recourse\".\n\nEach endorser guarantees to every later holder that the instrument will be honoured, and takes on liability if it is not.",
+      "sourceIds": ["INDIACODE_NI_ACT"],
+      "searchKeywords": [
+        "endorsement blank full restrictive conditional",
+        "sans recourse",
+        "pay X only",
+        "endorser liability to later holders"
+      ],
+      "position": 50
+    },
+    {
+      "id": "cheque-truncation",
+      "type": "method",
+      "title": "Cheque truncation (CTS)",
+      "markdown": "The **Cheque Truncation System (CTS)** clears a cheque using its **electronic image and key data**, so the physical cheque stops with the bank where it is deposited (the presenting bank) and does not travel to the paying bank.\n\nThe presenting bank captures a scanned image plus the MICR-line data and sends them through the clearing house to the drawee bank, which decides to pay or return based on the image. This cuts clearing time and cost, removes physical movement risk, and enables grid-based clearing across the country. Physical cheques are retained for a prescribed period in case the image is disputed.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "cheque truncation system CTS",
+        "electronic image MICR data",
+        "presenting bank drawee bank",
+        "faster clearing no physical movement grid"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **A cheque is a species of bill of exchange** - one drawn on a banker and payable on demand.\n- **A promissory note has two parties; a bill of exchange has three.** A currency note is not a promissory note under the Act.\n- **\"Not negotiable\" does not mean non-transferable.** It can still change hands, but no one gets a better title than the transferor.\n- **Account-payee crossing is a banking practice, not a section of the Act**, yet banks always honour it.\n- **Crossing controls how a cheque is paid (into an account), not whether it can be endorsed.**\n- **Under CTS the image is the cheque for clearing purposes;** the paper is kept only for later dispute.\n- **Dishonour of a cheque for insufficient funds is a criminal offence** under Section 138 of the Act, subject to the notice and time conditions in the section.",
+      "sourceIds": ["INDIACODE_NI_ACT"],
+      "searchKeywords": [
+        "negotiable instruments confusions",
+        "cheque is a bill of exchange",
+        "not negotiable still transferable",
+        "account payee not in act",
+        "section 138 dishonour"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Negotiable instrument: an unconditional promise or order to pay a certain sum, transferable so a holder in due course gets a clean title.\n- Three under the NI Act, 1881: promissory note (maker, payee), bill of exchange (drawer, drawee/acceptor, payee), cheque (a bill drawn on a banker, payable on demand).\n- Cheque parties: drawer (account holder), drawee (the bank), payee. Transfer by delivery (bearer) or endorsement plus delivery (order). Stale after three months.\n- Crossing sends payment into an account: general (any bank), special (a named bank), account payee (credit only the named payee), \"not negotiable\" (no better title than the transferor).\n- Endorsement types: blank, full, restrictive, conditional/qualified; each endorser is liable to later holders.\n- CTS clears a cheque by its image and MICR data; the paper stays with the presenting bank.",
+      "sourceIds": ["INDIACODE_NI_ACT"],
+      "searchKeywords": [
+        "negotiable instruments summary",
+        "revision",
+        "cheque bill promissory note crossing endorsement CTS recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "three-instruments",
+      "front": "Name the three negotiable instruments under the NI Act, 1881, and their parties.",
+      "back": "Promissory note (maker, payee); bill of exchange (drawer, drawee/acceptor, payee); cheque (drawer, drawee bank, payee).",
+      "explanation": "A cheque is a bill of exchange drawn on a banker and payable on demand.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-three"],
+      "position": 10
+    },
+    {
+      "id": "cheque-parties",
+      "front": "Who are the drawer, drawee and payee of a cheque?",
+      "back": "Drawer = the account holder who signs it; drawee = the bank it is drawn on; payee = the person to be paid.",
+      "explanation": "The one who endorses it on the back is the endorser; the recipient is the endorsee.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["parties-to-a-cheque"],
+      "position": 20
+    },
+    {
+      "id": "stale-cheque",
+      "front": "After how long is a cheque normally treated as stale?",
+      "back": "Three months from the date on the cheque.",
+      "explanation": "A post-dated cheque cannot be paid before its date.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["parties-to-a-cheque"],
+      "position": 30
+    },
+    {
+      "id": "special-crossing",
+      "front": "What does a special crossing on a cheque do?",
+      "back": "It names a particular bank between the lines; only that bank may collect the cheque.",
+      "explanation": "General crossing (just two lines) can be collected by any bank.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["crossing"],
+      "position": 40
+    },
+    {
+      "id": "not-negotiable",
+      "front": "Does a 'not negotiable' crossing stop a cheque from being transferred?",
+      "back": "No. It can still be transferred, but a transferee gets no better title than the transferor had - it removes holder-in-due-course protection.",
+      "explanation": "A common trap: 'not negotiable' is not 'not transferable'.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["crossing"],
+      "position": 50
+    },
+    {
+      "id": "blank-endorsement",
+      "front": "What is the effect of a blank endorsement?",
+      "back": "The endorser only signs the back, and the instrument becomes payable to bearer (transferable by delivery alone).",
+      "explanation": "A full endorsement also names the next payee.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["endorsement"],
+      "position": 60
+    },
+    {
+      "id": "cts",
+      "front": "Under the Cheque Truncation System, what actually moves to the paying bank?",
+      "back": "The electronic image of the cheque plus its MICR-line data. The physical cheque stays with the presenting bank.",
+      "explanation": "This cuts clearing time and removes physical-movement risk.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cheque-truncation"],
+      "position": 70
+    }
+  ]
+}

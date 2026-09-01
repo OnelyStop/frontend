@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "products",
+  "chapterName": "Banking products and operations",
+  "chapterPosition": 2,
+  "topicSlug": "deposit-accounts",
+  "topicPosition": 10,
+  "title": "Deposit Accounts",
+  "summary": "The four core deposit products - savings, current, fixed and recurring - how demand and time deposits differ, the ideas of nomination, joint operation, and TDS on interest, and where deposit insurance fits.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["types-of-banks-in-india"],
+  "learningObjectives": [
+    "Distinguish demand deposits from time deposits.",
+    "Describe savings, current, fixed and recurring deposit accounts and who each suits.",
+    "Explain nomination, mode of operation, and premature withdrawal of a term deposit.",
+    "State what deposit insurance covers and up to what limit."
+  ],
+  "tags": [
+    "banking-awareness",
+    "deposits",
+    "savings-account",
+    "fixed-deposit",
+    "dicgc"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_FAME",
+      "url": "https://www.rbi.org.in/commonperson/English/Scripts/PressReleases.aspx?Id=2123",
+      "title": "RBI financial-literacy material on bank accounts",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the RBI's consumer description of account types and customer rights. Explained in original wording."
+    },
+    {
+      "sourceId": "DICGC_FAQ",
+      "url": "https://www.dicgc.org.in/FAQs",
+      "title": "DICGC FAQ - deposit insurance",
+      "publisher": "Deposit Insurance and Credit Guarantee Corporation",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "sourceUpdatedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Verified the current deposit-insurance coverage on the retrieval date. The limit is a regulatory figure and is flagged volatile."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "demand-vs-time",
+      "type": "definition",
+      "title": "Demand deposits and time deposits",
+      "markdown": "Deposits split by when the bank must repay.\n\n- A **demand deposit** is repayable on demand, in full, at any time. Savings and current accounts are demand deposits. They are part of a bank's liquid liabilities.\n- A **time (term) deposit** is repayable only after a fixed period. Fixed and recurring deposits are time deposits. They pay a higher rate because the bank can plan around the money.\n\nBoth are counted in a bank's **net demand and time liabilities (NDTL)**, the base for the CRR and SLR.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "demand deposit versus time deposit",
+        "repayable on demand",
+        "fixed period higher rate",
+        "net demand and time liabilities NDTL"
+      ],
+      "position": 10
+    },
+    {
+      "id": "savings-and-current",
+      "type": "concept",
+      "title": "Savings and current accounts",
+      "markdown": "- **Savings account:** for individuals and certain non-trading bodies to keep money they do not need immediately. It pays interest, allows a limited number of free withdrawals, and usually requires a minimum balance (waived for a BSBDA). Not meant for business turnover.\n- **Current account:** for businesses and professionals with frequent, high-volume transactions. It normally pays **no interest**, allows unlimited transactions, and often comes with an overdraft facility. Minimum balances are higher.\n\nBoth are demand deposits, both allow cheques, and both can be single, joint, or operated by a mandate holder.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "savings account current account difference",
+        "savings pays interest limited withdrawals",
+        "current account no interest overdraft",
+        "minimum balance"
+      ],
+      "position": 20
+    },
+    {
+      "id": "fixed-and-recurring",
+      "type": "concept",
+      "title": "Fixed and recurring deposits",
+      "markdown": "- **Fixed deposit (FD), also called a term deposit:** a lump sum locked for a chosen period, from a few days to several years, at a rate fixed at the start. Interest can be paid out periodically or reinvested and paid at maturity.\n- **Recurring deposit (RD):** a fixed sum paid in every month for a chosen period, earning FD-like interest, with the total plus interest paid at maturity. It suits salaried savers building a corpus.\n\nA term deposit can usually be **withdrawn prematurely**, but the bank applies the rate for the period the money actually stayed, minus a penalty. A depositor can also take a **loan or overdraft against the deposit** instead of breaking it.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "fixed deposit term deposit",
+        "recurring deposit monthly",
+        "premature withdrawal penalty",
+        "loan against fixed deposit"
+      ],
+      "position": 30
+    },
+    {
+      "id": "operating-features",
+      "type": "concept",
+      "title": "Nomination, joint operation and TDS",
+      "markdown": "- **Nomination:** the account holder can name one nominee who receives the balance on the holder's death, which lets the bank pay out without a succession certificate. The nominee is a receiver, not necessarily the legal heir.\n- **Mode of operation for joint accounts:** *either or survivor*, *former or survivor*, *jointly*, or *jointly or survivor* - these decide who can operate the account and who gets the balance if one holder dies.\n- **Tax deducted at source (TDS):** banks deduct tax on interest paid on deposits above a threshold in a year; savings-account interest has a separate, larger exemption. Interest on FDs and RDs is taxable; savings and current-account balances are not \"taxed\" as such, only their interest.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "nomination bank account",
+        "either or survivor former or survivor",
+        "TDS on deposit interest threshold",
+        "nominee not legal heir"
+      ],
+      "position": 40
+    },
+    {
+      "id": "deposit-insurance",
+      "type": "concept",
+      "title": "Deposit insurance",
+      "markdown": "Deposits in banks are insured by the **Deposit Insurance and Credit Guarantee Corporation (DICGC)**, a wholly owned subsidiary of the RBI.\n\n- Cover applies to savings, current, fixed and recurring deposits in all commercial banks, RRBs, small finance and payments banks, and cooperative banks.\n- As verified on **1 September 2026**, the insurance covers **principal and interest up to a maximum of Rs 5,00,000 per depositor per bank**, for deposits held in the same right and same capacity.\n- Deposits in different banks are separately covered; deposits in different branches of the same bank are added together.\n- The premium is paid by the bank, not the depositor.\n\nThe Rs 5 lakh figure is a regulatory limit and can be revised - re-verify on dicgc.org.in.",
+      "sourceIds": ["DICGC_FAQ"],
+      "searchKeywords": [
+        "DICGC deposit insurance",
+        "5 lakh per depositor per bank",
+        "principal and interest covered",
+        "premium paid by bank",
+        "same right same capacity"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **Current accounts do not normally earn interest.** Savings accounts do.\n- **A nominee receives the money but is a trustee for the legal heirs**, not automatically the owner.\n- **Premature FD withdrawal uses the rate for the actual period held, minus a penalty** - not the originally contracted rate.\n- **Deposit insurance is per depositor per bank, principal plus interest together**, capped - not per account.\n- **NBFC deposits are not covered by DICGC.**\n- **The Rs 5 lakh limit is volatile** - it was raised in the past and could change again.\n- **A recurring deposit is a time deposit**, even though money goes in monthly.",
+      "sourceIds": ["DICGC_FAQ", "RBI_FAME"],
+      "searchKeywords": [
+        "deposit confusions",
+        "current account no interest",
+        "nominee trustee for heirs",
+        "deposit insurance per depositor per bank",
+        "NBFC not covered"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Demand deposits (savings, current) are repayable on demand; time deposits (FD, RD) after a fixed period and pay more. Both count in NDTL.\n- Savings: individuals, interest, limited free withdrawals, minimum balance. Current: businesses, no interest, unlimited transactions, often an overdraft.\n- FD: lump sum for a fixed term at a fixed rate. RD: fixed monthly instalments earning FD-like interest.\n- Premature term-deposit withdrawal: rate for the period actually held, minus a penalty; or take a loan against the deposit.\n- Nomination lets the bank pay the nominee without a succession certificate; the nominee holds for the legal heirs.\n- DICGC insures principal plus interest up to Rs 5,00,000 per depositor per bank (verified 1 September 2026; volatile). Bank pays the premium; NBFC deposits are not covered.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "deposit accounts summary",
+        "revision",
+        "demand time savings current FD RD DICGC recap"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "demand-vs-time",
+      "front": "Which deposits are 'demand' and which are 'time'?",
+      "back": "Demand: savings and current (repayable on demand). Time: fixed and recurring (repayable after a fixed period, higher rate).",
+      "explanation": "All four count in net demand and time liabilities.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["demand-vs-time"],
+      "position": 10
+    },
+    {
+      "id": "current-no-interest",
+      "front": "Does a current account pay interest?",
+      "back": "Normally no. It is built for high-volume business transactions and often carries an overdraft facility instead.",
+      "explanation": "Savings accounts pay interest but limit free withdrawals.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["savings-and-current"],
+      "position": 20
+    },
+    {
+      "id": "premature-fd",
+      "front": "What rate applies when a fixed deposit is broken early?",
+      "back": "The rate for the period the money actually stayed, minus a premature-withdrawal penalty - not the originally contracted rate.",
+      "explanation": "Alternatively, take a loan against the FD to avoid breaking it.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["fixed-and-recurring"],
+      "position": 30
+    },
+    {
+      "id": "nominee-role",
+      "front": "Is a bank-account nominee the owner of the money after the holder dies?",
+      "back": "No. The nominee receives the balance so the bank can pay out without a succession certificate, but holds it as a trustee for the legal heirs.",
+      "explanation": "Nomination simplifies payout, not inheritance.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["operating-features"],
+      "position": 40
+    },
+    {
+      "id": "dicgc-limit",
+      "front": "What does DICGC deposit insurance cover, and up to how much?",
+      "back": "Principal and interest together, up to Rs 5,00,000 per depositor per bank (verified 1 September 2026), for deposits held in the same right and capacity.",
+      "explanation": "The bank pays the premium; the figure is a revisable regulatory limit.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["deposit-insurance"],
+      "position": 50
+    },
+    {
+      "id": "dicgc-across-banks",
+      "front": "You have Rs 4 lakh in Bank A and Rs 4 lakh in Bank B. How much is insured?",
+      "back": "All Rs 8 lakh - the Rs 5 lakh cap is per depositor per bank, so each bank's deposit is separately covered.",
+      "explanation": "Different branches of the same bank are added together, though.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["deposit-insurance"],
+      "position": 60
+    },
+    {
+      "id": "either-or-survivor",
+      "front": "What does 'either or survivor' mean for a joint account?",
+      "back": "Either holder can operate the account alone; on the death of one, the survivor gets the balance.",
+      "explanation": "'Former or survivor' lets only the first holder operate while both are alive.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["operating-features"],
+      "position": 70
+    }
+  ]
+}

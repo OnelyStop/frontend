@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "central-banking",
+  "chapterName": "Central banking and regulation",
+  "chapterPosition": 3,
+  "topicSlug": "monetary-policy-instruments",
+  "topicPosition": 20,
+  "title": "Monetary Policy Instruments",
+  "summary": "The objective of monetary policy and the tools the RBI uses: the policy repo rate and the liquidity corridor (SDF and MSF), the bank rate, CRR and SLR, open market operations, and the role of the Monetary Policy Committee. Current numeric values are given only as a dated snapshot.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["rbi-functions"],
+  "learningObjectives": [
+    "State the objective of monetary policy under the flexible inflation-targeting framework.",
+    "Explain the repo rate and how the SDF and MSF form the liquidity corridor.",
+    "Distinguish quantitative tools (CRR, SLR, OMO) from the price tool (the policy rate).",
+    "Describe the composition and decision rule of the Monetary Policy Committee."
+  ],
+  "tags": [
+    "banking-awareness",
+    "monetary-policy",
+    "repo-rate",
+    "crr-slr",
+    "mpc"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 180,
+  "sources": [
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India - home (policy rates panel)",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Policy rate values read from the RBI home page rates panel on the retrieval date. These change at each MPC meeting; the topic marks them volatile."
+    },
+    {
+      "sourceId": "RBI_MASTER_DIRECTIONS",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "title": "RBI Master Directions index",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the current definitions of CRR, SLR and the liquidity facilities. Concepts restated in original wording."
+    },
+    {
+      "sourceId": "INDIACODE_RBI_ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2398",
+      "title": "Reserve Bank of India Act, 1934 (as amended)",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm the statutory basis of the inflation-targeting framework and the Monetary Policy Committee. Restated in original wording."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-objective",
+      "type": "definition",
+      "title": "The objective",
+      "markdown": "Since the 2016 amendment to the Reserve Bank of India Act, India follows **flexible inflation targeting**. The primary objective of monetary policy is stated as **price stability while keeping in mind the objective of growth**.\n\nThe **inflation target** is set by the Central Government in consultation with the RBI for a multi-year period, expressed as a central number with a tolerance band on either side. If inflation stays outside the band for a defined stretch, the RBI must report to the Government explaining why and what it will do. Treat the exact target number and band as periodically reviewed.",
+      "sourceIds": ["INDIACODE_RBI_ACT", "RBI_HOME"],
+      "searchKeywords": [
+        "flexible inflation targeting",
+        "price stability with growth",
+        "inflation target set by government",
+        "tolerance band failure report"
+      ],
+      "position": 10
+    },
+    {
+      "id": "repo-and-corridor",
+      "type": "concept",
+      "title": "The policy repo rate and the liquidity corridor",
+      "markdown": "The main instrument is the **policy repo rate**: the rate at which banks borrow overnight from the RBI against government securities under the liquidity adjustment facility. Raising it makes credit costlier and cools demand; lowering it does the opposite.\n\nAround the repo rate sits a corridor:\n\n- **Standing Deposit Facility (SDF):** the rate at which banks park surplus funds with the RBI **without** giving collateral. It is the **floor** of the corridor.\n- **Marginal Standing Facility (MSF):** the rate at which banks borrow overnight against securities, including by dipping into their SLR holdings, when the interbank market is tight. It is the **ceiling**.\n\nThe SDF and MSF are normally set a fixed margin below and above the repo rate.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "RBI_HOME"],
+      "searchKeywords": [
+        "policy repo rate",
+        "liquidity adjustment facility",
+        "standing deposit facility floor",
+        "marginal standing facility ceiling",
+        "liquidity corridor"
+      ],
+      "position": 20
+    },
+    {
+      "id": "current-snapshot",
+      "type": "concept",
+      "title": "Current values - a dated snapshot",
+      "markdown": "As read from the RBI home page on **1 September 2026**:\n\n- Policy repo rate: **5.25%**\n- Standing Deposit Facility rate: **5.00%**\n- Marginal Standing Facility rate: **5.50%**\n- Bank Rate: aligned with the MSF rate\n- Cash Reserve Ratio (CRR): **3.00%** of net demand and time liabilities\n- Statutory Liquidity Ratio (SLR): **18.00%** of net demand and time liabilities\n\n**These are volatile.** The policy rates are reviewed at every MPC meeting and CRR and SLR can be changed by the RBI at any time. Always verify against rbi.org.in before using a number in an answer.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "repo rate 5.25",
+        "SDF 5.00 MSF 5.50",
+        "CRR 3 percent SLR 18 percent",
+        "current policy rates snapshot volatile"
+      ],
+      "position": 30
+    },
+    {
+      "id": "crr-slr-bank-rate",
+      "type": "concept",
+      "title": "CRR, SLR and the bank rate",
+      "markdown": "- **Cash Reserve Ratio (CRR):** the share of a bank's net demand and time liabilities it must keep as cash balances with the RBI. It earns no interest, so raising the CRR directly drains lendable funds.\n- **Statutory Liquidity Ratio (SLR):** the share of net demand and time liabilities a bank must hold in safe liquid assets - cash, gold, or approved government securities - with itself. It supports solvency and creates demand for government paper.\n- **Bank Rate:** the rate at which the RBI is prepared to buy or rediscount eligible bills; it is now a penal rate linked to the MSF and is used mainly to price penalties, for example on CRR or SLR shortfalls.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "cash reserve ratio CRR",
+        "statutory liquidity ratio SLR",
+        "net demand and time liabilities",
+        "bank rate penal linked to MSF"
+      ],
+      "position": 40
+    },
+    {
+      "id": "open-market-operations",
+      "type": "concept",
+      "title": "Open market operations and other tools",
+      "markdown": "- **Open Market Operations (OMO):** the RBI buys government securities to inject durable liquidity, or sells them to absorb it. Purchases push money into the system; sales pull it out.\n- **Variable-rate repo and reverse-repo auctions:** fine-tune day-to-day liquidity around the corridor.\n- **Foreign-exchange operations:** buying or selling foreign currency also changes rupee liquidity as a side effect.\n\nThe policy rate is the **price** signal; CRR, SLR and OMO act on the **quantity** of money and liquidity.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "open market operations OMO",
+        "inject absorb liquidity",
+        "variable rate repo auction",
+        "price versus quantity instruments"
+      ],
+      "position": 50
+    },
+    {
+      "id": "mpc",
+      "type": "concept",
+      "title": "The Monetary Policy Committee",
+      "markdown": "The **Monetary Policy Committee (MPC)** sets the policy repo rate. It has **six members**: three from the RBI - the Governor (chair), a Deputy Governor in charge of monetary policy, and an officer nominated by the Central Board - and three external members appointed by the Central Government for a fixed term.\n\nIt meets **at least four times a year**. Decisions are by **majority vote**; in a tie the Governor has a **second, casting vote**. Each member's vote and a statement are published, and the minutes are released after a set number of days.",
+      "sourceIds": ["INDIACODE_RBI_ACT"],
+      "searchKeywords": [
+        "monetary policy committee MPC six members",
+        "three RBI three external",
+        "at least four meetings a year",
+        "majority vote governor casting vote minutes"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **SLR is held by the bank itself; CRR is held with the RBI.** SLR can be in cash, gold or approved securities; CRR is cash only and earns nothing.\n- **The SDF replaced the fixed-rate reverse repo as the corridor floor** in 2022 and needs no collateral.\n- **MSF lets a bank dip into its SLR** to borrow overnight; it is the corridor ceiling.\n- **The MPC decides only the repo rate.** CRR, SLR and OMO are RBI decisions outside the MPC.\n- **The inflation target is set by the Government**, not by the RBI alone, and its numbers are reviewed - do not treat a specific figure as permanent.\n- **All the rate and ratio figures are volatile.** Re-verify before quoting.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "RBI_HOME"],
+      "searchKeywords": [
+        "CRR versus SLR held where",
+        "SDF replaced reverse repo",
+        "MPC decides only repo rate",
+        "inflation target set by government volatile figures"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Objective: flexible inflation targeting - price stability with growth; target set by the Government in consultation with the RBI, with a tolerance band and a failure-report rule.\n- Policy repo rate is the price tool. Corridor: SDF (floor, no collateral) below, MSF (ceiling, can use SLR) above.\n- CRR: cash with the RBI, no interest, on net demand and time liabilities. SLR: liquid assets held by the bank itself (cash, gold, approved securities).\n- Bank rate is now a penal rate linked to the MSF.\n- OMO injects or absorbs durable liquidity by buying or selling G-secs; price signal versus quantity signal.\n- MPC: six members (three RBI, three external), Governor chairs with a casting vote, meets at least four times a year, majority decisions, minutes published; sets only the repo rate.\n- Every rate and ratio figure in this topic is volatile - verify on rbi.org.in.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "monetary policy instruments summary",
+        "revision",
+        "repo corridor CRR SLR OMO MPC recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "mp-objective",
+      "front": "What is the stated objective of monetary policy in India?",
+      "back": "Price stability while keeping in mind the objective of growth - flexible inflation targeting since the 2016 RBI Act amendment.",
+      "explanation": "The numeric target is set by the Government in consultation with the RBI.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-objective"],
+      "position": 10
+    },
+    {
+      "id": "corridor",
+      "front": "What forms the floor and the ceiling of the RBI's liquidity corridor?",
+      "back": "Floor: the Standing Deposit Facility (SDF) rate - banks park surplus, no collateral. Ceiling: the Marginal Standing Facility (MSF) rate - banks borrow overnight, can use SLR.",
+      "explanation": "The policy repo rate sits between them.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["repo-and-corridor"],
+      "position": 20
+    },
+    {
+      "id": "crr-vs-slr",
+      "front": "CRR vs SLR: where is each held, and in what form?",
+      "back": "CRR: cash balances with the RBI, no interest. SLR: liquid assets (cash, gold or approved securities) held by the bank itself.",
+      "explanation": "Both are a percentage of net demand and time liabilities.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["crr-slr-bank-rate"],
+      "position": 30
+    },
+    {
+      "id": "omo",
+      "front": "How does an RBI open market operation add liquidity?",
+      "back": "By buying government securities, which puts money into the banking system. Selling G-secs absorbs liquidity.",
+      "explanation": "OMO acts on the quantity of money; the repo rate acts on its price.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["open-market-operations"],
+      "position": 40
+    },
+    {
+      "id": "mpc-composition",
+      "front": "How many members are on the MPC, and how are they split?",
+      "back": "Six: three from the RBI (Governor as chair, a Deputy Governor, a Board-nominated officer) and three external members appointed by the Central Government.",
+      "explanation": "It meets at least four times a year.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["mpc"],
+      "position": 50
+    },
+    {
+      "id": "mpc-tie",
+      "front": "What happens if the MPC vote is tied?",
+      "back": "The Governor has a second, casting vote. Otherwise decisions are by simple majority, and each member's vote is published.",
+      "explanation": "The minutes are released after a set number of days.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["mpc"],
+      "position": 60
+    },
+    {
+      "id": "mpc-scope",
+      "front": "Does the MPC decide the CRR and SLR?",
+      "back": "No. The MPC sets only the policy repo rate. CRR, SLR and OMO are RBI decisions outside the MPC.",
+      "explanation": "A common trap in banking-awareness questions.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70
+    }
+  ]
+}

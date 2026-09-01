@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "central-banking",
+  "chapterName": "Central banking and regulation",
+  "chapterPosition": 3,
+  "topicSlug": "priority-sector-lending-and-financial-inclusion",
+  "topicPosition": 30,
+  "title": "Priority Sector Lending and Financial Inclusion",
+  "summary": "What priority sector lending (PSL) is, the categories it covers, how targets and shortfalls work through instruments like RIDF and PSL certificates, and the main financial-inclusion tools - no-frills accounts, the business correspondent model, and the JAM stack.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["types-of-banks-in-india"],
+  "learningObjectives": [
+    "Define priority sector lending and name its main categories.",
+    "Explain how banks meet PSL targets and what happens on a shortfall.",
+    "Describe priority sector lending certificates and their purpose.",
+    "List the core instruments of financial inclusion in India."
+  ],
+  "tags": [
+    "banking-awareness",
+    "priority-sector-lending",
+    "financial-inclusion",
+    "business-correspondent",
+    "jam"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 180,
+  "sources": [
+    {
+      "sourceId": "RBI_MASTER_DIRECTIONS",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "title": "RBI Master Directions index (Priority Sector Lending)",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the current PSL categories and the target/shortfall mechanism. Percentages and sub-targets are revised periodically and are flagged volatile."
+    },
+    {
+      "sourceId": "RBI_FAME",
+      "url": "https://www.rbi.org.in/commonperson/English/Scripts/PressReleases.aspx?Id=2123",
+      "title": "RBI financial-literacy and financial-inclusion material",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the RBI's description of financial-inclusion tools. Explained in original wording."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-psl-is",
+      "type": "definition",
+      "title": "What priority sector lending is",
+      "markdown": "**Priority sector lending (PSL)** is a policy requirement that banks direct a set share of their lending to parts of the economy that are important for national development but tend to be under-served by ordinary commercial credit.\n\nThe target is expressed as a percentage of a bank's **Adjusted Net Bank Credit (ANBC)** or the credit-equivalent of off-balance-sheet exposure, whichever is higher. There are also **sub-targets** for the weakest segments. The overall percentage and the sub-targets are set by the RBI and revised from time to time, so treat any specific figure as volatile.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "priority sector lending definition",
+        "percentage of adjusted net bank credit",
+        "ANBC sub-targets",
+        "under-served sectors"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-categories",
+      "type": "concept",
+      "title": "The categories",
+      "markdown": "Priority sector broadly covers:\n\n- **Agriculture:** farm credit, agriculture infrastructure, and ancillary activities, with a distinct focus on small and marginal farmers.\n- **Micro, Small and Medium Enterprises (MSMEs):** loans to manufacturing and service enterprises within the MSME definition.\n- **Export credit**, within limits.\n- **Education:** loans up to a ceiling for studies in India and abroad.\n- **Housing:** loans up to a ceiling, and loans for slum improvement and affordable housing projects.\n- **Social infrastructure:** schools, health facilities, drinking water and sanitation in smaller towns.\n- **Renewable energy:** loans up to a ceiling for solar, biomass and similar.\n- **Weaker sections:** small and marginal farmers, artisans, SC/ST borrowers, self-help groups, and others specified by the RBI.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "priority sector categories",
+        "agriculture MSME export education housing",
+        "renewable energy social infrastructure weaker sections"
+      ],
+      "position": 20
+    },
+    {
+      "id": "targets-and-shortfall",
+      "type": "method",
+      "title": "Meeting the target, and shortfalls",
+      "markdown": "A bank meets its PSL target directly by making eligible loans. It can also count:\n\n- **on-lending** to and co-lending with other institutions such as NBFCs and RRBs, within limits;\n- purchases of **priority sector lending certificates** from banks with a surplus.\n\nIf a bank still falls short at year-end, it must place the shortfall amount in funds with development institutions - for example the **Rural Infrastructure Development Fund (RIDF)** with NABARD, or corresponding funds with SIDBI, NHB and MUDRA. These deposits carry a low return, which is the cost of missing the target.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "meeting PSL target",
+        "on-lending co-lending",
+        "PSL shortfall RIDF NABARD",
+        "low return deposit penalty"
+      ],
+      "position": 30
+    },
+    {
+      "id": "pslc",
+      "type": "concept",
+      "title": "Priority sector lending certificates",
+      "markdown": "A **Priority Sector Lending Certificate (PSLC)** lets a bank that has lent more than its target sell the excess as a tradable certificate to a bank that is short, without transferring the loan or its credit risk.\n\nThe buyer books the certificate towards its PSL achievement; the seller earns a fee. PSLCs are traded on the RBI's e-Kuber platform in four types - Agriculture, Small and Marginal Farmers, Micro Enterprises, and General. They expire at the end of the financial year.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "priority sector lending certificate PSLC",
+        "tradable no risk transfer",
+        "e-Kuber four types",
+        "expires end of financial year"
+      ],
+      "position": 40
+    },
+    {
+      "id": "financial-inclusion-tools",
+      "type": "concept",
+      "title": "Financial inclusion tools",
+      "markdown": "Financial inclusion means giving every household access to a basic bank account, payments, credit, insurance and pension at a fair price. The main instruments in India:\n\n- **Basic Savings Bank Deposit Account (BSBDA):** a no-frills account with no minimum balance and a basic set of free services.\n- **Business Correspondent (BC) model:** authorised agents and kiosks that deliver banking in places without a branch, using micro-ATMs and biometric authentication.\n- **The JAM trinity:** Jan Dhan accounts, Aadhaar identity, and Mobile connectivity, which together enable direct benefit transfers straight into bank accounts.\n- **Small-ticket social security schemes** for accident and life cover and pensions, sold through banks.\n- **Financial literacy centres** and the RBI's education programmes.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "financial inclusion tools",
+        "basic savings bank deposit account BSBDA no frills",
+        "business correspondent model micro ATM",
+        "JAM trinity direct benefit transfer"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **The PSL target is a share of ANBC**, not of total assets or deposits, and its exact percentage and sub-targets are revised - do not quote a fixed number without checking.\n- **A PSLC transfers the PSL credit, not the loan or the default risk.**\n- **A shortfall is not a fine.** The bank parks the gap in low-yield development funds; the lost interest is the cost.\n- **BSBDA is a type of savings account**, available at any bank, not a separate scheme name.\n- **The business correspondent is an agent of the bank**, and the bank remains responsible for the transactions.\n- **Different bank groups have different PSL rules** - RRBs, SFBs, and foreign banks with few branches follow their own targets.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "PSL confusions",
+        "share of ANBC not deposits",
+        "PSLC transfers credit not risk",
+        "shortfall not a fine",
+        "BC is agent of bank"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- PSL: a required share of a bank's Adjusted Net Bank Credit directed to development-priority sectors, with sub-targets for the weakest segments; percentages are RBI-set and volatile.\n- Categories: agriculture, MSME, export credit, education, housing, social infrastructure, renewable energy, weaker sections.\n- A bank meets the target by direct lending, on-lending or co-lending, or by buying PSLCs; a year-end shortfall goes into low-yield funds like RIDF with NABARD.\n- A PSLC trades the PSL achievement, not the loan or its risk; four types on e-Kuber; expires at financial year-end.\n- Financial inclusion tools: BSBDA no-frills accounts, the business correspondent model, the JAM trinity for direct benefit transfers, small-ticket social security schemes, and financial-literacy centres.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "priority sector financial inclusion summary",
+        "revision",
+        "PSL categories PSLC RIDF JAM BSBDA recap"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "psl-base",
+      "front": "A bank's PSL target is a percentage of what?",
+      "back": "Adjusted Net Bank Credit (ANBC), or the credit-equivalent of off-balance-sheet exposure, whichever is higher.",
+      "explanation": "The exact percentage and sub-targets are RBI-set and revised over time.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-psl-is"],
+      "position": 10
+    },
+    {
+      "id": "psl-categories",
+      "front": "Name five priority sector categories.",
+      "back": "Agriculture, MSME, export credit, education, housing (also social infrastructure, renewable energy, weaker sections).",
+      "explanation": "Weaker sections has its own sub-target.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-categories"],
+      "position": 20
+    },
+    {
+      "id": "psl-shortfall",
+      "front": "What happens if a bank misses its PSL target at year-end?",
+      "back": "It must place the shortfall amount in low-return development funds - RIDF with NABARD, or funds with SIDBI, NHB, MUDRA. The lost interest is the cost.",
+      "explanation": "It is not a monetary penalty as such.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["targets-and-shortfall"],
+      "position": 30
+    },
+    {
+      "id": "pslc-what",
+      "front": "What does a Priority Sector Lending Certificate transfer?",
+      "back": "The PSL achievement (credit towards the target), for a fee - not the underlying loan and not the credit risk.",
+      "explanation": "Traded on e-Kuber in four types; expires at financial year-end.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["pslc"],
+      "position": 40
+    },
+    {
+      "id": "bsbda",
+      "front": "What is a BSBDA?",
+      "back": "A Basic Savings Bank Deposit Account - a no-frills savings account with no minimum balance and a basic set of free services, available at any bank.",
+      "explanation": "A core financial-inclusion instrument, not a separate scheme.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["financial-inclusion-tools"],
+      "position": 50
+    },
+    {
+      "id": "jam",
+      "front": "What does the JAM trinity stand for, and what does it enable?",
+      "back": "Jan Dhan accounts, Aadhaar, Mobile. Together they enable direct benefit transfers straight into bank accounts.",
+      "explanation": "It reduces leakage in subsidy delivery.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["financial-inclusion-tools"],
+      "position": 60
+    },
+    {
+      "id": "bc-model",
+      "front": "In the business correspondent model, who is responsible for the transactions?",
+      "back": "The bank. The correspondent is the bank's authorised agent, delivering service via micro-ATMs and biometric authentication where there is no branch.",
+      "explanation": "The BC extends reach; accountability stays with the bank.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70
+    }
+  ]
+}

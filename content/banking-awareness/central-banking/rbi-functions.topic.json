@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "central-banking",
+  "chapterName": "Central banking and regulation",
+  "chapterPosition": 3,
+  "topicSlug": "rbi-functions",
+  "topicPosition": 10,
+  "title": "RBI: Establishment, Structure and Functions",
+  "summary": "When and how the Reserve Bank of India was set up, how it is governed, and its main functions - note issue, banker to the government and to banks, monetary policy, regulation and supervision, foreign-exchange and payment-system oversight, and development roles.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["structure-of-the-indian-financial-system"],
+  "learningObjectives": [
+    "State the statute, year of establishment and year of nationalisation of the RBI.",
+    "Describe the Central Board and the Governor's role in RBI governance.",
+    "List the RBI's traditional and developmental functions.",
+    "Explain what 'lender of last resort' and 'currency authority' mean in practice."
+  ],
+  "tags": [
+    "banking-awareness",
+    "rbi",
+    "central-bank",
+    "note-issue",
+    "lender-of-last-resort"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "INDIACODE_RBI_ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2398",
+      "title": "Reserve Bank of India Act, 1934",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm the RBI's statutory basis, the note-issue function and the composition of the Central Board. Restated in original wording."
+    },
+    {
+      "sourceId": "RBI_ROLES",
+      "url": "https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=1983",
+      "title": "RBI - current roles and functions",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the RBI's current description of its functions. Explained in original wording."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "establishment",
+      "type": "definition",
+      "title": "Establishment",
+      "markdown": "The Reserve Bank of India was constituted under the **Reserve Bank of India Act, 1934** and began operations on **1 April 1935**. It was set up on the recommendations of the Hilton Young Commission (the Royal Commission on Indian Currency and Finance).\n\nThe RBI started as a privately owned shareholders' bank. It was **nationalised on 1 January 1949** under the Reserve Bank (Transfer to Public Ownership) Act, 1948, and has been wholly owned by the Government of India since. Its central office was originally in Kolkata and was moved permanently to **Mumbai** in 1937.",
+      "sourceIds": ["INDIACODE_RBI_ACT", "RBI_ROLES"],
+      "searchKeywords": [
+        "RBI Act 1934",
+        "RBI began 1 April 1935",
+        "nationalised 1 January 1949",
+        "Hilton Young Commission",
+        "Mumbai head office"
+      ],
+      "position": 10
+    },
+    {
+      "id": "governance",
+      "type": "concept",
+      "title": "How the RBI is governed",
+      "markdown": "The RBI is run by a **Central Board of Directors** appointed by the Government of India under the RBI Act. It comprises the **Governor**, up to four **Deputy Governors**, and other directors nominated by the government, including officials and non-official members.\n\nThe **Governor** is the chief executive and the public face of the Bank. Four **Local Boards**, for the northern, southern, eastern and western regions, advise the Central Board on regional matters.\n\nMonetary policy decisions are taken separately by the six-member **Monetary Policy Committee**, chaired by the Governor.",
+      "sourceIds": ["INDIACODE_RBI_ACT", "RBI_ROLES"],
+      "searchKeywords": [
+        "RBI central board of directors",
+        "governor deputy governors",
+        "local boards four regions",
+        "monetary policy committee chair governor"
+      ],
+      "position": 20
+    },
+    {
+      "id": "traditional-functions",
+      "type": "concept",
+      "title": "Traditional functions",
+      "markdown": "- **Currency authority (note issue):** the sole authority to issue banknotes in India, except the one-rupee note and coins, which the Government of India issues. The RBI issues notes under a **minimum reserve system**, holding a stipulated minimum of gold and foreign securities.\n- **Banker to the government:** keeps the central and state governments' accounts, manages their debt, and handles receipts and payments.\n- **Banker to banks and lender of last resort:** holds banks' reserve balances, settles interbank claims, and provides emergency liquidity to a solvent bank facing a temporary shortfall.\n- **Controller of credit / monetary authority:** conducts monetary policy to keep inflation near target while supporting growth.",
+      "sourceIds": ["INDIACODE_RBI_ACT", "RBI_ROLES"],
+      "searchKeywords": [
+        "RBI note issue minimum reserve system",
+        "banker to government",
+        "banker to banks lender of last resort",
+        "one rupee note government of india"
+      ],
+      "position": 30
+    },
+    {
+      "id": "regulatory-and-supervisory",
+      "type": "concept",
+      "title": "Regulatory, supervisory and market functions",
+      "markdown": "- **Regulation and supervision of banks and NBFCs:** licensing, prudential norms, inspection, and resolution powers, largely under the Banking Regulation Act, 1949.\n- **Foreign exchange management:** administers the Foreign Exchange Management Act (FEMA), manages the country's foreign-exchange reserves, and helps maintain external stability.\n- **Payment and settlement systems:** authorises and oversees systems such as RTGS, NEFT and the retail systems run by NPCI, under the Payment and Settlement Systems Act, 2007.\n- **Debt and reserve management:** manages government borrowing and the foreign-currency and gold reserves.",
+      "sourceIds": ["RBI_ROLES"],
+      "searchKeywords": [
+        "RBI regulation supervision banks NBFC",
+        "FEMA foreign exchange reserves",
+        "payment and settlement systems act 2007",
+        "government debt management"
+      ],
+      "position": 40
+    },
+    {
+      "id": "developmental-functions",
+      "type": "concept",
+      "title": "Developmental and promotional functions",
+      "markdown": "Beyond the textbook central-bank roles, the RBI has long taken a development role:\n\n- promoting **financial inclusion** and priority-sector lending;\n- building institutions - it helped establish bodies such as NABARD, the Deposit Insurance and Credit Guarantee Corporation, and the National Housing Bank;\n- strengthening rural and cooperative credit;\n- consumer protection, including the **Integrated Ombudsman Scheme** for grievance redress;\n- financial-literacy and customer-education programmes.",
+      "sourceIds": ["RBI_ROLES"],
+      "searchKeywords": [
+        "RBI developmental functions",
+        "financial inclusion priority sector",
+        "helped set up NABARD DICGC NHB",
+        "integrated ombudsman scheme financial literacy"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **The RBI does not issue the one-rupee note or any coin.** Those are issued by the Government of India; the RBI only distributes them.\n- **Established 1934, began 1935, nationalised 1949.** Keep the three years distinct.\n- **Lender of last resort helps a solvent bank with a liquidity problem**, not an insolvent one.\n- **Monetary policy is decided by the MPC, not the Governor alone**, though the Governor chairs it and holds a casting vote.\n- **The RBI regulates banks and NBFCs, not the securities or insurance markets.**\n- **The RBI's inflation target is set by the Government in consultation with the RBI**, and its level and band are reviewed periodically - treat the exact figures as subject to change.",
+      "sourceIds": ["RBI_ROLES"],
+      "searchKeywords": [
+        "RBI confusions",
+        "one rupee note government",
+        "1934 1935 1949",
+        "lender of last resort solvent bank",
+        "MPC decides not governor"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- RBI Act 1934; operations from 1 April 1935; nationalised 1 January 1949; head office Mumbai.\n- Governed by the Central Board (Governor, up to four Deputy Governors, government nominees); four regional Local Boards advise; the six-member MPC decides monetary policy under the Governor's chairmanship.\n- Traditional functions: sole note-issuing authority (minimum reserve system; not the one-rupee note or coins), banker to government, banker to banks and lender of last resort, monetary authority.\n- Regulatory functions: supervise banks and NBFCs, administer FEMA and manage forex reserves, oversee payment systems, manage government debt.\n- Developmental role: financial inclusion, institution-building (NABARD, DICGC, NHB), cooperative credit, the Integrated Ombudsman Scheme, financial literacy.",
+      "sourceIds": ["RBI_ROLES"],
+      "searchKeywords": [
+        "RBI functions summary",
+        "revision",
+        "establishment governance traditional developmental"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "rbi-three-years",
+      "front": "RBI: year of the Act, year operations began, year of nationalisation?",
+      "back": "RBI Act 1934; operations began 1 April 1935; nationalised 1 January 1949.",
+      "explanation": "Recommended by the Hilton Young Commission.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["establishment"],
+      "position": 10
+    },
+    {
+      "id": "one-rupee-note",
+      "front": "Does the RBI issue the one-rupee note and coins?",
+      "back": "No. The Government of India issues the one-rupee note and all coins; the RBI issues all other banknotes and only distributes the rest.",
+      "explanation": "The RBI is the currency authority for higher-denomination notes.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["traditional-functions"],
+      "position": 20
+    },
+    {
+      "id": "minimum-reserve-system",
+      "front": "Under what system does the RBI issue notes?",
+      "back": "The minimum reserve system - it holds a stipulated minimum value of gold and foreign securities as backing, not full backing for every note.",
+      "explanation": "Replaced the older proportional reserve system.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["traditional-functions"],
+      "position": 30
+    },
+    {
+      "id": "lender-of-last-resort",
+      "front": "Whom does the RBI help as 'lender of last resort'?",
+      "back": "A solvent bank facing a temporary liquidity shortfall - not an insolvent one.",
+      "explanation": "It is emergency liquidity, not a bailout of a failed bank.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["traditional-functions"],
+      "position": 40
+    },
+    {
+      "id": "rbi-governance",
+      "front": "Which body governs the RBI, and who chairs monetary policy?",
+      "back": "The Central Board of Directors (Governor, up to four Deputy Governors, government nominees). Monetary policy is decided by the six-member MPC, chaired by the Governor.",
+      "explanation": "Four regional Local Boards advise the Central Board.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["governance"],
+      "position": 50
+    },
+    {
+      "id": "rbi-fema",
+      "front": "Which Act does the RBI administer for foreign exchange, and what does it manage alongside it?",
+      "back": "The Foreign Exchange Management Act (FEMA). It also manages the country's foreign-exchange reserves and gold.",
+      "explanation": "FEMA replaced the older FERA regime.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["regulatory-and-supervisory"],
+      "position": 60
+    },
+    {
+      "id": "rbi-institutions",
+      "front": "Name three financial institutions the RBI helped establish.",
+      "back": "NABARD, the Deposit Insurance and Credit Guarantee Corporation (DICGC), and the National Housing Bank (NHB).",
+      "explanation": "Part of the RBI's developmental function.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["developmental-functions"],
+      "position": 70
+    }
+  ]
+}

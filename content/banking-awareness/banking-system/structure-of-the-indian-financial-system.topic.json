@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "banking-system",
+  "chapterName": "Banking system",
+  "chapterPosition": 1,
+  "topicSlug": "structure-of-the-indian-financial-system",
+  "topicPosition": 10,
+  "title": "Structure of the Indian Financial System",
+  "summary": "How the Indian financial system is organised: the regulators, the money market and capital market, banking and non-banking intermediaries, and where the RBI, SEBI, IRDAI and PFRDA fit.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Name the four statutory financial-sector regulators in India and what each supervises.",
+    "Distinguish the money market from the capital market.",
+    "Place banks, NBFCs, mutual funds, insurers and pension funds as financial intermediaries.",
+    "Explain what a financial system does: channel savings to investment and manage risk."
+  ],
+  "tags": [
+    "banking-awareness",
+    "financial-system",
+    "regulators",
+    "money-market"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India - home",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to confirm the RBI's role and the current regulatory landscape. Facts cross-checked and explained in original wording."
+    },
+    {
+      "sourceId": "RBI_ROLES",
+      "url": "https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=1983",
+      "title": "RBI - current roles and functions",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the RBI's mandate. Original wording throughout."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-financial-system-does",
+      "type": "introduction",
+      "title": "What a financial system does",
+      "markdown": "A financial system links people who have surplus money with people who need it. It does three jobs: it channels household and business savings into productive investment, it provides a payment mechanism so money can move, and it helps price and spread risk.\n\nIt does this through **institutions** (banks, insurers, mutual funds), **markets** (where instruments are bought and sold), **instruments** (deposits, bonds, shares, bills), and **regulators** (who set the rules and supervise). The rest of this topic maps those four parts for India.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "what a financial system does",
+        "channel savings to investment",
+        "institutions markets instruments regulators"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-regulators",
+      "type": "concept",
+      "title": "The four statutory regulators",
+      "markdown": "India divides financial regulation by activity:\n\n- **RBI (Reserve Bank of India):** the central bank. Regulates banks and most non-banking financial companies, runs monetary policy, manages the currency, and oversees payment and settlement systems.\n- **SEBI (Securities and Exchange Board of India):** the securities market - stock exchanges, listed companies, brokers, mutual funds.\n- **IRDAI (Insurance Regulatory and Development Authority of India):** insurance companies and intermediaries.\n- **PFRDA (Pension Fund Regulatory and Development Authority):** the National Pension System and pension funds.\n\nCoordination across regulators runs through the **Financial Stability and Development Council (FSDC)**, chaired by the Union Finance Minister.",
+      "sourceIds": ["RBI_ROLES", "RBI_HOME"],
+      "searchKeywords": [
+        "RBI SEBI IRDAI PFRDA",
+        "financial sector regulators India",
+        "FSDC finance minister"
+      ],
+      "position": 20
+    },
+    {
+      "id": "money-market-vs-capital-market",
+      "type": "comparison",
+      "title": "Money market and capital market",
+      "markdown": "Both are markets for funds; the split is by maturity.\n\n- **Money market:** short-term funds, up to one year. Instruments include treasury bills, commercial paper, certificates of deposit, and call and notice money between banks. The RBI is the key regulator; it is where monetary policy is transmitted first.\n- **Capital market:** medium and long-term funds, over one year. It has a **primary market** (new issues of shares and bonds) and a **secondary market** (trading of existing securities on stock exchanges). SEBI regulates it.\n\nGovernment securities of longer tenor trade in the **G-sec market**, regulated by the RBI.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "money market versus capital market",
+        "treasury bills commercial paper",
+        "primary secondary market",
+        "maturity split"
+      ],
+      "position": 30
+    },
+    {
+      "id": "financial-intermediaries",
+      "type": "concept",
+      "title": "The intermediaries",
+      "markdown": "Financial intermediaries stand between savers and users of funds.\n\n- **Banks:** take deposits repayable on demand and lend. Only banks can offer chequable demand deposits and access the RBI's settlement systems directly.\n- **Non-Banking Financial Companies (NBFCs):** lend and invest but cannot take demand deposits; RBI-regulated.\n- **Mutual funds:** pool investor money into portfolios of securities; SEBI-regulated.\n- **Insurance companies:** pool premiums to pay claims; IRDAI-regulated.\n- **Pension funds:** invest long-term retirement savings; PFRDA-regulated.\n- **All-India Financial Institutions:** NABARD, SIDBI, EXIM Bank and NHB provide refinance and long-term finance to specific sectors.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "financial intermediaries",
+        "banks NBFC mutual fund insurance pension",
+        "NABARD SIDBI EXIM NHB"
+      ],
+      "position": 40
+    },
+    {
+      "id": "organised-vs-unorganised",
+      "type": "concept",
+      "title": "Organised and unorganised sectors",
+      "markdown": "The **organised (formal) sector** is regulated: scheduled banks, cooperative banks, NBFCs, insurers, and the recognised markets. Its terms are documented and its conduct is supervised.\n\nThe **unorganised (informal) sector** - moneylenders, indigenous bankers, chit funds outside regulation, unregistered self-help arrangements - is not supervised by the financial regulators. A long-running policy aim, financial inclusion, is to move households from the informal to the formal sector so they get fair pricing and legal protection.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "organised unorganised financial sector",
+        "moneylenders indigenous bankers",
+        "formal informal credit",
+        "financial inclusion aim"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **RBI does not regulate everything financial.** Securities go to SEBI, insurance to IRDAI, pensions to PFRDA.\n- **NBFC is not a bank.** It cannot take demand deposits or issue cheques, and it is not part of the deposit-insurance scheme.\n- **Money market is not the stock market.** Money market is short-term debt; the stock market is part of the capital market.\n- **A cooperative bank is a bank.** It is regulated by the RBI (and, for some matters, the Registrar of Cooperative Societies), and its depositors are covered by deposit insurance.\n- **Primary market versus secondary market.** New issue versus resale; the company raises money only in the primary market.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "financial system confusions",
+        "NBFC is not a bank",
+        "money market not stock market",
+        "primary versus secondary market"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A financial system channels savings to investment, moves payments, and spreads risk, through institutions, markets, instruments and regulators.\n- Regulators by activity: RBI (banks, NBFCs, payments, monetary policy), SEBI (securities market), IRDAI (insurance), PFRDA (pensions). FSDC coordinates, chaired by the Finance Minister.\n- Money market: short-term funds up to a year (T-bills, CP, CDs, call money). Capital market: over a year, primary and secondary.\n- Intermediaries: banks (demand deposits, direct settlement access), NBFCs (no demand deposits), mutual funds, insurers, pension funds, and the AIFIs NABARD, SIDBI, EXIM Bank, NHB.\n- Organised sector is regulated; the informal sector is not, and moving households into the formal sector is the goal of financial inclusion.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "financial system summary",
+        "revision",
+        "regulators money capital market recap"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "three-jobs",
+      "front": "What three jobs does a financial system do?",
+      "back": "Channels savings into investment, provides a payment mechanism, and prices and spreads risk.",
+      "explanation": "It does this via institutions, markets, instruments and regulators.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-a-financial-system-does"],
+      "position": 10
+    },
+    {
+      "id": "four-regulators",
+      "front": "Match the regulator to its domain: RBI, SEBI, IRDAI, PFRDA.",
+      "back": "RBI - banks, NBFCs, payments, monetary policy. SEBI - securities market. IRDAI - insurance. PFRDA - pensions.",
+      "explanation": "Regulation is split by activity, not by institution.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-regulators"],
+      "position": 20
+    },
+    {
+      "id": "fsdc",
+      "front": "Which body coordinates across the financial-sector regulators, and who chairs it?",
+      "back": "The Financial Stability and Development Council (FSDC), chaired by the Union Finance Minister.",
+      "explanation": "It is a coordination forum, not a super-regulator.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-regulators"],
+      "position": 30
+    },
+    {
+      "id": "money-vs-capital",
+      "front": "What separates the money market from the capital market?",
+      "back": "Maturity. Money market = short-term funds up to one year (T-bills, CP, CDs, call money). Capital market = over one year.",
+      "explanation": "The money market is where monetary policy is first transmitted.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["money-market-vs-capital-market"],
+      "position": 40
+    },
+    {
+      "id": "bank-vs-nbfc",
+      "front": "Name two things an NBFC cannot do that a bank can.",
+      "back": "Accept demand (chequable) deposits, and access the RBI's settlement systems directly. NBFC deposits are also not covered by deposit insurance.",
+      "explanation": "An NBFC lends and invests but is not a bank.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["financial-intermediaries", "common-mistakes"],
+      "position": 50
+    },
+    {
+      "id": "aifis",
+      "front": "Which four all-India financial institutions provide sector-specific long-term finance and refinance?",
+      "back": "NABARD (agriculture and rural), SIDBI (small industry), EXIM Bank (foreign trade), NHB (housing).",
+      "explanation": "They refinance other lenders rather than serving retail customers directly.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["financial-intermediaries"],
+      "position": 60
+    },
+    {
+      "id": "primary-secondary",
+      "front": "In which market does a company actually raise money - primary or secondary?",
+      "back": "The primary market (new issues). The secondary market is resale of existing securities among investors.",
+      "explanation": "Secondary trading gives liquidity but no fresh funds to the issuer.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["money-market-vs-capital-market"],
+      "position": 70
+    }
+  ]
+}

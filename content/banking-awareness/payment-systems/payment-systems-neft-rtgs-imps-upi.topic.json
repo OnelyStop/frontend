@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "payment-systems",
+  "chapterName": "Payment systems",
+  "chapterPosition": 4,
+  "topicSlug": "payment-systems-neft-rtgs-imps-upi",
+  "topicPosition": 10,
+  "title": "Payment Systems: NEFT, RTGS, IMPS and UPI",
+  "summary": "The four everyday electronic fund-transfer rails in India: how RTGS (real-time gross) differs from NEFT (deferred net), what IMPS and UPI add, who operates each, and the legal and institutional backdrop - the PSS Act, 2007 and NPCI.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["deposit-accounts"],
+  "learningObjectives": [
+    "Explain gross versus net settlement and how RTGS and NEFT embody each.",
+    "State the operator and key features of NEFT, RTGS, IMPS and UPI.",
+    "Describe what UPI adds on top of IMPS.",
+    "Place these systems under the PSS Act, 2007 and identify NPCI's role."
+  ],
+  "tags": [
+    "banking-awareness",
+    "payment-systems",
+    "neft-rtgs",
+    "imps",
+    "upi",
+    "npci"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 180,
+  "sources": [
+    {
+      "sourceId": "INDIACODE_PSS_ACT",
+      "url": "https://www.indiacode.nic.in/indiacode/handle/123456789/2082",
+      "title": "Payment and Settlement Systems Act, 2007",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm that the RBI authorises and regulates payment systems under this Act. Restated in original wording."
+    },
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India - payment systems FAQs (NEFT, RTGS)",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "sourceUpdatedAt": "2021-01-07T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the current operational features of NEFT and RTGS, including the RTGS minimum amount and 24x7 availability. Limits are flagged volatile."
+    },
+    {
+      "sourceId": "NPCI_IMPS",
+      "url": "https://www.npci.org.in/product/imps",
+      "title": "NPCI - IMPS overview",
+      "publisher": "National Payments Corporation of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for IMPS features and participants. Transaction limits change and are flagged volatile."
+    },
+    {
+      "sourceId": "NPCI_UPI",
+      "url": "https://www.npci.org.in/product/upi/about-upi",
+      "title": "NPCI - about UPI",
+      "publisher": "National Payments Corporation of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for UPI's design (VPA, single app, two-factor). Limits and feature additions change and are flagged volatile."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "gross-vs-net",
+      "type": "definition",
+      "title": "Gross settlement and net settlement",
+      "markdown": "Two ways an interbank payment can be settled:\n\n- **Gross settlement:** each transaction is settled individually and finally, one by one, in the books of the central bank, the moment it is processed. No transaction waits for another.\n- **Net settlement:** transactions are collected over a period, and only the **net** amount each bank owes or is owed is settled at set times. It is cheaper and needs less liquidity, but each payment is final only when the batch settles.\n\nRTGS uses gross settlement in real time. NEFT uses deferred net settlement in batches.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "gross settlement versus net settlement",
+        "real time gross settlement",
+        "deferred net settlement batches",
+        "central bank books finality"
+      ],
+      "position": 10
+    },
+    {
+      "id": "rtgs",
+      "type": "concept",
+      "title": "RTGS",
+      "markdown": "**Real Time Gross Settlement (RTGS)** is owned and operated by the **RBI**. Each instruction is settled individually and irrevocably in real time.\n\n- It is meant for **large-value** transfers: the **minimum amount is Rs 2,00,000**, with **no upper ceiling**.\n- It runs **24 hours a day on all days of the year** (24x7x365 since December 2020).\n- Settlement is final and cannot be reversed once done; a wrong beneficiary means chasing a refund from that account.\n\nThe Rs 2 lakh floor is a design parameter and could be revised - verify on rbi.org.in.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "RTGS RBI operated",
+        "minimum 2 lakh no upper limit",
+        "real time irrevocable",
+        "24x7x365 since December 2020"
+      ],
+      "position": 20
+    },
+    {
+      "id": "neft",
+      "type": "concept",
+      "title": "NEFT",
+      "markdown": "**National Electronic Funds Transfer (NEFT)** is also owned and operated by the **RBI**.\n\n- It settles in **half-hourly batches** on a deferred net basis, so a transfer is completed at the next batch after the bank processes it.\n- There is **no minimum or maximum amount** set by the RBI, though a bank may cap what a customer can send in one instruction, especially through internet banking.\n- It runs **24x7 on all days** (since December 2019).\n- If the beneficiary account cannot be credited, the amount is returned to the remitter, usually within a couple of hours of the batch.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "NEFT RBI operated",
+        "half-hourly batches deferred net",
+        "no minimum no maximum",
+        "24x7 since December 2019",
+        "auto return if credit fails"
+      ],
+      "position": 30
+    },
+    {
+      "id": "imps",
+      "type": "concept",
+      "title": "IMPS",
+      "markdown": "**Immediate Payment Service (IMPS)** is operated by the **National Payments Corporation of India (NPCI)**, not the RBI.\n\n- It gives **instant, round-the-clock** interbank transfer, including on holidays, and predates 24x7 NEFT and RTGS.\n- A transfer can be addressed by **account number and IFSC**, or by the beneficiary's **mobile number and MMID** (Mobile Money Identifier).\n- It is used through mobile and internet banking and underlies many wallet and app transfers.\n- Per-transaction limits are set within NPCI rules and by each bank, and are revised - treat any figure as volatile.",
+      "sourceIds": ["NPCI_IMPS"],
+      "searchKeywords": [
+        "IMPS NPCI operated",
+        "instant 24x7 interbank transfer",
+        "account IFSC or mobile MMID",
+        "predates 24x7 NEFT RTGS"
+      ],
+      "position": 40
+    },
+    {
+      "id": "upi",
+      "type": "concept",
+      "title": "UPI",
+      "markdown": "**Unified Payments Interface (UPI)** is operated by **NPCI** and is built on the IMPS rails.\n\nWhat it adds:\n\n- A single mobile app can reach **any bank account**, using a **Virtual Payment Address (VPA)** such as name@bank, so you never share the account number.\n- **Two-factor authentication** in one step: the device binding plus a UPI PIN.\n- **Pull and push:** you can send money, or raise a **collect request** that the payer approves.\n- **Interoperability:** the payer's and payee's apps and banks can all be different.\n- Round-the-clock, immediate, and free for most person-to-person transfers.\n\nTransaction limits, permitted use cases (such as credit lines on UPI) and merchant charges are set by NPCI and the RBI and change often - always check the current circular.",
+      "sourceIds": ["NPCI_UPI"],
+      "searchKeywords": [
+        "UPI NPCI built on IMPS",
+        "virtual payment address VPA",
+        "two factor authentication UPI PIN",
+        "collect request interoperable single app"
+      ],
+      "position": 50
+    },
+    {
+      "id": "the-backdrop",
+      "type": "concept",
+      "title": "The legal and institutional backdrop",
+      "markdown": "- The **Payment and Settlement Systems Act, 2007** makes the **RBI** the authority that authorises and regulates payment systems in India. No payment system can operate without RBI authorisation.\n- The **NPCI** is an umbrella organisation for retail payments, set up by banks under the guidance of the RBI and the Indian Banks' Association, as a not-for-profit company. It runs IMPS, UPI, RuPay, the National Automated Clearing House (NACH), AePS, FASTag and more.\n- **RTGS and NEFT are run by the RBI itself**, while retail systems are largely run by NPCI under RBI oversight.",
+      "sourceIds": ["INDIACODE_PSS_ACT", "RBI_HOME"],
+      "searchKeywords": [
+        "payment and settlement systems act 2007 RBI authorises",
+        "NPCI umbrella retail payments not for profit",
+        "RuPay NACH AePS FASTag",
+        "RBI runs RTGS NEFT"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **RTGS is real-time and gross; NEFT is batch and net.** Do not swap the two.\n- **RTGS and NEFT are RBI systems; IMPS and UPI are NPCI systems.**\n- **RTGS has a Rs 2 lakh minimum; NEFT has no RBI-set minimum or maximum.** Banks may still cap NEFT per instruction.\n- **UPI runs on IMPS**, so an app payment is often an IMPS transaction underneath.\n- **A VPA is not your account number** - that is the point of it.\n- **All the numeric limits here are volatile** and are set by the RBI or NPCI - re-verify before using a figure.\n- **NPCI is not a regulator.** It operates systems; the RBI regulates them.",
+      "sourceIds": ["RBI_HOME", "NPCI_UPI"],
+      "searchKeywords": [
+        "payment systems confusions",
+        "RTGS gross NEFT net",
+        "RBI systems versus NPCI systems",
+        "UPI runs on IMPS",
+        "VPA not account number NPCI not a regulator"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Gross settlement: each transaction settled individually and finally in real time (RTGS). Net settlement: batched, only the net position settled at set times (NEFT).\n- RTGS: RBI-run, minimum Rs 2,00,000, no upper limit, 24x7x365, irrevocable.\n- NEFT: RBI-run, half-hourly batches, no RBI-set minimum or maximum, 24x7, auto-return on failed credit.\n- IMPS: NPCI-run, instant 24x7, addressable by account+IFSC or mobile+MMID.\n- UPI: NPCI-run, built on IMPS; VPA hides the account number, one-step two-factor auth, push and collect, interoperable.\n- PSS Act, 2007: the RBI authorises and regulates all payment systems. NPCI is the not-for-profit umbrella operator for retail rails (IMPS, UPI, RuPay, NACH, AePS, FASTag).\n- Every limit here is volatile.",
+      "sourceIds": ["INDIACODE_PSS_ACT"],
+      "searchKeywords": [
+        "payment systems summary",
+        "revision",
+        "RTGS NEFT IMPS UPI NPCI PSS Act recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "gross-vs-net",
+      "front": "RTGS vs NEFT: which is gross/real-time and which is net/batch?",
+      "back": "RTGS = real-time gross settlement (each transaction settled individually, immediately). NEFT = deferred net settlement in half-hourly batches.",
+      "explanation": "Gross settlement gives instant finality; net settlement is cheaper.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["gross-vs-net"],
+      "position": 10
+    },
+    {
+      "id": "operators",
+      "front": "Who operates NEFT, RTGS, IMPS and UPI?",
+      "back": "NEFT and RTGS - the RBI. IMPS and UPI - NPCI (under RBI regulation).",
+      "explanation": "A very common banking-awareness question.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-backdrop"],
+      "position": 20
+    },
+    {
+      "id": "rtgs-minimum",
+      "front": "What is the minimum amount for an RTGS transfer, and the maximum?",
+      "back": "Minimum Rs 2,00,000; no upper ceiling. Available 24x7x365 since December 2020. (Figure is volatile.)",
+      "explanation": "RTGS is designed for large-value payments.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["rtgs"],
+      "position": 30
+    },
+    {
+      "id": "neft-limits",
+      "front": "Does NEFT have an RBI-set minimum or maximum amount?",
+      "back": "No RBI-set minimum or maximum. A bank may still cap what a customer sends per instruction, especially via internet banking.",
+      "explanation": "NEFT settles at the next half-hourly batch.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["neft"],
+      "position": 40
+    },
+    {
+      "id": "imps-addressing",
+      "front": "Two ways to address an IMPS transfer?",
+      "back": "Account number + IFSC, or the beneficiary's mobile number + MMID (Mobile Money Identifier).",
+      "explanation": "IMPS provided instant 24x7 transfer before NEFT/RTGS went 24x7.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["imps"],
+      "position": 50
+    },
+    {
+      "id": "upi-adds",
+      "front": "Name two things UPI adds on top of IMPS.",
+      "back": "A Virtual Payment Address (name@bank) so you never share the account number, and one-step two-factor authentication (device binding + UPI PIN). Also collect requests and full interoperability.",
+      "explanation": "UPI is built on the IMPS rails.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["upi"],
+      "position": 60
+    },
+    {
+      "id": "npci-role",
+      "front": "Is NPCI a regulator?",
+      "back": "No. NPCI is a not-for-profit umbrella operator of retail payment systems (IMPS, UPI, RuPay, NACH, AePS, FASTag). The RBI regulates payment systems under the PSS Act, 2007.",
+      "explanation": "Operator vs regulator is a frequent trap.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["the-backdrop"],
+      "position": 70
+    }
+  ]
+}

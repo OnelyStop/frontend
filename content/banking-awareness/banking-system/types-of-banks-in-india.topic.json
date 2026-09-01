@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "banking-system",
+  "chapterName": "Banking system",
+  "chapterPosition": 1,
+  "topicSlug": "types-of-banks-in-india",
+  "topicPosition": 20,
+  "title": "Types of Banks in India",
+  "summary": "Scheduled versus non-scheduled banks, commercial banks (public sector, private, foreign), regional rural banks, cooperative banks, and the differentiated banks - small finance banks and payments banks - and what each is allowed to do.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["structure-of-the-indian-financial-system"],
+  "learningObjectives": [
+    "Explain what makes a bank 'scheduled' and what that status brings.",
+    "Classify commercial banks into public sector, private and foreign.",
+    "Describe the purpose and structure of regional rural banks and cooperative banks.",
+    "State what a small finance bank and a payments bank may and may not do."
+  ],
+  "tags": [
+    "banking-awareness",
+    "types-of-banks",
+    "scheduled-banks",
+    "payments-bank"
+  ],
+  "contentStatus": "draft",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India - home",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to confirm the categories of banks the RBI regulates and the outlines of the differentiated-bank licensing framework. Explained in original wording."
+    },
+    {
+      "sourceId": "INDIACODE_RBI_ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2398",
+      "title": "Reserve Bank of India Act, 1934",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm that scheduled banks are those listed in the Second Schedule to the RBI Act, 1934. Statutory concept restated in original wording."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "scheduled-vs-non-scheduled",
+      "type": "definition",
+      "title": "Scheduled and non-scheduled banks",
+      "markdown": "A **scheduled bank** is one entered in the Second Schedule to the Reserve Bank of India Act, 1934. To be listed, a bank must meet the RBI's conditions, historically a minimum paid-up capital and reserves and a business conducted in the interest of depositors.\n\nScheduled status brings both privileges and duties: the bank can borrow from the RBI at the bank rate, is eligible for membership of the clearing house, but must keep the cash reserve ratio with the RBI and file prescribed returns.\n\nA **non-scheduled bank** is not in that schedule. Very few remain; they still keep reserves, but under Section 18 of the Banking Regulation Act rather than as a schedule condition.",
+      "sourceIds": ["INDIACODE_RBI_ACT", "RBI_HOME"],
+      "searchKeywords": [
+        "scheduled bank definition",
+        "second schedule RBI Act 1934",
+        "non-scheduled bank",
+        "clearing house membership"
+      ],
+      "position": 10
+    },
+    {
+      "id": "commercial-banks",
+      "type": "concept",
+      "title": "Commercial banks",
+      "markdown": "Commercial banks operate for profit and serve the general public. By ownership:\n\n- **Public sector banks:** the government holds a majority stake. The State Bank of India and the nationalised banks fall here.\n- **Private sector banks:** privately owned, licensed by the RBI, and listed.\n- **Foreign banks:** incorporated abroad, operating in India through branches or a wholly-owned subsidiary, regulated by the RBI here.\n\nAll are governed by the Banking Regulation Act, 1949, and most are scheduled banks.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "commercial banks",
+        "public sector private foreign banks",
+        "banking regulation act 1949",
+        "SBI nationalised banks"
+      ],
+      "position": 20
+    },
+    {
+      "id": "rrbs",
+      "type": "concept",
+      "title": "Regional Rural Banks",
+      "markdown": "**Regional Rural Banks (RRBs)** were set up under the RRB Act, 1976 to take banking to rural and semi-urban areas and lend to small and marginal farmers, agricultural labourers, artisans and small entrepreneurs.\n\nEach RRB is jointly owned in fixed proportions by the **central government**, a **sponsor bank** (a commercial bank), and the **state government**. They combine the local reach of a cooperative with the discipline of a commercial bank, and are supervised by the RBI with NABARD support.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "regional rural banks",
+        "RRB Act 1976",
+        "central government sponsor bank state government",
+        "rural credit"
+      ],
+      "position": 30
+    },
+    {
+      "id": "cooperative-banks",
+      "type": "concept",
+      "title": "Cooperative banks",
+      "markdown": "**Cooperative banks** are owned by their members on a one-member-one-vote basis and were created to provide affordable credit to people the commercial system underserved.\n\n- **Urban Cooperative Banks (UCBs):** serve towns and cities.\n- **Rural cooperative credit institutions:** organised in tiers - State Cooperative Banks at the top, District Central Cooperative Banks in the middle, and Primary Agricultural Credit Societies at the village level.\n\nRegulation is shared: the RBI supervises banking functions, while the Registrar of Cooperative Societies (state or central) handles registration and management. Their depositors are covered by deposit insurance.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "cooperative banks",
+        "urban cooperative bank UCB",
+        "state district central cooperative bank PACS",
+        "dual regulation RBI registrar"
+      ],
+      "position": 40
+    },
+    {
+      "id": "differentiated-banks",
+      "type": "comparison",
+      "title": "Small finance banks and payments banks",
+      "markdown": "The RBI licenses two kinds of **differentiated (niche) bank**:\n\n- **Small Finance Banks (SFBs):** full-service banks aimed at the unserved and underserved - small businesses, small and marginal farmers, the micro and unorganised sector. They take deposits and lend, and a large share of their loans must go to priority sectors and be in small-ticket sizes.\n- **Payments Banks:** may accept deposits (subject to a per-customer ceiling set by the RBI), offer payments and remittance services, issue debit cards and distribute simple financial products - but **cannot lend** and cannot issue credit cards. They invest their deposits mainly in government securities and balances with other banks.\n\nBoth are scheduled banks once notified and are covered by deposit insurance.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "small finance bank payments bank",
+        "differentiated banks",
+        "payments bank cannot lend",
+        "per-customer deposit ceiling"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **Scheduled does not mean public sector.** Private, foreign, cooperative, RRB, SFB and payments banks can all be scheduled.\n- **Payments banks lend? No.** They take deposits and move money but do not give loans or credit cards.\n- **RRB ownership ratio.** Central government, sponsor bank and state government hold fixed shares - not equal thirds by default and not RBI-owned.\n- **Cooperative bank regulation is shared**, not RBI-only.\n- **The per-customer deposit limit for payments banks is set by the RBI and has been revised**; treat any specific figure as volatile and check the current RBI circular.\n- **Nationalisation dates are exam facts**, but the current count of public sector banks changes with mergers - verify before quoting a number.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "types of banks confusions",
+        "scheduled not public sector",
+        "payments bank no lending",
+        "RRB ownership ratio"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Scheduled bank: listed in the Second Schedule to the RBI Act, 1934; can borrow from the RBI and join the clearing house, must keep the CRR and file returns.\n- Commercial banks: public sector (government majority), private, foreign; all under the Banking Regulation Act, 1949.\n- RRBs: under the RRB Act, 1976; owned by the central government, a sponsor bank and the state government; rural focus.\n- Cooperative banks: member-owned; UCBs in cities, and a three-tier rural structure (StCB, DCCB, PACS); regulation shared between the RBI and the Registrar of Cooperative Societies.\n- Small finance banks: full banking for the underserved, priority-sector heavy. Payments banks: deposits and payments only, no lending, deposit ceiling per customer.\n- All these can be scheduled and are covered by deposit insurance.",
+      "sourceIds": ["RBI_HOME"],
+      "searchKeywords": [
+        "types of banks summary",
+        "revision",
+        "scheduled commercial RRB cooperative SFB payments bank"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "scheduled-bank",
+      "front": "What makes a bank a 'scheduled' bank in India?",
+      "back": "Being listed in the Second Schedule to the RBI Act, 1934, after meeting the RBI's conditions. It can then borrow from the RBI and join the clearing house, but must keep the CRR and file returns.",
+      "explanation": "Scheduled status is about the schedule, not about ownership.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["scheduled-vs-non-scheduled"],
+      "position": 10
+    },
+    {
+      "id": "commercial-bank-types",
+      "front": "By ownership, what are the three kinds of commercial bank?",
+      "back": "Public sector (government majority stake), private sector, and foreign banks.",
+      "explanation": "All are governed by the Banking Regulation Act, 1949.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["commercial-banks"],
+      "position": 20
+    },
+    {
+      "id": "rrb-ownership",
+      "front": "Who owns a Regional Rural Bank?",
+      "back": "The central government, a sponsor bank (a commercial bank), and the state government, in fixed proportions. Set up under the RRB Act, 1976.",
+      "explanation": "It blends cooperative reach with commercial-bank discipline.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["rrbs"],
+      "position": 30
+    },
+    {
+      "id": "cooperative-tiers",
+      "front": "Name the three tiers of the rural cooperative credit structure.",
+      "back": "State Cooperative Bank (top), District Central Cooperative Bank (middle), Primary Agricultural Credit Society (village level).",
+      "explanation": "Urban Cooperative Banks are a separate branch of the cooperative system.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cooperative-banks"],
+      "position": 40
+    },
+    {
+      "id": "payments-bank-limits",
+      "front": "What is a payments bank NOT allowed to do?",
+      "back": "It cannot lend (no loans) and cannot issue credit cards. It takes deposits up to a per-customer ceiling set by the RBI and offers payments, remittances and debit cards.",
+      "explanation": "It invests deposits mainly in G-secs and bank balances.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["differentiated-banks"],
+      "position": 50
+    },
+    {
+      "id": "sfb-purpose",
+      "front": "Who is a Small Finance Bank meant to serve, and what constraint does it carry?",
+      "back": "The unserved and underserved - small businesses, small and marginal farmers, the micro sector. A large share of its loans must be priority-sector and in small-ticket sizes.",
+      "explanation": "It is a full bank (deposits and loans), unlike a payments bank.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["differentiated-banks"],
+      "position": 60
+    },
+    {
+      "id": "coop-regulation",
+      "front": "Who regulates a cooperative bank?",
+      "back": "Shared: the RBI supervises banking functions; the Registrar of Cooperative Societies (state or central) handles registration and management.",
+      "explanation": "This is why they are sometimes called dual-regulated.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["cooperative-banks"],
+      "position": 70
+    }
+  ]
+}
