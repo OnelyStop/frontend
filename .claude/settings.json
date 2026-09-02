@@ -96,11 +96,6 @@
             "type": "command",
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/no-attribution-trailer.sh",
             "timeout": 10
-          },
-          {
-            "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/ask-before-merging.sh",
-            "timeout": 10
           }
         ]
       }
