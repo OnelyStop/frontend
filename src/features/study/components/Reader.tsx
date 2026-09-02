@@ -2,12 +2,15 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 import { Badge, Button } from "@/design-system";
 import { blockMeta } from "../blocks";
 import { Markdown } from "../markdown";
 import type { ChapterOutline, StudyNote, TopicOutline } from "../types";
 import { NotesPanel } from "./NotesPanel";
 import { TutorPanel } from "./TutorPanel";
+import { TutorFab } from "./TutorFab";
+import { AddNoteButton, BlockNoteChips } from "./StickyNote";
 import { FlashcardPlayer } from "./FlashcardPlayer";
 
 const DIFFICULTY_TONE = {
@@ -63,6 +66,7 @@ export function Reader({
 }) {
   const [panel, setPanel] = useState<Panel>(null);
   const [selectedBlockKey, setSelectedBlockKey] = useState<string | null>(null);
+  const [focusNoteId, setFocusNoteId] = useState<string | null>(null);
   const [notes, setNotes] = useState<StudyNote[]>(initialNotes);
   const [cardsOpen, setCardsOpen] = useState(false);
   const [sourcesOpen, setSourcesOpen] = useState(false);
@@ -76,10 +80,13 @@ export function Reader({
     [outline.blocks],
   );
   const notesByBlock = useMemo(() => {
-    const m = new Map<string, number>();
-    for (const n of notes)
-      if (n.blockStableKey)
-        m.set(n.blockStableKey, (m.get(n.blockStableKey) ?? 0) + 1);
+    const m = new Map<string, StudyNote[]>();
+    for (const n of notes) {
+      if (!n.blockStableKey) continue;
+      const list = m.get(n.blockStableKey);
+      if (list) list.push(n);
+      else m.set(n.blockStableKey, [n]);
+    }
     return m;
   }, [notes]);
 
@@ -132,6 +139,13 @@ export function Reader({
 
   const noteOn = (blockKey: string) => {
     setSelectedBlockKey(blockKey);
+    setFocusNoteId(null);
+    setPanel("notes");
+  };
+
+  const openNote = (blockKey: string, noteId: string) => {
+    setSelectedBlockKey(blockKey);
+    setFocusNoteId(noteId);
     setPanel("notes");
   };
 
@@ -208,16 +222,13 @@ export function Reader({
           <div className="mt-5 flex flex-wrap items-center gap-2">
             <Button
               size="sm"
-              disabled={!signedIn}
-              onClick={() => setPanel("tutor")}
-            >
-              Ask the tutor
-            </Button>
-            <Button
-              size="sm"
               variant="secondary"
               disabled={!signedIn}
-              onClick={() => setPanel("notes")}
+              onClick={() => {
+                setSelectedBlockKey(null);
+                setFocusNoteId(null);
+                setPanel("notes");
+              }}
             >
               Notes{notes.length ? ` (${notes.length})` : ""}
             </Button>
@@ -304,36 +315,36 @@ export function Reader({
               >
                 <div className="mb-1.5 flex items-center gap-2">
                   <span className="text-ink-3 text-[13px]">{meta.label}</span>
-                  {notesByBlock.get(b.stableKey) ? (
-                    <span
-                      className="bg-warn size-1.5 rounded-full"
-                      title={`${notesByBlock.get(b.stableKey)} note(s) here`}
-                    />
-                  ) : null}
                 </div>
                 <h2 className="mb-3 text-[19px] tracking-[-0.02em]">
                   {b.title}
                 </h2>
                 <Markdown source={b.bodyMarkdown} />
-                <div className="mt-3 flex items-center gap-3">
+                <div className="mt-3 flex flex-wrap items-center gap-2">
                   {signedIn ? (
                     <>
                       <button
+                        type="button"
                         onClick={() => askAbout(b.stableKey)}
-                        className="text-ink-4 hover:text-brand text-[12px] transition-colors"
+                        aria-label="Ask the tutor about this section"
+                        title="Ask the tutor about this section"
+                        className="group text-ink-4 hover:text-brand hover:bg-brand-soft/50 grid size-7 place-items-center rounded-[8px] transition-colors"
                       >
-                        Ask about this section
+                        <Sparkles
+                          size={15}
+                          strokeWidth={2}
+                          className="transition-transform duration-200 group-hover:rotate-12"
+                        />
                       </button>
-                      <button
-                        onClick={() => noteOn(b.stableKey)}
-                        className="text-ink-4 hover:text-brand text-[12px] transition-colors"
-                      >
-                        Add a note
-                      </button>
+                      <AddNoteButton onClick={() => noteOn(b.stableKey)} />
+                      <BlockNoteChips
+                        notes={notesByBlock.get(b.stableKey) ?? []}
+                        onOpen={(id) => openNote(b.stableKey, id)}
+                      />
                     </>
                   ) : null}
                   {b.sourceKeys.length ? (
-                    <span className="text-ink-4 text-[12px]">
+                    <span className="text-ink-4 ml-auto text-[12px]">
                       source: {b.sourceKeys.join(", ")}
                     </span>
                   ) : null}
@@ -381,6 +392,7 @@ export function Reader({
           anchorBlockKey={selectedBlockKey}
           blockTitles={blockTitles}
           notes={notes}
+          focusNoteId={focusNoteId}
           onChange={setNotes}
           onClose={() => setPanel(null)}
         />
@@ -392,6 +404,16 @@ export function Reader({
           selectedBlockKey={selectedBlockKey}
           blockTitles={blockTitles}
           onClose={() => setPanel(null)}
+        />
+      ) : null}
+
+      {signedIn ? (
+        <TutorFab
+          onClick={() => {
+            setSelectedBlockKey(null);
+            setPanel("tutor");
+          }}
+          hidden={panel !== null || cardsOpen}
         />
       ) : null}
 

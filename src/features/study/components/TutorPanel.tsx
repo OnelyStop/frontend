@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, X } from "lucide-react";
+import { X } from "lucide-react";
+import { TutorMascot } from "./TutorMascot";
 
 type Msg = { role: "user" | "assistant"; body: string; cited?: string[] };
 
@@ -115,10 +116,10 @@ export function TutorPanel({
   return (
     <aside
       aria-label="Ask the tutor"
-      className="border-line bg-canvas shadow-pop fixed inset-y-0 right-0 z-90 flex w-[390px] max-w-[92vw] flex-col border-l"
+      className="pop-in border-line bg-canvas shadow-pop fixed z-90 flex flex-col overflow-hidden border max-sm:inset-3 max-sm:rounded-[20px] sm:right-5 sm:bottom-5 sm:h-[min(580px,calc(100dvh-2.5rem))] sm:w-[390px] sm:rounded-[24px]"
     >
-      <header className="border-line flex h-16 shrink-0 items-center gap-2 border-b px-5">
-        <Sparkles size={15} strokeWidth={2} className="text-brand" />
+      <header className="border-line flex h-14 shrink-0 items-center gap-2 border-b px-4">
+        <TutorMascot />
         <span className="text-[14px]">Tutor</span>
         <span className="flex-1" />
         <button

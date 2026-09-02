@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import type { NoteColor, StudyNote } from "../types";
-
-const COLORS: { key: NoteColor; swatch: string }[] = [
-  { key: "yellow", swatch: "#facc15" },
-  { key: "blue", swatch: "#60a5fa" },
-  { key: "green", swatch: "#4ade80" },
-  { key: "pink", swatch: "#f472b6" },
-];
+import { NOTE_COLORS, NOTE_SWATCH } from "./StickyNote";
 
 const MAX = 10_000;
 
@@ -19,6 +13,7 @@ export function NotesPanel({
   anchorBlockKey,
   blockTitles,
   notes,
+  focusNoteId,
   onChange,
   onClose,
 }: {
@@ -27,6 +22,7 @@ export function NotesPanel({
   anchorBlockKey: string | null;
   blockTitles: Record<string, string>;
   notes: StudyNote[];
+  focusNoteId?: string | null;
   onChange: (next: StudyNote[]) => void;
   onClose: () => void;
 }) {
@@ -34,8 +30,9 @@ export function NotesPanel({
   const [color, setColor] = useState<NoteColor>("yellow");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
 
-  // Esc closes the drawer, not the running head walking up the URL.
+  // Esc closes the modal, not the running head walking up the URL.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
@@ -47,6 +44,22 @@ export function NotesPanel({
     return () =>
       window.removeEventListener("keydown", onKey, { capture: true });
   }, [onClose]);
+
+  // Opened from a chip: bring that note into view and flash a ring on it.
+  useEffect(() => {
+    if (!focusNoteId) return;
+    const el = listRef.current?.querySelector<HTMLElement>(
+      `[data-note-id="${focusNoteId}"]`,
+    );
+    if (!el) return;
+    el.scrollIntoView({ block: "center" });
+    el.classList.add("ring-brand", "ring-2");
+    const t = setTimeout(
+      () => el.classList.remove("ring-brand", "ring-2"),
+      1400,
+    );
+    return () => clearTimeout(t);
+  }, [focusNoteId]);
 
   const create = async () => {
     const body = draft.trim();
@@ -100,88 +113,101 @@ export function NotesPanel({
   };
 
   return (
-    <aside
-      aria-label="Notes"
-      className="border-line bg-canvas shadow-pop fixed inset-y-0 right-0 z-90 flex w-[390px] max-w-[92vw] flex-col border-l"
+    <div
+      className="bg-ink/20 fixed inset-0 z-90 grid place-items-center p-4"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
-      <header className="border-line flex h-16 shrink-0 items-center gap-2 border-b px-5">
-        <span className="text-[14px]">Notes</span>
-        <span className="text-ink-4 text-[12px]">private</span>
-        <span className="flex-1" />
-        <button
-          onClick={onClose}
-          aria-label="Close notes"
-          className="rounded-ctl text-ink-3 hover:bg-line hover:text-ink grid size-8 place-items-center transition-colors"
-        >
-          <X size={16} strokeWidth={1.75} />
-        </button>
-      </header>
-
-      <div className="border-line shrink-0 border-b p-4">
-        {anchorBlockKey ? (
-          <p className="text-ink-3 mb-2 text-[12px]">
-            Anchored to: {blockTitles[anchorBlockKey] ?? anchorBlockKey}
-          </p>
-        ) : (
-          <p className="text-ink-3 mb-2 text-[12px]">Anchored to the topic</p>
-        )}
-        <textarea
-          value={draft}
-          maxLength={MAX}
-          rows={3}
-          placeholder="Write a note — formula, trap, mnemonic…"
-          onChange={(e) => setDraft(e.target.value)}
-          className="rounded-ctl border-line bg-canvas placeholder:text-ink-4 focus:border-brand w-full resize-none border px-3 py-2 text-[14px] leading-relaxed outline-none"
-        />
-        <div className="mt-2 flex items-center justify-between">
-          <div className="flex gap-1.5">
-            {COLORS.map((c) => (
-              <button
-                key={c.key}
-                onClick={() => setColor(c.key)}
-                aria-label={c.key}
-                className={`size-5 rounded-full transition-transform ${
-                  color === c.key ? "ring-ink scale-110 ring-2" : ""
-                }`}
-                style={{ background: c.swatch }}
-              />
-            ))}
-          </div>
+      <aside
+        aria-label="Notes"
+        className="pop-in border-line bg-canvas shadow-pop relative flex max-h-[85vh] w-[460px] max-w-full flex-col overflow-hidden rounded-[24px] border"
+      >
+        <header className="border-line flex h-14 shrink-0 items-center gap-2 border-b px-5">
+          <span className="text-[14px]">Notes</span>
+          <span className="text-ink-4 text-[12px]">private</span>
+          <span className="flex-1" />
           <button
-            onClick={create}
-            disabled={busy || !draft.trim()}
-            className="rounded-pill bg-ink hover:bg-ink/85 h-8 px-4 text-[13px] text-white transition-colors disabled:opacity-40"
+            onClick={onClose}
+            aria-label="Close notes"
+            className="rounded-ctl text-ink-3 hover:bg-line hover:text-ink grid size-8 place-items-center transition-colors"
           >
-            Save
+            <X size={16} strokeWidth={1.75} />
           </button>
-        </div>
-        {error ? <p className="text-bad mt-2 text-[12px]">{error}</p> : null}
-      </div>
+        </header>
 
-      <div data-lenis-prevent className="flex-1 space-y-3 overflow-y-auto p-4">
-        {notes.length === 0 ? (
-          <p className="text-ink-3 text-[13px] leading-relaxed">
-            No notes yet. Notes are private to you and stay attached to this
-            topic.
-          </p>
-        ) : (
-          notes.map((n) => (
-            <NoteCard
-              key={n.id}
-              note={n}
-              blockTitle={
-                n.blockStableKey ? blockTitles[n.blockStableKey] : undefined
-              }
-              onDelete={() => removeNote(n.id)}
-              onPatched={(updated) =>
-                onChange(notes.map((x) => (x.id === updated.id ? updated : x)))
-              }
-              patchNote={patchNote}
-            />
-          ))
-        )}
-      </div>
-    </aside>
+        <div className="border-line shrink-0 border-b p-4">
+          {anchorBlockKey ? (
+            <p className="text-ink-3 mb-2 text-[12px]">
+              Anchored to: {blockTitles[anchorBlockKey] ?? anchorBlockKey}
+            </p>
+          ) : (
+            <p className="text-ink-3 mb-2 text-[12px]">Anchored to the topic</p>
+          )}
+          <textarea
+            value={draft}
+            maxLength={MAX}
+            rows={3}
+            placeholder="Write a note — formula, trap, mnemonic…"
+            onChange={(e) => setDraft(e.target.value)}
+            className="rounded-ctl border-line bg-canvas placeholder:text-ink-4 focus:border-brand w-full resize-none border px-3 py-2 text-[14px] leading-relaxed outline-none"
+          />
+          <div className="mt-2 flex items-center justify-between">
+            <div className="flex gap-1.5">
+              {NOTE_COLORS.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setColor(c)}
+                  aria-label={c}
+                  className={`size-5 rounded-full transition-transform ${
+                    color === c ? "ring-ink scale-110 ring-2" : ""
+                  }`}
+                  style={{ background: NOTE_SWATCH[c] }}
+                />
+              ))}
+            </div>
+            <button
+              onClick={create}
+              disabled={busy || !draft.trim()}
+              className="rounded-pill bg-ink hover:bg-ink/85 h-8 px-4 text-[13px] text-white transition-colors disabled:opacity-40"
+            >
+              Save
+            </button>
+          </div>
+          {error ? <p className="text-bad mt-2 text-[12px]">{error}</p> : null}
+        </div>
+
+        <div
+          ref={listRef}
+          data-lenis-prevent
+          className="flex-1 space-y-3 overflow-y-auto p-4"
+        >
+          {notes.length === 0 ? (
+            <p className="text-ink-3 text-[13px] leading-relaxed">
+              No notes yet. Notes are private to you and stay attached to this
+              topic.
+            </p>
+          ) : (
+            notes.map((n) => (
+              <NoteCard
+                key={n.id}
+                note={n}
+                blockTitle={
+                  n.blockStableKey ? blockTitles[n.blockStableKey] : undefined
+                }
+                onDelete={() => removeNote(n.id)}
+                onPatched={(updated) =>
+                  onChange(
+                    notes.map((x) => (x.id === updated.id ? updated : x)),
+                  )
+                }
+                patchNote={patchNote}
+              />
+            ))
+          )}
+        </div>
+      </aside>
+    </div>
   );
 }
 
@@ -232,11 +258,13 @@ function NoteCard({
     };
   }, [text, note.id, patchNote, onPatched]);
 
-  const swatch =
-    COLORS.find((c) => c.key === note.color)?.swatch ?? COLORS[0].swatch;
+  const swatch = NOTE_SWATCH[note.color] ?? NOTE_SWATCH.yellow;
 
   return (
-    <article className="border-line rounded-ctl border p-3">
+    <article
+      data-note-id={note.id}
+      className="border-line rounded-ctl border p-3 transition-shadow"
+    >
       <div className="mb-1.5 flex items-center gap-2">
         <span
           className="size-2.5 rounded-full"
