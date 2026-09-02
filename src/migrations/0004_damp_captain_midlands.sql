@@ -17,18 +17,6 @@ CREATE TABLE "articles" (
 	CONSTRAINT "articles_content_hash_unique" UNIQUE("content_hash")
 );
 --> statement-breakpoint
-CREATE TABLE "questions" (
-	"question_id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"article_id" uuid,
-	"extracted_day" date NOT NULL,
-	"question_text" text NOT NULL,
-	"options" jsonb NOT NULL,
-	"answer" text NOT NULL,
-	"explanation" text NOT NULL,
-	"topic" text,
-	"created_at" timestamp with time zone DEFAULT now() NOT NULL
-);
---> statement-breakpoint
 CREATE TABLE "generate_runs" (
 	"run_id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"day" date,
@@ -46,10 +34,22 @@ CREATE TABLE "generate_runs" (
 	"status" text DEFAULT 'running' NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE "questions" (
+	"question_id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"article_id" uuid,
+	"extracted_day" date NOT NULL,
+	"question_text" text NOT NULL,
+	"options" jsonb NOT NULL,
+	"answer" text NOT NULL,
+	"explanation" text NOT NULL,
+	"topic" text,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE INDEX "articles_status_published_at_idx" ON "articles" USING btree ("status","published_at");--> statement-breakpoint
 CREATE INDEX "articles_published_at_idx" ON "articles" USING btree ("published_at");--> statement-breakpoint
-CREATE INDEX "questions_extracted_day_idx" ON "questions" USING btree ("extracted_day");--> statement-breakpoint
 CREATE INDEX "generate_runs_started_at_idx" ON "generate_runs" USING btree ("started_at");--> statement-breakpoint
+CREATE INDEX "questions_extracted_day_idx" ON "questions" USING btree ("extracted_day");--> statement-breakpoint
 CREATE UNIQUE INDEX "questions_article_id_unique_idx" ON "questions" USING btree ("article_id");
 --> statement-breakpoint
 ALTER TABLE "articles" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint

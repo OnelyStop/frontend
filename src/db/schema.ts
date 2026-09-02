@@ -18,6 +18,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import { anonRole, authenticatedRole } from "drizzle-orm/supabase";
+export * from "../lib/gazette/db/schema";
 
 export const appRole = pgEnum("app_role", ["admin", "editor"]);
 
