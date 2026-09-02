@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "advanced-puzzles-and-logic",
+  "chapterName": "Advanced puzzles and logic",
+  "chapterPosition": 3,
+  "topicSlug": "input-output-machine",
+  "topicPosition": 30,
+  "title": "Input-Output Machine",
+  "summary": "A machine rearranges a line of words and numbers by a fixed rule, one element per step, until the line is sorted. How to discover the rule from consecutive steps, then answer questions about a specific step, the final step, and the step count.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["number-and-alphabet-series"],
+  "learningObjectives": [
+    "Compare two consecutive steps to isolate the single element that moved and where it went.",
+    "State the rule as 'which element is picked' plus 'where it is placed' plus 'when the machine stops'.",
+    "Generate any requested step from the input without writing every step in full once the rule is known.",
+    "Count the total steps as the number of elements the rule still has to place."
+  ],
+  "tags": ["reasoning", "input-output", "machine", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Algorithms/Sorting",
+      "title": "Algorithms/Sorting",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the selection-sort style of one-element-per-pass rearrangement. All machines here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm the input-output machine is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-the-machine-is",
+      "type": "introduction",
+      "title": "A rule applied one step at a time",
+      "markdown": "You are shown an **input** line of words and numbers, then a few **steps**. Each step is the previous line with the machine's fixed rule applied once. After enough steps the line reaches its **final** form and the machine stops.\n\nThe rule always has three parts:\n\n1. **Which element is picked** this step (the largest number, the alphabetically first word, …).\n2. **Where it is placed** (extreme left, extreme right, just after the last placed element).\n3. **When the machine stops** (when the line is fully sorted by the rule).\n\nYour job is to read those three parts off the given steps, then apply them.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "input output machine input line then steps rule applied once per step",
+        "rule has three parts which element is picked where placed when it stops",
+        "read the rule off the given steps then apply it"
+      ],
+      "position": 10
+    },
+    {
+      "id": "find-the-rule",
+      "type": "method",
+      "title": "Finding the rule",
+      "markdown": "1. **Line up step *n* under step *n−1*** and mark the one element whose position changed.\n2. **Ask why that element**: is it the biggest/smallest number, the first/last word alphabetically, among the not-yet-placed elements?\n3. **Ask where it went**: to an end, or next to elements already placed in earlier steps.\n4. **Confirm on the next pair of steps** — the same rule must explain every step.\n5. **State the stop condition**: usually 'when the numbers are in descending/ascending order at one end' or 'when the words are in dictionary order at one end'.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "finding the rule line up consecutive steps mark the one element that moved",
+        "ask why that element biggest smallest first last word among unplaced",
+        "ask where it went to an end confirm on the next pair state the stop condition"
+      ],
+      "position": 20
+    },
+    {
+      "id": "two-rule-families",
+      "type": "concept",
+      "title": "Two common rule families",
+      "markdown": "- **One number per step to a side.** Each step moves the next largest (or smallest) number to the extreme left (or right); the elements it passes shift one place the other way. Placed numbers form a growing sorted block at that end. Stops when every number is in the block.\n- **One word per step to a side.** Same idea, but the picked element is the word that is first (or last) in dictionary order among the unplaced words.\n\nSome machines alternate — a number one step, a word the next. If a step moved a number and the following step moved a word, look for an alternating rule.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "two rule families one number per step to a side growing sorted block",
+        "one word per step dictionary order among unplaced words",
+        "some machines alternate number then word look for alternating rule"
+      ],
+      "position": 30
+    },
+    {
+      "id": "step-and-count-questions",
+      "type": "method",
+      "title": "Answering step and count questions",
+      "markdown": "- **'What is step k?'** Apply the rule k times from the input. Once you know the rule you do not need to write earlier steps in full — you know which k elements have been placed and in what order, and the rest keep their input order.\n- **'How many steps to finish?'** Count the elements the rule has to place. Moving n numbers into a sorted block takes n steps — unless the last one is already in place, which some rules skip.\n- **'Which step is the last?'** Same count. The final line is the fully sorted arrangement.\n- **'Which step first shows X next to Y?'** Track only the two elements through the steps.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "what is step k apply the rule k times from the input no need to write earlier steps",
+        "how many steps count the elements the rule has to place n numbers takes n steps",
+        "which step is the last final line fully sorted track two elements for adjacency"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-1",
+      "type": "worked_example",
+      "title": "Worked example 1: numbers to the left",
+      "markdown": "**Input:** `tin 34 owl 12 arc 56 den 23`\n\n**Step 1:** `56 tin 34 owl 12 arc den 23`\n**Step 2:** `56 34 tin owl 12 arc den 23`\n\n*Rule.* Step 1 moved `56` (the largest number) to the extreme left. Step 2 moved `34` (the next largest) to just after `56`. So: each step takes the next largest number and places it at the left, building a descending block; elements it passes shift right one place. Stop when all four numbers are in the block.\n\n**Step 3:** `56 34 23 tin owl 12 arc den`  (23 placed third)\n**Step 4:** `56 34 23 12 tin owl arc den`  (12 placed fourth — numbers now descending, machine stops)\n\nSo the machine takes **4 steps**; step 4 is the last. In step 3, the element third from the right is **12**. Step 2 in full is `56 34 tin owl 12 arc den 23`.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example machine input tin 34 owl 12 arc 56 den 23 largest number to left",
+        "descending block built one number per step elements shift right",
+        "four steps step 4 last step 3 third from right is 12"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example-2",
+      "type": "worked_example",
+      "title": "Worked example 2: words to the right",
+      "markdown": "**Input:** `pen 9 ash 4 mint 7 owl 2`\n\n**Step 1:** `pen 9 4 mint 7 owl 2 ash`\n**Step 2:** `pen 9 4 7 owl 2 ash mint`\n\n*Rule.* Step 1 moved `ash` (first word in dictionary order) to the extreme right. Step 2 moved `mint` (next word) to the extreme right, after `ash`. So: each step takes the next word in alphabetical order and sends it to the right end; the numbers close up leftward and keep their input order. Stop when all four words sit in dictionary order at the right.\n\n**Step 3:** `pen 9 4 7 2 ash mint owl`\n**Step 4:** `9 4 7 2 ash mint owl pen`  (pen placed — words now ash, mint, owl, pen; machine stops)\n\nThe machine takes **4 steps**. In the last step the element fourth from the left is **2**. Note the numbers read `9 4 7 2` throughout — exactly their input order.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example machine input pen 9 ash 4 mint 7 owl 2 word to right dictionary order",
+        "each step next alphabetical word to the right end numbers keep input order",
+        "four steps last step fourth from left is 2"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Guessing the rule from step 1 alone.** Always confirm it on a second pair of steps.\n- **Assuming numbers get sorted when only words are being moved** (or the reverse). Elements not picked by the rule just keep their relative order.\n- **Miscounting the shift.** When an element jumps to an end, everything it passes moves exactly one place the other way — no more.\n- **Writing every step to reach step 6** when you can place the first six elements directly.\n- **Forgetting the stop condition** and adding an extra step after the line is already sorted.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "machine mistakes guessing rule from step 1 alone confirm on a second pair",
+        "assuming numbers sorted when only words move elements not picked keep relative order",
+        "miscounting the shift one place forgetting the stop condition extra step"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- State the rule in three parts: which element is picked, where it is placed, when it stops.\n- Confirm the rule against at least two consecutive step-pairs before using it.\n- Unpicked elements keep their input order; only the picked element moves each step, and passed elements shift one place.\n- Step count = number of elements the rule must place; the last step is the fully sorted line.\n- For 'what is step k', place the first k elements by the rule and leave the rest in input order — no need to write every step.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "machine summary rule in three parts confirm on two step pairs",
+        "unpicked elements keep input order only picked moves passed shift one place",
+        "step count equals elements to place last step is fully sorted line"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "A machine is given: **Input:** `cot 15 raw 6 ink 21 bud 9`\n\n**Step 1:** `6 cot 15 raw ink 21 bud 9`\n**Step 2:** `6 9 cot 15 raw ink 21 bud`\n\nWork out the rule (each step moves the next **smallest** number to the extreme left, building an ascending block; passed elements shift right; stop when all numbers are in the block), then answer with a one-line reason:\n\n1. Write step 3 in full.\n2. How many steps does the machine take to finish?\n3. In step 3, how many elements lie between `15` and `21`?\n4. In the last step, what is the third element from the left?\n5. Which step first shows `cot` immediately followed by `raw`?\n6. Write the machine's final arrangement.",
+      "searchKeywords": [
+        "machine practice input cot 15 raw 6 ink 21 bud 9 smallest number to left ascending block",
+        "write step 3 how many steps between 15 and 21 final arrangement exercises"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "rule-three-parts",
+      "front": "State an input-output machine rule in three parts.",
+      "back": "Which element is picked each step, where it is placed, and when the machine stops (line fully sorted by the rule).",
+      "explanation": "All three are needed to generate any step.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-the-machine-is"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "confirm-on-two-pairs",
+      "front": "How many step-pairs should you check before trusting a rule?",
+      "back": "At least two. A rule guessed from step 1 alone often fits by accident; it must explain every step.",
+      "explanation": "Step 1 → step 2, then step 2 → step 3.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["find-the-rule", "common-mistakes"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "unpicked-keep-order",
+      "front": "What happens to elements the rule does not pick in a given step?",
+      "back": "They keep their relative order. Only the picked element moves; elements it passes shift exactly one place the other way.",
+      "explanation": "If only words move, numbers stay in input order.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["two-rule-families", "common-mistakes"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "step-count",
+      "front": "How do you find the total number of steps a machine takes?",
+      "back": "Count the elements the rule has to place into its sorted block. Moving n numbers takes n steps (some rules skip the last if it is already in place).",
+      "explanation": "The last step's line is the fully sorted arrangement.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["step-and-count-questions"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "step-k-shortcut",
+      "front": "To answer 'what is step 5?', must you write steps 1-4 first?",
+      "back": "No. Once the rule is known, place the first five elements by the rule and leave the rest in input order.",
+      "explanation": "You know which elements are placed and where.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["step-and-count-questions"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "two-families",
+      "front": "Name the two common input-output rule families.",
+      "back": "Next largest/smallest number moved to one end per step; and next first/last word in dictionary order moved to one end per step. Some machines alternate the two.",
+      "explanation": "Placed elements form a growing sorted block at that end.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["two-rule-families"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "shift-by-one",
+      "front": "When an element jumps to an end, how far do the elements it passes move?",
+      "back": "Exactly one place, in the opposite direction. Nothing else in the line changes.",
+      "explanation": "Miscounting this is a common slip.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

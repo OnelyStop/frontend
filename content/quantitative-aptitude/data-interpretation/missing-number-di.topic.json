@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "missing-number-di",
+  "topicPosition": 70,
+  "title": "Missing Number Data Interpretation",
+  "summary": "Tables where a cell is left blank and must be found from a stated relationship: a row total, a given ratio, a percentage change, or an average. Read the clue, set up one equation, solve.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "table-data-interpretation",
+    "percentages",
+    "ratio-and-proportion"
+  ],
+  "learningObjectives": [
+    "Identify which relationship a question gives to fix a blank cell.",
+    "Turn that relationship into a single equation in one unknown.",
+    "Handle row-total, ratio, percentage-change and average clues.",
+    "Reuse a blank you have already found for a later question."
+  ],
+  "tags": ["data-interpretation", "missing-number-di", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Percents_Decimals_and_Fractions",
+      "title": "Arithmetic/Percents Decimals and Fractions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the percentage and ratio arithmetic only. All tables and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm missing-number DI is a standard question format. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-missing-number-set-is",
+      "type": "introduction",
+      "title": "What a missing-number set looks like",
+      "markdown": "A missing-number set is an ordinary table with one or more cells replaced by a blank or a letter. You cannot read the value off — you have to reconstruct it from a relationship the question states: the row adds to a given total, two cells are in a given ratio, one cell is a stated percentage more than another, or a cell equals the average of its row.\n\nEvery blank has exactly one clue that fixes it. The work is spotting the clue and writing the one equation it gives.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "missing number di blank cells reconstruct",
+        "one clue fixes each blank",
+        "row total ratio percentage average clue"
+      ],
+      "position": 10
+    },
+    {
+      "id": "read-the-clue-write-one-equation",
+      "type": "method",
+      "title": "Read the clue, write one equation",
+      "markdown": "1. **Find the blank the question is about.** Ignore the other blanks until a question needs them.\n2. **Read the relationship in the question stem**, not the table alone. \"...given that the row totals 60\", \"...in the ratio 4 : 5\", \"...20 per cent more than\", \"...equal to the average of the other three\".\n3. **Write it as one equation** with the blank as the unknown, and solve. A row-total clue is a subtraction; a ratio clue is a multiplication by the ratio fraction; a percentage clue multiplies by 1 plus (or minus) the rate; an average clue multiplies the average by the count.\n4. **Note the value down in the table.** A later question in the same set often needs it.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "read the clue write one equation missing number",
+        "row total subtraction ratio multiplication percentage average",
+        "write the found value into the table"
+      ],
+      "position": 20
+    },
+    {
+      "id": "the-four-clue-types",
+      "type": "concept",
+      "title": "The four clue types",
+      "markdown": "- **Row (or column) total.** Blank = stated total − sum of the known cells in that line.\n- **Ratio.** If the blank : a known cell = a : b, then blank = known cell × a ÷ b.\n- **Percentage change.** If the blank is r per cent more than a known cell, blank = known cell × (1 + r ÷ 100); r per cent less uses (1 − r ÷ 100).\n- **Average.** If the blank equals the average of n other cells, blank = (sum of those n cells) ÷ n; if a set of cells has a stated average, their sum is average × count and the blank is that sum minus the known cells.\n\nWhich one applies is stated in words in the question. Match the wording to the clue type before computing.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "four clue types missing number di",
+        "row total ratio percentage change average formulas",
+        "match wording to clue type"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: accounts opened by branch",
+      "markdown": "Accounts opened in a month, in hundreds. Each row's **Total** is given; one cell in three rows is blank.\n\n| Branch | Savings | Current | Fixed | Total |\n| ------ | ------- | ------- | ----- | ----- |\n| A | 30 | 12 | ? | 60 |\n| B | ? | 15 | 20 | 65 |\n| C | 28 | ? | 16 | 62 |\n| D | 22 | 10 | 8 | 40 |\n| E | 35 | 14 | 21 | 70 |\n\n**Q1. Fixed-deposit accounts at Branch A.** Row-total clue: 60 − 30 − 12 = **18** hundred.\n\n**Q2. Savings accounts at Branch B.** 65 − 15 − 20 = **30** hundred.\n\n**Q3. Current accounts at Branch C.** 62 − 28 − 16 = **18** hundred.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example missing number accounts by branch",
+        "row total clue subtraction"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "Q1. A fixed (hundreds)",
+          "value": 18,
+          "expression": "60-30-12"
+        },
+        {
+          "label": "Q2. B savings (hundreds)",
+          "value": 30,
+          "expression": "65-15-20"
+        },
+        {
+          "label": "Q3. C current (hundreds)",
+          "value": 18,
+          "expression": "62-28-16"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using the wrong clue** — subtracting from a row total when the question actually gave a ratio.\n- **Ratio the wrong way up** — blank = known × a ÷ b when blank : known = a : b, not b ÷ a.\n- **Percentage on the wrong base** — \"20 per cent more than B\" multiplies B, not the blank.\n- **Average vs total** — a stated average must be multiplied by the count before you subtract known cells.\n- **Not carrying a found blank forward** — recomputing it, or worse, leaving it blank, for the next question.\n- **Losing the unit** — the table is in hundreds or lakh; the answer carries that.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "missing number di mistakes",
+        "wrong clue ratio inverted percentage base average vs total",
+        "carry found blank forward unit"
+      ],
+      "position": 50
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Each blank has one clue in the question stem: row/column total, ratio, percentage change, or average.\n- Total clue → subtract the known cells from the stated total.\n- Ratio clue → multiply the known cell by the ratio fraction, the right way up.\n- Percentage clue → multiply the **base** cell by (1 ± r ÷ 100).\n- Average clue → average × count gives the sum; subtract known cells for the blank.\n- Write each found value into the table and reuse it.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "missing number di summary revision",
+        "total ratio percentage average clue recap"
+      ],
+      "position": 60
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Quarterly sales, ₹ lakh. Some cells are blank; each question gives the clue for the blank it needs.\n\n| Product | Q1 | Q2 | Q3 | Q4 |\n| ------- | -- | -- | -- | -- |\n| Alpha | 40 | 50 | ? | 66 |\n| Beta | 60 | ? | 54 | 72 |\n| Gamma | ? | 30 | 36 | 45 |\n| Delta | 80 | 88 | ? | 96 |\n\n1. Alpha's Q3, given it is 20 per cent more than Alpha's Q2.\n2. Beta's Q2, given Beta's four-quarter total is 246.\n3. Gamma's Q1, given Gamma's Q1 : Q2 = 4 : 5.\n4. Delta's Q3, given it equals the average of Delta's Q2 and Q4.\n5. Alpha's four-quarter total (use your Q3 from question 1).\n6. Beta's Q2 as a percentage of Beta's Q4 (use your Q2 from question 2).\n7. Total Q3 sales across all four products (use the Q3 values you have found).\n8. By what per cent is Gamma's Q4 more than Gamma's Q1 (use your Q1 from question 3)?",
+      "searchKeywords": [
+        "missing number di practice quarterly sales",
+        "percentage ratio total average clue exercises"
+      ],
+      "position": 70,
+      "expectedAnswers": [
+        {
+          "label": "1. Alpha Q3",
+          "value": 60,
+          "expression": "50*1.2"
+        },
+        {
+          "label": "2. Beta Q2",
+          "value": 60,
+          "expression": "246-60-54-72"
+        },
+        {
+          "label": "3. Gamma Q1",
+          "value": 24,
+          "expression": "30*4/5"
+        },
+        {
+          "label": "4. Delta Q3",
+          "value": 92,
+          "expression": "(88+96)/2"
+        },
+        {
+          "label": "5. Alpha four-quarter total",
+          "value": 216,
+          "expression": "40+50+60+66"
+        },
+        {
+          "label": "6. Beta Q2 as % of Beta Q4",
+          "value": 83.33,
+          "tolerance": 0.01,
+          "expression": "60/72*100"
+        },
+        {
+          "label": "7. total Q3 across products",
+          "value": 242,
+          "expression": "60+54+36+92"
+        },
+        {
+          "label": "8. Gamma Q4 vs Q1 (% more)",
+          "value": 87.5,
+          "expression": "(45-24)/24*100"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "mn-what-is",
+      "front": "What makes a DI set a 'missing number' set?",
+      "back": "One or more table cells are blank; each must be reconstructed from a relationship stated in the question — a total, a ratio, a percentage change, or an average.",
+      "explanation": "You cannot read the value off; you solve for it.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-a-missing-number-set-is"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "mn-method",
+      "front": "What is the method for a missing-number question?",
+      "back": "Find the blank, read the relationship in the question stem, write it as one equation in that unknown, solve, and note the value in the table for later questions.",
+      "explanation": "One clue, one equation.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["read-the-clue-write-one-equation"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "mn-total-clue",
+      "front": "The clue is 'the row totals 60'. How do you find the blank?",
+      "back": "Blank = stated total minus the sum of the known cells in that row.",
+      "explanation": "A total clue is a subtraction.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-four-clue-types"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "mn-ratio-clue",
+      "front": "The clue is 'blank : known cell = a : b'. What is the blank?",
+      "back": "Blank = known cell x a / b. Keep the ratio the right way up — the blank's part on top.",
+      "explanation": "Inverting the ratio is a common slip.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-four-clue-types"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "mn-percentage-clue",
+      "front": "The clue is 'the blank is 20% more than cell B'. What do you multiply?",
+      "back": "Multiply B (the base) by 1.20. The percentage always applies to the stated base cell, not to the blank.",
+      "explanation": "\"More than B\" fixes B as the base.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-four-clue-types"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "mn-average-clue",
+      "front": "A set of 4 cells has a stated average of 25, and 3 of them are known. How do you find the 4th?",
+      "back": "Sum of all four = 25 x 4 = 100. The blank = 100 minus the three known cells.",
+      "explanation": "Average x count gives the sum first.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-four-clue-types"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "mn-carry-forward",
+      "front": "Why write a found blank into the table straight away?",
+      "back": "Later questions in the same set often need it. Recomputing wastes time and risks a fresh error.",
+      "explanation": "Question 5 in a set frequently uses the answer to question 1.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["read-the-clue-write-one-equation"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

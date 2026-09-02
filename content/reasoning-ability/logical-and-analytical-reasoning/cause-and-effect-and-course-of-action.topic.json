@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "logical-and-analytical-reasoning",
+  "chapterName": "Logical and analytical reasoning",
+  "chapterPosition": 2,
+  "topicSlug": "cause-and-effect-and-course-of-action",
+  "topicPosition": 60,
+  "title": "Cause and Effect, Course of Action",
+  "summary": "Sorting an event pair into cause, effect, common cause, or independent using chronology and plausibility, and judging whether a suggested course of action actually addresses a stated problem.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["statement-and-conclusion-and-inference"],
+  "learningObjectives": [
+    "Place an event pair as direct cause, reverse cause, common cause, or independent.",
+    "Use chronology and plausibility to rule options in or out.",
+    "Test a course of action for relevance, practicability, and proportion.",
+    "Reject an extreme or out-of-scope action even when it touches the problem."
+  ],
+  "tags": [
+    "reasoning",
+    "critical-reasoning",
+    "cause-effect",
+    "course-of-action",
+    "bank-exams"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Logic/Informal_Fallacies",
+      "title": "Logic/Informal Fallacies",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the post hoc fallacy and common-cause reasoning. All event pairs and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm these are standard question types. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "two-item-families",
+      "type": "introduction",
+      "title": "Two related question types",
+      "markdown": "**Cause and effect.** You get two events and must say how they connect: one caused the other, the other caused the first, both came from a third common cause, or they are independent.\n\n**Course of action.** You get a problem and one or more suggested actions, and must say which actions should be taken up.\n\nBoth reward the same discipline: read what is actually stated, respect the order of events, and do not import a story of your own.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "cause and effect two events how they connect",
+        "course of action problem suggested actions which to take",
+        "respect the order of events do not import a story"
+      ],
+      "position": 10
+    },
+    {
+      "id": "cause-effect-options",
+      "type": "method",
+      "title": "Sorting the event pair",
+      "markdown": "Run the pair through four questions:\n\n1. **Could the first plausibly produce the second, and did it come earlier?** If yes, *first is the cause*.\n2. **Could the second have produced the first?** If that fits the timing better, *reverse cause*.\n3. **Is there an obvious third event that would produce both?** Then *common cause*, and neither drives the other.\n4. **If none of these is plausible**, the events are *independent*.\n\nChronology is decisive: an effect cannot come before its cause. Plausibility filters the rest — a link you have to strain to imagine is not the answer.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "sorting the event pair four questions plausible and earlier",
+        "reverse cause common cause independent",
+        "chronology decisive effect cannot precede cause plausibility filter"
+      ],
+      "position": 20
+    },
+    {
+      "id": "common-cause-pattern",
+      "type": "concept",
+      "title": "The common-cause pattern",
+      "markdown": "When two effects rise or fall together but neither sensibly moves the other, look for the shared driver.\n\n*Umbrella sales rose this week. Raincoat sales rose this week.* Umbrellas do not sell raincoats; both are driven by the weather. The connection is a **common cause**, not one causing the other.\n\nThis is also the guard against the *post hoc* error: 'B came after A' is not 'A caused B' if a third factor explains both, or if the timing is coincidence.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "common cause pattern two effects move together shared driver",
+        "umbrella sales raincoat sales weather",
+        "post hoc error b after a is not a caused b"
+      ],
+      "position": 30
+    },
+    {
+      "id": "course-of-action-tests",
+      "type": "method",
+      "title": "Testing a course of action",
+      "markdown": "A course of action should be taken up only if it passes all of:\n\n- **Relevance** — it addresses the cause of the stated problem, not a side issue.\n- **Practicability** — it can actually be done with ordinary resources and authority.\n- **Proportion** — it is not drastically more than the problem warrants; it does not create a bigger problem.\n- **Scope** — it is within the power of the body facing the problem.\n\nAn action can touch the problem and still fail: banning all staff cars because the car park is full addresses the symptom but fails proportion and scope.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "testing a course of action relevance practicability proportion scope",
+        "addresses the cause not a side issue ordinary resources and authority",
+        "not drastically more than warranted within the body's power"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. Cause and effect.** *A: The state cut bus fares by a third last month. B: Bus ridership this month is sharply higher.*\n\nA came first, and a fare cut plausibly raises ridership. There is no obvious third factor driving both. So **A is the cause of B**.\n\n**2. Course of action.** Problem: *'The single token machine in the lobby often runs out of paper by mid-morning.'*\n\n- I. Refill the machine twice a day and install a second machine. Relevant (targets the paper shortage and the single point of failure), practicable, proportionate. **Should be taken up.**\n- II. Remove the token machine and return to a physical queue. This discards a working system and brings back the queue the machine replaced. Fails proportion. **Should not be taken up.**",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example bus fare cut ridership A causes B",
+        "token machine out of paper refill and add a second machine",
+        "remove the machine fails proportion"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Calling B the effect of A just because B is reported after A** — check for a common cause or coincidence.\n- **Ignoring chronology** and picking a direction the timing rules out.\n- **Accepting a course of action because it mentions the problem**, without checking practicability and proportion.\n- **Approving an extreme action** — bans, shutdowns, mass penalties — for a small problem.\n- **Approving an action outside the actor's authority.**\n- **Rejecting a sensible, modest action** for not solving the whole problem at once; partial but sound is still worth taking.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cause effect mistakes b after a common cause coincidence ignoring chronology",
+        "course of action mentions the problem extreme action outside authority",
+        "rejecting a modest sound partial action"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Event pair: test direct cause, reverse cause, common cause, independent. Chronology is decisive; an effect cannot precede its cause.\n- Two effects moving together with no sensible link between them point to a common cause, not one causing the other.\n- A course of action must be relevant to the cause, practicable, proportionate, and within scope.\n- Touching the problem is not enough; extreme or out-of-power actions are rejected, and a modest sound action is accepted even if partial.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cause effect course of action summary revision",
+        "direct reverse common independent chronology decisive",
+        "relevant practicable proportionate in scope reject extreme accept modest"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "For 1, 2, 5, 7 name the connection (A causes B, B causes A, common cause, or independent). For 3, 4, 6 say whether the course of action should be taken up. Give a one-line reason.\n\n1. *A: Heavy rain flooded the main road on Tuesday. B: Branch footfall on Tuesday was well below normal.*\n2. *A: Umbrella sales in the city rose this week. B: Raincoat sales in the city rose this week.*\n3. Problem: *'Many account-opening forms are rejected for a missing signature.'*  Action: Add a highlighted 'sign here' box and have the counter clerk check for the signature before accepting the form.\n4. Problem: *'The office car park is full by 9:15 a.m.'*  Action: Ban all staff from driving to work.\n5. *A: A company announced large layoffs before noon. B: The company's share price fell the same afternoon.*\n6. Problem: *'Evening callers wait a long time on the helpline.'*  Action: Publish the average wait time by hour so callers can choose quieter slots, and move two agents into the evening shift.\n7. *A: The canteen introduced a new dessert on Monday. B: A fire drill was held on Monday.*",
+      "searchKeywords": [
+        "cause effect course of action practice questions",
+        "flooded road footfall umbrella raincoat signature box car park ban layoffs share price helpline wait dessert fire drill"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "four-connections",
+      "front": "What are the four possible connections in a cause-and-effect pair?",
+      "back": "A is the cause of B; B is the cause of A; both are effects of a common cause; the two events are independent.",
+      "explanation": "Chronology and plausibility choose between them.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["cause-effect-options"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "chronology-decisive",
+      "front": "Why does the order of events settle many cause-effect items?",
+      "back": "An effect cannot occur before its cause. If B happened before A, then A cannot be the cause of B.",
+      "explanation": "Check timing before plausibility.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["cause-effect-options"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "common-cause-card",
+      "front": "Umbrella sales and raincoat sales both rose this week. What is the connection?",
+      "back": "A common cause — the weather. Neither product's sales drive the other's.",
+      "explanation": "Guards against the post hoc error.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-cause-pattern"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "coa-four-tests",
+      "front": "What must a course of action pass to be taken up?",
+      "back": "Relevance (addresses the cause), practicability (can be done), proportion (not drastically more than warranted), and scope (within the actor's power).",
+      "explanation": "All four, not just relevance.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["course-of-action-tests"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "touches-not-enough",
+      "front": "An action clearly relates to the problem. Is that enough to take it up?",
+      "back": "No. It must also be practicable, proportionate, and in scope. 'Ban all staff cars' relates to a full car park but fails proportion and scope.",
+      "explanation": "Extreme actions are rejected.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["course-of-action-tests"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "modest-partial-ok",
+      "front": "Should a modest action be rejected for not solving the whole problem at once?",
+      "back": "No. A relevant, practicable, proportionate action is worth taking even if it only helps partially.",
+      "explanation": "Sound and partial beats drastic and risky.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "post-hoc",
+      "front": "What is the post hoc error in cause-effect questions?",
+      "back": "Concluding 'A caused B' only because B happened after A, when a third factor or coincidence could explain B.",
+      "explanation": "Always check for a common cause.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-cause-pattern"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

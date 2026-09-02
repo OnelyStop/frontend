@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "algebra",
+  "chapterName": "Algebra",
+  "chapterPosition": 7,
+  "topicSlug": "algebraic-expressions-and-identities",
+  "topicPosition": 10,
+  "title": "Algebraic Expressions and Identities",
+  "summary": "The standard square and cube identities, and how to use them to expand, factorise and evaluate expressions quickly from summary values like a+b and ab.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["simplification-and-order-of-operations"],
+  "learningObjectives": [
+    "State and apply the square identities for (a+b)^2, (a-b)^2, a^2-b^2 and (a+b+c)^2.",
+    "State and apply the cube identities for (a+b)^3, (a-b)^3, a^3+b^3 and a^3-b^3.",
+    "Evaluate a^2+b^2 and a^3+b^3 from a+b and ab without finding a and b.",
+    "Use a^2-b^2 = (a+b)(a-b) to simplify awkward products at speed."
+  ],
+  "tags": ["algebra", "identities", "factorisation", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Algebra/Standard_Identities",
+      "title": "Algebra/Standard Identities",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the standard algebraic identities. All wording, worked examples and practice items here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm algebra is part of the quantitative-aptitude scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "why-identities-matter",
+      "type": "introduction",
+      "title": "Why identities matter",
+      "markdown": "An identity is an equation that holds for every value of its letters. Knowing a handful of them turns a page of expansion into one line.\n\nIn bank exams they rarely appear as \"expand this\". They hide inside other questions: a simplification where 103 squared minus 97 squared collapses to a small product, a question that gives you the sum and the product of two numbers and asks for the sum of their squares, a quadratic where the sum and product of the roots is all you need. Learn the identities as tools you reach for, not as a chapter to be memorised and forgotten.\n\nThis topic uses the caret sign to mean \"to the power of\", so a^2 is a squared and a^3 is a cubed.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "algebraic identity meaning",
+        "why learn identities for bank exams",
+        "identity holds for every value"
+      ],
+      "position": 10
+    },
+    {
+      "id": "terms-and-degree",
+      "type": "concept",
+      "title": "Terms, coefficients and degree",
+      "markdown": "An algebraic expression is a sum of terms. In 5x^2 minus 3xy plus 7, the terms are 5x^2, minus 3xy and 7. In the term 5x^2 the number 5 is the coefficient and x^2 is the variable part.\n\n- **Like terms** have the same variable part, so 4xy and minus 9xy are like terms and combine to minus 5xy. 4xy and 4x^2y are not like terms and cannot be combined.\n- **Degree** of a term is the sum of the powers of its variables: 5x^2 has degree 2, minus 3xy has degree 2, 7 has degree 0. The degree of the whole expression is the highest degree among its terms.\n\nYou can only add and subtract like terms. Multiplication and the identities below are what let you handle the rest.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "like terms and unlike terms",
+        "coefficient and variable part",
+        "degree of a term and an expression"
+      ],
+      "position": 20
+    },
+    {
+      "id": "square-identities",
+      "type": "formula",
+      "title": "The square identities",
+      "markdown": "- (a plus b)^2 equals a^2 plus 2ab plus b^2\n- (a minus b)^2 equals a^2 minus 2ab plus b^2\n- a^2 minus b^2 equals (a plus b)(a minus b)\n- (a plus b plus c)^2 equals a^2 plus b^2 plus c^2 plus 2ab plus 2bc plus 2ca\n\nTwo rearrangements are used constantly:\n\n- a^2 plus b^2 equals (a plus b)^2 minus 2ab, and also (a minus b)^2 plus 2ab\n- (a plus b)^2 minus (a minus b)^2 equals 4ab\n\nThe difference of squares, a^2 minus b^2, is the one that speeds up mental arithmetic: 103^2 minus 97^2 is (103 plus 97)(103 minus 97), which is 200 times 6, or 1200.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "square of a sum and difference identity",
+        "difference of two squares",
+        "a squared plus b squared from a plus b and ab"
+      ],
+      "position": 30
+    },
+    {
+      "id": "cube-identities",
+      "type": "formula",
+      "title": "The cube identities",
+      "markdown": "- (a plus b)^3 equals a^3 plus 3a^2b plus 3ab^2 plus b^3, which can be written a^3 plus b^3 plus 3ab(a plus b)\n- (a minus b)^3 equals a^3 minus 3a^2b plus 3ab^2 minus b^3, which is a^3 minus b^3 minus 3ab(a minus b)\n- a^3 plus b^3 equals (a plus b)(a^2 minus ab plus b^2)\n- a^3 minus b^3 equals (a minus b)(a^2 plus ab plus b^2)\n\nThe two rearrangements you actually use:\n\n- a^3 plus b^3 equals (a plus b)^3 minus 3ab(a plus b)\n- a^3 minus b^3 equals (a minus b)^3 plus 3ab(a minus b)\n\nThere is also the three-term result: if a plus b plus c equals 0, then a^3 plus b^3 plus c^3 equals 3abc.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cube of a sum and difference identity",
+        "sum and difference of cubes factorisation",
+        "a cubed plus b cubed from a plus b and ab"
+      ],
+      "position": 40
+    },
+    {
+      "id": "evaluate-from-summaries",
+      "type": "method",
+      "title": "Evaluating from a+b and ab",
+      "markdown": "Many questions give you a summary of two numbers, not the numbers, and ask for a symmetric expression in them. You never need to find a and b separately.\n\n1. **Given a plus b and ab.** Then a^2 plus b^2 equals (a plus b)^2 minus 2ab. And a^3 plus b^3 equals (a plus b)^3 minus 3ab(a plus b).\n2. **Given a minus b and ab.** Then a^2 plus b^2 equals (a minus b)^2 plus 2ab. And ab is often recoverable from ((a plus b)^2 minus (a minus b)^2) divided by 4.\n3. **The reciprocal versions.** If x plus 1 over x equals k, then x^2 plus 1 over x^2 equals k^2 minus 2, and x^3 plus 1 over x^3 equals k^3 minus 3k. If x minus 1 over x equals k, then x^2 plus 1 over x^2 equals k^2 plus 2.\n\nWork out which summary you are given, then substitute into the matching rearrangement.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "evaluate symmetric expression from sum and product",
+        "x plus one over x squared and cubed",
+        "do not solve for a and b"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. From a sum and a product.** If a plus b equals 7 and ab equals 10, find a^2 plus b^2 and a^3 plus b^3.\n\na^2 plus b^2 equals (a plus b)^2 minus 2ab, which is 7^2 minus 2 times 10, that is 49 minus 20, equal to **29**.\n\na^3 plus b^3 equals (a plus b)^3 minus 3ab(a plus b), which is 7^3 minus 3 times 10 times 7, that is 343 minus 210, equal to **133**.\n\n**2. Difference of squares for speed.** Find 103^2 minus 97^2. This is (103 plus 97)(103 minus 97), that is 200 times 6, equal to **1200**. No squaring needed.\n\n**3. A reciprocal question.** If x minus 1 over x equals 3, find x^2 plus 1 over x^2. Using the rule, this is 3^2 plus 2, that is 9 plus 2, equal to **11**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example a plus b ab sum of squares and cubes",
+        "103 squared minus 97 squared shortcut",
+        "x minus one over x equals 3 find x squared plus one over x squared"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "1. a^2 + b^2 with a+b=7, ab=10",
+          "value": 29,
+          "expression": "7**2 - 2*10"
+        },
+        {
+          "label": "1. a^3 + b^3 with a+b=7, ab=10",
+          "value": 133,
+          "expression": "7**3 - 3*10*7"
+        },
+        {
+          "label": "2. 103^2 - 97^2",
+          "value": 1200,
+          "expression": "(103+97)*(103-97)"
+        },
+        {
+          "label": "3. x^2 + 1/x^2 when x - 1/x = 3",
+          "value": 11,
+          "expression": "3**2 + 2"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Forgetting the middle term.** (a plus b)^2 is not a^2 plus b^2. The 2ab term is where marks are lost.\n- **Sign slips in (a minus b)^3.** The expansion alternates: a^3 minus 3a^2b plus 3ab^2 minus b^3.\n- **Mixing the two reciprocal rules.** x plus 1 over x equals k gives k^2 minus 2; x minus 1 over x equals k gives k^2 plus 2.\n- **Solving for a and b when you do not need to.** If only a plus b and ab are given and the question is symmetric, substitute into an identity instead.\n- **Reading a^2 minus b^2 as (a minus b)^2.** They are different; the first factorises as (a plus b)(a minus b).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "identity mistakes middle term",
+        "sign errors cube of a difference",
+        "reciprocal rule minus two versus plus two"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- (a plus b)^2 equals a^2 plus 2ab plus b^2; (a minus b)^2 equals a^2 minus 2ab plus b^2.\n- a^2 minus b^2 equals (a plus b)(a minus b) — use it to shortcut large squared differences.\n- a^2 plus b^2 equals (a plus b)^2 minus 2ab; (a plus b)^2 minus (a minus b)^2 equals 4ab.\n- (a plus b)^3 equals a^3 plus b^3 plus 3ab(a plus b); so a^3 plus b^3 equals (a plus b)^3 minus 3ab(a plus b).\n- If a plus b plus c equals 0, then a^3 plus b^3 plus c^3 equals 3abc.\n- x plus 1 over x equals k gives x^2 plus 1 over x^2 equals k^2 minus 2 and x^3 plus 1 over x^3 equals k^3 minus 3k.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "identities summary",
+        "revision square and cube identities",
+        "formula recap algebra"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Use an identity; do not solve for the individual letters.\n\n1. If a plus b equals 9 and ab equals 14, find a^2 plus b^2.\n2. If a minus b equals 4 and ab equals 12, find a^2 plus b^2.\n3. Find 56^2 minus 44^2.\n4. If x plus 1 over x equals 5, find x^2 plus 1 over x^2.\n5. If a plus b equals 10 and a minus b equals 4, find ab.\n6. If (a plus b)^2 equals 64 and ab equals 7, find a^2 plus b^2.\n7. If a plus b equals 6 and ab equals 8, find a^3 plus b^3.\n8. If x minus 1 over x equals 2, find x^3 minus 1 over x^3.",
+      "searchKeywords": [
+        "algebra identities practice questions",
+        "sum of squares and cubes exercises",
+        "difference of squares practice"
+      ],
+      "position": 90,
+      "expectedAnswers": [
+        { "label": "1. a^2 + b^2", "value": 53, "expression": "9**2 - 2*14" },
+        { "label": "2. a^2 + b^2", "value": 40, "expression": "4**2 + 2*12" },
+        {
+          "label": "3. 56^2 - 44^2",
+          "value": 1200,
+          "expression": "(56+44)*(56-44)"
+        },
+        { "label": "4. x^2 + 1/x^2", "value": 23, "expression": "5**2 - 2" },
+        { "label": "5. ab", "value": 21, "expression": "(10**2 - 4**2)/4" },
+        { "label": "6. a^2 + b^2", "value": 50, "expression": "64 - 2*7" },
+        { "label": "7. a^3 + b^3", "value": 72, "expression": "6**3 - 3*8*6" },
+        {
+          "label": "8. x^3 - 1/x^3",
+          "value": 14,
+          "expression": "2**3 + 3*2"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "square-of-sum",
+      "front": "Expand (a + b)^2 and (a - b)^2.",
+      "back": "(a + b)^2 = a^2 + 2ab + b^2. (a - b)^2 = a^2 - 2ab + b^2. The 2ab middle term is the one candidates drop.",
+      "explanation": "Both come straight from multiplying the bracket by itself.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["square-identities"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "difference-of-squares",
+      "front": "Factorise a^2 - b^2, and use it on 103^2 - 97^2.",
+      "back": "a^2 - b^2 = (a + b)(a - b). So 103^2 - 97^2 = 200 x 6 = 1200.",
+      "explanation": "Turns a large squared difference into one small product.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["square-identities", "worked-example"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "sum-of-squares-from-summary",
+      "front": "Given a + b and ab, how do you get a^2 + b^2?",
+      "back": "a^2 + b^2 = (a + b)^2 - 2ab. With a + b = 7 and ab = 10 it is 49 - 20 = 29.",
+      "explanation": "No need to find a and b when the expression is symmetric.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["evaluate-from-summaries", "worked-example"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "sum-of-cubes-from-summary",
+      "front": "Given a + b and ab, how do you get a^3 + b^3?",
+      "back": "a^3 + b^3 = (a + b)^3 - 3ab(a + b). With a + b = 7 and ab = 10 it is 343 - 210 = 133.",
+      "explanation": "Follows from (a + b)^3 = a^3 + b^3 + 3ab(a + b).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cube-identities", "evaluate-from-summaries"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "four-ab",
+      "front": "What does (a + b)^2 - (a - b)^2 equal?",
+      "back": "4ab. So if a + b = 10 and a - b = 4, then ab = (100 - 16) / 4 = 21.",
+      "explanation": "Subtracting the two square expansions cancels a^2 and b^2 and doubles 2ab.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["square-identities"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "reciprocal-rules",
+      "front": "If x + 1/x = k, what are x^2 + 1/x^2 and x^3 + 1/x^3?",
+      "back": "x^2 + 1/x^2 = k^2 - 2. x^3 + 1/x^3 = k^3 - 3k. If instead x - 1/x = k, then x^2 + 1/x^2 = k^2 + 2.",
+      "explanation": "Square or cube the given equation and rearrange.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["evaluate-from-summaries", "worked-example"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "three-term-zero",
+      "front": "If a + b + c = 0, what is a^3 + b^3 + c^3?",
+      "back": "3abc.",
+      "explanation": "A special case of the general a^3 + b^3 + c^3 - 3abc factorisation.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["cube-identities"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

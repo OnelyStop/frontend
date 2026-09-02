@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "work-and-motion",
+  "chapterName": "Work and motion",
+  "chapterPosition": 3,
+  "topicSlug": "time-and-work",
+  "topicPosition": 10,
+  "title": "Time and Work",
+  "summary": "The LCM (total-units) method for time-and-work problems, combining and subtracting work rates, the man-days idea, and the standard patterns: one person leaving partway, and alternating days.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["fractions-and-decimals", "hcf-and-lcm"],
+  "learningObjectives": [
+    "Model a job as a fixed number of work units and each worker as a rate.",
+    "Combine rates for people working together and subtract rates to isolate one.",
+    "Use the man-days relationship for scaling workers, days and work.",
+    "Solve problems where a worker joins or leaves partway through."
+  ],
+  "tags": ["arithmetic", "time-and-work", "rates", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Subject:Mathematics",
+      "title": "Subject:Mathematics (Wikibooks mathematics collection)",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Collection used to cross-check rate reasoning (work = rate times time). Every worked example and question here is original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "Work as units, workers as rates",
+      "markdown": "A time-and-work problem is a rate problem. Treat the whole job as a fixed amount of work. If a person finishes it in d days, that person does one d-th of the job per day; that fraction is their rate.\n\nThe fraction method works, but the arithmetic is cleaner if you scale the job up to a whole number of units. Take the total work to be the lowest common multiple of the times given; each person's daily output is then a whole number.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "time and work basics",
+        "work as rate",
+        "one day work"
+      ],
+      "position": 10
+    },
+    {
+      "id": "lcm-method",
+      "type": "method",
+      "title": "The LCM (total-units) method",
+      "markdown": "1. Let the total work be the LCM of all the individual times in the question.\n2. Each worker's daily output is total work divided by that worker's time.\n3. Add outputs for people working together; the time to finish is total work divided by the combined output.\n\nExample setup: if A takes 12 days and B takes 18, let the job be 36 units. A does 3 units a day, B does 2. Together they do 5 units a day.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "LCM method time and work",
+        "total units",
+        "combined rate"
+      ],
+      "position": 20
+    },
+    {
+      "id": "man-days",
+      "type": "formula",
+      "title": "The man-days relationship",
+      "markdown": "When several identical workers do a job, workers times days is proportional to the work done, provided each works at the same rate and the same hours.\n\nSo (workers 1 times days 1) divided by work 1 equals (workers 2 times days 2) divided by work 2. Adding hours per day just multiplies both sides by the hours.\n\nUse this for questions that scale the crew and ask for the new number of days, or that change the size of the job.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "man days formula",
+        "workers times days",
+        "scale the crew"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-together",
+      "type": "worked_example",
+      "title": "Worked example: two people together",
+      "markdown": "A can finish a job in 12 days and B in 18 days. **How long do they take working together?**\n\nLet the job be 36 units (the LCM of 12 and 18).\n\nA does 36 divided by 12, that is 3 units a day. B does 36 divided by 18, that is 2 units a day. Together, 5 units a day.\n\nTime equals total work divided by combined rate: 36 divided by 5, that is 7.2 days.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "A 12 days B 18 days together",
+        "combined time",
+        "7.2 days"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "days working together",
+          "value": 7.2,
+          "expression": "36/(36/12 + 36/18)"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-subtract-rate",
+      "type": "worked_example",
+      "title": "Worked example: isolating one worker",
+      "markdown": "A and B together finish a job in 8 days. A alone would take 12 days. **How long would B alone take?**\n\nB's rate equals the combined rate minus A's rate: one eighth minus one twelfth.\n\nWith a common denominator of 24, that is 3 twenty-fourths minus 2 twenty-fourths, which is one twenty-fourth.\n\nSo B alone takes 24 days.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "A and B together 8 days A alone 12",
+        "B alone time",
+        "subtract rates"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "days for B alone",
+          "value": 24,
+          "expression": "1/(1/8 - 1/12)"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-leaves",
+      "type": "worked_example",
+      "title": "Worked example: a worker leaves partway",
+      "markdown": "A can do a job in 20 days. A works for 5 days and then leaves. B finishes the remaining work in 9 days. **How long would B alone take for the whole job?**\n\nIn 5 days A completes 5 twentieths of the job, that is one quarter. So three quarters remains.\n\nB does three quarters in 9 days, so B's rate is three quarters divided by 9, that is one twelfth of the job per day.\n\nB alone would take 9 divided by three quarters, that is 12 days.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "A works 5 days then leaves",
+        "B finishes remaining work",
+        "B alone time"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "days for B alone",
+          "value": 12,
+          "expression": "9/(1 - 5/20)"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Adding days instead of rates.** If A takes 12 and B takes 18, together they do not take 30 or 15; add the per-day outputs.\n- **Forgetting to convert back.** After finding a combined rate, the time is the reciprocal of that rate (or total units over the rate).\n- **Losing track of remaining work.** After a worker leaves, compute the fraction done, then hand the remainder to the next worker.\n- **Misusing man-days when rates differ.** The workers-times-days rule needs identical workers; a faster worker is a different rate.\n- **Ignoring hours per day.** If the working day changes length, scale man-days by hours.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "time and work mistakes",
+        "add rates not days",
+        "remaining work"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Take total work as the LCM of the given times; each worker's daily output is a whole number.\n- Together: add outputs; time equals total work divided by combined output.\n- One worker's rate equals the combined rate minus the others'.\n- Man-days: workers times days is proportional to work, for identical workers; include hours per day if it varies.\n- Worker leaves partway: find the fraction completed, pass the remainder on.\n- The answer to \"how many days\" is always total work divided by rate, never a sum of days.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "time and work summary",
+        "revision",
+        "LCM method recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "work-as-units",
+      "front": "In the LCM method, what do you take as the total work?",
+      "back": "The LCM of all the individual completion times. Each worker's daily output is then a whole number of units.",
+      "explanation": "Scaling the job avoids fraction arithmetic.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["lcm-method"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "combine-rates",
+      "front": "A takes 12 days, B takes 18. How long together?",
+      "back": "Job = 36 units; A does 3/day, B does 2/day, together 5/day; time = 36/5 = 7.2 days.",
+      "explanation": "Add outputs, then divide total work by the combined output.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["worked-example-together"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "add-rates-not-days",
+      "front": "If A takes 12 days and B takes 18, is the combined time 15 days?",
+      "back": "No. Add rates, not times: 1/12 + 1/18 = 5/36 per day, so 7.2 days.",
+      "explanation": "Averaging or adding the day counts is the classic error.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "isolate-worker",
+      "front": "A+B finish in 8 days; A alone in 12. B alone?",
+      "back": "1/8 − 1/12 = 1/24 per day, so B alone takes 24 days.",
+      "explanation": "One worker's rate = combined rate minus the other's.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-subtract-rate"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "worker-leaves",
+      "front": "A (20-day worker) works 5 days then leaves; B finishes the rest in 9 days. B alone for the whole job?",
+      "back": "A did 5/20 = 1/4; B did 3/4 in 9 days, so B alone = 9 ÷ (3/4) = 12 days.",
+      "explanation": "Compute the fraction completed, then the remainder.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["worked-example-leaves"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "man-days-rule",
+      "front": "State the man-days relationship for identical workers.",
+      "back": "(workers₁ × days₁)/work₁ = (workers₂ × days₂)/work₂; multiply each side by hours per day if that varies.",
+      "explanation": "Only valid when every worker has the same rate.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["man-days"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "days-from-rate",
+      "front": "You have found a combined rate of 5 units/day on a 36-unit job. How many days?",
+      "back": "36 ÷ 5 = 7.2 days. Time is always total work divided by rate.",
+      "explanation": "Convert the rate back to a time at the end.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["quick-revision"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

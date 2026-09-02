@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "advanced-puzzles-and-logic",
+  "chapterName": "Advanced puzzles and logic",
+  "chapterPosition": 3,
+  "topicSlug": "syllogism-possibility-and-reverse",
+  "topicPosition": 20,
+  "title": "Syllogisms: Possibility and Reverse",
+  "summary": "The harder syllogism variants — 'is a possibility' conclusions, reverse syllogism where you pick the statements that force a given conclusion, and chains of three or four statements. All handled with Venn diagrams drawn as labelled regions.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["syllogisms"],
+  "learningObjectives": [
+    "Decide whether an arrangement described by a 'possibility' conclusion can be drawn without breaking any statement.",
+    "For a reverse-syllogism item, test each candidate statement set for whether it forces the target conclusion.",
+    "Work a chain of three or four statements by composing the containments step by step.",
+    "Separate a definite conclusion from a mere possibility."
+  ],
+  "tags": ["reasoning", "syllogism", "possibility", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/High_School_Mathematics_Extensions/Logic",
+      "title": "High School Mathematics Extensions/Logic",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for set-containment reasoning behind the Venn method. All syllogism sets here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm these syllogism variants are standard question types. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "beyond-the-basics",
+      "type": "introduction",
+      "title": "Three harder variants",
+      "markdown": "Once you can test a plain syllogism with a Venn diagram, three variants raise the difficulty:\n\n1. **Possibility conclusions** — 'All A being B is a possibility.' You are asked whether such a picture *can* be drawn without contradicting the statements.\n2. **Reverse syllogism** — the conclusion is fixed and you choose which set of statements would make it follow.\n3. **Longer chains** — three or four statements that must be composed in order.\n\nEvery one is still solved by drawing regions, not by reciting rules.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "harder syllogism variants possibility reverse longer chains",
+        "possibility conclusion can such a picture be drawn without contradiction",
+        "reverse syllogism choose statements that make the conclusion follow"
+      ],
+      "position": 10
+    },
+    {
+      "id": "what-possibility-means",
+      "type": "concept",
+      "title": "What 'a possibility' means",
+      "markdown": "A possibility conclusion follows when **at least one** valid diagram makes it true — the statements do not force it, but they do not forbid it either.\n\n- It **fails** only if the statements make that arrangement impossible.\n- 'Some A are B' allows 'All A are B is a possibility' — unless 'Some A are not B' is also stated, which forbids it.\n- 'All A are B' allows 'All B are A is a possibility' and 'Some B are not A is a possibility' — B could be exactly A, or larger.\n- 'No A are B' forbids any possibility that puts an A inside B.\n\nSo the test is: try to draw the picture the conclusion describes; if you can do it while keeping every statement true, the possibility follows.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "possibility follows when at least one valid diagram makes it true",
+        "some A are B allows all A are B possibility unless some A are not B stated",
+        "no A are B forbids putting an A inside B try to draw the picture"
+      ],
+      "position": 20
+    },
+    {
+      "id": "testing-possibility",
+      "type": "method",
+      "title": "Testing a possibility conclusion",
+      "markdown": "1. **Draw the minimal diagram** the statements force — only what must be true.\n2. **Read the conclusion as an instruction**: 'make all A sit inside B', 'make some C sit outside D'.\n3. **Try to redraw** to obey that instruction while keeping every statement's region relationship intact.\n4. If a redraw exists → the possibility **follows**. If every redraw breaks a statement → it **does not follow**.\n\nWatch for a definite conclusion hiding in the set: if the statements already force 'Some A are not B', then 'All A are B is a possibility' cannot follow, and 'Some A are not B' follows outright.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "testing possibility draw minimal forced diagram read conclusion as instruction",
+        "try to redraw obeying the instruction while keeping statements intact",
+        "redraw exists possibility follows every redraw breaks a statement it does not"
+      ],
+      "position": 30
+    },
+    {
+      "id": "reverse-syllogism",
+      "type": "method",
+      "title": "Reverse syllogism",
+      "markdown": "Here the conclusion is given and the options are candidate statement sets. For each option:\n\n1. **Assume only that option's statements.**\n2. **Draw every diagram they allow.**\n3. **Check the target conclusion in all of them.** If it is true in every allowed diagram, that option 'forces' the conclusion and is a correct answer.\n\nUseful building blocks:\n\n- `All A are B` + `All B are C` → `All A are C` (and `Some A are C`, `Some C are A`).\n- `Some A are B` + `All B are C` → `Some A are C`.\n- `All A are B` alone → `Some A are B` and `Some B are A` (the groups are taken to be non-empty).\n- `Some A are B` alone → `Some B are A`; nothing stronger.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "reverse syllogism conclusion given options are candidate statement sets",
+        "assume only that option draw every allowed diagram check conclusion in all",
+        "all A are B all B are C gives all A are C some A are B all B are C gives some A are C"
+      ],
+      "position": 40
+    },
+    {
+      "id": "longer-chains",
+      "type": "method",
+      "title": "Chains of three or four statements",
+      "markdown": "Compose the containments one link at a time and keep a running picture.\n\n- `All P are Q`, `All Q are R`, `Some R are S` → `All P are R` (definite); `Some P are S` is **not** definite (the R that are S may miss P entirely) but **All P are S is a possibility**.\n- A `No` anywhere often produces a definite negative: `All P are Q`, `No Q are R` → `No P are R`.\n- After composing, test each conclusion — definite first, then possibility — against the composed picture.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "longer chains compose containments one link at a time running picture",
+        "all P are Q all Q are R some R are S gives all P are R some P are S not definite",
+        "no in the chain gives a definite negative all P are Q no Q are R gives no P are R"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**Set 1 — possibility.** Statements: *All pens are red things. Some red things are inked.* Conclusions: I. *All pens being inked is a possibility.* II. *Some pens are inked* (definite).\n\nForced picture: the pen circle sits wholly inside red; the inked circle overlaps red somewhere. Nothing says where in red the pens are, so I can slide the pen circle into the red∩inked overlap → 'all pens are inked' is drawable → **I follows**. But that was a *choice*; the statements do not force any pen to be inked, so **II does not follow**.\n\n**Set 2 — possibility blocked.** Statements: *Some cars are blue. No blue thing is fast.* Conclusions: I. *All cars being fast is a possibility.* II. *Some cars are not fast* (definite).\n\nThe blue cars exist (some cars are blue) and no blue thing is fast, so those cars are not fast → **II follows** outright. That same fact makes 'all cars are fast' impossible → **I does not follow**.\n\n**Set 3 — reverse.** Target conclusion: *Some doctors are engineers* (must definitely follow). Which option forces it?\n(a) *All doctors are engineers.*  (b) *Some doctors are teachers; all teachers are engineers.*  (c) *Some engineers are teachers.*\n\n(a) All doctors ⊆ engineers, doctors non-empty → some doctors are engineers → **forces it**. (b) the doctor-teachers are engineers → some doctors are engineers → **forces it**. (c) tells us nothing linking doctors to engineers → **does not force it**. Answer: **(a) and (b)**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example all pens red some red inked all pens inked possibility follows some pens inked not definite",
+        "some cars blue no blue fast some cars not fast definite all cars fast impossible",
+        "reverse syllogism target some doctors are engineers options a and b force it"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Treating a possibility as a definite** — 'All A being B is a possibility' does not mean any A is B.\n- **Missing a blocking statement.** 'Some A are not B' anywhere kills 'All A are B is a possibility'.\n- **In reverse items, accepting an option because the conclusion *can* be true** — it must be true in **every** diagram that option allows.\n- **Forgetting existential import the exam uses:** 'All A are B' is taken to allow 'Some A are B' and 'Some B are A'.\n- **Breaking a chain at a `Some` link** and then claiming a definite where only a possibility holds.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "possibility mistakes treating a possibility as definite missing a blocking some are not",
+        "reverse item option must force conclusion in every allowed diagram not just can",
+        "existential import all A are B allows some A are B chain broken at some link"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A possibility follows if you can draw one valid diagram obeying it; it fails only if every diagram breaks a statement.\n- 'Some A are not B' (stated or forced) blocks 'All A are B is a possibility' and is itself a definite conclusion.\n- Reverse syllogism: an option is correct only if the target conclusion holds in **every** diagram that option's statements allow.\n- Chains: `All`+`All` composes to `All`; a `No` gives a definite negative; a `Some` link usually yields only a possibility beyond it.\n- Always separate 'is a possibility' from 'follows' — they are different verdicts.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "syllogism possibility summary draw one valid diagram fails only if every diagram breaks",
+        "some are not blocks all are B possibility and is definite reverse needs every diagram",
+        "chain all plus all composes no gives definite negative some link yields possibility"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Assume the exam's usual reading ('All A are B' allows 'Some A are B'). Give a one-line reason for each.\n\n1. Statements: *All keys are metal. Some metal things are shiny.* Is *All keys being shiny* a possibility?\n2. Statements: *Some books are old. Some books are not old.* Is *All books being old* a possibility?\n3. Statements: *All roads are paved. No paved thing is muddy.* Does *Some roads are not muddy* follow, and is *All roads being muddy* a possibility?\n4. Statements: *All clerks are staff. All staff are insured.* Does *Some clerks are insured* follow? Is *All insured people being clerks* a possibility?\n5. Reverse: target *Some fruits are sweet* must follow. Which forces it? (a) *All fruits are sweet.* (b) *Some fruits are green.* (c) *Some fruits are ripe; all ripe things are sweet.*\n6. Chain: *All P are Q. All Q are R. Some R are S.* Does *All P are R* follow? Does *Some P are S* follow? Is *All P being S* a possibility?\n7. Reverse: target *No pens are erasers* must follow. Which forces it? (a) *All pens are inked; no inked thing is an eraser.* (b) *Some pens are inked; no inked thing is an eraser.* (c) *All erasers are rubber; some pens are rubber.*",
+      "searchKeywords": [
+        "syllogism possibility reverse practice all keys shiny possibility some books not old blocks",
+        "chain all P Q all Q R some R S definite possibility reverse target forces it exercises"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "possibility-definition",
+      "front": "When does a 'possibility' conclusion follow?",
+      "back": "When at least one valid diagram can be drawn that makes it true without breaking any statement. It fails only if every possible diagram breaks a statement.",
+      "explanation": "The statements neither force nor forbid it.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-possibility-means"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "blocking-statement",
+      "front": "'Some A are B.' Is 'All A are B is a possibility'? What if 'Some A are not B' is also stated?",
+      "back": "With only 'Some A are B' it is a possibility. Add 'Some A are not B' and it is blocked — and 'Some A are not B' then follows as a definite conclusion.",
+      "explanation": "A stated or forced 'some are not' kills the 'all' possibility.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-possibility-means", "testing-possibility"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "reverse-every-diagram",
+      "front": "In a reverse-syllogism item, when is an option correct?",
+      "back": "Only when the target conclusion is true in EVERY diagram that option's statements allow — not merely when it can be true.",
+      "explanation": "'Can be true' is a possibility, not 'follows'.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["reverse-syllogism"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "reverse-building-blocks",
+      "front": "Give two statement patterns that force 'Some A are C'.",
+      "back": "'All A are B' + 'All B are C'; and 'Some A are B' + 'All B are C'. Also 'All C are A' alone forces 'Some A are C'.",
+      "explanation": "Compose the containments; groups are non-empty.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["reverse-syllogism"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "chain-some-link",
+      "front": "All P are Q. All Q are R. Some R are S. Does 'Some P are S' follow?",
+      "back": "No. 'All P are R' follows, but the R that are S might not include any P. 'All P being S' is only a possibility.",
+      "explanation": "A 'Some' link does not carry a definite past it.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["longer-chains"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "no-in-chain",
+      "front": "All P are Q. No Q are R. What definitely follows?",
+      "back": "No P are R — and therefore 'Some P are not R'. A 'No' in a chain gives a definite negative.",
+      "explanation": "P sits inside Q, which is disjoint from R.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["longer-chains"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "possibility-vs-follows",
+      "front": "Why keep 'is a possibility' and 'follows' as separate verdicts?",
+      "back": "'Follows' means true in every valid diagram; 'is a possibility' means true in at least one. A possibility does not let you assert the conclusion.",
+      "explanation": "Mixing them is the most common error on this variant.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

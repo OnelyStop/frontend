@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "introduction-to-data-interpretation",
+  "topicPosition": 10,
+  "title": "Introduction to Data Interpretation",
+  "summary": "What a data interpretation set is, the formats it comes in, the handful of question types that keep recurring, and the habit of reading the whole set before touching a calculation.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["percentages", "ratio-and-proportion", "average"],
+  "learningObjectives": [
+    "Recognise the six standard ways a data set is presented and what each is good for.",
+    "Name the recurring sub-question types so you can classify an item on sight.",
+    "Read the title, units and every question before starting the arithmetic.",
+    "Apply the 'what percent more or less' relationship with the correct base."
+  ],
+  "tags": ["data-interpretation", "di-basics", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Percents_Decimals_and_Fractions",
+      "title": "Arithmetic/Percents Decimals and Fractions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used only to cross-check the percentage-change and ratio arithmetic that DI questions rest on. Every data set, worked example and practice item here is original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm that data interpretation is a standard scored section. No lesson text or question was reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-di-questions-are",
+      "type": "introduction",
+      "title": "What a data interpretation set is",
+      "markdown": "A data interpretation set gives you one block of data and then three to five questions that all draw on it. The data can be shown as a **table**, a **bar chart**, a **line graph**, a **pie chart**, a **caselet** (the numbers are buried in a paragraph), or a **mixed** set that combines two of these.\n\nThe arithmetic itself is light: additions, a division or two, a percentage, a ratio. What the section actually tests is whether you can pull the right figures out of the presentation quickly and without misreading them. Treat the data as a small reference table you will consult five times, not as something to memorise.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "what is data interpretation",
+        "table bar line pie caselet mixed",
+        "one data set several questions"
+      ],
+      "position": 10
+    },
+    {
+      "id": "sub-question-types",
+      "type": "concept",
+      "title": "The question types that keep recurring",
+      "markdown": "Almost every DI item is one of these, so classify it before you compute:\n\n- **Read a single value.** Straight lookup, sometimes after a unit conversion.\n- **Total or average** of a row, a column, or a named group.\n- **Percentage change** between two years or two points.\n- **Ratio** between two quantities, usually wanted in lowest terms.\n- **What percent more or less** one quantity is than another.\n- **Approximate value** — the options are far apart, so round hard and move on.\n- **Combined category** — add two segments, or compare one segment against the sum of two others.\n\nA set of five questions usually spreads across four or five of these types.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "di question types",
+        "single value total average percentage change ratio",
+        "percent more or less approximate combined category"
+      ],
+      "position": 20
+    },
+    {
+      "id": "read-before-you-calculate",
+      "type": "method",
+      "title": "Read the whole set first",
+      "markdown": "1. **Read the title and the units.** \"Sales in ₹ lakh\", \"Accounts in hundreds\", \"figures are percentages\" — the units decide half the wrong answers.\n2. **Check whether the figures are absolute or relative.** A pie in per cent needs a total before any value can be found; a table of absolute numbers does not.\n3. **Skim all the questions before the first calculation.** You will often compute a row total once and reuse it in three questions.\n4. **Note what is asked for**, exactly: a value, a percentage, a ratio, an approximate figure. Answering in the wrong form is a common, avoidable loss.\n5. **Keep your intermediate totals written down** so you are not re-adding the same column.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "read the whole di set first",
+        "check title and units",
+        "absolute versus relative figures",
+        "reuse row totals scan all questions"
+      ],
+      "position": 30
+    },
+    {
+      "id": "percent-more-or-less",
+      "type": "formula",
+      "title": "\"What percent more or less\"",
+      "markdown": "This phrasing trips people because the base changes with the wording.\n\n- **A is what per cent more than B**: divide the difference by **B** (the thing being compared against), then multiply by 100. That is (A − B) ÷ B × 100.\n- **A is what per cent less than B**: same shape, still divided by **B**. That is (B − A) ÷ B × 100.\n\nThe base is always the quantity that comes after \"than\". Going from 90 to 108 is an increase of 18 on a base of 90, which is 20 per cent more. Going back from 108 to 90 is a decrease of 18 on a base of 108, which is about 16.67 per cent less. The two are not the same number because the base is different.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "what percent more than",
+        "what percent less than",
+        "base is the quantity after than",
+        "difference over base times 100"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-small-table",
+      "type": "worked_example",
+      "title": "Worked example: a three-branch table",
+      "markdown": "Deposits and loans of three branches, in ₹ crore:\n\n| Branch | Deposits | Loans |\n| ------ | -------- | ----- |\n| A | 120 | 90 |\n| B | 150 | 120 |\n| C | 180 | 108 |\n\n**Q1. Total deposits of the three branches.** Add the deposits column: 120 + 150 + 180 = 450 crore.\n\n**Q2. Branch B's deposits as a percentage of the total.** 150 ÷ 450 × 100 = 33.33 per cent. The total from Q1 is reused here.\n\n**Q3. Ratio of loans to deposits for Branch A.** 90 ÷ 120 = 0.75, i.e. 3 : 4.\n\n**Q4. By what per cent do Branch C's loans exceed Branch A's loans?** Base is A's loans: (108 − 90) ÷ 90 × 100 = 20 per cent.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "di worked example three branch table deposits loans",
+        "row total percentage of total ratio percent excess"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "total deposits (crore)",
+          "value": 450,
+          "expression": "120+150+180"
+        },
+        {
+          "label": "B deposits as % of total",
+          "value": 33.33,
+          "tolerance": 0.01,
+          "expression": "150/450*100"
+        },
+        {
+          "label": "loans-to-deposits ratio for A",
+          "value": 0.75,
+          "expression": "90/120"
+        },
+        {
+          "label": "% by which C loans exceed A loans",
+          "value": 20,
+          "expression": "(108-90)/90*100"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using the wrong base** for a change or a \"percent more/less\" — the base is the starting value, or the quantity after \"than\".\n- **Mixing units** — adding a figure in lakh to one in crore, or treating a percentage as an absolute count.\n- **Reading across the wrong row or column**, especially in a wide table under time pressure.\n- **Over-precision** — carrying four decimals when the options are 10 apart. Round early on approximate questions.\n- **Recomputing a shared total** for each question instead of writing it down once.\n- **Answering in the wrong form** — giving a value when a ratio was asked for.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "di common mistakes",
+        "wrong base mixed units wrong row",
+        "over precision recomputing totals wrong form"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A DI set is one data block plus three to five questions that share it. Formats: table, bar, line, pie, caselet, mixed.\n- Classify each question first: single value, total/average, percentage change, ratio, percent more/less, approximate, combined category.\n- Read the title, the units, and every question before the first calculation; reuse totals.\n- Percentage change and \"percent more/less\" both divide by the base — the starting value, or the quantity after \"than\".\n- For approximate questions, round hard. For ratio questions, answer in lowest terms.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "di summary revision",
+        "formats question types base rounding ratio recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Units sold, in thousands:\n\n| Region | 2023 | 2024 |\n| ------ | ---- | ---- |\n| North | 40 | 50 |\n| South | 60 | 54 |\n| East | 25 | 30 |\n| West | 75 | 90 |\n\n1. Total units sold in 2024.\n2. Percentage change for North from 2023 to 2024.\n3. Percentage change for South from 2023 to 2024.\n4. West's 2024 units as a percentage of total 2024 units.\n5. Ratio of East's 2023 units to West's 2023 units, in lowest terms.\n6. Average 2023 units across the four regions.\n7. Combined 2024 units of North and East.\n8. By what per cent do total 2024 units exceed total 2023 units?",
+      "searchKeywords": [
+        "di practice four region units sold table",
+        "total percentage change ratio average combined"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. total 2024 units (thousands)",
+          "value": 224,
+          "expression": "50+54+30+90"
+        },
+        {
+          "label": "2. North % change",
+          "value": 25,
+          "expression": "(50-40)/40*100"
+        },
+        {
+          "label": "3. South % change",
+          "value": -10,
+          "expression": "(54-60)/60*100"
+        },
+        {
+          "label": "4. West 2024 as % of 2024 total",
+          "value": 40.18,
+          "tolerance": 0.01,
+          "expression": "90/224*100"
+        },
+        {
+          "label": "5. East:West 2023 as a decimal",
+          "value": 0.33,
+          "tolerance": 0.01,
+          "expression": "25/75"
+        },
+        {
+          "label": "6. average 2023 units",
+          "value": 50,
+          "expression": "(40+60+25+75)/4"
+        },
+        { "label": "7. North + East 2024", "value": 80, "expression": "50+30" },
+        {
+          "label": "8. % by which 2024 total exceeds 2023 total",
+          "value": 12,
+          "expression": "(224-200)/200*100"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "di-set-shape",
+      "front": "What is the structure of a data interpretation set?",
+      "back": "One data block (table, bar, line, pie, caselet or mixed) followed by three to five questions that all draw on that same data.",
+      "explanation": "The data is a small reference table you consult repeatedly, not something to memorise.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-di-questions-are"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "di-question-types",
+      "front": "Name the recurring DI question types.",
+      "back": "Read a single value; total or average; percentage change; ratio; what percent more/less; approximate value; combined category.",
+      "explanation": "Classifying the item first tells you which figures to pull and how to answer.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sub-question-types"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "di-read-first",
+      "front": "What should you do before the first calculation in a DI set?",
+      "back": "Read the title and units, check whether figures are absolute or relative, skim all the questions, and note the exact form each answer must take.",
+      "explanation": "You often compute one total and reuse it across several questions.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["read-before-you-calculate"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "di-percent-more-base",
+      "front": "\"A is what percent more than B\" — what is the base?",
+      "back": "B, the quantity after \"than\". Compute (A - B) / B x 100. For \"percent less\", it is still divided by B.",
+      "explanation": "90 to 108 is 20% more; 108 to 90 is about 16.67% less, because the base differs.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["percent-more-or-less"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "di-pie-needs-total",
+      "front": "A pie chart is given in percentages. What do you need before finding any value?",
+      "back": "The total the pie represents. A slice's value = slice percentage x total. Without the total only ratios between slices can be found.",
+      "explanation": "Tables of absolute numbers don't need this extra step; relative presentations do.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["read-before-you-calculate"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "di-approximate",
+      "front": "The options for a DI question are spaced about 10 apart. What does that tell you?",
+      "back": "It is an approximation question — round the figures hard, do the rough calculation, and pick the nearest option instead of carrying decimals.",
+      "explanation": "Over-precision on these items only costs time.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "di-answer-form",
+      "front": "A DI question asks for a ratio but you have computed a value. What is the risk?",
+      "back": "Answering in the wrong form. Check whether the question wants a value, a percentage, a ratio in lowest terms, or an approximate figure, and match it.",
+      "explanation": "This is an avoidable loss that has nothing to do with the arithmetic.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

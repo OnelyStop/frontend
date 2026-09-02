@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "pie-chart-interpretation",
+  "topicPosition": 40,
+  "title": "Pie Chart Interpretation",
+  "summary": "A pie is a whole split into shares given as percentages or as degrees. Converting between the two, turning a slice into an absolute value, and comparing slices across two pies with different totals.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 23,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["percentages", "ratio-and-proportion"],
+  "learningObjectives": [
+    "Convert a slice between its percentage form and its central-angle form.",
+    "Turn a slice into an absolute value when the pie's total is known.",
+    "Recover the total from one slice's absolute value, then find the others.",
+    "Compare slices across two pies only after converting both to absolute values."
+  ],
+  "tags": ["data-interpretation", "pie-chart", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Statistics/Displaying_Data",
+      "title": "Statistics/Displaying Data",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for what a pie chart represents and the degree-to-fraction relationship. All datasets and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm pie chart DI is a standard question format. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "pies-as-shares",
+      "type": "introduction",
+      "title": "A pie is a whole split into shares",
+      "markdown": "A pie chart shows how one total divides among a few categories. The slices always add up to the whole — 100 per cent, or 360 degrees if the chart is drawn with angles.\n\nA pie on its own only tells you the **shares**. To get an actual value for any slice you need the total the pie stands for, given somewhere in the question. Some sets pair a pie with a bar chart, or give two pies with different totals; those need one conversion step before anything can be compared.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "pie chart whole split into shares",
+        "slices add to 100 percent or 360 degrees",
+        "need the total for an absolute value"
+      ],
+      "position": 10
+    },
+    {
+      "id": "percent-and-degree-forms",
+      "type": "concept",
+      "title": "Percentage form and degree form",
+      "markdown": "A slice can be labelled either way, and you should be able to move between them instantly:\n\n- **Degree to percentage**: slice percentage = central angle ÷ 360 × 100. A 72-degree slice is 72 ÷ 360 × 100 = 20 per cent.\n- **Percentage to degree**: central angle = slice percentage ÷ 100 × 360. A 25 per cent slice is 90 degrees.\n- **Slice to value**: value = slice percentage ÷ 100 × total, or equivalently central angle ÷ 360 × total.\n\nThe fraction of the whole is the same number whether you write it as a percentage, a decimal, or an angle over 360.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "degree to percentage angle over 360",
+        "percentage to degree",
+        "slice to value fraction of the whole"
+      ],
+      "position": 20
+    },
+    {
+      "id": "slice-to-value-and-back",
+      "type": "method",
+      "title": "From a slice to a value, and from a value to the total",
+      "markdown": "**When the total is given.** Any slice's value is its fraction of the whole times the total. Do this once per slice you need; do not re-derive the total.\n\n**When one slice's value is given instead of the total.** Divide that value by the slice's fraction to recover the total: total = slice value ÷ (slice percentage ÷ 100). Then every other slice follows from the total.\n\n**Ratios between two slices** need no total at all — the ratio of two slices equals the ratio of their percentages, or of their angles.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "slice value is fraction times total",
+        "recover total from one slice value",
+        "ratio of two slices needs no total"
+      ],
+      "position": 30
+    },
+    {
+      "id": "two-pie-comparison",
+      "type": "method",
+      "title": "Comparing two pies",
+      "markdown": "When a set gives two pies — say this year and last year, or bank A and bank B — the slices are shares of **different** totals. A 30 per cent slice of a 500-crore pie is larger than a 40 per cent slice of a 300-crore pie.\n\nSo the rule is: convert each slice you are comparing into an absolute value first, using its own pie's total, and only then compare or take a ratio. The one exception is a question that explicitly asks about the **share** (the percentage), which you can read straight off.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "two pie comparison different totals",
+        "convert each slice to absolute value first",
+        "share questions read straight off"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-budget-pie",
+      "type": "worked_example",
+      "title": "Worked example: an operating-expense pie",
+      "markdown": "A bank's operating expenses for a year total ₹800 crore, split as: Salaries 40 per cent, Rent 15 per cent, Technology 20 per cent, Marketing 10 per cent, Other 15 per cent.\n\n**Q1. Amount spent on salaries.** 40 per cent of 800 = 0.40 × 800 = 320 crore.\n\n**Q2. Central angle of the technology slice.** 20 per cent of 360 = 0.20 × 360 = 72 degrees.\n\n**Q3. By what per cent does the salaries spend exceed the technology spend?** Salaries 320, technology 160; base is technology: (320 − 160) ÷ 160 × 100 = 100 per cent.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example operating expense pie 800 crore",
+        "slice to value central angle percent excess"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "salaries spend (crore)",
+          "value": 320,
+          "expression": "0.40*800"
+        },
+        {
+          "label": "technology slice angle (degrees)",
+          "value": 72,
+          "expression": "0.20*360"
+        },
+        {
+          "label": "% by which salaries exceed technology",
+          "value": 100,
+          "expression": "(0.40*800 - 0.20*800)/(0.20*800)*100"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Comparing slices across two pies by percentage** when the two totals differ. Convert to values first.\n- **Forgetting to divide by 360** when the slice is given as an angle.\n- **Using the wrong total** for a slice in a two-pie set — each slice belongs to its own pie.\n- **Reading a share as a value** — 20 per cent is not 20 crore unless the total happens to be 100.\n- **Re-deriving the total** for every slice instead of finding it once.\n- **Assuming the slices are drawn to scale** — always work from the labels, not the visual size.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "pie chart mistakes",
+        "comparing across pies by percentage forgetting divide by 360",
+        "wrong total reading share as value"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Slices add to 100 per cent or 360 degrees; the fraction of the whole is one number in three forms.\n- Degree to percentage: angle ÷ 360 × 100. Percentage to degree: percentage ÷ 100 × 360.\n- Slice value = fraction of the whole × total. If a slice value is given instead, total = slice value ÷ its fraction.\n- Ratios between slices need no total; absolute comparisons across two pies do.\n- Work from the labels, never the drawn size; find the total once.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "pie chart summary revision",
+        "degree percentage slice value total ratio two pies recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "A bank's deposits total ₹1,200 crore, distributed across five schemes by central angle: Savings 120°, Current 60°, Fixed 108°, Recurring 42°, Others 30°.\n\n1. Value of Fixed deposits.\n2. Savings deposits as a percentage of the total.\n3. Value of Current deposits.\n4. Ratio of Savings to Recurring, as a decimal.\n5. Combined value of Recurring and Others.\n6. By what per cent does Fixed exceed Current in value?\n7. If Others deposits grow by 25 per cent next year while the rest are unchanged, the new value of Others.\n8. Central angle of a new slice that would represent ₹80 crore.",
+      "searchKeywords": [
+        "pie chart practice deposits by central angle",
+        "slice value percentage ratio combined excess new angle"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. Fixed deposits value (crore)",
+          "value": 360,
+          "expression": "108/360*1200"
+        },
+        {
+          "label": "2. Savings as % of total",
+          "value": 33.33,
+          "tolerance": 0.01,
+          "expression": "120/360*100"
+        },
+        {
+          "label": "3. Current deposits value (crore)",
+          "value": 200,
+          "expression": "60/360*1200"
+        },
+        {
+          "label": "4. Savings : Recurring",
+          "value": 2.86,
+          "tolerance": 0.01,
+          "expression": "120/42"
+        },
+        {
+          "label": "5. Recurring + Others value (crore)",
+          "value": 240,
+          "expression": "(42+30)/360*1200"
+        },
+        {
+          "label": "6. % by which Fixed exceeds Current",
+          "value": 80,
+          "expression": "(108/360*1200 - 60/360*1200)/(60/360*1200)*100"
+        },
+        {
+          "label": "7. new Others value (crore)",
+          "value": 125,
+          "expression": "30/360*1200*1.25"
+        },
+        {
+          "label": "8. angle for 80 crore (degrees)",
+          "value": 24,
+          "expression": "80/1200*360"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "pie-degree-to-percent",
+      "front": "How do you convert a pie slice's central angle to a percentage?",
+      "back": "Percentage = angle / 360 x 100. A 72 degree slice is 20%. To go the other way, percentage / 100 x 360.",
+      "explanation": "The fraction of the whole is the same whether written as a percentage or an angle over 360.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["percent-and-degree-forms"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "pie-slice-to-value",
+      "front": "How do you find the actual value of a pie slice?",
+      "back": "Value = (slice percentage / 100) x total, or (angle / 360) x total. You need the pie's total, given in the question.",
+      "explanation": "A pie alone gives only shares, not values.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["slice-to-value-and-back"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "pie-value-to-total",
+      "front": "One slice's value is given but not the pie's total. How do you get the total?",
+      "back": "Divide that slice's value by its fraction of the whole: total = slice value / (slice percentage / 100). Every other slice then follows.",
+      "explanation": "For example, if 30% is worth 150, the total is 150 / 0.3 = 500.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["slice-to-value-and-back"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "pie-ratio-no-total",
+      "front": "Do you need the total to find the ratio between two slices of the same pie?",
+      "back": "No. The ratio of two slices equals the ratio of their percentages, or of their central angles.",
+      "explanation": "The total cancels out of a ratio.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["slice-to-value-and-back"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "pie-two-pies",
+      "front": "Two pies have different totals. Can you compare a 30% slice with a 40% slice directly?",
+      "back": "No. Convert each to an absolute value using its own pie's total, then compare. 30% of 500 beats 40% of 300.",
+      "explanation": "Only a question about the share itself can be read straight off.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["two-pie-comparison"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "pie-not-to-scale",
+      "front": "Should you trust the drawn size of the slices in a pie chart?",
+      "back": "No. Work from the labelled percentages or angles. The drawing may not be to scale, and the exam expects label-based reading.",
+      "explanation": "Same discipline as reading numbers rather than bar heights.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "pie-share-vs-value",
+      "front": "A pie slice is 20%. Is that 20 crore?",
+      "back": "Only if the total is 100 crore. A share is not a value until you multiply it by the pie's total.",
+      "explanation": "Reading a percentage as an absolute figure is a frequent slip.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

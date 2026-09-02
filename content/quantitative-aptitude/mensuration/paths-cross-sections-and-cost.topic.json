@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "mensuration",
+  "chapterName": "Mensuration",
+  "chapterPosition": 5,
+  "topicSlug": "paths-cross-sections-and-cost",
+  "topicPosition": 30,
+  "title": "Paths, Cross-sections and Cost",
+  "summary": "The applied mensuration questions: a path running around or through a field, a room to be tiled, painted or carpeted at a given rate, the number of tiles or bricks, and how long a pipe takes to fill a tank.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["areas-and-perimeters", "surface-area-and-volume"],
+  "learningObjectives": [
+    "Find the area of a path by subtracting an inner rectangle from an outer one.",
+    "Handle two crossing roads through a field without double-counting the overlap.",
+    "Turn an area and a per-unit rate into a total cost or a count of tiles or bricks.",
+    "Use volume and a flow rate to find the time to fill or empty a tank."
+  ],
+  "tags": ["mensuration", "paths", "cost", "tiling", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Geometry/Area",
+      "title": "Geometry/Area",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the area-by-difference method. All wording and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm applied mensuration is part of the quantitative-aptitude scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "applied-mensuration",
+      "type": "introduction",
+      "title": "Mensuration with a real-world wrapper",
+      "markdown": "These questions take a plain area or volume and wrap a context around it: a gravel path around a lawn, a floor to be carpeted at so many rupees per square metre, bricks in a wall, water filling a tank. The geometry is easy; the marks are lost in the wrapper — a wrong base, a double-counted strip, a units slip between the area and the rate.\n\nThe method is always the same two steps: find the area or volume that matters, then multiply by the rate or divide by the flow. Keep every length in one unit before you start.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "applied mensuration path carpet bricks tank",
+        "find the area then multiply by the rate",
+        "marks lost in the wrapper not the geometry",
+        "keep lengths in one unit"
+      ],
+      "position": 10
+    },
+    {
+      "id": "paths-around-and-through",
+      "type": "method",
+      "title": "Paths around and through a field",
+      "markdown": "**Path around a rectangle** (width w). Decide whether the path is *outside* the field or *inside* the boundary.\n\n- Path outside: outer rectangle is (l + 2w) by (b + 2w). Path area = outer area - l x b.\n- Path inside: inner rectangle is (l - 2w) by (b - 2w). Path area = l x b - inner area.\n\nThe key is 2w — the strip is added or removed on *both* sides.\n\n**Two roads through a field**, one parallel to the length and one parallel to the breadth, each of width w:\n\n- Area = (l x w) + (b x w) - (w x w)\n\nThe last term removes the small square where the two roads cross, which would otherwise be counted twice.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "path around a rectangle outside vs inside boundary 2w",
+        "path area outer rectangle minus inner rectangle",
+        "two crossing roads l w plus b w minus w squared",
+        "subtract the overlap square"
+      ],
+      "position": 20
+    },
+    {
+      "id": "cost-tiles-bricks",
+      "type": "method",
+      "title": "Cost, tiles and bricks",
+      "markdown": "- **Cost** = area x rate per unit area (for painting, carpeting, polishing, turfing) or = length x rate per unit length (for fencing, which follows the perimeter). Watch which one the rate is quoted in.\n- **Number of tiles** = floor area / area of one tile, with both areas in the same unit. If the tiles cannot be cut, round up.\n- **Number of bricks in a wall** = volume of the wall / volume of one brick.\n- **Number of slabs / posts along a boundary** relates to the perimeter, not the area.\n\nAlways convert the small unit (a tile in cm) and the large unit (a room in m) to match before dividing.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cost equals area times rate carpeting painting",
+        "fencing cost follows the perimeter",
+        "number of tiles floor area divided by tile area same unit",
+        "bricks equal wall volume over brick volume"
+      ],
+      "position": 30
+    },
+    {
+      "id": "tanks-and-flow",
+      "type": "method",
+      "title": "Tanks and flow rate",
+      "markdown": "A tank's **volume** (from the cuboid or cylinder formula) tells you how much it holds. Convert to litres if the flow is in litres: 1 m³ = 1000 litres.\n\n- Time to fill = tank volume / flow rate (in matching units).\n- If water flows through a pipe of cross-section A at speed v, the volume delivered per unit time is A x v. So the tank fills in (tank volume) / (A x v).\n- Two pipes together deliver the sum of their rates; a drain subtracts its rate.\n\nThis is the same idea as the time-and-work topic, with volume in place of \"work\".",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "time to fill a tank equals volume over flow rate",
+        "pipe cross section times speed gives volume per unit time",
+        "two pipes add their rates a drain subtracts",
+        "convert cubic metres to litres for flow in litres"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. A path inside a garden.** A rectangular garden is 50 m by 34 m. A 2 m wide path runs all the way around, just inside the boundary. Find the area of the path.\n\nThe inner rectangle (the grass left) is (50 - 4) by (34 - 4) = 46 m by 30 m, because 2 m is removed on each of the two sides. So:\n\nPath area = 50 x 34 - 46 x 30 = 1,700 - 1,380 = **320 m²**.\n\n**2. Tiling a room.** A room 8 m by 6 m is to be covered with square tiles of side 40 cm (0.4 m). How many tiles are needed?\n\nNumber of tiles = floor area / tile area = (8 x 6) / (0.4 x 0.4) = 48 / 0.16 = **300 tiles**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "path inside garden area worked example inner rectangle",
+        "50 by 34 garden 2 m path",
+        "tiling a room number of tiles floor area over tile area",
+        "8 by 6 room 40 cm tiles"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "1. path area (m^2)",
+          "value": 320,
+          "expression": "50*34 - (50-4)*(34-4)"
+        },
+        {
+          "label": "2. number of tiles",
+          "value": 300,
+          "expression": "8*6/(0.4*0.4)"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using w instead of 2w** for a path — the strip sits on both sides of the field.\n- **Forgetting to subtract the overlap** where two roads cross, so the crossing square is counted twice.\n- **Mismatched units** between the room (metres) and the tile or brick (centimetres).\n- **Applying an area rate to a perimeter job** (fencing) or a length rate to an area job (carpeting).\n- **Not rounding up** a tile or brick count when the pieces cannot be cut.\n- **Confusing the path being outside the field with it being inside** — the two give different answers.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "path mistakes w versus 2w",
+        "crossing roads forgot the overlap square",
+        "room in metres tile in centimetres unit mismatch",
+        "area rate on a fencing job"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Path outside: (l + 2w)(b + 2w) - lb. Path inside: lb - (l - 2w)(b - 2w).\n- Two crossing roads of width w: lw + bw - w².\n- Cost = area x area-rate, or length x length-rate for fencing. Number of tiles = floor area / tile area (same unit, round up).\n- Bricks = wall volume / brick volume.\n- Time to fill a tank = volume / flow rate; pipe delivery = cross-section x speed; 1 m³ = 1000 litres.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "paths and cost formula recap",
+        "path outside inside crossing roads",
+        "tiles bricks count",
+        "tank fill time"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the value with units.\n\n1. A field is 60 m by 40 m. A 3 m wide path runs all round it, outside the field. Find the area of the path.\n2. A park is 80 m by 60 m. Two roads each 3 m wide run through the middle, one parallel to the length and one parallel to the breadth. Find the total area of the roads.\n3. A floor 9 m by 7.5 m is to be carpeted at 120 rupees per square metre. Find the cost.\n4. A wall 12 m by 4 m is to be painted at 25 rupees per square metre. Find the cost.\n5. A room 6 m by 5 m is to be tiled with square tiles of side 50 cm. How many tiles are needed?\n6. A tank 2 m by 1.5 m by 1 m is filled by a pipe delivering 250 litres per minute. How many minutes does it take?\n7. A rectangular plot 100 m by 80 m is to be fenced at 45 rupees per metre. Find the cost.\n8. A 2.5 m wide path runs outside a circular pond of radius 14 m. Find the area of the path, taking pi as 22/7 (answer to two decimals).",
+      "searchKeywords": [
+        "paths and cost practice questions",
+        "path around field crossing roads carpeting painting tiling tank fencing exercises"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. path area (m^2)",
+          "value": 636,
+          "expression": "(60+6)*(40+6) - 60*40"
+        },
+        {
+          "label": "2. roads area (m^2)",
+          "value": 411,
+          "expression": "80*3 + 60*3 - 3*3"
+        },
+        {
+          "label": "3. carpet cost (rupees)",
+          "value": 8100,
+          "expression": "9*7.5*120"
+        },
+        {
+          "label": "4. paint cost (rupees)",
+          "value": 1200,
+          "expression": "12*4*25"
+        },
+        {
+          "label": "5. number of tiles",
+          "value": 120,
+          "expression": "6*5/(0.5*0.5)"
+        },
+        {
+          "label": "6. time to fill (minutes)",
+          "value": 12,
+          "expression": "2*1.5*1*1000/250"
+        },
+        {
+          "label": "7. fencing cost (rupees)",
+          "value": 16200,
+          "expression": "2*(100+80)*45"
+        },
+        {
+          "label": "8. circular path area (m^2)",
+          "value": 239.64,
+          "tolerance": 0.01,
+          "expression": "(22/7)*(16.5**2 - 14**2)"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "path-2w",
+      "front": "A path of width w runs around a rectangular field. Why does the formula use 2w?",
+      "back": "The strip is added (or removed) on both opposite sides, so each dimension changes by 2w. Path outside: (l + 2w)(b + 2w) - lb.",
+      "explanation": "Using w instead of 2w halves the change and gives a wrong area.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["paths-around-and-through"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "crossing-roads",
+      "front": "Two roads of width w cross a field, one along the length, one along the breadth. Area?",
+      "back": "l x w + b x w - w x w. The last term removes the crossing square, which the first two terms each count once.",
+      "explanation": "Without the subtraction the overlap is double-counted.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["paths-around-and-through"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "cost-rate-type",
+      "front": "How do you tell a fencing cost from a carpeting cost?",
+      "back": "Fencing follows the perimeter: cost = perimeter x rate per metre. Carpeting/painting/polishing follow the area: cost = area x rate per square metre.",
+      "explanation": "Match the rate's unit to length or area.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["cost-tiles-bricks"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "tile-count",
+      "front": "How many tiles cover a floor?",
+      "back": "Number of tiles = floor area / area of one tile, with both areas in the same unit. If tiles cannot be cut, round the answer up.",
+      "explanation": "Convert the tile's cm to m (or the room's m to cm) first.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["cost-tiles-bricks"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "brick-count",
+      "front": "How many bricks are in a wall?",
+      "back": "Number of bricks = volume of the wall / volume of one brick, both in the same cubic unit.",
+      "explanation": "This is a volume ratio, not an area ratio.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cost-tiles-bricks"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "fill-time",
+      "front": "How long does a pipe take to fill a tank?",
+      "back": "Time = tank volume / flow rate, in matching units. For a pipe of cross-section A and water speed v, the flow rate is A x v.",
+      "explanation": "Two pipes add their rates; a drain subtracts.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["tanks-and-flow"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "path-outside-inside",
+      "front": "Does it matter whether a path is outside a field or inside its boundary?",
+      "back": "Yes. Outside: outer rectangle is (l + 2w) by (b + 2w). Inside: inner rectangle is (l - 2w) by (b - 2w). The two path areas differ.",
+      "explanation": "Read the question for 'around it outside' versus 'inside the boundary'.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["paths-around-and-through"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "fundamentals",
+  "chapterName": "Fundamentals",
+  "chapterPosition": 1,
+  "topicSlug": "input-and-output-devices",
+  "topicPosition": 30,
+  "title": "Input and Output Devices",
+  "summary": "What input and output devices do, the main categories - keying, pointing, scanning and imaging, audio and video - devices that are both input and output, and the idea of ports and device drivers.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 18,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["computer-fundamentals-and-functional-units"],
+  "learningObjectives": [
+    "Define input and output devices and give examples of each.",
+    "Classify input devices by how they capture data.",
+    "Identify devices that act as both input and output.",
+    "Explain what a port and a device driver do."
+  ],
+  "tags": [
+    "computer-awareness",
+    "input-devices",
+    "output-devices",
+    "peripherals",
+    "ports"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Basic Computing Using Windows",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to cross-check the standard categories of peripherals. Explained in original, vendor-neutral wording."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "definitions",
+      "type": "definition",
+      "title": "Input, output and peripherals",
+      "markdown": "An **input device** converts data or instructions from a form a person can produce into the computer's internal form and sends it in. An **output device** takes results from the computer's internal form and presents them in a form a person can use.\n\nBoth are **peripherals** - devices attached to, but outside, the core processor and memory. A peripheral connects through a **port** and is managed by a small piece of system software called a **device driver**.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "input device output device definition",
+        "peripheral",
+        "port",
+        "device driver"
+      ],
+      "position": 10
+    },
+    {
+      "id": "input-categories",
+      "type": "concept",
+      "title": "Categories of input device",
+      "markdown": "- **Keying:** keyboard, keypad. The user types characters.\n- **Pointing:** mouse, touchpad, trackball, touchscreen, stylus, joystick. The user moves a pointer or gestures.\n- **Scanning and reading:** flatbed scanner, barcode reader, QR reader, **Optical Character Recognition (OCR)**, **Optical Mark Recognition (OMR)** for answer sheets, **Magnetic Ink Character Recognition (MICR)** for the numbers along the bottom of a cheque.\n- **Imaging and audio:** digital camera, webcam, microphone.\n- **Biometric:** fingerprint, iris and face readers.\n- **Sensors:** accelerometer, GPS receiver, light and proximity sensors on mobile devices.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "input device categories",
+        "keyboard mouse",
+        "OCR OMR MICR barcode",
+        "webcam microphone biometric sensor"
+      ],
+      "position": 20
+    },
+    {
+      "id": "output-categories",
+      "type": "concept",
+      "title": "Categories of output device",
+      "markdown": "- **Display (soft copy):** monitor or screen. Common types are LCD, LED-backlit LCD and OLED; older CRT monitors are now historical.\n- **Print (hard copy):** inkjet and laser printers, plotters for large drawings, thermal printers for receipts. Dot-matrix (impact) printers survive only where carbon-copy forms are needed.\n- **Audio:** speakers, headphones.\n- **Projection:** data projectors.\n- **Other:** haptic (vibration) feedback; 3D printers, which produce a physical object.\n\nA **soft copy** is transient (on screen); a **hard copy** is permanent (on paper).",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "output device categories",
+        "monitor LCD LED OLED CRT historical",
+        "inkjet laser plotter thermal dot matrix",
+        "soft copy hard copy"
+      ],
+      "position": 30
+    },
+    {
+      "id": "both-input-and-output",
+      "type": "concept",
+      "title": "Devices that do both",
+      "markdown": "Some devices both receive from and send to the computer:\n\n- **Touchscreen:** displays output and accepts touch input.\n- **Modem:** modulates outgoing and demodulates incoming signals - it sends and receives.\n- **Network interface card:** transmits and receives data on a network.\n- **Headset:** microphone (input) plus earphones (output).\n- **Multifunction printer:** prints (output) and scans or faxes (input).\n- **External or USB drive:** data is written to it and read from it.\n\nA plain monitor is output only; a plain keyboard is input only.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "input and output device both",
+        "touchscreen modem NIC headset",
+        "multifunction printer USB drive"
+      ],
+      "position": 40
+    },
+    {
+      "id": "ports-and-drivers",
+      "type": "concept",
+      "title": "Ports and drivers",
+      "markdown": "A **port** is the socket, and its associated circuitry, through which a peripheral connects. Ports can be **serial** (bits sent one after another on a single line) or **parallel** (several bits sent side by side); most modern connections are high-speed serial. General-purpose ports include **USB** (which also supplies power and, over USB-C, carries video and data on the same connector) and **HDMI** or **DisplayPort** for video. Older ports such as PS/2 for keyboards and mice, serial (COM), parallel (LPT) for printers, and VGA for analogue video are largely historical.\n\nA **device driver** is the software that lets the operating system talk to a specific device, translating general requests into the exact signals that device expects. **Plug and play** means the operating system detects a newly connected device and loads or fetches its driver automatically, without the user configuring it by hand. Without a working driver, the hardware is present but unusable, which is why a device can be recognised yet not function until its driver is installed.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "port USB HDMI DisplayPort",
+        "PS/2 serial parallel VGA historical",
+        "device driver",
+        "plug and play"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **A scanner is an input device; a printer is an output device.** A multifunction printer does both because it contains a scanner.\n- **MICR is used on cheques; OMR reads mark sheets; OCR reads printed or handwritten text.** Keep the three apart.\n- **A monitor is soft-copy output; paper is hard-copy output.**\n- **A modem is not a router.** A modem converts between digital and line signals; a router forwards packets between networks.\n- **A touchscreen is both input and output**, not just a display.\n- **CRT monitors, dot-matrix printers and floppy drives are historical** - name them as such, not as current practice.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "input output confusions",
+        "MICR OMR OCR difference",
+        "modem versus router",
+        "touchscreen is input and output",
+        "CRT dot matrix historical"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Input converts human data to internal form; output converts internal results to human form. Both are peripherals, connected via a port and run by a driver.\n- Input categories: keying, pointing, scanning/reading (OCR, OMR, MICR, barcode), imaging/audio, biometric, sensors.\n- Output categories: display (LCD/LED/OLED; CRT historical), print (inkjet, laser, plotter, thermal; dot-matrix niche), audio, projection, 3D printing.\n- Both input and output: touchscreen, modem, NIC, headset, multifunction printer, USB drive.\n- Soft copy is on screen; hard copy is on paper. Plug and play loads a device's driver automatically.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "input output devices summary",
+        "revision",
+        "categories both soft hard copy recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: classify the device",
+      "markdown": "**1. Classify each as input, output, or both:** keyboard, monitor, scanner, printer, touchscreen.\n\nKeyboard takes data in, so **input**. Monitor shows results, so **output**. Scanner reads an image in, so **input**. Printer puts results on paper, so **output**. A touchscreen both shows a menu and accepts taps, so **both**.\n\n**2.** A user says the computer will not respond to the mouse, but the screen still updates on its own. Which category is at fault?\n\nThe display is clearly working, so the **output** side is fine. The mouse is an **input** device, and that is where the fault lies.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "classify input output device example",
+        "keyboard scanner printer monitor touchscreen both"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Input, output, or both? One line each.\n\n1. A microphone.\n2. A plotter.\n3. The barcode scanner at a billing counter.\n4. A projector.\n5. An OMR sheet reader that scores answer sheets.\n6. Speakers.\n7. A biometric fingerprint reader.\n8. A touch-screen ATM display.",
+      "searchKeywords": [
+        "input output devices practice",
+        "microphone plotter scanner projector OMR speakers biometric touchscreen"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "input-output-def",
+      "front": "In one line, what does an input device do vs an output device?",
+      "back": "Input: converts human data/instructions to the computer's internal form and sends it in. Output: converts internal results to a human-usable form.",
+      "explanation": "Both are peripherals attached via a port and run by a driver.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["definitions"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "micr-omr-ocr",
+      "front": "MICR, OMR, OCR - what does each read?",
+      "back": "MICR - the magnetic-ink characters along the bottom of a cheque. OMR - pencil marks on answer/mark sheets. OCR - printed or handwritten text turned into editable characters.",
+      "explanation": "All three are scanning/reading input methods.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["input-categories"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "soft-vs-hard-copy",
+      "front": "Soft copy vs hard copy?",
+      "back": "Soft copy is transient output on a screen. Hard copy is permanent output on paper (from a printer or plotter).",
+      "explanation": "A monitor gives soft copy; a printer gives hard copy.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["output-categories"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "both-io",
+      "front": "Name three devices that are both input and output.",
+      "back": "Touchscreen, modem, network interface card (also headset, multifunction printer, USB drive).",
+      "explanation": "A plain monitor is output only; a plain keyboard is input only.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["both-input-and-output"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "driver",
+      "front": "What is a device driver, and what is plug and play?",
+      "back": "A driver is the software that lets the OS communicate with a specific device. Plug and play is the OS detecting a new device and loading its driver automatically.",
+      "explanation": "Without a driver, the hardware is present but unusable.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["ports-and-drivers"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "modem-vs-router",
+      "front": "Difference between a modem and a router?",
+      "back": "A modem converts between the computer's digital signals and the transmission-line signals. A router forwards data packets between networks.",
+      "explanation": "Home 'modem-routers' combine both in one box.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "historical-devices",
+      "front": "Which of these are historical, not current: OLED monitor, CRT monitor, laser printer, dot-matrix printer, floppy drive?",
+      "back": "Historical: CRT monitor, dot-matrix printer (niche only), floppy drive. Current: OLED monitor, laser printer.",
+      "explanation": "Flag obsolete terms as historical, not present practice.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

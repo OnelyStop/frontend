@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "vocabulary",
+  "chapterName": "Vocabulary",
+  "chapterPosition": 4,
+  "topicSlug": "idioms-and-phrases",
+  "topicPosition": 10,
+  "title": "Idioms and Phrases",
+  "summary": "How idiom questions are set, a method for reading an idiom from the sentence around it rather than from memory, a themed set of common idioms with plain glosses, and the traps of literal reading and near-miss meanings.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech", "sentence-structure"],
+  "learningObjectives": [
+    "Recognise the three ways an idiom question is framed.",
+    "Infer an idiom's meaning from the situation the sentence describes.",
+    "Recall common office and money idioms with their plain-English sense.",
+    "Avoid the literal reading and the near-miss distractor."
+  ],
+  "tags": ["vocabulary", "idioms", "phrases", "meaning-in-context"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar",
+      "title": "English Grammar",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the grammatical behaviour of fixed phrases. Every idiom gloss and example sentence here is original."
+    },
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm idioms and phrases are a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "how-the-question-works",
+      "type": "introduction",
+      "title": "How the question is built",
+      "markdown": "Idiom items come in three shapes:\n\n1. **Give the meaning.** An idiom is printed, sometimes inside a sentence, and you pick the option closest to its sense.\n2. **Fill the idiom in.** A sentence has a blank; you choose the idiom that fits the situation.\n3. **Spot the misused idiom.** Four sentences each use an idiom; one uses it in the wrong sense.\n\nIn every shape the sentence around the idiom is the evidence. An idiom means one fixed thing, but the situation described tells you which fixed thing it is.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "idiom question three formats give the meaning fill in spot the misused",
+        "the sentence around the idiom is the evidence",
+        "idiom means one fixed thing"
+      ],
+      "position": 10
+    },
+    {
+      "id": "reading-from-context",
+      "type": "method",
+      "title": "Reading an idiom from context",
+      "markdown": "1. **Describe the situation in plain words.** \"The department has been told to spend less because money is short.\"\n2. **Match that plain description to an option**, not the other way round.\n3. **Check polarity.** Is the situation good or bad, an increase or a decrease, a start or a stop? Many wrong options have the right topic but the wrong direction.\n4. **Do not translate the words.** *Tighten your belt* has nothing to do with clothing; *in the red* has nothing to do with colour.\n5. **For \"spot the misused\" items**, test each sentence by swapping in the plain meaning. If the sentence stops making sense, that idiom is the misused one.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "describe the situation in plain words then match an option",
+        "check polarity good or bad increase or decrease",
+        "do not translate the words of an idiom",
+        "spot the misused swap in the plain meaning"
+      ],
+      "position": 20
+    },
+    {
+      "id": "money-idioms",
+      "type": "concept",
+      "title": "Money and cost",
+      "markdown": "- **tighten one's belt** - spend less because money is short. *After the audit flagged overspending, every department was told to tighten its belt.*\n- **make ends meet** - earn just enough to cover expenses. *On a trainee's salary in a metro city, many recruits struggle to make ends meet.*\n- **cost an arm and a leg** - be very expensive. *Replacing the ageing servers will cost an arm and a leg, so the manager wants a phased budget.*\n- **in the red** - running at a loss. *The rural branch has been in the red for three quarters.*\n- **a nest egg** - money set aside for the future. *She treats her recurring deposit as a nest egg she will not touch until retirement.*\n- **foot the bill** - pay for something. *When the upgrade ran over budget, the regional office had to foot the bill.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "money idioms tighten one's belt make ends meet cost an arm and a leg",
+        "in the red running at a loss",
+        "nest egg savings foot the bill pay"
+      ],
+      "position": 30
+    },
+    {
+      "id": "effort-idioms",
+      "type": "concept",
+      "title": "Effort and work",
+      "markdown": "- **pull one's weight** - do one's fair share of the work. *The team expects everyone to pull their weight during the closing week.*\n- **go the extra mile** - make more effort than is expected. *The officer went the extra mile and stayed back to reconcile the cash himself.*\n- **burn the midnight oil** - work late into the night. *The audit team burned the midnight oil for a week before the inspection.*\n- **cut corners** - skip steps to save time or money, at the cost of quality. *Branches that cut corners on KYC checks create problems that surface years later.*\n- **put one's foot down** - insist firmly. *The manager put her foot down and refused to sanction the loan without the documents.*\n- **take something in one's stride** - deal with a difficulty calmly. *She took the sudden transfer in her stride.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "effort idioms pull one's weight go the extra mile burn the midnight oil",
+        "cut corners skip steps quality",
+        "put one's foot down insist take in one's stride stay calm"
+      ],
+      "position": 40
+    },
+    {
+      "id": "time-and-talk-idioms",
+      "type": "concept",
+      "title": "Time, communication and risk",
+      "markdown": "**Time**\n- **call it a day** - stop working for the day. *With the ledgers balanced, the team called it a day.*\n- **in the nick of time** - just before it is too late. *The transfer was recalled in the nick of time.*\n- **against the clock** - hurrying because little time is left. *The branch worked against the clock to clear the backlog before the quarter closed.*\n\n**Communication**\n- **on the same page** - sharing one understanding. *Before meeting the regulator, the managers made sure they were on the same page about the figures.*\n- **beat around the bush** - avoid coming to the point. *The report should state plainly that the target was missed, not beat around the bush.*\n- **read between the lines** - grasp a meaning that is not stated openly. *Reading between the lines of the circular, branches understood that hiring was frozen.*\n\n**Risk**\n- **take the plunge** - finally decide to do something risky after hesitating. *The board took the plunge and approved the new core banking system.*\n- **on thin ice** - close to trouble. *A branch that ignores three inspection reminders is on thin ice.*\n- **stick one's neck out** - take a risk by saying something bold. *She stuck her neck out and flagged the transaction as suspicious despite pressure to clear it.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "time idioms call it a day in the nick of time against the clock",
+        "communication idioms on the same page beat around the bush read between the lines",
+        "risk idioms take the plunge on thin ice stick one's neck out"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**1. Give the meaning.** *The regional office had to foot the bill for the overrun.*\n(a) question the expense (b) pay the cost (c) delay the payment (d) share the cost equally\n\nPlain description: someone ended up paying for it. That matches **(b) pay the cost**. \"Share equally\" is the near-miss - *foot the bill* means one party pays the whole amount, not a split.\n\n**2. Fill the idiom in.** *With three inspection reminders ignored, the branch is now ____.*\n(a) on the same page (b) in the nick of time (c) on thin ice (d) burning the midnight oil\n\nThe situation is: repeated warnings ignored, trouble close. That is **(c) on thin ice**. The others are the wrong topic or the wrong polarity.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "idiom worked example foot the bill pay the cost near miss share equally",
+        "fill the idiom on thin ice repeated warnings trouble close"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Taking the idiom literally.** *Break the ice* is not about ice; *in hot water* is not about temperature.\n- **Picking the near-miss.** The distractor often has the right subject but the wrong strength or direction - *spend a little less* for *tighten your belt*, which means a real, deliberate cut.\n- **Ignoring polarity.** *Take the plunge* (finally act) versus *get cold feet* (back out at the last moment) - opposite directions, same topic.\n- **Forcing a known idiom.** If the sentence does not describe the situation the idiom names, it is not the answer, however familiar it looks.\n- **In \"spot the misused\" items, stopping at the first idiom you recognise** instead of testing all four.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "idiom mistakes literal reading break the ice in hot water",
+        "near miss right subject wrong strength or direction",
+        "polarity take the plunge versus get cold feet",
+        "spot the misused test all four"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Three formats: give the meaning, fill the idiom in, spot the misused. The surrounding sentence is the evidence in all three.\n- Method: describe the situation in plain words, match that to an option, check polarity, never translate the words.\n- Money: tighten one's belt, make ends meet, in the red, foot the bill, a nest egg.\n- Effort: pull one's weight, go the extra mile, cut corners, put one's foot down.\n- Time/talk/risk: in the nick of time, on the same page, read between the lines, take the plunge, on thin ice.\n- The classic trap is the near-miss option - right topic, wrong strength or direction.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "idioms summary revision three formats method themed recap",
+        "near miss trap right topic wrong direction"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the best option; give a one-line reason.\n\n1. *The branch worked ____ to clear the backlog before the quarter closed.* (a) on thin ice (b) against the clock (c) in the red (d) on the same page\n2. *The report should not ____; it should say plainly that the target was missed.* (a) call it a day (b) foot the bill (c) beat around the bush (d) go the extra mile\n3. \"He took the surprise inspection **in his stride**\" means he: (a) panicked (b) dealt with it calmly (c) postponed it (d) complained to head office\n4. *After the loss-making year, the whole zone was told to ____.* (a) tighten its belt (b) burn the midnight oil (c) read between the lines (d) take the plunge\n5. Which sentence uses the idiom **wrongly**? (a) The audit team burned the midnight oil before the visit. (b) She stuck her neck out and reported the entry. (c) The new server cost an arm and a leg. (d) We were on thin ice, so the project went perfectly.\n6. \"The managers were **on the same page** about the figures\" means they: (a) disagreed openly (b) shared one understanding (c) read the same report aloud (d) signed the same form\n7. *The duplicate payment was spotted and the transfer recalled ____, before the funds left the bank.* (a) in the nick of time (b) against the clock (c) on the same page (d) once and for all",
+      "searchKeywords": [
+        "idioms practice questions against the clock beat around the bush in one's stride",
+        "tighten one's belt spot the misused on the same page in the nick of time"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "method-plain-words",
+      "front": "What is the first step on an idiom question?",
+      "back": "Describe the situation the sentence shows in plain words, then match that description to an option - not the reverse.",
+      "explanation": "You reason from the situation to the meaning, not from a memorised list.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["reading-from-context"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "near-miss",
+      "front": "What is the 'near-miss' distractor on an idiom question?",
+      "back": "An option with the right topic but the wrong strength or direction - e.g. 'spend a little less' offered for 'tighten your belt', which means a real, deliberate cut.",
+      "explanation": "Checking polarity kills most near-misses.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "in-the-red",
+      "front": "A branch is 'in the red'. What does that mean?",
+      "back": "It is running at a loss.",
+      "explanation": "Nothing to do with colour; from red ink in old ledgers.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["money-idioms"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "cut-corners",
+      "front": "What does 'cut corners' mean?",
+      "back": "Skip steps to save time or money, at the cost of quality.",
+      "explanation": "Always negative - e.g. cutting corners on KYC checks.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["effort-idioms"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "foot-the-bill",
+      "front": "'The regional office had to foot the bill.' Foot the bill = ?",
+      "back": "Pay the cost (the whole amount, not a share).",
+      "explanation": "The near-miss 'share equally' is wrong - one party pays it all.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "plunge-vs-cold-feet",
+      "front": "'Take the plunge' vs 'get cold feet' - how do they differ?",
+      "back": "Opposite directions: take the plunge = finally decide to act; get cold feet = back out at the last moment.",
+      "explanation": "Same topic (a risky decision), opposite polarity.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "read-between-the-lines",
+      "front": "What does 'read between the lines' mean?",
+      "back": "Grasp a meaning that is implied but not stated openly.",
+      "explanation": "e.g. inferring a hiring freeze from a carefully worded circular.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["time-and-talk-idioms"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "advanced-puzzles-and-logic",
+  "chapterName": "Advanced puzzles and logic",
+  "chapterPosition": 3,
+  "topicSlug": "logical-connectives",
+  "topicPosition": 50,
+  "title": "Logical Connectives",
+  "summary": "Turning 'if', 'only if', 'unless', 'either-or' and 'neither-nor' into conditionals, using the contrapositive, and telling the two valid inferences (modus ponens, modus tollens) from the two fallacies (affirming the consequent, denying the antecedent).",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["statement-and-conclusion-and-inference"],
+  "learningObjectives": [
+    "Translate each connective into a P → Q conditional with the antecedent and consequent identified.",
+    "Write the contrapositive and use it as an equivalent of the original.",
+    "Apply modus ponens and modus tollens as the only two valid one-step inferences.",
+    "Reject affirming-the-consequent and denying-the-antecedent conclusions."
+  ],
+  "tags": ["reasoning", "logic", "conditionals", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Logic_for_Computer_Science/Propositional_Logic",
+      "title": "Logic for Computer Science/Propositional Logic",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the conditional truth table and the two valid inference rules. All example sentences here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm connective-based inference is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "conditionals-in-questions",
+      "type": "introduction",
+      "title": "Everything reduces to 'if P then Q'",
+      "markdown": "Many reasoning questions give a rule in words and a fact, and ask what validly follows. Almost every connective can be rewritten as a conditional **P → Q** — read as 'if P, then Q', where P is the *antecedent* and Q the *consequent*.\n\nOnce it is in that form, only a small set of moves is valid. The whole skill is (1) translating correctly and (2) applying only the valid moves.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "conditionals in questions rule in words plus a fact what validly follows",
+        "rewrite connective as P implies Q antecedent and consequent",
+        "translate correctly then apply only the valid moves"
+      ],
+      "position": 10
+    },
+    {
+      "id": "translating",
+      "type": "concept",
+      "title": "Translating the connectives",
+      "markdown": "- **'If P, then Q'** → `P → Q`.\n- **'P only if Q'** → `P → Q`. 'Only if' marks the **necessary** condition, so it becomes the consequent. ('You pass only if you score 40' → pass → scored 40.)\n- **'P unless Q'** → `(not Q) → P`, equivalently `(not P) → Q`. ('No entry unless you have a pass' → no pass → no entry.)\n- **'Either P or Q'** → `(not P) → Q` (and `(not Q) → P`): at least one holds.\n- **'Neither P nor Q'** → `not P` **and** `not Q`: both fail.\n- **'P if and only if Q'** → `P → Q` and `Q → P` together.\n\nName P and Q explicitly before you go further.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "translating connectives if P then Q P only if Q necessary condition becomes consequent",
+        "P unless Q means not Q implies P either P or Q means not P implies Q",
+        "neither nor means both fail if and only if is both directions"
+      ],
+      "position": 20
+    },
+    {
+      "id": "valid-moves",
+      "type": "method",
+      "title": "The contrapositive and the two valid moves",
+      "markdown": "From `P → Q` you may use:\n\n- **The contrapositive** `(not Q) → (not P)` — always equivalent to the original.\n- **Modus ponens:** given `P → Q` and `P`, conclude `Q`.\n- **Modus tollens:** given `P → Q` and `not Q`, conclude `not P`.\n\nThat is all. Two moves are **invalid**:\n\n- **Affirming the consequent:** `P → Q` and `Q` do **not** give `P`.\n- **Denying the antecedent:** `P → Q` and `not P` do **not** give `not Q`.\n\nSo a fact that matches the **antecedent** drives the rule forward; a fact that denies the **consequent** drives it backward. A fact about the consequent being true, or the antecedent being false, tells you nothing.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "contrapositive not Q implies not P equivalent modus ponens modus tollens only valid moves",
+        "affirming the consequent invalid denying the antecedent invalid",
+        "fact matching antecedent drives forward fact denying consequent drives backward"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**Item 1.** Rule: *If the loan is approved, the file goes to the disbursement desk.* Fact: *The file did not go to the disbursement desk.* What follows?\n\nTranslate: `approved → file at desk`. The fact denies the consequent (`not (file at desk)`). Modus tollens gives `not approved`. **Conclusion: the loan was not approved — valid.**\n\n**Item 2.** Rule: *The branch opens a new counter only if the queue exceeds twenty.* Fact: *Today the queue exceeds twenty.* Someone concludes: *the branch opens a new counter.*\n\nTranslate: 'only if' makes the queue condition necessary → `opens counter → queue exceeds 20`. The fact affirms the consequent (`queue exceeds 20`). Concluding `opens counter` is **affirming the consequent — invalid**. The queue exceeding twenty is required for a new counter, not enough to guarantee one.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example if loan approved file goes to disbursement desk file did not go modus tollens not approved valid",
+        "branch opens counter only if queue exceeds twenty queue exceeds twenty concluding opens counter",
+        "affirming the consequent invalid only if is necessary not sufficient"
+      ],
+      "position": 40
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Reading 'only if' as 'if'.** 'P only if Q' is `P → Q`, not `Q → P`.\n- **Treating 'unless' as 'if'.** 'P unless Q' means `(not Q) → P`.\n- **Affirming the consequent** — the single most common wrong answer: the rule fires, so people assume its trigger occurred.\n- **Denying the antecedent** — 'the loan was not approved, so the file did not move' does not follow; the file could move for another reason.\n- **Forgetting 'either-or' allows both** unless it says 'either ... or ... but not both'.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "connective mistakes reading only if as if treating unless as if",
+        "affirming the consequent most common wrong answer denying the antecedent",
+        "either or allows both unless it says but not both"
+      ],
+      "position": 50
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Rewrite as `P → Q`; 'only if' puts the condition in Q; 'unless' gives `(not Q) → P`; 'either-or' gives `(not P) → Q`; 'neither-nor' gives `not P` and `not Q`.\n- The contrapositive `(not Q) → (not P)` is equivalent and always usable.\n- Valid: fact = P gives Q (modus ponens); fact = not Q gives not P (modus tollens).\n- Invalid: fact = Q does not give P; fact = not P does not give not Q.\n- Name P and Q before applying any move.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "connectives summary rewrite as P implies Q only if unless either or neither nor",
+        "contrapositive equivalent modus ponens modus tollens valid",
+        "affirming consequent denying antecedent invalid name P and Q first"
+      ],
+      "position": 60
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "For each, say whether the stated conclusion validly follows, with a one-line reason.\n\n1. Rule: *If it rains, the match is cancelled.* Fact: *It rained.* Conclusion: *The match was cancelled.*\n2. Rule: *If it rains, the match is cancelled.* Fact: *The match was cancelled.* Conclusion: *It rained.*\n3. Rule: *The scheme succeeds only if funding continues.* Fact: *Funding did not continue.* Conclusion: *The scheme did not succeed.*\n4. Rule: *You cannot withdraw unless the balance has cleared.* Fact: *The balance has cleared.* Conclusion: *You can withdraw.*\n5. Rule: *Either the form is incomplete or the fee is unpaid.* Fact: *The form is complete.* Conclusion: *The fee is unpaid.*\n6. Rule: *Neither the manager nor the cashier was present.* Conclusion: *The cashier was absent.*\n7. Rule: *If the alarm works, the guard is alerted.* Fact: *The guard was alerted.* Conclusion: *The alarm works.*",
+      "searchKeywords": [
+        "logical connectives practice does the conclusion validly follow one line reason",
+        "modus ponens modus tollens affirming consequent denying antecedent unless either or neither nor exercises"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "only-if",
+      "front": "Translate 'P only if Q' into a conditional.",
+      "back": "P → Q. 'Only if' marks the necessary condition, so Q is the consequent. It is NOT Q → P.",
+      "explanation": "'You pass only if you score 40' → pass → scored 40.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["translating"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "unless",
+      "front": "Translate 'P unless Q'.",
+      "back": "(not Q) → P, equivalently (not P) → Q. 'No entry unless you have a pass' → no pass → no entry.",
+      "explanation": "'Unless' is not 'if'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["translating"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "either-or",
+      "front": "Translate 'Either P or Q' as a conditional, and does it allow both?",
+      "back": "(not P) → Q (and (not Q) → P): at least one holds. It allows both, unless it says 'but not both'.",
+      "explanation": "Knowing one is false forces the other true.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["translating"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "two-valid",
+      "front": "Name the only two valid one-step inferences from P → Q.",
+      "back": "Modus ponens (given P, conclude Q) and modus tollens (given not Q, conclude not P). The contrapositive (not Q → not P) is an equivalent form.",
+      "explanation": "Everything else is a fallacy.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["valid-moves"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "affirming-consequent",
+      "front": "P → Q, and Q is true. Does P follow?",
+      "back": "No — that is affirming the consequent, invalid. Q could be true for another reason.",
+      "explanation": "The most common wrong answer on this topic.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["valid-moves"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "denying-antecedent",
+      "front": "P → Q, and P is false. Does 'not Q' follow?",
+      "back": "No — that is denying the antecedent, invalid. Q may still hold via some other cause.",
+      "explanation": "'Loan not approved' does not mean 'file did not move'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["valid-moves"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "neither-nor",
+      "front": "What does 'Neither P nor Q' give you?",
+      "back": "Both 'not P' and 'not Q' — each of them separately is false.",
+      "explanation": "So any conclusion asserting P or Q is contradicted.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["translating"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

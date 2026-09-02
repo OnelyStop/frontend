@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "tenses",
+  "topicPosition": 20,
+  "title": "Tenses",
+  "summary": "The twelve tense-aspect forms, what each says about time and completeness, the present perfect versus the past simple, and the tense shifts required in reported speech and after past main verbs.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 25,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech"],
+  "learningObjectives": [
+    "Match each of the twelve tense forms to the time and aspect it expresses.",
+    "Choose between the present perfect and the past simple correctly.",
+    "Apply the sequence-of-tenses rule after a past main verb.",
+    "Shift tenses correctly when turning direct speech into reported speech."
+  ],
+  "tags": ["grammar", "tenses", "verb-forms", "reported-speech"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Verbs",
+      "title": "English Grammar/Basic Parts of Speech/Verbs",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check verb form and tense terminology. All example sentences and exercises here are original; modern usage independently verified."
+    },
+    {
+      "sourceId": "GUTENBERG_GRAMMAR",
+      "url": "https://www.gutenberg.org/ebooks/11615",
+      "title": "The Grammar of English Grammars",
+      "publisher": "Project Gutenberg (Goold Brown)",
+      "usageMode": "public_domain",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Historical grammar consulted only to confirm the traditional tense scheme. All wording here is original and reflects current usage."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "Tense and aspect",
+      "markdown": "English verbs carry two pieces of information at once. **Tense** places the action in time: past, present or future. **Aspect** says how the action sits in that time: simple (a whole event), continuous or progressive (in progress), perfect (completed and relevant now), or perfect continuous (in progress up to a point).\n\nThree times times four aspects gives twelve forms. You rarely need to name them in the exam, but you do need to pick the one that matches the time words and the logic of the sentence.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "tense and aspect",
+        "twelve tenses",
+        "simple continuous perfect"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-twelve-forms",
+      "type": "concept",
+      "title": "The twelve forms at a glance",
+      "markdown": "Using the verb *process*:\n\n- **Present:** simple *processes*, continuous *is processing*, perfect *has processed*, perfect continuous *has been processing*.\n- **Past:** simple *processed*, continuous *was processing*, perfect *had processed*, perfect continuous *had been processing*.\n- **Future:** simple *will process*, continuous *will be processing*, perfect *will have processed*, perfect continuous *will have been processing*.\n\nSimple present is for habits and general truths (*the branch opens at ten*), not for something happening right now (*the clerk is entering the data*).",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "twelve tense forms table",
+        "present past future",
+        "simple continuous perfect examples"
+      ],
+      "position": 20
+    },
+    {
+      "id": "present-perfect-vs-past",
+      "type": "comparison",
+      "title": "Present perfect or past simple?",
+      "markdown": "Use the **past simple** for a finished action at a stated or understood past time: *The committee met yesterday.* *We received the file last week.*\n\nUse the **present perfect** for a past action with a present result or an unfinished time frame, and with *since*, *for*, *already*, *yet*, *just*, *so far*, *recently*: *The auditor has just left.* *We have not received the file yet.* *Applications have risen this year* (the year is not over).\n\nA finished time expression (*yesterday*, *in 2019*, *last month*, *ago*) forces the past simple, never the present perfect.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "present perfect versus past simple",
+        "since for already yet",
+        "finished time expression"
+      ],
+      "position": 30
+    },
+    {
+      "id": "sequence-of-tenses",
+      "type": "method",
+      "title": "Sequence of tenses",
+      "markdown": "When the main verb is in the past, verbs in the clause that depends on it normally shift back too.\n\n- present becomes past: *He said he was busy.*\n- past becomes past perfect: *She told me the courier had already come.*\n- *will* becomes *would*, *can* becomes *could*, *may* becomes *might*.\n\nException: keep the present when the dependent clause states a permanent truth or a fact still true now: *The trainer explained that water boils at 100 degrees.*",
+      "sourceIds": ["GUTENBERG_GRAMMAR"],
+      "searchKeywords": [
+        "sequence of tenses",
+        "backshift after past verb",
+        "permanent truth exception"
+      ],
+      "position": 40
+    },
+    {
+      "id": "reported-speech",
+      "type": "method",
+      "title": "Direct to reported speech",
+      "markdown": "Turning someone's exact words into a report:\n\n1. Backshift the tense (present to past, past to past perfect, *will* to *would*).\n2. Shift pronouns to the reporter's point of view (*I* becomes *he* or *she*).\n3. Shift time and place words: *now* to *then*, *today* to *that day*, *tomorrow* to *the next day*, *here* to *there*, *this* to *that*.\n4. Change the reporting verb if needed: *say* to *tell* when a listener is named; questions use *asked* with statement word order and no question mark.\n\n*\"I will send the report today,\" she said* becomes *She said she would send the report that day.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "reported speech rules",
+        "backshift pronouns time words",
+        "say versus tell"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: choosing the tense",
+      "markdown": "1. *The branch ____ (shift) to the new premises last April.* The finished time word *last April* forces the past simple: **shifted**.\n\n2. *We ____ (wait) for the sanction since Monday.* *since* with an action continuing to now takes the present perfect continuous: **have been waiting**.\n\n3. *By the time the auditor arrived, the team ____ (complete) the reconciliation.* One past action finished before another past action takes the past perfect: **had completed**.\n\n4. *He said that the office ____ (remain) closed on public holidays.* A standing fact after a past reporting verb may stay in the present: **remains** (or *remained*; *remains* is preferred because the rule still holds).",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "choose the correct tense exercise",
+        "past perfect by the time",
+        "since present perfect continuous"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Present perfect with a finished time word.** *I have met him yesterday* is wrong; use *I met him yesterday*.\n- **Past simple where two past actions need ordering.** Use the past perfect for the earlier one: *The train had left before we reached.*\n- **\"Since\" with a duration.** *Since* marks a start point (*since 2019*); *for* marks a length (*for five years*).\n- **No backshift after a past reporting verb.** *He said he is busy* should usually be *He said he was busy*.\n- **Using the continuous with state verbs.** *know*, *believe*, *own*, *contain*, *belong* are not normally used in the continuous: not *I am knowing*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "tense mistakes",
+        "since versus for",
+        "state verbs no continuous",
+        "backshift"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Tense sets the time; aspect (simple, continuous, perfect, perfect continuous) sets how the action sits in that time.\n- Finished past time word (yesterday, in 2019, ago) requires the past simple.\n- *since*, *for*, *already*, *yet*, *just*, *so far* signal the present perfect.\n- Earlier of two past actions takes the past perfect.\n- After a past main verb, backshift the dependent clause, unless it states a permanent truth.\n- State verbs (know, believe, own, contain) avoid the continuous.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "tenses summary",
+        "revision",
+        "present perfect signals"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the correct form; give a one-line reason.\n\n1. By the time the auditor arrived, the team (finished / had finished) the report.\n2. She (works / has worked) here since 2019.\n3. Look, the printer (jams / is jamming) again.\n4. The branch (opens / will open) at 10 tomorrow, as always.\n5. While I (checked / was checking) the ledger, the power went off.\n6. They (will finish / will have finished) the migration by Friday.\n7. Water (boils / is boiling) at 100 degrees Celsius.\n8. He said he (will / would) call back.",
+      "searchKeywords": [
+        "tenses practice choose the form",
+        "past perfect present perfect continuous future perfect reported speech"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "tense-vs-aspect",
+      "front": "What do 'tense' and 'aspect' each tell you about a verb?",
+      "back": "Tense places the action in time (past/present/future). Aspect says how it sits there: simple, continuous, perfect, or perfect continuous.",
+      "explanation": "3 times times 4 aspects gives the twelve forms.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["introduction"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "finished-time-word",
+      "front": "\"I ____ him yesterday.\" Present perfect or past simple?",
+      "back": "Past simple: \"I met him yesterday.\" A finished time word bars the present perfect.",
+      "explanation": "\"yesterday\", \"in 2019\", \"ago\" all force the past simple.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["present-perfect-vs-past"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "since-vs-for",
+      "front": "\"since\" vs \"for\" with a time expression?",
+      "back": "\"since\" marks a start point (since Monday, since 2019). \"for\" marks a length (for five years).",
+      "explanation": "Both often go with the present perfect.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "two-past-actions",
+      "front": "How do you show that one past action finished before another?",
+      "back": "Put the earlier action in the past perfect: \"The train had left before we reached.\"",
+      "explanation": "Past perfect = the past of the past.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "backshift",
+      "front": "\"He said he ____ (is) busy.\" What happens to the tense?",
+      "back": "It backshifts: \"He said he was busy.\" After a past reporting verb, present becomes past.",
+      "explanation": "Exception: a permanent truth can stay present.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sequence-of-tenses"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "state-verbs",
+      "front": "Which verbs resist the continuous form?",
+      "back": "State verbs: know, believe, understand, own, belong, contain, need. Not \"I am knowing\".",
+      "explanation": "They describe a condition, not an activity.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "reported-time-words",
+      "front": "In reported speech, \"today\" and \"tomorrow\" become what?",
+      "back": "\"today\" becomes \"that day\"; \"tomorrow\" becomes \"the next day\". \"now\" becomes \"then\", \"here\" becomes \"there\".",
+      "explanation": "Shift deixis to the reporter's viewpoint.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["reported-speech"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

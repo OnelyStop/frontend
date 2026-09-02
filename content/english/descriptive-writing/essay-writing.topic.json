@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "descriptive-writing",
+  "chapterName": "Descriptive writing",
+  "chapterPosition": 3,
+  "topicSlug": "essay-writing",
+  "topicPosition": 30,
+  "title": "Essay Writing",
+  "summary": "Planning an exam essay in three or four minutes, the introduction-body-conclusion shape, topic sentences and linking words, staying on the prompt, and a worked plan with an annotated opening paragraph.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "ibps-po"],
+  "prerequisiteTopicSlugs": [
+    "descriptive-paper-overview",
+    "sentence-structure",
+    "parallelism"
+  ],
+  "learningObjectives": [
+    "Produce a one-line plan — thesis, two or three points, a counter-point, conclusion — in three or four minutes.",
+    "Build each body paragraph around a topic sentence that supports the thesis.",
+    "Keep the essay on the exact prompt, including the balanced view a 'discuss' prompt asks for.",
+    "Judge a thesis, a supporting point or an out-of-place sentence against the prompt."
+  ],
+  "tags": ["descriptive-writing", "essay", "planning", "structure"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm the essay is part of the descriptive paper. No prompt or model answer was taken from it."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/Rhetoric_and_Composition/The_Writing_Process",
+      "title": "Rhetoric and Composition/The Writing Process",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the plan-draft-revise process and paragraph structure. The prompt, plan and opening paragraph here are original."
+    },
+    {
+      "sourceId": "GUTENBERG_GRAMMAR",
+      "url": "https://www.gutenberg.org/ebooks/37134",
+      "title": "The Elements of Style (1918)",
+      "publisher": "Project Gutenberg",
+      "usageMode": "public_domain",
+      "license": "Public domain",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the principle that a paragraph should be a unit built on one topic. No sentences reproduced."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-task",
+      "type": "introduction",
+      "title": "The task",
+      "markdown": "The essay prompt gives a topic and a word range, usually 200 to 300 words. It may ask you to *discuss*, to give *your view*, to weigh *advantages and disadvantages*, or to consider *causes and solutions*. The wording tells you the shape the answer must take.\n\nIn about twenty minutes you cannot write a great essay, but you can write a clear one: a stated position, a few ordered reasons with an example each, a fair nod to the other side, and a short conclusion. Clarity and structure score; length and vocabulary do not rescue a shapeless answer.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "essay prompt topic word range discuss your view advantages disadvantages",
+        "wording tells you the shape",
+        "clear not great clarity and structure score"
+      ],
+      "position": 10
+    },
+    {
+      "id": "planning",
+      "type": "method",
+      "title": "Planning in three or four minutes",
+      "markdown": "Before writing, jot a plan you will not show the examiner:\n\n1. **Read the prompt twice.** Underline the task verb (*discuss*, *evaluate*) and the exact subject. Answer that, not a nearby topic.\n2. **Write the thesis in one sentence.** Your position, stated plainly.\n3. **List two or three supporting points.** One line each. Beside each, note a concrete example or fact.\n4. **Note one counter-point** and a one-line response to it.\n5. **Note the conclusion's line** — usually the thesis restated with the balance you have shown.\n\nOrder the points weakest to strongest, or in a natural sequence. The plan is five or six lines and takes three or four minutes; it is what keeps the essay from wandering.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "essay plan thesis two three points counter-point conclusion",
+        "underline the task verb and subject",
+        "one concrete example per point order weakest to strongest"
+      ],
+      "position": 20
+    },
+    {
+      "id": "structure",
+      "type": "concept",
+      "title": "Introduction, body, conclusion",
+      "markdown": "- **Introduction (2–3 sentences).** Frame the topic in one sentence, then state the thesis. Do not just repeat the prompt, and do not start with a dictionary definition unless it earns its place.\n- **Body (2–3 paragraphs).** Each paragraph starts with a **topic sentence** that names the point and links it to the thesis; then two or three sentences of explanation and one example; then a sentence that ties it back. One idea per paragraph.\n- **Counter-point.** Either its own short paragraph or the first half of the last body paragraph: concede the strongest opposing point, then answer it. This is what makes a *discuss* answer balanced.\n- **Conclusion (2–3 sentences).** No new points. Restate the position in the light of the argument, and end on a measured forward-looking sentence.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR", "GUTENBERG_GRAMMAR"],
+      "searchKeywords": [
+        "essay structure introduction body conclusion topic sentence",
+        "concede the strongest opposing point then answer it",
+        "conclusion no new points restate in light of argument"
+      ],
+      "position": 30
+    },
+    {
+      "id": "staying-on-prompt",
+      "type": "concept",
+      "title": "Staying on the prompt",
+      "markdown": "- **Answer the verb.** *Discuss* wants both sides; *do you agree* wants a clear yes or no with reasons; *causes and solutions* wants roughly half on each.\n- **Keep the subject exact.** A prompt on *cashless payments in small shops* is not a prompt on *technology in banking*. Every paragraph should be checkable against the prompt words.\n- **Use linking words to show the logic**, not to decorate: *because*, *however*, *as a result*, *for instance*, *on balance*. One per paragraph is usually enough.\n- **Examples make the content mark.** A named, concrete instance — a shopkeeper, a queue, a specific cost — beats another general sentence.\n- **Third person.** Keep *I* out unless the prompt asks for a personal view.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "essay stay on prompt answer the verb keep the subject exact",
+        "linking words show logic not decoration",
+        "concrete examples make the content mark third person"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: plan and opening",
+      "markdown": "*Prompt: \"Should everyday cash transactions be discouraged in favour of digital payments? Discuss.\"*\n\n**Plan (about 4 minutes):**\n\n- Thesis: digital payments should be *encouraged*, but cash should not be actively *discouraged* until access gaps close.\n- Point 1: digital payments cut handling cost and leave a record — example: a small shop that no longer closes early to deposit cash.\n- Point 2: they widen the tax base and reduce leakage in transfers — example: a benefit paid straight to an account.\n- Counter-point: not everyone has a smartphone, reliable network or the confidence to use it — older and rural users especially; a hard push strands them.\n- Response: encourage through lower cost and better design, keep cash fully usable, and expand access first.\n- Conclusion: encourage, don't coerce; the goal is choice, not the removal of cash.\n\n**Opening paragraph (written from the plan):**\n\n\"The share of payments made digitally has grown quickly, and with it the question of whether cash should be nudged out altogether. Digital payments bring real gains in cost, record-keeping and the reach of government transfers. Yet a policy that discourages cash before every user can transact digitally risks leaving the most vulnerable behind. This essay argues that digital payments should be actively encouraged, but that cash should remain a fully supported option until access gaps have closed.\"\n\n**Why it works.** Sentence 1 frames the topic without copying the prompt. Sentences 2 and 3 preview both sides. Sentence 4 is the thesis, and it takes a clear, qualified position — which is exactly what *discuss* rewards. It is about 80 words, leaving room for three body paragraphs and a short conclusion inside a 250-word limit.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "essay worked example cash versus digital payments discuss",
+        "plan thesis points counter-point response conclusion",
+        "opening paragraph frames topic previews both sides states qualified thesis"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-faults",
+      "type": "warning",
+      "title": "Common faults",
+      "markdown": "- **No plan.** The essay changes its mind halfway and has no clear position.\n- **One-sided on a *discuss* prompt.** Missing the counter-point caps the content mark.\n- **A memorised essay forced onto the prompt.** The examiner sees the join and the relevance mark drops.\n- **No examples.** Paragraph after paragraph of general claims.\n- **Restating the prompt as the introduction.**\n- **A conclusion that adds a new argument** instead of closing the ones made.\n- **Over the word limit** because there was no plan to keep it in shape.",
+      "searchKeywords": [
+        "essay faults no plan one-sided memorised no examples",
+        "restating the prompt as introduction",
+        "conclusion adds a new argument over the word limit"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Plan first: thesis in one sentence, two or three points with an example each, one counter-point and a response, the conclusion's line. Three to four minutes.\n- Introduction frames the topic then states the thesis — it does not repeat the prompt.\n- Each body paragraph: topic sentence linked to the thesis, explanation, one concrete example, tie-back. One idea per paragraph.\n- Concede and answer the strongest opposing point — that is what makes a *discuss* answer balanced.\n- Conclusion restates the position in the light of the argument; no new points.\n- Answer the exact prompt and the exact task verb; stay in the word range; third person.",
+      "searchKeywords": [
+        "essay summary revision plan structure counter-point conclusion prompt recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the best option and give a one-line reason.\n\n1. Best thesis for \"Discuss whether bank branches will still be needed in ten years\": (a) \"Bank branches are very important for the economy.\" (b) \"Branches will remain necessary for complex and trust-based services even as routine transactions move online.\" (c) \"Technology is changing everything about banking.\" (d) \"I think branches will close down soon.\"\n2. A body paragraph argues that digital payments help small shops. Which sentence does NOT belong? (a) \"A shopkeeper who takes digital payment need not close early to deposit cash.\" (b) \"Card and app payments also leave a record that helps at loan time.\" (c) \"Many people enjoy shopping at large malls on weekends.\" (d) \"Lower cash handling means fewer errors at the day's close.\"\n3. For the prompt \"Cashless payments: causes of growth and steps to widen access\", how should the essay be balanced? (a) mostly on causes (b) mostly on steps (c) roughly half on causes of growth and half on steps to widen access (d) only on advantages\n4. Strongest supporting point for \"Working from home should be a standard option for bank back-office staff\": (a) \"Employees like staying at home.\" (b) \"Back-office tasks that need only a laptop and a secure connection can be done as well remotely, widening the hiring pool and cutting office cost.\" (c) \"Offices are sometimes crowded.\" (d) \"Technology today is very advanced.\"\n5. Best way to open the introduction to \"Should financial literacy be taught in schools?\": (a) \"Financial literacy means the ability to manage money.\" (b) \"Since childhood, money has been important to people.\" (c) \"Many adults reach their first job without ever being taught how saving, interest or credit work.\" (d) \"This essay will discuss financial literacy in schools.\"\n6. A \"do you agree\" prompt. Your essay gives three reasons for and three against and never says which side you take. The main problem is: (a) too many reasons (b) no clear position, which a \"do you agree\" prompt requires (c) the reasons are too short (d) nothing — balance is always best",
+      "searchKeywords": [
+        "essay practice thesis irrelevant sentence balance supporting point introduction position"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "plan-contents",
+      "front": "What five things go in a three-minute essay plan?",
+      "back": "The thesis in one sentence; two or three supporting points with an example each; one counter-point and a one-line response; the conclusion's line.",
+      "explanation": "Five or six lines; it is what keeps the essay from wandering.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["planning"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "intro-job",
+      "front": "What should an essay introduction do?",
+      "back": "Frame the topic in one sentence, then state the thesis. It should not just repeat the prompt or open with a needless definition.",
+      "explanation": "Two or three sentences is enough.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["structure"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "topic-sentence",
+      "front": "How should each body paragraph begin?",
+      "back": "With a topic sentence that names the point and links it to the thesis, followed by explanation, one concrete example, and a tie-back. One idea per paragraph.",
+      "explanation": "A named, concrete example is what earns the content mark.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["structure", "staying-on-prompt"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "discuss-verb",
+      "front": "What does a \"discuss\" prompt require that a one-sided essay misses?",
+      "back": "A fair treatment of the strongest opposing point — concede it, then answer it. Without the counter-point the content mark is capped.",
+      "explanation": "\"Do you agree\" instead wants a clear position with reasons.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["structure", "common-faults"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "conclusion-rule",
+      "front": "What must an essay conclusion NOT do?",
+      "back": "Introduce a new argument. It restates the position in the light of the argument already made and ends on a measured sentence.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["structure", "common-faults"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "answer-the-verb",
+      "front": "Why underline the task verb in the prompt?",
+      "back": "It sets the shape: \"discuss\" wants both sides, \"do you agree\" wants a yes/no with reasons, \"causes and solutions\" wants roughly half on each.",
+      "explanation": "Answering a nearby topic instead of the exact prompt is a common way to lose the relevance mark.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["planning", "staying-on-prompt"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "memorised-essay",
+      "front": "Why is forcing a memorised essay onto the prompt risky?",
+      "back": "The examiner sees the join between the practised material and the actual topic, and the relevance mark drops. Use only the points that genuinely fit and plan the rest fresh.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-faults"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

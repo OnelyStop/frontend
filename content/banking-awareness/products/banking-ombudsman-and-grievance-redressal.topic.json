@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "products",
+  "chapterName": "Banking products and operations",
+  "chapterPosition": 2,
+  "topicSlug": "banking-ombudsman-and-grievance-redressal",
+  "topicPosition": 50,
+  "title": "The Banking Ombudsman and Grievance Redressal",
+  "summary": "The Reserve Bank – Integrated Ombudsman Scheme, 2021: the 'One Nation, One Ombudsman' design, the escalation ladder from the bank's own complaint desk to the Ombudsman, what counts as a 'deficiency in service', the compensation limits, and the appeal to a Deputy Governor.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 23,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["deposit-accounts"],
+  "learningObjectives": [
+    "Describe the 2021 Integrated Ombudsman Scheme and the role of the CRPC and CMS portal.",
+    "Order the escalation steps a customer must follow before approaching the Ombudsman.",
+    "Distinguish a 'deficiency in service' from an excluded commercial decision.",
+    "State the compensation ceilings and the appeal route against an Award."
+  ],
+  "tags": [
+    "banking-awareness",
+    "ombudsman",
+    "grievance-redressal",
+    "consumer-protection"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_OMBUDSMAN",
+      "url": "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=153",
+      "title": "RBI — Integrated Ombudsman Scheme FAQ",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the scheme design, the escalation ladder, admissibility grounds, compensation ceilings and the appeal to a Deputy Governor. Restated in original wording; monetary ceilings treated as revisable."
+    },
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm current names — Centralised Receipt and Processing Centre, Complaint Management System portal."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "integrated-scheme",
+      "type": "introduction",
+      "title": "The Integrated Ombudsman Scheme",
+      "markdown": "The **Reserve Bank – Integrated Ombudsman Scheme, 2021** gives bank customers a free, external forum to escalate complaints the bank has not resolved. It merged three earlier schemes — for banks, for NBFCs, and for digital transactions — into one, on a **'One Nation, One Ombudsman'** basis: the customer no longer has to work out which ombudsman office or which territorial jurisdiction applies.\n\nComplaints are received centrally at the **Centralised Receipt and Processing Centre (CRPC)** and assigned to an Ombudsman. Filing is online through the RBI's **Complaint Management System (CMS)** portal, or by post or email.",
+      "sourceIds": ["RBI_OMBUDSMAN", "RBI_HOME"],
+      "searchKeywords": [
+        "Reserve Bank Integrated Ombudsman Scheme 2021",
+        "one nation one ombudsman merged three schemes",
+        "Centralised Receipt and Processing Centre CRPC",
+        "Complaint Management System CMS portal"
+      ],
+      "position": 10
+    },
+    {
+      "id": "escalation-ladder",
+      "type": "concept",
+      "title": "The escalation ladder",
+      "markdown": "The scheme sits **on top of** the bank's own complaint process, not instead of it:\n\n1. **Complain to the bank first.** Every regulated entity must run an internal grievance-redress mechanism with a nodal officer.\n2. **Wait for the bank's reply, or for 30 days.** You may approach the Ombudsman once the bank has rejected the complaint, or its reply is unsatisfactory, or **30 days have passed with no reply**.\n3. **File with the Ombudsman** within **one year** of the bank's reply — or, if there was no reply, within one year and 30 days of the complaint.\n\nA complaint that skips step 1 is not admissible.",
+      "sourceIds": ["RBI_OMBUDSMAN"],
+      "searchKeywords": [
+        "escalation ladder complain to bank first",
+        "wait for reply or 30 days no response",
+        "file with ombudsman within one year of reply",
+        "skipping the bank makes complaint inadmissible"
+      ],
+      "position": 20
+    },
+    {
+      "id": "grounds-and-limits",
+      "type": "concept",
+      "title": "Grounds, exclusions and fee",
+      "markdown": "The scheme covers any **'deficiency in service'** — for example delayed or failed transfers, wrongful debits, non-adherence to the RBI's rules on charges or interest, mis-selling, ATM and card disputes, and failure to act within a promised timeline.\n\nIt does **not** cover:\n\n- a bank's **commercial judgement**, such as pricing or a credit decision, unless it breaches an RBI rule\n- a matter already before, or already decided by, a court or consumer forum\n- complaints outside the one-year limit\n- disputes between banks\n\nThere is **no fee** to file, and the customer may represent themselves — no lawyer is required.",
+      "sourceIds": ["RBI_OMBUDSMAN"],
+      "searchKeywords": [
+        "deficiency in service ground for ombudsman complaint",
+        "commercial judgement pricing credit decision excluded",
+        "matter before a court excluded",
+        "no fee no lawyer required"
+      ],
+      "position": 30
+    },
+    {
+      "id": "process-and-remedy",
+      "type": "concept",
+      "title": "Process, remedy and appeal",
+      "markdown": "The Ombudsman first attempts **facilitation and conciliation** — often the bank settles once the complaint is examined. If that fails, the Ombudsman may issue an **Award**:\n\n- compensation for the **actual loss**, limited to the loss amount or **₹20 lakh**, whichever is lower\n- plus up to **₹1,00,000** for the complainant's time lost, expenses, and harassment or mental anguish\n\nThe bank must comply and report back. Either side may **appeal within 30 days** of the Award to the **Appellate Authority**, an officer of the rank of **Deputy Governor** of the RBI. The Ombudsman can also **reject** a complaint — for instance one needing elaborate documentary evidence better suited to a court.",
+      "sourceIds": ["RBI_OMBUDSMAN"],
+      "searchKeywords": [
+        "ombudsman facilitation conciliation then award",
+        "compensation actual loss or 20 lakh whichever lower",
+        "up to 1 lakh for time expense harassment",
+        "appeal within 30 days to Deputy Governor appellate authority"
+      ],
+      "position": 40
+    },
+    {
+      "id": "through-the-ladder",
+      "type": "worked_example",
+      "title": "Walking a grievance through the ladder",
+      "markdown": "A customer sees an unauthorised card debit of ₹18,000 on **3 August**.\n\n- **5 August:** she reports it in writing to the bank and receives a complaint reference. The internal grievance process begins.\n- **28 August:** the bank replies that the transaction was 'authenticated' and declines to refund. She finds this unsatisfactory.\n- **29 August:** she is now eligible for the Ombudsman — the bank has effectively rejected the complaint. She files on the **CMS portal**; the CRPC registers it and assigns an Ombudsman. No fee.\n- The Ombudsman calls for the bank's records. Finding the bank did not follow the RBI's rules limiting a customer's liability for unauthorised electronic transactions, it moves to an **Award**: refund of ₹18,000 plus ₹5,000 for time and harassment.\n- The bank does not appeal within **30 days**, so the Award stands and must be implemented.\n\nHad the bank simply not replied, she could have approached the Ombudsman after **4 September** — 30 days from her 5 August complaint.",
+      "sourceIds": ["RBI_OMBUDSMAN"],
+      "searchKeywords": [
+        "worked example grievance unauthorised card debit through ombudsman",
+        "complaint to bank then unsatisfactory reply then CMS portal",
+        "award refund plus compensation no appeal in 30 days",
+        "30 days from complaint if no reply"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **You must complain to the bank first.** The Ombudsman is an escalation, not a first port of call.\n- **The 30-day wait runs from your complaint to the bank**, not from the transaction.\n- **A commercial decision — pricing, a loan refusal — is not a 'deficiency in service'** unless it breaks an RBI rule.\n- **Filing is free;** you do not need a lawyer.\n- **The ₹20 lakh ceiling is for actual loss; the ₹1 lakh is a separate, additional ceiling** for time and harassment.\n- **Appeals go to a Deputy Governor of the RBI**, within 30 days — a court is not the next step.\n- **A matter already before a court or consumer forum is outside the scheme.**",
+      "searchKeywords": [
+        "ombudsman confusions complain to bank first",
+        "30 day wait from complaint not transaction",
+        "commercial decision not deficiency in service",
+        "appeal to Deputy Governor within 30 days"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- The RB–Integrated Ombudsman Scheme, 2021 is a free external escalation forum: 'One Nation, One Ombudsman', complaints received centrally at the CRPC and filed via the CMS portal.\n- Ladder: complain to the bank, wait for its reply or 30 days, then approach the Ombudsman within one year of the reply. Skipping the bank makes the complaint inadmissible.\n- Ground: 'deficiency in service'. Excluded: commercial judgement (unless it breaks an RBI rule), matters in court, time-barred complaints, bank-versus-bank disputes.\n- Remedy: compensation up to the loss or ₹20 lakh (whichever is lower), plus up to ₹1 lakh for time and harassment.\n- Appeal within 30 days to the Appellate Authority — an officer of the rank of Deputy Governor of the RBI.",
+      "searchKeywords": [
+        "banking ombudsman grievance redressal summary revision",
+        "ladder grounds remedy appeal recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. A customer complained to the bank 40 days ago and has had no response. What can she do now?\n2. A customer has not complained to the bank at all. Can he approach the Ombudsman directly?\n3. What is the fee to file a complaint with the Ombudsman?\n4. A complaint objects only to the interest rate the bank chose to charge, with no breach of any RBI rule. Is it admissible?\n5. The bank rejected a complaint eight months ago. Is it still in time for the Ombudsman?\n6. What is the maximum award for the complainant's time, expense and harassment?\n7. Who hears an appeal against the Ombudsman's Award?\n\n**Answers:** 1 Approach the Ombudsman — 30 days have passed with no reply. 2 No — the bank's internal grievance process must be used first, or 30 days must elapse. 3 Nil — there is no fee. 4 No — a pure commercial-pricing decision is not a 'deficiency in service'. 5 Yes — the window is one year from the bank's reply. 6 ₹1,00,000, separate from and additional to the loss compensation. 7 The Appellate Authority — an officer of the rank of Deputy Governor of the RBI.",
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "integrated-scheme",
+      "front": "What is the Reserve Bank – Integrated Ombudsman Scheme, 2021?",
+      "back": "A free external forum for bank and NBFC customer complaints, on a 'One Nation, One Ombudsman' basis. It merged three earlier schemes; complaints are received centrally at the CRPC and filed through the RBI's CMS portal.",
+      "explanation": "It removes the earlier question of which ombudsman and which jurisdiction.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["integrated-scheme"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "ladder",
+      "front": "What must a customer do before approaching the Ombudsman?",
+      "back": "Complain to the bank first, then wait for its reply — or for 30 days with no reply. The Ombudsman can then be approached if the bank rejects the complaint, replies unsatisfactorily, or does not reply within 30 days.",
+      "explanation": "A complaint that skips the bank is not admissible.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["escalation-ladder"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "time-limit",
+      "front": "By when must a complaint reach the Ombudsman?",
+      "back": "Within one year of the bank's reply, or within one year and 30 days of the original complaint if the bank did not reply.",
+      "explanation": "Time-barred complaints are excluded.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["escalation-ladder"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "ground",
+      "front": "On what basis can you complain to the Ombudsman, and what is excluded?",
+      "back": "The basis is a 'deficiency in service'. Excluded: a bank's commercial judgement (pricing, a credit decision) unless it breaches an RBI rule, and any matter already before a court or consumer forum.",
+      "explanation": "Failed transfers, wrongful debits and mis-selling all qualify.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["grounds-and-limits"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "no-fee",
+      "front": "Is there a fee to file with the Ombudsman, and do you need a lawyer?",
+      "back": "No fee, and no lawyer — the customer can represent themselves.",
+      "explanation": "The scheme is designed to be used directly by consumers.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["grounds-and-limits"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "award-caps",
+      "front": "What compensation can the Ombudsman award?",
+      "back": "Compensation for actual loss, capped at the loss or ₹20 lakh whichever is lower, plus a separate amount of up to ₹1,00,000 for the complainant's time, expense and harassment.",
+      "explanation": "The two ceilings are distinct and additive.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["process-and-remedy"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "appeal",
+      "front": "Who hears an appeal against an Ombudsman Award, and within what time?",
+      "back": "The Appellate Authority — an officer of the rank of Deputy Governor of the RBI — within 30 days of the complainant or the bank receiving the Award.",
+      "explanation": "Appeal comes before any move to a court.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["process-and-remedy"],
+      "status": "approved",
+      "position": 70
+    },
+    {
+      "id": "facilitation",
+      "front": "What does the Ombudsman try before issuing an Award?",
+      "back": "Facilitation and conciliation — examining the complaint and getting the bank to settle. An Award is issued only if that fails; some complaints are instead rejected as needing court-level evidence.",
+      "explanation": "Most complaints are resolved without a formal Award.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["process-and-remedy"],
+      "status": "approved",
+      "position": 80
+    }
+  ]
+}

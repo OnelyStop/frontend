@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "software-and-data",
+  "chapterName": "Software and data",
+  "chapterPosition": 2,
+  "topicSlug": "operating-systems-and-software",
+  "topicPosition": 10,
+  "title": "Operating Systems and Software",
+  "summary": "The difference between system and application software, the functions of an operating system - process, memory, file, device and user management - types of OS, and how files, folders and common extensions organise data.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["computer-fundamentals-and-functional-units"],
+  "learningObjectives": [
+    "Separate system software from application software and place the OS, compilers and utilities.",
+    "List the core functions an operating system performs.",
+    "Describe common types of operating system by how they schedule work.",
+    "Explain files, folders, paths and what a file extension indicates."
+  ],
+  "tags": [
+    "computer-awareness",
+    "operating-system",
+    "system-software",
+    "files",
+    "utilities"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Basic Computing Using Windows",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to cross-check the standard list of OS functions and software categories. Explained in original, vendor-neutral wording; no product documentation used."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "software-categories",
+      "type": "concept",
+      "title": "System software and application software",
+      "markdown": "- **System software** runs and manages the computer itself. It includes the **operating system**, **device drivers**, **utility programs** (antivirus, disk cleanup, backup, compression), and **language processors** - the **compiler** and **interpreter** that turn source code into instructions the machine can run, and the **assembler** for assembly language.\n- **Application software** is what a user runs to do a task: word processors, spreadsheets, presentation tools, browsers, media players, accounting packages.\n\nSystem software sits between the hardware and the applications; applications call the operating system, which controls the hardware.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "system software application software",
+        "operating system drivers utilities",
+        "compiler interpreter assembler",
+        "software layers"
+      ],
+      "position": 10
+    },
+    {
+      "id": "what-an-os-does",
+      "type": "definition",
+      "title": "What an operating system is",
+      "markdown": "An **operating system (OS)** is the system software that manages the hardware and provides common services for application programs. It is the first program loaded on start-up (**booting**) and stays running until shutdown.\n\nIts core, always resident in memory, is the **kernel**. The **shell** or graphical interface is the part the user interacts with. Everything an application does with the hardware - reading a file, drawing on screen, sending on the network - goes through the OS.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "operating system definition",
+        "manages hardware provides services",
+        "booting",
+        "kernel shell graphical interface"
+      ],
+      "position": 20
+    },
+    {
+      "id": "os-functions",
+      "type": "concept",
+      "title": "Functions of an operating system",
+      "markdown": "- **Process management:** creating, scheduling and ending programs; sharing the CPU among many processes so they appear to run at once (**multitasking**).\n- **Memory management:** allocating main memory to processes, protecting one process's memory from another, and using disk space as **virtual memory** when RAM runs low.\n- **File management:** organising data into files and folders, controlling access, and tracking free space through a **file system**.\n- **Device management:** coordinating input/output through drivers, and buffering and **spooling** (for example, queuing print jobs).\n- **User management and security:** accounts, log-in, permissions.\n- **Providing a user interface:** command line or graphical.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "operating system functions",
+        "process management multitasking scheduling",
+        "memory management virtual memory",
+        "file management file system",
+        "device management spooling"
+      ],
+      "position": 30
+    },
+    {
+      "id": "types-of-os",
+      "type": "concept",
+      "title": "Types of operating system",
+      "markdown": "By how they organise work:\n\n- **Batch:** jobs are collected and run in groups without user interaction. Historical for mainframes.\n- **Time-sharing / multi-user:** the CPU is sliced among many interactive users, each getting a small turn very often.\n- **Real-time:** guarantees a response within a strict time limit; used in control systems, medical devices, industrial equipment.\n- **Distributed:** manages a group of networked computers as one system.\n- **Embedded / mobile:** a compact OS in an appliance, vehicle or phone.\n\nMost desktop and server systems today are **multitasking and multi-user**.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "types of operating system",
+        "batch time-sharing real-time",
+        "distributed embedded mobile",
+        "multitasking multi-user"
+      ],
+      "position": 40
+    },
+    {
+      "id": "files-and-folders",
+      "type": "concept",
+      "title": "Files, folders and extensions",
+      "markdown": "A **file** is a named collection of related data stored as a unit. **Folders (directories)** group files and can be nested, forming a tree. A **path** names a file's location, for example a drive letter or root, then each folder, then the file name.\n\nMany systems use a **file extension** - the part after the last dot - as a hint to the file's type and the program that opens it:\n\n- Documents: `txt`, `rtf`, `pdf`, `odt`, `docx`\n- Spreadsheets: `csv`, `ods`, `xlsx`\n- Images: `jpg`, `png`, `gif`, `svg`, `bmp`\n- Audio/video: `mp3`, `wav`, `mp4`, `mkv`\n- Archives: `zip`, `tar`, `gz`, `7z`\n- Programs/scripts: `exe`, `sh`, `py`\n\nThe extension is only a label; renaming it does not change the file's actual contents.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "file folder directory path",
+        "file extension after the last dot",
+        "txt pdf docx csv xlsx jpg png mp4 zip exe",
+        "extension is only a label"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **An operating system is system software, not an application.**\n- **A compiler translates the whole program once; an interpreter translates and runs it line by line.**\n- **Multitasking is one CPU switching quickly between tasks;** true simultaneous execution needs multiple cores.\n- **Virtual memory uses disk space to extend RAM** - it does not add physical RAM.\n- **A file extension is a hint, not a guarantee.** Renaming `.jpg` to `.txt` does not convert the image.\n- **The kernel is the resident core; the shell/GUI is the user-facing layer** - they are different parts of the OS.\n- **Utility programs (antivirus, backup, compression) are system software**, even though a user launches them.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "OS software confusions",
+        "compiler versus interpreter",
+        "multitasking one CPU switching",
+        "virtual memory not physical RAM",
+        "extension is a hint kernel versus shell"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- System software runs the machine (OS, drivers, utilities, compiler/interpreter/assembler); application software does user tasks.\n- The OS manages the hardware and serves applications; the kernel is its resident core, the shell/GUI the user layer; it loads at boot.\n- OS functions: process management (multitasking), memory management (virtual memory), file management (file system), device management (spooling), user management/security, user interface.\n- OS types by work style: batch, time-sharing/multi-user, real-time, distributed, embedded/mobile.\n- Files are named data units; folders nest into a tree; a path locates a file; the extension hints at type but does not define contents.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "operating systems software summary",
+        "revision",
+        "OS functions types files extensions recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: which software layer",
+      "markdown": "**1. Classify each as system software or application software:** Windows, Linux, MS Excel, a printer driver, a media player.\n\nWindows and Linux run the machine itself, so both are **system software (operating systems)**. A printer driver lets the OS talk to hardware, so it is **system software**. MS Excel and a media player are tools a user runs for a task, so both are **application software**.\n\n**2.** A computer is on but nothing appears and no program will open. Which software layer must load first for anything else to run?\n\nThe **operating system**. Applications run on top of it; until the OS has loaded, nothing else can start.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "system vs application software example",
+        "operating system driver application boot order"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Which software manages memory, files and hardware for every other program?\n2. Is a compiler system software or application software?\n3. Name the small program that lets the OS talk to a specific piece of hardware.\n4. Is a payroll or accounting package system or application software?\n5. What is the term for software whose source code anyone may inspect and modify?\n6. Which OS feature lets several programs appear to run at once on one CPU?\n7. Is a disk-cleanup or backup tool an application or a utility?\n8. What starts the operating system when a computer is switched on?",
+      "searchKeywords": [
+        "operating systems and software practice",
+        "OS compiler device driver open source multitasking utility bootloader"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "system-vs-app",
+      "front": "Is a compiler system software or application software?",
+      "back": "System software - it is a language processor. So are the OS, drivers, and utilities like antivirus and backup. Applications are user-task programs (word processor, browser).",
+      "explanation": "System software sits between hardware and applications.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["software-categories"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "compiler-interpreter",
+      "front": "Compiler vs interpreter?",
+      "back": "A compiler translates the whole source program into machine code once, ahead of running. An interpreter translates and executes it statement by statement at run time.",
+      "explanation": "Both are language processors within system software.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "os-functions",
+      "front": "Name four functions of an operating system.",
+      "back": "Process management, memory management, file management, device management (also user management/security and the user interface).",
+      "explanation": "All application access to hardware goes through the OS.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["os-functions"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "virtual-memory",
+      "front": "What is virtual memory?",
+      "back": "The OS using disk space as an extension of RAM when physical memory runs low, so programs larger than RAM can still run.",
+      "explanation": "It does not add physical RAM; it trades speed for capacity.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["os-functions"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "kernel-shell",
+      "front": "Kernel vs shell?",
+      "back": "The kernel is the always-resident core of the OS that manages hardware and processes. The shell (or GUI) is the user-facing layer that accepts commands.",
+      "explanation": "Both are parts of the operating system.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-an-os-does"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "real-time-os",
+      "front": "What defines a real-time operating system?",
+      "back": "It guarantees a response within a strict time limit. Used in control systems, medical and industrial equipment.",
+      "explanation": "Contrast with time-sharing, which optimises fair interactive use.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["types-of-os"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "extension-hint",
+      "front": "If you rename photo.jpg to photo.txt, what happens to the file?",
+      "back": "Nothing to its contents - it is still a JPEG image. The extension is only a label telling the OS which program to try.",
+      "explanation": "Type is determined by the data, not the extension.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["files-and-folders"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "articles-and-determiners",
+  "topicPosition": 30,
+  "title": "Articles and Determiners",
+  "summary": "When to use a, an, the or no article; choosing a or an by sound rather than spelling; the main uses of the definite article; and the other determiners that compete for the same slot before a noun.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech"],
+  "learningObjectives": [
+    "Choose between a, an, the and the zero article for a given noun.",
+    "Apply the a/an choice by initial sound, not spelling.",
+    "State the standard situations that call for the definite article.",
+    "Recognise other determiners and the fact that only one fills the slot."
+  ],
+  "tags": ["grammar", "articles", "determiners", "a-an-the"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Adjectives",
+      "title": "English Grammar/Basic Parts of Speech/Adjectives",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to cross-check that articles and determiners belong to the determiner class. All rules are stated in original wording and reflect current usage; example sentences are original."
+    },
+    {
+      "sourceId": "GUTENBERG_GRAMMAR",
+      "url": "https://www.gutenberg.org/ebooks/11615",
+      "title": "The Grammar of English Grammars",
+      "publisher": "Project Gutenberg (Goold Brown)",
+      "usageMode": "public_domain",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Historical grammar consulted only to confirm the traditional treatment of the articles. Wording here is original and current."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "What articles do",
+      "markdown": "*A*, *an* and *the* are the English articles. They sit at the front of a noun phrase and signal whether the noun is being introduced as one of a kind (*a*, *an*) or pointed to as already known (*the*), or whether it needs no article at all.\n\nArticles are a large share of error-detection and fill-in items because English rules here differ from many first languages, so a wrong or missing article reads as natural until you look for it.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "articles a an the",
+        "what articles do",
+        "noun phrase"
+      ],
+      "position": 10
+    },
+    {
+      "id": "a-versus-an",
+      "type": "concept",
+      "title": "A or an - go by sound",
+      "markdown": "Use *an* before a spoken vowel sound and *a* before a spoken consonant sound. The spelling of the next word does not decide it; the pronunciation does.\n\n- *an hour*, *an honest officer* - the *h* is silent, so the word starts with a vowel sound.\n- *a university*, *a one-time fee*, *a European bank* - these start with a *y* or *w* sound.\n- *an MBA*, *an FIR*, *an SBI branch* - said letter by letter, *M*, *F* and *S* begin with a vowel sound.\n- *a hotel*, *a historic decision* - the *h* is pronounced in current usage.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "a or an by sound",
+        "an hour a university",
+        "an MBA an FIR"
+      ],
+      "position": 20
+    },
+    {
+      "id": "when-the",
+      "type": "method",
+      "title": "When to use the",
+      "markdown": "Use the definite article when the listener can identify exactly which one:\n\n- second and later mentions: *We received an application. The application was incomplete.*\n- only one in the context: *the manager*, *the head office*, *the government*.\n- made specific by a following phrase or clause: *the file on your desk*, *the officer who signed it*.\n- unique things: *the sun*, *the RBI*, *the Ganga*.\n- superlatives and ordinals: *the highest score*, *the first tranche*.\n- with adjectives standing for groups: *the unemployed*, *the poor*.",
+      "sourceIds": ["GUTENBERG_GRAMMAR"],
+      "searchKeywords": [
+        "when to use the",
+        "definite article rules",
+        "second mention superlative unique"
+      ],
+      "position": 30
+    },
+    {
+      "id": "zero-article",
+      "type": "concept",
+      "title": "No article at all",
+      "markdown": "Leave out the article for:\n\n- plural and uncountable nouns used in a general sense: *Interest rates fell.* *Cash is still common.*\n- most proper nouns: *Mumbai*, *Infosys*, *Monday*, *April*.\n- meals, and many fixed phrases: *have lunch*, *go to bed*, *by bus*, *at home*, *in hospital* (British usage).\n- languages, subjects and games: *speak Hindi*, *study economics*, *play cricket*.\n\nAdd *the* to some of these to make them specific: *the lunch they served*, *the economics of the deal*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "zero article",
+        "no article with plural uncountable",
+        "go to bed by bus"
+      ],
+      "position": 40
+    },
+    {
+      "id": "other-determiners",
+      "type": "concept",
+      "title": "The other determiners",
+      "markdown": "The article slot before a noun is shared with other determiners, and normally only one can fill it:\n\n- demonstratives: *this*, *that*, *these*, *those*\n- possessives: *my*, *your*, *its*, *their*, *the bank's*\n- quantifiers: *some*, *any*, *much*, *many*, *few*, *each*, *every*, *all*, *both*\n- numbers: *one*, *first*\n\nSo *the my file* and *a this form* are wrong. To combine ideas, use the *of* structure: *a file of mine*, *one of these forms*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "determiners list",
+        "one determiner per slot",
+        "a friend of mine"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: filling the article",
+      "markdown": "1. *She holds ____ MBA from ____ well-known institute.* First blank: *MBA* is said \"em-bee-ay\", a vowel sound, so **an**. Second blank: introduced for the first time, one of many, so **a**.\n\n2. *____ officer who verified the documents has been transferred.* The relative clause makes the officer specific, so **The**.\n\n3. *____ honesty is expected of every public servant.* An uncountable noun in a general sense takes no article, so **(no article)**.\n\n4. *We will meet after ____ lunch.* A meal in general takes no article, so **(no article)**.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "fill in the article exercise",
+        "an MBA a institute",
+        "the officer who"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **A/an by spelling.** *a hour*, *an university* are wrong; go by the sound.\n- **Dropping *the* before a specifying clause.** *Officer who signed it* should be *The officer who signed it*.\n- **Adding *the* to a general plural.** *The applications have increased overall* is wrong for a general statement; drop *the*.\n- **Two determiners together.** *the my account* is wrong; use *my account* or *an account of mine*.\n- **Article before an uncountable used generally.** *A information*, *an advice* are wrong; these nouns take no article and no plural.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "article mistakes",
+        "a hour an university",
+        "a information an advice",
+        "double determiner"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- *a* before a consonant sound, *an* before a vowel sound - judged by pronunciation, not spelling.\n- *the* when the listener can identify the exact one: second mention, only one, made specific by a phrase or clause, unique, superlative or ordinal.\n- No article with general plurals and uncountables, most proper nouns, meals, and fixed phrases like *by bus*, *at home*.\n- The determiner slot takes one filler: an article, or a demonstrative, or a possessive, or a quantifier - not two.\n- Uncountable nouns (*information*, *advice*, *equipment*, *furniture*) take no *a/an* and no plural.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": ["articles summary", "revision", "a an the recap"],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose a, an, the, or no article; give a one-line reason.\n\n1. She opened ___ savings account last week.\n2. He is ___ honest officer.\n3. Please pass me ___ file that is on your desk.\n4. ___ RBI sets the repo rate.\n5. We need ___ information before deciding.\n6. It took ___ hour to clear the queue.\n7. He wants to be ___ engineer.\n8. ___ euro rose against the rupee this month.",
+      "searchKeywords": [
+        "articles practice a an the zero article",
+        "first mention specific reference uncountable noun vowel sound"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "a-an-sound",
+      "front": "\"____ hour\" and \"____ university\" - which article, and on what basis?",
+      "back": "\"an hour\" (silent h, vowel sound) and \"a university\" (starts with a y sound). Choose by pronunciation, not spelling.",
+      "explanation": "Also: an MBA, a one-time fee, an honest officer.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["a-versus-an"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "the-second-mention",
+      "front": "Why is 'the' used in: \"We got an application. ___ application was blank.\"?",
+      "back": "It is now a second mention, so the listener can identify which one - the definite article.",
+      "explanation": "First mention introduces; later mentions point back.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["when-the"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "the-with-clause",
+      "front": "\"____ officer who verified the documents was transferred.\" Which article?",
+      "back": "\"The\" - the relative clause makes the officer specific and identifiable.",
+      "explanation": "A defining phrase or clause after the noun usually calls for 'the'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "zero-article-general",
+      "front": "Do you say \"The honesty is expected\" or \"Honesty is expected\"?",
+      "back": "\"Honesty is expected\" - an uncountable noun used generally takes no article.",
+      "explanation": "Add 'the' only to make it specific: \"the honesty shown by the team\".",
+      "difficulty": "medium",
+      "sourceBlockIds": ["zero-article"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "one-determiner",
+      "front": "Is \"the my account\" grammatical?",
+      "back": "No. One determiner fills the slot. Use \"my account\" or \"an account of mine\".",
+      "explanation": "Articles, demonstratives, possessives and quantifiers compete for the same position.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["other-determiners"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "uncountable-no-a",
+      "front": "Correct the phrase \"an advice\" / \"a information\".",
+      "back": "\"advice\" and \"information\" are uncountable: no \"a/an\", no plural. Say \"a piece of advice\", \"some information\".",
+      "explanation": "Same for equipment, furniture, luggage, news.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "the-with-unique",
+      "front": "Give three noun types that take 'the' almost automatically.",
+      "back": "Unique things (the sun, the RBI), superlatives/ordinals (the first, the highest), and rivers/oceans/ranges (the Ganga).",
+      "explanation": "There is only one, so it is identifiable by default.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["when-the"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

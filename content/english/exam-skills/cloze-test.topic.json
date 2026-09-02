@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "exam-skills",
+  "chapterName": "Exam question skills",
+  "chapterPosition": 2,
+  "topicSlug": "cloze-test",
+  "topicPosition": 50,
+  "title": "Cloze Test",
+  "summary": "A passage with numbered blanks tests vocabulary, collocation, connectors, grammar and coherence together. How to read the passage first, work out what each blank is testing, and use the sentence before and after to choose.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "single-and-double-fillers",
+    "conjunctions-and-connectors"
+  ],
+  "learningObjectives": [
+    "Read the whole passage for its theme and direction before filling any blank.",
+    "Identify what a given blank tests — vocabulary, collocation, connector, or grammar.",
+    "Use the sentences on both sides of a blank, not just the words touching it.",
+    "Keep the passage's tense and viewpoint consistent across all blanks."
+  ],
+  "tags": ["exam-skills", "cloze", "vocabulary", "coherence"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm cloze test is a standard question type. No content reused."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Conjunctions",
+      "title": "English Grammar/Conjunctions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the connector-blank reasoning. The passage and all options here are original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-cloze-is",
+      "type": "introduction",
+      "title": "What a cloze test is",
+      "markdown": "A cloze test is a single short passage — usually one connected argument or story — with five to ten numbered blanks. Each blank has four or five options.\n\nBecause the blanks sit in **one** passage, they are not independent. The theme, the tense and the writer's stance carry across every blank, and the sentence before and after a blank often decides it. Treat the passage as a whole first, then the blanks.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "cloze test what it is numbered blanks one passage",
+        "blanks are not independent",
+        "theme tense stance carry across blanks"
+      ],
+      "position": 10
+    },
+    {
+      "id": "read-first",
+      "type": "method",
+      "title": "Read the whole passage first",
+      "markdown": "1. **Read the passage once, ignoring the blanks**, to get the theme and the direction — is the writer describing a problem, defending a change, comparing two things?\n2. **Fix the tense and the viewpoint.** If the passage is in the past tense and third person, every verb blank follows that.\n3. **Then take the blanks in order**, but keep re-reading the sentence before and the sentence after each one.\n4. **Come back for the hard ones.** A later sentence sometimes makes an earlier blank obvious.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "read the whole passage first ignoring blanks",
+        "fix tense and viewpoint",
+        "take blanks in order re-read before and after",
+        "come back for hard blanks"
+      ],
+      "position": 20
+    },
+    {
+      "id": "what-each-blank-tests",
+      "type": "concept",
+      "title": "What each blank is testing",
+      "markdown": "Work out the type of the blank before you look hard at the options:\n\n- **Vocabulary / meaning.** The slot needs a word of a particular sense; the options are near-synonyms of different shades.\n- **Collocation.** The slot pairs with a fixed word nearby — *____ a decision*, *a ____ rise*.\n- **Connector.** The blank joins two clauses or sentences; the options are linking words (*however*, *therefore*, *moreover*, *because*). Decide the logical relation — contrast, cause, addition — and match it.\n- **Grammar.** The options differ in form: verb tense, preposition, singular/plural, *-ing* vs *-ed*. The passage's tense and the sentence structure decide it.\n\nMost passages mix all four types.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "what each cloze blank tests vocabulary collocation connector grammar",
+        "near synonyms of different shades",
+        "connector blank decide the logical relation",
+        "grammar blank tense preposition number"
+      ],
+      "position": 30
+    },
+    {
+      "id": "use-both-sides",
+      "type": "method",
+      "title": "Use the sentence on both sides",
+      "markdown": "- **The word touching the blank is not enough.** Read the full sentence, and the one before it, to see what idea the blank continues.\n- **For a connector blank**, name the relation between the two sentences in your own words first (\"this one contradicts the last one\"), then pick the linking word that means that.\n- **Check consistency after choosing.** Re-read with your word in place: does the tense still match, does the pronoun still refer to the same thing, does the sentence still say something the passage would say?\n- **If two options survive**, prefer the one that keeps the passage's tone and the tighter collocation.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "use the sentence on both sides of the blank",
+        "connector blank name the relation first then pick the word",
+        "check consistency tense pronoun tone after choosing",
+        "two options survive prefer tone and collocation"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "*Passage:* \"The branch moved its counters online in March. Footfall in the hall dropped sharply, __(1)__ the number of transactions did not fall — customers had simply __(2)__ to the app. Staff freed from the counter were __(3)__ to advisory desks, where they now spend most of the day.\"\n\n**(1)** (a) so (b) but (c) because (d) and — The two clauses contradict: footfall fell, transactions did not. The relation is contrast, so the answer is **(b) but**.\n\n**(2)** (a) shifted (b) refused (c) returned (d) objected — The dash explains why transactions held up: customers went to the app. *Shifted to the app* is the collocation and the sense. The answer is **(a) shifted**.\n\n**(3)** (a) promoted (b) reassigned (c) invited (d) compared — Staff *freed from the counter* were sent elsewhere to work; *reassigned to advisory desks* is the exact word. The answer is **(b) reassigned**.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "cloze worked example branch counters online",
+        "connector blank contrast but",
+        "shifted to the app collocation",
+        "reassigned to advisory desks"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Filling blanks in isolation**, without reading the sentence before and after.\n- **Choosing a connector by habit** (*however* everywhere) instead of naming the relation.\n- **Breaking the tense or viewpoint** the passage set in its first sentence.\n- **Picking the strongest-sounding word** rather than the one the passage's tone supports.\n- **Not re-reading** the completed sentence to check the pronoun and the tense still fit.\n- **Spending too long on blank 1.** Do the easy ones, then return.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "cloze mistakes",
+        "filling blanks in isolation",
+        "connector by habit however everywhere",
+        "breaking tense or viewpoint",
+        "strongest sounding word over tone",
+        "not re-reading completed sentence"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Read the whole passage once for theme and direction before touching a blank; fix its tense and viewpoint.\n- For each blank, decide the type first: vocabulary, collocation, connector, or grammar.\n- Use the sentence before and the sentence after — the words touching the blank are not enough.\n- For a connector blank, name the relation (contrast, cause, addition) in your own words, then pick the linking word.\n- Re-read with your answer in place to confirm tense, pronoun and tone still fit. Do the easy blanks first and return for the rest.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "cloze summary revision",
+        "read passage first decide blank type use both sides name the relation re-read recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Fill blanks (1)-(5); give a one-line reason for each.\n\n*\"The co-operative bank had run at a loss for three years. Its board __(1)__ a recovery plan in April: it closed four weak branches, __(2)__ its loan book, and retrained the staff it kept. Deposits were slow to return, __(3)__ bad loans fell by half within a year. By the following March the bank __(4)__ a small profit. The regulator, which had watched the accounts closely, __(5)__ the turnaround as proof that a focused plan can work.\"*\n\n1. (a) approved (b) refused (c) delayed (d) copied\n2. (a) expanded (b) trimmed (c) ignored (d) sold\n3. (a) so (b) because (c) but (d) and\n4. (a) posted (b) lost (c) owed (d) predicted\n5. (a) dismissed (b) cited (c) doubted (d) postponed",
+      "searchKeywords": [
+        "cloze practice passage co-operative bank recovery plan",
+        "connector vocabulary collocation grammar blanks exercise"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "read-first-card",
+      "front": "What is the first step in a cloze test, before filling any blank?",
+      "back": "Read the whole passage once, ignoring the blanks, to get the theme and direction, and fix the tense and viewpoint that every blank must follow.",
+      "explanation": "The blanks are not independent — they sit in one connected passage.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["read-first"],
+      "position": 10
+    },
+    {
+      "id": "blank-types",
+      "front": "What four things can a cloze blank be testing?",
+      "back": "Vocabulary/meaning, collocation, connector (linking word), or grammar (form: tense, preposition, number). Decide the type before studying the options.",
+      "explanation": "Most passages mix all four.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-each-blank-tests"],
+      "position": 20
+    },
+    {
+      "id": "connector-blank",
+      "front": "How do you handle a connector blank in a cloze test?",
+      "back": "Name the relation between the two sentences in your own words first (contrast, cause, addition), then pick the linking word that means that — don't choose by habit.",
+      "explanation": "\"This sentence contradicts the last one\" → but / however.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["use-both-sides"],
+      "position": 30
+    },
+    {
+      "id": "both-sides",
+      "front": "Why isn't the word touching a cloze blank enough to choose the answer?",
+      "back": "The blank continues an idea from the wider passage. Read the full sentence and the one before it to see what the blank must say.",
+      "explanation": "A later sentence sometimes settles an earlier blank.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["use-both-sides"],
+      "position": 40
+    },
+    {
+      "id": "consistency-check",
+      "front": "After choosing a cloze answer, what should you check?",
+      "back": "Re-read the completed sentence: does the tense still match the passage, does the pronoun still refer to the same thing, does the tone still fit?",
+      "explanation": "Consistency errors are as common as meaning errors.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["use-both-sides"],
+      "position": 50
+    },
+    {
+      "id": "order-of-attack",
+      "front": "You're stuck on blank 1 of a cloze. What do you do?",
+      "back": "Leave it, do the easier blanks, and come back — a later sentence often makes an earlier blank obvious.",
+      "explanation": "Time spent stuck on blank 1 is time lost on five easy ones.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["read-first"],
+      "position": 60
+    },
+    {
+      "id": "two-survive",
+      "front": "Two cloze options both seem to work. How do you pick?",
+      "back": "Take the one that keeps the passage's tone and has the tighter collocation with the fixed words nearby.",
+      "explanation": "Same tie-breaker as single fillers.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["use-both-sides"],
+      "position": 70
+    }
+  ]
+}

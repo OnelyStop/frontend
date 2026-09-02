@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "adjectives-adverbs-and-modifiers",
+  "topicPosition": 45,
+  "title": "Adjectives, Adverbs and Modifiers",
+  "summary": "Choosing between an adjective and an adverb, the degrees of comparison and their traps, the order adjectives take before a noun, and how to spot and repair a misplaced or dangling modifier.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech", "sentence-structure"],
+  "learningObjectives": [
+    "Decide whether a slot needs an adjective or an adverb, including after linking verbs.",
+    "Form and use the comparative and superlative correctly, avoiding double comparatives.",
+    "Place a describing phrase next to the word it modifies.",
+    "Identify a dangling modifier and rewrite the sentence to fix it."
+  ],
+  "tags": [
+    "grammar",
+    "adjectives",
+    "adverbs",
+    "modifiers",
+    "dangling-modifier"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Adjectives",
+      "title": "English Grammar/Basic Parts of Speech/Adjectives",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the roles of adjectives and adverbs and the degrees of comparison. All example sentences and exercises here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "adjective-or-adverb",
+      "type": "concept",
+      "title": "Adjective or adverb in this slot?",
+      "markdown": "An **adjective** describes a noun or pronoun; an **adverb** modifies a verb, an adjective or another adverb.\n\n- After an action verb, use the adverb: *She answered the query promptly*, not *prompt*.\n- After a **linking verb** (*be*, *seem*, *appear*, *become*, *feel*, *look*, *sound*, *taste*, *smell*), use the adjective, because it describes the subject: *The statement is accurate*, *The tea tastes bitter*.\n- Some verbs are both. *He looked careful* (he seemed careful) versus *He looked carefully* (he examined it with care).\n- *Good* is the adjective, *well* the adverb — except *well* meaning \"in good health\".\n- Watch words that are already adverbs without -ly: *fast*, *hard*, *late*, *early*, *daily*; and -ly words that are adjectives: *friendly*, *lonely*, *lively*, *costly*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "adjective describes noun adverb modifies verb adjective adverb",
+        "linking verb takes adjective",
+        "good versus well",
+        "friendly costly are adjectives"
+      ],
+      "position": 10
+    },
+    {
+      "id": "degrees-of-comparison",
+      "type": "method",
+      "title": "Degrees of comparison",
+      "markdown": "- **Positive** (tall), **comparative** (taller / more careful, for two things), **superlative** (tallest / most careful, for three or more).\n- Short words add *-er* / *-est*; longer words take *more* / *most*. Never both: *more easier* and *most fastest* are wrong.\n- Irregular: good/better/best, bad/worse/worst, little/less/least, many or much/more/most, far/farther or further/farthest or furthest.\n- Use *than* with the comparative (*larger than*), and *the* with the superlative (*the largest*).\n- Some adjectives have no degrees because they are absolute: *unique*, *perfect*, *complete*, *empty*, *equal*. Prefer *more nearly unique* to *more unique*.\n- \"Any other\" in comparisons: *This branch handles more footfall than any other branch in the district* — not *than any branch*, which would include itself.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "degrees of comparison positive comparative superlative",
+        "comparative for two superlative for three or more",
+        "no double comparative more easier",
+        "absolute adjectives unique perfect",
+        "than any other in comparisons"
+      ],
+      "position": 20
+    },
+    {
+      "id": "order-of-adjectives",
+      "type": "concept",
+      "title": "Order of adjectives before a noun",
+      "markdown": "When several adjectives sit before a noun, English fixes their order: **opinion, size, age, shape, colour, origin, material, purpose**, then the noun.\n\n*a useful small old rectangular grey steel filing cabinet* sounds right; reordering it sounds wrong.\n\nA related point: use a comma between adjectives only when they are **coordinate** — you could swap them or insert *and* (*a clear, concise circular*). Do not put a comma between adjectives of different types (*a large steel cabinet*).",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "order of adjectives opinion size age shape colour origin material purpose",
+        "comma between coordinate adjectives only",
+        "a large steel cabinet no comma"
+      ],
+      "position": 30
+    },
+    {
+      "id": "misplaced-modifiers",
+      "type": "concept",
+      "title": "Misplaced modifiers",
+      "markdown": "A modifier belongs **next to the word it describes**. When it drifts, it attaches to the wrong word.\n\n- *The officer explained the new rule to the recruits in a stern tone.* — does the stern tone belong to the rule or the explaining? Move it: *In a stern tone, the officer explained the new rule to the recruits.*\n- **Limiting words** — *only*, *just*, *even*, *almost*, *nearly* — change the meaning by position. *Only the manager signed two forms* / *The manager only signed two forms* / *The manager signed only two forms* all mean different things. Put *only* right before what it limits.\n- **Squinting modifier:** one that could look both ways. *Staff who complete the module quickly earn a bonus* — quickly complete, or quickly earn? Reposition it.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "misplaced modifier next to the word it describes",
+        "only just even almost nearly position changes meaning",
+        "put only before what it limits",
+        "squinting modifier"
+      ],
+      "position": 40
+    },
+    {
+      "id": "dangling-modifiers",
+      "type": "concept",
+      "title": "Dangling modifiers",
+      "markdown": "A **dangling modifier** is an opening phrase whose implied subject is missing from the main clause, so it grabs the nearest noun instead.\n\n- *Walking into the vault, the lights were off.* — the lights were not walking. Fix by naming the doer: *Walking into the vault, she found the lights off.*\n- *Being a public holiday, the branch kept a skeleton staff.* — the branch is not the holiday. Fix: *Since it was a public holiday, the branch kept a skeleton staff.*\n- *To open an account, valid ID is required.* — ID does not open an account. Fix: *To open an account, you need valid ID.*\n\nThe test: after the opening phrase, the very next noun should be the one doing the action in that phrase.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "dangling modifier missing implied subject",
+        "walking into the vault the lights were off",
+        "being a public holiday the branch",
+        "next noun must be the doer"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: fix the modifier errors",
+      "markdown": "**1.** *After reviewing the file for an hour, the discrepancy was finally spotted by the trainee.*\n\nThe opening phrase implies the trainee did the reviewing, but the main-clause subject is *the discrepancy*. Rewrite so the trainee comes right after: **\"After reviewing the file for an hour, the trainee finally spotted the discrepancy.\"**\n\n**2.** *The branch manager said on Monday she would announce the results.*\n\n\"On Monday\" could modify *said* or *announce*. If the announcement is on Monday, move it: **\"The branch manager said she would announce the results on Monday.\"** If the statement was made on Monday, front it: *On Monday, the branch manager said she would announce the results.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "fix dangling modifier trainee spotted the discrepancy",
+        "on Monday modifies said or announce",
+        "reposition the time phrase"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Adverb for adjective after a linking verb:** *The proposal sounds interestingly* should be *interesting*.\n- **Double comparative or superlative:** *more better*, *most easiest*.\n- **Comparative for three or more, or superlative for two:** use the comparative for two things, the superlative for three or more.\n- **\"Than any\" instead of \"than any other\"** when the subject is part of the group.\n- **Leaving *only* in the wrong place.**\n- **An opening -ing or to- phrase whose doer is not the next noun** (dangling modifier).\n- **Comparing incomparable adjectives:** *more unique*, *most perfect*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "adjective adverb modifier mistakes",
+        "adverb after linking verb",
+        "double comparative",
+        "comparative for two superlative for three",
+        "than any other",
+        "misplaced only dangling phrase more unique"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Adjective describes a noun; adverb modifies a verb, adjective or adverb. After a linking verb (*be*, *seem*, *feel*, *look*, *sound*, *taste*), use the adjective.\n- Comparative (*-er* / *more*) for two things with *than*; superlative (*-est* / *most*) for three or more with *the*. No double forms. Use *than any other* when the subject is in the group. Some adjectives are absolute.\n- Adjective order before a noun: opinion, size, age, shape, colour, origin, material, purpose. Comma only between coordinate adjectives.\n- Keep a modifier next to what it describes; place *only* / *just* right before the word they limit.\n- An opening phrase's implied doer must be the subject of the main clause, or it dangles.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "adjectives adverbs modifiers summary",
+        "revision",
+        "linking verb comparison order misplaced dangling recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose or fix, with a one-line reason.\n\n1. The customer felt (bad / badly) about the mix-up.\n2. Of the two proposals, the second is (better / best).\n3. This scheme is (more popular / most popular) than any other scheme in the region.\n4. She wore a (silk red beautiful / beautiful red silk) scarf.\n5. Fix: Having missed the deadline, the report was rejected.\n6. Fix: The clerk almost processed all the cheques before lunch.\n7. The new terminal runs (quicker / more quickly) than the old one.\n8. Fix: Walking into the branch, the alarm was already ringing.",
+      "searchKeywords": [
+        "adjectives adverbs modifiers practice questions",
+        "linking verb comparison adjective order dangling only exercises"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "linking-verb-adjective",
+      "front": "\"The customer felt (bad / badly).\" Which, and why?",
+      "back": "\"bad\" — \"feel\" here is a linking verb describing the subject's state, so it takes an adjective. \"felt badly\" would mean a poor sense of touch.",
+      "explanation": "After be, seem, feel, look, sound, taste → adjective.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["adjective-or-adverb"],
+      "position": 10
+    },
+    {
+      "id": "comparative-two",
+      "front": "Comparative or superlative for exactly two things?",
+      "back": "Comparative (\"the better of the two\"). Superlative is for three or more (\"the best of the five\").",
+      "explanation": "Use \"than\" with the comparative, \"the\" with the superlative.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["degrees-of-comparison"],
+      "position": 20
+    },
+    {
+      "id": "than-any-other",
+      "front": "Fix: \"This branch handles more footfall than any branch in the district.\"",
+      "back": "\"…than any other branch\". Without \"other\", the branch is compared with itself.",
+      "explanation": "Needed only when the subject belongs to the group.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["degrees-of-comparison"],
+      "position": 30
+    },
+    {
+      "id": "adjective-order",
+      "front": "In what order do adjectives go before a noun?",
+      "back": "Opinion, size, age, shape, colour, origin, material, purpose — then the noun. \"a useful small old grey steel cabinet\".",
+      "explanation": "Comma only between coordinate (swappable) adjectives.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["order-of-adjectives"],
+      "position": 40
+    },
+    {
+      "id": "only-position",
+      "front": "Do these mean the same: \"The manager only signed two forms\" and \"The manager signed only two forms\"?",
+      "back": "No. Put \"only\" right before the word it limits. The first hints she did nothing but sign; the second limits the count to two.",
+      "explanation": "Same for just, even, almost, nearly.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["misplaced-modifiers"],
+      "position": 50
+    },
+    {
+      "id": "dangling-test",
+      "front": "Test for a dangling modifier in an opening phrase?",
+      "back": "The noun immediately after the phrase must be the one performing the action in the phrase. \"Walking into the vault, the lights were off\" fails — lights don't walk.",
+      "explanation": "Fix by naming the doer as the main-clause subject.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["dangling-modifiers"],
+      "position": 60
+    },
+    {
+      "id": "no-double-comparative",
+      "front": "What is wrong with \"more easier\" and \"most fastest\"?",
+      "back": "Double comparison. Use either the -er/-est ending or more/most, never both: \"easier\", \"fastest\".",
+      "explanation": "Short words take the ending; longer words take more/most.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["degrees-of-comparison"],
+      "position": 70
+    }
+  ]
+}
