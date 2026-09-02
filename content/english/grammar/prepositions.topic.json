@@ -153,6 +153,17 @@
         "collocation recap"
       ],
       "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the correct preposition; give a one-line reason.\n\n1. The meeting is ___ 3 p.m.\n2. Your appraisal is due ___ March.\n3. She has worked here ___ five years.\n4. The file is ___ the drawer.\n5. Put your signature ___ the dotted line.\n6. He is responsible ___ the cash counter.\n7. This draft is different ___ the earlier one.\n8. They travelled ___ Delhi to Mumbai by train.",
+      "searchKeywords": [
+        "prepositions practice at in on for from",
+        "time place duration fixed pairings different from"
+      ],
+      "position": 90
     }
   ],
   "flashcards": [

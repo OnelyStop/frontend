@@ -148,6 +148,17 @@
         "hierarchy RAM ROM secondary technologies recap"
       ],
       "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Which loses its contents when power is cut, RAM or ROM?\n2. Which is faster to access, main memory or a hard disk?\n3. Order by increasing size: KB, TB, MB, GB.\n4. How many bits are in one byte?\n5. Which has no moving parts, an HDD or an SSD?\n6. Which memory holds the start-up instructions a PC needs before the OS loads?\n7. What is the job of cache memory between the CPU and RAM?\n8. Is a USB pen drive primary or secondary storage?",
+      "searchKeywords": [
+        "memory and storage practice",
+        "RAM ROM volatile cache HDD SSD byte primary secondary"
+      ],
+      "position": 80
     }
   ],
   "flashcards": [

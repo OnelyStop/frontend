@@ -154,6 +154,17 @@
         "present perfect signals"
       ],
       "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the correct form; give a one-line reason.\n\n1. By the time the auditor arrived, the team (finished / had finished) the report.\n2. She (works / has worked) here since 2019.\n3. Look, the printer (jams / is jamming) again.\n4. The branch (opens / will open) at 10 tomorrow, as always.\n5. While I (checked / was checking) the ledger, the power went off.\n6. They (will finish / will have finished) the migration by Friday.\n7. Water (boils / is boiling) at 100 degrees Celsius.\n8. He said he (will / would) call back.",
+      "searchKeywords": [
+        "tenses practice choose the form",
+        "past perfect present perfect continuous future perfect reported speech"
+      ],
+      "position": 90
     }
   ],
   "flashcards": [

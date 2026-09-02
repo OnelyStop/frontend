@@ -202,6 +202,17 @@
         "direct inverse recap"
       ],
       "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "1. Divide 4,500 rupees between A and B in the ratio 4 : 5.\n2. If a : b = 2 : 3 and b : c = 4 : 5, find a : c.\n3. The ratio of two numbers is 3 : 7 and their sum is 120. Find the numbers.\n4. A sum is divided among P, Q and R in the ratio 2 : 3 : 5. If R gets 1,200 rupees more than P, find the total sum.\n5. If 15 workers finish a job in 8 days, how many workers are needed to finish the same job in 5 days?\n6. Two numbers are in the ratio 5 : 8. If 9 is added to each, the ratio becomes 8 : 11. Find the numbers.\n7. The present ages of A and B are in the ratio 5 : 7. Four years from now the ratio will be 3 : 4. Find their present ages.\n8. If x : y = 3 : 4, find the value of (2x + 3y) : (3x + 2y).",
+      "searchKeywords": [
+        "ratio proportion practice questions",
+        "dividing in a ratio combined ratio ages exercises"
+      ],
+      "position": 100
     }
   ],
   "flashcards": [

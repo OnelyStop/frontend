@@ -184,6 +184,17 @@
         "binary octal hex units ASCII Unicode recap"
       ],
       "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. What is the base of the binary number system?\n2. Convert binary 1010 to decimal.\n3. Convert decimal 5 to binary.\n4. How many different values can 4 bits represent?\n5. What is the decimal value of hexadecimal A?\n6. Which code represents English letters and symbols in 7 or 8 bits?\n7. Convert binary 1111 to decimal.\n8. Which standard extends character coverage to most of the world's scripts?",
+      "searchKeywords": [
+        "number systems practice",
+        "binary decimal hexadecimal bits ASCII Unicode conversion"
+      ],
+      "position": 90
     }
   ],
   "flashcards": [

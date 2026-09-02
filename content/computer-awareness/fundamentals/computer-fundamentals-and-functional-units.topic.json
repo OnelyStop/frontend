@@ -145,6 +145,17 @@
         "five units CPU stored program generations recap"
       ],
       "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Which part of the CPU does arithmetic and comparisons?\n2. Which part of the CPU directs the sequence of operations?\n3. Name the four basic functions of a computer.\n4. In what unit is CPU clock speed usually measured?\n5. Which component carries out program instructions and is called the brain of the computer?\n6. Where are the data and instructions currently being processed held?\n7. Turning a user's key-presses into a form the CPU can use is which function?\n8. A set of instructions that tells the computer what to do is called what?",
+      "searchKeywords": [
+        "computer fundamentals practice",
+        "ALU control unit CPU input processing storage output clock speed program"
+      ],
+      "position": 80
     }
   ],
   "flashcards": [

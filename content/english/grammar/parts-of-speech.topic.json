@@ -153,6 +153,17 @@
         "word class recap"
       ],
       "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Name the part of speech of the italicised word; give a one-line reason.\n\n1. The *manager* approved the loan. — *manager*\n2. She *quickly* signed the form. — *quickly*\n3. The report is on *your* desk. — *your*\n4. He works *at* the branch. — *at*\n5. The queue was long, *but* it moved fast. — *but*\n6. *Wow*, the system is finally back. — *Wow*\n7. The team *audited* the accounts. — *audited*\n8. *It* was rejected without a reason. — *It*",
+      "searchKeywords": [
+        "parts of speech practice",
+        "identify noun verb adjective adverb preposition conjunction interjection pronoun"
+      ],
+      "position": 90
     }
   ],
   "flashcards": [

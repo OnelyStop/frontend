@@ -153,6 +153,29 @@
         "establishment governance traditional developmental"
       ],
       "position": 70
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: which RBI function",
+      "markdown": "**1.** Inflation is rising quickly. Which RBI function is engaged, and what broad step fits?\n\nThis is **monetary policy** (controller of money supply). Raising the policy repo rate makes borrowing costlier, which cools demand and eases price pressure.\n\n**2.** A solvent bank has a sudden one-day shortfall and cannot meet its payments. Which RBI role does it turn to?\n\nThe **lender of last resort**. The RBI can supply short-term liquidity to a fundamentally sound bank in temporary difficulty.",
+      "sourceIds": ["RBI_ROLES"],
+      "searchKeywords": [
+        "which RBI function example",
+        "monetary policy repo rate lender of last resort"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Who issues currency notes in India, except the one-rupee note?\n2. The RBI acts as banker to whom?\n3. The rate at which the RBI lends short-term to banks is called what?\n4. Supervising and licensing commercial banks is which RBI role?\n5. Managing the country's foreign exchange reserves is which function?\n6. Providing emergency funds to a struggling but solvent bank is which role?\n7. The share of deposits banks must keep with the RBI is called what?\n8. Which RBI body sets the benchmark interest rates every two months?",
+      "searchKeywords": [
+        "RBI functions practice",
+        "issuer of currency banker to government repo rate regulator forex CRR monetary policy committee"
+      ],
+      "position": 90
     }
   ],
   "flashcards": [

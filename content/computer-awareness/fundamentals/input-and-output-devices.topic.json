@@ -151,6 +151,29 @@
         "categories both soft hard copy recap"
       ],
       "position": 70
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: classify the device",
+      "markdown": "**1. Classify each as input, output, or both:** keyboard, monitor, scanner, printer, touchscreen.\n\nKeyboard takes data in, so **input**. Monitor shows results, so **output**. Scanner reads an image in, so **input**. Printer puts results on paper, so **output**. A touchscreen both shows a menu and accepts taps, so **both**.\n\n**2.** A user says the computer will not respond to the mouse, but the screen still updates on its own. Which category is at fault?\n\nThe display is clearly working, so the **output** side is fine. The mouse is an **input** device, and that is where the fault lies.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "classify input output device example",
+        "keyboard scanner printer monitor touchscreen both"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Input, output, or both? One line each.\n\n1. A microphone.\n2. A plotter.\n3. The barcode scanner at a billing counter.\n4. A projector.\n5. An OMR sheet reader that scores answer sheets.\n6. Speakers.\n7. A biometric fingerprint reader.\n8. A touch-screen ATM display.",
+      "searchKeywords": [
+        "input output devices practice",
+        "microphone plotter scanner projector OMR speakers biometric touchscreen"
+      ],
+      "position": 90
     }
   ],
   "flashcards": [

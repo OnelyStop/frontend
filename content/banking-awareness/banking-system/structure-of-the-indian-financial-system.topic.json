@@ -147,6 +147,17 @@
         "regulators money capital market recap"
       ],
       "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Who regulates the banking system in India?\n2. Who regulates the stock market and mutual funds?\n3. Who regulates the insurance sector?\n4. Who regulates pension funds?\n5. The financial system channels funds from whom to whom?\n6. Banks, NBFCs and insurers are examples of what part of the system?\n7. Shares, bonds and deposits are examples of what?\n8. A market for funds borrowed for less than one year is called what?",
+      "searchKeywords": [
+        "financial system structure practice",
+        "RBI SEBI IRDAI PFRDA savers borrowers intermediaries instruments money market"
+      ],
+      "position": 80
     }
   ],
   "flashcards": [

@@ -154,6 +154,29 @@
         "demand time savings current FD RD DICGC recap"
       ],
       "position": 70
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: match the account to the need",
+      "markdown": "**1.** A salaried customer wants an account for monthly pay credit and regular withdrawals. She needs no overdraft and does not run a business.\n\nA **savings account** fits: it pays interest, allows regular withdrawals, and is meant for individuals rather than high transaction volumes.\n\n**2.** A shop owner makes dozens of deposits and payments a day and sometimes needs to overdraw for a day or two.\n\nA **current account** fits: it is built for heavy transaction volume and can carry an overdraft. It normally pays no interest.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "match deposit account to customer need example",
+        "savings account current account overdraft transaction volume"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Which account type normally pays no interest?\n2. A deposit locked for a fixed term at a fixed rate is called what?\n3. Which account lets you pay a fixed sum every month for a set period?\n4. A zero-balance account for financial inclusion under PMJDY is a what?\n5. Breaking a fixed deposit before maturity usually attracts what?\n6. Which account type is meant for day-to-day business transactions?\n7. On what balance is savings-account interest calculated?\n8. Can a minor have a savings account?",
+      "searchKeywords": [
+        "deposit accounts practice",
+        "savings current fixed recurring BSBDA premature withdrawal minor"
+      ],
+      "position": 90
     }
   ],
   "flashcards": [

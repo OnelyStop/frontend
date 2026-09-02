@@ -150,6 +150,17 @@
         "scheduled commercial RRB cooperative SFB payments bank"
       ],
       "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. A bank listed in the Second Schedule of the RBI Act is called a what?\n2. Banks in which the government holds a majority stake are known as what?\n3. Which banks focus on rural and agricultural credit and are sponsored by a larger bank?\n4. Which bank type takes small deposits and gives small loans but cannot lend large amounts?\n5. Which bank type can take limited deposits and offer payments services but cannot lend?\n6. Member-owned banks run on co-operative principles are called what?\n7. What kind of bank is the RBI itself?\n8. Who regulates foreign banks operating in India?",
+      "searchKeywords": [
+        "types of banks practice",
+        "scheduled bank public sector RRB small finance bank payments bank co-operative central bank"
+      ],
+      "position": 80
     }
   ],
   "flashcards": [

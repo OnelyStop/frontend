@@ -214,7 +214,7 @@
       "id": "practice",
       "type": "practice",
       "title": "Practice",
-      "markdown": "1. Is 7,20,918 divisible by 11?\n2. How many factors does 1,200 have?\n3. Find the unit digit of 3 raised to the power 100.\n4. What is the smallest number that must be added to 5,834 to make it divisible by 9?\n5. How many numbers between 1 and 200 are divisible by 6 but not by 4?\n6. The number 34A6 is divisible by 4. What digit can A be?",
+      "markdown": "1. Is 7,20,918 divisible by 11?\n2. How many factors does 1,200 have?\n3. Find the unit digit of 3 raised to the power 100.\n4. What is the smallest number that must be added to 5,834 to make it divisible by 9?\n5. How many numbers between 1 and 200 are divisible by 6 but not by 4?\n6. The number 34A6 is divisible by 4. What digit can A be?\n7. What is the largest three-digit number that is exactly divisible by 17?\n8. Find the remainder when the sum 1 + 2 + 3 + ... + 100 is divided by 7.",
       "searchKeywords": [
         "number system practice questions",
         "divisibility factors unit digit exercises"

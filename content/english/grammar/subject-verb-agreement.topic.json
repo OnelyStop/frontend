@@ -165,6 +165,17 @@
         "concord recap"
       ],
       "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the correct verb; give a one-line reason.\n\n1. The list of pending items (is / are) on the noticeboard.\n2. Neither the manager nor the clerks (was / were) available.\n3. Each of the branches (has / have) its own code.\n4. The committee (meet / meets) every Monday as one body.\n5. Ten years (is / are) a long time to hold one post.\n6. The staff (was / were) divided over the new timings.\n7. Mathematics (is / are) a compulsory section.\n8. There (is / are) two forms to fill before noon.",
+      "searchKeywords": [
+        "subject verb agreement practice",
+        "singular plural verb intervening phrase either neither collective noun"
+      ],
+      "position": 100
     }
   ],
   "flashcards": [

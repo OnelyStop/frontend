@@ -189,6 +189,29 @@
         "RTGS NEFT IMPS UPI NPCI PSS Act recap"
       ],
       "position": 80
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: choose the payment system",
+      "markdown": "**1.** A company must pay a supplier 5 crore rupees and wants the funds settled individually and immediately during banking hours.\n\n**RTGS** fits: it is for high-value transfers (2 lakh rupees and above) settled in real time, one transaction at a time.\n\n**2.** A person wants to send 800 rupees to a friend at 11 p.m. from a phone, instantly.\n\n**UPI** (or IMPS) fits: both run around the clock in real time for small amounts, and UPI needs only a UPI ID or a QR code.",
+      "sourceIds": ["NPCI_UPI"],
+      "searchKeywords": [
+        "choose payment system example",
+        "RTGS high value real time UPI IMPS small instant"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Which system settles transfers in batches at set times rather than one by one?\n2. Which system is meant for transfers of 2 lakh rupees and above?\n3. Which system lets you pay with only a UPI ID or QR code, without sharing your account number?\n4. Which organisation operates UPI, IMPS and RuPay?\n5. What do the letters RT in RTGS stand for?\n6. Is there a minimum amount for an NEFT transfer?\n7. Which system uses a Mobile Money Identifier (MMID) as one way to address a transfer?\n8. In RTGS, what does gross settlement mean?",
+      "searchKeywords": [
+        "payment systems practice",
+        "NEFT batch RTGS high value UPI QR NPCI real time gross settlement MMID"
+      ],
+      "position": 100
     }
   ],
   "flashcards": [

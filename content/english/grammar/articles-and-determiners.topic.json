@@ -150,6 +150,17 @@
       "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
       "searchKeywords": ["articles summary", "revision", "a an the recap"],
       "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose a, an, the, or no article; give a one-line reason.\n\n1. She opened ___ savings account last week.\n2. He is ___ honest officer.\n3. Please pass me ___ file that is on your desk.\n4. ___ RBI sets the repo rate.\n5. We need ___ information before deciding.\n6. It took ___ hour to clear the queue.\n7. He wants to be ___ engineer.\n8. ___ euro rose against the rupee this month.",
+      "searchKeywords": [
+        "articles practice a an the zero article",
+        "first mention specific reference uncountable noun vowel sound"
+      ],
+      "position": 90
     }
   ],
   "flashcards": [

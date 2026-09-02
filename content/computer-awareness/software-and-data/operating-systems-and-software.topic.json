@@ -153,6 +153,29 @@
         "OS functions types files extensions recap"
       ],
       "position": 70
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: which software layer",
+      "markdown": "**1. Classify each as system software or application software:** Windows, Linux, MS Excel, a printer driver, a media player.\n\nWindows and Linux run the machine itself, so both are **system software (operating systems)**. A printer driver lets the OS talk to hardware, so it is **system software**. MS Excel and a media player are tools a user runs for a task, so both are **application software**.\n\n**2.** A computer is on but nothing appears and no program will open. Which software layer must load first for anything else to run?\n\nThe **operating system**. Applications run on top of it; until the OS has loaded, nothing else can start.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "system vs application software example",
+        "operating system driver application boot order"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Which software manages memory, files and hardware for every other program?\n2. Is a compiler system software or application software?\n3. Name the small program that lets the OS talk to a specific piece of hardware.\n4. Is a payroll or accounting package system or application software?\n5. What is the term for software whose source code anyone may inspect and modify?\n6. Which OS feature lets several programs appear to run at once on one CPU?\n7. Is a disk-cleanup or backup tool an application or a utility?\n8. What starts the operating system when a computer is switched on?",
+      "searchKeywords": [
+        "operating systems and software practice",
+        "OS compiler device driver open source multitasking utility bootloader"
+      ],
+      "position": 90
     }
   ],
   "flashcards": [

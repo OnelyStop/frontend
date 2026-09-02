@@ -149,6 +149,17 @@
         "LAN WAN topology devices internet web DNS HTTPS recap"
       ],
       "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. A network confined to one office building is called a what?\n2. Which network spans a country or the globe?\n3. The unique numeric address of a device on a network is its what?\n4. Which device connects a home network to the internet service provider?\n5. What does DNS do?\n6. Which is more secure for browsing, HTTP or HTTPS?\n7. A private, encrypted tunnel over the public internet is a what?\n8. The address burned into a network card is the what?",
+      "searchKeywords": [
+        "computer networks practice",
+        "LAN WAN IP address router DNS HTTPS VPN MAC address"
+      ],
+      "position": 80
     }
   ],
   "flashcards": [
