@@ -152,6 +152,21 @@ jobs:
             Style nits, naming preferences and "consider also doing X" are NOT
             grounds to request changes. Say them in the body and approve.
 
+            WHAT THE PR SEES IS THE FINDINGS AND THE VERDICT, NOTHING ELSE.
+            A reviewer reads this to learn what is wrong with their code, not to
+            watch you work. Leave out:
+
+              - task lists, checklists, and step-by-step accounts of what you
+                read or in what order
+              - timings, turn counts, "View job" links, and any header naming
+                whose task this was
+              - what you could not do, which tools you were denied, or how this
+                environment is configured -- that belongs in the run log
+              - restating the PR body or summarising the diff back at the author
+
+            The body is the reason for the verdict and the findings behind it.
+            If nothing is wrong, one sentence is the whole review.
+
           # The progress comment is a running log that edits itself and stays on
           # the PR after the verdict lands. The review is the output; this was
           # noise beside it.
