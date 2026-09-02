@@ -12,6 +12,7 @@ const PROTECTED = [
   "/progress",
   "/notes",
   "/flashcards",
+  "/current-affairs",
   "/community",
   "/upgrade",
   "/profile",

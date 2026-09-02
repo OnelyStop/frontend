@@ -28,8 +28,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${instrument.variable} ${jakarta.variable}`}>
-      <body>
+    // suppressHydrationWarning: browser extensions (password managers, reader
+    // tools) mutate <html>/<body> attributes before React hydrates. It only
+    // silences attribute diffs one level deep, not children.
+    <html
+      lang="en"
+      className={`${instrument.variable} ${jakarta.variable}`}
+      suppressHydrationWarning
+    >
+      <body suppressHydrationWarning>
         <AuthProvider>
           <AppProvider>
             <SmoothScroll />

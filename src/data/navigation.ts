@@ -118,6 +118,14 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Recall",
     items: [
       {
+        id: "current-affairs",
+        label: "Current affairs",
+        path: "/current-affairs",
+        icon: "news",
+        hint: "One grounded MCQ per major story, from the day's news and RBI/PIB/SEBI",
+        badge: "NEW",
+      },
+      {
         id: "flashcards",
         label: "Flashcards",
         path: "/flashcards",

@@ -7,6 +7,11 @@ tsconfig.tsbuildinfo
 # and the tool rewrites them anyway.
 src/migrations/**/*.sql
 src/migrations/meta
+gazette-migrations/**/*.sql
+gazette-migrations/meta
 
 # Hand-authored shareable documents, not source. Their layout is deliberate.
 docs
+
+# Hand-authored learning content is validated by its own schema tooling.
+content
