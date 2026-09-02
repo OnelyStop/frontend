@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "markets-and-institutions",
+  "chapterName": "Financial markets and institutions",
+  "chapterPosition": 6,
+  "topicSlug": "money-market-and-capital-market",
+  "topicPosition": 10,
+  "title": "Money Market and Capital Market",
+  "summary": "How the short-term money market (call money, treasury bills, commercial paper, certificates of deposit) differs from the long-term capital market for shares and bonds, who regulates each, the split between primary and secondary markets, and how open market operations link the money market to monetary policy.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "structure-of-the-indian-financial-system",
+    "monetary-policy-instruments"
+  ],
+  "learningObjectives": [
+    "Separate money-market instruments from capital-market instruments by tenor and regulator.",
+    "Name the main money-market instruments and who issues each.",
+    "Explain the primary versus secondary market and the role of exchanges and depositories.",
+    "Describe how open market operations use the government-securities market to move liquidity."
+  ],
+  "tags": [
+    "banking-awareness",
+    "money-market",
+    "capital-market",
+    "g-secs",
+    "sebi"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_ROLES",
+      "url": "https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=1983",
+      "title": "RBI - current roles and functions",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the RBI's role as regulator of the money market and manager of the government's debt. Restated in original wording."
+    },
+    {
+      "sourceId": "RBI_MASTER_DIRECTIONS",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "title": "RBI Master Directions index (money-market instruments)",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the definitions and tenor of call money, treasury bills, commercial paper and certificates of deposit. Tenor bands restated in original wording."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - awareness section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm that the money-market / capital-market split is a standard awareness topic. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "two-markets-two-horizons",
+      "type": "introduction",
+      "title": "Two markets for two time horizons",
+      "markdown": "A financial market moves money from those who have a surplus to those who need it. The Indian market splits by how long the money is lent for.\n\n- The **money market** handles borrowing and lending for short periods — overnight to just under a year. It exists so banks, companies and the government can manage day-to-day cash gaps.\n- The **capital market** handles funds raised for long periods — a year or more, often permanently. It exists so businesses and the government can finance investment that pays back slowly.\n\nThe two markets have different instruments, different participants and different regulators, and exam questions usually turn on placing an instrument in the right one.",
+      "sourceIds": ["RBI_ROLES", "SATHEE_BANK"],
+      "searchKeywords": [
+        "money market capital market difference short term long term",
+        "money market overnight to under a year",
+        "capital market one year or more permanent funds"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-money-market",
+      "type": "concept",
+      "title": "The money market",
+      "markdown": "Short-term, low-risk, wholesale. The main instruments:\n\n- **Call and notice money:** inter-bank borrowing, unsecured. *Call* money is repayable on demand (effectively overnight); *notice* money runs from 2 to 14 days.\n- **Treasury bills (T-bills):** short-term borrowing by the Government of India, issued by the RBI at a discount and redeemed at face value. Standard tenors are 91, 182 and 364 days. There is no separate interest coupon — the gain is the discount.\n- **Commercial paper (CP):** an unsecured promissory note issued by a large, creditworthy company (or an NBFC) to raise working capital, typically for 7 days up to one year.\n- **Certificate of deposit (CD):** a negotiable term deposit issued by a bank, usually for 7 days up to one year, tradeable before maturity.\n- **TREPS / market repo:** short-term borrowing against government securities as collateral; this is where a large share of overnight liquidity now moves.\n\nThe money market is regulated by the **RBI**.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "RBI_ROLES"],
+      "searchKeywords": [
+        "call money notice money inter-bank unsecured overnight",
+        "treasury bills 91 182 364 days issued at a discount",
+        "commercial paper unsecured promissory note company",
+        "certificate of deposit negotiable bank term deposit",
+        "TREPS market repo collateralised overnight",
+        "money market regulated by RBI"
+      ],
+      "position": 20
+    },
+    {
+      "id": "the-capital-market",
+      "type": "concept",
+      "title": "The capital market",
+      "markdown": "Long-term funds, raised as either ownership or debt:\n\n- **Equity (shares):** a share is part-ownership of a company. A shareholder carries the risk and reward — dividends when declared, a vote, and a claim on what is left only after all creditors are paid. Equity has no maturity date.\n- **Debt (bonds and debentures):** a bond or debenture is a loan to the issuer that carries a fixed or floating coupon and a repayment date. A debenture holder is a creditor, ranks ahead of shareholders, but has no vote. Government and companies both issue debt.\n\nThe capital market is regulated by the **Securities and Exchange Board of India (SEBI)**, which oversees issuers, stock exchanges, brokers and mutual funds, and protects investors. Long-dated government borrowing (dated securities, or **G-secs**) sits at the boundary: issued through the RBI as the government's debt manager, but traded in the wider market, and now open to individuals through the RBI Retail Direct facility.",
+      "sourceIds": ["RBI_ROLES", "SATHEE_BANK"],
+      "searchKeywords": [
+        "equity share part ownership dividend vote residual claim no maturity",
+        "bond debenture loan to issuer coupon repayment date creditor",
+        "capital market regulated by SEBI investor protection",
+        "government dated securities g-secs RBI debt manager retail direct"
+      ],
+      "position": 30
+    },
+    {
+      "id": "money-vs-capital",
+      "type": "comparison",
+      "title": "Money market versus capital market",
+      "markdown": "| Feature | Money market | Capital market |\n| --- | --- | --- |\n| Tenor | Overnight to under one year | One year or more |\n| Purpose | Manage cash-flow gaps, short-term liquidity | Finance long-term investment |\n| Instruments | Call money, T-bills, CP, CD, market repo | Shares, bonds, debentures, G-secs |\n| Typical participants | Banks, primary dealers, large companies, government | Companies, government, retail and institutional investors |\n| Regulator | RBI | SEBI (G-secs: RBI) |\n| Risk and return | Low risk, low return | Higher risk, higher expected return |\n| Secondary trading | Mostly over-the-counter | Mostly on stock exchanges |",
+      "sourceIds": ["RBI_ROLES", "RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "money market versus capital market comparison table",
+        "tenor purpose instruments participants regulator risk",
+        "RBI regulates money market SEBI regulates capital market"
+      ],
+      "position": 40
+    },
+    {
+      "id": "primary-and-secondary",
+      "type": "concept",
+      "title": "Primary and secondary markets",
+      "markdown": "Both markets have two stages:\n\n- **Primary market:** where a security is *created and first sold* by the issuer to raise money. A company's initial public offer (IPO), a follow-on issue, a fresh bond issue, or the RBI's auction of new T-bills all happen here. The issuer receives the proceeds.\n- **Secondary market:** where *existing* securities change hands between investors. The issuer gets nothing further; the point is liquidity and price discovery — an investor who wants out can sell without the company having to repay.\n\nIn the equity secondary market, trades run through **stock exchanges** (in India, mainly the NSE and BSE). Ownership is held electronically in a **demat account** with a **depository** — NSDL or CDSL — so no paper certificate changes hands. A **clearing corporation** guarantees settlement so buyer and seller do not carry each other's default risk.",
+      "sourceIds": ["SATHEE_BANK", "RBI_ROLES"],
+      "searchKeywords": [
+        "primary market issuer creates and first sells security IPO bond issue T-bill auction",
+        "secondary market existing securities trade between investors liquidity price discovery",
+        "stock exchange NSE BSE demat account depository NSDL CDSL clearing corporation"
+      ],
+      "position": 50
+    },
+    {
+      "id": "omo-link",
+      "type": "concept",
+      "title": "How the RBI uses the market to set liquidity",
+      "markdown": "The government-securities market is the RBI's main tool for managing system liquidity.\n\n- **Open market operations (OMOs):** the RBI *buys* G-secs from banks to inject durable cash into the system, or *sells* G-secs to absorb cash. This is separate from the daily repo operations that fine-tune overnight liquidity.\n- Because banks fund themselves and park surpluses in the money market, an OMO purchase that leaves banks with more cash tends to push short-term money-market rates down, and a sale pushes them up — which is how a balance-sheet action feeds through to the price of short-term money.\n- The RBI also runs the **liquidity adjustment facility** (repo and reverse repo) and the **standing deposit facility** in this same market.\n\nSo the money market is not just where banks trade cash — it is the channel through which monetary policy reaches the wider economy.",
+      "sourceIds": ["RBI_ROLES", "RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "open market operations RBI buys sells government securities inject absorb liquidity",
+        "OMO purchase pushes short term money market rates down",
+        "liquidity adjustment facility repo reverse repo standing deposit facility",
+        "money market channel for monetary policy transmission"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **Share versus debenture:** a shareholder is an owner (residual claim, votes, dividends if declared); a debenture holder is a lender (fixed claim, ranks ahead, no vote).\n- **T-bills carry no coupon.** The return is the difference between the discounted issue price and the face value at redemption.\n- **Commercial paper is issued by companies; certificates of deposit by banks.** Both are money-market instruments, not capital-market.\n- **G-secs are long-term but regulated by the RBI, not SEBI**, because the RBI is the government's debt manager.\n- **The primary market raises money for the issuer; the secondary market does not.** Secondary trading only moves existing paper between investors.\n- **A demat account is not a bank account.** It holds securities in electronic form with a depository.",
+      "searchKeywords": [
+        "share versus debenture owner versus lender",
+        "T-bills no coupon return is the discount",
+        "commercial paper company certificate of deposit bank",
+        "g-secs regulated by RBI not SEBI",
+        "primary market raises money secondary does not"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Money market: tenor under one year, RBI-regulated; instruments are call/notice money, T-bills (91/182/364 days, issued at a discount), commercial paper (companies), certificates of deposit (banks), and market repo / TREPS.\n- Capital market: tenor one year or more, SEBI-regulated; instruments are shares (ownership, no maturity) and bonds/debentures (debt, coupon, repayment date).\n- Dated government securities are long-term but managed by the RBI as debt manager; individuals can buy via RBI Retail Direct.\n- Primary market = issuer creates and first sells a security and receives the proceeds; secondary market = investors trade existing securities for liquidity and price discovery, via exchanges (NSE, BSE), depositories (NSDL, CDSL) and a clearing corporation.\n- Open market operations buy or sell G-secs to inject or absorb durable liquidity, which moves short-term money-market rates and transmits monetary policy.",
+      "searchKeywords": [
+        "money market capital market summary revision",
+        "instruments regulators tenor primary secondary OMO recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. A manufacturing company issues an unsecured 90-day promissory note to fund raw-material purchases. Name the instrument and the market.\n2. A bank issues a negotiable 6-month term deposit that can be sold before maturity. Name the instrument.\n3. Which regulator oversees the stock exchanges and mutual funds?\n4. The RBI auctions new 182-day paper for the Government of India. Money market or capital market?\n5. An investor buys shares of a listed company from another investor on the NSE. Primary or secondary market?\n6. A 10-year Government of India dated security — which body regulates its issue?\n7. The RBI buys G-secs from banks outright to leave more cash in the system. Name the operation.\n8. Holder A has a fixed claim and ranks ahead of holder B, who votes at the AGM and gets dividends only if declared. Who holds a debenture and who holds equity?\n\n**Answers:** 1 Commercial paper, money market — short-term unsecured corporate borrowing. 2 Certificate of deposit — a negotiable bank term deposit. 3 SEBI. 4 Money market — a 182-day treasury bill is under one year. 5 Secondary market — existing shares changing hands, the company receives nothing. 6 The RBI, as the government's debt manager. 7 An open market operation (OMO purchase). 8 A holds the debenture (creditor, fixed claim, ranks ahead); B holds equity (owner, votes, residual claim).",
+      "searchKeywords": [
+        "money market capital market practice classify instrument regulator",
+        "commercial paper certificate of deposit treasury bill OMO secondary market exercise"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "mm-vs-cm-tenor",
+      "front": "What separates the money market from the capital market?",
+      "back": "Tenor and regulator. The money market is for funds of less than a year and is RBI-regulated; the capital market is for funds of a year or more and is SEBI-regulated (government dated securities excepted — RBI).",
+      "explanation": "Most exam questions are 'place this instrument in the right market'.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["two-markets-two-horizons", "money-vs-capital"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "call-notice-money",
+      "front": "Call money versus notice money?",
+      "back": "Both are unsecured inter-bank borrowing. Call money is repayable on demand (overnight); notice money runs from 2 to 14 days.",
+      "explanation": "Part of the money market, regulated by the RBI.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-money-market"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "t-bills",
+      "front": "How does a treasury bill pay a return?",
+      "back": "It is issued by the RBI for the Government of India at a discount to face value and redeemed at face value — the gain is the discount. Standard tenors: 91, 182 and 364 days. No separate coupon.",
+      "explanation": "T-bills are money-market instruments — all under one year.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-money-market"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "cp-vs-cd",
+      "front": "Commercial paper versus certificate of deposit — who issues each?",
+      "back": "Commercial paper is an unsecured promissory note issued by a large creditworthy company or NBFC; a certificate of deposit is a negotiable term deposit issued by a bank. Both are money-market instruments, typically 7 days to 1 year.",
+      "explanation": "A frequent trap: swapping the issuers.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-money-market"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "share-vs-debenture",
+      "front": "Share versus debenture?",
+      "back": "A share is part-ownership: residual claim, a vote, dividends only if declared, no maturity. A debenture is a loan to the issuer: fixed or floating coupon, a repayment date, ranks ahead of shareholders, no vote.",
+      "explanation": "Owner versus lender.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-capital-market"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "primary-vs-secondary",
+      "front": "Primary market versus secondary market?",
+      "back": "The primary market is where a security is created and first sold by the issuer, who receives the proceeds (IPO, fresh bond issue, T-bill auction). The secondary market is where existing securities trade between investors for liquidity and price discovery; the issuer gets nothing further.",
+      "explanation": "Only the primary market raises money for the issuer.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["primary-and-secondary"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "depository",
+      "front": "What do NSDL and CDSL do?",
+      "back": "They are depositories that hold securities in electronic (demat) form. A clearing corporation separately guarantees settlement so buyer and seller do not carry each other's default risk.",
+      "explanation": "A demat account holds securities, not cash.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["primary-and-secondary"],
+      "status": "approved",
+      "position": 70
+    },
+    {
+      "id": "omo",
+      "front": "What is an open market operation (OMO)?",
+      "back": "The RBI buying government securities from banks to inject durable liquidity, or selling them to absorb liquidity. It is distinct from the daily repo operations and moves short-term money-market rates.",
+      "explanation": "This is how a balance-sheet action transmits monetary policy.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["omo-link"],
+      "status": "approved",
+      "position": 80
+    }
+  ]
+}
