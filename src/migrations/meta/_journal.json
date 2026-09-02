@@ -29,6 +29,13 @@
       "when": 1788254968887,
       "tag": "0003_study",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1788093970100,
+      "tag": "0004_gazette",
+      "breakpoints": true
     }
   ]
 }

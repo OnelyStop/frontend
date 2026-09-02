@@ -51,3 +51,11 @@ CREATE INDEX "articles_published_at_idx" ON "articles" USING btree ("published_a
 CREATE INDEX "questions_extracted_day_idx" ON "questions" USING btree ("extracted_day");--> statement-breakpoint
 CREATE INDEX "generate_runs_started_at_idx" ON "generate_runs" USING btree ("started_at");--> statement-breakpoint
 CREATE UNIQUE INDEX "questions_article_id_unique_idx" ON "questions" USING btree ("article_id");
+--> statement-breakpoint
+ALTER TABLE "articles" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "questions" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE "generate_runs" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+CREATE POLICY "signed-in users can read Gazette articles" ON "articles" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
+CREATE POLICY "signed-in users can read Gazette questions" ON "questions" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
+GRANT SELECT ON public.articles TO authenticated;--> statement-breakpoint
+GRANT SELECT ON public.questions TO authenticated;
