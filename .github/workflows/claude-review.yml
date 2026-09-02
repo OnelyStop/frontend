@@ -185,11 +185,17 @@ jobs:
       # nothing about this one.
       #
       # One case cannot produce a verdict however long it runs. The action
-      # refuses to start on a PR that edits .github/workflows — otherwise a PR
-      # could rewrite this file to read the secrets it is handed — and logs
-      # "Action skipped due to workflow validation error" while still exiting 0.
-      # Demanding a verdict there makes every workflow change unmergeable, so
-      # this says so loudly instead and leaves the review to a human.
+      # refuses to start unless THIS file is byte-identical to the copy on the
+      # default branch — otherwise a PR could rewrite it to read the secrets it
+      # is handed — and logs "Action skipped due to workflow validation error"
+      # while still exiting 0. Demanding a verdict there makes every change to
+      # this file unmergeable, so this says so loudly and leaves it to a human.
+      #
+      # Only this file, not .github/workflows as a whole: a PR that edits ci.yml
+      # and nothing else still gets a real review, and skipping the requirement
+      # for it would drop the verdict on a PR the bot was perfectly able to
+      # judge. Verified — the runs that reviewed this PR were the ones before it
+      # touched claude-review.yml.
       - name: A verdict was actually submitted
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -200,8 +206,8 @@ jobs:
           # above 20,000 diff lines, which would silently stop this from
           # spotting a workflow change on exactly the PRs where it matters.
           if gh api "repos/${{ github.repository }}/pulls/$PR/files" --paginate \
-               --jq '.[].filename' | grep -q '^\.github/workflows/'; then
-            echo "::warning::this PR edits .github/workflows, so the review agent" \
+               --jq '.[].filename' | grep -qx '\.github/workflows/claude-review\.yml'; then
+            echo "::warning::this PR edits the review workflow itself, so the agent" \
                  "refuses to run on it by design — no automated verdict, needs a human read"
             exit 0
           fi
