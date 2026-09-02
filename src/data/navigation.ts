@@ -66,6 +66,20 @@ export type NavGroup = {
 
 export const NAV_GROUPS: NavGroup[] = [
   {
+    id: "learn",
+    label: "Learn",
+    items: [
+      {
+        id: "study",
+        label: "Knowledge base",
+        path: "/study",
+        icon: "book",
+        hint: "Subjects, chapters and topics — read, take private notes, ask the tutor",
+        badge: "BETA",
+      },
+    ],
+  },
+  {
     id: "practise",
     label: "Practise",
     items: [

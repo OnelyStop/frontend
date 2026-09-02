@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "fundamentals",
+  "chapterName": "Fundamentals",
+  "chapterPosition": 1,
+  "topicSlug": "number-systems-and-data-representation",
+  "topicPosition": 20,
+  "title": "Number Systems and Data Representation",
+  "summary": "Why computers use binary, the decimal, binary, octal and hexadecimal systems and how to convert between them, bits and bytes and the storage-unit ladder, and how characters are represented using ASCII and Unicode.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["computer-fundamentals-and-functional-units"],
+  "learningObjectives": [
+    "Explain why digital computers use the binary system.",
+    "Convert a whole number between binary, octal, hexadecimal and decimal.",
+    "State the storage-unit ladder from bit to terabyte.",
+    "Describe how ASCII and Unicode encode characters."
+  ],
+  "tags": [
+    "computer-awareness",
+    "number-systems",
+    "binary",
+    "ascii-unicode",
+    "storage-units"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Basic Computing Using Windows",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to cross-check the standard account of number systems and units. Examples and conversions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "why-binary",
+      "type": "concept",
+      "title": "Why binary",
+      "markdown": "A digital circuit reliably tells apart two states - a wire carrying a higher voltage or a lower one, a switch on or off. It cannot as reliably tell apart ten different voltage levels. So computers represent everything with two symbols, **0 and 1**, the **binary** system.\n\nEvery number system has a **base (radix)** and place values that are powers of the base. Decimal (base 10) uses digits 0 to 9 with place values 1, 10, 100... Binary (base 2) uses 0 and 1 with place values 1, 2, 4, 8, 16... The value of a numeral is the sum of each digit times its place value.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "why computers use binary",
+        "two reliable states",
+        "base radix place value",
+        "powers of the base"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-four-systems",
+      "type": "concept",
+      "title": "Decimal, binary, octal, hexadecimal",
+      "markdown": "- **Decimal (base 10):** digits 0-9.\n- **Binary (base 2):** digits 0-1. Long to write, so it is grouped.\n- **Octal (base 8):** digits 0-7. Each octal digit maps to exactly **3 binary digits**.\n- **Hexadecimal (base 16):** digits 0-9 then A-F for ten to fifteen. Each hex digit maps to exactly **4 binary digits**.\n\nOctal and hex exist because they are compact shorthands for binary that a person can read. One byte (8 bits) is two hex digits, for example.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "decimal binary octal hexadecimal",
+        "octal digit 3 bits",
+        "hex digit 4 bits",
+        "A to F ten to fifteen"
+      ],
+      "position": 20
+    },
+    {
+      "id": "converting",
+      "type": "method",
+      "title": "Converting between bases",
+      "markdown": "- **Any base to decimal:** multiply each digit by its place value and add. For binary 1011: 1 times 8, plus 0 times 4, plus 1 times 2, plus 1 times 1.\n- **Decimal to any base:** repeatedly divide by the base and read the remainders from last to first.\n- **Binary to octal:** group the bits into threes from the right and write each group's value.\n- **Binary to hexadecimal:** group the bits into fours from the right and write each group's hex digit.\n- **Octal or hex to binary:** replace each digit with its 3-bit or 4-bit pattern.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "convert base to decimal place value",
+        "decimal to base repeated division remainders",
+        "binary to octal groups of 3",
+        "binary to hex groups of 4"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-conversions",
+      "type": "worked_example",
+      "title": "Worked example: conversions",
+      "markdown": "1. **Binary 1011 to decimal.** Place values from the right are 1, 2, 4, 8. So the value is 1 times 8, plus 0 times 4, plus 1 times 2, plus 1 times 1, which is 11.\n\n2. **Decimal 45 to binary.** 45 divided by 2 is 22 remainder 1; 22 is 11 r 0; 11 is 5 r 1; 5 is 2 r 1; 2 is 1 r 0; 1 is 0 r 1. Reading remainders bottom to top: 101101.\n\n3. **Binary 101101 to hexadecimal.** Group into fours from the right: 0010 1101. That is 2 and D, so 2D.\n\n4. **Hexadecimal 2D to decimal.** 2 times 16, plus 13 times 1, which is 45. This matches example 2, as it should.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "binary 1011 to decimal 11",
+        "decimal 45 to binary 101101",
+        "binary to hex 2D",
+        "hex 2D to decimal 45"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "1011 (binary) in decimal",
+          "value": 11,
+          "expression": "1*8 + 0*4 + 1*2 + 1*1"
+        },
+        {
+          "label": "45 (decimal) equals 101101 in binary; check its value",
+          "value": 45,
+          "expression": "1*32 + 0*16 + 1*8 + 1*4 + 0*2 + 1*1"
+        },
+        {
+          "label": "2D (hex) in decimal",
+          "value": 45,
+          "expression": "2*16 + 13*1"
+        }
+      ]
+    },
+    {
+      "id": "bits-bytes-units",
+      "type": "concept",
+      "title": "Bits, bytes and the storage ladder",
+      "markdown": "- A **bit** is one binary digit, 0 or 1 - the smallest unit.\n- A **nibble** is 4 bits; a **byte** is 8 bits and is the usual unit for one character.\n- Larger units step up by roughly a thousand: **kilobyte (KB)**, **megabyte (MB)**, **gigabyte (GB)**, **terabyte (TB)**, **petabyte (PB)**.\n\nStrictly, memory sizes step by 1024 (2 to the power 10), so 1 KB is 1024 bytes in that sense, while storage marketed in decimal uses 1000. The binary quantities are sometimes written KiB, MiB, GiB to avoid the ambiguity. For exams, know the order of the ladder and that a byte holds one character.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "bit nibble byte",
+        "KB MB GB TB PB ladder",
+        "1024 versus 1000",
+        "KiB MiB GiB",
+        "byte holds one character"
+      ],
+      "position": 50
+    },
+    {
+      "id": "character-encoding",
+      "type": "concept",
+      "title": "Representing characters: ASCII and Unicode",
+      "markdown": "Text is stored as numbers using a **character-encoding** scheme.\n\n- **ASCII** assigns a 7-bit code (0-127) to English letters, digits, punctuation and control characters. **Extended ASCII** uses 8 bits (0-255) for extra symbols. ASCII cannot represent most non-English scripts.\n- **Unicode** assigns a unique **code point** to characters from nearly every writing system, including Devanagari and emoji. It is stored using an encoding such as **UTF-8** (1 to 4 bytes per character; the first 128 code points match ASCII exactly), UTF-16 or UTF-32.\n\nBecause UTF-8 is backward-compatible with ASCII and space-efficient for Latin text, it is the dominant encoding on the web.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "ASCII 7 bit 128 characters",
+        "extended ASCII 8 bit",
+        "Unicode code point every script",
+        "UTF-8 backward compatible with ASCII"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **Hex A-F are digits, not letters** - they stand for ten to fifteen.\n- **When converting decimal to another base by division, read the remainders bottom to top**, not top to bottom.\n- **A byte is 8 bits; a bit is a single binary digit.** Data rates are often quoted in bits per second, storage in bytes - watch the small \"b\" versus capital \"B\".\n- **1 KB is 1024 bytes in the memory sense but 1000 bytes in the marketing sense** - both are used.\n- **ASCII is a subset of Unicode's first 128 code points**, and UTF-8 encodes them identically - Unicode did not \"replace\" ASCII so much as extend it.\n- **Octal groups bits in threes, hex in fours** - do not mix them up.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "number system confusions",
+        "hex A-F are digits",
+        "read remainders bottom to top",
+        "bit versus byte small b capital B",
+        "ASCII subset of Unicode"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Computers use binary because a circuit reliably distinguishes two states.\n- Bases: decimal 10, binary 2, octal 8, hex 16. One octal digit = 3 bits; one hex digit = 4 bits.\n- To decimal: sum of digit times place value. From decimal: repeated division, remainders read bottom to top. Binary and octal/hex convert by grouping bits in threes or fours.\n- Units: bit, nibble (4), byte (8, one character), then KB, MB, GB, TB, PB - by 1024 for memory, 1000 in marketing.\n- ASCII: 7-bit English text (0-127). Unicode: a code point for every script, stored as UTF-8 (ASCII-compatible), UTF-16 or UTF-32.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "number systems summary",
+        "revision",
+        "binary octal hex units ASCII Unicode recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. What is the base of the binary number system?\n2. Convert binary 1010 to decimal.\n3. Convert decimal 5 to binary.\n4. How many different values can 4 bits represent?\n5. What is the decimal value of hexadecimal A?\n6. Which code represents English letters and symbols in 7 or 8 bits?\n7. Convert binary 1111 to decimal.\n8. Which standard extends character coverage to most of the world's scripts?",
+      "searchKeywords": [
+        "number systems practice",
+        "binary decimal hexadecimal bits ASCII Unicode conversion"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "why-binary",
+      "front": "Why do digital computers use binary rather than decimal?",
+      "back": "A circuit reliably distinguishes two states (on/off, high/low voltage) but not ten. Two symbols, 0 and 1, are enough and robust.",
+      "explanation": "Every value is built from bits.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["why-binary"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "octal-hex-bits",
+      "front": "How many bits does one octal digit represent? One hex digit?",
+      "back": "One octal digit = 3 bits. One hexadecimal digit = 4 bits. One byte = two hex digits.",
+      "explanation": "This is why octal and hex are compact shorthands for binary.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-four-systems"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "binary-to-decimal",
+      "front": "Convert binary 1011 to decimal.",
+      "back": "1x8 + 0x4 + 1x2 + 1x1 = 11.",
+      "explanation": "Multiply each bit by its place value and add.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["worked-example-conversions"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "decimal-to-binary",
+      "front": "How do you convert a decimal number to binary?",
+      "back": "Repeatedly divide by 2 and read the remainders from last to first (bottom to top). 45 gives 101101.",
+      "explanation": "Same method works for any target base.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["converting"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "units-ladder",
+      "front": "State the storage-unit ladder from the smallest.",
+      "back": "bit, nibble (4 bits), byte (8 bits), then KB, MB, GB, TB, PB. A byte holds one character.",
+      "explanation": "Steps by 1024 for memory, 1000 in marketing.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["bits-bytes-units"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "ascii-unicode",
+      "front": "Difference between ASCII and Unicode?",
+      "back": "ASCII: 7-bit codes for English text (0-127). Unicode: a code point for characters from almost every script, stored via UTF-8/16/32. UTF-8's first 128 code points equal ASCII.",
+      "explanation": "Unicode extends ASCII rather than replacing it.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["character-encoding"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "bit-vs-byte-notation",
+      "front": "What do a small 'b' and a capital 'B' usually mean in Mb vs MB?",
+      "back": "Small b = bits (often for data rates, e.g. Mbps). Capital B = bytes (for storage size). 1 byte = 8 bits.",
+      "explanation": "A frequent trap in speed-vs-size questions.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

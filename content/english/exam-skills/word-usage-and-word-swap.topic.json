@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "exam-skills",
+  "chapterName": "Exam question skills",
+  "chapterPosition": 2,
+  "topicSlug": "word-usage-and-word-swap",
+  "topicPosition": 60,
+  "title": "Word Usage and Word Swap",
+  "summary": "Two related question types: pick the sentence that uses a given word correctly, and spot the two words in a sentence that have been interchanged. Both turn on the exact sense of a word and the company it keeps.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech", "single-and-double-fillers"],
+  "learningObjectives": [
+    "Test a word against each sentence for part of speech, exact sense and collocation.",
+    "Separate commonly confused pairs by a one-line rule.",
+    "Find the two swapped words in a sentence by locating the two clauses that read as nonsense.",
+    "Confirm a swap by checking that exchanging the pair fixes both places at once."
+  ],
+  "tags": ["exam-skills", "word-usage", "word-swap", "vocabulary"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm word usage and word swap are standard question types. No content reused."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Determining_Parts_of_Speech",
+      "title": "English Grammar/Basic Parts of Speech/Determining Parts of Speech",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for part-of-speech reasoning behind the confusable pairs. All sentences here are original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-two-formats",
+      "type": "introduction",
+      "title": "The two formats",
+      "markdown": "**Word usage.** You are given a word and three or four sentences. Pick the sentence — sometimes the sentences — where the word is used correctly. The wrong sentences put the word in the wrong part of speech, the wrong sense, or a phrase it does not belong in.\n\n**Word swap.** A sentence has two words that have been exchanged, so two places read oddly. Identify the pair. Putting them back in each other's positions must fix both places at once.\n\nBoth types reward knowing a word's exact meaning and the words it normally travels with.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "word usage format pick the correct sentence",
+        "word swap two words exchanged two places read oddly",
+        "exact meaning and collocation"
+      ],
+      "position": 10
+    },
+    {
+      "id": "word-usage-method",
+      "type": "method",
+      "title": "Word usage: the check",
+      "markdown": "For each sentence, run the word through three tests:\n\n1. **Part of speech.** Is the word acting as the noun / verb / adjective the slot needs? *Access* as a verb (*to access the file*) is fine; *to access into the file* is not.\n2. **Exact sense.** Does the dictionary meaning fit, not just a loose association? *Economic* means \"to do with the economy\"; *economical* means \"thrifty\". A sentence about saving fuel needs *economical*.\n3. **Collocation and construction.** Does the word take the right preposition and sit in the right phrase? *Comprises* takes no *of* (*the report comprises four parts*); *composed* takes *of*.\n\nA sentence is correct only if the word passes all three. Reject on the first clear failure.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "word usage check part of speech exact sense collocation",
+        "access as verb no into",
+        "economic vs economical",
+        "comprises takes no of composed of"
+      ],
+      "position": 20
+    },
+    {
+      "id": "confusable-words",
+      "type": "concept",
+      "title": "Pairs that are tested again and again",
+      "markdown": "Learn each by a one-line rule:\n\n- **affect / effect** — *affect* is the verb (to influence), *effect* is the noun (the result). *The rate cut affected demand; the effect was clear by June.* (*Effect* as a verb means \"to bring about\": *to effect a change*.)\n- **comprise / compose** — the whole *comprises* the parts; the parts *compose* the whole; the whole *is composed of* the parts. Never *is comprised of*.\n- **principal / principle** — *principal* = main, or the head of a college, or the original sum of a loan; *principle* = a rule or belief. *The principal amount* vs *a matter of principle.*\n- **fewer / less** — *fewer* for things you can count (*fewer branches*), *less* for quantity you cannot (*less cash*).\n- **imply / infer** — the speaker *implies*; the listener *infers*. *Her note implied a delay; we inferred the launch had slipped.*\n- **lay / lie** — *lay* takes an object (*lay the file on the desk*); *lie* does not (*the file lies on the desk*). Past tense: *laid* vs *lay*.\n- **stationary / stationery** — *stationary* = not moving; *stationery* = paper and pens.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "confusable words affect effect comprise compose principal principle",
+        "fewer less countable uncountable",
+        "imply infer speaker listener",
+        "lay lie object",
+        "stationary stationery"
+      ],
+      "position": 30
+    },
+    {
+      "id": "word-swap-method",
+      "type": "method",
+      "title": "Word swap: the check",
+      "markdown": "1. **Read for sense and mark every place that reads wrongly.** A swap breaks exactly two spots, usually in different clauses.\n2. **The two broken words are the same part of speech** — noun for noun, verb for verb, adjective for adjective — because only then can they trade places cleanly.\n3. **Test the exchange.** Put each word in the other's slot and re-read the whole sentence. The right pair fixes **both** places; a near-miss fixes one and spoils another.\n4. **Beware the decoy.** One odd-sounding word may just be formal, not misplaced. Only a pair that repairs two spots at once is the answer.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "word swap method mark every place that reads wrongly",
+        "two broken words same part of speech",
+        "test the exchange fixes both places",
+        "decoy formal word not misplaced"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: one of each",
+      "markdown": "**1. Word usage.** Choose the sentence that uses **effect** correctly.\n(a) The new timings did not effect footfall. (b) We could see the effect of the new timings within a week. (c) The new timings effected the staff badly. (d) Rain effects the queue outside the branch.\n\n*Effect* is wanted here as the noun meaning \"result\", which only (b) does. Sentences (a), (c) and (d) use it where the verb *affect* (to influence) is needed. The answer is **(b)**.\n\n**2. Word swap.** Two words have been interchanged: *\"The auditor detected the ledger and opened four discrepancies in the branch account.\"*\n\nTwo spots read wrongly: you do not *detect a ledger* (you open or examine one), and you do not *open discrepancies* (you detect or find them). Exchanging the two verbs fixes both at once: *\"The auditor opened the ledger and detected four discrepancies in the branch account.\"* The pair to swap is **detected ↔ opened**. Swapping the nouns instead (*ledger ↔ discrepancies*) gives \"detected the discrepancies and opened four ledger\", which is ungrammatical — so the verb swap is the only fix.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "word usage worked example effect noun result",
+        "affect verb",
+        "word swap worked example report proposal approve publish"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Word usage: accepting a sentence because the word \"could mean\" that.** It must be the standard sense in that construction.\n- **Ignoring the preposition.** *Comprised of*, *discuss about*, *emphasise on* are the usual traps.\n- **Word swap: stopping at the first odd word.** There are always two, and they must be the same part of speech.\n- **Choosing a pair that fixes one clause but breaks another.**\n- **Treating a formal or rare word as \"misplaced\".** Formality is not an error.\n- **Not re-reading the whole sentence after the swap.**",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "word usage swap mistakes",
+        "could mean is not enough",
+        "preposition traps comprised of discuss about emphasise on",
+        "stopping at first odd word",
+        "pair fixes one breaks another",
+        "formal is not an error"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- **Word usage:** for each sentence test part of speech, exact sense, and collocation/preposition. Correct only if all three pass.\n- Keep one-line rules for the tested pairs: *affect* (verb) / *effect* (noun); the whole *comprises* / *is composed of* parts; *principal* (main) / *principle* (rule); *fewer* (count) / *less* (mass); speaker *implies*, listener *infers*; *lay* takes an object, *lie* does not.\n- **Word swap:** mark every spot that reads wrongly — there are two; they are the same part of speech; the true pair fixes both at once. A formal word is not automatically a misplaced word.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "word usage swap summary revision",
+        "three tests one-line rules confusable pairs",
+        "swap two spots same part of speech fixes both"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer and a one-line reason.\n\n**Word usage — pick the one correct sentence.**\n1. **principal:** (a) It is a matter of principal. (b) The principal on the loan is ₹4 lakh. (c) She works on strong principals. (d) The principal reason are cost.\n2. **fewer:** (a) There is fewer cash in the till. (b) We had fewer complaints this month. (c) Fewer of the water was used. (d) It takes fewer time now.\n3. **imply:** (a) From his tone we implied bad news. (b) The circular implies a fee rise without stating one. (c) He implied from the data that sales fell. (d) We were implied to wait.\n\n**Word swap — name the two words to exchange.**\n4. The teller counted the customer and greeted the notes politely.\n5. The recruiter scheduled the candidate and shortlisted four interviews for Monday.\n6. The engineer submitted the machine and repaired two reports by evening.\n7. The cashier deposited the withdrawal slip and processed six cash bundles at the counter.",
+      "searchKeywords": [
+        "word usage practice principal fewer imply",
+        "word swap practice teller notes report meeting policy branch account"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "affect-effect",
+      "front": "affect vs effect — the quick rule?",
+      "back": "affect = the verb (to influence); effect = the noun (the result). 'The cut affected demand; the effect showed by June.' (effect as a verb = to bring about.)",
+      "explanation": "Most usage items on this pair want the noun 'effect'.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["confusable-words"],
+      "position": 10
+    },
+    {
+      "id": "comprise-compose",
+      "front": "Fill in: 'The report ____ four parts' and 'The report is ____ of four parts.'",
+      "back": "comprises four parts; is composed of four parts. Never 'is comprised of'.",
+      "explanation": "The whole comprises the parts; the parts compose the whole.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["confusable-words"],
+      "position": 20
+    },
+    {
+      "id": "principal-principle",
+      "front": "principal vs principle?",
+      "back": "principal = main / head of a college / the original loan sum. principle = a rule or belief. 'the principal amount' vs 'a matter of principle'.",
+      "explanation": "principLE = ruLE is a useful hook.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["confusable-words"],
+      "position": 30
+    },
+    {
+      "id": "fewer-less",
+      "front": "fewer or less: 'We had ____ complaints' and 'There is ____ cash'?",
+      "back": "fewer complaints (countable), less cash (mass noun). fewer for things you can count, less for quantity you cannot.",
+      "explanation": "'fewer time', 'less branches' are the classic errors.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["confusable-words"],
+      "position": 40
+    },
+    {
+      "id": "imply-infer",
+      "front": "imply vs infer — who does which?",
+      "back": "The speaker or text implies (hints); the listener or reader infers (concludes). 'Her note implied a delay; we inferred the launch had slipped.'",
+      "explanation": "You cannot 'imply from the data' — you infer from it.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["confusable-words"],
+      "position": 50
+    },
+    {
+      "id": "word-swap-count",
+      "front": "In a word-swap item, how many words are wrong, and what do they have in common?",
+      "back": "Exactly two, and they are the same part of speech — so they can trade places cleanly. Putting them back must fix both spots at once.",
+      "explanation": "Stopping at the first odd word is the usual mistake.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["word-swap-method"],
+      "position": 60
+    },
+    {
+      "id": "word-usage-three-tests",
+      "front": "What three tests decide whether a sentence uses a given word correctly?",
+      "back": "Part of speech (right role in the slot), exact sense (standard dictionary meaning, not a loose association), and collocation/preposition (right phrase, right preposition).",
+      "explanation": "'It could mean that' is not enough — it must be the standard sense here.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["word-usage-method"],
+      "position": 70
+    },
+    {
+      "id": "swap-decoy",
+      "front": "A word in a swap sentence sounds unusually formal. Is it the error?",
+      "back": "Not on its own. Only a pair of words that, when exchanged, repairs two broken spots at once is the answer. Formality is not an error.",
+      "explanation": "The decoy formal word fixes nothing when moved.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["word-swap-method"],
+      "position": 80
+    }
+  ]
+}

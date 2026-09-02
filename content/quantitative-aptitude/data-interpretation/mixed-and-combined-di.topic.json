@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "mixed-and-combined-di",
+  "topicPosition": 80,
+  "title": "Mixed and Combined Data Interpretation",
+  "summary": "Sets that pair two representations — a table with a pie, a bar with a line — about the same scenario, where most questions need a value pulled from each and then combined. Watch for different totals and units between the two.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "table-data-interpretation",
+    "pie-chart-interpretation",
+    "percentages"
+  ],
+  "learningObjectives": [
+    "Recognise when a set's two parts describe the same scenario and must be read together.",
+    "Extract one value from each representation before combining them.",
+    "Check whether the two parts use the same total, unit and time period.",
+    "Plan a two-part question so each figure is computed once."
+  ],
+  "tags": ["data-interpretation", "mixed-di", "combined-di", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Percents_Decimals_and_Fractions",
+      "title": "Arithmetic/Percents Decimals and Fractions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the percentage and ratio arithmetic only. All datasets and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm mixed DI is a standard question format. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-mixed-set-is",
+      "type": "introduction",
+      "title": "Two views of one scenario",
+      "markdown": "A mixed set gives two representations side by side — often a table plus a pie chart, or a bar chart plus a line graph — that describe the **same** situation from two angles. One might give each branch's total business; the other breaks one branch's business down by product. One might plot revenue; the other, cost, over the same years.\n\nMost questions in the set cannot be answered from one part alone. You read a figure from the first, a figure from the second, and combine them.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "mixed di two representations same scenario",
+        "table plus pie bar plus line",
+        "most questions need both parts"
+      ],
+      "position": 10
+    },
+    {
+      "id": "extract-then-combine",
+      "type": "method",
+      "title": "Extract from each, then combine",
+      "markdown": "1. **Read both parts fully before the questions** — the title, the axis units, the total each one is a share of.\n2. **For each question, decide which figure comes from which part.** \"Bandra's term loans\" is the pie's 25 per cent applied to the table's total for Bandra.\n3. **Compute the part-figure first**, then bring in the other part.\n4. **Keep a small working table** of the values you derive; a later question usually reuses one.\n\nThe order matters: get the absolute value out of the percentage part before you compare or add.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "extract then combine mixed di",
+        "decide which figure from which part",
+        "compute part figure first keep working table"
+      ],
+      "position": 20
+    },
+    {
+      "id": "watch-the-totals-and-units",
+      "type": "warning",
+      "title": "Watch the totals and the units",
+      "markdown": "The two parts of a mixed set do **not** always share a scale:\n\n- A pie is a share of **one** entity's total, not the whole table's total. \"20 per cent\" in the pie means 20 per cent of that one branch.\n- The bar might be in ₹ crore and the line in ₹ lakh, or one in absolute numbers and the other in percentages.\n- The time periods can differ — the table might be a single year and the pie a five-year total.\n\nRead which total each percentage refers to before you multiply, or every combined answer is off.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "mixed di watch totals and units",
+        "pie is share of one entity not whole table",
+        "different units crore lakh time period"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: branch totals with one branch's product mix",
+      "markdown": "**Part 1 — total business (deposits + advances), ₹ crore:**\n\n| Branch | Total business |\n| ------ | ------------- |\n| Andheri | 800 |\n| Bandra | 1200 |\n| Colaba | 600 |\n| Dadar | 900 |\n\n**Part 2 — how Bandra's ₹1200 crore splits by product:** Deposits 45%, Term loans 25%, Working capital 20%, Other 10%.\n\n**Q1. Bandra's deposits.** Pie share × Bandra's total: 1200 × 0.45 = **₹540 crore**.\n\n**Q2. Bandra's term loans as a fraction of Colaba's total business.** Term loans = 1200 × 0.25 = 300; divide by Colaba's 600: 300 ÷ 600 = **0.5**.\n\n**Q3. Bandra's \"Other\" business plus Colaba's total business.** 1200 × 0.10 + 600 = 120 + 600 = **₹720 crore**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example mixed di branch totals pie product mix",
+        "pie share times branch total then combine"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "Q1. Bandra deposits (crore)",
+          "value": 540,
+          "expression": "1200*0.45"
+        },
+        {
+          "label": "Q2. Bandra term loans / Colaba total",
+          "value": 0.5,
+          "expression": "(1200*0.25)/600"
+        },
+        {
+          "label": "Q3. Bandra other + Colaba total (crore)",
+          "value": 720,
+          "expression": "1200*0.10+600"
+        }
+      ]
+    },
+    {
+      "id": "combination-patterns",
+      "type": "concept",
+      "title": "Common combination patterns",
+      "markdown": "- **Share × total.** Percentage from one part, base from the other — the most common.\n- **Difference of two derived values.** Compute a figure from each part, subtract (revenue from the bar minus cost from the line = profit).\n- **Ratio of two derived values.** One from each part, then divide.\n- **Sum across parts.** A slice of one entity plus the whole of another.\n- **Percentage of a derived value.** Find the absolute figure first, then take the percentage the question asks for.\n\nName the pattern before computing; it tells you the order of operations.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "mixed di combination patterns",
+        "share times total difference ratio sum percentage of derived",
+        "name the pattern before computing"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Applying a pie percentage to the whole table** instead of the one entity it belongs to.\n- **Mixing units** — adding a ₹ crore figure to a ₹ lakh figure without converting.\n- **Comparing across different time periods** the two parts cover.\n- **Answering from one part** when the question needs both.\n- **Recomputing a derived figure** that an earlier question already produced.\n- **Rounding the percentage part too early**, before it is turned into an absolute value.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "mixed di mistakes",
+        "pie percent on whole table mixing units time periods",
+        "answering from one part recomputing rounding early"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- The two parts describe one scenario; most questions need a value from each.\n- Read both parts, their units and their totals, before the questions.\n- A pie share is a share of one entity's total, not the table's grand total.\n- Turn the percentage part into an absolute value first, then combine — share × total, difference, ratio, or sum.\n- Keep a working table of derived values and reuse them.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "mixed di summary revision",
+        "two parts one scenario absolute value first combine recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "**Part 1 — annual revenue, ₹ lakh (bar):** 2021: 120, 2022: 150, 2023: 180, 2024: 210.\n\n**Part 2 — annual cost, ₹ lakh (line):** 2021: 90, 2022: 100, 2023: 130, 2024: 150.\n\nProfit in a year = that year's revenue − that year's cost.\n\n1. Profit in 2023.\n2. Total profit over the four years.\n3. Profit margin in 2024 (profit ÷ revenue × 100), as a per cent.\n4. Profit margin in 2022, as a per cent.\n5. Ratio of 2021 cost to 2021 revenue, as a decimal.\n6. Percentage increase in revenue from 2021 to 2024.\n7. Percentage increase in cost from 2021 to 2024.\n8. Total revenue minus total cost over the four years (a cross-check on question 2).",
+      "searchKeywords": [
+        "mixed di practice revenue bar cost line profit",
+        "profit margin ratio percentage increase"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. profit 2023",
+          "value": 50,
+          "expression": "180-130"
+        },
+        {
+          "label": "2. total four-year profit",
+          "value": 190,
+          "expression": "(120-90)+(150-100)+(180-130)+(210-150)"
+        },
+        {
+          "label": "3. profit margin 2024 (%)",
+          "value": 28.57,
+          "tolerance": 0.01,
+          "expression": "(210-150)/210*100"
+        },
+        {
+          "label": "4. profit margin 2022 (%)",
+          "value": 33.33,
+          "tolerance": 0.01,
+          "expression": "(150-100)/150*100"
+        },
+        {
+          "label": "5. 2021 cost : 2021 revenue",
+          "value": 0.75,
+          "expression": "90/120"
+        },
+        {
+          "label": "6. revenue increase 2021 to 2024 (%)",
+          "value": 75,
+          "expression": "(210-120)/120*100"
+        },
+        {
+          "label": "7. cost increase 2021 to 2024 (%)",
+          "value": 66.67,
+          "tolerance": 0.01,
+          "expression": "(150-90)/90*100"
+        },
+        {
+          "label": "8. total revenue - total cost",
+          "value": 190,
+          "expression": "(120+150+180+210)-(90+100+130+150)"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "mix-two-views",
+      "front": "What is a 'mixed' or 'combined' DI set?",
+      "back": "A set with two representations (e.g. a table and a pie, or a bar and a line) describing the same scenario, where most questions need a figure from each part combined.",
+      "explanation": "Neither part answers the set on its own.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-a-mixed-set-is"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "mix-method",
+      "front": "What is the order of work for a mixed-DI question?",
+      "back": "Decide which figure comes from which part, turn the percentage part into an absolute value first, then combine (share x total, difference, ratio, or sum).",
+      "explanation": "Get the absolute value out before comparing or adding.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["extract-then-combine"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "mix-pie-base",
+      "front": "In a table-plus-pie set, what is the pie a share of?",
+      "back": "One entity's total (the branch or year the pie is drawn for), not the grand total of the whole table.",
+      "explanation": "Applying the pie percentage to the table total is the classic error.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["watch-the-totals-and-units"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "mix-units",
+      "front": "Why check the units on both parts of a mixed set?",
+      "back": "One part may be in crore and the other in lakh, or one in absolute numbers and the other in percentages. Combining without converting gives a wrong answer.",
+      "explanation": "Also check the time periods match.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["watch-the-totals-and-units"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "mix-profit-pattern",
+      "front": "A bar gives revenue and a line gives cost over the same years. How do you get profit?",
+      "back": "For each year, revenue from the bar minus cost from the line. Profit margin is that profit divided by the year's revenue, times 100.",
+      "explanation": "This is the 'difference of two derived values' pattern.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["combination-patterns"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "mix-working-table",
+      "front": "Why keep a working table of derived values in a mixed set?",
+      "back": "The parts feed several questions; a value you compute for question 1 is often reused in questions 3 and 5.",
+      "explanation": "Skim all questions first to see which figures recur.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["extract-then-combine"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "mix-round-late",
+      "front": "When should you round the percentage part of a mixed set?",
+      "back": "After turning it into an absolute value, not before. Rounding a share early and then scaling it up magnifies the error.",
+      "explanation": "Round at the end, against the spread of the options.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

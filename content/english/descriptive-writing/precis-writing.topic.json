@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "descriptive-writing",
+  "chapterName": "Descriptive writing",
+  "chapterPosition": 3,
+  "topicSlug": "precis-writing",
+  "topicPosition": 40,
+  "title": "Precis Writing",
+  "summary": "Compressing a passage to about a third of its length in your own words while keeping the order of ideas: the rules, a five-step method, a fully worked passage with marked core points and a model precis, and what to cut versus keep.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "ibps-po"],
+  "prerequisiteTopicSlugs": [
+    "descriptive-paper-overview",
+    "reading-comprehension-strategy"
+  ],
+  "learningObjectives": [
+    "State the rules of a precis: about one-third length, same order of ideas, own words, third person, a title, no examples or rhetoric.",
+    "Apply a five-step method: read twice, mark core points, draft, cut to the ratio, check.",
+    "Separate a passage's main ideas from its supporting detail, illustration and repetition.",
+    "Compute the target length of a precis from the passage length."
+  ],
+  "tags": ["descriptive-writing", "precis", "summary", "comprehension"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm precis writing is within scope for the descriptive stage. No passage or model precis was taken from it."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/Rhetoric_and_Composition/Summarizing",
+      "title": "Rhetoric and Composition/Summarizing",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the difference between summarising and paraphrasing and for what to omit. The passage and precis here are original."
+    },
+    {
+      "sourceId": "GUTENBERG_GRAMMAR",
+      "url": "https://www.gutenberg.org/ebooks/37134",
+      "title": "The Elements of Style (1918)",
+      "publisher": "Project Gutenberg",
+      "usageMode": "public_domain",
+      "license": "Public domain",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the principle 'omit needless words'. No sentences reproduced."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-precis-is",
+      "type": "introduction",
+      "title": "What a precis is",
+      "markdown": "A precis is a faithful miniature of a given passage. It carries every main idea, in the same order, in **your own words**, at about **one-third** of the original length, with a **title**.\n\nIt is not a comment on the passage and not a selection of the bits you found interesting. If the passage argues something you disagree with, the precis still reports that argument straight. The skill being marked is disciplined reading and compression, not opinion.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "precis faithful miniature one third length own words same order title",
+        "not a comment not a selection",
+        "report the argument straight"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-rules",
+      "type": "concept",
+      "title": "The rules",
+      "markdown": "- **Length:** about one-third of the passage. Count roughly; being within about 10 percent of the target is fine.\n- **Own words:** paraphrase. Lifting whole phrases loses marks; a few unavoidable technical terms are allowed.\n- **Same order of ideas:** follow the passage's sequence; do not reorganise it into your preferred structure.\n- **Third person, reported:** *The writer argues that…*; turn *I* and *you* in the passage into third person.\n- **One paragraph** (unless the passage is very long), in continuous prose.\n- **No examples, no illustrations, no repetition, no rhetorical questions or figures of speech.** These are the first things to cut.\n- **A title:** a short phrase naming the subject, added at the top.\n- **No new material:** nothing that is not in the passage, and no personal opinion.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR", "GUTENBERG_GRAMMAR"],
+      "searchKeywords": [
+        "precis rules length own words same order third person one paragraph title",
+        "no examples illustrations repetition rhetoric",
+        "no new material no opinion"
+      ],
+      "position": 20
+    },
+    {
+      "id": "the-method",
+      "type": "method",
+      "title": "Five steps",
+      "markdown": "1. **Read the passage twice.** The first read for the overall point, the second to mark structure.\n2. **Mark the core points.** Underline the sentence (or part) that carries each new idea. Ignore anything that only explains, illustrates or repeats a point already marked.\n3. **Draft from the marks, not the passage.** Look away from the text and write each core point as one short sentence in your own words, in order.\n4. **Cut to the ratio.** Remove linking padding, merge sentences, replace phrases with single words. Check the count against one-third.\n5. **Check.** Same order? Third person throughout? Any lifted phrase? Any example or opinion that slipped in? Add the title last, once you know the subject.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "precis method read twice mark core points draft from marks cut to ratio check",
+        "draft looking away from the text",
+        "add the title last"
+      ],
+      "position": 30
+    },
+    {
+      "id": "cut-versus-keep",
+      "type": "concept",
+      "title": "Cut versus keep",
+      "markdown": "**Keep:** each distinct claim or step in the argument; the logical connectors that hold it together (*because*, *however*, *as a result*); the passage's conclusion.\n\n**Cut:** examples and *for instance* clauses; restatements of a point in new words; descriptive colour and metaphor; asides in brackets or dashes; rhetorical questions; statistics used only as illustration (keep a figure only if the whole point depends on it).\n\nWhen two sentences make the same point, keep the clearer one and drop the other. When a sentence is half idea and half illustration, keep the idea half.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "precis cut versus keep claims connectors conclusion",
+        "cut examples restatements metaphor asides rhetorical questions illustrative statistics",
+        "keep the clearer of two sentences making the same point"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**Passage (about 180 words).**\n\n\"When a bank opens a new branch, the first weeks rarely go smoothly. Staff are still learning the local customer base, the counters have not settled into a rhythm, and small procedural questions slow every transaction. Long queues form, and the branch gains a reputation for delay that is hard to shed later. Some managers respond by adding counters, but extra counters help only if there are trained staff to run them; an unstaffed window is just furniture. A better first step is to study which transactions cause the delay. Often a handful of request types — new accounts, locker applications, disputed charges — take far longer than routine deposits and withdrawals, and mixing them in the same queue holds everyone up. Moving those few request types to a separate desk, with an appointment system, clears the main queue quickly. The change costs almost nothing, and it can be reversed if it does not work. Branches that make this adjustment early usually see complaints about waiting fall within a month, while those that simply add counters often find the queues return.\"\n\n**Core points marked (step 2):**\n\n1. A new branch's first weeks bring long queues as staff learn the work.\n2. Adding counters helps only if trained staff run them.\n3. Better: find which request types cause the delay — a few take much longer than routine transactions.\n4. Move those to a separate appointment desk; it is cheap and reversible.\n5. Branches that do this early see waiting complaints fall within a month; those that only add counters see queues return.\n\n**Model precis (about 62 words) — roughly one-third of 180:**\n\n*Title: Clearing queues at a new branch*\n\n\"A new bank branch usually suffers long queues while its staff learn the work. Adding counters helps only when trained staff run them. A cheaper, reversible step is to identify the few slow request types, such as new accounts and disputed charges, and move them to a separate appointment desk. Branches that do this early see waiting complaints fall within a month.\"\n\n**What was cut and why.** The \"reputation for delay\" sentence and the \"unstaffed window is just furniture\" image are colour, not new ideas. The clause explaining that mixing slow and fast transactions \"holds everyone up\" is the reason behind point 3 and is implied by the fix. The full list of three request types is trimmed to two examples, since the point is *a few slow types*, not the exact list. The precis keeps all five core points, in order, in reported prose.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "precis worked example new branch queues appointment desk",
+        "core points marked then drafted",
+        "model precis one third length title what was cut colour illustration"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-faults",
+      "type": "warning",
+      "title": "Common faults",
+      "markdown": "- **Lifting phrases** straight from the passage instead of paraphrasing.\n- **Missing the ratio** — a precis that is half the passage, or a fifth of it.\n- **Reordering the ideas** into your own structure.\n- **Keeping an example** because it was vivid.\n- **Adding a judgement** — *this is a sensible idea* — that the passage does not make.\n- **First or second person** left in from the original.\n- **No title**, or a title that is a full sentence.\n- **Losing a connector** so that the summary reads as a list of facts with no argument.",
+      "searchKeywords": [
+        "precis faults lifting phrases wrong ratio reordering keeping an example",
+        "adding a judgement first or second person no title",
+        "losing the connective argument"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A precis is about one-third of the passage, in your own words, same order of ideas, third person, one paragraph, with a short title.\n- Method: read twice → mark the core points → draft from the marks looking away from the text → cut to the ratio → check → add the title.\n- Keep every distinct claim and the connectors between them and the conclusion. Cut examples, repetition, metaphor, asides, rhetorical questions and illustrative figures.\n- No new material and no opinion.\n- Target length = passage length ÷ 3; being within about 10 percent is fine.",
+      "searchKeywords": [
+        "precis summary revision one third own words same order method keep cut recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "For 1–3, give the answer and a one-line reason. For 4–6, compute the target precis length.\n\n1. In the branch-queue passage, which is a **main idea**, not a supporting detail? (a) \"an unstaffed window is just furniture\" (b) \"adding counters helps only if trained staff run them\" (c) \"the counters have not settled into a rhythm\" (d) \"new accounts, locker applications, disputed charges\"\n2. Which opening keeps the author's meaning for a passage arguing that financial literacy should be taught early? (a) \"The writer wrongly claims that schools should teach money skills.\" (b) \"I think teaching money skills in school is a good idea.\" (c) \"The writer argues that money-management skills should be taught in school, before adulthood.\" (d) \"Schools today do not teach enough subjects.\"\n3. A sentence reads: \"Digital payments cut costs — for example, a shop no longer closes early to bank its cash — and leave a useful record.\" In a precis this becomes: (a) \"For example, a shop no longer closes early to bank its cash.\" (b) \"Digital payments cut costs and leave a useful record.\" (c) \"Digital payments are very good for shops.\" (d) keep the sentence as it is\n4. A passage of 210 words. Target precis length in words?\n5. A passage of 330 words. Target precis length in words?\n6. A passage runs to 144 words in its first paragraph and 51 in its second, 195 words in all. Target precis length in words?",
+      "expectedAnswers": [
+        {
+          "label": "Q4: 210-word passage, target = 210/3",
+          "value": 70,
+          "expression": "210/3"
+        },
+        {
+          "label": "Q5: 330-word passage, target = 330/3",
+          "value": 110,
+          "expression": "330/3"
+        },
+        {
+          "label": "Q6: 195-word passage, target = (144+51)/3",
+          "value": 65,
+          "expression": "(144+51)/3"
+        }
+      ],
+      "searchKeywords": [
+        "precis practice main idea versus detail keep meaning cut example target length arithmetic"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "precis-rules-core",
+      "front": "State the core rules of a precis.",
+      "back": "About one-third of the passage length, in your own words, keeping the same order of ideas, in third-person reported prose, as one paragraph, with a short title; no examples, repetition, rhetoric, new material or opinion.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-a-precis-is", "the-rules"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "precis-length",
+      "front": "How do you find the target length of a precis?",
+      "back": "Divide the passage's word count by three. Being within about 10 percent of that is acceptable.",
+      "explanation": "A 210-word passage → about 70 words.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-rules", "quick-revision"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "precis-method-steps",
+      "front": "What are the five steps of writing a precis?",
+      "back": "Read the passage twice; mark the core points; draft from the marks with the text covered; cut to the one-third ratio; check order, person and lifted phrases, then add the title.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-method"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "precis-cut-list",
+      "front": "What are the first things to cut when shortening to a precis?",
+      "back": "Examples and \"for instance\" clauses, restatements of a point already made, metaphor and descriptive colour, bracketed asides, rhetorical questions, and figures used only to illustrate.",
+      "explanation": "When a sentence is half idea and half illustration, keep the idea half.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cut-versus-keep"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "precis-keep-list",
+      "front": "What must a precis keep?",
+      "back": "Every distinct claim or step, the logical connectors that link them (because, however, as a result), and the passage's conclusion.",
+      "explanation": "Losing the connectors turns the summary into a list of facts with no argument.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cut-versus-keep", "common-faults"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "precis-person",
+      "front": "How are 'I' and 'you' in the passage handled in a precis?",
+      "back": "They are turned into third person: \"The writer argues that…\". The precis reports the passage rather than speaking as it.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-rules", "common-faults"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "precis-not-opinion",
+      "front": "If the passage argues something you disagree with, what does the precis do?",
+      "back": "It reports that argument straight, with no judgement added. A precis is compression, not comment.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["what-a-precis-is", "common-faults"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

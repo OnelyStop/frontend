@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "foundations",
+  "chapterName": "Foundations",
+  "chapterPosition": 1,
+  "topicSlug": "fractions-and-decimals",
+  "topicPosition": 40,
+  "title": "Fractions, Decimals and Surds",
+  "summary": "Types of fractions and fast ways to compare them, converting between fraction, decimal and percentage form, turning a recurring decimal into a fraction, and the basics of surds and rationalising a denominator.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["number-system-and-divisibility"],
+  "learningObjectives": [
+    "Classify fractions and compare a set of them quickly.",
+    "Convert between fraction, decimal and percentage form both ways.",
+    "Convert a pure or mixed recurring decimal into a fraction.",
+    "Simplify a surd expression and rationalise a denominator."
+  ],
+  "tags": ["arithmetic", "foundations", "fractions", "decimals", "surds"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Percents_Decimals_and_Fractions",
+      "title": "Arithmetic/Percents Decimals and Fractions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the three-way conversion between fractions, decimals and percentages. The recurring-decimal and surd material, examples and practice here are original and independently verified."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "comparing-fractions",
+      "type": "concept",
+      "title": "Types of fractions, and comparing them fast",
+      "markdown": "**Types.** Proper: numerator smaller than denominator, value below 1 (3/5). Improper: numerator at least as large, value 1 or more (7/4). Mixed: a whole number with a proper fraction (1 and 3/4 = 7/4). Like fractions share a denominator; equivalent fractions reduce to the same lowest-terms fraction. Always reduce with the HCF before using a fraction.\n\n**Comparing quickly:**\n\n- **Cross-multiplication for two fractions:** to compare a/b and c/d, compare a times d with b times c; the larger product belongs to the larger fraction.\n- **Same numerator:** the fraction with the smaller denominator is larger (3/7 is larger than 3/8).\n- **Same denominator:** the larger numerator is larger.\n- **Reference point:** compare each with 1/2 or 1. 5/9 is just over 1/2; 7/15 just under; so 5/9 is larger.\n- **Decimal glance:** for a messy set, convert two or three to decimals to one or two places and rank.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "proper improper mixed fraction",
+        "equivalent fractions reduce with HCF",
+        "compare fractions cross multiplication",
+        "same numerator smaller denominator larger",
+        "compare to one half reference",
+        "convert to decimals to rank"
+      ],
+      "position": 10
+    },
+    {
+      "id": "three-way-conversion",
+      "type": "method",
+      "title": "Fraction, decimal, percentage",
+      "markdown": "- **Fraction to decimal:** divide numerator by denominator.\n- **Decimal to fraction:** write the digits over the matching power of ten and reduce. 0.44 is 44/100, which is 11/25.\n- **Decimal to percentage:** multiply by 100 (0.44 becomes 44 per cent).\n- **Percentage to fraction:** put it over 100 and reduce (44 per cent is 11/25).\n\nKeep the common ones memorised: 1/8 is 12.5 per cent, 3/8 is 37.5 per cent, 1/6 is 16.67 per cent, 1/9 is 11.11 per cent, 1/12 is 8.33 per cent. Recognising 37.5 per cent as 3/8 replaces a multiplication with a halving.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "fraction decimal percentage conversion",
+        "0.44 is 11/25",
+        "common fraction percent equivalents",
+        "1/8 12.5 percent 3/8 37.5 percent"
+      ],
+      "position": 30
+    },
+    {
+      "id": "recurring-decimals",
+      "type": "method",
+      "title": "Recurring decimal to fraction",
+      "markdown": "- **Pure recurring** (the repeat starts right after the point): put the repeating block over as many 9s as it has digits. 0.363636... is 36/99, which reduces to 4/11. 0.7 recurring is 7/9.\n- **Mixed recurring** (some non-repeating digits first): numerator is (all the digits after the point) minus (the non-repeating digits); denominator is as many 9s as repeating digits followed by as many 0s as non-repeating digits. 0.16 with the 6 recurring is (16 minus 1) over 90, which is 15/90, that is 1/6.\n\nA fraction in lowest terms terminates only when its denominator's prime factors are just 2s and 5s; otherwise it recurs.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "recurring decimal to fraction",
+        "pure recurring over nines",
+        "mixed recurring rule 9s then 0s",
+        "0.363636 is 4/11",
+        "terminates only if denominator is 2s and 5s"
+      ],
+      "position": 40
+    },
+    {
+      "id": "surds",
+      "type": "concept",
+      "title": "Surds and rationalising",
+      "markdown": "A **surd** is an irrational root left in root form, such as the square root of 2 or the square root of 12.\n\n- **Simplify** by pulling out perfect-square factors: the square root of 12 is the square root of 4 times 3, which is 2 times the square root of 3.\n- **Add or subtract** only like surds: 5 times root 3 plus 2 times root 3 is 7 times root 3, but root 3 plus root 5 cannot be combined.\n- **Rationalise a denominator** by multiplying top and bottom by a factor that clears the root. For 1 over root a, multiply by root a over root a. For 1 over (root a minus root b), multiply by (root a plus root b) over itself; the denominator becomes a minus b.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "surd irrational root",
+        "simplify root 12 as 2 root 3",
+        "add like surds only",
+        "rationalise denominator conjugate",
+        "1 over (root a minus root b)"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example-compare",
+      "type": "worked_example",
+      "title": "Worked example: comparing a set",
+      "markdown": "**Arrange 5/8, 7/11 and 9/14 in increasing order.**\n\nAs decimals to three places: 5/8 is 0.625; 7/11 is 0.636; 9/14 is 0.643.\n\nSo the increasing order is 5/8, then 7/11, then 9/14.\n\nCheck the closest pair by cross-multiplication: 7/11 versus 9/14. 7 times 14 is 98; 11 times 9 is 99. Since 98 is less than 99, 7/11 is smaller than 9/14, which agrees.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "arrange 5/8 7/11 9/14 increasing",
+        "decimals 0.625 0.636 0.643",
+        "cross multiply 98 versus 99"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "5/8 as a decimal",
+          "value": 0.625,
+          "expression": "5/8"
+        },
+        {
+          "label": "cross-product 7 x 14 (for 7/11 vs 9/14)",
+          "value": 98,
+          "expression": "7*14"
+        },
+        {
+          "label": "cross-product 11 x 9",
+          "value": 99,
+          "expression": "11*9"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-recurring",
+      "type": "worked_example",
+      "title": "Worked example: recurring decimal to fraction",
+      "markdown": "**Write 0.363636... as a fraction in lowest terms.**\n\nThe repeating block is \"36\", two digits, and it starts right after the point, so this is pure recurring.\n\nPut the block over two 9s: 36/99.\n\nReduce: the HCF of 36 and 99 is 9, so 36/99 is 4/11.\n\nCheck: 4 divided by 11 is 0.363636..., as required.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "0.363636 recurring to fraction",
+        "36 over 99",
+        "reduces to 4/11"
+      ],
+      "position": 70,
+      "expectedAnswers": [
+        {
+          "label": "36/99 as a decimal (equals 4/11)",
+          "value": 0.36363636363636365,
+          "expression": "36/99"
+        },
+        {
+          "label": "check 4/11 as a decimal",
+          "value": 0.36363636363636365,
+          "expression": "4/11"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-rationalise",
+      "type": "worked_example",
+      "title": "Worked example: rationalising a denominator",
+      "markdown": "**Rationalise 1 over (root 5 minus root 3), and give an approximate value.**\n\nMultiply top and bottom by (root 5 plus root 3):\n\nnumerator becomes root 5 plus root 3; denominator becomes (root 5 minus root 3) times (root 5 plus root 3), which is 5 minus 3, that is 2.\n\nSo the expression is (root 5 plus root 3) divided by 2.\n\nNumerically, root 5 is about 2.2360679 and root 3 is about 1.7320508, so the value is about (2.2360679 plus 1.7320508) divided by 2, which is about **1.9840594**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "rationalise 1 over (root 5 minus root 3)",
+        "multiply by conjugate root 5 plus root 3",
+        "denominator becomes 2",
+        "value about 1.984"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "approximate value of (root 5 + root 3)/2",
+          "value": 1.98405935,
+          "expression": "(2.2360679 + 1.7320508)/2",
+          "tolerance": 0.0001
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Comparing fractions by numerator or denominator alone** when neither is shared. Cross-multiply, or convert to decimals.\n- **Cross-multiplying and reading the wrong side.** The larger product sits under the larger fraction.\n- **Using 9s and 0s the wrong way round** for a mixed recurring decimal. It is 9s for the repeating digits, then 0s for the non-repeating ones.\n- **Adding unlike surds:** root 2 plus root 3 is not root 5.\n- **Forgetting to reduce** the fraction you get from a decimal.\n- **Rationalising with the wrong factor:** for a two-term denominator you need its conjugate, not just one of its roots.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "fractions decimals surds mistakes",
+        "cross multiply read correct side",
+        "mixed recurring 9s then 0s",
+        "root 2 plus root 3 is not root 5",
+        "conjugate for two-term denominator"
+      ],
+      "position": 90
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Fractions: proper, improper, mixed; reduce with the HCF first. Compare by cross-multiplication, a shared numerator or denominator, a reference like 1/2, or a decimal glance.\n- Convert: fraction to decimal by dividing; decimal to fraction over a power of ten then reduce; times or divide by 100 for percentages. Memorise the eighths, sixths, ninths and twelfths.\n- Pure recurring: block over 9s. Mixed recurring: (all digits after the point minus the non-repeating part) over (9s for repeating, 0s for non-repeating). A fraction terminates only if its reduced denominator is made of 2s and 5s.\n- Surds: simplify by pulling out square factors; add only like surds; rationalise a single root with that root, a two-term denominator with its conjugate.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "fractions decimals surds summary",
+        "revision",
+        "compare convert recurring surd recap"
+      ],
+      "position": 100
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "1. Arrange 4/7, 5/9 and 6/11 in decreasing order.\n2. Write 0.583333... (the 3 recurring) as a fraction in lowest terms.\n3. Express 7/16 as a percentage.\n4. Simplify the square root of 45 plus the square root of 20 minus the square root of 80.\n5. Rationalise the denominator of 6 over (root 7 plus root 5).\n6. Which of these fractions terminates as a decimal: 7/40, 5/12, 9/50, 11/24?\n7. Simplify 1/(1 times 2) plus 1/(2 times 3) plus 1/(3 times 4) plus 1/(4 times 5).\n8. Which is greater, 0.6 recurring or 2/3, or are they equal?",
+      "searchKeywords": [
+        "fractions decimals surds practice questions",
+        "compare recurring percentage simplify rationalise terminate exercises"
+      ],
+      "position": 110
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "compare-two",
+      "front": "How do you compare a/b and c/d quickly?",
+      "back": "Cross-multiply: compare a·d with b·c. The larger product sits under the larger fraction.",
+      "explanation": "If the numerators match, the smaller denominator wins; if denominators match, the larger numerator wins.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["comparing-fractions"],
+      "position": 10
+    },
+    {
+      "id": "pure-recurring",
+      "front": "Convert 0.363636… to a fraction.",
+      "back": "Repeating block '36' over two 9s: 36/99 = 4/11 (÷ HCF 9).",
+      "explanation": "Pure recurring: block over as many 9s as its digits.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-recurring"],
+      "position": 20
+    },
+    {
+      "id": "mixed-recurring",
+      "front": "Rule for a mixed recurring decimal like 0.16 with the 6 recurring?",
+      "back": "(all digits after the point − the non-repeating digits) / (9s for repeating digits, then 0s for non-repeating). (16 − 1)/90 = 15/90 = 1/6.",
+      "explanation": "9s first for the repeating part, then 0s.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["recurring-decimals"],
+      "position": 30
+    },
+    {
+      "id": "terminating-test",
+      "front": "When does a fraction in lowest terms terminate as a decimal?",
+      "back": "Only when its denominator's prime factors are just 2s and 5s. Any other prime (3, 7, 11, …) means it recurs.",
+      "explanation": "7/40 terminates (40 = 2³·5); 5/12 recurs (12 = 2²·3).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["recurring-decimals"],
+      "position": 40
+    },
+    {
+      "id": "simplify-surd",
+      "front": "Simplify √12 and add: 5√3 + 2√3.",
+      "back": "√12 = √(4·3) = 2√3. And 5√3 + 2√3 = 7√3. You cannot combine √3 + √5.",
+      "explanation": "Pull out perfect-square factors; add only like surds.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["surds"],
+      "position": 50
+    },
+    {
+      "id": "rationalise-two-term",
+      "front": "Rationalise 1/(√5 − √3).",
+      "back": "Multiply by (√5 + √3)/(√5 + √3): denominator becomes 5 − 3 = 2, so the result is (√5 + √3)/2 ≈ 1.984.",
+      "explanation": "For a two-term denominator, multiply by its conjugate.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["worked-example-rationalise"],
+      "position": 60
+    },
+    {
+      "id": "fraction-percent",
+      "front": "3/8 and 1/6 as percentages?",
+      "back": "3/8 = 37.5%, 1/6 = 16.67% (16⅔%). Recognising 37.5% as 3/8 replaces a multiply with a halve.",
+      "explanation": "Memorise the eighths, sixths, ninths and twelfths.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["three-way-conversion"],
+      "position": 70
+    }
+  ]
+}

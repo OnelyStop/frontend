@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "caselet-data-interpretation",
+  "topicPosition": 50,
+  "title": "Caselet Data Interpretation",
+  "summary": "Caselets hide the data in a paragraph. Extracting the numbers into a small table or a Venn layout before solving, handling successive percentages, and using the two-set union rule without double-counting.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "ibps-po", "sbi-clerk", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["percentages", "ratio-and-proportion", "average"],
+  "learningObjectives": [
+    "Extract a caselet's numbers into a table or Venn layout before calculating.",
+    "Chain successive percentages from a starting quantity without losing a step.",
+    "Apply the two-set union rule and separate the 'only' regions from the overlap.",
+    "Catch a constraint stated in the middle of a paragraph."
+  ],
+  "tags": ["data-interpretation", "caselet", "set-theory", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/High_School_Mathematics_Extensions/Set_Theory_and_Logic",
+      "title": "High School Mathematics Extensions/Set Theory and Logic",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the inclusion-exclusion (union) rule only. Every caselet and question here is original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm caselet DI is a standard question format. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-caselet-is",
+      "type": "introduction",
+      "title": "What a caselet is",
+      "markdown": "A caselet gives you no table and no chart — the numbers are written into a paragraph, often as percentages of one another and in a chain (\"of those who did X, some fraction did Y\"). Two shapes are common: a **numeric-narrative** caselet, where quantities flow from a starting total, and a **set-based** caselet, where two or three groups overlap.\n\nThe work is almost entirely in the extraction. Once the paragraph is turned into a small table or a Venn layout, the questions are ordinary arithmetic.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "caselet no table no chart numbers in a paragraph",
+        "numeric narrative versus set based",
+        "work is in the extraction"
+      ],
+      "position": 10
+    },
+    {
+      "id": "extracting-a-numeric-caselet",
+      "type": "method",
+      "title": "Extracting a numeric-narrative caselet",
+      "markdown": "1. **Underline every number and what it counts.** Mark whether each is an absolute figure or a percentage, and of what.\n2. **Find the anchor** — the one absolute total everything else is derived from.\n3. **Build the chain in order.** \"75 per cent appeared\" then \"60 per cent of those cleared\" is a multiplication: total × 0.75 × 0.60. Write each stage as a line in a small table.\n4. **Watch the phrases that flip direction**: \"the rest\", \"the remaining\", \"twice as many as\", \"40 per cent were absent, so 60 per cent appeared\".\n5. **Keep every stage's value**, because different questions ask about different stages.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "extract numeric caselet underline every number",
+        "find the anchor total",
+        "build the chain of successive percentages",
+        "the rest the remaining twice as many"
+      ],
+      "position": 20
+    },
+    {
+      "id": "set-based-caselets-and-venn",
+      "type": "method",
+      "title": "Set-based caselets and the union rule",
+      "markdown": "For two groups A and B drawn from a universe of N people:\n\n- **Union rule**: n(A or B) = n(A) + n(B) − n(A and B). The subtraction removes the overlap that both counts include.\n- **\"At least one\"** means n(A or B). If \"everyone does at least one\", then n(A or B) = N, so the overlap is n(A) + n(B) − N.\n- **\"Neither\"** = N − n(A or B).\n- **\"Only A\"** = n(A) − n(A and B); **\"only B\"** = n(B) − n(A and B).\n\nFor three groups the same idea adds back the triple overlap: n(A or B or C) = n(A) + n(B) + n(C) − n(A and B) − n(B and C) − n(A and C) + n(A and B and C).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "two set union rule inclusion exclusion",
+        "at least one neither only A only B",
+        "three set formula triple overlap"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-numeric-caselet",
+      "type": "worked_example",
+      "title": "Worked example: a recruitment funnel",
+      "markdown": "*Caselet.* Of 800 candidates who registered for a test, 75 per cent appeared for the prelims. Of those who appeared, 60 per cent cleared. Of the candidates who cleared, 40 per cent were absent from the mains and the rest appeared. One-fourth of those who appeared for the mains were finally selected.\n\n*Extraction.* Registered 800 → appeared prelims 0.75 × 800 = 600 → cleared 0.60 × 600 = 360 → appeared mains 360 × (1 − 0.40) = 216 → selected 0.25 × 216 = 54.\n\n**Q1. How many cleared the prelims?** 0.60 × 0.75 × 800 = 360.\n\n**Q2. How many appeared for the mains?** 360 × 0.60 = 216.\n\n**Q3. How many were finally selected?** 216 × 0.25 = 54.\n\n**Q4. Selected candidates as a percentage of those registered.** 54 ÷ 800 × 100 = 6.75 per cent.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example recruitment funnel caselet 800 candidates",
+        "successive percentages cleared appeared selected"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "cleared the prelims",
+          "value": 360,
+          "expression": "0.60*0.75*800"
+        },
+        {
+          "label": "appeared for the mains",
+          "value": 216,
+          "expression": "0.60*0.75*800*(1-0.40)"
+        },
+        {
+          "label": "finally selected",
+          "value": 54,
+          "expression": "0.60*0.75*800*(1-0.40)*0.25"
+        },
+        {
+          "label": "selected as % of registered",
+          "value": 6.75,
+          "expression": "54/800*100"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-set-caselet",
+      "type": "worked_example",
+      "title": "Worked example: two banking channels",
+      "markdown": "*Caselet.* In a survey of 300 account holders, 180 use mobile banking and 150 use internet banking. Every respondent uses at least one of the two.\n\n*Extraction.* Because everyone uses at least one, n(mobile or internet) = 300. So the overlap n(mobile and internet) = 180 + 150 − 300 = 30. Then only mobile = 180 − 30 = 150, and only internet = 150 − 30 = 120.\n\n**Q1. How many use both channels?** 180 + 150 − 300 = 30.\n\n**Q2. How many use only mobile banking?** 180 − 30 = 150.\n\n**Q3. How many use only internet banking?** 150 − 30 = 120.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example two banking channels set caselet",
+        "union rule overlap only mobile only internet"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "use both channels",
+          "value": 30,
+          "expression": "180+150-300"
+        },
+        {
+          "label": "use only mobile banking",
+          "value": 150,
+          "expression": "180-(180+150-300)"
+        },
+        {
+          "label": "use only internet banking",
+          "value": 120,
+          "expression": "150-(180+150-300)"
+        }
+      ]
+    },
+    {
+      "id": "caselet-specific-mistakes",
+      "type": "warning",
+      "title": "Mistakes specific to caselets",
+      "markdown": "- **Missing a constraint stated mid-paragraph** — a caselet often drops one condition into the middle of a sentence (\"the rest, except 20, appeared\"). Re-read once after extracting.\n- **Double-counting the overlap** — adding n(A) and n(B) without subtracting n(A and B).\n- **Treating n(A or B) as the universe** when a \"neither\" group exists. The universe is N; the union is only part of it.\n- **Applying a percentage to the wrong stage** — \"40 per cent were absent\" is 40 per cent of those who cleared, not of the original total.\n- **Losing an earlier stage's value** because only the final figure was written down.\n- **Reading \"twice as many A as B\" backwards** — A = 2B, so B is the smaller one.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "caselet specific mistakes mid paragraph constraint",
+        "double counting overlap union as universe",
+        "percentage on wrong stage twice as many backwards"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Extract first: underline every number, mark absolute vs percentage, find the anchor total, build the chain as a small table.\n- Successive percentages multiply from the starting quantity; \"the rest\" is (1 − the fraction just used).\n- Two-set union: n(A or B) = n(A) + n(B) − n(A and B). \"Only A\" = n(A) − overlap. \"Neither\" = N − n(A or B).\n- Keep every stage's value; questions target different stages.\n- Re-read the paragraph once after extracting to catch a buried constraint.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "caselet summary revision",
+        "extract chain union rule only region buried constraint recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "*Caselet A.* A branch sanctioned 500 loan applications in a quarter. 60 per cent were retail loans and the rest were business loans. Of the retail loans, 25 per cent were pre-closed within a year. Of the business loans, 10 per cent turned into NPAs.\n\n*Caselet B.* Of 400 visitors to a bank fair, 220 opened a savings account and 160 bought an insurance policy; 60 did neither.\n\n1. (A) Number of business loans sanctioned.\n2. (A) Number of retail loans pre-closed within a year.\n3. (A) Number of business loans that became NPAs.\n4. (A) Pre-closed retail loans as a percentage of all sanctioned applications.\n5. (B) Visitors who did at least one of the two activities.\n6. (B) Visitors who did both.\n7. (B) Visitors who only opened a savings account.\n8. (B) Visitors who only bought an insurance policy.",
+      "searchKeywords": [
+        "caselet practice loan sanctions bank fair visitors",
+        "successive percentage union rule only region"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. business loans sanctioned",
+          "value": 200,
+          "expression": "500*(1-0.60)"
+        },
+        {
+          "label": "2. retail loans pre-closed",
+          "value": 75,
+          "expression": "0.25*0.60*500"
+        },
+        {
+          "label": "3. business loans that became NPAs",
+          "value": 20,
+          "expression": "0.10*0.40*500"
+        },
+        {
+          "label": "4. pre-closed retail as % of all applications",
+          "value": 15,
+          "expression": "0.25*0.60*500/500*100"
+        },
+        {
+          "label": "5. did at least one activity",
+          "value": 340,
+          "expression": "400-60"
+        },
+        {
+          "label": "6. did both",
+          "value": 40,
+          "expression": "220+160-(400-60)"
+        },
+        {
+          "label": "7. only savings account",
+          "value": 180,
+          "expression": "220-(220+160-(400-60))"
+        },
+        {
+          "label": "8. only insurance policy",
+          "value": 120,
+          "expression": "160-(220+160-(400-60))"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "caselet-extract-first",
+      "front": "What is the first move on any caselet?",
+      "back": "Extract: underline every number and what it counts, mark absolute vs percentage, find the anchor total, and rebuild the paragraph as a small table or a Venn layout.",
+      "explanation": "Once extracted, the questions are ordinary arithmetic.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-a-caselet-is"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "caselet-successive-percent",
+      "front": "A caselet says 75% appeared and 60% of those cleared. How many cleared, from a start of 800?",
+      "back": "Multiply along the chain: 800 x 0.75 x 0.60 = 360. Successive percentages multiply from the starting quantity.",
+      "explanation": "Each 'of those' is another multiplication, not a subtraction.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["extracting-a-numeric-caselet"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "caselet-the-rest",
+      "front": "A caselet says 40% were absent and 'the rest' appeared. What fraction appeared?",
+      "back": "1 - 0.40 = 0.60 of that stage. 'The rest' and 'the remaining' mean one minus the fraction just named.",
+      "explanation": "And it applies to that stage's count, not the original total.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["extracting-a-numeric-caselet"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "caselet-union-rule",
+      "front": "State the two-set union rule.",
+      "back": "n(A or B) = n(A) + n(B) - n(A and B). The subtraction removes the overlap that both counts include.",
+      "explanation": "If everyone does at least one, n(A or B) = N, so the overlap is n(A) + n(B) - N.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["set-based-caselets-and-venn"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "caselet-only-region",
+      "front": "How do you get 'only A' and 'neither' in a two-set caselet?",
+      "back": "Only A = n(A) - n(A and B). Neither = N - n(A or B), where N is the whole universe.",
+      "explanation": "The union n(A or B) is not the universe when a 'neither' group exists.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["set-based-caselets-and-venn"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "caselet-buried-constraint",
+      "front": "Why re-read a caselet paragraph after extracting the numbers?",
+      "back": "A caselet often drops one condition into the middle of a sentence ('the rest, except 20, appeared'). A single re-read catches the constraint you skimmed past.",
+      "explanation": "Missing a mid-paragraph constraint is the signature caselet error.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["caselet-specific-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "caselet-percent-stage",
+      "front": "A caselet says '40% were absent from the mains'. 40% of what?",
+      "back": "40% of the candidates who cleared the prelims - the stage the sentence is about - not 40% of the original total.",
+      "explanation": "Applying a percentage to the wrong stage is a common extraction slip.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["caselet-specific-mistakes"],
+      "position": 70,
+      "status": "approved"
+    },
+    {
+      "id": "caselet-twice-as-many",
+      "front": "A caselet says 'twice as many chose A as chose B'. Which is larger, and what is the equation?",
+      "back": "A is larger: A = 2B. So B is the smaller group and equals A / 2.",
+      "explanation": "Reading this relation backwards flips the answer.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["caselet-specific-mistakes"],
+      "position": 80,
+      "status": "approved"
+    }
+  ]
+}

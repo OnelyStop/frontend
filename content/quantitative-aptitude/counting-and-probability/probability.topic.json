@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "counting-and-probability",
+  "chapterName": "Counting and probability",
+  "chapterPosition": 6,
+  "topicSlug": "probability",
+  "topicPosition": 20,
+  "title": "Probability",
+  "summary": "Probability as favourable outcomes over total outcomes: building the sample space, the complement rule, the addition rule for 'or', the multiplication rule for independent events, and without-replacement problems done by counting.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 30,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "factorials-permutations-and-combinations",
+    "fractions-and-decimals"
+  ],
+  "learningObjectives": [
+    "Write the sample space and count favourable outcomes for a simple experiment.",
+    "Use the complement rule to shortcut an 'at least one' question.",
+    "Apply the addition rule, subtracting the overlap when events are not mutually exclusive.",
+    "Handle without-replacement draws by multiplying the changing fractions or by counting with nCr."
+  ],
+  "tags": ["probability", "sample-space", "complement", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/High_School_Probability",
+      "title": "High School Probability",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the definition of probability and the addition and multiplication rules. All wording and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm probability is within scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "chance-as-a-number",
+      "type": "introduction",
+      "title": "Chance as a number between 0 and 1",
+      "markdown": "Probability measures how likely an event is, on a scale from 0 (impossible) to 1 (certain). A probability of 1/2 means the event happens in half of all equally likely outcomes.\n\nEvery bank-exam probability question comes down to two counts: how many outcomes are there in total, and how many of them are favourable. Get the counting right — often using the permutation and combination tools from the previous topic — and the probability is just the ratio.\n\nAnswers may be left as a fraction in lowest terms or as a decimal; this topic gives decimals to four places where the fraction does not terminate.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "probability scale 0 to 1",
+        "total outcomes and favourable outcomes",
+        "probability is a ratio of two counts",
+        "answer as fraction or decimal"
+      ],
+      "position": 10
+    },
+    {
+      "id": "sample-space",
+      "type": "formula",
+      "title": "Sample space and P(E)",
+      "markdown": "The **sample space** is the set of all possible outcomes of an experiment, assumed equally likely.\n\n- One die: {1, 2, 3, 4, 5, 6}, so 6 outcomes.\n- Two coins: {HH, HT, TH, TT}, so 4 outcomes.\n- Two dice: 6 x 6 = 36 ordered outcomes.\n- One card from a pack: 52 outcomes (13 ranks x 4 suits; 26 red, 26 black; 12 face cards).\n\nFor an event E, P(E) = (number of outcomes in E) / (total number of outcomes).\n\nBecause E has between 0 and all of the outcomes, 0 is less than or equal to P(E) which is less than or equal to 1.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "sample space all equally likely outcomes",
+        "die 6 two coins 4 two dice 36 pack 52",
+        "P of E favourable over total",
+        "probability between 0 and 1"
+      ],
+      "position": 20
+    },
+    {
+      "id": "complement-rule",
+      "type": "formula",
+      "title": "The complement rule",
+      "markdown": "The complement of E, written E-bar, is \"E does not happen\". Since one of them must occur:\n\nP(E) + P(E-bar) = 1, so P(E) = 1 - P(E-bar).\n\nThis is the fastest route whenever the event is awkward but its opposite is simple. \"At least one head in three tosses\" has many favourable cases; its complement, \"no heads at all\", has just one outcome (TTT), so P(at least one head) = 1 - 1/8 = 7/8.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "complement rule P of E equals 1 minus P of not E",
+        "at least one is 1 minus none",
+        "three tosses at least one head 1 minus 1 over 8",
+        "use the complement when the event is awkward"
+      ],
+      "position": 30
+    },
+    {
+      "id": "addition-rule",
+      "type": "formula",
+      "title": "The addition rule for 'or'",
+      "markdown": "For the probability that A **or** B happens:\n\nP(A or B) = P(A) + P(B) - P(A and B)\n\nThe last term removes the overlap counted twice. If A and B **cannot** happen together (mutually exclusive), P(A and B) = 0 and it simplifies to P(A) + P(B).\n\nExample: drawing a card that is a king or a queen — these cannot both happen, so P = 4/52 + 4/52 = 8/52. Drawing a card that is a king or a heart — these can both happen (the king of hearts), so P = 4/52 + 13/52 - 1/52 = 16/52.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "addition rule P A or B equals P A plus P B minus P A and B",
+        "mutually exclusive overlap is zero",
+        "king or queen 4 over 52 plus 4 over 52",
+        "king or heart subtract the king of hearts"
+      ],
+      "position": 40
+    },
+    {
+      "id": "multiplication-and-without-replacement",
+      "type": "method",
+      "title": "Independent events and without-replacement draws",
+      "markdown": "- **Independent events** (one does not affect the other): P(A and B) = P(A) x P(B). Two dice both showing a six: (1/6) x (1/6) = 1/36.\n- **Without replacement**, the second draw's probability depends on the first. Multiply the changing fractions: from 5 red and 3 blue, P(both red in two draws) = (5/8) x (4/7).\n- **By counting instead:** favourable selections over total selections using nCr. P(both red) = 5C2 / 8C2 = 10 / 28 = 5/14 — the same answer.\n- **\"Drawn together\"** means without replacement; use either method.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "independent events multiply the probabilities",
+        "without replacement multiply the changing fractions",
+        "5 over 8 times 4 over 7 both red",
+        "counting method 5C2 over 8C2"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. One die.** P(a number greater than 4) — favourable outcomes are 5 and 6, so 2 out of 6: P = 2/6 = **0.3333** (that is 1/3).\n\n**2. One card, king or queen.** These cannot both happen, so add: P = 4/52 + 4/52 = 8/52 = **0.1538** (that is 2/13).\n\n**3. Two balls without replacement.** A bag holds 5 red and 3 blue balls; two are drawn one after the other. P(both red) = (5/8) x (4/7) = 20/56 = **0.3571** (that is 5/14).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "die greater than 4 probability 2 over 6",
+        "card king or queen 8 over 52 mutually exclusive",
+        "two red balls without replacement 5 over 8 times 4 over 7",
+        "probability worked example"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "1. P(die shows more than 4)",
+          "value": 0.3333,
+          "tolerance": 0.001,
+          "expression": "2/6"
+        },
+        {
+          "label": "2. P(king or queen)",
+          "value": 0.1538,
+          "tolerance": 0.001,
+          "expression": "4/52 + 4/52"
+        },
+        {
+          "label": "3. P(both balls red)",
+          "value": 0.3571,
+          "tolerance": 0.001,
+          "expression": "(5/8)*(4/7)"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Adding probabilities of overlapping events** without subtracting P(A and B).\n- **Multiplying for 'or'** or adding for 'and' — 'and' with independence multiplies, 'or' adds.\n- **Treating without-replacement draws as independent** — the denominator drops by one on the second draw.\n- **Wrong sample-space size** — two dice give 36 ordered outcomes, not 21 or 11.\n- **Not reducing** a probability, or giving an answer above 1.\n- **Forgetting the complement shortcut** for 'at least one'.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "probability mistakes overlapping events addition rule",
+        "and multiplies or adds",
+        "without replacement is not independent",
+        "two dice 36 outcomes not 21"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- P(E) = favourable / total, with 0 less than or equal to P(E) less than or equal to 1.\n- Sample sizes: die 6, two coins 4, two dice 36, pack 52.\n- Complement: P(E) = 1 - P(not E); best for 'at least one'.\n- Addition: P(A or B) = P(A) + P(B) - P(A and B); the last term is 0 for mutually exclusive events.\n- 'And' for independent events multiplies: P(A) x P(B).\n- Without replacement: multiply the changing fractions, or count with nCr over nCr.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "probability formula recap",
+        "complement addition multiplication rules",
+        "sample space sizes",
+        "without replacement"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give a fraction or a decimal to four places.\n\n1. Two fair coins are tossed. Find P(exactly one head).\n2. A fair die is rolled. Find P(an even number).\n3. A card is drawn from a standard pack. Find P(a spade).\n4. A bag has 4 white and 6 black balls. One is drawn. Find P(white).\n5. A fair die is rolled. Find P(not a 5).\n6. Two fair dice are thrown. Find P(the sum is 7).\n7. A bag has 5 red, 3 green and 2 yellow balls. One is drawn. Find P(red or yellow).\n8. Two cards are drawn without replacement from a pack. Find P(both are aces).",
+      "searchKeywords": [
+        "probability practice questions",
+        "coins dice cards balls without replacement exercises"
+      ],
+      "position": 90,
+      "expectedAnswers": [
+        {
+          "label": "1. P(exactly one head)",
+          "value": 0.5,
+          "expression": "2/4"
+        },
+        { "label": "2. P(even)", "value": 0.5, "expression": "3/6" },
+        { "label": "3. P(spade)", "value": 0.25, "expression": "13/52" },
+        { "label": "4. P(white)", "value": 0.4, "expression": "4/10" },
+        {
+          "label": "5. P(not a 5)",
+          "value": 0.8333,
+          "tolerance": 0.001,
+          "expression": "1 - 1/6"
+        },
+        {
+          "label": "6. P(sum is 7)",
+          "value": 0.1667,
+          "tolerance": 0.001,
+          "expression": "6/36"
+        },
+        {
+          "label": "7. P(red or yellow)",
+          "value": 0.7,
+          "expression": "(5+2)/10"
+        },
+        {
+          "label": "8. P(both aces)",
+          "value": 0.00452,
+          "tolerance": 0.0001,
+          "expression": "(4/52)*(3/51)"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "probability-definition",
+      "front": "How is the probability of an event defined for equally likely outcomes?",
+      "back": "P(E) = (number of favourable outcomes) / (total number of outcomes in the sample space), a value between 0 and 1.",
+      "explanation": "Most of the work is the counting; the ratio is the last step.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["sample-space"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "sample-sizes",
+      "front": "Sample-space sizes: one die, two coins, two dice, a pack of cards?",
+      "back": "Die 6, two coins 4 (HH, HT, TH, TT), two dice 36, a pack 52 (26 red, 26 black, 4 aces, 12 face cards).",
+      "explanation": "Two dice are 6 x 6 ordered pairs, not 21.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["sample-space"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "complement",
+      "front": "State the complement rule and when to use it.",
+      "back": "P(E) = 1 - P(not E). Use it when the event is awkward but its opposite is simple, especially 'at least one'.",
+      "explanation": "At least one head in 3 tosses = 1 - P(TTT) = 1 - 1/8.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["complement-rule"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "addition",
+      "front": "Addition rule for P(A or B)?",
+      "back": "P(A or B) = P(A) + P(B) - P(A and B). If A and B are mutually exclusive, the last term is 0.",
+      "explanation": "King or queen: exclusive, 4/52 + 4/52. King or heart: overlap, subtract 1/52.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["addition-rule"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "and-independent",
+      "front": "Probability that two independent events both happen?",
+      "back": "P(A and B) = P(A) x P(B). Two sixes on two dice: (1/6) x (1/6) = 1/36.",
+      "explanation": "'And' multiplies for independent events; 'or' adds.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["multiplication-and-without-replacement"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "without-replacement",
+      "front": "How do you find P(both red) when two balls are drawn without replacement from 5 red and 3 blue?",
+      "back": "Multiply the changing fractions: (5/8) x (4/7) = 5/14. Or count: 5C2 / 8C2 = 10/28 = 5/14.",
+      "explanation": "The second draw's denominator drops to 7 because a ball was removed.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["multiplication-and-without-replacement"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "sum-seven",
+      "front": "P(sum of 7 on two dice)?",
+      "back": "6 favourable pairs (1-6, 2-5, 3-4, 4-3, 5-2, 6-1) out of 36, so 6/36 = 1/6.",
+      "explanation": "7 is the most likely total on two dice.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sample-space"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

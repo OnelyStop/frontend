@@ -87,6 +87,92 @@
   }
 }
 
+/* Study module — the tutor mascot and the sticky-note affordances. These are
+   the one place the app is allowed a little character: a resting idle loop, and
+   a reaction on hover. Every use is behind `motion-safe:` so reduced-motion
+   users get a still icon. */
+@keyframes float-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes mascot-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes mascot-orbit {
+  from {
+    transform: rotate(0deg) translateX(12px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(12px) rotate(-360deg);
+  }
+}
+@keyframes mascot-wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(20deg);
+  }
+  60% {
+    transform: rotate(-12deg);
+  }
+}
+@keyframes spark-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+@keyframes note-nudge {
+  0%,
+  100% {
+    transform: rotate(-1.4deg);
+  }
+  50% {
+    transform: rotate(1.4deg);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility pop-in {
+  animation: pop-in 0.26s var(--ease-soft) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pop-in {
+    animation: none;
+  }
+}
+
 /* A panel is white ground inside a hairline, like the code block on a ruled
    page. No fill and no shadow — grey blocks made every screen look like a
    dashboard, so the rule does the work instead. */

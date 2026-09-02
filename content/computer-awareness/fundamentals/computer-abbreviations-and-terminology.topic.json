@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "fundamentals",
+  "chapterName": "Fundamentals",
+  "chapterPosition": 1,
+  "topicSlug": "computer-abbreviations-and-terminology",
+  "topicPosition": 50,
+  "title": "Computer Abbreviations and Terminology",
+  "summary": "The abbreviations that recur in bank exams, grouped and explained rather than just expanded: hardware and storage, data units, software and operating systems, networking, web and data formats, and the standards bodies, with the comparisons examiners like to test.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["computer-fundamentals-and-functional-units"],
+  "learningObjectives": [
+    "Expand the common hardware, storage and data-unit abbreviations and say what each names.",
+    "Group the software, operating-system and networking abbreviations and give a one-line meaning for each.",
+    "Recall the web, data-format and standards abbreviations examiners repeat.",
+    "State the standard comparisons: RAM vs ROM, HDD vs SSD, LAN vs WAN, GUI vs CLI, TCP vs UDP, HTTP vs HTTPS."
+  ],
+  "tags": ["computer-awareness", "abbreviations", "terminology", "glossary"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Wikibooks Basic Computing",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the expansions and one-line meanings; wording is original and the groupings are the author's."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks reuse terms",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike checked; only concepts were adapted."
+    },
+    {
+      "sourceId": "NIST_GLOSSARY",
+      "url": "https://csrc.nist.gov/glossary",
+      "title": "NIST CSRC glossary",
+      "publisher": "NIST",
+      "usageMode": "open_adaptable",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for VPN, MAC address and protocol terms; restated in original wording."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm computer abbreviations are part of the syllabus. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "how-to-use",
+      "type": "introduction",
+      "title": "How to learn these",
+      "markdown": "Bank exams ask a steady trickle of \"expand this abbreviation\" and \"which of these is *not* an output device\" questions. Rote expansion is not enough — you also need the one-line sense, because the wrong options are usually real terms placed in the wrong group.\n\nLearn them in the groups below (hardware, units, software/OS, networking, web/data, standards). For each entry, be able to say the full form **and** finish the sentence \"it is the thing that …\".",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "SATHEE_BANK"],
+      "searchKeywords": [
+        "computer abbreviations expand full form one line meaning",
+        "which is not an output device style question",
+        "learn in groups hardware units software networking web standards",
+        "wrong options are real terms in the wrong group"
+      ],
+      "position": 10
+    },
+    {
+      "id": "hardware-and-units",
+      "type": "concept",
+      "title": "Hardware, storage and data units",
+      "markdown": "| Abbr. | Full form | In one line |\n| --- | --- | --- |\n| CPU | Central Processing Unit | executes instructions; the \"brain\" |\n| ALU | Arithmetic Logic Unit | part of the CPU that does calculation and comparison |\n| CU | Control Unit | part of the CPU that directs the other units |\n| RAM | Random Access Memory | fast, volatile working memory; cleared on power-off |\n| ROM | Read Only Memory | non-volatile memory holding start-up firmware |\n| PROM / EPROM / EEPROM | (Erasable / Electrically Erasable) Programmable ROM | ROM that can be written once, or erased by UV, or erased electrically |\n| HDD | Hard Disk Drive | magnetic spinning-platter storage; cheap, slower |\n| SSD | Solid State Drive | flash storage; no moving parts, faster |\n| USB | Universal Serial Bus | standard port/connector for peripherals and drives |\n| GPU | Graphics Processing Unit | processor specialised for graphics and parallel work |\n| BIOS / UEFI | Basic Input/Output System / Unified Extensible Firmware Interface | firmware that starts the hardware and loads the OS; UEFI is the modern replacement |\n\n**Data units:** a **bit** is one 0/1; **8 bits = 1 byte**; a **nibble** is 4 bits. Then **KB → MB → GB → TB → PB**, each ×1024 in the binary convention (×1000 in the decimal one).",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "cpu alu cu ram rom prom eprom eeprom hdd ssd usb gpu bios uefi full form",
+        "ram volatile working memory rom non-volatile firmware",
+        "hdd magnetic ssd flash faster",
+        "bit byte nibble kb mb gb tb pb 1024"
+      ],
+      "position": 20
+    },
+    {
+      "id": "software-and-os",
+      "type": "concept",
+      "title": "Software and operating systems",
+      "markdown": "| Abbr. | Full form | In one line |\n| --- | --- | --- |\n| OS | Operating System | manages hardware and runs programs (Windows, Linux, Android) |\n| GUI | Graphical User Interface | interact via windows, icons and a pointer |\n| CLI | Command Line Interface | interact by typing text commands |\n| kernel | (not an abbreviation) | the core of the OS, always in memory, closest to the hardware |\n| API | Application Programming Interface | a defined way for one program to call another |\n| IDE | Integrated Development Environment | an editor, compiler/runner and debugger in one app |\n| SDK | Software Development Kit | tools and libraries for building software for a platform |\n| GUI vs CLI | — | GUI is easier to learn; CLI is faster to script and automate |",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "os gui cli api ide sdk kernel full form one line",
+        "operating system manages hardware runs programs",
+        "gui windows icons pointer cli text commands",
+        "api program calls another ide sdk"
+      ],
+      "position": 30
+    },
+    {
+      "id": "networking",
+      "type": "concept",
+      "title": "Networking",
+      "markdown": "| Abbr. | Full form | In one line |\n| --- | --- | --- |\n| LAN / MAN / WAN | Local / Metropolitan / Wide Area Network | a network within a building, a city, or spanning regions/countries |\n| ISP | Internet Service Provider | the company that connects you to the Internet |\n| IP | Internet Protocol (address) | the numeric address of a device on a network |\n| TCP / UDP | Transmission Control Protocol / User Datagram Protocol | reliable ordered delivery / fast connectionless delivery |\n| HTTP / HTTPS | HyperText Transfer Protocol (Secure) | fetch web pages / the same over an encrypted TLS connection |\n| FTP | File Transfer Protocol | move files between a client and a server |\n| DNS | Domain Name System | resolves a domain name to an IP address |\n| DHCP | Dynamic Host Configuration Protocol | hands a device its IP address automatically |\n| URL | Uniform Resource Locator | the full address of a web resource |\n| VPN | Virtual Private Network | an encrypted tunnel over a public network |\n| MAC address | Media Access Control address | a hardware address burnt into a network adapter |",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "NIST_GLOSSARY"],
+      "searchKeywords": [
+        "lan man wan isp ip tcp udp http https ftp dns dhcp url vpn mac address full form",
+        "lan building wan regions countries",
+        "tcp reliable ordered udp fast connectionless",
+        "dns resolves name dhcp assigns ip vpn encrypted tunnel mac hardware address"
+      ],
+      "position": 40
+    },
+    {
+      "id": "web-data-standards",
+      "type": "concept",
+      "title": "Web, data formats and standards",
+      "markdown": "**Web and data formats:**\n\n| Abbr. | Full form | In one line |\n| --- | --- | --- |\n| HTML / CSS | HyperText Markup Language / Cascading Style Sheets | page structure / page styling |\n| XML / JSON | eXtensible Markup Language / JavaScript Object Notation | text formats for structured data exchange |\n| SQL | Structured Query Language | the language for relational databases |\n| CSV | Comma-Separated Values | plain-text tabular data |\n| PDF | Portable Document Format | fixed-layout document format |\n\n**Media formats:** JPEG/PNG/GIF (images — photo, lossless/transparency, simple animation), MP3/MP4 (audio / video container), ZIP (compressed archive).\n\n**Standards bodies:** IEEE (engineering standards, e.g. Wi-Fi 802.11), ISO (international standards), W3C (web standards), ASCII and Unicode (character-encoding standards — Unicode covers virtually every script, ASCII only 128 characters).",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "html css xml json sql csv pdf full form one line",
+        "jpeg png gif mp3 mp4 zip media formats",
+        "ieee iso w3c ascii unicode standards bodies",
+        "unicode covers every script ascii 128 characters"
+      ],
+      "position": 50
+    },
+    {
+      "id": "key-comparisons",
+      "type": "comparison",
+      "title": "The comparisons examiners test",
+      "markdown": "| Pair | Key difference |\n| --- | --- |\n| **RAM vs ROM** | RAM is volatile read/write working memory; ROM is non-volatile and normally read-only (start-up firmware). |\n| **HDD vs SSD** | HDD stores on spinning magnetic platters — cheaper per GB, slower, moving parts. SSD uses flash — faster, silent, more shock-resistant. |\n| **LAN vs WAN** | LAN covers a single site and is privately owned; WAN spans cities or countries and usually uses leased/telecom links. |\n| **GUI vs CLI** | GUI: windows, icons, pointer — easy to learn. CLI: typed commands — faster to automate and script. |\n| **TCP vs UDP** | TCP sets up a connection and guarantees ordered, error-checked delivery. UDP is connectionless and fast, with no delivery guarantee (used for streaming, DNS, games). |\n| **HTTP vs HTTPS** | HTTPS is HTTP carried over TLS: encrypted and with a verified server certificate. |\n| **Compiler vs interpreter** | A compiler translates the whole program to machine code once; an interpreter executes the source line by line each run. |",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "ram vs rom hdd vs ssd lan vs wan gui vs cli tcp vs udp http vs https compiler vs interpreter",
+        "ram volatile rom non-volatile",
+        "tcp connection guaranteed udp connectionless fast",
+        "compiler whole program interpreter line by line"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- **Hardware:** CPU (ALU + CU), RAM (volatile), ROM (firmware), HDD (magnetic), SSD (flash), GPU (graphics), BIOS/UEFI (start-up firmware).\n- **Units:** 8 bits = 1 byte; KB→MB→GB→TB→PB (×1024 binary).\n- **Software/OS:** OS manages hardware; GUI (icons/pointer) vs CLI (typed commands); API (program-to-program interface), IDE, SDK.\n- **Networking:** LAN/MAN/WAN by size; ISP connects you; TCP reliable vs UDP fast; DNS name→IP; DHCP assigns IP; VPN encrypted tunnel; MAC = hardware address.\n- **Web and data formats:** HTML structure, CSS style, XML/JSON data exchange, SQL for databases, CSV tabular text, PDF fixed layout.\n- **Standards:** IEEE, ISO, W3C; ASCII (128 chars) vs Unicode (nearly all scripts).",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "computer abbreviations summary revision",
+        "hardware units software networking web standards recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Expand each and give a one-line meaning; then answer the last two.\n\n1. EEPROM\n2. DHCP\n3. SDK\n4. UDP\n5. Which of these is volatile: RAM or ROM?\n6. Which stores data on flash with no moving parts: HDD or SSD?\n7. Which resolves `example.org` to an IP address: DNS or DHCP?\n8. ASCII or Unicode — which can represent characters from almost every writing system?",
+      "searchKeywords": [
+        "computer abbreviations practice expand eeprom dhcp sdk udp ram rom hdd ssd dns unicode"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "ram-vs-rom",
+      "front": "RAM vs ROM?",
+      "back": "RAM (Random Access Memory) is fast, volatile read/write working memory that is cleared on power-off. ROM (Read Only Memory) is non-volatile and normally read-only, holding start-up firmware.",
+      "explanation": "\"Volatile\" = contents lost without power.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["hardware-and-units", "key-comparisons"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "hdd-vs-ssd",
+      "front": "HDD vs SSD?",
+      "back": "HDD (Hard Disk Drive) stores on spinning magnetic platters — cheaper per GB, slower, has moving parts. SSD (Solid State Drive) uses flash memory — faster, silent, more shock-resistant.",
+      "explanation": "Both are non-volatile secondary storage.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["hardware-and-units", "key-comparisons"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "cpu-parts",
+      "front": "What are the ALU and CU, and where do they sit?",
+      "back": "Both are parts of the CPU. The ALU (Arithmetic Logic Unit) performs calculation and comparison; the CU (Control Unit) directs the other units and the flow of instructions.",
+      "explanation": "Registers and cache are the CPU's own fast storage.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["hardware-and-units"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "bit-byte",
+      "front": "How many bits in a byte, and what is the order KB, MB, GB, TB?",
+      "back": "8 bits = 1 byte (a nibble is 4 bits). Sizes go KB → MB → GB → TB → PB, each step ×1024 in the binary convention (×1000 decimal).",
+      "explanation": "A bit is a single 0 or 1.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["hardware-and-units"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "gui-vs-cli",
+      "front": "GUI vs CLI?",
+      "back": "GUI (Graphical User Interface) — interact through windows, icons and a pointer; easy to learn. CLI (Command Line Interface) — type text commands; faster to script and automate.",
+      "explanation": "Both are ways to drive the same operating system.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["software-and-os", "key-comparisons"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "tcp-vs-udp",
+      "front": "TCP vs UDP?",
+      "back": "TCP (Transmission Control Protocol) sets up a connection and guarantees ordered, error-checked delivery. UDP (User Datagram Protocol) is connectionless and fast with no delivery guarantee — used for streaming, DNS and games.",
+      "explanation": "Both run over IP.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["networking", "key-comparisons"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "api",
+      "front": "What is an API?",
+      "back": "An Application Programming Interface — a defined set of calls by which one program uses the features or data of another, without needing to know its internals.",
+      "explanation": "An SDK is the wider toolkit (libraries + tools) for building on a platform.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["software-and-os"],
+      "position": 70,
+      "status": "approved"
+    },
+    {
+      "id": "ascii-vs-unicode",
+      "front": "ASCII vs Unicode?",
+      "back": "ASCII encodes 128 characters (English letters, digits, basic punctuation, control codes). Unicode is a much larger standard covering virtually every writing system, with encodings such as UTF-8.",
+      "explanation": "UTF-8 is backward-compatible with ASCII for the first 128 code points.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["web-data-standards"],
+      "position": 80,
+      "status": "approved"
+    }
+  ]
+}

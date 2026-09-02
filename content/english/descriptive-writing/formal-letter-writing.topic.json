@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "descriptive-writing",
+  "chapterName": "Descriptive writing",
+  "chapterPosition": 3,
+  "topicSlug": "formal-letter-writing",
+  "topicPosition": 20,
+  "title": "Formal Letter Writing",
+  "summary": "The bank-exam formal letter: its fixed layout, the job each of the three body paragraphs does, the tone for a complaint, request, enquiry or application, and a full worked complaint letter with a note on why each part works.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "ibps-po"],
+  "prerequisiteTopicSlugs": [
+    "descriptive-paper-overview",
+    "sentence-structure"
+  ],
+  "learningObjectives": [
+    "Lay out a formal letter with heading, subject line, salutation, body and close in the expected order.",
+    "Assign each body paragraph one job: state the purpose, give the detail, name the action wanted.",
+    "Set the right tone for a complaint, request, enquiry or application — firm, courteous and specific.",
+    "Judge an opening or closing line for register and directness."
+  ],
+  "tags": [
+    "descriptive-writing",
+    "formal-letter",
+    "complaint-letter",
+    "register"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm the formal letter is part of the descriptive paper. No model letter or wording was taken from it."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/Professional_and_Technical_Writing/Correspondence",
+      "title": "Professional and Technical Writing/Correspondence",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for standard business-letter parts and tone. The layout description, the worked letter and all examples here are original."
+    },
+    {
+      "sourceId": "GUTENBERG_GRAMMAR",
+      "url": "https://www.gutenberg.org/ebooks/37134",
+      "title": "The Elements of Style (1918)",
+      "publisher": "Project Gutenberg",
+      "usageMode": "public_domain",
+      "license": "Public domain",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the general principle of concise, direct prose. No sentences are reproduced."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "when-a-letter-is-set",
+      "type": "introduction",
+      "title": "When a letter is set",
+      "markdown": "The letter task gives you a role and a situation: write to a bank branch about a service failure, to a newspaper editor about a civic issue, to an office to request or enquire about something, or an application for a post. The reader is always someone with the power to act, and your one goal is to get that action.\n\nBecause the form is fixed, the letter is the most predictable marks in the descriptive paper — if you know the layout and keep the body tight, a clean letter is quick to write.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "formal letter task role and situation",
+        "reader is someone with power to act",
+        "fixed form predictable marks"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-layout",
+      "type": "method",
+      "title": "The fixed layout",
+      "markdown": "Write the parts in this order:\n\n1. **Sender's address / designation** — a short block; in an exam a generic address or *The Branch Manager*-style line is fine.\n2. **Date** — written out, e.g. *2 September 2026*.\n3. **Receiver's designation and address** — *The Branch Manager, State Bank, MG Road Branch*.\n4. **Subject line** — one line naming the matter: *Subject: Failed ATM withdrawal on 28 August — amount not reversed*.\n5. **Salutation** — *Dear Sir / Madam,* (or *Dear Sir,* if the role is known).\n6. **Body** — three short paragraphs (next block).\n7. **Close** — *Yours faithfully,* then your name (and account or reference number if relevant).\n\nKeep the whole letter to about 120–150 words. The subject line does a lot of work: a good one lets the reader route the letter before reading the body.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "formal letter layout order heading date receiver subject salutation body close",
+        "yours faithfully dear sir madam",
+        "subject line names the matter"
+      ],
+      "position": 20
+    },
+    {
+      "id": "the-three-paragraphs",
+      "type": "concept",
+      "title": "One job per paragraph",
+      "markdown": "The body is three short paragraphs, each with a single job:\n\n- **Paragraph 1 — purpose.** Say who you are (a customer, a resident), and what the letter is about, in two or three sentences. No background story yet.\n- **Paragraph 2 — detail.** The specific facts: dates, amounts, reference numbers, what happened, what you have already done about it. This paragraph carries the content mark.\n- **Paragraph 3 — action wanted.** State exactly what you want the reader to do and by when: *reverse the amount within seven working days*, *confirm in writing*, *send the revised statement*.\n\nIf a fourth paragraph is creeping in, it usually belongs inside paragraph 2 as another fact, or it is filler.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "formal letter three paragraphs purpose detail action",
+        "detail paragraph carries the content mark",
+        "state exactly what you want and by when"
+      ],
+      "position": 30
+    },
+    {
+      "id": "types-and-tone",
+      "type": "concept",
+      "title": "Types and tone",
+      "markdown": "The four common tasks and how the tone shifts:\n\n- **Complaint** — firm but not angry. State the failure as fact, name its effect, ask for a remedy. Avoid *disgusted*, *pathetic*, *never again*.\n- **Request** — courteous and specific. Make it easy to say yes: give the reason, the exact thing asked for, and any deadline.\n- **Enquiry** — brief and precise. List the questions, numbered if there are several, so the reply can address each.\n- **Application** — formal and confident. Match your points to what the post needs; do not plead.\n\nAcross all four: measured verbs (*request*, *would be grateful*, *look forward to*), no contractions, no exclamation marks, and a claim you can stand behind.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR", "GUTENBERG_GRAMMAR"],
+      "searchKeywords": [
+        "letter types complaint request enquiry application tone",
+        "firm but not angry state failure as fact",
+        "measured verbs no contractions no exclamation"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: a complaint letter",
+      "markdown": "*Task: You withdrew cash at an ATM, the machine did not dispense, but your account was debited. Write to the branch manager.*\n\n---\n\nThe Branch Manager  \nState Bank, MG Road Branch  \n\n2 September 2026  \n\nSubject: Failed ATM withdrawal on 28 August 2026 — amount debited but not dispensed\n\nDear Sir / Madam,\n\nI hold savings account 0000 1234 5678 at your branch. I am writing about a withdrawal of 5,000 rupees attempted at your MG Road ATM on 28 August 2026 at about 6:40 pm, during which the machine did not dispense any cash.\n\nMy account was nonetheless debited by 5,000 rupees, as the transaction reference SBIN28082026 in my passbook shows. I raised the matter at the branch counter on 29 August and was told it would be resolved in three working days, but no reversal has appeared as of today.\n\nI request that the amount of 5,000 rupees be credited back to my account within seven working days, and that I be informed in writing once it is done. I can be reached on the mobile number registered with the account.\n\nYours faithfully,  \nA. Kumar  \nAccount: 0000 1234 5678\n\n---\n\n**Why each part works.** The subject line lets the manager route it to the ATM-reconciliation desk without reading further. Paragraph 1 states the purpose and the one key fact — the machine did not dispense. Paragraph 2 gives the evidence the desk needs: the reference number, the amount, and that a counter complaint was already made. Paragraph 3 names a specific remedy and a specific deadline, and asks for written confirmation. The tone is firm — *no reversal has appeared* — without a single emotional word. The whole letter is about 150 words.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "complaint letter worked example failed ATM withdrawal not reversed",
+        "subject line routes the letter",
+        "paragraph 2 reference number amount evidence",
+        "specific remedy specific deadline firm tone"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-faults",
+      "type": "warning",
+      "title": "Common faults",
+      "markdown": "- **Too long.** A 250-word letter buries the ask. Three short paragraphs is the target.\n- **Emotional language.** *Shocking*, *worst service ever*, *harassed* — these lower the tone and the language mark.\n- **A vague ask.** *Please do the needful* is not an action. Name the amount, the step, and the deadline.\n- **Wrong register.** Contractions, *Hi*, exclamation marks, a rhetorical question.\n- **A story instead of facts.** Paragraph 2 needs dates and numbers, not a narrative.\n- **No subject line**, or a subject line that just says *Complaint*.",
+      "searchKeywords": [
+        "formal letter faults too long emotional vague ask",
+        "please do the needful is not an action",
+        "wrong register no subject line"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Layout order: sender, date, receiver, subject line, salutation, three body paragraphs, *Yours faithfully* and name.\n- Paragraph jobs: purpose → detail (dates, amounts, references) → action wanted (specific step, specific deadline).\n- About 120–150 words; three short paragraphs.\n- Tone by task: complaint firm not angry; request courteous and specific; enquiry brief and numbered; application confident, not pleading.\n- Formal register throughout: no contractions, no exclamation marks, measured verbs, claims you can stand behind.\n- The subject line should let the reader route the letter before reading the body.",
+      "searchKeywords": [
+        "formal letter summary revision layout paragraph jobs tone register recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the best option and give a one-line reason.\n\n1. Best opening sentence for a complaint about a delayed cheque-book: (a) \"I am extremely angry that my cheque-book has still not arrived.\" (b) \"I am writing about a cheque-book requested on 10 August that has not yet been delivered.\" (c) \"Where is the cheque-book I asked for last month?\" (d) \"This is to inform you about a small issue.\"\n2. Best closing line for a request to reschedule a locker appointment: (a) \"Do the needful at the earliest.\" (b) \"Hope you can help, thanks!\" (c) \"I would be grateful if the appointment could be moved to any working day next week, and confirmed by email.\" (d) \"Please try to adjust somehow.\"\n3. Which paragraph should come first in the body of an enquiry letter about education-loan terms? (a) the list of specific questions (b) a paragraph on why you need the loan (c) a paragraph identifying yourself and stating that you are seeking information on education-loan terms (d) a paragraph thanking the bank in advance\n4. A complaint letter draft is 90 words with a thin second paragraph. Best fix: (a) add a fourth paragraph of general remarks (b) add the missing specifics to paragraph 2 — dates, the amount, the reference number, the counter visit (c) repeat the request twice (d) leave it, shorter is safer\n5. The task is an application for a bank internship. Which tone is right? (a) pleading — stress how much you need it (b) confident and matched — connect your skills to what the internship involves (c) casual and friendly (d) demanding — state that you expect a reply\n6. Correct salutation and close when the role is known but not the name: (a) \"Dear Branch Manager, … Yours sincerely,\" (b) \"Dear Sir / Madam, … Yours faithfully,\" (c) \"Hi, … Regards,\" (d) \"To whomsoever it may concern, … Thanking you,\"",
+      "searchKeywords": [
+        "formal letter practice opening closing paragraph order tone salutation"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "layout-order",
+      "front": "What is the part order of a formal letter?",
+      "back": "Sender's address/designation, date, receiver's designation and address, subject line, salutation, three body paragraphs, then \"Yours faithfully,\" and your name.",
+      "explanation": "The subject line lets the reader route the letter before reading the body.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-layout"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "paragraph-jobs",
+      "front": "What is the single job of each of the three body paragraphs?",
+      "back": "Paragraph 1: purpose (who you are, what it is about). Paragraph 2: detail (dates, amounts, references, steps already taken). Paragraph 3: the action wanted, with a deadline.",
+      "explanation": "Paragraph 2 carries the content mark; a fourth paragraph is usually filler.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-three-paragraphs"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "letter-length",
+      "front": "How long should a bank-exam formal letter be?",
+      "back": "About 120–150 words, in three short paragraphs.",
+      "explanation": "A long letter buries the ask and loses the length mark.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-layout", "common-faults"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "complaint-tone",
+      "front": "What tone does a complaint letter need?",
+      "back": "Firm but not angry: state the failure as fact, name its effect, ask for a specific remedy. No emotional words like \"shocking\" or \"pathetic\".",
+      "explanation": "Emotional language lowers the language mark without strengthening the case.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["types-and-tone", "common-faults"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "vague-ask",
+      "front": "Why is \"Please do the needful\" a weak closing?",
+      "back": "It names no action. A good close states the exact step wanted and a deadline — e.g. \"reverse the amount within seven working days and confirm in writing\".",
+      "explanation": "The action paragraph is where the letter either lands or drifts.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-three-paragraphs", "common-faults"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "salutation-close-pair",
+      "front": "If you know the reader's role but not their name, which salutation and close?",
+      "back": "\"Dear Sir / Madam,\" with \"Yours faithfully,\". \"Yours sincerely,\" pairs with a named reader.",
+      "explanation": "Faithfully for an unknown name, sincerely for a known one.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-layout", "types-and-tone"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "subject-line-value",
+      "front": "What makes a good subject line on a formal letter?",
+      "back": "One line naming the specific matter and, if relevant, the date — enough for the reader to route the letter before reading the body. \"Complaint\" alone is too vague.",
+      "explanation": "Example: \"Failed ATM withdrawal on 28 August — amount not reversed\".",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-layout", "worked-example"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "pronouns",
+  "topicPosition": 25,
+  "title": "Pronouns",
+  "summary": "The kinds of pronoun, choosing the right case (subject, object, possessive), making a pronoun agree with its antecedent in number and person, avoiding vague or ambiguous reference, and the who-versus-whom and that-versus-which decisions.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech"],
+  "learningObjectives": [
+    "Name the kinds of pronoun and give an example of each.",
+    "Choose the subject, object or possessive form correctly, including after prepositions and in compound subjects.",
+    "Make a pronoun agree with its antecedent, and remove a vague or ambiguous reference.",
+    "Decide between who and whom, and between that and which."
+  ],
+  "tags": ["grammar", "pronouns", "case", "antecedent", "who-whom"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Pronouns",
+      "title": "English Grammar/Basic Parts of Speech/Pronouns",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the classification of pronouns and the case forms. All example sentences and exercises here are original and reflect current usage."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "kinds-of-pronoun",
+      "type": "concept",
+      "title": "Kinds of pronoun",
+      "markdown": "- **Personal:** I, you, he, she, it, we, they and their object and possessive forms.\n- **Possessive:** my, mine, your, yours, his, her, hers, its, our, ours, their, theirs.\n- **Reflexive and intensive:** myself, yourself, himself, ourselves. Reflexive when the object is the same as the subject (*she taught herself*); intensive for emphasis (*the Governor herself signed it*).\n- **Relative:** who, whom, whose, which, that — they introduce a relative clause.\n- **Demonstrative:** this, that, these, those.\n- **Interrogative:** who, whom, whose, which, what — they ask a question.\n- **Indefinite:** anyone, everyone, someone, no one, each, either, neither, all, some, none, few, many, several.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "kinds of pronoun personal possessive reflexive intensive relative demonstrative interrogative indefinite",
+        "reflexive object equals subject",
+        "intensive for emphasis"
+      ],
+      "position": 10
+    },
+    {
+      "id": "case",
+      "type": "method",
+      "title": "Choosing the case",
+      "markdown": "English pronouns change form by role.\n\n- **Subject form** (I, he, she, we, they, who) for the subject of a verb: *She and I reviewed the file.*\n- **Object form** (me, him, her, us, them, whom) for the object of a verb or a preposition: *The manager briefed her and me.* *between you and me*, not *between you and I*.\n- **Possessive form** before a noun (my, your, their) or standing alone (mine, yours, theirs). Note *its* (possessive) versus *it's* (it is).\n\nTest for a compound: drop the other person. \"The manager briefed ... me\" sounds right; \"... I\" does not. Use the same form in \"than\" and \"as\" comparisons by completing the clause: *he is taller than I (am)*, though *than me* is common in speech.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "pronoun case subject object possessive",
+        "between you and me",
+        "drop the other person test for compounds",
+        "its versus it's",
+        "than I versus than me"
+      ],
+      "position": 20
+    },
+    {
+      "id": "agreement",
+      "type": "concept",
+      "title": "Agreement with the antecedent",
+      "markdown": "A pronoun must match its **antecedent** — the noun it stands for — in number and person.\n\n- Singular antecedent, singular pronoun: *Every officer must carry his or her ID.* A plural rewrite is often smoother: *All officers must carry their IDs.*\n- Indefinite pronouns *each*, *either*, *neither*, *everyone*, *anybody*, *no one* are singular: *Neither of the clerks had finished his work.*\n- *Both*, *few*, *many*, *several* are plural.\n- A collective noun takes a singular pronoun when it acts as one unit (*the committee published its report*) and a plural one when members act separately.\n- Keep the person consistent: do not slide from *one* to *you* mid-sentence.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "pronoun antecedent agreement number person",
+        "every officer his or her",
+        "each neither everyone singular",
+        "collective noun singular pronoun as a unit",
+        "do not shift from one to you"
+      ],
+      "position": 30
+    },
+    {
+      "id": "vague-reference",
+      "type": "warning",
+      "title": "Vague and ambiguous reference",
+      "markdown": "Every pronoun should point clearly to one noun.\n\n- **Ambiguous:** *When the manager met the auditor, he seemed annoyed.* Who is *he*? Rewrite to name the person.\n- **Vague *it*, *this*, *that*, *which*:** *The report was late and the system was slow, which annoyed the board.* *Which* has no single noun to attach to. Add a noun: *..., a delay which annoyed the board.*\n- **No antecedent at all:** *In the circular, it says the charges have changed.* *It* refers to nothing; rewrite as *The circular says...*.\n- **Distant antecedent:** if the noun is several lines back, repeat the noun instead of a pronoun.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "ambiguous pronoun reference two possible antecedents",
+        "vague it this that which",
+        "pronoun with no antecedent",
+        "repeat the noun for a distant antecedent"
+      ],
+      "position": 40
+    },
+    {
+      "id": "who-whom-that-which",
+      "type": "method",
+      "title": "Who or whom, that or which",
+      "markdown": "- **Who / whom:** *who* is the subject form, *whom* the object form. Answer the clause with *he* or *him*: if *he* fits, use *who* (*who signed it* — he signed it); if *him* fits, use *whom* (*to whom did you send it* — to him). *Whose* is the possessive.\n- **That / which:** use *that* for a **defining** (restrictive) clause that identifies which one, with no commas: *the file that you flagged is missing*. Use *which* with commas for a **non-defining** clause that adds extra information: *the file, which you flagged last week, is missing*.\n- Use *who* / *whom* for people, *that* or *which* for things; *that* is acceptable for people in defining clauses.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "who versus whom subject object he him test",
+        "whose possessive",
+        "that for defining clause no commas",
+        "which for non-defining clause with commas"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**1.** *The panel asked the shortlisted candidates to send their certificates to (whoever / whomever) had requested them.*\n\nInside the clause, the pronoun is the **subject** of *had requested* — \"he had requested them\". So the answer is **whoever**. (The whole clause, not the pronoun, is the object of *to*.)\n\n**2.** *Each of the branches submitted (their / its) monthly return on time.*\n\nThe subject is *Each*, which is singular, so the pronoun is **its**. \"Each of the branches\" does not make the pronoun plural — *branches* sits inside a prepositional phrase.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "whoever versus whomever subject of the clause",
+        "each of the branches its not their",
+        "pronoun agreement worked example"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **\"Between you and I.\"** After a preposition, use the object form: *between you and me*.\n- **\"Myself\" as a subject or plain object:** *The report was prepared by John and myself* should be *by John and me*. Use *myself* only reflexively or for emphasis.\n- **\"Their\" with a singular indefinite in formal writing:** many exams still expect *his or her* after *everyone*, *each*, *anybody*; a plural noun avoids the issue.\n- **\"Its\" vs \"it's\":** *its* is possessive; *it's* is *it is*.\n- **\"Whom\" where \"who\" is needed:** *whom* is only for the object. \"the officer whom signed it\" is wrong.\n- **A pronoun with two possible antecedents.** Name the person.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "pronoun mistakes",
+        "between you and I",
+        "myself as object",
+        "everyone their formal",
+        "its it's",
+        "whom for subject"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Kinds: personal, possessive, reflexive/intensive, relative, demonstrative, interrogative, indefinite.\n- Case: subject form for the subject; object form after a verb or preposition (*between you and me*); possessive before a noun or standing alone. Drop the other person to test a compound.\n- Agreement: match the antecedent in number and person. *Each*, *either*, *neither*, *everyone*, *anybody* are singular; *both*, *few*, *many*, *several* plural. Keep person consistent.\n- Reference must be to one clear noun — no ambiguity, no vague *which*, no missing antecedent.\n- *Who* = subject (he), *whom* = object (him), *whose* = possessive. *That* + no commas for defining clauses; *which* + commas for non-defining. Use *myself* only reflexively or for emphasis.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "pronouns summary",
+        "revision",
+        "kinds case agreement reference who whom that which recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the correct option and give a one-line reason.\n\n1. The dispute was settled between the branch head and (I / me).\n2. Neither of the auditors had submitted (his / their) findings by noon.\n3. The candidate (who / whom) the committee selected joined last week.\n4. The circular, (that / which) was issued on Monday, revised the limits.\n5. The training was arranged by the HR team and (myself / me).\n6. Give the file to (whoever / whomever) is on duty at the counter.\n7. The report was written by (they / them) last quarter.\n8. The two clerks divided the work between (them / themselves).",
+      "searchKeywords": [
+        "pronouns practice questions",
+        "case agreement who whom that which whoever exercises"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "between-you-and-me",
+      "front": "\"Between you and (I / me)\" — which, and why?",
+      "back": "\"me\" — after the preposition \"between\", a pronoun takes the object form.",
+      "explanation": "Same for \"for him and me\", \"with her and me\".",
+      "difficulty": "easy",
+      "sourceBlockIds": ["case"],
+      "position": 10
+    },
+    {
+      "id": "drop-the-other",
+      "front": "How do you check the pronoun case in a compound like \"the manager briefed her and (I / me)\"?",
+      "back": "Drop the other person: \"the manager briefed … me\" is right, \"… I\" is wrong. So: \"her and me\".",
+      "explanation": "The compound does not change the case.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["case"],
+      "position": 20
+    },
+    {
+      "id": "each-singular",
+      "front": "\"Each of the branches submitted (its / their) return.\" Which?",
+      "back": "\"its\" — the subject is \"Each\" (singular). \"branches\" is inside a prepositional phrase and does not control the pronoun.",
+      "explanation": "each, either, neither, everyone, anybody are all singular.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["agreement", "worked-example"],
+      "position": 30
+    },
+    {
+      "id": "who-whom",
+      "front": "Who or whom: answer with he/him. \"____ signed the form\" and \"to ____ did you send it\"?",
+      "back": "\"who signed the form\" (he signed) and \"to whom did you send it\" (to him). Who = subject, whom = object.",
+      "explanation": "Whose is the possessive form.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["who-whom-that-which"],
+      "position": 40
+    },
+    {
+      "id": "that-which",
+      "front": "That vs which in a relative clause?",
+      "back": "\"that\" + no commas for a defining clause that says which one. \"which\" + commas for a non-defining clause that adds extra information.",
+      "explanation": "\"The file that you flagged\" vs \"The file, which you flagged last week, …\".",
+      "difficulty": "medium",
+      "sourceBlockIds": ["who-whom-that-which"],
+      "position": 50
+    },
+    {
+      "id": "myself",
+      "front": "When can you use \"myself\"?",
+      "back": "Only reflexively (subject and object are the same: \"I taught myself\") or for emphasis (\"I signed it myself\"). Not as a plain subject or object — \"by John and me\", not \"by John and myself\".",
+      "explanation": "A very common error in formal writing.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60
+    },
+    {
+      "id": "vague-which",
+      "front": "What is wrong with \"The report was late, which annoyed the board\"?",
+      "back": "\"which\" has no single noun to refer to — it points at the whole idea. Add a noun: \"…, a delay which annoyed the board.\"",
+      "explanation": "Every pronoun needs one clear antecedent.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["vague-reference"],
+      "position": 70
+    }
+  ]
+}

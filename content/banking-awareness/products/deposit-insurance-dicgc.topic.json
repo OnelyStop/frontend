@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "products",
+  "chapterName": "Banking products and operations",
+  "chapterPosition": 2,
+  "topicSlug": "deposit-insurance-dicgc",
+  "topicPosition": 40,
+  "title": "Deposit Insurance and the DICGC",
+  "summary": "How the DICGC insures bank deposits up to a fixed amount per depositor per bank, which deposits are covered and which are excluded, how the limit applies across joint accounts and different capacities, and when the DICGC pays — with a worked calculation of a depositor's insured amount.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["deposit-accounts"],
+  "learningObjectives": [
+    "State what the DICGC is, who owns it, and that cover is automatic and bank-funded.",
+    "List the deposits that are covered and the categories that are excluded.",
+    "Apply the per-depositor-per-bank limit across branches, banks and different account capacities.",
+    "Describe when the DICGC becomes liable and the 90-day payout rule."
+  ],
+  "tags": [
+    "banking-awareness",
+    "dicgc",
+    "deposit-insurance",
+    "depositor-protection"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "DICGC_FAQ",
+      "url": "https://www.dicgc.org.in/FAQs",
+      "title": "DICGC — Frequently Asked Questions",
+      "publisher": "Deposit Insurance and Credit Guarantee Corporation",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the coverage limit, covered and excluded deposits, the same-capacity-and-right rule and the 90-day payout timeline. Restated in original wording; the limit figure is treated as revisable."
+    },
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm the DICGC's status as a wholly owned RBI subsidiary and the interim-payout provision under a restrictive direction."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-is-deposit-insurance",
+      "type": "introduction",
+      "title": "What deposit insurance is",
+      "markdown": "If a bank fails, small depositors could lose their savings. **Deposit insurance** guarantees each depositor a fixed amount even if the bank cannot pay. In India it is run by the **Deposit Insurance and Credit Guarantee Corporation (DICGC)**, a wholly owned subsidiary of the RBI, set up under the DICGC Act, 1961.\n\nCover is **automatic** — a depositor does not apply for it or pay for it. Every commercial bank, regional rural bank, local area bank, payments bank and small finance bank operating in India, and eligible cooperative banks, are registered with the DICGC.",
+      "sourceIds": ["DICGC_FAQ", "RBI_HOME"],
+      "searchKeywords": [
+        "what is deposit insurance DICGC",
+        "DICGC wholly owned subsidiary of RBI 1961",
+        "cover is automatic depositor does not apply",
+        "which banks are registered with DICGC"
+      ],
+      "position": 10
+    },
+    {
+      "id": "covered-excluded",
+      "type": "concept",
+      "title": "What is covered and what is not",
+      "markdown": "**Covered:** all the usual deposits — savings, current, fixed and recurring — held with an insured bank, counting both principal and interest.\n\n**Not covered:**\n\n- deposits of foreign governments\n- deposits of central and state governments\n- inter-bank deposits\n- deposits received outside India\n- deposits of a state land development bank with a state cooperative bank\n- any amount the RBI has specifically exempted\n\nSo the scheme protects ordinary retail and business depositors, not governments or other banks.",
+      "sourceIds": ["DICGC_FAQ"],
+      "searchKeywords": [
+        "DICGC covered savings current fixed recurring principal interest",
+        "not covered government inter-bank foreign deposits",
+        "deposits received outside India excluded"
+      ],
+      "position": 20
+    },
+    {
+      "id": "the-limit",
+      "type": "concept",
+      "title": "The per-depositor-per-bank limit",
+      "markdown": "The insured amount is **up to ₹5,00,000 per depositor per bank**, covering **principal and interest together**.\n\nKey rules:\n\n- The limit is **per bank, not per branch** — every deposit a person holds across all branches of the same bank is added together, then capped at ₹5 lakh.\n- If the total is below ₹5 lakh, the whole amount is insured. If it is above, the depositor is insured for ₹5 lakh and ranks as an ordinary creditor for the rest.\n- Deposits held in **different banks** are insured separately — a fresh ₹5 lakh limit at each bank.\n- The limit was raised to ₹5 lakh in 2020, from ₹1 lakh.",
+      "sourceIds": ["DICGC_FAQ"],
+      "searchKeywords": [
+        "DICGC limit 5 lakh per depositor per bank",
+        "per bank not per branch all branches combined",
+        "different banks separate 5 lakh limit",
+        "limit raised to 5 lakh in 2020"
+      ],
+      "position": 30
+    },
+    {
+      "id": "same-capacity",
+      "type": "concept",
+      "title": "Same capacity and same right",
+      "markdown": "Deposits are combined only when held in the **same capacity and the same right**. Held in a *different* capacity, they get their own separate ₹5 lakh limit at the same bank. For example:\n\n- an account held **individually**\n- an account where the person is the **first-named** holder of a joint account\n- an account where the person is the **second-named** holder of a different joint account\n- an account held as a **partner, trustee, guardian or director**\n\nare each treated as a distinct depositor and separately insured up to ₹5 lakh. Even reordering the same two names on a joint account creates a different capacity.",
+      "sourceIds": ["DICGC_FAQ"],
+      "searchKeywords": [
+        "DICGC same capacity and same right",
+        "joint account first named second named different capacity",
+        "partner trustee guardian separate limit",
+        "reordering names changes capacity"
+      ],
+      "position": 40
+    },
+    {
+      "id": "when-dicgc-pays",
+      "type": "concept",
+      "title": "When the DICGC pays",
+      "markdown": "The DICGC becomes liable when an insured bank **goes into liquidation**, is **amalgamated** or has its **licence cancelled**, or when the RBI places it under a scheme such as an **All-Inclusive Direction** that restricts withdrawals.\n\n- Under a restrictive direction, the DICGC must pay eligible depositors within **90 days**: the bank submits claims in the first 45 days, the DICGC verifies and pays in the next 45.\n- On liquidation, the liquidator submits the depositor list and the DICGC pays through the liquidator.\n\nThe **premium** — a small fraction of a percent of assessable deposits per year — is paid entirely by the **bank**, never charged to the depositor.",
+      "sourceIds": ["DICGC_FAQ", "RBI_HOME"],
+      "searchKeywords": [
+        "DICGC becomes liable liquidation licence cancelled direction",
+        "90 day payout 45 days claims 45 days verify pay",
+        "premium paid by the bank not the depositor"
+      ],
+      "position": 50
+    },
+    {
+      "id": "insured-amount",
+      "type": "worked_example",
+      "title": "Working out a depositor's insured amount",
+      "markdown": "Ms Rao's accounts:\n\n**Bank X**\n\n- Savings account, held individually: ₹2,00,000\n- Fixed deposit, held individually: ₹4,50,000\n- Joint FD, Ms Rao first-named with her spouse: ₹3,00,000\n- Joint savings, spouse first-named and Ms Rao second: ₹1,50,000\n\n**Bank Y**\n\n- Savings account, held individually: ₹4,00,000\n\n**Working:** the two individual accounts at Bank X are the same capacity, so they combine — 2,00,000 + 4,50,000 = ₹6,50,000 — insured only to **₹5,00,000** (₹1,50,000 uninsured). The joint FD (Rao first-named) is a different capacity: **₹3,00,000**, fully insured. The joint savings (spouse first-named) is another distinct capacity: **₹1,50,000**, fully insured. Bank Y is a different bank: **₹4,00,000**, fully insured.\n\n**Total insured** = 5,00,000 + 3,00,000 + 1,50,000 + 4,00,000 = **₹13,50,000**. Total deposits = ₹15,00,000, so **₹1,50,000** is uninsured.",
+      "sourceIds": ["DICGC_FAQ"],
+      "searchKeywords": [
+        "worked example DICGC insured amount joint accounts",
+        "two individual accounts combine capped at 5 lakh",
+        "total insured 13.5 lakh uninsured 1.5 lakh"
+      ],
+      "expectedAnswers": [
+        {
+          "label": "Combined individual-capacity balance at Bank X",
+          "value": 650000,
+          "expression": "200000+450000"
+        },
+        {
+          "label": "Uninsured at Bank X, individual capacity",
+          "value": 150000,
+          "expression": "200000+450000-500000"
+        },
+        {
+          "label": "Total insured across all accounts",
+          "value": 1350000,
+          "expression": "500000+300000+150000+400000"
+        },
+        {
+          "label": "Total uninsured",
+          "value": 150000,
+          "expression": "1500000-1350000"
+        }
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **₹5 lakh is per depositor per bank — not per account, and not per branch.**\n- **Principal and interest are counted together** against the ₹5 lakh, not separately.\n- **Different banks give separate limits;** two branches of the same bank give one limit.\n- **Joint accounts count separately only if the capacity differs** — and changing the order of the same names does create a different capacity.\n- **Government and inter-bank deposits are not insured.**\n- **The depositor pays nothing;** the bank pays the premium.\n- **The DICGC pays within 90 days of an RBI direction**, not immediately on any bad news about a bank.",
+      "searchKeywords": [
+        "DICGC confusions per depositor per bank",
+        "principal and interest together",
+        "joint account capacity",
+        "bank pays premium 90 day rule"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- The DICGC, an RBI subsidiary under the DICGC Act 1961, insures bank deposits automatically; the bank pays the premium.\n- Covered: savings, current, fixed and recurring deposits, principal plus interest. Excluded: government, inter-bank and foreign deposits.\n- Limit: ₹5,00,000 per depositor per bank (all branches combined), raised from ₹1 lakh in 2020.\n- Deposits in different rights or capacities (individual, first-named joint, second-named joint, trustee, partner) each get a separate ₹5 lakh limit; different banks get separate limits.\n- The DICGC pays within 90 days when the RBI issues a restrictive direction, or through the liquidator on winding-up.",
+      "searchKeywords": [
+        "deposit insurance DICGC summary revision",
+        "limit covered excluded capacity payout recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. What is the maximum insured amount per depositor per bank, and does it include interest?\n2. A person has ₹3 lakh in a savings account and ₹3 lakh in a fixed deposit at two branches of the same bank. How much is insured?\n3. Are current-account balances covered by the DICGC?\n4. Is a ₹10 lakh inter-bank deposit insured?\n5. Who pays the DICGC premium?\n6. A depositor has ₹4 lakh in an individual account and is first-named holder of a joint account with ₹4 lakh, both at the same bank. How much is insured in total?\n7. Within how many days must the DICGC pay after the RBI places a bank under a withdrawal-restricting direction?\n\n**Answers:** 1 ₹5,00,000, and yes — principal and interest together. 2 ₹5,00,000 — same bank, same capacity, so the ₹6 lakh combines and is capped. 3 Yes — savings, current, fixed and recurring are all covered. 4 No — inter-bank deposits are excluded. 5 The bank, never the depositor. 6 ₹8,00,000 — the individual account and the first-named joint account are different capacities, each insured up to ₹5 lakh and each below the cap. 7 90 days.",
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "dicgc-what",
+      "front": "What is the DICGC and who owns it?",
+      "back": "The Deposit Insurance and Credit Guarantee Corporation — a wholly owned subsidiary of the RBI, set up under the DICGC Act, 1961, that insures bank deposits automatically.",
+      "explanation": "Cover needs no application by the depositor.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-is-deposit-insurance"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "dicgc-limit",
+      "front": "What is the deposit-insurance cover limit, and per what?",
+      "back": "Up to ₹5,00,000 per depositor per bank, principal and interest combined, with all branches of that bank treated as one. Raised from ₹1 lakh in 2020.",
+      "explanation": "Different banks each give a fresh ₹5 lakh limit.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-limit"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "dicgc-covered",
+      "front": "Which deposits are covered by the DICGC and which are not?",
+      "back": "Covered: savings, current, fixed and recurring deposits of ordinary depositors. Not covered: central and state government deposits, inter-bank deposits, foreign-government deposits, and deposits received outside India.",
+      "explanation": "The scheme protects retail and business depositors, not governments or banks.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["covered-excluded"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "dicgc-capacity",
+      "front": "When do a person's several accounts at one bank get separate ₹5 lakh limits?",
+      "back": "When they are held in a different capacity and right — for example individually, as first-named holder of a joint account, as second-named holder of another, or as trustee, partner or guardian. Reordering the same names changes the capacity.",
+      "explanation": "Same capacity means the balances are added and then capped.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["same-capacity"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "dicgc-different-banks",
+      "front": "How is the limit applied across two different banks versus two branches?",
+      "back": "Two different banks give separate ₹5,00,000 limits. Two branches of the same bank share one limit.",
+      "explanation": "The unit is the bank, not the branch or the account.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-limit"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "dicgc-90-days",
+      "front": "How quickly must the DICGC pay depositors?",
+      "back": "Within 90 days of an RBI direction restricting withdrawals — 45 days for the bank to file claims, 45 for the DICGC to verify and pay. On liquidation it pays through the liquidator.",
+      "explanation": "This interim payout does not need the bank to be wound up.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["when-dicgc-pays"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "dicgc-premium",
+      "front": "Who pays the deposit-insurance premium?",
+      "back": "The insured bank, in full. The depositor pays nothing and does not need to apply — cover is automatic.",
+      "explanation": "Premium is a small fraction of a percent of assessable deposits.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["when-dicgc-pays"],
+      "status": "approved",
+      "position": 70
+    }
+  ]
+}

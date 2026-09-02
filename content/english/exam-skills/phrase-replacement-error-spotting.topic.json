@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "exam-skills",
+  "chapterName": "Exam question skills",
+  "chapterPosition": 2,
+  "topicSlug": "phrase-replacement-error-spotting",
+  "topicPosition": 70,
+  "title": "Phrase Replacement",
+  "summary": "A phrase in the sentence is highlighted and you choose the best replacement — or 'No replacement required' when it is already correct. How to predict the fix, test each option in the full sentence, and recognise when nothing needs changing.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["error-detection", "sentence-improvement"],
+  "learningObjectives": [
+    "Name what the highlighted phrase is testing before reading the options.",
+    "Test each option in the whole sentence and reject any that breaks agreement, tense or meaning.",
+    "Decide when 'No replacement required' is the correct answer.",
+    "Keep the fix inside the highlighted span and leave the rest of the sentence alone."
+  ],
+  "tags": [
+    "exam-skills",
+    "phrase-replacement",
+    "sentence-improvement",
+    "grammar"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm phrase replacement is a standard question type. No content reused."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Verb_Tenses",
+      "title": "English Grammar/Verb Tenses",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the tense-consistency reasoning. All sentences here are original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-format",
+      "type": "introduction",
+      "title": "The format",
+      "markdown": "A sentence is given with one phrase highlighted. Four or five options offer replacements for that phrase, and one option is **\"No replacement required\"** (sometimes worded \"No correction required\").\n\nThe question is narrow: does the highlighted phrase, and only that phrase, need to change for the sentence to be correct and natural? You are not asked to rewrite the sentence or to improve parts that are not highlighted. \"No replacement required\" is a genuine answer and is correct in a fair share of items.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrase replacement format one phrase highlighted",
+        "no replacement required is a real answer",
+        "only the highlighted phrase not the rest of the sentence"
+      ],
+      "position": 10
+    },
+    {
+      "id": "what-gets-tested",
+      "type": "concept",
+      "title": "What the highlighted phrase is testing",
+      "markdown": "Almost every item is one of these:\n\n- **Tense consistency** — a verb in the phrase that clashes with the tense of the rest of the sentence.\n- **Subject-verb agreement** inside the phrase — *one of the branches were* → *was*.\n- **Preposition** — *discuss about*, *comprised of*, *capable to*, *superior than*.\n- **Article or determiner** — a missing or wrong *a / an / the*, *less* vs *fewer*, *amount* vs *number*.\n- **Idiom / fixed phrase** — *in accordance with*, *with a view to doing*, *no sooner ... than*.\n- **Parallelism** — a phrase in a list that does not match the form of the other items.\n- **Redundancy / wordiness** — *return back*, *the reason is because*, *in spite of the fact that*.\n\nName which one it is before you look at the options.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "what phrase replacement tests tense agreement preposition article idiom parallelism redundancy",
+        "one of the branches were was",
+        "discuss about comprised of superior than",
+        "return back the reason is because"
+      ],
+      "position": 20
+    },
+    {
+      "id": "method",
+      "type": "method",
+      "title": "The method",
+      "markdown": "1. **Read the whole sentence** and decide whether the highlighted phrase is actually wrong. If you cannot state what is wrong with it, \"No replacement required\" is in play.\n2. **Predict the fix** in your own words before reading the options — \"the verb should be past\", \"it needs *for*, not *to*\".\n3. **Test each option by reading the full sentence with it in place.** Reject any option that fixes the target but breaks agreement, tense, meaning, or adds a new error.\n4. **Prefer the smallest correct change** that keeps the original meaning. An option that is grammatical but changes what the sentence says is wrong.\n5. **Keep the change inside the highlighted span.** If a fix would require editing words outside it, that option is not the answer.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrase replacement method read whole sentence decide if wrong",
+        "predict the fix before options",
+        "test each option in the full sentence",
+        "smallest correct change keep meaning",
+        "keep the change inside the highlighted span"
+      ],
+      "position": 30
+    },
+    {
+      "id": "when-no-replacement",
+      "type": "concept",
+      "title": "When \"No replacement required\" is right",
+      "markdown": "Choose it when **the highlighted phrase is already correct and natural**, and every other option either introduces an error or changes the meaning.\n\nSigns it is the answer:\n\n- You cannot name a specific fault in the phrase — only a vague feeling that it \"could be phrased better\".\n- Each replacement option swaps a correct preposition for a wrong one, shifts the tense away from the rest of the sentence, or makes the sentence say something different.\n- The supposed error is in a part of the sentence **outside** the highlight.\n\nDo not pick it just because the sentence is long or formal. A real, nameable fault beats it every time.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "when no replacement required is right phrase already correct",
+        "cannot name a specific fault",
+        "every other option introduces an error or changes meaning",
+        "supposed error is outside the highlight",
+        "not just because long or formal"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**1.** *The committee has been reviewing the proposal since March and* ***will submit its report next week.***\nOptions: (a) submitted its report next week (b) will submit its report next week (c) had submitted its report next week (d) submits its report the next week\n\nThe sentence runs from a past start (*since March*) to a future action (*next week*). *Will submit* is the right tense and *next week* is idiomatic without *the*. Nothing in the phrase is wrong, and (a), (c) and (d) each break the tense or the phrase. The answer is **(b) — No replacement in effect; the phrase stands.**\n\n**2.** *One of the branches* ***were reporting*** *a shortfall every month last year.*\nOptions: (a) were reporting (b) was reporting (c) have reported (d) are reporting\n\n*One of the branches* is singular (*one*), so the verb must be *was*, and *last year* fixes the time as past continuous. The answer is **(b) was reporting**.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrase replacement worked example since March will submit next week no replacement",
+        "one of the branches was reporting singular agreement past continuous"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Replacing a correct phrase** because a longer or more formal option \"sounds like an exam answer\".\n- **Fixing an error that is outside the highlighted span** — the highlight is the only thing you may change.\n- **Choosing an option that corrects the grammar but changes the meaning.**\n- **Not reading the whole sentence**, so you miss the tense the rest of it sets.\n- **Skipping \"No replacement required\"** as if it were never correct.\n- **Picking the first grammatical option** without checking that later ones aren't also grammatical and closer to the meaning.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrase replacement mistakes replacing a correct phrase",
+        "fixing an error outside the highlight",
+        "corrects grammar changes meaning",
+        "not reading whole sentence tense",
+        "skipping no replacement required",
+        "picking first grammatical option"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Decide first whether the highlighted phrase is actually wrong; if you cannot name the fault, \"No replacement required\" is live.\n- Name the test: tense consistency, subject-verb agreement, preposition, article/determiner, idiom, parallelism, or redundancy.\n- Predict the fix, then test each option by reading the full sentence with it in place; reject any that adds an error or changes the meaning.\n- Prefer the smallest correct change; keep it inside the highlighted span.\n- \"No replacement required\" is correct when the phrase is fine and every other option worsens the sentence — not just because the sentence is long.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrase replacement summary revision decide if wrong name the test predict fix test options smallest change no replacement"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the best replacement for the phrase in CAPITALS, or \"No replacement required\". Give a one-line reason.\n\n1. The branch manager, along with two clerks, WERE TRANSFERRED to the head office in May.\n   (a) was transferred (b) were being transferred (c) have been transferred (d) No replacement required\n2. The auditors recommended that every cheque ABOVE ONE LAKH BE countersigned by a second officer.\n   (a) above one lakh is (b) above one lakh be (c) above one lakh being (d) above one lakh to be\n3. Customers were asked to DISCUSS ABOUT their complaints with the grievance desk.\n   (a) discuss about (b) discuss on (c) discuss (d) discuss regarding\n4. She has been with the bank FOR MORE THAN a decade and knows every process.\n   (a) since more than (b) from more than (c) for more than (d) by more than\n5. The new system is far SUPERIOR THAN the one it replaced.\n   (a) superior than (b) superior to (c) superior from (d) more superior than\n6. No sooner HAD THE NOTICE BEEN put up than the queue formed.\n   (a) had the notice been (b) the notice had been (c) has the notice been (d) the notice was\n7. In spite of the fact that the loan was approved, DISBURSEMENT WAS DELAYED by a week.\n   (a) disbursement was delayed (b) disbursement had been delaying (c) disbursement is delayed (d) disbursement being delayed",
+      "searchKeywords": [
+        "phrase replacement practice along with agreement subjunctive be discuss about superior to no sooner than in spite of"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "no-replacement-when",
+      "front": "When is 'No replacement required' the correct answer?",
+      "back": "When the highlighted phrase is already correct and natural, you cannot name a specific fault in it, and every other option introduces an error or changes the meaning.",
+      "explanation": "Length or formality alone is never the reason to replace a phrase.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["when-no-replacement"],
+      "position": 10
+    },
+    {
+      "id": "name-the-test",
+      "front": "Before reading the options, what should you work out about the highlighted phrase?",
+      "back": "Which single thing it is testing: tense consistency, subject-verb agreement, preposition, article/determiner, idiom, parallelism, or redundancy.",
+      "explanation": "Naming the test tells you what a correct option must fix.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-gets-tested"],
+      "position": 20
+    },
+    {
+      "id": "inside-the-span",
+      "front": "The grammar error you spotted is in a part of the sentence that isn't highlighted. What now?",
+      "back": "You cannot fix it — only the highlighted phrase may change. If the highlight itself is fine, the answer is 'No replacement required'.",
+      "explanation": "A distractor error outside the span is a common trap.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["method", "common-mistakes"],
+      "position": 30
+    },
+    {
+      "id": "test-in-full-sentence",
+      "front": "How do you check a replacement option?",
+      "back": "Read the whole sentence with the option in place. Reject it if it fixes the target but breaks agreement, tense or meaning, or adds a new error.",
+      "explanation": "An option can be grammatical in isolation and still be wrong in the sentence.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["method"],
+      "position": 40
+    },
+    {
+      "id": "smallest-change",
+      "front": "Two options both make the sentence grammatical. How do you choose?",
+      "back": "Take the smallest change that keeps the original meaning. An option that is correct but shifts what the sentence says is wrong.",
+      "explanation": "Phrase replacement is a repair, not a rewrite.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["method"],
+      "position": 50
+    },
+    {
+      "id": "along-with-agreement",
+      "front": "'The manager, along with two clerks, ___ transferred.' Singular or plural verb?",
+      "back": "Singular — 'was transferred'. 'Along with ...', 'as well as ...', 'together with ...' do not change the number of the subject.",
+      "explanation": "The subject is 'the manager'; the phrase between commas is parenthetical.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-gets-tested"],
+      "position": 60
+    },
+    {
+      "id": "superior-to",
+      "front": "Correct the preposition: 'superior than', 'inferior than', 'prior than'.",
+      "back": "superior to, inferior to, prior to. These take 'to', not 'than'. 'More superior' is also wrong — 'superior' is not compared with 'more'.",
+      "explanation": "A frequent preposition item in phrase replacement.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-gets-tested"],
+      "position": 70
+    }
+  ]
+}

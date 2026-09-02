@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "arithmetic",
+  "chapterName": "Arithmetic",
+  "chapterPosition": 2,
+  "topicSlug": "average",
+  "topicPosition": 30,
+  "title": "Average",
+  "summary": "The arithmetic mean, the sum-count-average triangle, how an average shifts when a value is added or removed, and why average speed over equal distances is not the mean of the two speeds.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["simplification-and-order-of-operations"],
+  "learningObjectives": [
+    "Move freely between sum, count and average.",
+    "Update an average when a value is added, removed or replaced.",
+    "Use the assumed-mean (deviation) shortcut to average quickly.",
+    "Compute average speed correctly for equal distances and for equal times."
+  ],
+  "tags": ["arithmetic", "average", "mean", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Subject:Mathematics",
+      "title": "Subject:Mathematics (Wikibooks mathematics collection)",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Collection used to cross-check the definition of the arithmetic mean. Every example and question here is original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "What an average is",
+      "markdown": "The average, or arithmetic mean, of a set of numbers is their sum divided by how many there are. It is the single value that could replace every member of the set without changing the total.\n\nThat last idea is the useful one for exams. If the average of 12 innings is 48, the batsman's total is 48 times 12, that is 576, regardless of the individual scores. Most average questions are really questions about the total, reached through the average.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "average meaning",
+        "arithmetic mean",
+        "sum divided by count"
+      ],
+      "position": 10
+    },
+    {
+      "id": "sum-count-average",
+      "type": "formula",
+      "title": "The sum, count, average triangle",
+      "markdown": "Three quantities, any two give the third:\n\n- average equals sum divided by count\n- sum equals average times count\n- count equals sum divided by average\n\nWhen a question gives you an average and a count, immediately write down the sum; it is almost always the quantity you actually need.\n\nA useful property: if every number in a set is increased by k, the average increases by k. If every number is multiplied by k, the average is multiplied by k.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "sum equals average times count",
+        "average formula",
+        "shift all values"
+      ],
+      "position": 20
+    },
+    {
+      "id": "adding-removing",
+      "type": "method",
+      "title": "When a value is added, removed or replaced",
+      "markdown": "Work with totals, not averages.\n\n- **Add a value:** new sum equals old sum plus the value; new count is one more.\n- **Remove a value:** new sum equals old sum minus the value; new count is one less.\n- **Replace a value:** new sum equals old sum minus the value that left plus the value that arrived; count is unchanged.\n\nA faster route for \"the average changes by d when one person joins\": the newcomer's value equals the new average plus (old count) times d, because they must also lift every existing member by d.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "average when value added",
+        "replace a value",
+        "average change"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-removed",
+      "type": "worked_example",
+      "title": "Worked example: a value removed",
+      "markdown": "The average of six numbers is 42. One of them, 17, is deleted. **Find the average of the remaining five.**\n\nOld sum is 42 times 6, that is 252.\n\nNew sum is 252 minus 17, that is 235.\n\nNew average is 235 divided by 5, which is 47.\n\nThe average rose because the number removed (17) was below the old average (42).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "average after removing a number",
+        "six numbers average 42",
+        "delete a value"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "new average of five numbers",
+          "value": 47,
+          "expression": "(42*6 - 17)/5"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-target",
+      "type": "worked_example",
+      "title": "Worked example: the score needed to lift an average",
+      "markdown": "A player has averaged 48 runs across 12 innings. **What must the player score in the 13th innings to raise the average to 50?**\n\nRequired total after 13 innings is 50 times 13, that is 650.\n\nTotal so far is 48 times 12, that is 576.\n\nThe 13th score must be 650 minus 576, that is 74.\n\nShortcut: the new average is 50, and the player must also lift each of the 12 earlier innings by 2, so the score is 50 plus 12 times 2, that is 74.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "score to increase average",
+        "batting average",
+        "innings average"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "runs needed in the 13th innings",
+          "value": 74,
+          "expression": "50*13 - 48*12"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-speed",
+      "type": "worked_example",
+      "title": "Worked example: average speed over equal distances",
+      "markdown": "A courier rides out at 60 km/h and returns along the same road at 40 km/h. **What is the average speed for the whole trip?**\n\nAverage speed is total distance divided by total time, not the mean of the two speeds. For a distance d each way:\n\ntime out is d over 60, time back is d over 40, total time is d over 60 plus d over 40.\n\nA cleaner route: for two equal distances at speeds a and b, the average speed is 2 times a times b divided by (a plus b). Here that is 2 times 60 times 40 divided by 100, which is 48 km/h.\n\nNote it is below 50, the plain mean, because more time is spent at the slower speed.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "average speed equal distance",
+        "harmonic mean speed",
+        "out and back"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "average speed (km/h)",
+          "value": 48,
+          "expression": "2*60*40/(60+40)"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Averaging the averages.** The average of two groups is not the mean of their averages unless the groups are the same size. Combine totals and counts.\n- **Taking the mean of two speeds.** That is only correct when the two speeds are held for equal times, not equal distances.\n- **Off-by-one on the count.** Adding a value raises the count by one; a boundary error here changes the answer.\n- **Forgetting the shift rule.** When one value replaces another and the average moves by d, every member effectively moves by d.\n- **Rounding an intermediate sum.** Keep sums exact until the final division.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "average mistakes",
+        "average of averages",
+        "weighted average"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- average equals sum over count; the moment you see an average and a count, write the sum.\n- Add or remove a value by adjusting the sum and the count together.\n- Replacement: new sum equals old sum minus the leaver plus the joiner.\n- If every value shifts by k, the average shifts by k; if every value scales by k, so does the average.\n- Two groups combine by total sum over total count, never by averaging the averages.\n- Equal distances at speeds a and b: average speed is 2ab over (a plus b).\n- Equal times at speeds a and b: average speed is (a plus b) over 2.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": ["average summary", "revision", "average speed rules"],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "1. The average of five numbers is 30. A sixth number is added and the average becomes 33. What is the sixth number?\n2. The average weight of 8 people is 62 kg. One person weighing 74 kg leaves and another joins; the average stays 62 kg. What is the new person's weight?\n3. A car covers the first 100 km at 50 km/h and the next 100 km at 25 km/h. Find the average speed.\n4. The average age of a team of 11 is 26 years. If the coach's age is included, the average becomes 27. How old is the coach?\n5. Find the average of the first five multiples of 7.\n6. The average of 11 results is 50. The average of the first six is 49 and the average of the last six is 52. Find the sixth result.\n7. A batsman's average after 16 innings is 36. In the 17th innings he scores 53. What is his new average?\n8. The average weight of 4 boxes is 30 kg. A fifth box is added and the average rises to 32 kg. What does the fifth box weigh?",
+      "searchKeywords": ["average practice questions", "exercises"],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "average-definition",
+      "front": "Define the average (arithmetic mean) of a set of numbers.",
+      "back": "Sum of the numbers divided by how many there are — the value that could replace each one without changing the total.",
+      "explanation": "This 'replace every value' view is what makes average questions really total questions.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["introduction"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "sum-from-average",
+      "front": "Average of 12 innings is 48. What is the total?",
+      "back": "48 × 12 = 576. sum = average × count.",
+      "explanation": "Given an average and a count, write the sum first.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["sum-count-average"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "shift-rule",
+      "front": "Every number in a set is increased by 7. What happens to the average?",
+      "back": "It also increases by 7. Adding k to every value adds k to the mean; multiplying every value by k multiplies the mean by k.",
+      "explanation": "A direct consequence of sum = average × count.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sum-count-average"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "value-removed",
+      "front": "Average of six numbers is 42; remove the value 17. New average?",
+      "back": "(42×6 − 17)/5 = 235/5 = 47. It rose because 17 was below 42.",
+      "explanation": "Adjust the sum and the count together.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-removed"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "target-score",
+      "front": "Averaged 48 over 12 innings; what 13th score makes the average 50?",
+      "back": "50×13 − 48×12 = 650 − 576 = 74. (Or 50 + 12×2 = 74.)",
+      "explanation": "The new innings must also lift each earlier innings to the new average.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["worked-example-target"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "avg-speed-equal-distance",
+      "front": "Average speed for equal distances at 60 and 40 km/h?",
+      "back": "2ab/(a+b) = 2×60×40/100 = 48 km/h — not 50, because more time is spent slow.",
+      "explanation": "Average speed = total distance / total time.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-speed"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "avg-of-averages",
+      "front": "Can you average two groups' averages to get the combined average?",
+      "back": "Only if the groups are the same size. Otherwise combine total sum over total count.",
+      "explanation": "Group size weights the contribution.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    },
+    {
+      "id": "equal-time-speed",
+      "front": "When is average speed just (a+b)/2?",
+      "back": "When the two speeds are held for equal times. For equal distances it is 2ab/(a+b).",
+      "explanation": "The weighting is by time, not distance.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["quick-revision"],
+      "position": 80,
+      "status": "approved"
+    }
+  ]
+}
