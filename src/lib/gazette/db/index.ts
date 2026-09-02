@@ -17,7 +17,9 @@ let testOverride: Db | undefined;
 async function init(): Promise<Db> {
   const client = new PGlite(process.env.PGLITE_DATA_DIR || ".pgdata");
   const db = drizzle(client, { schema });
-  await migrate(db, { migrationsFolder: join(process.cwd(), "migrations") });
+  await migrate(db, {
+    migrationsFolder: join(process.cwd(), "gazette-migrations"),
+  });
   return db;
 }
 
