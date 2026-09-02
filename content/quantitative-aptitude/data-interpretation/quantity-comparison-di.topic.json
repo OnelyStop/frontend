@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "quantity-comparison-di",
+  "topicPosition": 100,
+  "title": "Quantity Comparison in DI",
+  "summary": "The Quantity I versus Quantity II format built on a data set: compute each quantity from the table or graph, then decide which of QI greater, QII greater, equal, or no fixed relation holds — computing only as far as the decision needs.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "table-data-interpretation",
+    "percentages",
+    "average"
+  ],
+  "learningObjectives": [
+    "Read the two quantities and identify which data each is built from.",
+    "Compute each quantity only as far as the comparison requires.",
+    "Choose correctly among QI greater, QII greater, equal, and no fixed relation.",
+    "Tell a strict comparison (greater) from a weak one (greater than or equal to)."
+  ],
+  "tags": ["data-interpretation", "quantity-comparison", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Percents_Decimals_and_Fractions",
+      "title": "Arithmetic/Percents Decimals and Fractions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the percentage and ratio arithmetic only. All datasets and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm quantity comparison is a standard question format. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-format",
+      "type": "introduction",
+      "title": "The Quantity I / Quantity II format",
+      "markdown": "Each question gives two quantities, both built from the same data set, and asks how they compare. The standard answer choices are:\n\n- Quantity I > Quantity II\n- Quantity I < Quantity II\n- Quantity I = Quantity II\n- Quantity I ≥ Quantity II\n- Quantity I ≤ Quantity II\n- no fixed relation (the data does not pin one of them down)\n\nSo the task is two ordinary DI calculations followed by a comparison. The skill is doing only as much of each calculation as the comparison needs.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "quantity I quantity II format di",
+        "six answer choices greater less equal no relation",
+        "two calculations then a comparison"
+      ],
+      "position": 10
+    },
+    {
+      "id": "compute-only-as-far-as-needed",
+      "type": "method",
+      "title": "Compute only as far as the decision needs",
+      "markdown": "1. **Identify the data behind each quantity.** \"Quantity I: the average new accounts across the four branches\" tells you which cells to use.\n2. **Estimate both first.** If one is clearly larger — 490 versus 500 is close, but 200 versus 450 is not — you may be able to answer without finishing.\n3. **When they are close, compute exactly.** A near tie is exactly where a rushed estimate goes wrong.\n4. **State the relation, including whether it is strict.** If both quantities can only be equal or QI larger, the answer is ≥, not >.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "compute only as far as needed quantity comparison",
+        "identify data behind each quantity estimate first",
+        "compute exactly when close state strict or weak relation"
+      ],
+      "position": 20
+    },
+    {
+      "id": "the-six-outcomes",
+      "type": "concept",
+      "title": "When each outcome applies",
+      "markdown": "- **QI > QII / QI < QII** — both quantities are fixed by the data and one is strictly larger.\n- **QI = QII** — both are fixed and identical.\n- **QI ≥ QII / QI ≤ QII** — used when a quantity is a range (\"at least\", \"the minimum possible\") rather than a single value, so equality is possible but one side never falls below the other.\n- **No fixed relation** — the data does not determine one of the quantities (a needed figure is missing, or a quantity depends on an unknown split). With a fully specified table this is rare, but it is the answer when a quantity genuinely cannot be computed.\n\nMost table-and-graph sets give single values, so the honest answer is usually one of the first three.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "six outcomes quantity comparison when each applies",
+        "strict greater versus greater or equal range quantity",
+        "no fixed relation missing figure unknown split"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: deposits and advances by branch",
+      "markdown": "Deposits and advances, ₹ crore:\n\n| Branch | Deposits | Advances |\n| ------ | -------- | -------- |\n| P | 400 | 300 |\n| Q | 350 | 280 |\n| R | 500 | 450 |\n| S | 300 | 210 |\n\n**Item 1.** Quantity I: Branch P's advances-to-deposits ratio. Quantity II: Branch S's advances-to-deposits ratio.\nQI = 300 ÷ 400 = 0.75. QII = 210 ÷ 300 = 0.70. QI is larger → **Quantity I > Quantity II**.\n\n**Item 2.** Quantity I: the combined advances of Q and S. Quantity II: Branch R's deposits.\nQI = 280 + 210 = 490. QII = 500. QI is smaller → **Quantity I < Quantity II**. (Estimating: 490 and 500 are close enough that the exact sum is worth doing.)",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example quantity comparison deposits advances branch",
+        "advances to deposits ratio combined advances versus deposits"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "Item 1 QI (P advances/deposits)",
+          "value": 0.75,
+          "expression": "300/400"
+        },
+        {
+          "label": "Item 1 QII (S advances/deposits)",
+          "value": 0.7,
+          "expression": "210/300"
+        },
+        {
+          "label": "Item 2 QI (Q+S advances)",
+          "value": 490,
+          "expression": "280+210"
+        },
+        {
+          "label": "Item 2 QII (R deposits)",
+          "value": 500,
+          "expression": "500"
+        }
+      ]
+    },
+    {
+      "id": "quick-comparisons",
+      "type": "shortcut",
+      "title": "Comparing without finishing",
+      "markdown": "- **Two ratios** — cross-multiply. For 300/400 versus 210/300, compare 300 × 300 = 90,000 with 210 × 400 = 84,000; the first is bigger, so 300/400 is the larger ratio.\n- **A sum versus a single value** — add the smaller terms first and stop once you pass the target, or once it is clear you cannot reach it.\n- **Two percentages of different bases** — a bigger percentage of a bigger base is clearly larger; only mixed cases need the full multiplication.\n- **Averages** — an average is between the smallest and largest of its terms, which sometimes settles the comparison by itself.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "compare without finishing quantity comparison",
+        "cross multiply ratios sum versus single value",
+        "percentages of different bases averages bounded"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Answering \"no fixed relation\" because you did not finish** — with a full table both quantities are usually computable; not finishing is not the same as not determined.\n- **Calling it > when it should be ≥** — check whether a quantity is a single value or a range.\n- **Estimating a near tie** — 490 versus 500 needs the exact figures.\n- **Comparing a ratio with a raw number**, or a percentage with a count, without noticing the mismatch.\n- **Dropping a unit** so a ₹ crore quantity is compared with a ₹ lakh quantity.\n- **Forgetting which quantity is which** after a long calculation — label them.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "quantity comparison mistakes",
+        "no fixed relation because unfinished strict versus weak estimating near tie",
+        "ratio versus raw number unit mismatch label the quantities"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Each quantity is a DI calculation on the given data; do only as much as the comparison needs.\n- Estimate both; when they are close, compute exactly.\n- >, <, = when both quantities are single fixed values; ≥ or ≤ when one is a range.\n- \"No fixed relation\" only when the data genuinely does not determine a quantity — not when you ran out of time.\n- Compare ratios by cross-multiplication; keep units and labels straight.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "quantity comparison summary revision",
+        "do as much as needed estimate then exact strict weak no relation recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Loans sanctioned, in hundreds, by scheme and quarter:\n\n| Scheme | Q1 | Q2 | Q3 | Q4 |\n| -------- | -- | -- | -- | -- |\n| Housing | 12 | 15 | 18 | 15 |\n| Vehicle | 20 | 16 | 14 | 18 |\n| Business | 8 | 10 | 12 | 14 |\n| Education | 6 | 9 | 12 | 9 |\n\nFor each, compute Quantity I and Quantity II and give the relation with a one-line reason.\n\n1. QI: Housing's Q3. QII: Vehicle's Q1. — *QI < QII* (18 < 20).\n2. QI: Business's four-quarter total. QII: Education's four-quarter total. — *QI > QII* (44 > 36).\n3. QI: Housing's Q2. QII: Housing's Q4. — *QI = QII* (15 = 15).\n4. QI: Vehicle's average per quarter. QII: Housing's Q3. — *QI < QII* (17 < 18).\n5. QI: percentage change in Education from Q1 to Q3. QII: percentage change in Business from Q1 to Q3. — *QI > QII* (100% > 50%).\n6. QI: total Q1 across all schemes. QII: total Q4 across all schemes. — *QI < QII* (46 < 56).\n7. QI: Housing Q1 ÷ Vehicle Q1. QII: Education Q1 ÷ Housing Q2. — *QI > QII* (0.6 > 0.4).\n8. QI: Business's Q4. QII: Education's Q4. — *QI > QII* (14 > 9).",
+      "searchKeywords": [
+        "quantity comparison practice loans by scheme quarter",
+        "totals averages percentage change ratios compared"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        { "label": "1 QI (Housing Q3)", "value": 18, "expression": "18" },
+        { "label": "1 QII (Vehicle Q1)", "value": 20, "expression": "20" },
+        {
+          "label": "2 QI (Business total)",
+          "value": 44,
+          "expression": "8+10+12+14"
+        },
+        {
+          "label": "2 QII (Education total)",
+          "value": 36,
+          "expression": "6+9+12+9"
+        },
+        { "label": "3 QI (Housing Q2)", "value": 15, "expression": "15" },
+        { "label": "3 QII (Housing Q4)", "value": 15, "expression": "15" },
+        {
+          "label": "4 QI (Vehicle average)",
+          "value": 17,
+          "expression": "(20+16+14+18)/4"
+        },
+        { "label": "4 QII (Housing Q3)", "value": 18, "expression": "18" },
+        {
+          "label": "5 QI (Education Q1 to Q3 %)",
+          "value": 100,
+          "expression": "(12-6)/6*100"
+        },
+        {
+          "label": "5 QII (Business Q1 to Q3 %)",
+          "value": 50,
+          "expression": "(12-8)/8*100"
+        },
+        { "label": "6 QI (total Q1)", "value": 46, "expression": "12+20+8+6" },
+        {
+          "label": "6 QII (total Q4)",
+          "value": 56,
+          "expression": "15+18+14+9"
+        },
+        {
+          "label": "7 QI (Housing Q1 / Vehicle Q1)",
+          "value": 0.6,
+          "expression": "12/20"
+        },
+        {
+          "label": "7 QII (Education Q1 / Housing Q2)",
+          "value": 0.4,
+          "expression": "6/15"
+        },
+        { "label": "8 QI (Business Q4)", "value": 14, "expression": "14" },
+        { "label": "8 QII (Education Q4)", "value": 9, "expression": "9" }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "qc-choices",
+      "front": "What are the answer choices in a Quantity I / Quantity II question?",
+      "back": "QI > QII, QI < QII, QI = QII, QI >= QII, QI <= QII, or no fixed relation.",
+      "explanation": "The last one means the data does not determine a quantity.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-format"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "qc-method",
+      "front": "What is the efficient approach to a quantity-comparison question?",
+      "back": "Identify the data behind each quantity, estimate both, and compute exactly only when they are close. Do only as much as the comparison needs.",
+      "explanation": "A near tie is where a rushed estimate fails.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["compute-only-as-far-as-needed"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "qc-strict-vs-weak",
+      "front": "When is the answer 'QI >= QII' rather than 'QI > QII'?",
+      "back": "When one quantity is a range (\"at least\", \"minimum possible\") rather than a single value, so equality is possible but QI never falls below QII.",
+      "explanation": "Check whether each quantity is one number or a bound.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-six-outcomes"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "qc-no-relation",
+      "front": "When is 'no fixed relation' the correct answer?",
+      "back": "Only when the data genuinely does not determine one of the quantities — a needed figure is missing or a split is unknown. Not when you simply ran out of time.",
+      "explanation": "With a fully specified table it is rare.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-six-outcomes"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "qc-cross-multiply",
+      "front": "How do you compare Quantity I = 300/400 with Quantity II = 210/300 without dividing?",
+      "back": "Cross-multiply: 300 x 300 = 90,000 versus 210 x 400 = 84,000. The larger product (QI) is the larger ratio.",
+      "explanation": "Avoids two divisions.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["quick-comparisons"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "qc-average-bounds",
+      "front": "How can the bounds of an average settle a comparison quickly?",
+      "back": "An average lies between the smallest and largest of its terms. If Quantity II is below that range or above it, you know the relation without computing the average exactly.",
+      "explanation": "Sometimes the comparison is decided before the division.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["quick-comparisons"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "qc-label",
+      "front": "Why label the two quantities as you work?",
+      "back": "After a long calculation it is easy to compare them the wrong way round. Writing 'QI = ...' and 'QII = ...' keeps the final comparison honest.",
+      "explanation": "Also keeps units matched (crore with crore, not lakh).",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}
