@@ -59,10 +59,54 @@ describe("RLS policies", () => {
     const missing = policies(text)
       .filter(({ table, verb, role }) => {
         if (role === "service_role") return false; // bypasses RLS entirely
-        return !held.has(`${table}:${verb}:${role}`) && !held.has(`${table}:ALL:${role}`);
+        return (
+          !held.has(`${table}:${verb}:${role}`) &&
+          !held.has(`${table}:ALL:${role}`)
+        );
       })
       .map(({ table, verb, role }) => `${table}: FOR ${verb} TO ${role}`);
 
     expect(missing).toEqual([]);
+  });
+});
+
+// A table without RLS is readable by anyone holding the anon key, which is
+// public by design. Nothing errors; the data is simply available.
+describe("row level security", () => {
+  const text = sql();
+
+  const created = () => [
+    ...new Set(
+      [...text.matchAll(/CREATE TABLE (?:IF NOT EXISTS )?"?(\w+)"?/gi)].map(
+        (m) => m[1],
+      ),
+    ),
+  ];
+
+  it("parses the migrations it is meant to check", () => {
+    expect(created().length).toBeGreaterThan(4);
+  });
+
+  it("enables it on every table the migrations create", () => {
+    const enabled = new Set(
+      [
+        ...text.matchAll(/ALTER TABLE "?(\w+)"?\s+ENABLE ROW LEVEL SECURITY/gi),
+      ].map((m) => m[1]),
+    );
+    expect(created().filter((t) => !enabled.has(t))).toEqual([]);
+  });
+});
+
+// Drizzle is forward-only, so every rollback is hand-written. A missing one is
+// found mid-incident.
+describe("rollbacks", () => {
+  it("exist for every migration", () => {
+    const forward = readdirSync(MIGRATIONS)
+      .filter((f) => /^\d+.*\.sql$/.test(f))
+      .sort();
+    const back = new Set(readdirSync(join(MIGRATIONS, "rollback")));
+
+    expect(forward.length).toBeGreaterThan(0);
+    expect(forward.filter((f) => !back.has(f))).toEqual([]);
   });
 });

@@ -53,7 +53,7 @@ const DOUBTS: Doubt[] = [
     section: "English Language",
     topic: "Error Spotting",
     title: "Subject–verb agreement with 'one of the' — IBPS keeps trapping me",
-    body: "\"One of the students who was/were present\". I picked was. Wrong. Which noun does the relative clause actually attach to?",
+    body: '"One of the students who was/were present". I picked was. Wrong. Which noun does the relative clause actually attach to?',
     author: "Arjun P",
     ago: "8h",
     stuck: 143,
@@ -112,7 +112,9 @@ export function CommunityView() {
   const left = quota - USED;
 
   const list = useMemo(() => {
-    const rows = DOUBTS.filter((d) => section === "All" || d.section === section);
+    const rows = DOUBTS.filter(
+      (d) => section === "All" || d.section === section,
+    );
     return sort === "stuck"
       ? [...rows].sort((a, b) => b.stuck - a.stuck)
       : rows;
@@ -138,11 +140,11 @@ export function CommunityView() {
                 {Array.from({ length: quota }, (_, i) => (
                   <span
                     key={i}
-                    className={`h-4 w-1.5 rounded-pill ${i < left ? "bg-brand" : "bg-line"}`}
+                    className={`rounded-pill h-4 w-1.5 ${i < left ? "bg-brand" : "bg-line"}`}
                   />
                 ))}
               </span>
-              <span className="tnum text-[13px] text-ink-3">
+              <span className="tnum text-ink-3 text-[13px]">
                 {left} of {quota} left
               </span>
             </span>
@@ -162,7 +164,7 @@ export function CommunityView() {
               setDraft(false);
             }}
           >
-            <p className="text-[13px] text-ink-3">
+            <p className="text-ink-3 text-[13px]">
               Posting as {profile.name}. A doubt has to name its section and
               topic — that is what makes it findable by the next person stuck
               there.
@@ -170,15 +172,15 @@ export function CommunityView() {
             <input
               autoFocus
               placeholder="What exactly are you stuck on?"
-              className="mt-3 w-full border-b border-line pb-2 text-[15px] outline-none placeholder:text-ink-4 focus:border-brand"
+              className="border-line placeholder:text-ink-4 focus:border-brand mt-3 w-full border-b pb-2 text-[15px] outline-none"
             />
             <textarea
               rows={3}
               placeholder="What have you already tried? Which mock or paper was it in?"
-              className="mt-3 w-full resize-none text-[14px] leading-relaxed outline-none placeholder:text-ink-4"
+              className="placeholder:text-ink-4 mt-3 w-full resize-none text-[14px] leading-relaxed outline-none"
             />
-            <div className="mt-4 flex items-center gap-3 border-t border-line pt-4">
-              <select className="h-9 rounded-ctl border border-line bg-canvas px-2.5 text-[13px] outline-none">
+            <div className="border-line mt-4 flex items-center gap-3 border-t pt-4">
+              <select className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none">
                 {SECTIONS.map((s) => (
                   <option key={s}>{SECTION_SHORT[s]}</option>
                 ))}
@@ -203,7 +205,7 @@ export function CommunityView() {
           <button
             type="button"
             onClick={() => setSort((v) => (v === "stuck" ? "new" : "stuck"))}
-            className="text-[13px] text-ink-3 hover:text-ink"
+            className="text-ink-3 hover:text-ink text-[13px]"
           >
             {sort === "stuck" ? "Most stuck ↓" : "Newest ↓"}
           </button>
@@ -221,7 +223,7 @@ export function CommunityView() {
               return (
                 <li
                   key={d.id}
-                  className="card flex gap-4 p-5 transition-colors duration-200 hover:bg-brand-soft/40"
+                  className="card hover:bg-brand-soft/40 flex gap-4 p-5 transition-colors duration-200"
                 >
                   {/* Stuck count, not upvotes: it measures a blind spot, so it
                       reads as a number of people, not a score. */}
@@ -229,7 +231,7 @@ export function CommunityView() {
                     type="button"
                     onClick={() => toggleStuck(d.id)}
                     aria-pressed={mine}
-                    className={`h-fit w-14 shrink-0 rounded-ctl border py-2 text-center transition-colors ${
+                    className={`rounded-ctl h-fit w-14 shrink-0 border py-2 text-center transition-colors ${
                       mine
                         ? "border-brand bg-brand-soft text-brand"
                         : "border-line bg-canvas text-ink-3 hover:border-line-2 hover:text-ink"
@@ -244,25 +246,25 @@ export function CommunityView() {
                   </button>
 
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 text-[13px] text-ink-3">
-                      <span className="font-medium text-ink-2">
+                    <div className="text-ink-3 flex items-center gap-2 text-[13px]">
+                      <span className="text-ink-2 font-medium">
                         {SECTION_SHORT[d.section]}
                       </span>
                       <span aria-hidden>·</span>
                       <span>{d.topic}</span>
                       {d.solved ? (
-                        <span className="rounded-pill bg-ok-soft px-2.5 py-0.5 text-[13px] text-ok">
+                        <span className="rounded-pill bg-ok-soft text-ok px-2.5 py-0.5 text-[13px]">
                           answered
                         </span>
                       ) : null}
                     </div>
-                    <h3 className="mt-1 text-[15px] font-medium leading-snug">
+                    <h3 className="mt-1 text-[15px] leading-snug font-medium">
                       {d.title}
                     </h3>
-                    <p className="mt-1 max-w-[70ch] text-[13px] leading-relaxed text-ink-3">
+                    <p className="text-ink-3 mt-1 max-w-[70ch] text-[13px] leading-relaxed">
                       {d.body}
                     </p>
-                    <div className="mt-2 flex items-center gap-3 text-[13px] text-ink-3">
+                    <div className="text-ink-3 mt-2 flex items-center gap-3 text-[13px]">
                       <span>{d.author}</span>
                       <span aria-hidden>·</span>
                       <span>{d.ago} ago</span>
@@ -278,7 +280,7 @@ export function CommunityView() {
           </ul>
         )}
 
-        <p className="mt-8 max-w-[62ch] text-[13px] leading-relaxed text-ink-3">
+        <p className="text-ink-3 mt-8 max-w-[62ch] text-[13px] leading-relaxed">
           Marking yourself stuck is not a vote. It tags the topic on your own
           attempt map, so the doubts you press here come back as drills.
         </p>

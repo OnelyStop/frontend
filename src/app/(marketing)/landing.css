@@ -41,7 +41,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-
 /* Memory — <details name> accordion, zero JS. */
 
 /* White ground, separated by a rule rather than a tint — the page runs one
@@ -199,7 +198,7 @@
 }
 
 @media (max-width: 61.99rem) {
-  }
+}
 
 /* The page measured near-zero chroma against ElevenLabs' third-of-a-viewport of
    colour. This is the one colour moment: a soft field the product sits on. */
@@ -214,17 +213,13 @@
   inset: -8% -4% 18%;
   z-index: -1;
   border-radius: 50%;
-  background: radial-gradient(
-      46% 62% at 20% 46%,
-      var(--glow-a) 0%,
-      transparent 68%
-    ),
+  background:
+    radial-gradient(46% 62% at 20% 46%, var(--glow-a) 0%, transparent 68%),
     radial-gradient(42% 58% at 60% 32%, var(--glow-b) 0%, transparent 70%),
     radial-gradient(44% 60% at 88% 58%, var(--glow-c) 0%, transparent 68%);
   filter: blur(44px);
   opacity: 0.92;
 }
-
 
 /* The pledge lays itself out in Tailwind — see landing-view.tsx. */
 

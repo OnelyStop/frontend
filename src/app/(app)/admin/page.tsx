@@ -71,7 +71,9 @@ export default async function Page() {
         <div className="admin-status__head">
           <h2 className="panel__title">RBAC status</h2>
           {failing.length === 0 ? (
-            <span className="admin-pill admin-pill--ok">All checks passing</span>
+            <span className="admin-pill admin-pill--ok">
+              All checks passing
+            </span>
           ) : (
             <span className="admin-pill admin-pill--bad">
               {failing.length} failing

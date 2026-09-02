@@ -51,7 +51,9 @@ async function call<T>(
     } catch {
       /* keep the raw body */
     }
-    throw new Error(`Razorpay ${init?.method ?? "GET"} ${path} ${res.status}: ${detail}`);
+    throw new Error(
+      `Razorpay ${init?.method ?? "GET"} ${path} ${res.status}: ${detail}`,
+    );
   }
   return JSON.parse(text) as T;
 }
@@ -159,7 +161,10 @@ export function verifySubscriptionSignature(input: {
  * key order and whitespace, and the hash then never matches — which looks
  * exactly like an attack in the logs.
  */
-export function verifyWebhookSignature(rawBody: string, signature: string): boolean {
+export function verifyWebhookSignature(
+  rawBody: string,
+  signature: string,
+): boolean {
   const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
   if (!secret) throw new Error("RAZORPAY_WEBHOOK_SECRET is not set");
 

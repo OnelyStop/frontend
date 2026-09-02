@@ -1,0 +1,8 @@
+# Strips AI co-author trailers.
+#
+# This duplicates the global hook at ~/.config/git/hooks/commit-msg on purpose:
+# husky points core.hooksPath at .husky/_, which takes precedence over the
+# global path, so without this the global hook silently stops running in this
+# repo and the trailer comes back.
+perl -ni -e 'print unless /Co-Authored-By:.*(Claude|noreply\@anthropic)/i' "$1"
+perl -i -0pe 's/\n\n+\z/\n/' "$1"

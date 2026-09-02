@@ -28,9 +28,24 @@ type Entry = {
 
 /** The exams this aspirant has applied for, in the order they sit. ⌘1/⌘2/⌘3. */
 export const ENTERED: Entry[] = [
-  { board: "IBPS PO", stages: "Prelims & Mains", stage: "Prelims", date: "12 Oct" },
-  { board: "SBI PO", stages: "Prelims & Mains", stage: "Prelims", date: "08 Nov" },
-  { board: "RBI Grade B", stages: "Phase 1 & 2", stage: "Phase 1", date: "23 Nov" },
+  {
+    board: "IBPS PO",
+    stages: "Prelims & Mains",
+    stage: "Prelims",
+    date: "12 Oct",
+  },
+  {
+    board: "SBI PO",
+    stages: "Prelims & Mains",
+    stage: "Prelims",
+    date: "08 Nov",
+  },
+  {
+    board: "RBI Grade B",
+    stages: "Phase 1 & 2",
+    stage: "Phase 1",
+    date: "23 Nov",
+  },
 ];
 
 const SECTION: Record<string, string> = {
@@ -82,7 +97,7 @@ export function crumbTrail(
 
   const trail: Crumb[] = segs.map((seg, i) => ({
     href: `/${segs.slice(0, i + 1).join("/")}`,
-    label: i === 0 ? SECTION[seg] ?? pretty(seg) : pretty(seg),
+    label: i === 0 ? (SECTION[seg] ?? pretty(seg)) : pretty(seg),
   }));
 
   if (spec) {
@@ -118,7 +133,6 @@ export function RunningHead() {
 
   const spec = params.get("spec");
   const sit = params.get("sit");
-  const trail = crumbTrail(pathname, spec, sit);
   const parent = upOne(pathname, Boolean(spec || sit));
   const entry =
     ENTERED.find((e) => e.board === board) ??
@@ -188,7 +202,7 @@ export function RunningHead() {
   useEffect(() => setAccount(false), [pathname]);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-canvas/85 backdrop-blur-xl">
+    <header className="border-line bg-canvas/85 sticky top-0 z-30 border-b backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-[1600px] items-center gap-5 px-8 lg:px-16">
         <Link
           href="/home"
@@ -203,7 +217,7 @@ export function RunningHead() {
             aria-haspopup="menu"
             aria-expanded={switching}
             onClick={() => setSwitching((v) => !v)}
-            className="flex h-9 items-center gap-2 rounded-pill pl-2 pr-2.5 text-[14px] transition-colors hover:text-ink"
+            className="rounded-pill hover:text-ink flex h-9 items-center gap-2 pr-2.5 pl-2 text-[14px] transition-colors"
           >
             <span
               className="size-1.5 rounded-full"
@@ -219,9 +233,9 @@ export function RunningHead() {
             <div
               role="menu"
               aria-label="Exams you have applied for"
-              className="absolute left-0 top-11 z-50 w-72 overflow-hidden rounded-[18px] border border-line bg-canvas p-1.5 shadow-pop"
+              className="border-line bg-canvas shadow-pop absolute top-11 left-0 z-50 w-72 overflow-hidden rounded-[18px] border p-1.5"
             >
-              <p className="px-2.5 pb-1.5 pt-2 text-[13px] text-ink-3">
+              <p className="text-ink-3 px-2.5 pt-2 pb-1.5 text-[13px]">
                 You have applied for
               </p>
               {ENTERED.map((e, i) => (
@@ -231,17 +245,17 @@ export function RunningHead() {
                   role="menuitemradio"
                   aria-checked={e.board === board}
                   onClick={() => switchTo(e)}
-                  className={`flex w-full items-center gap-2 rounded-ctl px-2.5 py-2 text-left transition-colors ${
+                  className={`rounded-ctl flex w-full items-center gap-2 px-2.5 py-2 text-left transition-colors ${
                     e.board === board ? "bg-brand-soft" : "hover:bg-brand-soft"
                   }`}
                 >
                   <span className="min-w-0 flex-1">
                     <span className="block text-[14px]">{e.board}</span>
-                    <span className="block text-[13px] text-ink-3">
+                    <span className="text-ink-3 block text-[13px]">
                       {e.stages} · {e.date}
                     </span>
                   </span>
-                  <kbd className="rounded-pill border border-line px-2 py-0.5 text-[11px] text-ink-3">
+                  <kbd className="rounded-pill border-line text-ink-3 border px-2 py-0.5 text-[11px]">
                     ⌘{i + 1}
                   </kbd>
                 </button>
@@ -257,20 +271,20 @@ export function RunningHead() {
         <button
           type="button"
           onClick={() => setRetrievalOpen(true)}
-          className="flex h-10 items-center gap-5 rounded-pill border border-line-2 pl-4 pr-2 text-[14px] text-ink-3 transition-colors hover:border-ink/25"
+          className="rounded-pill border-line-2 text-ink-3 hover:border-ink/25 flex h-10 items-center gap-5 border pr-2 pl-4 text-[14px] transition-colors"
         >
           <span className="flex items-center gap-2">
             <Search size={14} />
             Search
           </span>
-          <kbd className="rounded-pill border border-line px-2 py-0.5 text-[11px]">
+          <kbd className="rounded-pill border-line border px-2 py-0.5 text-[11px]">
             ⌘K
           </kbd>
         </button>
 
         <Link
           href="/upgrade"
-          className="hidden h-10 items-center rounded-pill bg-ink px-5 text-[14px] text-white transition-colors hover:bg-ink/85 sm:flex"
+          className="rounded-pill bg-ink hover:bg-ink/85 hidden h-10 items-center px-5 text-[14px] text-white transition-colors sm:flex"
         >
           Upgrade
         </Link>
@@ -282,7 +296,7 @@ export function RunningHead() {
             aria-expanded={account}
             aria-label="Account"
             onClick={() => setAccount((v) => !v)}
-            className="grid size-10 place-items-center rounded-full border border-line-2 text-[13px] transition-colors hover:border-ink/25"
+            className="border-line-2 hover:border-ink/25 grid size-10 place-items-center rounded-full border text-[13px] transition-colors"
           >
             {initials}
           </button>
@@ -291,7 +305,7 @@ export function RunningHead() {
             <div
               role="menu"
               aria-label="Account"
-              className="absolute right-0 top-12 z-50 w-[300px] rounded-[18px] border border-line bg-canvas p-1.5 shadow-pop"
+              className="border-line bg-canvas shadow-pop absolute top-12 right-0 z-50 w-[300px] rounded-[18px] border p-1.5"
             >
               {ACCOUNT_GROUP.items.map((i) => (
                 <Link
@@ -299,10 +313,10 @@ export function RunningHead() {
                   href={i.path}
                   role="menuitem"
                   onClick={() => setAccount(false)}
-                  className="block rounded-ctl px-3 py-2.5 transition-colors hover:bg-brand-soft"
+                  className="rounded-ctl hover:bg-brand-soft block px-3 py-2.5 transition-colors"
                 >
                   <span className="block text-[14px]">{i.label}</span>
-                  <span className="mt-0.5 block text-[13px] leading-snug text-ink-3">
+                  <span className="text-ink-3 mt-0.5 block text-[13px] leading-snug">
                     {i.hint}
                   </span>
                 </Link>
@@ -314,7 +328,7 @@ export function RunningHead() {
                   setAccount(false);
                   void signOut().then(() => router.replace("/"));
                 }}
-                className="mt-1 block w-full rounded-ctl border-t border-line px-3 py-2.5 text-left text-[14px] text-ink-2 transition-colors hover:bg-brand-soft hover:text-ink"
+                className="rounded-ctl border-line text-ink-2 hover:bg-brand-soft hover:text-ink mt-1 block w-full border-t px-3 py-2.5 text-left text-[14px] transition-colors"
               >
                 Sign out
               </button>

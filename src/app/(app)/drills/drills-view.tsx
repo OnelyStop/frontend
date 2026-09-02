@@ -40,17 +40,17 @@ export function DrillsView() {
           {/* Pace bar: the drill's whole point is training the 45-second
               instinct, so the budget is visible before you answer. */}
           <div className="mb-6 flex items-center gap-3">
-            <div className="h-1.5 flex-1 overflow-hidden rounded-pill bg-line">
-              <div className="h-full w-1/4 rounded-pill bg-brand" />
+            <div className="rounded-pill bg-line h-1.5 flex-1 overflow-hidden">
+              <div className="rounded-pill bg-brand h-full w-1/4" />
             </div>
-            <span className="tnum text-[13px] text-ink-3">11s / 45s</span>
+            <span className="tnum text-ink-3 text-[13px]">11s / 45s</span>
           </div>
 
           <p className="text-[17px] leading-relaxed">
             In the following passage one word is missing. Choose the option that
             best fits the blank.
           </p>
-          <p className="mt-4 rounded-[14px] bg-canvas p-5 text-[16px] leading-relaxed text-ink-2 ring-1 ring-line">
+          <p className="bg-canvas text-ink-2 ring-line mt-4 rounded-[14px] p-5 text-[16px] leading-relaxed ring-1">
             The committee was unable to ______ a consensus despite three
             sittings.
           </p>
@@ -60,7 +60,7 @@ export function DrillsView() {
               <button
                 key={o}
                 onClick={() => setPicked(i)}
-                className={`flex items-center gap-3 rounded-ctl border px-4 py-3.5 text-left text-[15px] transition-all ${
+                className={`rounded-ctl flex items-center gap-3 border px-4 py-3.5 text-left text-[15px] transition-all ${
                   picked === i
                     ? "border-brand bg-brand-soft"
                     : "border-line bg-canvas hover:border-line-2"
@@ -68,9 +68,7 @@ export function DrillsView() {
               >
                 <span
                   className={`grid size-6 shrink-0 place-items-center rounded-full text-[12px] ${
-                    picked === i
-                      ? "bg-brand text-white"
-                      : "bg-line text-ink-3"
+                    picked === i ? "bg-brand text-white" : "bg-line text-ink-3"
                   }`}
                 >
                   {String.fromCharCode(65 + i)}
@@ -80,7 +78,7 @@ export function DrillsView() {
             ))}
           </div>
 
-          <div className="mt-6 flex items-center gap-3 border-t border-line pt-5">
+          <div className="border-line mt-6 flex items-center gap-3 border-t pt-5">
             <Button disabled={picked === null}>Submit answer</Button>
             <Button variant="ghost">Skip · costs nothing</Button>
           </div>
@@ -123,7 +121,7 @@ export function DrillsView() {
           </Field>
         </div>
 
-        <p className="mt-6 border-t border-line pt-4 text-[13px] leading-relaxed text-ink-3">
+        <p className="border-line text-ink-3 mt-6 border-t pt-4 text-[13px] leading-relaxed">
           Weak topics pulls from the bottom-left of your attempt map. Speed
           keeps the accuracy you have and cuts the clock.
         </p>
@@ -141,7 +139,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <span className="w-20 shrink-0 text-[13px] text-ink-3">{label}</span>
+      <span className="text-ink-3 w-20 shrink-0 text-[13px]">{label}</span>
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
@@ -159,7 +157,7 @@ function Pick({
   return (
     <button
       onClick={onClick}
-      className={`tnum h-9 rounded-ctl border px-4 text-[13px] font-medium transition-colors ${
+      className={`tnum rounded-ctl h-9 border px-4 text-[13px] font-medium transition-colors ${
         on
           ? "border-ink bg-ink text-white"
           : "border-line bg-canvas text-ink-2 hover:border-line-2"

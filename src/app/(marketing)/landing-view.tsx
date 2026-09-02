@@ -136,47 +136,47 @@ export function LandingView() {
         <div className="mx-auto max-w-[1200px]">
           <header className="flex flex-wrap items-start justify-between gap-x-16 gap-y-6 pb-12">
             <div>
-              <p className="text-[15px] text-ink-3">Our promises</p>
+              <p className="text-ink-3 text-[15px]">Our promises</p>
               <h2 className="mt-3 max-w-[16ch] text-[44px] leading-[1.06] tracking-[-0.03em]">
                 Straight answers before you sign up
               </h2>
             </div>
-            <p className="max-w-[42ch] text-[16px] leading-[1.55] text-ink-2">
+            <p className="text-ink-2 max-w-[42ch] text-[16px] leading-[1.55]">
               Eight of them, numbered and dated. What the marking actually is,
               what it costs, what happens to your answers, and the one question
               we can&rsquo;t answer yet.
             </p>
           </header>
 
-          <ol className="grid grid-cols-1 border-l border-t border-line sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="border-line grid grid-cols-1 border-t border-l sm:grid-cols-2 lg:grid-cols-4">
             {PLEDGE.map((c) => (
               <li
                 key={c.no}
-                className="relative border-b border-r border-line p-7 transition-colors duration-200 hover:bg-canvas sm:aspect-square"
+                className="border-line hover:bg-canvas relative border-r border-b p-7 transition-colors duration-200 sm:aspect-square"
               >
-                <span className="tnum text-[13px] text-ink-3">{c.no}</span>
-                <p className="mt-6 text-[17px] font-medium leading-snug tracking-[-0.01em] text-ink">
+                <span className="tnum text-ink-3 text-[13px]">{c.no}</span>
+                <p className="text-ink mt-6 text-[17px] leading-snug font-medium tracking-[-0.01em]">
                   {c.claim}
                 </p>
-                <p className="mt-2.5 text-[14px] leading-[1.55] text-ink-2">
+                <p className="text-ink-2 mt-2.5 text-[14px] leading-[1.55]">
                   {c.rest}
                 </p>
 
                 <span
                   aria-hidden
-                  className="absolute bottom-[-2.5px] right-[-2.5px] size-[5px] rounded-full bg-ink-4"
+                  className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
                 />
               </li>
             ))}
           </ol>
 
           <div className="mt-6 flex flex-wrap items-baseline justify-between gap-x-10 gap-y-3">
-            <span className="text-[14px] text-ink-3">
+            <span className="text-ink-3 text-[14px]">
               This version: {PLEDGE_DATED}
             </span>
             <a
               href="/terms"
-              className="inline-flex items-center gap-1.5 text-[14px] text-ink underline decoration-line-2 underline-offset-4 transition-colors hover:decoration-ink"
+              className="text-ink decoration-line-2 hover:decoration-ink inline-flex items-center gap-1.5 text-[14px] underline underline-offset-4 transition-colors"
             >
               Every change to this list is dated
               <ArrowUpRight size={14} />
@@ -188,7 +188,9 @@ export function LandingView() {
       <section className="memory" id="memory">
         <div className="memory__inner">
           <header className="pair pair--stack memory__head">
-            <h2 className="display d2 trim">Your exam date sets the schedule</h2>
+            <h2 className="display d2 trim">
+              Your exam date sets the schedule
+            </h2>
             <p className="t-lede trim pair__lede">
               Not a generic review queue. The intervals are computed back from
               the paper you are actually sitting, and the cards come from marks

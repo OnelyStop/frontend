@@ -25,7 +25,10 @@ const has = (t: string, ...words: string[]) =>
   words.some((w) => t.toLowerCase().includes(w));
 
 const paras = (t: string) =>
-  t.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  t
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
 
 const TASKS: Task[] = [
   {
@@ -56,7 +59,8 @@ const TASKS: Task[] = [
       {
         label: "Action requested",
         hint: "Say what you want done — reversal, credit, investigation.",
-        test: (t) => has(t, "request", "kindly", "refund", "reversal", "credit"),
+        test: (t) =>
+          has(t, "request", "kindly", "refund", "reversal", "credit"),
       },
       {
         label: "Formal closing",
@@ -78,7 +82,8 @@ const TASKS: Task[] = [
       {
         label: "Opens with a position",
         hint: "The first paragraph should say what you will argue, not define the topic.",
-        test: (t) => paras(t).length > 0 && paras(t)[0].split(/\s+/).length >= 25,
+        test: (t) =>
+          paras(t).length > 0 && paras(t)[0].split(/\s+/).length >= 25,
       },
       {
         label: "Three or more paragraphs",
@@ -88,12 +93,14 @@ const TASKS: Task[] = [
       {
         label: "Both sides argued",
         hint: "'Discuss' means the counter-view must appear, not just your own.",
-        test: (t) => has(t, "however", "on the other hand", "although", "whereas"),
+        test: (t) =>
+          has(t, "however", "on the other hand", "although", "whereas"),
       },
       {
         label: "Concrete evidence",
         hint: "A number, a scheme, a regulator, a year — something checkable.",
-        test: (t) => /\d/.test(t) && has(t, "rbi", "guideline", "act", "committee"),
+        test: (t) =>
+          /\d/.test(t) && has(t, "rbi", "guideline", "act", "committee"),
       },
       {
         label: "Conclusion proposes",
@@ -126,7 +133,10 @@ export function DescriptiveView() {
 
   useEffect(() => {
     if (!running || left <= 0) return;
-    const t = window.setInterval(() => setLeft((s) => Math.max(0, s - 1)), 1000);
+    const t = window.setInterval(
+      () => setLeft((s) => Math.max(0, s - 1)),
+      1000,
+    );
     return () => window.clearInterval(t);
   }, [running, left]);
 
@@ -158,7 +168,11 @@ export function DescriptiveView() {
   const score = useMemo(() => {
     const structural = passed.filter(Boolean).length / task.checks.length;
     const length =
-      lengthBand === "in" ? 1 : lengthBand === "over" || lengthBand === "near" ? 0.7 : 0.3;
+      lengthBand === "in"
+        ? 1
+        : lengthBand === "over" || lengthBand === "near"
+          ? 0.7
+          : 0.3;
     return Math.round(task.marks * (structural * 0.7 + length * 0.3) * 2) / 2;
   }, [passed, lengthBand, task]);
 
@@ -175,7 +189,7 @@ export function DescriptiveView() {
         actions={
           <>
             <span
-              className={`tnum mr-1 rounded-pill px-3 py-1.5 text-[16px] ${
+              className={`tnum rounded-pill mr-1 px-3 py-1.5 text-[16px] ${
                 left < 300
                   ? "bg-bad-soft text-bad"
                   : running
@@ -200,7 +214,7 @@ export function DescriptiveView() {
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
         <Card className="min-w-0">
-          <div className="mb-6 inline-flex gap-1 rounded-pill border border-line p-1">
+          <div className="rounded-pill border-line mb-6 inline-flex gap-1 border p-1">
             {TASKS.map((t, i) => (
               <button
                 key={t.id}
@@ -216,7 +230,7 @@ export function DescriptiveView() {
           </div>
 
           <h2 className="text-[18px]">{task.title}</h2>
-          <p className="mt-2 max-w-[72ch] text-[14px] leading-relaxed text-ink-2">
+          <p className="text-ink-2 mt-2 max-w-[72ch] text-[14px] leading-relaxed">
             {task.brief}
           </p>
 
@@ -233,11 +247,11 @@ export function DescriptiveView() {
                 : "Write your essay here."
             }
             spellCheck={false}
-            className="ruled mt-5 min-h-[420px] w-full resize-y rounded-[14px] border border-line bg-canvas px-4 py-3 text-[15px] outline-none transition-colors placeholder:text-ink-4 focus:border-brand focus:bg-canvas"
+            className="ruled border-line bg-canvas placeholder:text-ink-4 focus:border-brand focus:bg-canvas mt-5 min-h-[420px] w-full resize-y rounded-[14px] border px-4 py-3 text-[15px] transition-colors outline-none"
           />
 
           <div className="mt-3 flex flex-wrap items-center gap-4">
-            <span className="tnum text-[13px] text-ink-3">
+            <span className="tnum text-ink-3 text-[13px]">
               <b
                 className={`${
                   lengthBand === "in"
@@ -254,9 +268,9 @@ export function DescriptiveView() {
 
             {/* The word budget as a single bar: the shaded stretch is the band
                 the examiner expects you to land in. */}
-            <span className="relative h-2 max-w-64 flex-1 overflow-hidden rounded-pill bg-line">
+            <span className="rounded-pill bg-line relative h-2 max-w-64 flex-1 overflow-hidden">
               <span
-                className="absolute inset-y-0 bg-line-2"
+                className="bg-line-2 absolute inset-y-0"
                 style={{
                   left: `${(task.min / (task.max * 1.4)) * 100}%`,
                   width: `${((task.max - task.min) / (task.max * 1.4)) * 100}%`,
@@ -264,7 +278,7 @@ export function DescriptiveView() {
                 aria-hidden
               />
               <span
-                className={`absolute inset-y-0 left-0 rounded-pill ${
+                className={`rounded-pill absolute inset-y-0 left-0 ${
                   lengthBand === "in"
                     ? "bg-ok"
                     : lengthBand === "long"
@@ -286,18 +300,19 @@ export function DescriptiveView() {
           </div>
 
           {isMarked ? (
-            <div className="mt-5 rounded-[14px] bg-canvas p-5 ring-1 ring-line">
+            <div className="bg-canvas ring-line mt-5 rounded-[14px] p-5 ring-1">
               <div className="flex items-baseline gap-3">
                 <span className="tnum text-2xl">
                   {score}
                   <span className="text-ink-3">/{task.marks}</span>
                 </span>
-                <span className="text-[13px] text-ink-3">
+                <span className="text-ink-3 text-[13px]">
                   {passed.filter(Boolean).length} of {task.checks.length}{" "}
-                  requirements met · length {lengthBand === "in" ? "in band" : lengthBand}
+                  requirements met · length{" "}
+                  {lengthBand === "in" ? "in band" : lengthBand}
                 </span>
               </div>
-              <p className="mt-3 max-w-[70ch] text-[14px] leading-relaxed text-ink-2">
+              <p className="text-ink-2 mt-3 max-w-[70ch] text-[14px] leading-relaxed">
                 {passed.every(Boolean) && lengthBand === "in"
                   ? "Format and length are both clean. What separates this from full marks now is the quality of the argument — read it back and cut every sentence that repeats the one before."
                   : `Fix the unticked items on the right first. Format marks are the cheapest ${task.marks} marks in the paper and they are lost silently.`}
@@ -309,7 +324,7 @@ export function DescriptiveView() {
         <Card className="h-fit">
           <SectionTitle
             aside={
-              <span className="tnum text-[13px] text-ink-3">
+              <span className="tnum text-ink-3 text-[13px]">
                 {passed.filter(Boolean).length}/{task.checks.length}
               </span>
             }
@@ -323,7 +338,7 @@ export function DescriptiveView() {
                   className={`mt-0.5 grid size-4 shrink-0 place-items-center rounded-full text-[10px] font-bold transition-colors ${
                     passed[i]
                       ? "bg-ok text-white"
-                      : "border border-line-2 text-transparent"
+                      : "border-line-2 border text-transparent"
                   }`}
                   aria-hidden
                 >
@@ -338,7 +353,7 @@ export function DescriptiveView() {
                     {c.label}
                   </span>
                   {!passed[i] ? (
-                    <span className="mt-0.5 block text-[13px] leading-relaxed text-ink-3">
+                    <span className="text-ink-3 mt-0.5 block text-[13px] leading-relaxed">
                       {c.hint}
                     </span>
                   ) : null}
@@ -347,7 +362,7 @@ export function DescriptiveView() {
             ))}
           </ul>
 
-          <p className="mt-6 border-t border-line pt-4 text-[13px] leading-relaxed text-ink-3">
+          <p className="border-line text-ink-3 mt-6 border-t pt-4 text-[13px] leading-relaxed">
             The checklist tests your actual draft — it is not a rubric you read.
             Nothing here is graded on style; it is the format and length that
             candidates lose marks on without ever being told.

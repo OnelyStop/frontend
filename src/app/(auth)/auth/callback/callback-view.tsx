@@ -53,7 +53,6 @@ export function CallbackView() {
     if (user) router.replace("/home");
   }, [user, router]);
 
-
   if (!urlError && (loading || settling)) {
     return (
       <AuthShell
@@ -73,8 +72,7 @@ export function CallbackView() {
   }
 
   const denied = urlError && DENIED_CODES.includes(urlError.code);
-  const expired =
-    urlError && !denied && EXPIRED_CODES.includes(urlError.code);
+  const expired = urlError && !denied && EXPIRED_CODES.includes(urlError.code);
 
   // A cancelled OAuth consent has no link to resend — send them back to sign in
   if (denied) {
@@ -89,7 +87,11 @@ export function CallbackView() {
         }
       >
         <div className="auth-form auth-confirm">
-          <Button size="lg" className="auth-form__submit" onClick={() => router.push("/login")}>
+          <Button
+            size="lg"
+            className="auth-form__submit"
+            onClick={() => router.push("/login")}
+          >
             Back to sign in
           </Button>
         </div>
@@ -137,7 +139,8 @@ export function CallbackView() {
       subtitle={
         expired
           ? "Confirmation links are single-use and time-limited. Enter your email and we'll send a fresh one."
-          : urlError?.description ?? "Something went wrong verifying your link."
+          : (urlError?.description ??
+            "Something went wrong verifying your link.")
       }
       footer={
         <>
