@@ -1,5 +1,5 @@
 {
-  "id": "60212d7b-25fe-454d-8f8a-1e749a1e46f6",
+  "id": "4cb736ab-feaf-4297-97d7-0758bb581049",
   "prevId": "3c658a30-1ca6-4d52-b994-2a951104e2af",
   "version": "7",
   "dialect": "postgresql",
@@ -2407,9 +2407,19 @@
           ]
         }
       },
-      "policies": {},
+      "policies": {
+        "signed-in users can read Gazette articles": {
+          "name": "signed-in users can read Gazette articles",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "true"
+        }
+      },
       "checkConstraints": {},
-      "isRLSEnabled": false
+      "isRLSEnabled": true
     },
     "public.generate_runs": {
       "name": "generate_runs",
@@ -2534,7 +2544,7 @@
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
-      "isRLSEnabled": false
+      "isRLSEnabled": true
     },
     "public.questions": {
       "name": "questions",
@@ -2632,9 +2642,19 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
+      "policies": {
+        "signed-in users can read Gazette questions": {
+          "name": "signed-in users can read Gazette questions",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "true"
+        }
+      },
       "checkConstraints": {},
-      "isRLSEnabled": false
+      "isRLSEnabled": true
     }
   },
   "enums": {

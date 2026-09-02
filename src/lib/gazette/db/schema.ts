@@ -6,12 +6,14 @@ import {
   integer,
   jsonb,
   pgEnum,
+  pgPolicy,
   pgTable,
   text,
   timestamp,
   uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
+import { authenticatedRole } from "drizzle-orm/supabase";
 
 export const articleSource = pgEnum("article_source", [
   "newsdata_io",
@@ -69,8 +71,13 @@ export const articles = pgTable(
   (t) => [
     index("articles_status_published_at_idx").on(t.status, t.publishedAt),
     index("articles_published_at_idx").on(t.publishedAt),
+    pgPolicy("signed-in users can read Gazette articles", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`true`,
+    }),
   ],
-);
+).enableRLS();
 
 // Only grounded questions land here. Everything a learner reads comes from this
 // one table. No FK back to articles: by the time Generate runs, the article's
@@ -100,8 +107,13 @@ export const questions = pgTable(
   (t) => [
     index("questions_extracted_day_idx").on(t.extractedDay),
     uniqueIndex("questions_article_id_unique_idx").on(t.articleId),
+    pgPolicy("signed-in users can read Gazette questions", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`true`,
+    }),
   ],
-);
+).enableRLS();
 
 // One row per generate run (a `plan` job). The per-article jobs increment its
 // counters, so "what did last night's run do / is it stuck" is one SELECT.
@@ -128,7 +140,7 @@ export const generateRuns = pgTable(
     status: text("status").notNull().default("running"), // running | done | failed
   },
   (t) => [index("generate_runs_started_at_idx").on(t.startedAt)],
-);
+).enableRLS();
 
 export type ArticleRow = typeof articles.$inferSelect;
 export type QuestionRow = typeof questions.$inferSelect;
