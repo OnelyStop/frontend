@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "arrangements-and-relations",
+  "chapterName": "Arrangements and relations",
+  "chapterPosition": 1,
+  "topicSlug": "linear-seating-arrangement",
+  "topicPosition": 40,
+  "title": "Linear Seating Arrangement",
+  "summary": "Solving a single row and two rows facing each other: the grid method, fixing the strongest clue first, the difference between 'immediate' and 'somewhere', and the left-right flip when people face opposite ways.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Set up a fixed grid of seats before placing anyone.",
+    "Rank clues by strength and apply the most binding one first.",
+    "Distinguish 'immediately' from 'somewhere' to the left or right.",
+    "Handle the left-right reversal between two rows that face each other."
+  ],
+  "tags": ["reasoning", "seating-arrangement", "puzzles", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Combinatorics/Permutations",
+      "title": "Combinatorics/Permutations",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for counting arrangements and eliminating cases. All puzzles here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm linear arrangement is a standard puzzle type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "two-layouts",
+      "type": "introduction",
+      "title": "Two layouts",
+      "markdown": "A linear puzzle seats people along a straight line. Two layouts cover almost every question:\n\n- **Single row:** everyone faces the same way, usually north. There is a left end and a right end.\n- **Two rows:** an equal number of people in each row, the rows facing each other, so each person in one row directly faces one person in the other.\n\nYou are given a set of clues and asked to fix every seat, then answer questions about who sits where. The clues together always allow exactly one seating; if you reach two, a clue has been misread.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "linear puzzle single row two rows facing each other",
+        "fix every seat from the clues",
+        "clues allow exactly one seating"
+      ],
+      "position": 10
+    },
+    {
+      "id": "grid-method",
+      "type": "method",
+      "title": "The grid method",
+      "markdown": "1. **Draw the empty grid first.** For six people in a row, draw six blanks and label the ends. For two rows, draw both, one above the other, and mark which way each row faces.\n2. **Number the seats** from one end so you can talk about \"seat 3\" without ambiguity.\n3. **Place only what a clue forces.** Write a name in a seat only when it can go nowhere else; otherwise note the options in pencil beside the seat.\n4. **Cross out** a seat for a name as soon as a clue rules it out. The eliminations often solve the puzzle faster than the placements.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "grid method draw empty seats first label ends",
+        "number the seats",
+        "place only what a clue forces cross out ruled-out seats"
+      ],
+      "position": 20
+    },
+    {
+      "id": "strongest-clue-first",
+      "type": "method",
+      "title": "Fix the strongest clue first",
+      "markdown": "Clues are not equal. Work them in this order of strength:\n\n- **Absolute:** \"C sits at an end\", \"D is exactly in the middle\". These pin a seat outright.\n- **Gap:** \"there are two people between C and D\" fixes the distance between two names, leaving only a few placements.\n- **Adjacent:** \"B sits immediately to the right of D\" ties two names together into a block you can slide along the row.\n- **Loose:** \"E is somewhere to the left of F\", \"A is not at an end\". Use these last, to eliminate the placements the stronger clues left open.\n\nStart from an absolute clue, add the gap and adjacency clues to build blocks, and finish with the loose clues.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "rank clues absolute gap adjacent loose",
+        "start from an absolute clue build blocks",
+        "loose clues last to eliminate"
+      ],
+      "position": 30
+    },
+    {
+      "id": "immediate-and-left-right",
+      "type": "concept",
+      "title": "Immediate versus somewhere, and whose left",
+      "markdown": "- **\"Immediately to the left of\"** means the very next seat. **\"To the left of\"** or **\"somewhere to the left of\"** means any seat on that side, near or far.\n- In a **single row facing north**, a person's left is the west end of the row and their right is the east end. \"P is to the left of Q\" puts P closer to the west end.\n- In **two rows facing each other**, the two rows face opposite ways, so their lefts point in opposite directions. Decide left and right for each row separately, from the way that row faces, and never from your own view of the page.\n- \"Near\" does not mean \"next to\". Only \"immediately\" or \"adjacent\" guarantees neighbouring seats.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "immediately to the left means next seat somewhere means any seat that side",
+        "single row facing north left is west right is east",
+        "two rows facing each other lefts point opposite ways near is not next to"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-single",
+      "type": "worked_example",
+      "title": "Worked example: single row",
+      "markdown": "Six friends A, B, C, D, E, F sit in a row facing north. Seats are numbered 1 to 6 from the west (left) end.\n\n- (1) C sits at one of the ends.\n- (2) There are exactly two people between C and D.\n- (3) B sits immediately to the right of D.\n- (4) A sits third to the left of F.\n- (5) E does not sit at either end.\n\n**Solve.** By (1), C is in seat 1 or seat 6. By (2), the gap between C and D is three seats, so C at 1 gives D at 4, and C at 6 gives D at 3.\n\nTake C at 6, D at 3: by (3), B is at seat 4. Seats 1, 2, 5 remain for A, E, F. Clue (4) needs F three seats right of A, and the only fit is A at 2, F at 5, leaving E at seat 1 — but that breaks (5). So this branch fails.\n\nTake C at 1, D at 4: by (3), B is at seat 5. Seats 2, 3, 6 remain for A, E, F. Clue (4) fits only as A at 3, F at 6, so E takes seat 2, which satisfies (5).\n\n**Arrangement (seats 1 to 6): C, E, A, D, B, F.** No other placement meets clue (4) together with clue (5).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example single row six friends facing north",
+        "end clue gap clue adjacency clue third to the left",
+        "unique arrangement C E A D B F"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example-two-rows",
+      "type": "worked_example",
+      "title": "Worked example: two rows",
+      "markdown": "P, Q, R sit in Row 1 facing south; S, T, U sit in Row 2 facing north; the rows face each other. Positions 1 to 3 are counted from the western end in both rows, and each Row-1 member directly faces the Row-2 member with the same position number.\n\n- (1) R sits at position 1 of Row 1.\n- (2) T faces R.\n- (3) Q does not sit at position 2.\n- (4) S sits immediately to T's right.\n- (5) U does not face P.\n\n**Solve.** By (1), R is at Row 1 position 1. By (3), Q must be at position 3, so P is at position 2. By (2), T is at Row 2 position 1. Row 2 faces north, so T's right is the east side, meaning higher position numbers; by (4), S is at position 2, leaving U at position 3. Check (5): U at position 3 faces Q, not P.\n\n**Row 1 (facing south): R, P, Q. Row 2 (facing north): T, S, U.** Facings: R-T, P-S, Q-U.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example two rows facing each other P Q R S T U",
+        "faces clue immediate right for a north facer is east",
+        "row 1 R P Q row 2 T S U"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using your own left and right** instead of the seated person's, especially in the row that faces away.\n- **Reading \"near\" or \"close to\" as \"next to\".** Only \"immediately\" or \"adjacent\" fixes neighbouring seats.\n- **Applying loose clues too early**, before the strong clues have narrowed the grid.\n- **Forgetting a branch.** When a clue leaves two cases, carry both until a later clue kills one; do not guess.\n- **Not re-checking every clue** against the final grid. One unchecked clue is how a wrong arrangement survives.\n- **In two rows, assuming both rows number from the same visual side** when the puzzle says otherwise.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "linear seating mistakes own left right vs seated person",
+        "near read as next to loose clues too early",
+        "forgetting a branch not re-checking clues"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Draw the empty grid and number the seats before placing anyone.\n- Order the clues: absolute, then gap, then adjacency, then loose.\n- \"Immediately\" means the next seat; \"somewhere\" or \"near\" means any seat on that side.\n- In a single row facing north, left is the west end; in two rows facing each other, work out left and right for each row from the way it faces.\n- Carry every unresolved branch until a clue removes it, then verify all clues against the finished grid.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "linear seating summary grid clue order immediate vs somewhere",
+        "left is west end two rows work left right per row",
+        "carry branches verify every clue"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Seven people A to G sit in a row facing north, seats numbered 1 to 7 from the west end.\n\n- (1) D sits exactly in the middle.\n- (2) A sits at the western end.\n- (3) There are exactly three people between A and E.\n- (4) F sits immediately to the left of D.\n- (5) G sits at one of the ends.\n- (6) B sits somewhere between F and G.\n\nFirst fix the arrangement, then answer, each with a one-line reason:\n\n1. Who sits at the eastern end?\n2. Who sits immediately to the right of E?\n3. How many people sit between C and E?\n4. Who sits third to the left of B?\n5. Who sits exactly between D and B?\n6. If A and G swap seats, who is then at the western end?",
+      "searchKeywords": [
+        "linear seating practice seven people row facing north",
+        "middle seat end clue three people between adjacency",
+        "unique arrangement questions"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "empty-grid",
+      "front": "What is the first step in any linear seating puzzle?",
+      "back": "Draw the empty grid: one blank per seat, ends labelled, and for two rows mark which way each row faces. Number the seats before placing anyone.",
+      "explanation": "A drawn grid stops you from holding placements in your head.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["grid-method"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "clue-order",
+      "front": "In what order should linear-puzzle clues be applied?",
+      "back": "Absolute (an end, the middle) first, then gap clues, then adjacency clues, then loose clues like 'somewhere to the left' or 'not at an end'.",
+      "explanation": "Loose clues are for eliminating what the strong clues left open.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["strongest-clue-first"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "immediate-vs-somewhere",
+      "front": "Difference between 'immediately to the left of Q' and 'to the left of Q'?",
+      "back": "'Immediately' means the very next seat. Plain 'to the left of' or 'somewhere to the left of' means any seat on that side, near or far.",
+      "explanation": "'Near' and 'close to' are also loose, not adjacency.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["immediate-and-left-right"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "single-row-left",
+      "front": "In a single row facing north, which end is a person's left?",
+      "back": "The west end. Their right is the east end. 'P is to the left of Q' puts P closer to the west end.",
+      "explanation": "Left and right are the seated person's, matching a north facing.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["immediate-and-left-right"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "two-row-flip",
+      "front": "Why must you find left and right separately for each of two rows facing each other?",
+      "back": "The rows face opposite ways, so their lefts point in opposite directions. Derive each row's left and right from the way that row faces, not from your view.",
+      "explanation": "This flip is the single biggest source of two-row errors.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["immediate-and-left-right"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "carry-branches",
+      "front": "A clue leaves two possible cases. What do you do?",
+      "back": "Carry both branches forward until a later clue eliminates one. Never guess a branch to move faster.",
+      "explanation": "A guessed branch can produce a plausible but wrong final grid.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "verify-all-clues",
+      "front": "Before answering the questions, what final check do you run?",
+      "back": "Read every clue again against the finished grid and confirm each one holds. An unchecked clue is how a wrong arrangement survives.",
+      "explanation": "Verification catches a misread clue before it costs marks.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

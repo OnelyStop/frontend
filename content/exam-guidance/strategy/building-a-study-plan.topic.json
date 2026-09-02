@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "exam-guidance",
+  "subjectName": "Exam Guidelines and Strategy",
+  "subjectPosition": 5,
+  "chapterSlug": "strategy",
+  "chapterName": "Strategy",
+  "chapterPosition": 1,
+  "topicSlug": "building-a-study-plan",
+  "topicPosition": 50,
+  "title": "Building a Study Plan",
+  "summary": "How to turn a target exam date into a week-by-week plan: a diagnostic mock first, a weekly rotation that touches every section, a split between learning, practice and revision, and rules for changing the plan when the mock trend says so. Guidance only.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 20,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["prelims-versus-mains"],
+  "learningObjectives": [
+    "Work backwards from a target date to a realistic number of usable study weeks.",
+    "Use a diagnostic mock to set section priorities before planning.",
+    "Lay out a weekly rotation with a learning, practice and revision split.",
+    "Adjust the plan from mock trends rather than from how a week felt."
+  ],
+  "tags": ["exam-guidance", "strategy", "study-plan", "scheduling", "revision"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SBI_PO_OVERVIEW",
+      "url": "https://sbi.co.in/web/careers/probationary-officers",
+      "title": "SBI - Probationary Officers information",
+      "publisher": "State Bank of India",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm the two-stage structure and the named sections a plan is built around. No text was reused; the current notification governs."
+    },
+    {
+      "sourceId": "IBPS_HOME",
+      "url": "https://www.ibps.in/",
+      "title": "IBPS - home",
+      "publisher": "Institute of Banking Personnel Selection",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm that CRP runs as a preliminary and a main stage. Candidates must read the official handout."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "start-from-the-date",
+      "type": "concept",
+      "title": "Start from the date, not from page one",
+      "markdown": "A plan begins with two honest numbers: how many **weeks** you have until the exam, and how many **focused hours** you can give on a normal day. Multiply them for a rough total budget, then cut it by a fifth for illness, travel and bad days.\n\nEverything else is fitting the syllabus into that budget. If the budget is small, the plan is about triage - protecting the high-weight sections - not about covering everything.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "work backwards from exam date",
+        "usable weeks and focused hours",
+        "cut the budget for bad days",
+        "small budget means triage"
+      ],
+      "position": 10
+    },
+    {
+      "id": "diagnostic-first",
+      "type": "method",
+      "title": "Take a diagnostic mock before you plan",
+      "markdown": "Before writing any schedule, sit **one full-length mock** under time. It is uncomfortable this early, and that is the point: it converts a vague sense of \"I am weak at reasoning\" into a per-section score, an accuracy figure and a list of topics you could not touch.\n\nRank the sections by the gap between your score and a rough target. The largest gaps get the most slots in the first half of the plan. Re-diagnose with another full mock every two to three weeks and re-rank.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "diagnostic mock before planning",
+        "per section score and accuracy",
+        "rank sections by the gap to target",
+        "re-diagnose every two to three weeks"
+      ],
+      "position": 20
+    },
+    {
+      "id": "weekly-rotation",
+      "type": "method",
+      "title": "A weekly rotation, not a monthly block",
+      "markdown": "Touch **every section every week**. Spending all of March on quantitative aptitude and then all of April on reasoning means the March work has faded by the exam.\n\nA workable weekly shape:\n\n- **Learning (about 40 percent):** new concepts and worked examples from the two or three weakest topics that week.\n- **Practice (about 40 percent):** timed problem sets on those topics, plus mixed sets on topics already learned.\n- **Revision (about 20 percent):** a fixed slot to re-work old error logs and one-page summary sheets.\n\nKeep one full mock a week from the halfway point, on the same weekday and time as the real exam if it is known.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "touch every section every week",
+        "40 40 20 learning practice revision split",
+        "timed sets plus mixed sets",
+        "weekly full mock same weekday"
+      ],
+      "position": 30
+    },
+    {
+      "id": "track-accuracy",
+      "type": "method",
+      "title": "Track the numbers that predict the score",
+      "markdown": "Each week, record per section: questions attempted, accuracy, and time spent per question in the mock. Attempts alone hide a rising error rate.\n\nRead the **trend across weeks**, not a single week. Accuracy climbing while attempts hold steady is real progress; attempts climbing while accuracy falls is not. Let these numbers, not the feeling of a productive week, decide what changes.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "track attempts accuracy time per question",
+        "attempts hide rising error rate",
+        "read the trend across weeks",
+        "numbers decide changes not feelings"
+      ],
+      "position": 40
+    },
+    {
+      "id": "twelve-week-sketch",
+      "type": "worked_example",
+      "title": "Worked example: a twelve-week sketch",
+      "markdown": "A generic plan for twelve usable weeks. Dates are deliberately omitted; slide it onto your own calendar.\n\n| Weeks | Main focus | Mocks |\n| --- | --- | --- |\n| 1 to 2 | Diagnostic mock. Rebuild fundamentals in the two weakest sections. Set up the error log and summary sheets. | 1 diagnostic |\n| 3 to 6 | Weekly rotation. Learn the weak topics, timed sets daily, one topic test per section per week. | 1 sectional mock / week |\n| 7 to 9 | Rotation continues, weighted to whichever section the mocks still flag. Start full mocks. | 2 full mocks / week |\n| 10 to 11 | Mostly full mocks plus deep analysis. Learning only to plug specific leaks the mocks name. | 3 full mocks / week |\n| 12 | Taper. Light revision of sheets and error logs. No new topics. Sleep and timing rehearsal. | 1 to 2 easy mocks |\n\nThe shape is the point: learning front-loaded, mocks back-loaded, revision throughout, and a deliberate wind-down in the last week.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "twelve week study plan table",
+        "diagnostic weeks 1 to 2",
+        "full mocks weeks 10 to 11",
+        "taper week 12 no new topics"
+      ],
+      "position": 50
+    },
+    {
+      "id": "adjust-from-mocks",
+      "type": "method",
+      "title": "Changing the plan without abandoning it",
+      "markdown": "- **A section stuck below target for two mocks running** gets one extra weekly slot, taken from your strongest section.\n- **A plateau** - accuracy flat for three weeks despite steady practice - means the *method* is wrong, not the volume. Change approach: relearn the concept, study worked solutions, slow down before speeding up.\n- **A sudden drop** is usually fatigue or a hard mock, not a real regression. Do not rewrite the plan on one bad data point.\n- **Never scrap the whole plan.** Adjust one or two slots and keep the structure; repeatedly restarting is itself a failure mode.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "section below target gets extra slot",
+        "plateau means change method not volume",
+        "one bad mock is not a regression",
+        "never scrap the whole plan"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Collecting resources instead of using one.** Pick a small set of materials and a question bank and commit.\n- **All learning, no timed practice.** Knowing a method and applying it under a clock are different skills.\n- **No revision slot.** Un-revised topics fade; the 20 percent revision block is not optional.\n- **Avoiding the weakest section** because it is unpleasant. That is where the marks are.\n- **Planning in too much detail.** A plan fixed to the hour breaks on day three. Plan the week's priorities; decide each day's tasks that morning.\n- **Starting mocks too late.** Full mocks from the halfway point, not the last two weeks.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "study plan mistakes",
+        "collecting resources instead of using one",
+        "all learning no timed practice",
+        "avoiding the weakest section",
+        "plan the week not the hour"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Start from two numbers: usable weeks and focused hours per day. Cut the total by a fifth for bad days.\n- Sit a diagnostic mock before planning; rank sections by the gap to target; re-diagnose every two to three weeks.\n- Rotate weekly so every section is touched every week. Rough split: 40 percent learning, 40 percent practice, 20 percent revision.\n- Record attempts, accuracy and time per question per section; act on the multi-week trend, not one week.\n- Front-load learning, back-load full mocks, revise throughout, taper the last week with no new topics.\n- Adjust one or two slots when the mocks say so; never restart the whole plan.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "study plan summary",
+        "revision",
+        "diagnostic rotation split trend taper recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Pick the best response and give a one-line reason.\n\n1. You have 9 weeks left and have covered no reasoning at all. Do you (a) spend weeks 1 to 5 only on reasoning, or (b) start a weekly rotation now with reasoning getting the largest share?\n2. Your DI accuracy has been 55 percent and falling for three weeks despite daily practice. More practice sets, or something else?\n3. You have collected four books and three question banks for quantitative aptitude. Next step?\n4. A single bad mock drops your reasoning score 8 marks below the previous three. Rewrite the plan?\n5. It is the final week. You realise you never studied one whole topic. Learn it now?\n6. You feel you had a very productive week, but attempts rose and accuracy fell. Productive?\n\n**Answers.** 1 (b) - a monthly block fades by exam day; rotate and weight reasoning. 2 Change method, not volume - a three-week plateau means relearn the concept and study worked solutions before adding sets. 3 Choose one book and one bank and start; resource-collecting is avoidance. 4 No - one data point against three is likely a hard mock or fatigue; keep the plan. 5 No - the last week is taper and revision; a new topic trades certain marks for uncertain ones. 6 No - accuracy down with attempts up is not progress; the trend, not the feeling, is the measure.",
+      "searchKeywords": [
+        "study plan practice scenarios",
+        "rotation plateau resources bad mock taper accuracy exercises"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "backward-planning",
+      "front": "What two numbers does a study plan start from?",
+      "back": "The usable weeks until the exam and the focused hours you can give per normal day. Multiply for a rough budget, then cut it by about a fifth for bad days.",
+      "explanation": "A small budget makes the plan about triage, not full coverage.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["start-from-the-date"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "diagnostic-mock",
+      "front": "What should you do before writing any schedule?",
+      "back": "Sit one full-length diagnostic mock under time, then rank sections by the gap between your score and a target. Re-diagnose every two to three weeks.",
+      "explanation": "It turns a vague sense of weakness into per-section numbers.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["diagnostic-first"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "weekly-rotation-card",
+      "front": "Why rotate all sections weekly instead of one section per month?",
+      "back": "A month-long block on one section has largely faded by exam day. Touching every section every week keeps all of them warm.",
+      "explanation": "Retention, not coverage, is the constraint.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["weekly-rotation"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "learn-practice-revise",
+      "front": "Roughly how should a study week split between learning, practice and revision?",
+      "back": "About 40 percent learning new concepts, 40 percent timed practice, 20 percent revision of old error logs and summary sheets.",
+      "explanation": "The revision block is a fixed slot, not an afterthought.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["weekly-rotation"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "trend-not-feeling",
+      "front": "Attempts rose this week but accuracy fell. Progress?",
+      "back": "No. Read the multi-week trend: accuracy rising with steady attempts is progress; attempts rising with accuracy falling is not.",
+      "explanation": "Let the numbers, not a productive-feeling week, drive changes.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["track-accuracy"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "plateau-rule",
+      "front": "Accuracy has been flat for three weeks despite steady practice. What changes?",
+      "back": "The method, not the volume. Relearn the concept, study worked solutions, and slow down before speeding up.",
+      "explanation": "More sets of the same wrong approach do not move a plateau.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["adjust-from-mocks"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "final-week-taper",
+      "front": "What happens to new topics in the last week before the exam?",
+      "back": "Nothing new is started. The last week is a taper: light revision of sheets and error logs, timing rehearsal, sleep.",
+      "explanation": "A late new topic trades certain marks for uncertain ones.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["twelve-week-sketch"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

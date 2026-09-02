@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "vocabulary",
+  "chapterName": "Vocabulary",
+  "chapterPosition": 4,
+  "topicSlug": "phrasal-verbs",
+  "topicPosition": 50,
+  "title": "Phrasal Verbs",
+  "summary": "What a phrasal verb is, how the particle changes the meaning, the separable / inseparable distinction, a base-verb-grouped set of the common ones with plain glosses, and a note on their register for the descriptive paper.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech", "prepositions"],
+  "learningObjectives": [
+    "Define a phrasal verb and explain how the particle shifts the meaning.",
+    "Apply the separable / inseparable test for pronoun objects.",
+    "Recall common phrasal verbs grouped by base verb.",
+    "Judge when a phrasal verb is too informal for a formal answer."
+  ],
+  "tags": ["vocabulary", "phrasal-verbs", "particles", "register"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Verbs",
+      "title": "English Grammar/Verbs",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for verb-plus-particle grammar and the separable/inseparable distinction. Every gloss and example sentence here is original."
+    },
+    {
+      "sourceId": "GUTENBERG_GRAMMAR",
+      "url": "https://www.gutenberg.org/ebooks/37134",
+      "title": "The Elements of English Grammar (public domain)",
+      "publisher": "Project Gutenberg",
+      "usageMode": "public_domain",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted for classical treatment of particles only. No text reproduced."
+    },
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm phrasal-verb items are a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-is-a-phrasal-verb",
+      "type": "introduction",
+      "title": "What a phrasal verb is",
+      "markdown": "A phrasal verb is a verb plus a small word - a particle - that together mean something you often cannot get from the two parts alone. *Carry* + *out* = perform; *put* + *off* = postpone; *look* + *into* = investigate.\n\nOne base verb takes many particles, each with its own meaning: *put off*, *put up with*, *put down*, *put out*, *put forward*. Questions test whether you know the specific combination the sentence needs, so learn the pair as a unit with its plain gloss.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrasal verb definition verb plus particle meaning not from the parts",
+        "carry out perform put off postpone look into investigate",
+        "one base verb many particles learn the pair as a unit"
+      ],
+      "position": 10
+    },
+    {
+      "id": "particle-changes-meaning",
+      "type": "concept",
+      "title": "The particle carries the meaning",
+      "markdown": "Change the particle and the meaning changes completely:\n\n- **put off** - postpone. *The meeting was put off to Friday.*\n- **put up with** - tolerate. *Customers will not put up with long queues for long.*\n- **put down** - write down; also suppress. *Put down your name and employee code.*\n- **put out** - extinguish; also inconvenience. *The fire was put out quickly. Sorry to put you out.*\n- **put forward** - propose. *She put forward a plan to stagger lunch breaks.*\n- **put in for** - formally apply for. *He put in for a transfer to the coastal zone.*\n\nSo when a sentence needs \"propose\", only *put forward* answers - *put off* or *put up with* are wrong even though the verb matches.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR", "GUTENBERG_GRAMMAR"],
+      "searchKeywords": [
+        "particle changes meaning put off put up with put down put out put forward put in for",
+        "postpone tolerate write down extinguish propose apply",
+        "verb matches but wrong particle is wrong"
+      ],
+      "position": 20
+    },
+    {
+      "id": "separable-inseparable",
+      "type": "method",
+      "title": "Separable or inseparable",
+      "markdown": "- **Separable** phrasal verbs let the object sit between the verb and the particle: *put off the meeting* or *put the meeting off*. But a **pronoun object must go in the middle**: *put it off*, never *put off it*.\n- **Inseparable** phrasal verbs keep the parts together: *look into the matter*, never *look the matter into*; *come across a file*, *get over an illness*.\n- Three-word phrasal verbs (*put up with*, *look forward to*, *get on with*) are always inseparable.\n\nIn an exam sentence, if a pronoun appears right after the particle (*look into it* fine; *put off it* wrong), use the pattern to check the option.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "separable inseparable phrasal verbs object between verb and particle",
+        "pronoun object must go in the middle put it off not put off it",
+        "three word phrasal verbs always inseparable look forward to"
+      ],
+      "position": 30
+    },
+    {
+      "id": "set-take-get",
+      "type": "concept",
+      "title": "Common verbs: take, get, carry",
+      "markdown": "**take**\n- **take over** - assume control of. *A larger bank took over the failing lender.*\n- **take on** - hire; accept work. *The branch took on two seasonal clerks.*\n- **take up** - start a role or hobby; occupy time or space. *She took up the role of nodal officer.*\n- **take down** - write down; dismantle. *The clerk took down the complaint word for word.*\n\n**get**\n- **get by** - manage with difficulty. *The branch got by with one teller during the strike.*\n- **get across** - communicate successfully. *The trainer got the compliance point across with a simple example.*\n- **get around to** - find time to do. *No one got around to archiving the old files.*\n\n**carry**\n- **carry out** - perform a task. *The branch carried out the surprise cash verification.*\n- **carry over** - move to a later period. *Unused leave cannot be carried over beyond March.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrasal verbs take over take on take up take down",
+        "get by get across get around to",
+        "carry out carry over"
+      ],
+      "position": 40
+    },
+    {
+      "id": "set-come-break-look",
+      "type": "concept",
+      "title": "Common verbs: come, break, look",
+      "markdown": "**come**\n- **come across** - find by chance; also give an impression. *The auditor came across an unposted entry.*\n- **come up with** - produce an idea or solution. *The team came up with a workaround.*\n- **come down to** - be essentially a question of. *It comes down to whether the signature matches.*\n\n**break**\n- **break down** - stop functioning; analyse into parts. *The note-counting machine broke down.*\n- **break into** - enter forcibly; start suddenly. *Thieves broke into the ATM kiosk.*\n- **break off** - stop abruptly. *Talks with the vendor broke off over pricing.*\n\n**look**\n- **look into** - investigate. *The manager promised to look into the missing deposit.*\n- **look over** - examine quickly. *Look over the form before the customer leaves.*\n- **look forward to** - anticipate with pleasure. *We look forward to the new branch opening.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrasal verbs come across come up with come down to",
+        "break down break into break off",
+        "look into look over look forward to"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**1. Meaning in context.** *The manager promised to **look into** the missing deposit.*\n(a) ignore (b) investigate (c) approve (d) report\n\n*Look into* = investigate, so **(b)**. *Look over* would be \"examine quickly\" - a near-miss with a different particle.\n\n**2. Fits the blank.** *The vendor missed three deadlines, so the branch ____ the contract.*\n(a) carried out (b) broke off (c) put up with (d) came across\n\nThe situation is: stop the arrangement abruptly. That is **(b) broke off**. *Carried out* is the opposite (perform it); *put up with* means tolerate; *came across* means find by chance.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrasal verb worked example look into investigate versus look over",
+        "broke off the contract stop abruptly versus carried out put up with"
+      ],
+      "position": 60
+    },
+    {
+      "id": "register-note",
+      "type": "warning",
+      "title": "Register: the descriptive-paper trap",
+      "markdown": "Many phrasal verbs are fine in speech and email but read as informal in a formal letter or essay. In the descriptive paper, prefer the single-word verb when the tone is formal:\n\n- *put off* -> **postpone** or **defer**\n- *look into* -> **investigate** or **examine**\n- *carry out* -> **conduct** or **perform**\n- *cut down on* -> **reduce**\n- *go up* -> **rise** or **increase**\n\nThe reverse also matters: an informal option is usually wrong for a formal sentence in a synonym question, and a formal option is wrong for a casual one.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrasal verb register informal formal descriptive paper prefer single word verb",
+        "put off postpone look into investigate carry out conduct cut down on reduce go up rise",
+        "informal option wrong for a formal sentence"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A phrasal verb = verb + particle, with a meaning you often cannot build from the parts; learn the pair with its gloss.\n- One base verb, many particles, many meanings: *put off / up with / down / out / forward*.\n- Separable: object can go in the middle, but a pronoun object *must* (*put it off*). Inseparable and three-word phrasal verbs keep the parts together (*look into it*, *put up with it*).\n- Know the *take / get / carry / come / break / look* families.\n- In a formal answer, swap the phrasal verb for its single-word equivalent (*postpone*, *investigate*, *conduct*, *reduce*).",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "phrasal verbs summary revision particle separable inseparable families register single word recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the best option; give a one-line reason.\n\n1. *____ the form for missing fields before the customer leaves the counter.* (a) Look into (b) Look over (c) Look forward to (d) Look up to\n2. \"The bigger bank **took over** the small lender\" means it: (a) sued it (b) assumed control of it (c) advised it (d) closed it\n3. *Because the vendor kept raising the price, the talks ____.* (a) broke down (b) broke off (c) broke into (d) broke out\n4. Formal rewrite of *The launch was **put off** to next month*: (a) called off (b) postponed (c) put up (d) set off\n5. *The clerk ____ the customer's complaint word for word.* (a) took on (b) took up (c) took down (d) took over\n6. Which is correct with a pronoun? (a) put off it (b) put it off (c) off put it (d) it put off\n7. \"The trainer finally **got** the point **across**\" means she: (a) forgot it (b) made it understood (c) wrote it down (d) argued about it\n8. *Nobody ____ archiving the old files before the inspection.* (a) got around to (b) got by (c) got over (d) got across",
+      "searchKeywords": [
+        "phrasal verbs practice look into took over broke off postponed took down",
+        "put it off got the point across got around to"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "definition",
+      "front": "What is a phrasal verb?",
+      "back": "A verb + a particle (small word) whose combined meaning you often cannot predict from the parts - e.g. 'carry out' = perform, 'put off' = postpone.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-is-a-phrasal-verb"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "particle-decides",
+      "front": "Give three meanings of 'put' + a particle.",
+      "back": "put off = postpone; put up with = tolerate; put forward = propose. (Also put down = record; put out = extinguish.)",
+      "explanation": "If the sentence needs 'propose', only 'put forward' works.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["particle-changes-meaning"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "pronoun-position",
+      "front": "'put off the meeting' - where must a pronoun object go?",
+      "back": "In the middle: 'put it off', never 'put off it'. Separable phrasal verbs force the pronoun between verb and particle.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["separable-inseparable"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "inseparable",
+      "front": "Is 'look into' separable? How do you say it with a pronoun?",
+      "back": "Inseparable: 'look into it', never 'look it into'. Three-word phrasal verbs (put up with, look forward to) are always inseparable too.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["separable-inseparable"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "look-into",
+      "front": "'The manager will look into the missing deposit.' look into = ?",
+      "back": "Investigate. (Not 'look over', which is examine quickly.)",
+      "difficulty": "easy",
+      "sourceBlockIds": ["set-come-break-look", "worked-example"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "break-off-vs-down",
+      "front": "'break off' vs 'break down'?",
+      "back": "break off = stop abruptly (talks broke off). break down = stop functioning, or analyse into parts (the machine broke down).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["set-come-break-look"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "register-swap",
+      "front": "In a formal letter, what should replace 'put off', 'look into', 'carry out'?",
+      "back": "postpone / defer, investigate / examine, conduct / perform. Phrasal verbs read as informal in the descriptive paper.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["register-note"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

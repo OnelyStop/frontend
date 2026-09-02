@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "products",
+  "chapterName": "Banking products and operations",
+  "chapterPosition": 2,
+  "topicSlug": "credit-and-loan-products",
+  "topicPosition": 60,
+  "title": "Credit and Loan Products",
+  "summary": "Fund-based versus non-fund-based credit, the difference between a term loan, cash credit, overdraft and bill discounting, how banks take security through mortgage, hypothecation and pledge, the loan life-cycle, and a worked drawing-power and loan-eligibility calculation.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["deposit-accounts", "compound-interest"],
+  "learningObjectives": [
+    "Separate fund-based from non-fund-based facilities with examples.",
+    "Tell a term loan, cash credit, overdraft and bill discounting apart by use and structure.",
+    "Distinguish mortgage, hypothecation, pledge and guarantee as forms of security.",
+    "Compute drawing power and loan eligibility from a margin and an asset value."
+  ],
+  "tags": [
+    "banking-awareness",
+    "credit",
+    "working-capital",
+    "collateral",
+    "loan-lifecycle"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_MASTER_DIRECTIONS",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "title": "RBI Master Directions index (loans and advances)",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the classification of facilities, margin and drawing-power concepts, and the RBI's general instructions on loans and advances. Restated in original wording."
+    },
+    {
+      "sourceId": "INDIACODE_BANKING_ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1885",
+      "title": "Banking Regulation Act, 1949",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Statutory backdrop for what constitutes banking business and the taking of security. No text reproduced."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - awareness section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm that credit products are a standard awareness topic. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "how-banks-lend",
+      "type": "introduction",
+      "title": "How a bank extends credit",
+      "markdown": "Lending is a bank's main earning activity. Every facility answers three questions: is money paid out now or only if something goes wrong; is it a one-time loan or a running limit; and what does the bank hold as security if the borrower cannot pay.\n\nThe products below are combinations of those three choices, matched to what the borrower needs the money for — buying a machine, funding a month of raw materials, bridging a temporary gap, or backing a promise to a supplier.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "INDIACODE_BANKING_ACT"],
+      "searchKeywords": [
+        "how a bank extends credit three questions paid out now running limit security",
+        "facility matched to purpose machine raw materials temporary gap"
+      ],
+      "position": 10
+    },
+    {
+      "id": "fund-vs-nonfund",
+      "type": "concept",
+      "title": "Fund-based versus non-fund-based",
+      "markdown": "- **Fund-based:** the bank actually parts with money. Term loans, cash credit, overdrafts and bill discounting are all fund-based — the borrower can draw cash.\n- **Non-fund-based:** the bank lends its *name*, not its cash, up front. A **bank guarantee** promises to pay a third party if the customer defaults; a **letter of credit** promises to pay a seller once shipping documents are in order. No money leaves the bank unless the customer fails to perform — at which point the non-fund exposure becomes a funded one.\n\nNon-fund-based facilities still consume the borrower's credit limit and earn the bank a commission.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "fund based facility bank parts with money term loan cash credit overdraft",
+        "non-fund-based bank guarantee letter of credit lends its name not cash",
+        "non-fund exposure becomes funded on default consumes credit limit commission"
+      ],
+      "position": 20
+    },
+    {
+      "id": "the-facilities",
+      "type": "concept",
+      "title": "Term loan, cash credit, overdraft, bill discounting",
+      "markdown": "- **Term loan:** a fixed amount disbursed once (or in tranches), repaid over a set schedule of instalments. Used for buying an asset — plant, vehicle, building. Tenor matches the asset's life; this is *project* or *capital-expenditure* finance.\n- **Cash credit (CC):** a running limit against **current assets** — stock and receivables. The borrower draws and repays as often as needed and pays interest only on the daily outstanding. This is *working-capital* finance for a business with a regular operating cycle.\n- **Overdraft (OD):** a running limit on a current or savings account, often against financial security (deposits, shares) or as a clean limit for a salaried customer. Used to bridge short, irregular gaps rather than to fund a full operating cycle.\n- **Bill discounting:** the bank pays a seller the value of a trade bill *now*, less a discount, and collects the full amount from the buyer on the due date. It converts a receivable into immediate cash.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "term loan fixed amount instalments buy an asset capital expenditure",
+        "cash credit running limit against stock and receivables working capital interest on daily outstanding",
+        "overdraft running limit on account bridge short gaps",
+        "bill discounting bank pays seller now less discount collects from buyer on due date"
+      ],
+      "position": 30
+    },
+    {
+      "id": "security",
+      "type": "concept",
+      "title": "How the bank takes security",
+      "markdown": "**Margin** is the part of an asset's value the borrower must fund; the bank lends the rest. A 25% margin on stock worth 100 supports a drawing of 75. Margin protects the bank against a fall in the asset's value.\n\n**Primary security** is the asset created with the loan (the machine, the stock). **Collateral** is an additional asset pledged as a fallback. The form of charge depends on the asset:\n\n- **Mortgage:** charge over **immovable** property (land, building). Possession stays with the borrower.\n- **Hypothecation:** charge over **movable** property that stays in the borrower's possession — stock in a shop, a financed car being driven. The bank has a right to seize on default.\n- **Pledge:** charge over movable property where the bank (or its agent) **holds** the asset — gold, goods in a bank-controlled warehouse — and returns it on repayment.\n- **Guarantee:** a third party's promise to repay if the borrower does not. It adds a person, not an asset.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "INDIACODE_BANKING_ACT"],
+      "searchKeywords": [
+        "margin part of asset value borrower funds bank lends the rest protects against price fall",
+        "primary security asset created with loan collateral additional fallback",
+        "mortgage immovable property possession with borrower",
+        "hypothecation movable property in borrower possession bank can seize on default",
+        "pledge movable property bank holds the asset returns on repayment",
+        "guarantee third party promise adds a person not an asset"
+      ],
+      "position": 40
+    },
+    {
+      "id": "loan-lifecycle",
+      "type": "concept",
+      "title": "The loan life-cycle",
+      "markdown": "1. **Appraisal:** assess the borrower's need, cash flows, character and the security offered; check credit-bureau records.\n2. **Sanction:** the appropriate authority approves an amount, rate, tenor and conditions.\n3. **Documentation:** loan agreement, creation of charge, guarantees — the legally enforceable paperwork.\n4. **Disbursement:** funds released, often in stages linked to the project's progress.\n5. **Monitoring / follow-up:** track end-use, review the account, inspect stock, watch for early-warning signs (the SMA stage).\n6. **Recovery / closure:** normal repayment closes the account; stress triggers restructuring or the recovery routes.\n\nSkipping or rushing appraisal and monitoring is the usual root cause of a loan going bad.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "loan life-cycle appraisal sanction documentation disbursement monitoring recovery",
+        "appraisal cash flows character security credit bureau",
+        "disbursement in stages linked to project progress",
+        "monitoring end-use inspection early warning SMA"
+      ],
+      "position": 50
+    },
+    {
+      "id": "retail-products",
+      "type": "concept",
+      "title": "Retail loan products",
+      "markdown": "| Product | Purpose | Typical security |\n| --- | --- | --- |\n| Home loan | Buy or build a house | Mortgage of the property |\n| Auto loan | Buy a vehicle | Hypothecation of the vehicle |\n| Personal loan | Any personal need | Usually unsecured |\n| Education loan | Course fees and living costs | Often unsecured up to a threshold, then collateral |\n| Gold loan | Short-term liquidity | Pledge of gold ornaments |\n| Credit card | Revolving consumption credit | Unsecured; interest-free only if paid in full by the due date |\n\nMost retail term loans are repaid by an **equated monthly instalment (EMI)** — a fixed monthly payment covering interest and principal, with the interest share largest at the start and the principal share largest near the end.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "SATHEE_BANK"],
+      "searchKeywords": [
+        "retail loan products home auto personal education gold loan credit card security",
+        "home loan mortgage auto loan hypothecation gold loan pledge",
+        "EMI equated monthly instalment interest share largest at start principal largest near end"
+      ],
+      "position": 60
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Drawing power and loan eligibility",
+      "markdown": "**1. Drawing power on a cash-credit limit.** A trader's books show stock ₹40 lakh, receivables ₹30 lakh, and creditors (suppliers to be paid) ₹10 lakh. The bank sets a **margin of 25%**.\n\nEligible current assets = stock + receivables − creditors = 40 + 30 − 10 = ₹60 lakh.\nDrawing power = 60 × (1 − 0.25) = **₹45 lakh**.\n\nEven if the sanctioned limit is higher, the trader can draw only up to the drawing power.\n\n**2. Home-loan eligibility on loan-to-value.** A flat is valued at ₹80 lakh and the bank's maximum **loan-to-value is 75%**.\n\nMaximum loan = 80 × 0.75 = **₹60 lakh**. The buyer funds the remaining ₹20 lakh as margin.\n\n**3. One month's interest.** On a ₹6,00,000 drawing at **12% per annum**, one month's simple interest = 6,00,000 × 0.12 ÷ 12 = **₹6,000**. (An actual EMI also repays principal, so the cash outflow is higher.)",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "drawing power stock plus receivables minus creditors times one minus margin",
+        "drawing power 40 30 10 margin 25 percent equals 45 lakh",
+        "loan to value 75 percent on 80 lakh flat maximum loan 60 lakh",
+        "one month interest 600000 at 12 percent per annum equals 6000"
+      ],
+      "expectedAnswers": [
+        {
+          "label": "Drawing power (rupees lakh)",
+          "value": 45,
+          "expression": "(40+30-10)*(1-0.25)"
+        },
+        {
+          "label": "Maximum home loan (rupees lakh)",
+          "value": 60,
+          "expression": "80*0.75"
+        },
+        {
+          "label": "One month's interest (rupees)",
+          "value": 6000,
+          "expression": "600000*0.12/12"
+        }
+      ],
+      "position": 70
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **Cash credit is against current assets and funds an operating cycle; an overdraft bridges short irregular gaps.** They look similar but are used differently.\n- **A term loan is disbursed once and amortised; cash credit and overdraft are running limits** that can be drawn and repaid repeatedly.\n- **Hypothecation leaves the asset with the borrower; pledge puts it in the bank's hold.** Mortgage is for immovable property only.\n- **A bank guarantee and a letter of credit are non-fund-based** — no money moves unless the customer fails to perform.\n- **Drawing power is not the sanctioned limit.** The borrower can draw only the lower of the two.\n- **A credit card is interest-free only if the full statement balance is paid by the due date**; paying the minimum triggers interest on the whole amount.",
+      "searchKeywords": [
+        "cash credit versus overdraft current assets versus short gaps",
+        "term loan disbursed once running limit drawn repeatedly",
+        "hypothecation borrower holds pledge bank holds mortgage immovable",
+        "guarantee and letter of credit non-fund-based",
+        "drawing power is not the sanctioned limit draw the lower",
+        "credit card interest-free only if full balance paid"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Fund-based facilities pay out cash (term loan, cash credit, overdraft, bill discounting); non-fund-based lend the bank's name (guarantee, letter of credit) and only become funded on default.\n- Term loan: one-time, amortised, for buying an asset. Cash credit: running limit against stock and receivables, for the operating cycle. Overdraft: running limit to bridge short gaps. Bill discounting: turns a receivable into cash now.\n- Margin is the borrower's share of an asset's value. Mortgage (immovable, borrower keeps possession), hypothecation (movable, borrower keeps possession), pledge (movable, bank holds it), guarantee (a person's promise).\n- Life-cycle: appraisal → sanction → documentation → disbursement → monitoring → recovery.\n- Drawing power = eligible current assets × (1 − margin); the borrower draws the lower of drawing power and sanctioned limit.",
+      "searchKeywords": [
+        "credit and loan products summary revision",
+        "fund non-fund facilities security life-cycle drawing power recap"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. A bank promises a government department it will pay ₹20 lakh if its contractor fails to finish the work. No money moves now. Fund-based or non-fund-based?\n2. A garment maker needs a limit it can draw and repay through the year against its stock and receivables. Which facility?\n3. A charge is created on a shopkeeper's inventory, which stays in the shop. Mortgage, hypothecation or pledge?\n4. A customer borrows against gold ornaments handed to the branch. Which form of security?\n5. A charge over a factory building. Which form of security?\n6. Drawing power: stock ₹50 lakh, receivables ₹20 lakh, creditors ₹10 lakh, margin 20%. Compute it (in ₹ lakh).\n7. Maximum loan on a ₹60 lakh flat at a loan-to-value of 80% (in ₹ lakh).\n8. One month's simple interest on a ₹9,00,000 drawing at 10% per annum (in ₹).\n\n**Answers:** 1 Non-fund-based — a bank guarantee; money moves only if the contractor defaults. 2 Cash credit — a running working-capital limit against current assets. 3 Hypothecation — movable asset in the borrower's possession. 4 Pledge — the bank holds the asset. 5 Mortgage — immovable property. 6 (50 + 20 − 10) × (1 − 0.20) = 60 × 0.80 = ₹48 lakh. 7 60 × 0.80 = ₹48 lakh. 8 9,00,000 × 0.10 ÷ 12 = ₹7,500.",
+      "expectedAnswers": [
+        {
+          "label": "Q6 drawing power (rupees lakh)",
+          "value": 48,
+          "expression": "(50+20-10)*(1-0.20)"
+        },
+        {
+          "label": "Q7 maximum loan (rupees lakh)",
+          "value": 48,
+          "expression": "60*0.80"
+        },
+        {
+          "label": "Q8 one month's interest (rupees)",
+          "value": 7500,
+          "expression": "900000*0.10/12"
+        }
+      ],
+      "position": 100
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "fund-vs-nonfund",
+      "front": "Fund-based versus non-fund-based facility?",
+      "back": "Fund-based: the bank pays out cash (term loan, cash credit, overdraft, bill discounting). Non-fund-based: the bank lends its name (bank guarantee, letter of credit) and money moves only if the customer fails to perform.",
+      "explanation": "Non-fund exposure still uses the credit limit and earns a commission.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["fund-vs-nonfund"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "term-loan-vs-cc",
+      "front": "Term loan versus cash credit?",
+      "back": "A term loan is a fixed amount disbursed once and repaid on a schedule, used to buy an asset. Cash credit is a running limit against stock and receivables, drawn and repaid as needed, for working capital; interest is on the daily outstanding.",
+      "explanation": "Term loan = capital expenditure; cash credit = operating cycle.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-facilities"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "bill-discounting",
+      "front": "What does bill discounting do?",
+      "back": "The bank pays the seller the value of a trade bill now, less a discount, and collects the full amount from the buyer on the due date — converting a receivable into immediate cash.",
+      "explanation": "A fund-based, self-liquidating facility.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-facilities"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "charge-types",
+      "front": "Mortgage, hypothecation and pledge — how do they differ?",
+      "back": "Mortgage: charge over immovable property, borrower keeps possession. Hypothecation: charge over movable property, borrower keeps possession, bank can seize on default. Pledge: charge over movable property the bank (or its agent) actually holds and returns on repayment.",
+      "explanation": "Gold loan = pledge; financed car or shop stock = hypothecation; home loan = mortgage.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["security"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "margin",
+      "front": "What is 'margin' in a lending context?",
+      "back": "The part of an asset's value the borrower must fund from its own resources; the bank lends the rest. A 25% margin on stock worth 100 supports a drawing of 75. It cushions the bank against a fall in the asset's value.",
+      "explanation": "Drawing power = eligible current assets × (1 − margin).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["security", "worked-example"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "loan-lifecycle",
+      "front": "The six stages of the loan life-cycle?",
+      "back": "Appraisal, sanction, documentation, disbursement, monitoring/follow-up, recovery/closure.",
+      "explanation": "Weak appraisal and monitoring are the usual root cause of a bad loan.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["loan-lifecycle"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "drawing-power",
+      "front": "How is drawing power computed, and how does it relate to the sanctioned limit?",
+      "back": "Drawing power = (stock + receivables − creditors) × (1 − margin). The borrower can draw only the lower of the drawing power and the sanctioned limit.",
+      "explanation": "Drawing power moves month to month with the stock statement; the limit is fixed at sanction.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "status": "approved",
+      "position": 70
+    },
+    {
+      "id": "emi",
+      "front": "What is an EMI and how does its composition change over the tenor?",
+      "back": "An equated monthly instalment is a fixed monthly payment covering both interest and principal. Early instalments are mostly interest; later instalments are mostly principal.",
+      "explanation": "The instalment is level, but its split shifts.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["retail-products"],
+      "status": "approved",
+      "position": 80
+    }
+  ]
+}

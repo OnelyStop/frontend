@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "arrangements-and-relations",
+  "chapterName": "Arrangements and relations",
+  "chapterPosition": 1,
+  "topicSlug": "direction-and-distance",
+  "topicPosition": 30,
+  "title": "Direction and Distance",
+  "summary": "Tracking a path across the compass: turns relative to the current facing, net displacement north-south and east-west, straight-line distance by the Pythagorean rule, and the sunrise and sunset shadow trick.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Apply a left or right turn relative to the direction currently faced.",
+    "Reduce a walk to its net north-south and east-west displacement.",
+    "Compute straight-line distance from the two net displacements.",
+    "Use the sunrise and sunset shadow rule to fix an unknown facing."
+  ],
+  "tags": ["reasoning", "direction-sense", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Geometry/Right_Triangles_and_Pythagorean_Theorem",
+      "title": "Geometry/Right Triangles and Pythagorean Theorem",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the distance calculation only. All paths and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm direction sense is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-compass",
+      "type": "introduction",
+      "title": "The compass",
+      "markdown": "North is up, south is down, east is right, west is left, with north-east, south-east, south-west and north-west in the corners. Going clockwise the order is north, east, south, west, back to north.\n\nA direction question gives someone a start point and a run of moves and turns. Your job is to plot the path, then answer either how far they are from the start or which direction they now face. Draw it on paper; almost no one gets these right in their head.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "compass north east south west corners",
+        "clockwise order north east south west",
+        "plot the path on paper"
+      ],
+      "position": 10
+    },
+    {
+      "id": "turns",
+      "type": "method",
+      "title": "Turns are relative to the current facing",
+      "markdown": "A left or right turn is measured from the direction the person faces **at that moment**, not from north.\n\n- A right turn is ninety degrees clockwise from the current facing; a left turn is ninety degrees anticlockwise.\n- Facing north: a right turn gives east, a left turn gives west. Facing east: a right turn gives south. Work it one turn at a time.\n- \"Turn around\" or \"turn back\" is a hundred and eighty degrees — the exact opposite direction.\n- After each turn, write down the new facing before reading the next move.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "left right turn relative to current facing not north",
+        "right turn ninety clockwise left turn ninety anticlockwise",
+        "turn around one hundred eighty degrees write new facing"
+      ],
+      "position": 20
+    },
+    {
+      "id": "net-displacement",
+      "type": "method",
+      "title": "Net displacement",
+      "markdown": "Collapse the whole walk into two numbers:\n\n- Add every northward leg and subtract every southward leg to get the **net north-south** distance. A positive result is north of the start, a negative result is south.\n- Do the same for east and west to get the **net east-west** distance.\n- The person's final position is those two offsets from the start; the order the legs were walked no longer matters.\n\nIf one of the two nets is zero, the person is due north, south, east or west of the start, and the distance is just the other number.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "net north south displacement add north subtract south",
+        "net east west displacement",
+        "final position two offsets order no longer matters"
+      ],
+      "position": 30
+    },
+    {
+      "id": "straight-line-distance",
+      "type": "formula",
+      "title": "Straight-line distance",
+      "markdown": "When both nets are non-zero, the straight-line distance from the start is the hypotenuse of a right triangle whose legs are the two nets:\n\n```\ndistance = square root of ( (net north-south)^2 + (net east-west)^2 )\n```\n\nThe familiar whole-number triples make this quick: legs 3 and 4 give 5, legs 6 and 8 give 10, legs 5 and 12 give 13. The final direction is the corner the offsets point to — for example net north positive and net east positive means north-east of the start.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "straight line distance hypotenuse square root of sum of squares",
+        "pythagorean triples 3 4 5 6 8 10 5 12 13",
+        "final direction is the corner the offsets point to"
+      ],
+      "position": 40
+    },
+    {
+      "id": "shadows",
+      "type": "concept",
+      "title": "Shadows at sunrise and sunset",
+      "markdown": "The sun rises in the east and sets in the west, so:\n\n- **Early morning**, shadows fall towards the **west**.\n- **Late evening**, shadows fall towards the **east**.\n- Around noon the shadow is very short and gives no reliable direction.\n\nIf a puzzle says a person's shadow fell to their right in the early morning, the west is on their right, so they face south. Use the same reasoning for a shadow to the left, in front, or behind.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "sun rises east sets west",
+        "morning shadow falls west evening shadow falls east",
+        "shadow to the right in the morning means facing south"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "A courier leaves the branch and walks 6 km north, then 8 km east, then 3 km south, then 8 km west.\n\n**Net north-south:** 6 north minus 3 south is 3, so 3 km north of the branch.\n**Net east-west:** 8 east minus 8 west is 0.\n\nOne net is zero, so the courier is due north of the branch, and the straight-line distance is simply 3 km. Written as a right-triangle check, the distance is the square root of 3 squared plus 0 squared, which is 3.\n\nNow a turning run: facing north, turn 90 degrees clockwise (now facing east), walk 5 km, turn right (now south), walk 5 km, turn right (now west), walk 5 km. The east and west legs cancel, leaving 5 km south of the start, and the courier now faces **west**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example courier 6 north 8 east 3 south 8 west",
+        "net displacement 3 km north distance 3",
+        "turning run facing west 5 km south"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "net north displacement (km)",
+          "value": 3,
+          "expression": "6-3"
+        },
+        {
+          "label": "net east displacement (km)",
+          "value": 0,
+          "expression": "8-8"
+        },
+        {
+          "label": "straight-line distance from branch (km)",
+          "value": 3,
+          "expression": "((6-3)**2 + (8-8)**2)**0.5"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Turning from north every time** instead of from the direction currently faced.\n- **Adding leg lengths** that point opposite ways rather than subtracting them.\n- **Reporting total distance walked** when the question asks for straight-line distance from the start.\n- **Getting the final direction backwards** — net south and net west is south-west of the start, not north-east.\n- **Using the noon shadow** for a direction, or swapping the morning and evening shadow sides.\n- **Not writing the new facing after each turn**, so a later turn is applied to the wrong direction.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "direction mistakes turning from north total distance walked",
+        "final direction backwards noon shadow",
+        "not writing new facing after each turn"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer with a one-line reason. Distances are straight-line from the start unless stated.\n\n1. Walk 10 m east, then 10 m north, then 10 m east. How far from the start?\n2. Walk 3 km south, then 4 km west. How far from the start?\n3. Facing east, you turn left. Which direction do you now face?\n4. Facing south-west, you turn 90 degrees clockwise. Which direction do you now face?\n5. Early in the morning a pole's shadow falls towards a man's right. Which direction is the man facing?\n6. Walk 12 m north, then 5 m east, then 12 m south. How far from the start, and in which direction?\n7. Walk 8 km east, 6 km north, 8 km west, then 6 km north. How far from the start?\n8. Facing north, turn right, then right, then left. Which direction do you now face?",
+      "searchKeywords": [
+        "direction distance practice net displacement turns shadow",
+        "pythagorean straight line distance facing after turns"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. distance after 10 E, 10 N, 10 E (m)",
+          "value": 22.36,
+          "tolerance": 0.01,
+          "expression": "((10+10)**2 + 10**2)**0.5"
+        },
+        {
+          "label": "2. distance after 3 S, 4 W (km)",
+          "value": 5,
+          "expression": "(3**2 + 4**2)**0.5"
+        },
+        {
+          "label": "6. distance after 12 N, 5 E, 12 S (m)",
+          "value": 5,
+          "expression": "5"
+        },
+        {
+          "label": "7. distance after 8 E, 6 N, 8 W, 6 N (km)",
+          "value": 12,
+          "expression": "6+6"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "turn-reference",
+      "front": "A left or right turn is measured from what?",
+      "back": "From the direction the person is facing at that moment, not from north. A right turn is 90 degrees clockwise, a left turn 90 degrees anticlockwise.",
+      "explanation": "Turning from north each time is the most common direction error.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["turns"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "net-idea",
+      "front": "How do you reduce a multi-leg walk to a position?",
+      "back": "Add north legs and subtract south legs for the net north-south distance; do the same for east and west. Those two offsets fix the final position.",
+      "explanation": "Once you have the two nets, the order of the legs is irrelevant.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["net-displacement"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "distance-formula",
+      "front": "Both net displacements are non-zero. How do you get the straight-line distance?",
+      "back": "Square root of (net north-south squared plus net east-west squared) — the hypotenuse of a right triangle with the two nets as legs.",
+      "explanation": "Recognising 3-4-5, 6-8-10 and 5-12-13 makes this instant.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["straight-line-distance"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "one-net-zero",
+      "front": "One net displacement is zero and the other is 7. Where is the person?",
+      "back": "Due north, south, east or west of the start, exactly 7 units away — no square root needed.",
+      "explanation": "A zero net collapses the triangle to a straight line.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["net-displacement"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "morning-shadow",
+      "front": "In the early morning, which way do shadows fall, and why?",
+      "back": "Towards the west, because the sun rises in the east. In the late evening shadows fall towards the east.",
+      "explanation": "The noon shadow is too short to give a direction.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["shadows"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "shadow-to-right",
+      "front": "Early morning, a person's shadow falls to their right. Which way do they face?",
+      "back": "South. The morning shadow points west, so west is on their right, which means they face south.",
+      "explanation": "Facing south, your right hand points west.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["shadows"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "final-direction-corner",
+      "front": "Net displacement is 4 south and 3 west. In which direction is the person from the start?",
+      "back": "South-west. Both offsets point to the same corner of the compass, so name that corner.",
+      "explanation": "Mixing this up and saying north-east is a frequent slip.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["straight-line-distance"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

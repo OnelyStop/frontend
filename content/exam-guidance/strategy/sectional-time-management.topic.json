@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "exam-guidance",
+  "subjectName": "Exam Guidelines and Strategy",
+  "subjectPosition": 5,
+  "chapterSlug": "strategy",
+  "chapterName": "Strategy",
+  "chapterPosition": 1,
+  "topicSlug": "sectional-time-management",
+  "topicPosition": 30,
+  "title": "Sectional Time Management",
+  "summary": "How to spend a fixed exam clock across sections and within a section: rough per-question budgets, the two-round approach, when to leave a set, and how sectional timing (if the notification sets it) changes the plan. Guidance, not an official rule.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 18,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Convert a paper's total time and question count into a per-question budget.",
+    "Apply a two-round approach to a section: easy marks first, hard sets later.",
+    "Set a personal walk-away limit for a single question or set.",
+    "Adjust the plan for sectional timing versus a single overall clock."
+  ],
+  "tags": [
+    "exam-guidance",
+    "strategy",
+    "time-management",
+    "sectional-timing",
+    "pacing"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SBI_PO_OVERVIEW",
+      "url": "https://sbi.co.in/web/careers/probationary-officers",
+      "title": "SBI - Probationary Officers information",
+      "publisher": "State Bank of India",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Used only to confirm that objective papers are time-bound and that some stages use per-section timing. The current notification states the exact timing model; no text was reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-budget",
+      "type": "method",
+      "title": "Turning the clock into a per-question budget",
+      "markdown": "Start every paper by working out your rough budget.\n\n1. Take the section's time and its number of questions from the notification.\n2. Reserve about 10 percent of the section time as a buffer for review and marking.\n3. Divide the rest by the question count for an average seconds-per-question.\n\nFor example, a 20-minute, 35-question section leaves roughly 18 minutes after a buffer, which is about 30 seconds per question on average. That average is a guide, not a rule for each question - some take five seconds to skip, some take ninety to solve.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "per question time budget",
+        "reserve buffer for review",
+        "seconds per question average",
+        "35 questions 20 minutes example"
+      ],
+      "position": 10
+    },
+    {
+      "id": "two-rounds",
+      "type": "method",
+      "title": "The two-round approach within a section",
+      "markdown": "Rather than going strictly in order:\n\n- **Round 1 (scan and bank):** go through the section once, doing every question you can solve comfortably inside your average time. Skip anything that looks long or unclear, marking it for later. This secures the easy marks before the clock pressure builds.\n- **Round 2 (return):** with the remaining time, come back to the flagged questions in order of expected payoff - a half-solved DI set before an untouched hard puzzle.\n- **Round 3 (mark and check),** if time remains: verify your marked answers, especially any where you changed your mind.\n\nThe common failure is spending round 1 in order and getting stuck on question 4 while easy questions 20 to 30 go unseen.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "two round approach section",
+        "scan and bank easy marks first",
+        "return to flagged questions by payoff",
+        "do not get stuck in order"
+      ],
+      "position": 20
+    },
+    {
+      "id": "walk-away-limit",
+      "type": "exam_tip",
+      "title": "A personal walk-away limit",
+      "markdown": "Decide in advance the maximum time you will give a single question or set before moving on - many candidates use something like 90 seconds for a standalone question and 4 to 5 minutes for a full DI or puzzle set. When you hit that limit without a clear path to the answer, leave it, even if you feel close.\n\nThe reason is opportunity cost: two more minutes on a stubborn question is two minutes not spent on two or three you could have solved. Practise this limit in mocks until leaving a question stops feeling like a loss.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "walk away limit per question",
+        "90 seconds standalone 4 to 5 minutes set",
+        "opportunity cost of a stubborn question",
+        "practise leaving questions"
+      ],
+      "position": 30
+    },
+    {
+      "id": "sectional-vs-overall",
+      "type": "comparison",
+      "title": "Sectional timing versus one overall clock",
+      "markdown": "- **Sectional timing:** each section has its own time limit and you cannot move to the next section early or go back. Plan each section on its own; there is no borrowing time from a strong section to rescue a weak one. Prelims of several of these exams use this model.\n- **Overall timing:** one clock for the whole paper; you choose the order and how long to spend on each section. Here you can start with your strongest section to bank marks and calm nerves, then allocate remaining time by difficulty - but you must still protect a minimum for every section because of sectional cut-offs.\n\nCheck the current notification for which model applies to your stage.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "sectional timing cannot go back",
+        "overall timing choose order",
+        "start with strongest section overall",
+        "protect minimum per section cutoff"
+      ],
+      "position": 40
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Attempting the paper strictly in order.** You will meet a hard question early and lose the easy ones later.\n- **No walk-away limit.** Without a pre-set cap, a single question can eat five minutes.\n- **Leaving no review buffer.** The last minutes are for verifying marked answers, not for a final panic.\n- **Over-investing in a favourite topic.** Extra time on your strong section past its questions is time stolen from a weak one that still has a cut-off.\n- **Planning for overall timing when the stage is sectional.** You cannot rescue a section later, so treat each on its own.\n- **Practising untimed.** Time pressure is a skill; it has to be trained in mocks, not discovered on exam day.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "time management mistakes",
+        "attempting in order",
+        "no walk away limit",
+        "no review buffer",
+        "over-investing in strong topic sectional versus overall"
+      ],
+      "position": 50
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Compute a per-question budget: (section time minus a ~10 percent buffer) divided by the number of questions. Treat it as an average, not a per-question rule.\n- Work each section in rounds: bank the easy marks first, return to flagged questions by payoff, then check.\n- Set a personal walk-away limit (for example ~90 seconds a question, ~4 to 5 minutes a set) and honour it - opportunity cost is the reason.\n- Sectional timing: plan each section alone, no borrowing time. Overall timing: choose order (often strongest first) but still protect a minimum per section for cut-offs.\n- Confirm the timing model from the current notification, and train pacing in timed mocks.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "sectional time management summary",
+        "revision",
+        "budget two rounds walk away sectional versus overall recap"
+      ],
+      "position": 60
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "per-question-budget",
+      "front": "How do you set a per-question time budget for a section?",
+      "back": "Take the section time, keep back about 10% as a review buffer, and divide the rest by the number of questions. It is an average guide, not a rule for each question.",
+      "explanation": "A 20-min, 35-Q section is roughly 30 seconds per question after a buffer.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-budget"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "two-rounds",
+      "front": "Describe the two-round approach to a section.",
+      "back": "Round 1: scan the whole section and solve everything comfortable within your average time, flagging the rest. Round 2: return to flagged questions by expected payoff. Round 3: check marked answers if time remains.",
+      "explanation": "Going strictly in order gets you stuck early.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["two-rounds"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "walk-away",
+      "front": "What is a walk-away limit, and why use one?",
+      "back": "A pre-set maximum time for one question or set (e.g. ~90 s / ~4-5 min). You leave when you hit it, because those minutes could solve two or three other questions - opportunity cost.",
+      "explanation": "It has to be practised until leaving stops feeling like a loss.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["walk-away-limit"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "sectional-timing",
+      "front": "Under sectional timing, can you use spare time from a strong section on a weak one?",
+      "back": "No. Each section has its own clock and you cannot go back. Plan each section on its own.",
+      "explanation": "Prelims of several of these exams use sectional timing.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sectional-vs-overall"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "overall-timing-order",
+      "front": "Under one overall clock, how might you order the sections?",
+      "back": "Often start with your strongest section to bank marks and settle nerves, then allocate remaining time by difficulty - while still protecting a minimum for every section because of sectional cut-offs.",
+      "explanation": "You choose the order only when timing is overall, not sectional.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sectional-vs-overall"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "review-buffer",
+      "front": "What are the last few minutes of a section for?",
+      "back": "Verifying your marked answers - especially ones where you changed your mind - not a final round of panic guessing.",
+      "explanation": "That is why you keep back a review buffer.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "train-pacing",
+      "front": "Where should exam pacing be learned?",
+      "back": "In timed mock tests. Time pressure is a trainable skill; discovering it on exam day is too late.",
+      "explanation": "Untimed practice does not build this.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

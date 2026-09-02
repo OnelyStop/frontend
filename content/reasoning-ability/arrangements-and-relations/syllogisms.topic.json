@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "arrangements-and-relations",
+  "chapterName": "Arrangements and relations",
+  "chapterPosition": 1,
+  "topicSlug": "syllogisms",
+  "topicPosition": 60,
+  "title": "Syllogisms",
+  "summary": "Deciding which conclusions follow from All, Some and No statements by drawing every possible Venn diagram — including possibility conclusions and either-or conclusions.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Draw All, Some and No statements as circle diagrams.",
+    "Test a conclusion by trying to draw the statements so it fails.",
+    "Judge a possibility conclusion against the set of valid diagrams.",
+    "Recognise when two conclusions form an either-or pair."
+  ],
+  "tags": ["reasoning", "syllogism", "logical-reasoning", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Set_Theory/Venn_Diagrams",
+      "title": "Set Theory/Venn Diagrams",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the diagram method. All statement sets and conclusions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm syllogism is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-follows-means",
+      "type": "introduction",
+      "title": "What 'follows' means",
+      "markdown": "A syllogism gives two or more statements built from **All**, **Some** and **No**, then a few conclusions. You must say which conclusions **follow**.\n\nA conclusion follows only if it is true in **every** arrangement the statements allow. If you can draw even one valid picture where the conclusion fails, it does not follow. Treat the statements as certainly true, however odd they sound, and never bring in outside knowledge about the real things named.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "syllogism all some no statements which conclusions follow",
+        "follows means true in every allowed arrangement",
+        "one failing picture means it does not follow no outside knowledge"
+      ],
+      "position": 10
+    },
+    {
+      "id": "draw-the-statements",
+      "type": "method",
+      "title": "Draw the statements as circles",
+      "markdown": "Each statement is a picture:\n\n- **All A are B:** circle A drawn entirely inside circle B.\n- **No A is B:** circle A and circle B drawn apart, not touching.\n- **Some A are B:** circle A and circle B drawn overlapping, with at least one item in the shared part.\n\nDraw the first statement, then add the second so that both stay true at once, then read the conclusions off the combined picture. Where the second statement could be added in more than one way, you must try each way.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "all a are b circle inside no a is b circles apart some a are b overlap",
+        "draw first statement then add second keeping both true",
+        "try each way the second statement can be added"
+      ],
+      "position": 20
+    },
+    {
+      "id": "reading-some-and-all",
+      "type": "concept",
+      "title": "How 'Some' and 'All' behave",
+      "markdown": "- **Some A are B does not rule out All A are B.** \"Some\" here means \"at least one\", not \"only some\". So a valid picture for \"Some A are B\" may have A completely inside B.\n- **Some A are B also gives Some B are A.** Overlap works both ways.\n- **All A are B gives Some B are A** (taking the classes to be non-empty), but it does **not** give All B are A.\n- **No A is B gives No B is A.**\n\nThese conversions are the conclusions that most often follow directly from a single statement.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "some a are b does not rule out all a are b at least one",
+        "some a are b gives some b are a overlap both ways",
+        "all a are b gives some b are a not all b are a no a is b gives no b is a"
+      ],
+      "position": 30
+    },
+    {
+      "id": "testing-a-conclusion",
+      "type": "method",
+      "title": "Testing a conclusion",
+      "markdown": "For each conclusion, ask: **can I draw the statements, all true, so that this conclusion is false?**\n\n- If **yes**, you have a counter-picture, and the conclusion does **not** follow.\n- If **no** — every valid picture keeps it true — the conclusion **follows**.\n\nBe systematic. List the ways the statements can combine (usually two or three), draw each, and check the conclusion against all of them. A conclusion that holds in two pictures but fails in the third does not follow.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "test a conclusion can i draw the statements so it is false",
+        "counter picture means does not follow",
+        "list the ways statements combine check conclusion against all"
+      ],
+      "position": 40
+    },
+    {
+      "id": "possibility-and-either-or",
+      "type": "concept",
+      "title": "Possibility and either-or conclusions",
+      "markdown": "**Possibility conclusions** are worded \"Some A being C is a possibility\" or \"All A being B is a possibility\". Such a conclusion follows if **at least one** valid picture shows it. It fails only when **no** valid picture can show it — for instance, when a part of A is already forced to lie outside C.\n\n**Either-or conclusions** come in a pair. When neither conclusion of the pair follows on its own, but together they cover **every** valid picture — usually because they are exact opposites, such as \"Some A are B\" and \"No A is B\" — the answer is \"either the first or the second follows\".",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "possibility conclusion follows if at least one valid picture shows it",
+        "fails only when no valid picture can show it",
+        "either or pair neither alone follows together cover every picture exact opposites"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**Set 1.** Statements: All pens are books. All books are files. Conclusions: (I) All pens are files. (II) Some files are pens.\n\nPens sit inside books, and books sit inside files, so pens sit inside files. (I) follows. Pens exist and are files, so some files are pens; (II) follows. **Both follow.**\n\n**Set 2.** Statements: Some cups are plates. No plate is a spoon. Conclusions: (I) Some cups are not spoons. (II) Some cups being spoons is a possibility.\n\nThe cups that are plates cannot be spoons, and that group is non-empty, so (I) follows. The cups outside the plate overlap are free to be spoons, so (II) — a possibility — also follows. **Both follow.**\n\n**Set 3.** Statements: All roads are paths. Some paths are lanes. Conclusions: (I) Some roads are lanes. (II) No road is a lane.\n\nThe lane overlap on paths may or may not reach into the roads. If it does, (I) is true and (II) is false; if it does not, some picture has the roads clear of lanes, making (II) true and (I) false. Exactly one of them holds in every picture, so the answer is **either (I) or (II) follows**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example all pens books all books files both follow",
+        "some cups plates no plate spoon some cups not spoons possibility",
+        "all roads paths some paths lanes either or follows"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Reading \"Some\" as \"only some\"**, and rejecting a picture where A lies wholly inside B.\n- **Converting \"All A are B\" to \"All B are A\".** Only \"Some B are A\" follows.\n- **Checking one picture.** A conclusion must survive every valid combination.\n- **Linking two end terms** through nothing — from \"All A are B\" and \"Some C are D\" nothing about A and C follows.\n- **Calling a possibility false** without checking that *no* picture can show it.\n- **Missing an either-or pair** by testing the two conclusions only one at a time.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "syllogism mistakes some as only some converting all b are a",
+        "checking one picture linking end terms through nothing",
+        "calling a possibility false missing either or pair"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A conclusion follows only if it is true in every valid picture; one counter-picture kills it.\n- Draw All as one circle inside another, No as separate circles, Some as an overlap.\n- \"Some\" means at least one and allows \"All\"; \"Some A are B\" gives \"Some B are A\"; \"All A are B\" gives only \"Some B are A\"; \"No A is B\" gives \"No B is A\".\n- A possibility follows if one valid picture shows it, and fails only if none can.\n- If neither of two conclusions follows alone but together they cover every picture — usually exact opposites — the answer is either-or.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "syllogism summary follows every valid picture draw all some no",
+        "some means at least one conversions",
+        "possibility one picture either or opposites cover every picture"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "For each set say which follows: I only, II only, both, neither, or either-or. Give a one-line reason.\n\n1. All cats are dogs. All dogs are animals. (I) All cats are animals. (II) Some animals are cats.\n2. No book is a pen. All pens are pencils. (I) Some pencils are not books. (II) No book is a pencil.\n3. Some apples are red. Some red things are sweet. (I) Some apples are sweet. (II) No apple is sweet.\n4. All keys are locks. No lock is a door. (I) No key is a door. (II) Some keys are locks.\n5. Some pens are inks. All inks are blue. (I) Some pens are blue. (II) All pens being blue is a possibility.\n6. All trees are plants. Some plants are green. (I) Some trees are green. (II) Some trees are not green.\n7. No fan is a cooler. Some coolers are air conditioners. (I) Some air conditioners are not fans. (II) All air conditioners being fans is a possibility.",
+      "searchKeywords": [
+        "syllogism practice sets which conclusion follows i only ii only both neither either or",
+        "all cats dogs animals no book pen pencil some apples red sweet",
+        "possibility either or reasoning"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "follows-definition",
+      "front": "When does a syllogism conclusion 'follow'?",
+      "back": "Only when it is true in every arrangement the statements allow. A single valid picture where it fails means it does not follow.",
+      "explanation": "Take the statements as true and use no outside knowledge.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-follows-means"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "three-pictures",
+      "front": "How do you draw All A are B, No A is B, and Some A are B?",
+      "back": "All A are B: circle A inside circle B. No A is B: the two circles apart. Some A are B: the two circles overlapping with something in the shared part.",
+      "explanation": "Every statement is one of these three pictures.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["draw-the-statements"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "some-allows-all",
+      "front": "Does 'Some A are B' rule out 'All A are B'?",
+      "back": "No. 'Some' means 'at least one', so a valid picture for 'Some A are B' may have A entirely inside B.",
+      "explanation": "Reading 'some' as 'only some' is the classic error.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["reading-some-and-all"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "all-conversion",
+      "front": "From 'All A are B', what converse follows?",
+      "back": "'Some B are A' (the classes being non-empty). 'All B are A' does not follow.",
+      "explanation": "'No A is B' converts fully: 'No B is A'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["reading-some-and-all"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "test-by-counter",
+      "front": "How do you test whether a conclusion follows?",
+      "back": "Try to draw the statements, all true, so that the conclusion is false. If you can, it does not follow; if every valid picture keeps it true, it follows.",
+      "explanation": "Be systematic: list the ways the statements can combine and check all of them.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["testing-a-conclusion"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "possibility-rule",
+      "front": "When does a possibility conclusion follow?",
+      "back": "When at least one valid picture shows it. It fails only if no valid picture can show it.",
+      "explanation": "A part of A already forced outside C is what makes 'Some A being C is a possibility' fail.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["possibility-and-either-or"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "either-or-rule",
+      "front": "When is the answer 'either I or II follows'?",
+      "back": "When neither conclusion follows on its own, but together they cover every valid picture — typically because they are exact opposites like 'Some A are B' and 'No A is B'.",
+      "explanation": "Test the pair together, not just one at a time.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["possibility-and-either-or"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

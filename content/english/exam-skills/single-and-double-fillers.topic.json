@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "exam-skills",
+  "chapterName": "Exam question skills",
+  "chapterPosition": 2,
+  "topicSlug": "single-and-double-fillers",
+  "topicPosition": 40,
+  "title": "Single and Double Fillers",
+  "summary": "How the fill-in-the-blank question is scored: filtering the options by grammar fit, meaning fit and collocation, handling one blank, and handling two blanks where both words must fit and the link between them matters.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech", "conjunctions-and-connectors"],
+  "learningObjectives": [
+    "Run the three filters — grammar, meaning, collocation — over the options for a blank.",
+    "Use the words around a single blank to predict its part of speech and sense.",
+    "Solve a double-blank item by requiring both words to fit and reading the connector between them.",
+    "Eliminate an option that fits one blank but fails the other."
+  ],
+  "tags": ["exam-skills", "fillers", "vocabulary", "collocation"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm that single and double fillers are a standard question type. No content was reused."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Determining_Parts_of_Speech",
+      "title": "English Grammar/Basic Parts of Speech/Determining Parts of Speech",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the grammar behind the 'grammar fit' filter. All sentences and options here are original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "how-the-question-works",
+      "type": "introduction",
+      "title": "How the question is built",
+      "markdown": "A filler item gives a sentence with one or two blanks and four or five options. For one blank each option is a single word; for two blanks each option is a word pair, and **both** words must fit.\n\nThe sentence around the blank tells you what belongs there — its part of speech, whether it is positive or negative in sense, and which fixed word it goes with. Work from the sentence, not from which option \"sounds nice\".",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "single filler double filler format",
+        "both words must fit in a pair",
+        "work from the sentence not the sound"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-three-filters",
+      "type": "method",
+      "title": "The three filters",
+      "markdown": "Run each option through all three:\n\n1. **Grammar fit.** Does the word's part of speech match the slot? A blank after *a*/*an*/*the* and before a noun needs an adjective; a blank after *to* needs a verb; a blank as the subject needs a noun.\n2. **Meaning fit.** Does the sense match the rest of the sentence — its polarity (praise or criticism), its degree (mild or strong), its time frame? A contrast word like *however* earlier in the sentence signals the blank should reverse the first idea.\n3. **Collocation.** Does the word pair naturally with the fixed words nearby? We say *pose a threat*, *raise concerns*, *meet a target*, *strong opposition*, *deep concern* — not *make a threat to* in that sense, not *high opposition*.\n\nAn option must pass all three. Most wrong options fail on meaning or collocation, not grammar.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "three filters grammar meaning collocation",
+        "part of speech of the slot",
+        "polarity degree time frame of the sense",
+        "collocation pose a threat raise concerns meet a target"
+      ],
+      "position": 20
+    },
+    {
+      "id": "single-blank",
+      "type": "method",
+      "title": "One blank",
+      "markdown": "1. **Predict before looking at the options.** Read the sentence, cover the choices, and say what kind of word fits and roughly what it should mean.\n2. **Note the signposts.** A contrast word (*but*, *although*, *despite*, *however*) means the blank opposes an earlier idea; a cause word (*because*, *since*) or a result word (*so*, *therefore*) sets the direction.\n3. **Test each option in the sentence**, reading the whole sentence aloud in your head, and reject on the first clear failure.\n4. **If two survive**, pick the one with the tighter collocation or the more exact degree.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "single blank predict before options",
+        "signposts contrast cause result",
+        "test each option in the whole sentence",
+        "if two survive pick tighter collocation"
+      ],
+      "position": 30
+    },
+    {
+      "id": "double-blank",
+      "type": "method",
+      "title": "Two blanks",
+      "markdown": "- **Both words must fit.** An option is wrong if either word fails, so you can often eliminate a pair on the easier blank alone.\n- **Start with the blank you are surer about**, cut the options that fail it, then decide among the rest on the second blank.\n- **Read the connector between the blanks.** If the two blanks are joined by *and*, the two words point the same way; by *but*, *yet*, *while*, they contrast; by *because*, one causes the other.\n- **Watch the polarity across the sentence.** *The plan was ____ by the board but ____ by the branches* needs one positive and one negative word.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "double blank both words must fit",
+        "eliminate on the easier blank first",
+        "connector between the blanks and but because",
+        "polarity across the sentence one positive one negative"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**1. Single.** *Despite the board's approval, the branches raised ____ objections to the new charges.*\n(a) mild (b) strong (c) partial (d) occasional\n\n*Despite ... approval* sets up a contrast, so the objections are serious. *Raise objections* is the collocation, and the sense wants a strong degree. The answer is **(b) strong**. \"Mild\" and \"partial\" undercut the contrast; \"occasional\" does not fit \"raised\".\n\n**2. Double.** *The audit was ____ in its scope but ____ in its findings, covering every branch yet flagging only two errors.*\n(a) narrow ... severe (b) broad ... limited (c) quick ... detailed (d) broad ... serious\n\nThe connector is *but*, so the two words contrast, and the tail (*covering every branch yet flagging only two errors*) fixes the meaning: wide scope, few findings. The answer is **(b) broad ... limited**.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "filler worked example despite contrast strong objections",
+        "raised objections collocation",
+        "double blank broad but limited but connector contrast"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Choosing a word that fits the grammar but not the sense** — a synonym of the wrong polarity.\n- **Ignoring a contrast or cause word** earlier in the sentence.\n- **In a double blank, checking only one word** of the pair.\n- **Preferring a rare, impressive word** over the one that actually collocates.\n- **Not reading past the blank.** The tail of the sentence often decides the answer.\n- **\"Sounds fine\" as a test.** Two options can both sound fine; one has the tighter collocation or the exact degree.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "filler mistakes",
+        "wrong polarity synonym",
+        "ignoring contrast word",
+        "checking one word of a pair",
+        "rare word over collocation",
+        "read past the blank"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Run every option through three filters: grammar fit (part of speech), meaning fit (polarity, degree, time), collocation (fixed pairings).\n- Single blank: predict first; read the signpost words; test each option in the whole sentence; if two survive, take the tighter collocation.\n- Double blank: both words must fit; eliminate on the surer blank first; read the connector between the blanks (*and* = same direction, *but* = contrast); check polarity across the sentence.\n- The wrong options usually fail on meaning or collocation, not grammar. Read past the blank to the end of the sentence.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "fillers summary",
+        "revision",
+        "three filters single double blank connector polarity recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the best option; give a one-line reason.\n\n1. The circular was worded so ____ that three branches read it two different ways. (a) clearly (b) ambiguously (c) briefly (d) formally\n2. Sales rose in the first quarter but ____ in the second, ending the half flat. (a) surged (b) held (c) fell (d) doubled\n3. The scheme was ____ received by customers and ____ criticised by staff, splitting opinion sharply. (a) warmly ... widely (b) coldly ... rarely (c) warmly ... rarely (d) poorly ... widely\n4. The committee ____ concern about the delay and asked for a ____ report by Friday. (a) raised ... detailed (b) made ... detailed (c) raised ... rare (d) posed ... short\n5. Although the target was ____, the team met it with two days to spare. (a) modest (b) demanding (c) unclear (d) optional\n6. The audit found the records ____ but the filing ____, accurate entries in a disordered cabinet. (a) sound ... poor (b) poor ... sound (c) sound ... sound (d) recent ... old",
+      "searchKeywords": [
+        "fillers practice questions",
+        "single double blank collocation contrast polarity exercises"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "three-filters",
+      "front": "What three filters must a filler option pass?",
+      "back": "Grammar fit (right part of speech for the slot), meaning fit (right polarity, degree and time), and collocation (pairs naturally with the fixed words nearby).",
+      "explanation": "Most wrong options fail meaning or collocation, not grammar.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-three-filters"],
+      "position": 10
+    },
+    {
+      "id": "signposts",
+      "front": "A sentence has 'despite' or 'although' before the blank. What does that tell you?",
+      "back": "The blank should carry an idea that contrasts with the earlier part of the sentence.",
+      "explanation": "Cause words (because) and result words (so) set direction too.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["single-blank"],
+      "position": 20
+    },
+    {
+      "id": "double-both-fit",
+      "front": "In a two-blank item, how many words of the pair must fit?",
+      "back": "Both. If either word fails, the whole option is wrong — so you can often eliminate on the easier blank alone.",
+      "explanation": "Start with the blank you're surer about.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["double-blank"],
+      "position": 30
+    },
+    {
+      "id": "connector-between-blanks",
+      "front": "Two blanks joined by 'but' — what relationship do the two words have?",
+      "back": "They contrast. Joined by 'and' they point the same way; joined by 'because' one causes the other.",
+      "explanation": "Read the connector before choosing.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["double-blank"],
+      "position": 40
+    },
+    {
+      "id": "collocation-example",
+      "front": "Which verb collocates: '____ objections', '____ a threat', '____ a target'?",
+      "back": "raise objections, pose a threat, meet a target. The wrong option often breaks the fixed pairing.",
+      "explanation": "Collocation is what separates two grammatically valid options.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-three-filters"],
+      "position": 50
+    },
+    {
+      "id": "read-past-blank",
+      "front": "Where in the sentence is the answer to a filler often decided?",
+      "back": "After the blank — the tail of the sentence usually fixes the meaning. Read to the full stop before choosing.",
+      "explanation": "\"...covering every branch yet flagging only two errors\" decides broad vs narrow.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60
+    },
+    {
+      "id": "sounds-fine",
+      "front": "Two options both 'sound fine'. How do you decide?",
+      "back": "Take the one with the tighter collocation or the more exact degree of meaning. \"Sounds fine\" is not a test.",
+      "explanation": "Rare impressive words rarely beat the natural collocation.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70
+    }
+  ]
+}

@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "exam-skills",
+  "chapterName": "Exam question skills",
+  "chapterPosition": 2,
+  "topicSlug": "reading-comprehension-strategy",
+  "topicPosition": 30,
+  "title": "Reading Comprehension Strategy",
+  "summary": "How to work an RC passage under time: the order to read in, the question types and what each is really asking, an elimination method for the options, and how to handle inference, tone and vocabulary-in-context items.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Choose a reading order that fits the passage length and your speed.",
+    "Classify each question as main idea, detail, inference, tone, or vocabulary-in-context.",
+    "Answer inference and tone questions from the passage alone, without outside knowledge.",
+    "Use option elimination to separate a defensible answer from a plausible distractor."
+  ],
+  "tags": ["exam-skills", "reading-comprehension", "strategy", "inference"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Consulted only to confirm that reading comprehension is a standard question type and the usual mix of question kinds. No passage, question or explanation was reused."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Determining_Parts_of_Speech",
+      "title": "English Grammar/Basic Parts of Speech/Determining Parts of Speech",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check terminology for word function in vocabulary-in-context items. The passage and all questions here are original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "What RC actually tests",
+      "markdown": "A reading-comprehension set gives you a passage and several questions on it. It tests whether you can find what the passage says, follow its argument, and tell what it implies from what it merely mentions.\n\nEvery answer must be supported by the passage. Outside knowledge, however correct, is not the basis for any choice. The skill is disciplined reading under a clock, not general awareness.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "what reading comprehension tests",
+        "answer from the passage",
+        "no outside knowledge"
+      ],
+      "position": 10
+    },
+    {
+      "id": "reading-order",
+      "type": "exam_tip",
+      "title": "The order to read in",
+      "markdown": "Two workable orders:\n\n- **Skim the passage first**, one pass for the main idea and the shape of the argument, noting where each sub-point sits. Then read the questions and go back for details. Good for shorter passages and faster readers.\n- **Read the questions first** (not the options), form a short list of what to look for, then read the passage once with those in mind. Good for long passages and detail-heavy sets.\n\nEither way, read the passage properly at least once. Answering only from the questions leads to distractor traps.",
+      "sourceIds": ["SATHEE_ENGLISH"],
+      "searchKeywords": [
+        "read the passage first or questions first",
+        "skim for main idea",
+        "long passage strategy"
+      ],
+      "position": 20
+    },
+    {
+      "id": "question-types",
+      "type": "concept",
+      "title": "The question types",
+      "markdown": "- **Main idea / title / purpose:** the whole passage, not one paragraph. Reject options that are true but too narrow, or broader than the passage.\n- **Detail / fact:** stated directly. Locate the line; the answer is a paraphrase of it.\n- **Inference:** not stated, but must follow from what is stated. It should be something the author would have to accept, not just something that could be true.\n- **Tone / attitude:** how the author feels about the subject - neutral, critical, appreciative, cautious. Judge from word choice, not from the topic.\n- **Vocabulary-in-context:** the meaning the word carries in that sentence, which may not be its most common meaning.\n- **Assumption / strengthen / weaken:** what the argument rests on, or what would support or undermine it.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "RC question types",
+        "main idea detail inference tone",
+        "vocabulary in context assumption"
+      ],
+      "position": 30
+    },
+    {
+      "id": "elimination",
+      "type": "method",
+      "title": "Working the options",
+      "markdown": "For each option, ask which line of the passage supports it. If you cannot point to one, it is probably wrong.\n\nCommon distractors:\n\n- **Too extreme:** uses *always*, *never*, *only*, *must* where the passage hedges with *often*, *may*, *tends to*.\n- **Half right:** the first part matches the passage, the second does not.\n- **Right idea, wrong scope:** true of one paragraph, offered as the main idea.\n- **Outside the passage:** correct in the real world but never stated or implied here.\n- **Distortion:** reverses a cause and effect, or swaps two groups.\n\nWhen two options survive, prefer the one that is more cautious and more fully backed by the text.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "RC option elimination",
+        "too extreme distractor",
+        "half right wrong scope outside passage"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: a short passage",
+      "markdown": "*Passage:* When a bank opens a branch in a village that had none, the first effect is rarely a rush of loans. Households that have only ever kept cash at home take time to trust a counter with their savings. What changes sooner is the habit of small, regular deposits, because a nearby branch lowers the effort of putting money aside. Lending tends to grow only once the branch has a record of these deposits to lend against and a sense of which borrowers repay.\n\n*Question 1 (detail):* According to the passage, what changes first after such a branch opens?\nThe passage says \"What changes sooner is the habit of small, regular deposits.\" The defensible answer is **the habit of making small regular deposits**, not a rise in loans.\n\n*Question 2 (inference):* The passage implies that lending grows mainly because the branch gains what?\nIt says lending grows \"once the branch has a record of these deposits ... and a sense of which borrowers repay.\" The supported inference is **information about local savers and borrowers**. An option saying \"more capital from head office\" is outside the passage.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "RC worked example passage",
+        "detail question deposits first",
+        "inference lending grows information"
+      ],
+      "position": 50
+    },
+    {
+      "id": "tone-and-vocab",
+      "type": "concept",
+      "title": "Tone and vocabulary-in-context",
+      "markdown": "**Tone:** decide from how the author writes, not what about. A passage about a bank failure can be written coolly and analytically; the tone would be *neutral* or *analytical*, not *alarmed*, unless the wording shows alarm. Look at adjectives, verbs and any hedging.\n\n**Vocabulary-in-context:** substitute each option into the sentence and keep the meaning intact. *The report was fairly damning.* Here *fairly* means *quite* or *rather*, not *justly*. The most common dictionary sense is often the trap.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "RC tone question",
+        "vocabulary in context substitute",
+        "common sense is the trap"
+      ],
+      "position": 60
+    },
+    {
+      "id": "strategy",
+      "type": "exam_tip",
+      "title": "Doing it under time",
+      "markdown": "- Attempt detail and vocabulary questions first; they are fastest and surest.\n- Leave main-idea questions until you have worked the passage through other questions.\n- Never carry in outside facts; the passage is the only authority.\n- If a full set is dense and slow, take the three or four sure marks and move on rather than sinking ten minutes into one passage.\n- On a two-option tie, pick the more moderate wording.",
+      "sourceIds": ["SATHEE_ENGLISH"],
+      "searchKeywords": [
+        "RC strategy timing",
+        "detail questions first",
+        "sure marks move on",
+        "moderate wording tie-break"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Every answer must be traceable to a line of the passage; outside knowledge is not evidence.\n- Pick a reading order that suits the length: skim-first for short, questions-first for long.\n- Classify each question: main idea, detail, inference, tone, vocabulary-in-context, assumption or strengthen/weaken.\n- An inference must follow necessarily, not merely be possible.\n- Judge tone from wording, not subject; judge a word's meaning from its sentence, not the dictionary's first sense.\n- Eliminate the too-extreme, half-right, wrong-scope, outside-passage and distortion options; on a tie, take the more cautious one.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "reading comprehension summary",
+        "revision",
+        "inference tone elimination recap"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "answer-from-passage",
+      "front": "Can a factually correct statement be the right RC answer if the passage does not support it?",
+      "back": "No. Every answer must be traceable to the passage. Outside knowledge is not evidence.",
+      "explanation": "RC tests reading, not general awareness.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["introduction"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "inference-necessary",
+      "front": "How is an inference question answer different from something that 'could be true'?",
+      "back": "An inference must follow necessarily from the passage - something the author would have to accept - not merely be plausible.",
+      "explanation": "\"Could be true\" options are the classic inference distractor.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["question-types"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "tone-from-wording",
+      "front": "How do you judge the author's tone?",
+      "back": "From the wording - adjectives, verbs, hedges - not from the subject. A grim topic can be written neutrally.",
+      "explanation": "\"Analytical\" and \"alarmed\" can describe passages on the same event.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["tone-and-vocab"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "vocab-in-context",
+      "front": "In \"the report was fairly damning\", what does \"fairly\" mean?",
+      "back": "\"quite\" / \"rather\", not \"justly\". Vocabulary-in-context asks for the sentence meaning, not the most common sense.",
+      "explanation": "The common dictionary sense is often the trap option.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["tone-and-vocab"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "main-idea-scope",
+      "front": "What kind of option is wrong for a 'main idea' question?",
+      "back": "One that is true but too narrow (covers one paragraph) or broader than the passage actually goes.",
+      "explanation": "Main idea = the whole passage, at the passage's own scope.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["question-types"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "extreme-distractor",
+      "front": "Why is an option using \"always\" or \"only\" often wrong?",
+      "back": "Passages usually hedge (often, may, tends to). An option that overstates the claim fails the support test.",
+      "explanation": "Match the strength of the wording to the passage.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["elimination"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "timing-order",
+      "front": "Which RC questions should you attempt first under time pressure?",
+      "back": "Detail and vocabulary-in-context - fastest and surest. Leave main-idea until the passage is worked through.",
+      "explanation": "Bank the certain marks before the slow ones.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["strategy"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

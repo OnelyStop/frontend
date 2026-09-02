@@ -8,6 +8,7 @@ const PROTECTED = [
   "/mocks",
   "/drills",
   "/descriptive",
+  "/study",
   "/progress",
   "/notes",
   "/flashcards",

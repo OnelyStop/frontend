@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "parts-of-speech",
+  "topicPosition": 10,
+  "title": "Parts of Speech",
+  "summary": "The eight word classes, what job each does in a sentence, and the key idea that a word's class depends on how it is used, not on the word itself - the foundation for error detection and sentence improvement.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Name the eight parts of speech and the job each does.",
+    "Tell an adjective from an adverb, and a preposition from a conjunction.",
+    "Decide a word's part of speech from its role in the sentence.",
+    "Use this classification to locate the faulty word in an error-detection item."
+  ],
+  "tags": ["grammar", "parts-of-speech", "word-classes", "error-detection"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Determining_Parts_of_Speech",
+      "title": "English Grammar/Basic Parts of Speech/Determining Parts of Speech",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the standard list of word classes and the function-over-form principle. All example sentences here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "Why word classes matter",
+      "markdown": "Every English word does one of a small number of jobs in a sentence. Grouping words by that job gives the eight parts of speech: noun, pronoun, verb, adjective, adverb, preposition, conjunction and interjection.\n\nBank exams do not ask you to recite this list. They rely on it. Error detection, sentence improvement, fillers and word-usage questions are all easier once you can say what job a word is doing, because a wrong word is usually the wrong class for its slot.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "parts of speech",
+        "word classes",
+        "why grammar matters exams"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-eight-classes",
+      "type": "concept",
+      "title": "The eight classes",
+      "markdown": "- **Noun:** names a person, place, thing or idea. *The manager approved the transfer.*\n- **Pronoun:** stands in for a noun. *She approved it.*\n- **Verb:** states an action or a state. *The branch reopened.* *The report seems accurate.*\n- **Adjective:** describes a noun. *a pending application*\n- **Adverb:** modifies a verb, an adjective or another adverb, often answering how, when or where. *processed quickly*, *almost certain*\n- **Preposition:** links a noun to the rest of the sentence, showing relation. *in the queue*, *before noon*\n- **Conjunction:** joins words or clauses. *and*, *but*, *because*, *although*\n- **Interjection:** a stand-alone exclamation. *Oh, the form is out of date.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "noun pronoun verb adjective adverb",
+        "preposition conjunction interjection",
+        "definitions"
+      ],
+      "position": 20
+    },
+    {
+      "id": "adjective-vs-adverb",
+      "type": "comparison",
+      "title": "Adjective or adverb?",
+      "markdown": "An adjective describes a noun; an adverb describes almost anything else.\n\n- *a quick decision* (adjective, describes *decision*) versus *decided quickly* (adverb, describes *decided*).\n- After a linking verb such as *be*, *seem*, *appear*, *feel*, use an adjective: *The statement is accurate*, not *accurately*.\n- Some words are both: *fast*, *hard*, *early*, *daily*. *a daily report* (adjective) versus *reports daily* (adverb).\n- Watch *good* and *well*: *good* is the adjective, *well* is the adverb, except when *well* means \"in good health\".",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "adjective versus adverb",
+        "linking verb adjective",
+        "good and well"
+      ],
+      "position": 30
+    },
+    {
+      "id": "preposition-vs-conjunction",
+      "type": "comparison",
+      "title": "Preposition or conjunction?",
+      "markdown": "Both connect, but a preposition is followed by a noun or pronoun, while a conjunction is followed by a clause (a subject and a verb).\n\n- *because of the delay* (preposition phrase, followed by the noun *delay*) versus *because the file was delayed* (conjunction, followed by a clause).\n- *despite the notice* versus *although the notice was clear*.\n- *before noon* (preposition) versus *before the auditor arrived* (conjunction).\n\nExam items often swap one for the other: *Despite of the rain* is wrong; *despite* is already a preposition, so *of* has no place.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "preposition versus conjunction",
+        "because of versus because",
+        "despite of error"
+      ],
+      "position": 40
+    },
+    {
+      "id": "function-over-form",
+      "type": "method",
+      "title": "The same word, different classes",
+      "markdown": "A word's part of speech is decided by its role in the sentence, not fixed to the word.\n\n- *round*: *a round figure* (adjective), *the next round* (noun), *turn round* (adverb), *round the corner* (preposition), *round up the totals* (verb).\n- *book*: *read the book* (noun), *book a slot* (verb).\n- *that*: *that branch* (determiner), *the branch that closed* (relative pronoun), *she said that it closed* (conjunction).\n\nWhen a question asks for the part of speech of an underlined word, read the whole sentence and ask what job the word is doing there.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "function over form",
+        "same word different parts of speech",
+        "round book that"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: labelling the words",
+      "markdown": "Sentence: *The newly appointed officer quickly cleared the long queue outside the branch.*\n\n- *The* - determiner (article)\n- *newly* - adverb (modifies the adjective *appointed*)\n- *appointed* - adjective (describes *officer*; here it is a participle used as an adjective)\n- *officer* - noun (subject)\n- *quickly* - adverb (modifies *cleared*)\n- *cleared* - verb (past tense)\n- *the* - determiner\n- *long* - adjective (describes *queue*)\n- *queue* - noun (object)\n- *outside* - preposition (relates *queue* to *branch*)\n- *the branch* - determiner plus noun\n\nThe only real decision is *newly*: it ends in -ly and sits before an adjective, so it is an adverb, not an adjective.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "label parts of speech example",
+        "identify word class",
+        "adverb before adjective"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Adjective for adverb after an action verb.** *He answered honest* should be *honestly*. But keep the adjective after *be*, *seem*, *feel*.\n- **Adding *of* after *despite* or *inspite*.** *Despite* takes a noun directly; the phrase is *in spite of* (three words) or *despite* (no *of*).\n- **Treating *however* as a conjunction that joins two clauses with a comma.** It is a conjunctive adverb; use a semicolon or a full stop before it.\n- **Calling every -ly word an adverb.** *friendly*, *lonely*, *lively*, *costly* are adjectives.\n- **Mixing up *its* and *it's*.** *its* is a possessive pronoun; *it's* is *it is*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "parts of speech mistakes",
+        "friendly is adjective",
+        "however conjunctive adverb",
+        "its it's"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Eight classes: noun, pronoun, verb, adjective, adverb, preposition, conjunction, interjection.\n- Adjective describes a noun; adverb modifies a verb, adjective or adverb. After *be/seem/feel*, use the adjective.\n- Preposition is followed by a noun or pronoun; a conjunction is followed by a clause.\n- *despite* and *in spite of* mean the same; never *despite of*.\n- A word's class comes from its job in the sentence, so read the whole sentence first.\n- Not every -ly word is an adverb: *friendly*, *costly*, *lively* are adjectives.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "parts of speech summary",
+        "revision",
+        "word class recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Name the part of speech of the italicised word; give a one-line reason.\n\n1. The *manager* approved the loan. — *manager*\n2. She *quickly* signed the form. — *quickly*\n3. The report is on *your* desk. — *your*\n4. He works *at* the branch. — *at*\n5. The queue was long, *but* it moved fast. — *but*\n6. *Wow*, the system is finally back. — *Wow*\n7. The team *audited* the accounts. — *audited*\n8. *It* was rejected without a reason. — *It*",
+      "searchKeywords": [
+        "parts of speech practice",
+        "identify noun verb adjective adverb preposition conjunction interjection pronoun"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "eight-classes",
+      "front": "Name the eight parts of speech.",
+      "back": "Noun, pronoun, verb, adjective, adverb, preposition, conjunction, interjection.",
+      "explanation": "Each names a job a word can do in a sentence.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-eight-classes"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "adj-vs-adv",
+      "front": "\"The statement is (accurate / accurately).\" Which, and why?",
+      "back": "\"accurate\" - after a linking verb (is, seem, feel) you use an adjective, not an adverb.",
+      "explanation": "The adjective describes the subject via the linking verb.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["adjective-vs-adverb"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "prep-vs-conj",
+      "front": "\"(Because / Because of) the delay\" vs \"(because / because of) the file was delayed\" — which fits each?",
+      "back": "\"Because of\" + noun (the delay); \"because\" + clause (the file was delayed). A preposition takes a noun; a conjunction takes a clause.",
+      "explanation": "Check what follows: a noun or a subject-plus-verb.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["preposition-vs-conjunction"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "despite-of",
+      "front": "Is \"despite of the notice\" correct?",
+      "back": "No. Use \"despite the notice\" or \"in spite of the notice\". \"Despite\" is already a preposition.",
+      "explanation": "\"Despite of\" mixes the two acceptable forms.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "function-over-form",
+      "front": "What decides a word's part of speech?",
+      "back": "The job it does in that sentence, not the word itself. \"round\" can be a noun, verb, adjective, adverb or preposition.",
+      "explanation": "Always read the full sentence before labelling.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["function-over-form"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "ly-adjectives",
+      "front": "Are all words ending in -ly adverbs?",
+      "back": "No. \"friendly\", \"lonely\", \"lively\", \"costly\" and \"daily\" (as in a daily report) are adjectives.",
+      "explanation": "The -ly ending is a hint, not a rule.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "however-punctuation",
+      "front": "How do you punctuate \"however\" when it links two complete statements?",
+      "back": "With a semicolon or full stop before it, not a comma. It is a conjunctive adverb, not a joining conjunction.",
+      "explanation": "\"The queue was long; however, it moved fast.\"",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

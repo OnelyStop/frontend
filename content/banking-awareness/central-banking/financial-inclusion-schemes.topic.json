@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "central-banking",
+  "chapterName": "Central banking and regulation",
+  "chapterPosition": 3,
+  "topicSlug": "financial-inclusion-schemes",
+  "topicPosition": 40,
+  "title": "Financial Inclusion Schemes",
+  "summary": "The government schemes that run on the banking system: PMJDY and the Basic Savings Bank Deposit Account, the JAM trinity behind Direct Benefit Transfer, the PMJJBY, PMSBY and APY social-security schemes, and the business-correspondent model for last-mile delivery.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["priority-sector-lending-and-financial-inclusion"],
+  "learningObjectives": [
+    "Explain what financial inclusion means and how PMJDY and the BSBDA support it.",
+    "Expand the JAM trinity and describe how it enables Direct Benefit Transfer.",
+    "Compare PMJJBY, PMSBY and APY by what they protect against, benefit and eligible age.",
+    "Describe the business-correspondent model and how inclusion progress is measured."
+  ],
+  "tags": [
+    "banking-awareness",
+    "financial-inclusion",
+    "pmjdy",
+    "jam",
+    "social-security"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_FAME",
+      "url": "https://www.rbi.org.in/commonperson/English/Scripts/PressReleases.aspx?Id=2123",
+      "title": "RBI financial-literacy and financial-inclusion material",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the BSBDA features, the business-correspondent model and the financial-inclusion framing. Scheme benefit and premium figures are indicative and should be reverified against the official scheme portals; restated in original wording."
+    },
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm current terminology — Financial Inclusion Index, Aadhaar Enabled Payment System."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-is-inclusion",
+      "type": "introduction",
+      "title": "What financial inclusion means",
+      "markdown": "**Financial inclusion** means giving every household and small business access to a basic set of formal financial services — a bank account, payments, savings, credit, insurance and pension — at an affordable cost. The alternative is dependence on cash and informal lenders.\n\nIndia's approach combines an RBI regulatory push — priority-sector lending, a **Basic Savings Bank Deposit Account** every bank must offer, business correspondents — with a set of government schemes launched from 2014–15 that use the banking system as their delivery channel. This topic covers those schemes; the regulatory backbone is in the priority-sector topic.",
+      "sourceIds": ["RBI_FAME", "RBI_HOME"],
+      "searchKeywords": [
+        "financial inclusion meaning access to formal services",
+        "affordable bank account payments savings credit insurance pension",
+        "RBI push priority sector BSBDA business correspondents",
+        "government schemes 2014 15 use banking system"
+      ],
+      "position": 10
+    },
+    {
+      "id": "pmjdy",
+      "type": "concept",
+      "title": "PMJDY and the BSBDA",
+      "markdown": "**Pradhan Mantri Jan Dhan Yojana (PMJDY)**, launched in 2014, is the national mission for a bank account in every household — now every adult.\n\n- opened as a **Basic Savings Bank Deposit Account (BSBDA)** — **zero minimum balance**, no charge for basic operations, with a cap on the number of free withdrawals\n- a **RuPay debit card** carrying built-in accidental-death and disability cover\n- an **overdraft** facility — a small, capped amount — for accounts in good standing\n- linkage to **Direct Benefit Transfer**, so subsidies and welfare land directly in the account\n\nPMJDY accounts became the base layer for the insurance and pension schemes below.",
+      "sourceIds": ["RBI_FAME", "RBI_HOME"],
+      "searchKeywords": [
+        "PMJDY Pradhan Mantri Jan Dhan Yojana 2014",
+        "Basic Savings Bank Deposit Account zero minimum balance",
+        "RuPay debit card built-in accident cover",
+        "small overdraft for accounts in good standing"
+      ],
+      "position": 20
+    },
+    {
+      "id": "jam",
+      "type": "concept",
+      "title": "The JAM trinity and DBT",
+      "markdown": "The **JAM trinity** is the plumbing that makes direct transfers work:\n\n- **J**an Dhan — the bank account\n- **A**adhaar — a unique identity number to authenticate the beneficiary and remove duplicates\n- **M**obile — a phone number for alerts and mobile banking\n\nWith all three linked, the government runs **Direct Benefit Transfer (DBT)**: paying subsidies — cooking gas, food, scholarships, wages — straight into the beneficiary's account instead of through a chain of intermediaries, which cuts leakage and delay.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "JAM trinity Jan Dhan Aadhaar Mobile",
+        "Aadhaar authenticate beneficiary remove duplicates",
+        "Direct Benefit Transfer DBT subsidies into account",
+        "cuts leakage and delay intermediaries"
+      ],
+      "position": 30
+    },
+    {
+      "id": "jansuraksha",
+      "type": "concept",
+      "title": "PMJJBY, PMSBY and APY",
+      "markdown": "Three low-cost social-security schemes, enrolled through the bank account with premiums auto-debited:\n\n- **PMJJBY (Pradhan Mantri Jeevan Jyoti Bima Yojana)** — **life** cover of ₹2,00,000 on death from any cause; join at age **18–50**, cover continuing to 55; a modest annual premium.\n- **PMSBY (Pradhan Mantri Suraksha Bima Yojana)** — **accident** cover of ₹2,00,000 for accidental death or total permanent disability, ₹1,00,000 for partial permanent disability; join at age **18–70**; a very small annual premium.\n- **APY (Atal Pension Yojana)** — a **guaranteed monthly pension of ₹1,000 to ₹5,000** from age 60; join between **18 and 40**; the monthly contribution depends on entry age and the chosen pension.\n\nExact premium and contribution figures are set by the government and revised, so treat them as indicative.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "PMJJBY life cover 2 lakh any cause age 18 to 50",
+        "PMSBY accident cover 2 lakh age 18 to 70 small premium",
+        "APY Atal Pension Yojana 1000 to 5000 pension from 60",
+        "join age 18 to 40 contribution by entry age"
+      ],
+      "position": 40
+    },
+    {
+      "id": "schemes-at-a-glance",
+      "type": "comparison",
+      "title": "PMJJBY, PMSBY and APY at a glance",
+      "markdown": "| Scheme | Protects against | Benefit | Join age |\n| --- | --- | --- | --- |\n| PMJJBY | Death from any cause | ₹2,00,000 to the nominee | 18 to 50 |\n| PMSBY | Accidental death or disability | ₹2,00,000 (₹1,00,000 partial) | 18 to 70 |\n| APY | Old age with no income | ₹1,000 to ₹5,000 monthly pension from 60 | 18 to 40 |\n\nPMJJBY and PMSBY are **one-year renewable insurance**; APY is a **long-term pension** built from regular contributions. All three are anchored to a savings bank account and run on auto-debit.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "comparison PMJJBY PMSBY APY table",
+        "PMJJBY death any cause PMSBY accidental APY pension",
+        "one year renewable insurance versus long term pension",
+        "all anchored to savings account auto-debit"
+      ],
+      "position": 50
+    },
+    {
+      "id": "delivery",
+      "type": "concept",
+      "title": "Last-mile delivery",
+      "markdown": "Reaching places without a branch relies on the **Business Correspondent (BC) / Business Facilitator (BF)** model: local agents, retail outlets and 'bank mitras', equipped with a micro-ATM or a mobile device, who open accounts and handle cash-in and cash-out on behalf of a bank. Combined with the **Aadhaar Enabled Payment System (AePS)**, a person can withdraw from their account at a BC point using only a fingerprint.\n\nProgress is tracked through indicators such as the number of BSBDAs, banking outlets in villages, and the RBI's composite **Financial Inclusion Index**.",
+      "sourceIds": ["RBI_FAME", "RBI_HOME"],
+      "searchKeywords": [
+        "Business Correspondent Business Facilitator model bank mitra",
+        "micro-ATM mobile device open accounts cash-in cash-out",
+        "Aadhaar Enabled Payment System AePS fingerprint withdrawal",
+        "Financial Inclusion Index BSBDA count banking outlets"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **PMJJBY is life cover (any cause); PMSBY is accident-only.** Same ₹2 lakh headline, different trigger.\n- **APY enrolment closes at age 40;** PMSBY runs to 70.\n- **PMJDY opens a BSBDA — a savings account, not a loan.** The overdraft is a small add-on for eligible accounts.\n- **'JAM' is Jan Dhan, Aadhaar, Mobile** — not a scheme itself, but the rails for Direct Benefit Transfer.\n- **Premiums and pension slabs change** — the government revises them; learn the structure, verify the current numbers.\n- **A Business Correspondent is an agent of the bank**, not a separate lender.",
+      "searchKeywords": [
+        "financial inclusion confusions PMJJBY life PMSBY accident",
+        "APY closes at 40 PMSBY to 70",
+        "PMJDY opens savings account not a loan",
+        "JAM is the rails not a scheme"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Financial inclusion = affordable access to accounts, payments, savings, credit, insurance and pension for all.\n- PMJDY (2014): zero-balance BSBDA, RuPay card with accident cover, a small overdraft, DBT linkage.\n- JAM trinity — Jan Dhan account, Aadhaar identity, Mobile number — enables Direct Benefit Transfer of subsidies straight to beneficiaries.\n- PMJJBY: ₹2 lakh life cover, join 18–50. PMSBY: ₹2 lakh accident cover, join 18–70. APY: ₹1,000–₹5,000 monthly pension from 60, join 18–40.\n- Last-mile delivery via Business Correspondents / Facilitators and AePS; progress tracked by the RBI's Financial Inclusion Index.",
+      "searchKeywords": [
+        "financial inclusion schemes summary revision",
+        "PMJDY JAM PMJJBY PMSBY APY BC model recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. Which scheme pays ₹2 lakh to the nominee on the member's death from any cause?\n2. Which scheme covers accidental death and disability for a very small annual premium?\n3. What is the enrolment age band for the Atal Pension Yojana?\n4. What type of account does PMJDY open?\n5. Expand 'JAM' and state what it enables.\n6. What monthly pension range does APY guarantee, and from what age?\n7. Who provides banking services where there is no branch, under the inclusion model?\n\n**Answers:** 1 PMJJBY — life cover, any cause. 2 PMSBY — accident-only cover. 3 18 to 40 years. 4 A Basic Savings Bank Deposit Account (BSBDA), zero minimum balance. 5 Jan Dhan, Aadhaar, Mobile — the linked set that enables Direct Benefit Transfer of subsidies into beneficiaries' accounts. 6 ₹1,000 to ₹5,000 per month, from age 60. 7 Business Correspondents / Business Facilitators — bank agents, often using AePS.",
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "inclusion-def",
+      "front": "What does 'financial inclusion' mean?",
+      "back": "Affordable access for every household and small business to formal financial services — a bank account, payments, savings, credit, insurance and pension — instead of reliance on cash and informal lenders.",
+      "explanation": "India pursues it through both RBI regulation and government schemes.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-is-inclusion"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "pmjdy",
+      "front": "What does PMJDY provide?",
+      "back": "A zero-balance Basic Savings Bank Deposit Account, a RuPay debit card with built-in accident cover, a small overdraft for eligible accounts, and linkage to Direct Benefit Transfer.",
+      "explanation": "Launched in 2014 as the account-for-every-household mission.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["pmjdy"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "bsbda",
+      "front": "What is a BSBDA?",
+      "back": "A Basic Savings Bank Deposit Account — every bank must offer it: zero minimum balance, no charge for basic services, with a cap on the number of withdrawals. It is the account PMJDY opens.",
+      "explanation": "A regulatory product, distinct from the PMJDY scheme wrapper.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["pmjdy"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "jam",
+      "front": "Expand the JAM trinity and say what it is for.",
+      "back": "Jan Dhan (bank account) + Aadhaar (identity) + Mobile (phone). Linked together they let the government run Direct Benefit Transfer — paying subsidies straight into beneficiaries' accounts.",
+      "explanation": "JAM is the delivery rail, not a benefit scheme.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["jam"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "pmjjby-pmsby",
+      "front": "PMJJBY versus PMSBY?",
+      "back": "PMJJBY: ₹2 lakh life cover on death from any cause, join age 18–50. PMSBY: ₹2 lakh cover for accidental death or total disability (₹1 lakh partial), join age 18–70. Both are one-year renewable, with the premium auto-debited from the bank account.",
+      "explanation": "Same headline sum, different trigger and age band.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["jansuraksha"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "apy",
+      "front": "What does the Atal Pension Yojana offer, and who can join?",
+      "back": "A guaranteed monthly pension of ₹1,000–₹5,000 from age 60. Join between 18 and 40; the monthly contribution depends on entry age and the chosen pension amount.",
+      "explanation": "It is a long-term pension, unlike the one-year insurance schemes.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["jansuraksha"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "dbt",
+      "front": "What is Direct Benefit Transfer (DBT)?",
+      "back": "Paying subsidies and welfare — cooking gas, food, scholarships, wages — directly into the beneficiary's bank account instead of through intermediaries, reducing leakage and delay. It relies on the JAM trinity.",
+      "explanation": "The account, identity and phone must be linked for it to work.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["jam"],
+      "status": "approved",
+      "position": 70
+    },
+    {
+      "id": "bc-model",
+      "front": "What is the Business Correspondent (BC) model?",
+      "back": "Local agents and retail outlets acting for a bank, equipped with a micro-ATM or mobile device, who open accounts and handle cash-in and cash-out where there is no branch. With AePS a customer can withdraw using a fingerprint.",
+      "explanation": "The BC is the bank's agent, not an independent lender.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["delivery"],
+      "status": "approved",
+      "position": 80
+    }
+  ]
+}

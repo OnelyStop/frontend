@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "approximation-and-percentage-di",
+  "topicPosition": 90,
+  "title": "Approximation and Percentage Skills in DI",
+  "summary": "The speed skills DI rewards: rounding sensibly before dividing, the fraction equivalents of common percentages, percentage-change shortcuts, and comparing ratios by cross-multiplication instead of full division.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "introduction-to-data-interpretation",
+    "percentages",
+    "ratio-and-proportion"
+  ],
+  "learningObjectives": [
+    "Round each figure to a friendly value before dividing, when the options allow it.",
+    "Recall the fraction equivalents of the common percentages.",
+    "Apply percentage-change shortcuts without writing the full formula.",
+    "Compare two ratios by cross-multiplication rather than dividing both."
+  ],
+  "tags": ["data-interpretation", "approximation", "percentage", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Percents_Decimals_and_Fractions",
+      "title": "Arithmetic/Percents Decimals and Fractions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the percentage and fraction arithmetic only. All datasets and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm approximation DI is a standard question format. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "why-speed",
+      "type": "introduction",
+      "title": "Why the arithmetic has to be quick",
+      "markdown": "A DI set is five questions in five or six minutes. Most of them do not need an exact answer — the options are spread far enough apart that a close estimate picks the right one. The candidates who finish are the ones who round before they divide, know the common fractions by heart, and compare ratios without long division.\n\nThis topic is those habits. The method is the same as ordinary percentages and ratios; only the speed is different.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "di speed arithmetic round before divide",
+        "options spread far apart estimate",
+        "common fractions ratio comparison"
+      ],
+      "position": 10
+    },
+    {
+      "id": "fraction-equivalents",
+      "type": "concept",
+      "title": "Fraction equivalents of common percentages",
+      "markdown": "Learn these both ways — a percentage in the question becomes a fraction you can divide by, and an awkward fraction in the data becomes a percentage you recognise:\n\n| Fraction | Percentage |\n| -------- | ---------- |\n| 1/2 | 50% |\n| 1/3 | 33.33% |\n| 2/3 | 66.67% |\n| 1/4 | 25% |\n| 3/4 | 75% |\n| 1/5 | 20% |\n| 1/6 | 16.67% |\n| 1/8 | 12.5% |\n| 3/8 | 37.5% |\n| 1/10 | 10% |\n| 1/16 | 6.25% |\n\n\"Increase by 12.5 per cent\" is \"add one-eighth\". \"A is 37.5 per cent of B\" is \"A is three-eighths of B\". Recognising the fraction turns a multiplication into a halving or a doubling.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "fraction equivalents common percentages table",
+        "one eighth 12.5 percent three eighths 37.5",
+        "percentage to fraction and back"
+      ],
+      "position": 20
+    },
+    {
+      "id": "round-then-divide",
+      "type": "method",
+      "title": "Round, then divide",
+      "markdown": "1. **Check the options first.** If they are 18%, 25%, 33%, 40%, you have room to round hard. If they are 24% and 25%, do not round at all.\n2. **Round each figure to one or two significant digits** you can work with: 2,970 → 3,000; 6,090 → 6,000; 4,180 → 4,200.\n3. **Do the rough calculation** and pick the nearest option.\n4. **If two options are still in play**, tighten the rounding on the one figure that matters most and redo just that step.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "round then divide di method",
+        "check options first round to significant digits",
+        "tighten rounding if two options remain"
+      ],
+      "position": 30
+    },
+    {
+      "id": "percentage-and-ratio-shortcuts",
+      "type": "shortcut",
+      "title": "Percentage-change and ratio shortcuts",
+      "markdown": "- **Percentage change** = (new − old) ÷ old × 100. If new is a bit more than old, the change is roughly (difference ÷ old); estimate the division loosely.\n- **Which of several years had the biggest rise** — compare each rise as a fraction of its own base, not the raw rise. A jump of 20 on a base of 80 (25%) beats a jump of 25 on a base of 200 (12.5%).\n- **Comparing two ratios a/b and c/d** — cross-multiply: a·d against c·b. Bigger product means bigger ratio. No division needed.\n- **A share of a total near a round number** — 148 out of 597 is close to 150 out of 600, i.e. one quarter.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "percentage change shortcut di",
+        "biggest rise compare fraction of base not raw rise",
+        "compare two ratios by cross multiplication"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: weekly footfall at five branches",
+      "markdown": "Footfall in a week: Branch 1: 4,180 · Branch 2: 6,090 · Branch 3: 2,970 · Branch 4: 5,240 · Branch 5: 3,510.\n\n**Q1. Total footfall.** Rough: 4,200 + 6,100 + 3,000 + 5,200 + 3,500 ≈ 22,000. Exact: 4180 + 6090 + 2970 + 5240 + 3510 = **21,990** — the estimate was within 0.05 per cent.\n\n**Q2. Branch 2's footfall as a percentage of the total.** Rough: 6,000 ÷ 22,000 ≈ 27.3 per cent. Exact: 6090 ÷ 21990 × 100 = **27.69 per cent** — same option.\n\n**Q3. Ratio of Branch 1 to Branch 4, as a decimal.** Rough: 4,200 ÷ 5,200 ≈ 0.81. Exact: 4180 ÷ 5240 = **0.80**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example footfall five branches approximation",
+        "rough total then exact percentage of total ratio"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "Q1. total footfall (exact)",
+          "value": 21990,
+          "expression": "4180+6090+2970+5240+3510"
+        },
+        {
+          "label": "Q2. Branch 2 as % of total",
+          "value": 27.69,
+          "tolerance": 0.05,
+          "expression": "6090/21990*100"
+        },
+        {
+          "label": "Q3. Branch 1 : Branch 4",
+          "value": 0.8,
+          "tolerance": 0.01,
+          "expression": "4180/5240"
+        }
+      ]
+    },
+    {
+      "id": "when-not-to-approximate",
+      "type": "warning",
+      "title": "When not to approximate",
+      "markdown": "- **Options within a per cent or two of each other** — round nothing, compute properly.\n- **\"Exact value\" or \"correct to two decimals\"** in the stem — the question is asking for precision.\n- **Small differences of large numbers** — 10,140 − 9,980 is 160, and rounding both to 10,000 loses the answer entirely.\n- **A chain of approximations** — rounding at three steps in a row can drift past the right option. Round once, at the figure that carries the most weight.\n- **Ratios of similar quantities** — 51 : 49 is not 1 : 1; the small gap is the point.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "when not to approximate di",
+        "close options exact value small differences of large numbers",
+        "chain of approximations ratios of similar quantities"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Check the option spread first; round hard only when it is wide.\n- Know the fraction equivalents: 1/8 = 12.5%, 3/8 = 37.5%, 1/6 ≈ 16.67%, 1/3 ≈ 33.33%.\n- Percentage change = difference ÷ old base; for \"biggest rise\", compare each rise against its own base.\n- Compare two ratios by cross-multiplication, not by dividing both.\n- Do not approximate close options, \"exact\" questions, or small differences of large numbers.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "approximation di summary revision",
+        "option spread fractions percentage change cross multiply recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Monthly online sales, ₹ lakh: Jan 288 · Feb 312 · Mar 351 · Apr 297 · May 336 · Jun 372.\n\n1. Total sales for the six months (an estimate to the nearest 10 is fine).\n2. Average monthly sales.\n3. Percentage increase from January to June.\n4. March sales as a percentage of the six-month total.\n5. By how much do May and June together exceed February and March together?\n6. Ratio of April to February, as a decimal.\n7. If July sales are 12.5 per cent more than June, find July sales.\n8. By what per cent do June sales exceed April sales?",
+      "searchKeywords": [
+        "approximation di practice monthly online sales",
+        "total average percentage increase share ratio one eighth"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. six-month total",
+          "value": 1956,
+          "tolerance": 10,
+          "expression": "288+312+351+297+336+372"
+        },
+        {
+          "label": "2. average monthly sales",
+          "value": 326,
+          "expression": "(288+312+351+297+336+372)/6"
+        },
+        {
+          "label": "3. Jan to Jun % increase",
+          "value": 29.17,
+          "tolerance": 0.01,
+          "expression": "(372-288)/288*100"
+        },
+        {
+          "label": "4. March as % of six-month total",
+          "value": 17.94,
+          "tolerance": 0.02,
+          "expression": "351/1956*100"
+        },
+        {
+          "label": "5. (May+Jun) - (Feb+Mar)",
+          "value": 45,
+          "expression": "(336+372)-(312+351)"
+        },
+        {
+          "label": "6. April : February",
+          "value": 0.95,
+          "tolerance": 0.01,
+          "expression": "297/312"
+        },
+        {
+          "label": "7. July sales",
+          "value": 418.5,
+          "expression": "372*1.125"
+        },
+        {
+          "label": "8. Jun vs Apr (% more)",
+          "value": 25.25,
+          "tolerance": 0.01,
+          "expression": "(372-297)/297*100"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "ap-check-options",
+      "front": "Before approximating in a DI question, what do you check?",
+      "back": "The option spread. Wide apart (18%, 25%, 33%) means you can round hard; within a per cent or two means compute exactly.",
+      "explanation": "Approximation is only safe when the spread absorbs the error.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["round-then-divide"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "ap-eighths",
+      "front": "What are 1/8, 3/8 and 5/8 as percentages?",
+      "back": "12.5%, 37.5%, 62.5%. So 'increase by 12.5%' means 'add an eighth'.",
+      "explanation": "Recognising the fraction turns a multiplication into a division by 8.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["fraction-equivalents"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "ap-sixths-thirds",
+      "front": "What are 1/6 and 1/3 as percentages?",
+      "back": "1/6 is about 16.67%, 1/3 is about 33.33%. 5/6 is about 83.33%.",
+      "explanation": "Useful when an awkward share in the data is close to one of these.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["fraction-equivalents"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "ap-biggest-rise",
+      "front": "How do you find which year had the biggest percentage rise, quickly?",
+      "back": "Compare each rise as a fraction of its own base, not the raw rise. 20 on a base of 80 (25%) beats 25 on a base of 200 (12.5%).",
+      "explanation": "The raw rise alone can point to the wrong year.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["percentage-and-ratio-shortcuts"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "ap-cross-multiply",
+      "front": "How do you compare two ratios a/b and c/d without dividing?",
+      "back": "Cross-multiply: compare a x d with c x b. The larger product belongs to the larger ratio.",
+      "explanation": "Saves two long divisions.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["percentage-and-ratio-shortcuts"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "ap-small-diff",
+      "front": "Why is rounding dangerous for '10,140 minus 9,980'?",
+      "back": "Both round to 10,000, which loses the difference of 160 entirely. Small differences of large numbers must be computed exactly.",
+      "explanation": "The answer lives in the digits you would round away.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["when-not-to-approximate"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "ap-round-once",
+      "front": "Why round only once in a multi-step DI calculation?",
+      "back": "Rounding at every step lets the error compound and can push the result past the correct option. Round the single figure that carries the most weight.",
+      "explanation": "One deliberate approximation beats three careless ones.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["when-not-to-approximate"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

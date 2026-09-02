@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "vocabulary",
+  "chapterName": "Vocabulary",
+  "chapterPosition": 4,
+  "topicSlug": "commonly-confused-words",
+  "topicPosition": 40,
+  "title": "Commonly Confused Words",
+  "summary": "The word pairs and trios that error-detection, fill-in and sentence-improvement questions repeatedly exploit - sound-alikes, spelling-only pairs, meaning pairs and grammar-choice pairs - each with a one-line distinction and an original sentence for every member.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech", "word-usage-and-word-swap"],
+  "learningObjectives": [
+    "Separate sound-alike pairs by part of speech and meaning.",
+    "Fix spelling-only pairs to the right sense.",
+    "Choose correctly between grammar-choice pairs (among/between, fewer/less, lie/lay).",
+    "Apply a one-line test for each pair under time pressure."
+  ],
+  "tags": ["vocabulary", "confusables", "homophones", "usage"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar",
+      "title": "English Grammar",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for part of speech and standard usage. Every distinction line and example sentence here is original."
+    },
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm confusable-word items are a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "why-they-are-tested",
+      "type": "introduction",
+      "title": "Why these are tested",
+      "markdown": "Error-detection, fill-in and sentence-improvement items lean on a small stock of words that sound or look alike but do different jobs. The sentence is written so the wrong member reads smoothly; only the meaning gives it away.\n\nThe fix is a one-line test per pair, applied on sight: *affect* is the verb, *effect* is the noun; *fewer* counts, *less* measures; *comprise* takes no *of*. Learn the test, not just the pair.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "confusable words tested in error detection fill-in sentence improvement",
+        "wrong member reads smoothly only meaning gives it away",
+        "one line test per pair applied on sight"
+      ],
+      "position": 10
+    },
+    {
+      "id": "sound-alikes",
+      "type": "concept",
+      "title": "Sound-alike verb / noun pairs",
+      "markdown": "- **affect** (verb, to influence) / **effect** (noun, a result; rare formal verb, to bring about). *The rate change will affect EMIs. The effect showed within a month.*\n- **elicit** (verb, to draw out) / **illicit** (adjective, illegal). *Her questions elicited the real reason. The audit found an illicit transfer.*\n- **precede** (to come before) / **proceed** (to go ahead). *A short briefing precedes the inspection. The team may proceed once the checklist is clear.*\n- **assure** (to reassure a person) / **ensure** (to make certain) / **insure** (to cover against loss). *He assured the customer the funds were safe. Ensure the register is signed. The consignment is insured for its full value.*\n- **council** (a body of people) / **counsel** (advice; a lawyer; to advise). *The zonal council met on Friday. The manager counselled the trainee to slow down.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "sound alike pairs affect effect elicit illicit precede proceed",
+        "assure ensure insure council counsel",
+        "verb versus noun test"
+      ],
+      "position": 20
+    },
+    {
+      "id": "spelling-only",
+      "type": "concept",
+      "title": "Spelling-only pairs",
+      "markdown": "- **principal** (chief; the sum lent) / **principle** (a rule or belief). *The principal outstanding is large. It is a matter of principle.* (Your pal the principal.)\n- **stationary** (not moving) / **stationery** (writing materials). *The queue was stationary. Order more stationery.* (Station**e**ry has an **e** for env**e**lope.)\n- **its** (possessive) / **it's** (it is / it has). *The branch met its target. It's the busiest day of the month.* (If \"it is\" fits, use *it's*.)\n- **lose** (to misplace; not win) / **loose** (not tight). *Do not lose the original. A loose cable caused the fault.*\n- **discreet** (careful, tactful) / **discrete** (separate, distinct). *Be discreet about balances. Three discrete steps.*\n- **complement** (something that completes) / **compliment** (praise). *The app complements the branch network. The auditor paid the team a compliment.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "spelling only pairs principal principle stationary stationery its it's",
+        "lose loose discreet discrete complement compliment",
+        "memory hooks"
+      ],
+      "position": 30
+    },
+    {
+      "id": "meaning-pairs",
+      "type": "concept",
+      "title": "Meaning pairs often mixed",
+      "markdown": "- **adverse** (unfavourable) / **averse** (opposed, reluctant). *Adverse market conditions. The board is averse to more risk.*\n- **eminent** (distinguished) / **imminent** (about to happen). *An eminent economist spoke. A system outage seemed imminent.*\n- **disinterested** (impartial) / **uninterested** (not interested). *A disinterested arbitrator heard the claim. The client seemed uninterested in the pension plan.*\n- **credible** (believable) / **credulous** (too ready to believe) / **creditable** (deserving praise). *A credible account. A credulous investor. A creditable recovery.*\n- **economic** (to do with the economy) / **economical** (not wasteful). *Economic growth slowed. An economical use of staff.*\n- **accept** (to receive, agree) / **except** (excluding). *The branch will accept the form after 3 p.m. All counters are open except the third.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "meaning pairs adverse averse eminent imminent disinterested uninterested",
+        "credible credulous creditable economic economical accept except"
+      ],
+      "position": 40
+    },
+    {
+      "id": "grammar-choice",
+      "type": "concept",
+      "title": "Grammar-choice pairs",
+      "markdown": "- **among** (three or more) / **between** (two, or one-to-one links even among many). *Split the work among the four clerks. The difference between the two figures.*\n- **fewer** (countable) / **less** (uncountable). *Fewer complaints. Less paperwork.*\n- **farther** (physical distance) / **further** (additional; figurative distance). *The next ATM is farther down the road. No further documents are needed.*\n- **lie** (to recline; lay / lain; no object) / **lay** (to put down; laid / laid; takes an object). *The file lay on the desk all day. She laid the file on the desk.*\n- **comprise** (to consist of - no *of*) / **compose** (to make up). *The zone comprises nine branches. Nine branches compose the zone.* (\"is comprised of\" is disputed - prefer *comprises* or *is composed of*.)\n- **amount** (uncountable) / **number** (countable). *A large amount of cash. A large number of forms.*",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "grammar choice pairs among between fewer less farther further",
+        "lie lay comprise compose amount number",
+        "countable uncountable object no object"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**1.** *The delay did not ____ the outcome of the audit.* (a) effect (b) affect (c) effected (d) affects\n\nThe blank is the verb after *did not*, so it needs the base verb *affect* (to influence). *Effect* as a verb means \"to bring about\", which reverses the sense. The answer is **(b) affect**.\n\n**2.** *There were ____ errors this quarter than last, and ____ rework as a result.* (a) less ... fewer (b) fewer ... less (c) less ... less (d) fewer ... fewer\n\n*Errors* are countable -> *fewer*. *Rework* is uncountable -> *less*. The answer is **(b) fewer ... less**.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "confusable worked example affect verb after did not effect brings about",
+        "fewer errors countable less rework uncountable"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- **affect** = verb (influence); **effect** = noun (result).\n- **its** = possessive; **it's** = it is / it has.\n- **principal** = chief / the sum lent; **principle** = a rule.\n- **stationary** = not moving; **stationery** = paper and pens.\n- **adverse** = unfavourable; **averse** = opposed.\n- **eminent** = distinguished; **imminent** = about to happen.\n- **fewer** counts; **less** measures. **among** = 3+; **between** = 2.\n- **lie** takes no object (lay/lain); **lay** takes one (laid/laid).\n- **comprise** takes no *of*: *the zone comprises nine branches*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "confusable words summary revision affect effect its it's principal principle stationary stationery",
+        "adverse averse eminent imminent fewer less among between lie lay comprise recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the right member; give a one-line reason.\n\n1. It is a matter of (principal / principle), not of money.\n2. The branch met (its / it's) target with two days to spare.\n3. The board is (adverse / averse) to opening branches in flood-prone towns.\n4. Please (ensure / assure / insure) that every locker key is logged.\n5. There were (fewer / less) walk-ins after the app launch.\n6. A brief orientation (precedes / proceeds) the joining formalities.\n7. Split the incentive pool (among / between) the six field officers.\n8. The old files (lay / laid) untouched in the strong room for years.\n9. Her calm questions (elicited / illicit) an admission from the vendor.\n10. The zone (comprises / comprises of) nine branches and two extension counters.",
+      "searchKeywords": [
+        "confusable words practice principal principle its it's adverse averse ensure assure insure",
+        "fewer less precedes proceeds among between lay laid elicited comprises"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "affect-effect",
+      "front": "affect vs effect - the one-line test?",
+      "back": "affect = the verb (to influence); effect = the noun (a result). 'The change will affect X'; 'the effect of the change'.",
+      "explanation": "effect as a verb ('to effect change') is rare and formal.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["sound-alikes", "worked-example"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "its-it-is",
+      "front": "its vs it's - quick test?",
+      "back": "If 'it is' or 'it has' fits, write it's. Otherwise its (possessive).",
+      "explanation": "'The branch met its target' - 'it is target' fails, so its.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["spelling-only"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "stationary-stationery",
+      "front": "stationary vs stationery?",
+      "back": "stationary = not moving; stationery = writing materials (the 'e' as in envelope).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["spelling-only"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "adverse-averse",
+      "front": "adverse vs averse?",
+      "back": "adverse = unfavourable (adverse weather, adverse effect); averse = opposed / reluctant (averse to risk).",
+      "explanation": "averse is almost always followed by 'to'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["meaning-pairs"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "fewer-less",
+      "front": "fewer vs less?",
+      "back": "fewer for countable nouns (fewer errors); less for uncountable (less rework).",
+      "difficulty": "easy",
+      "sourceBlockIds": ["grammar-choice", "worked-example"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "lie-lay",
+      "front": "lie vs lay (present tense)?",
+      "back": "lie = recline, no object (lie / lay / lain). lay = put something down, takes an object (lay / laid / laid).",
+      "explanation": "'The file lay there' (past of lie); 'she laid the file there' (past of lay).",
+      "difficulty": "hard",
+      "sourceBlockIds": ["grammar-choice"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "comprise",
+      "front": "Correct: 'The zone comprises nine branches' or 'comprises of nine branches'?",
+      "back": "'comprises nine branches' - comprise takes no 'of'. Use 'is composed of' if you want 'of'.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["grammar-choice"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

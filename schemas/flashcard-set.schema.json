@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://onelystop.local/schemas/flashcard-set.schema.json",
+  "title": "Standalone flashcard set",
+  "description": "Optional form. Flashcards normally live inline in a *.topic.json (see study-topic.schema.json#/$defs/flashcard). This shape exists for regenerating or reviewing a topic's cards in isolation without touching its prose. The importer accepts either.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "topicSlug", "contentVersion", "flashcards"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "subjectSlug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "chapterSlug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "topicSlug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "contentVersion": { "type": "integer", "minimum": 1 },
+    "generatedBy": { "type": ["string", "null"] },
+    "reviewedBy": { "type": ["string", "null"] },
+    "flashcards": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "front",
+          "back",
+          "difficulty",
+          "sourceBlockIds",
+          "position"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "front": { "type": "string", "minLength": 1, "maxLength": 240 },
+          "back": { "type": "string", "minLength": 1, "maxLength": 800 },
+          "explanation": { "type": ["string", "null"] },
+          "difficulty": { "enum": ["easy", "medium", "hard"] },
+          "sourceBlockIds": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "status": { "enum": ["draft", "approved", "rejected"] },
+          "position": { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  }
+}
