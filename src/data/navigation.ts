@@ -62,6 +62,14 @@ export const SECTION_DB: Record<Subject, string> = {
   "Computer Aptitude": "Computer",
 };
 
+/* The reverse of SECTION_DB, for displaying a row that already carries the
+   question bank's one-word section (e.g. notes.section) as a full Subject
+   label/colour. Derived from SECTION_DB rather than declared twice, so the
+   two can never drift apart. */
+export const SECTION_FROM_DB: Record<string, Subject> = Object.fromEntries(
+  Object.entries(SECTION_DB).map(([subject, db]) => [db, subject as Subject]),
+);
+
 /* Negative marking is 1/4 of a mark on every wrong answer across IBPS and SBI.
    It is the single fact that governs attempt strategy, so it lives here. */
 export const NEGATIVE_MARK = 0.25;

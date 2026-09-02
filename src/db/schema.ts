@@ -519,3 +519,87 @@ export const userTopicStats = pgTable(
     }),
   ],
 ).enableRLS();
+
+// ---------------------------------------------------------------------------
+// Notes (knowledge base)
+//
+// Imported from bank_exam/notes's hand-authored JSON (import-notes.ts), never
+// written by hand. One row per (section, topic, subtopic) -- the source
+// repo's own validate_notes.py already enforces that uniqueness before
+// anything here ever sees a file, so the unique constraint below is a second,
+// cheap guarantee, not the primary one -- Postgres treats NULL subtopic as
+// distinct from itself, so it would not actually catch two general notes for
+// the same topic colliding; the source's own check is what really prevents
+// that.
+//
+// section/topic use the same one-word vocabulary as questions.section/topic
+// (topic_taxonomy.json) -- see SECTION_DB in data/navigation.ts for the
+// mapping from a Subject's full name, same join key as the question bank.
+// ---------------------------------------------------------------------------
+
+export const notes = pgTable(
+  "notes",
+  {
+    // The source's own natural key ("Section::Topic::subtopic_key"), stable
+    // across re-imports -- same reasoning as papers.paperId above.
+    noteId: text("note_id").primaryKey(),
+    section: text("section").notNull(),
+    topic: text("topic").notNull(),
+    subtopic: text("subtopic"),
+    // Curriculum order, imported one-way from bank_exam's topic_taxonomy.json (topicOrder) and
+    // each topic file's own subtopics[] array (subtopicOrder) — not user-editable, see
+    // scripts/import-notes.ts. Lets the notes list group by topic and sort subtopics in
+    // build-up order instead of alphabetically.
+    topicTitle: text("topic_title").notNull(),
+    topicOrder: integer("topic_order").notNull(),
+    subtopicOrder: integer("subtopic_order").notNull(),
+    aliases: jsonb("aliases").$type<string[]>().notNull().default([]),
+    examRelevance: jsonb("exam_relevance")
+      .$type<{ exams: string[]; stage: string[] }>()
+      .notNull(),
+    title: text("title").notNull(),
+    summary: text("summary").notNull(),
+    concept: text("concept").notNull(),
+    formulas: jsonb("formulas")
+      .$type<{ name: string; expression: string; notes: string | null }[]>()
+      .notNull()
+      .default([]),
+    tricks: jsonb("tricks")
+      .$type<
+        { name: string; description: string; whenToUse: string; example: string | null }[]
+      >()
+      .notNull()
+      .default([]),
+    commonMistakes: jsonb("common_mistakes").$type<string[]>().notNull().default([]),
+    workedExamples: jsonb("worked_examples")
+      .$type<{ problem: string; steps: string[]; answer: string }[]>()
+      .notNull()
+      .default([]),
+    // Points at questions.qId, not a real FK -- notes and questions import
+    // from two separate repos on two separate schedules, and a dangling
+    // reference here should never block a notes import.
+    relatedQuestionIds: jsonb("related_question_ids").$type<string[]>().notNull().default([]),
+    difficulty: text("difficulty"),
+    sources: jsonb("sources")
+      .$type<{ name: string; url: string; tier: number; contribution: string; accessed: string }[]>()
+      .notNull()
+      .default([]),
+    confirmations: integer("confirmations"),
+    tags: jsonb("tags").$type<string[]>().notNull().default([]),
+    // draft | reviewed | verified -- see notes/SCHEMA.md in bank_exam. Every
+    // note today is "verified"; listNotes() hides "draft" so an in-progress
+    // note can be imported without showing up half-written.
+    status: text("status").notNull(),
+    isActive: boolean("is_active").notNull().default(true),
+  },
+  (t) => [
+    unique("notes_section_topic_subtopic_key").on(t.section, t.topic, t.subtopic),
+    index("notes_section_topic_idx").on(t.section, t.topic),
+
+    pgPolicy("anyone can read notes", {
+      for: "select",
+      to: [anonRole, authenticatedRole],
+      using: sql`true`,
+    }),
+  ],
+).enableRLS();
