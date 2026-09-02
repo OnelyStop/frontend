@@ -31,5 +31,6 @@ export async function POST(
     topicId,
     body.progressPercent,
   );
+  if ("error" in result) return jsonError(result.error, 404);
   return NextResponse.json(result);
 }

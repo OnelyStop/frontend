@@ -13,6 +13,7 @@ const {
   deleteNote,
   listNotes,
   topicIdFromSlug,
+  upsertProgress,
   listMessages,
   answerInConversation,
 } = vi.hoisted(() => ({
@@ -22,6 +23,7 @@ const {
   deleteNote: vi.fn(),
   listNotes: vi.fn(),
   topicIdFromSlug: vi.fn(),
+  upsertProgress: vi.fn(),
   listMessages: vi.fn(),
   answerInConversation: vi.fn(),
 }));
@@ -33,6 +35,7 @@ vi.mock("./queries.server", () => ({
   deleteNote,
   listNotes,
   topicIdFromSlug,
+  upsertProgress,
   listMessages,
 }));
 vi.mock("./tutor.server", () => ({ answerInConversation }));
@@ -49,6 +52,7 @@ import {
   DELETE as noteDelete,
 } from "@/app/api/study/notes/[noteId]/route";
 import { POST as messagesPost } from "@/app/api/study/chat/conversations/[conversationId]/messages/route";
+import { POST as progressPost } from "@/app/api/study/topics/[topicId]/progress/route";
 
 const TOPIC = "11111111-1111-1111-1111-111111111111";
 const AUTH_USER = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
@@ -69,6 +73,7 @@ beforeEach(() => {
   updateNote.mockResolvedValue({ id: "n1" });
   deleteNote.mockResolvedValue(true);
   listNotes.mockResolvedValue([]);
+  upsertProgress.mockResolvedValue({ progressPercent: 40, completedAt: null });
   listMessages.mockResolvedValue([]);
   answerInConversation.mockResolvedValue({ answer: "ok", citedBlockKeys: [] });
 });
@@ -130,6 +135,37 @@ describe("notes: list / patch / delete", () => {
       params({ noteId: "n1" }),
     );
     expect(res.status).toBe(409);
+  });
+});
+
+describe("progress", () => {
+  it("401s when signed out and never touches the data layer", async () => {
+    currentUserId.mockResolvedValue(null);
+    const res = await progressPost(
+      req({ progressPercent: 50 }),
+      params({ topicId: TOPIC }),
+    );
+    expect(res.status).toBe(401);
+    expect(upsertProgress).not.toHaveBeenCalled();
+  });
+
+  it("scopes on the authenticated id, ignoring a userId in the body", async () => {
+    const res = await progressPost(
+      req({ progressPercent: 50, userId: ATTACKER }),
+      params({ topicId: TOPIC }),
+    );
+    expect(res.status).toBe(200);
+    expect(upsertProgress.mock.calls[0][0]).toBe(AUTH_USER);
+    expect(upsertProgress.mock.calls[0][1]).toBe(TOPIC);
+  });
+
+  it("404s for a UUID-shaped topic that does not exist, not a 500", async () => {
+    upsertProgress.mockResolvedValue({ error: "topic_not_found" });
+    const res = await progressPost(
+      req({ progressPercent: 50 }),
+      params({ topicId: "22222222-2222-2222-2222-222222222222" }),
+    );
+    expect(res.status).toBe(404);
   });
 });
 

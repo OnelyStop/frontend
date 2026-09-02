@@ -441,7 +441,18 @@ export async function upsertProgress(
   userId: string,
   topicId: string,
   progressPercent: number,
-): Promise<{ progressPercent: number; completedAt: string | null }> {
+): Promise<
+  | { progressPercent: number; completedAt: string | null }
+  | { error: "topic_not_found" }
+> {
+  // A UUID-shaped ref that names no topic would otherwise reach the
+  // topic_id foreign key and surface as a 500; check first, like createNote.
+  const topic = await db.query.topics.findFirst({
+    where: eq(topics.id, topicId),
+    columns: { id: true },
+  });
+  if (!topic) return { error: "topic_not_found" };
+
   const pct = Math.max(0, Math.min(100, Math.round(progressPercent)));
   const [row] = await db
     .insert(studyProgress)
