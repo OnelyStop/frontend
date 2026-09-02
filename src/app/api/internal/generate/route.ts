@@ -22,7 +22,10 @@ export async function POST(request: Request) {
   try {
     if (process.env.REDIS_URL) {
       const job = await enqueuePlan(day);
-      return json({ ok: true, queued: true, jobId: job.id, day: day ?? null }, 202);
+      return json(
+        { ok: true, queued: true, jobId: job.id, day: day ?? null },
+        202,
+      );
     }
     const run = await runGenerate(day);
     return json({ ok: true, queued: false, ...run }, 200);

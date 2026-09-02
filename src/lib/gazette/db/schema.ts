@@ -44,7 +44,9 @@ const bytea = customType<{ data: Buffer; notNull: false; default: false }>({
 export const articles = pgTable(
   "articles",
   {
-    articleId: uuid("article_id").primaryKey().default(sql`gen_random_uuid()`),
+    articleId: uuid("article_id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
     source: articleSource("source").notNull(),
     title: text("title").notNull(),
     summary: text("summary").notNull().default(""),
@@ -76,13 +78,17 @@ export const articles = pgTable(
 export const questions = pgTable(
   "questions",
   {
-    questionId: uuid("question_id").primaryKey().default(sql`gen_random_uuid()`),
+    questionId: uuid("question_id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
     articleId: uuid("article_id"),
     // The day the underlying news happened (articles.published_at truncated to
     // a date) — not the day it was generated.
     extractedDay: date("extracted_day").notNull(),
     questionText: text("question_text").notNull(),
-    options: jsonb("options").$type<Record<"A" | "B" | "C" | "D", string>>().notNull(),
+    options: jsonb("options")
+      .$type<Record<"A" | "B" | "C" | "D", string>>()
+      .notNull(),
     answer: text("answer").notNull(),
     explanation: text("explanation").notNull(),
     // exam topic the model assigned, from activeProfile.topics
@@ -102,7 +108,9 @@ export const questions = pgTable(
 export const generateRuns = pgTable(
   "generate_runs",
   {
-    runId: uuid("run_id").primaryKey().default(sql`gen_random_uuid()`),
+    runId: uuid("run_id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
     day: date("day"),
     planned: integer("planned").notNull().default(0),
     published: integer("published").notNull().default(0),
@@ -113,7 +121,9 @@ export const generateRuns = pgTable(
     rejectedIrrelevant: integer("rejected_irrelevant").notNull().default(0),
     rejectedGrounding: integer("rejected_grounding").notNull().default(0),
     errors: integer("errors").notNull().default(0),
-    startedAt: timestamp("started_at", { withTimezone: true }).notNull().defaultNow(),
+    startedAt: timestamp("started_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
     finishedAt: timestamp("finished_at", { withTimezone: true }),
     status: text("status").notNull().default("running"), // running | done | failed
   },

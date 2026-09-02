@@ -1,5 +1,9 @@
 import { contentHash } from "./contentHash";
-import { extractSalientTokens, sameEvent, type SalientTokens } from "./salientFacts";
+import {
+  extractSalientTokens,
+  sameEvent,
+  type SalientTokens,
+} from "./salientFacts";
 import type { RawArticle, ArticleScope } from "@/lib/gazette/types";
 
 export type DedupVerdict = {
@@ -56,7 +60,8 @@ export class Deduplicator {
     const tokens = extractSalientTokens(candidate.title, candidate.summary);
     for (const prior of this.indexed) {
       if (prior.scope !== candidate.scope || prior.day !== day) continue;
-      if (sameEvent(tokens, prior.tokens)) return { verdict: "duplicate", stage: 3 };
+      if (sameEvent(tokens, prior.tokens))
+        return { verdict: "duplicate", stage: 3 };
     }
     return { verdict: "new" };
   }

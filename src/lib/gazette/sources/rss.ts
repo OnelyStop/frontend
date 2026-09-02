@@ -45,7 +45,10 @@ export async function fetchRssFeeds(): Promise<RawArticle[]> {
         items.push({
           source: feed.source,
           title,
-          summary: stripHtml(item.contentSnippet ?? item.content ?? "").slice(0, 2_000),
+          summary: stripHtml(item.contentSnippet ?? item.content ?? "").slice(
+            0,
+            2_000,
+          ),
           url: link,
           publishedAt,
           scope: feed.scope,
@@ -58,7 +61,10 @@ export async function fetchRssFeeds(): Promise<RawArticle[]> {
   const out: RawArticle[] = [];
   results.forEach((r, i) => {
     if (r.status === "fulfilled") out.push(...r.value);
-    else console.warn(`[rss] ${activeProfile.rssFeeds[i].source} failed: ${r.reason}`);
+    else
+      console.warn(
+        `[rss] ${activeProfile.rssFeeds[i].source} failed: ${r.reason}`,
+      );
   });
   return out;
 }

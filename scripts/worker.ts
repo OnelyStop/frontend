@@ -18,7 +18,8 @@ const connection = createRedis();
 const queue = new Queue(GENERATE_QUEUE, { connection: createRedis() });
 
 // Pattern matches how a rate-limited LLM reports "wait N ms".
-const RETRY_DELAY = /retry(?:_?delay|-?after)[^0-9]*([0-9]+(?:\.[0-9]+)?)\s*(m?s)?/i;
+const RETRY_DELAY =
+  /retry(?:_?delay|-?after)[^0-9]*([0-9]+(?:\.[0-9]+)?)\s*(m?s)?/i;
 
 const worker = new Worker(
   GENERATE_QUEUE,
@@ -67,7 +68,10 @@ worker.on("failed", (job, err) =>
   }),
 );
 
-log("info", "worker started", { queue: GENERATE_QUEUE, rpm: activeProfile.llmMaxRpm });
+log("info", "worker started", {
+  queue: GENERATE_QUEUE,
+  rpm: activeProfile.llmMaxRpm,
+});
 
 async function shutdown() {
   log("info", "worker shutting down");

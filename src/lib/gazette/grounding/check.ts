@@ -9,8 +9,21 @@ type Source = { title: string; summary: string };
 // Titles/honorifics that legitimately appear in a model's answer phrasing but
 // not in a terse news snippet — don't count them against a name match.
 const HONORIFICS = new Set([
-  "shri", "smt", "dr", "mr", "mrs", "ms", "hon", "honble", "the", "a", "an",
-  "union", "minister", "shrimati", "sushri",
+  "shri",
+  "smt",
+  "dr",
+  "mr",
+  "mrs",
+  "ms",
+  "hon",
+  "honble",
+  "the",
+  "a",
+  "an",
+  "union",
+  "minister",
+  "shrimati",
+  "sushri",
 ]);
 
 /**
@@ -54,7 +67,10 @@ export function isGrounded(q: DraftQuestion, source: Source): GroundingResult {
   }
 
   if (!grounded) {
-    return { ok: false, reason: `answer "${answerRaw}" not grounded in source` };
+    return {
+      ok: false,
+      reason: `answer "${answerRaw}" not grounded in source`,
+    };
   }
 
   const explNumbers = extractSalientTokens("", q.explanation).numbers;
@@ -62,7 +78,10 @@ export function isGrounded(q: DraftQuestion, source: Source): GroundingResult {
     explNumbers.size > 0 &&
     ![...explNumbers].some((n) => srcTokens.numbers.has(n))
   ) {
-    return { ok: false, reason: "explanation cites a number absent from source" };
+    return {
+      ok: false,
+      reason: "explanation cites a number absent from source",
+    };
   }
 
   return { ok: true, reason: "grounded" };

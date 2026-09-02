@@ -14,7 +14,9 @@ async function main() {
   } else if (stage === "generate") {
     console.log(JSON.stringify(await runGenerate(day), null, 2));
   } else {
-    console.error("usage: bun run pipeline <ingest|generate> [--day=YYYY-MM-DD]");
+    console.error(
+      "usage: bun run pipeline <ingest|generate> [--day=YYYY-MM-DD]",
+    );
     process.exit(1);
   }
 }

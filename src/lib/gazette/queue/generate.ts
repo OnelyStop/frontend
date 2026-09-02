@@ -74,7 +74,11 @@ export async function planHandler(
     .values({ day: day ?? null, planned: rows.length, status: "running" })
     .returning();
 
-  log("info", "generate run planned", { runId: run.runId, planned: rows.length, day: day ?? null });
+  log("info", "generate run planned", {
+    runId: run.runId,
+    planned: rows.length,
+    day: day ?? null,
+  });
 
   if (rows.length === 0) {
     await db
@@ -97,7 +101,9 @@ export async function maybeFinalizeRun(runId: string): Promise<void> {
   await db
     .update(generateRuns)
     .set({ finishedAt: new Date(), status: "done" })
-    .where(and(eq(generateRuns.runId, runId), isNull(generateRuns.finishedAt), done));
+    .where(
+      and(eq(generateRuns.runId, runId), isNull(generateRuns.finishedAt), done),
+    );
 }
 
 /**

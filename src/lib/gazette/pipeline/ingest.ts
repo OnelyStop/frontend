@@ -3,7 +3,10 @@ import { getDb } from "@/lib/gazette/db";
 import { articles } from "@/lib/gazette/db/schema";
 import { activeProfile } from "@/lib/gazette/config/profile";
 import { contentHash } from "@/lib/gazette/dedup/contentHash";
-import { Deduplicator, type RecentArticle } from "@/lib/gazette/dedup/deduplicator";
+import {
+  Deduplicator,
+  type RecentArticle,
+} from "@/lib/gazette/dedup/deduplicator";
 import { fetchNewsData } from "@/lib/gazette/sources/newsdata";
 import { fetchRssFeeds } from "@/lib/gazette/sources/rss";
 import type { RawArticle } from "@/lib/gazette/types";
@@ -20,7 +23,10 @@ export type IngestDeps = {
   fetchRss: typeof fetchRssFeeds;
 };
 
-const defaultDeps: IngestDeps = { fetchNews: fetchNewsData, fetchRss: fetchRssFeeds };
+const defaultDeps: IngestDeps = {
+  fetchNews: fetchNewsData,
+  fetchRss: fetchRssFeeds,
+};
 
 /**
  * One ingest pass: pull every source, dedupe (stages 1 + 3), and store each
@@ -28,9 +34,14 @@ const defaultDeps: IngestDeps = { fetchNews: fetchNewsData, fetchRss: fetchRssFe
  * plus `onConflictDoNothing` means a double-fired cron can't double-insert.
  * `deps` is injectable so tests never hit the network.
  */
-export async function runIngest(deps: IngestDeps = defaultDeps): Promise<IngestSummary> {
+export async function runIngest(
+  deps: IngestDeps = defaultDeps,
+): Promise<IngestSummary> {
   const db = await getDb();
-  const [newsdata, rss] = await Promise.all([deps.fetchNews(), deps.fetchRss()]);
+  const [newsdata, rss] = await Promise.all([
+    deps.fetchNews(),
+    deps.fetchRss(),
+  ]);
   const candidates: RawArticle[] = [...newsdata, ...rss]
     .filter((a) => a.title && a.url)
     .sort((a, b) => a.publishedAt.getTime() - b.publishedAt.getTime())
@@ -52,7 +63,12 @@ export async function runIngest(deps: IngestDeps = defaultDeps): Promise<IngestS
 
   const dedup = new Deduplicator(recentRows as RecentArticle[]);
 
-  const summary: IngestSummary = { fetched: candidates.length, new: 0, duplicate: 0, conflict: 0 };
+  const summary: IngestSummary = {
+    fetched: candidates.length,
+    new: 0,
+    duplicate: 0,
+    conflict: 0,
+  };
 
   for (const c of candidates) {
     const verdict = dedup.check(c);

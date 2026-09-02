@@ -18,7 +18,7 @@ export function log(level: Level, msg: string, fields: Fields = {}): void {
   });
   if (level === "error") console.error(line);
   else if (level === "warn") console.warn(line);
-  else console.log(line);
+  else process.stdout.write(`${line}\n`);
 }
 
 /**

@@ -13,7 +13,10 @@ import { generateQuestion } from "@/lib/gazette/generate/generateQuestion";
 import { isGrounded } from "@/lib/gazette/grounding/check";
 import { log } from "@/lib/gazette/log";
 import { classifyRelevance } from "@/lib/gazette/relevance/prefilter";
-import { fetchArticleBody, isMostlyEnglish } from "@/lib/gazette/sources/extract";
+import {
+  fetchArticleBody,
+  isMostlyEnglish,
+} from "@/lib/gazette/sources/extract";
 
 // In the no-queue path (runGenerate) this bounds fan-out; the BullMQ worker
 // uses its own `concurrency` + a queue-global rate limiter instead.
@@ -55,7 +58,11 @@ function istDayBounds(day: string): [Date, Date] {
   return [start, end];
 }
 
-export async function incrRun(runId: string, col: RunCounter, n = 1): Promise<void> {
+export async function incrRun(
+  runId: string,
+  col: RunCounter,
+  n = 1,
+): Promise<void> {
   const db = await getDb();
   await db
     .update(generateRuns)
@@ -103,8 +110,12 @@ export async function processArticle(
     .limit(1);
   if (!article || article.status !== "new") return { kind: "noop" };
 
-  const bump = (col: RunCounter) => (runId ? incrRun(runId, col) : Promise.resolve());
-  const skip = async (col: RunCounter, reason: string): Promise<ArticleOutcome> => {
+  const bump = (col: RunCounter) =>
+    runId ? incrRun(runId, col) : Promise.resolve();
+  const skip = async (
+    col: RunCounter,
+    reason: string,
+  ): Promise<ArticleOutcome> => {
     await db
       .update(articles)
       .set({ status: "skipped", skipReason: reason })
@@ -202,7 +213,10 @@ export async function runGenerate(
     Array.from({ length: Math.min(CONCURRENCY, rows.length) }, async () => {
       while (cursor < rows.length) {
         const a = rows[cursor++];
-        const out = await processArticle(a.articleId, { runId: run.runId, deps });
+        const out = await processArticle(a.articleId, {
+          runId: run.runId,
+          deps,
+        });
         if (out.kind === "error") await incrRun(run.runId, "errors");
       }
     }),

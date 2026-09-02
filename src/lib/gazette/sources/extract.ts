@@ -7,20 +7,39 @@ const BROWSER_UA =
 const MAX_BODY_CHARS = 6000;
 
 const ENTITIES: Record<string, string> = {
-  amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ",
-  rsquo: "’", lsquo: "‘", rdquo: "”", ldquo: "“",
-  ndash: "–", mdash: "—", hellip: "…", "#39": "'", "#x27": "'",
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+  nbsp: " ",
+  rsquo: "’",
+  lsquo: "‘",
+  rdquo: "”",
+  ldquo: "“",
+  ndash: "–",
+  mdash: "—",
+  hellip: "…",
+  "#39": "'",
+  "#x27": "'",
 };
 
 function decodeEntities(s: string): string {
   return s
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
-    .replace(/&([a-z0-9#]+);/gi, (m, name) => ENTITIES[name.toLowerCase()] ?? m);
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) =>
+      String.fromCodePoint(parseInt(h, 16)),
+    )
+    .replace(
+      /&([a-z0-9#]+);/gi,
+      (m, name) => ENTITIES[name.toLowerCase()] ?? m,
+    );
 }
 
 function stripTags(html: string): string {
-  return decodeEntities(html.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+  return decodeEntities(html.replace(/<[^>]+>/g, " "))
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /**
@@ -45,7 +64,9 @@ export function htmlToText(html: string): string {
   if (container) s = container[2];
 
   const blocks: string[] = [];
-  for (const m of s.matchAll(/<(p|li|h[1-4]|blockquote)\b[^>]*>([\s\S]*?)<\/\1>/gi)) {
+  for (const m of s.matchAll(
+    /<(p|li|h[1-4]|blockquote)\b[^>]*>([\s\S]*?)<\/\1>/gi,
+  )) {
     const t = stripTags(m[2]);
     if (t.length >= 40) blocks.push(t);
   }
@@ -53,7 +74,11 @@ export function htmlToText(html: string): string {
   let text = blocks.join("\n");
   if (text.length < 200) text = stripTags(s); // fallback: whole container
 
-  return text.replace(/[ \t]{2,}/g, " ").replace(/\n{3,}/g, "\n\n").trim().slice(0, 4000);
+  return text
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim()
+    .slice(0, 4000);
 }
 
 function tidy(text: string): string {
@@ -120,7 +145,10 @@ export function isMostlyEnglish(text: string): boolean {
 export async function fetchArticleBody(url: string): Promise<string> {
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": BROWSER_UA, Accept: "text/html,application/xhtml+xml" },
+      headers: {
+        "User-Agent": BROWSER_UA,
+        Accept: "text/html,application/xhtml+xml",
+      },
       redirect: "follow",
       signal: AbortSignal.timeout(15_000),
     });

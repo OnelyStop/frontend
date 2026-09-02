@@ -22,5 +22,4 @@ export type DraftQuestion = {
 
 /** generateQuestion result: the model's relevance verdict, plus the MCQ + topic when relevant. */
 export type GeneratedQuestion =
-  | { relevant: false }
-  | ({ relevant: true; topic: string } & DraftQuestion);
+  { relevant: false } | ({ relevant: true; topic: string } & DraftQuestion);

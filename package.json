@@ -2,10 +2,18 @@
   "name": "onelystopp",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:layout": "node scripts/check-layout.mjs",
+    "check:source": "./scripts/check-source.sh",
+    "check:deps": "node scripts/check-deps.mjs",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
@@ -13,7 +21,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "pipeline": "bun scripts/run-stage.ts",
-    "worker": "bun scripts/worker.ts"
+    "worker": "bun scripts/worker.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
@@ -48,10 +57,13 @@
     "drizzle-kit": "^0.31.10",
     "eslint": "^9.13.0",
     "eslint-config-next": "^16.3.1",
+    "husky": "^9.1.7",
     "postcss": "^8.5.26",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
-    "vitest": "^4.1.11"
+    "vitest": "^3.2.4"
   },
   "trustedDependencies": [
     "unrs-resolver"

@@ -67,7 +67,8 @@ function getClient(): GoogleGenAI {
   return (client ??= new GoogleGenAI({ apiKey: env.GEMINI_API_KEY }));
 }
 
-const TRANSIENT = /aborted|timed out|timeout|\b(?:429|500|502|503|504)\b|UNAVAILABLE|RESOURCE_EXHAUSTED|high demand/i;
+const TRANSIENT =
+  /aborted|timed out|timeout|\b(?:429|500|502|503|504)\b|UNAVAILABLE|RESOURCE_EXHAUSTED|high demand/i;
 
 function normalizeTopic(raw: string): string {
   const hit = activeProfile.topics.find(

@@ -22,7 +22,10 @@ STEP 2 — If relevant, classify and write the question.
 - Phrase the question so it stays correct later — anchor it to when the news happened, not to "today" or "recently".
 - The explanation is ONE sentence stating the fact from the article that makes the answer correct.`;
 
-export function buildUserPrompt(article: ArticleRow, sourceText: string): string {
+export function buildUserPrompt(
+  article: ArticleRow,
+  sourceText: string,
+): string {
   const day = article.publishedAt.toISOString().slice(0, 10);
   return [
     "<article>",

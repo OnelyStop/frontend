@@ -7,6 +7,8 @@ tsconfig.tsbuildinfo
 # and the tool rewrites them anyway.
 src/migrations/**/*.sql
 src/migrations/meta
+migrations/**/*.sql
+migrations/meta
 
 # Hand-authored shareable documents, not source. Their layout is deliberate.
 docs

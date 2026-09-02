@@ -2,7 +2,15 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Check, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { Badge, Button, Card, Empty, Input, PageHeader, cn } from "@/design-system";
+import {
+  Badge,
+  Button,
+  Card,
+  Empty,
+  Input,
+  PageHeader,
+  cn,
+} from "@/design-system";
 
 /* The daily current-affairs quiz. Questions come from the Gazette Engine
    pipeline (../backend) via the /api/current-affairs/daily proxy, one grounded
@@ -22,7 +30,11 @@ type Question = {
   explanation: string;
 };
 
-type DailyResponse = { extracted_day: string; count: number; questions: Question[] };
+type DailyResponse = {
+  extracted_day: string;
+  count: number;
+  questions: Question[];
+};
 
 const KEYS: OptionKey[] = ["A", "B", "C", "D"];
 
@@ -61,7 +73,9 @@ export function CurrentAffairsView() {
         { cache: "no-store" },
       );
       if (!res.ok) {
-        const body = (await res.json().catch(() => null)) as { error?: string } | null;
+        const body = (await res.json().catch(() => null)) as {
+          error?: string;
+        } | null;
         throw new Error(body?.error ?? `Request failed (${res.status})`);
       }
       const data = (await res.json()) as DailyResponse;
@@ -77,7 +91,9 @@ export function CurrentAffairsView() {
 
   const ready = state.kind === "ready" ? state.questions : [];
   const answered = ready.filter((q) => locked[q.question_id]);
-  const correct = answered.filter((q) => picked[q.question_id] === q.answer).length;
+  const correct = answered.filter(
+    (q) => picked[q.question_id] === q.answer,
+  ).length;
   const atMax = day != null && day >= istToday();
 
   return (
@@ -93,7 +109,7 @@ export function CurrentAffairsView() {
                 aria-label="Previous day"
                 disabled={!day}
                 onClick={() => day && setDay(shiftDay(day, -1))}
-                className="grid size-9 place-items-center rounded-pill border border-line-2 text-ink-3 transition-colors hover:border-ink/25 hover:text-ink disabled:opacity-40"
+                className="rounded-pill border-line-2 text-ink-3 hover:border-ink/25 hover:text-ink grid size-9 place-items-center border transition-colors disabled:opacity-40"
               >
                 <ChevronLeft size={16} />
               </button>
@@ -109,13 +125,13 @@ export function CurrentAffairsView() {
                 aria-label="Next day"
                 disabled={atMax}
                 onClick={() => day && setDay(shiftDay(day, 1))}
-                className="grid size-9 place-items-center rounded-pill border border-line-2 text-ink-3 transition-colors hover:border-ink/25 hover:text-ink disabled:opacity-40"
+                className="rounded-pill border-line-2 text-ink-3 hover:border-ink/25 hover:text-ink grid size-9 place-items-center border transition-colors disabled:opacity-40"
               >
                 <ChevronRight size={16} />
               </button>
             </div>
             {state.kind === "ready" && ready.length > 0 ? (
-              <span className="tnum text-[14px] text-ink-3">
+              <span className="tnum text-ink-3 text-[14px]">
                 {correct} / {answered.length} correct
                 <span className="text-ink-4"> · {ready.length} today</span>
               </span>
@@ -125,7 +141,9 @@ export function CurrentAffairsView() {
       />
 
       {state.kind === "loading" ? (
-        <p className="text-[14px] text-ink-3">Loading the day&rsquo;s questions…</p>
+        <p className="text-ink-3 text-[14px]">
+          Loading the day&rsquo;s questions…
+        </p>
       ) : null}
 
       {state.kind === "error" ? (
@@ -159,7 +177,7 @@ export function CurrentAffairsView() {
             return (
               <Card key={q.question_id} className="p-7">
                 <div className="flex items-center gap-3">
-                  <span className="tnum text-[13px] text-ink-4">Q{i + 1}</span>
+                  <span className="tnum text-ink-4 text-[13px]">Q{i + 1}</span>
                   {q.topic ? <Badge tone="brand">{q.topic}</Badge> : null}
                 </div>
 
@@ -180,12 +198,20 @@ export function CurrentAffairsView() {
                           setPicked((p) => ({ ...p, [q.question_id]: k }))
                         }
                         className={cn(
-                          "flex w-full items-center gap-3 rounded-ctl border px-4 py-3 text-left text-[14px] leading-snug transition-colors",
-                          !isLocked && !isChoice && "border-line hover:border-ink/25",
+                          "rounded-ctl flex w-full items-center gap-3 border px-4 py-3 text-left text-[14px] leading-snug transition-colors",
+                          !isLocked &&
+                            !isChoice &&
+                            "border-line hover:border-ink/25",
                           !isLocked && isChoice && "border-brand bg-brand-soft",
                           isLocked && isAnswer && "border-ok bg-ok-soft",
-                          isLocked && isChoice && !isAnswer && "border-bad bg-bad-soft",
-                          isLocked && !isAnswer && !isChoice && "border-line opacity-60",
+                          isLocked &&
+                            isChoice &&
+                            !isAnswer &&
+                            "border-bad bg-bad-soft",
+                          isLocked &&
+                            !isAnswer &&
+                            !isChoice &&
+                            "border-line opacity-60",
                         )}
                       >
                         <span
@@ -204,9 +230,9 @@ export function CurrentAffairsView() {
                         </span>
                         <span className="flex-1">{q.options[k]}</span>
                         {isLocked && isAnswer ? (
-                          <Check size={15} className="shrink-0 text-ok" />
+                          <Check size={15} className="text-ok shrink-0" />
                         ) : isLocked && isChoice ? (
-                          <X size={15} className="shrink-0 text-bad" />
+                          <X size={15} className="text-bad shrink-0" />
                         ) : null}
                       </button>
                     );
@@ -214,8 +240,13 @@ export function CurrentAffairsView() {
                 </div>
 
                 {isLocked ? (
-                  <p className="mt-5 border-t border-line pt-4 text-[14px] leading-relaxed text-ink-2">
-                    <span className={cn("font-medium", right ? "text-ok" : "text-bad")}>
+                  <p className="border-line text-ink-2 mt-5 border-t pt-4 text-[14px] leading-relaxed">
+                    <span
+                      className={cn(
+                        "font-medium",
+                        right ? "text-ok" : "text-bad",
+                      )}
+                    >
                       {right ? "Correct." : "Not quite."}
                     </span>{" "}
                     {q.explanation}
