@@ -152,7 +152,10 @@ jobs:
             Style nits, naming preferences and "consider also doing X" are NOT
             grounds to request changes. Say them in the body and approve.
 
-          track_progress: true
+          # The progress comment is a running log that edits itself and stays on
+          # the PR after the verdict lands. The review is the output; this was
+          # noise beside it.
+          track_progress: false
           show_full_output: false
 
           claude_args: |
