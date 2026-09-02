@@ -26,7 +26,6 @@ export function json(body: unknown, status = 200): Response {
       "content-type": "application/json",
       // Read-only public API — safe to allow cross-origin GETs. The frontend
       // still calls it through a same-origin proxy so the URL stays private.
-      "access-control-allow-origin": "*",
       "cache-control": "no-store",
     },
   });
