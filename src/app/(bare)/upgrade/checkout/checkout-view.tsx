@@ -1,5 +1,4 @@
 "use client";
-import "@/styles/global.css";
 
 import { useState, type FormEvent } from "react";
 import {
@@ -11,8 +10,15 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { useApp } from "@/context/AppContext";
-import { Brand } from "@/components/marketing/Logo";
-import { Button } from "@/components/marketing/Button";
+import {
+  Brand,
+  Button,
+  Card,
+  Field,
+  Input,
+  Select,
+  SectionTitle,
+} from "@/design-system";
 import {
   ANNUAL_TOTAL,
   MONTHLY_PRICE,
@@ -35,15 +41,15 @@ function formatExpiry(value: string) {
 // Deliberately outside both shells — fewer exits on the payment step.
 function CheckoutShell({ children }: { children: ReactNode }) {
   return (
-    <div className="checkout-shell">
-      <header className="checkout-shell__bar">
+    <div className="bg-canvas min-h-dvh">
+      <header className="border-line flex h-14 items-center justify-between border-b px-5 sm:px-8 lg:px-16">
         <Brand href="/" />
-        <span className="checkout-shell__secure">
+        <span className="text-ink-3 inline-flex items-center gap-1.5 text-[13px]">
           <Lock size={12} strokeWidth={2} />
           Secure checkout
         </span>
       </header>
-      <div className="checkout-shell__body">{children}</div>
+      <div className="mx-auto max-w-275 px-5 py-10 sm:px-8">{children}</div>
     </div>
   );
 }
@@ -71,16 +77,22 @@ export function CheckoutView({ billing }: { billing: BillingCycle }) {
   if (status === "paid") {
     return (
       <CheckoutShell>
-        <div className="checkout-success">
-          <CheckCircle2 size={56} strokeWidth={1.5} />
-          <h1 className="page__title">You're on Pro</h1>
-          <p className="page__desc">
-            Unlimited marking, exams, and AI tools are unlocked. The A* Ascent
-            rail is waiting — keep climbing.
+        <div className="mx-auto max-w-130 py-16 text-center">
+          <CheckCircle2
+            size={56}
+            strokeWidth={1.5}
+            className="text-ok mx-auto"
+          />
+          <h1 className="mt-6 text-[32px] tracking-[-0.03em]">You're on Pro</h1>
+          <p className="text-ink-2 mt-3 text-[15px] leading-relaxed">
+            Unlimited marking, exams, and AI tools are unlocked.
           </p>
-          <div className="checkout-success__actions">
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Button onClick={() => router.push("/home")}>Start revising</Button>
-            <Button variant="outline" onClick={() => router.push("/settings")}>
+            <Button
+              variant="secondary"
+              onClick={() => router.push("/settings")}
+            >
               Manage plan
             </Button>
           </div>
@@ -93,47 +105,54 @@ export function CheckoutView({ billing }: { billing: BillingCycle }) {
     <CheckoutShell>
       <button
         type="button"
-        className="checkout-back"
+        className="text-ink-2 hover:text-ink inline-flex items-center gap-1.5 text-[14px] transition-colors"
         onClick={() => router.back()}
       >
         <ArrowLeft size={15} strokeWidth={2} />
         Back to plans
       </button>
 
-      <div className="page__eyebrow">Checkout</div>
-      <h1 className="page__title">Upgrade to Pro</h1>
+      <h1 className="mt-5 mb-8 text-[32px] tracking-[-0.03em]">
+        Upgrade to Pro
+      </h1>
 
-      <div className="checkout-layout">
-        <form className="panel checkout-form" onSubmit={handleSubmit}>
-          <div className="panel__title">Payment details</div>
-          <p className="panel__sub">
-            <Lock size={12} strokeWidth={2} /> Secured with 256-bit encryption
-          </p>
+      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <Card>
+          <SectionTitle
+            aside={
+              <span className="text-ink-3 inline-flex items-center gap-1.5 text-[13px]">
+                <Lock size={12} strokeWidth={2} /> 256-bit encryption
+              </span>
+            }
+          >
+            Payment details
+          </SectionTitle>
 
-          <div className="form-grid">
-            <div className="field">
-              <label htmlFor="checkout-email">Email</label>
-              <input
+          <form onSubmit={handleSubmit} className="grid gap-3.5">
+            <Field label="Email" htmlFor="checkout-email">
+              <Input
                 id="checkout-email"
                 type="email"
                 defaultValue={profile.email}
                 required
               />
-            </div>
-            <div className="field">
-              <label htmlFor="checkout-name">Name on card</label>
-              <input
+            </Field>
+            <Field label="Name on card" htmlFor="checkout-name">
+              <Input
                 id="checkout-name"
                 type="text"
-                placeholder="Alex Morgan"
+                placeholder="Aarav Mehta"
                 autoComplete="cc-name"
                 required
               />
-            </div>
-            <div className="field">
-              <label htmlFor="checkout-card">Card number</label>
-              <div className="checkout-card-input">
-                <CreditCard size={16} strokeWidth={1.75} />
+            </Field>
+            <Field label="Card number" htmlFor="checkout-card">
+              <div className="rounded-ctl border-line bg-canvas focus-within:border-brand flex h-10 items-center gap-2 border px-3.5 transition-colors">
+                <CreditCard
+                  size={16}
+                  strokeWidth={1.75}
+                  className="text-ink-3 shrink-0"
+                />
                 <input
                   id="checkout-card"
                   inputMode="numeric"
@@ -143,13 +162,13 @@ export function CheckoutView({ billing }: { billing: BillingCycle }) {
                   onChange={(e) => setCard(formatCardNumber(e.target.value))}
                   required
                   minLength={19}
+                  className="w-full bg-transparent text-[14px] outline-none"
                 />
               </div>
-            </div>
-            <div className="field-row">
-              <div className="field">
-                <label htmlFor="checkout-expiry">Expiry</label>
-                <input
+            </Field>
+            <div className="grid grid-cols-2 gap-3.5">
+              <Field label="Expiry" htmlFor="checkout-expiry">
+                <Input
                   id="checkout-expiry"
                   inputMode="numeric"
                   placeholder="MM/YY"
@@ -159,10 +178,9 @@ export function CheckoutView({ billing }: { billing: BillingCycle }) {
                   required
                   minLength={5}
                 />
-              </div>
-              <div className="field">
-                <label htmlFor="checkout-cvc">CVC</label>
-                <input
+              </Field>
+              <Field label="CVC" htmlFor="checkout-cvc">
+                <Input
                   id="checkout-cvc"
                   inputMode="numeric"
                   placeholder="123"
@@ -174,49 +192,48 @@ export function CheckoutView({ billing }: { billing: BillingCycle }) {
                   required
                   minLength={3}
                 />
-              </div>
+              </Field>
             </div>
-            <div className="field">
-              <label htmlFor="checkout-country">Country</label>
-              <select id="checkout-country" defaultValue="GB">
+            <Field label="Country" htmlFor="checkout-country">
+              <Select id="checkout-country" defaultValue="GB">
                 <option value="GB">United Kingdom</option>
                 <option value="IN">India</option>
                 <option value="US">United States</option>
                 <option value="SG">Singapore</option>
                 <option value="AE">United Arab Emirates</option>
-              </select>
-            </div>
-          </div>
+              </Select>
+            </Field>
 
-          <Button
-            type="submit"
-            size="lg"
-            className="checkout-pay"
-            disabled={status === "processing"}
-            leftIcon={
-              status === "processing" ? (
-                <Loader2 size={16} className="checkout-spinner" />
+            <Button
+              type="submit"
+              size="lg"
+              block
+              className="mt-2"
+              disabled={status === "processing"}
+            >
+              {status === "processing" ? (
+                <Loader2 size={16} className="animate-spin" />
               ) : (
                 <Lock size={15} strokeWidth={2} />
-              )
-            }
-          >
-            {status === "processing"
-              ? "Processing…"
-              : `Pay £${total.toFixed(2)}`}
-          </Button>
-          <p className="checkout-terms">
-            Prices include VAT. Renews automatically — cancel anytime from
-            Settings.
-          </p>
-        </form>
+              )}
+              {status === "processing"
+                ? "Processing…"
+                : `Pay £${total.toFixed(2)}`}
+            </Button>
+            <p className="text-ink-3 text-[12.5px] leading-relaxed">
+              Prices include VAT. Renews automatically — cancel anytime from
+              Settings.
+            </p>
+          </form>
+        </Card>
 
-        <aside className="panel order-summary">
-          <div className="panel__title">Order summary</div>
-          <div className="order-summary__plan">
+        <Card>
+          <SectionTitle>Order summary</SectionTitle>
+
+          <div className="border-line flex items-start justify-between gap-4 border-b pb-4">
             <div>
-              <div className="order-summary__plan-name">onelystop Pro</div>
-              <div className="order-summary__plan-cycle">
+              <div className="text-[15px] font-medium">onelystop Pro</div>
+              <div className="text-ink-3 mt-0.5 text-[13.5px]">
                 {billing === "annual" ? "Annual" : "Monthly"} billing
               </div>
             </div>
@@ -224,40 +241,42 @@ export function CheckoutView({ billing }: { billing: BillingCycle }) {
               href={`/upgrade/checkout?billing=${
                 billing === "annual" ? "monthly" : "annual"
               }`}
-              className="order-summary__switch"
+              className="text-ink-2 hover:text-ink shrink-0 text-[13.5px] underline underline-offset-2"
             >
               Switch to {billing === "annual" ? "monthly" : "annual"}
             </Link>
           </div>
 
-          <dl className="order-summary__rows">
+          <dl className="mt-4 grid gap-2.5 text-[14px]">
             {billing === "annual" ? (
               <>
-                <div>
-                  <dt>12 months × £{MONTHLY_PRICE.toFixed(2)}</dt>
-                  <dd>£{monthlyEquivalent.toFixed(2)}</dd>
+                <div className="flex justify-between">
+                  <dt className="text-ink-2">
+                    12 months × £{MONTHLY_PRICE.toFixed(2)}
+                  </dt>
+                  <dd className="tnum">£{monthlyEquivalent.toFixed(2)}</dd>
                 </div>
-                <div className="order-summary__saving">
+                <div className="text-ok flex justify-between">
                   <dt>Annual saving</dt>
-                  <dd>−£{saving.toFixed(2)}</dd>
+                  <dd className="tnum">−£{saving.toFixed(2)}</dd>
                 </div>
               </>
             ) : (
-              <div>
-                <dt>Pro monthly</dt>
-                <dd>£{MONTHLY_PRICE.toFixed(2)}</dd>
+              <div className="flex justify-between">
+                <dt className="text-ink-2">Pro monthly</dt>
+                <dd className="tnum">£{MONTHLY_PRICE.toFixed(2)}</dd>
               </div>
             )}
-            <div className="order-summary__total">
+            <div className="border-line mt-2 flex justify-between border-t pt-3 text-[16px] font-semibold">
               <dt>Due today</dt>
-              <dd>£{total.toFixed(2)}</dd>
+              <dd className="tnum">£{total.toFixed(2)}</dd>
             </div>
           </dl>
 
-          <p className="order-summary__note">
+          <p className="text-ink-3 mt-4 text-[13px] leading-relaxed">
             Unlimited marking and AI exams, active the moment payment clears.
           </p>
-        </aside>
+        </Card>
       </div>
     </CheckoutShell>
   );

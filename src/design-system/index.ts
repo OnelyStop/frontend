@@ -8,6 +8,10 @@
 
 export { cn } from "./lib/cn";
 
+export { Brand } from "./components/brand";
+
+export { Dropdown, type DropdownOption } from "./components/dropdown";
+
 export {
   Button,
   ButtonLink,

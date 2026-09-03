@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Settings2 } from "lucide-react";
-import { Button } from "@/components/marketing/Button";
+import { Button } from "@/design-system";
 
 export function GoogleIcon() {
   return (
@@ -26,10 +26,21 @@ export function GoogleIcon() {
   );
 }
 
+export function AuthDivider() {
+  return (
+    <div className="text-ink-3 my-5 flex items-center gap-3 text-[12px] font-semibold tracking-[0.08em] uppercase before:h-px before:flex-1 before:bg-current/20 before:content-[''] after:h-px after:flex-1 after:bg-current/20 after:content-['']">
+      or
+    </div>
+  );
+}
+
 export function AuthError({ message }: { message: string }) {
   return (
-    <div className="auth-form__error" role="alert">
-      <AlertCircle size={15} strokeWidth={2} />
+    <div
+      className="rounded-ctl bg-bad-soft text-bad mt-4 flex items-start gap-2 px-3 py-2.5 text-[14px] leading-snug"
+      role="alert"
+    >
+      <AlertCircle size={15} strokeWidth={2} className="mt-0.5 shrink-0" />
       <span>{message}</span>
     </div>
   );
@@ -37,12 +48,22 @@ export function AuthError({ message }: { message: string }) {
 
 export function SetupNotice() {
   return (
-    <div className="auth-form__notice">
-      <Settings2 size={15} strokeWidth={2} />
+    <div className="rounded-ctl bg-warn-soft text-warn mt-4 flex items-start gap-2 px-3 py-2.5 text-[14px] leading-snug">
+      <Settings2 size={15} strokeWidth={2} className="mt-0.5 shrink-0" />
       <span>
         Supabase isn't connected yet. Create a project at supabase.com, then add{" "}
-        <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code>{" "}
-        to <code>.env.local</code> and restart the dev server.
+        <code className="bg-ink/6 rounded px-1 py-0.5 text-[12px]">
+          NEXT_PUBLIC_SUPABASE_URL
+        </code>{" "}
+        and{" "}
+        <code className="bg-ink/6 rounded px-1 py-0.5 text-[12px]">
+          NEXT_PUBLIC_SUPABASE_ANON_KEY
+        </code>{" "}
+        to{" "}
+        <code className="bg-ink/6 rounded px-1 py-0.5 text-[12px]">
+          .env.local
+        </code>{" "}
+        and restart the dev server.
       </span>
     </div>
   );
@@ -58,12 +79,12 @@ export function GoogleButton({
   return (
     <Button
       type="button"
-      variant="outline"
-      className="auth-form__oauth"
+      variant="secondary"
+      block
       onClick={onClick}
       disabled={disabled}
-      leftIcon={<GoogleIcon />}
     >
+      <GoogleIcon />
       Continue with Google
     </Button>
   );

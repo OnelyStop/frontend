@@ -1,4 +1,4 @@
-import "./marking.css";
+import { cn } from "@/design-system";
 
 type Clause = {
   pre?: string;
@@ -95,60 +95,86 @@ const SCHEME = [
 function Tick() {
   return (
     <svg
-      className="note__tick"
+      className="marking-ink text-brand row-start-1 mt-1.5 h-4 w-4.5 -rotate-3"
       viewBox="0 0 20 18"
       fill="none"
       aria-hidden="true"
     >
-      <path pathLength={1} d="M2 9.2 6.8 14.6 18 1.8" />
+      <path
+        pathLength={1}
+        d="M2 9.2 6.8 14.6 18 1.8"
+        stroke="currentColor"
+        strokeWidth={1.9}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 
 export function MarkingScene() {
   return (
-    <section className="marking" id="marking">
-      <div className="marking__inner">
-        <header className="marking__head">
-          <h2 className="display d2 trim">
+    <section
+      className="marking-scene bg-canvas border-line border-t px-5 py-[clamp(64px,7vw,104px)] sm:px-8 lg:px-16"
+      id="marking"
+    >
+      <div className="mx-auto max-w-300">
+        <header className="mb-12 grid items-start gap-x-[clamp(32px,6vw,96px)] gap-y-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+          <h2 className="max-w-[13em] text-[30px] tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
             Every mark, traced to the line that earned it
           </h2>
-          <p className="t-lede trim marking__lede">
+          <p className="text-ink-2 max-w-[38ch] text-[18px] leading-relaxed text-pretty lg:pt-1 lg:text-[19px]">
             A real six-marker, marked. Everything in the margin is the
             examiner&rsquo;s ink. Each tick names the marking point it came from
             and points at the exact words that earned it.
           </p>
         </header>
 
-        <div className="doc">
-          <div className="script">
-            <div className="script__head t-micro">
-              <span className="script__paper">
+        {/* One object with a fold, not two cards: the seam between the script
+            and the scheme is a perforation, never a gap. */}
+        <div className="bg-canvas border-line overflow-hidden rounded-[20px] border">
+          <div className="relative isolate px-6 pt-8 pb-12 sm:px-10">
+            <div className="script-grain pointer-events-none absolute inset-0 -z-1 opacity-[0.035]" />
+
+            <div className="border-line text-ink-3 flex items-baseline justify-between gap-4 border-b pb-4 text-[12.5px]">
+              <span className="tabular-nums">
                 OCR A &middot; H420/01 &middot; Biology A
               </span>
-              <span className="script__avail t-label" aria-hidden="true">
+              <span
+                className="text-ink-2 text-[14px] font-semibold tabular-nums"
+                aria-hidden="true"
+              >
                 [6]
               </span>
-              <span className="marking-sr">6 marks available</span>
+              <span className="sr-only">6 marks available</span>
             </div>
 
-            <div className="script__stem">
-              <span className="script__no t-label" aria-hidden="true">
+            <div className="mt-6 grid grid-cols-[40px_minmax(0,1fr)] items-baseline gap-3 sm:grid-cols-[56px_minmax(0,1fr)] sm:gap-4">
+              <span
+                className="text-ink-3 text-[14px] tabular-nums"
+                aria-hidden="true"
+              >
                 4 (b)
               </span>
-              <p className="d4 display script__q">
+              <p className="max-w-[44ch] text-[21px] leading-snug lg:text-[22px]">
                 Explain how the alveoli are adapted for efficient gas exchange.
               </p>
             </div>
 
-            <div className="script__body">
+            {/* Clause and margin note are siblings of one grid, so each note
+                stays level with its line however the text reflows. The red rule
+                is the margin a real script has — furniture, so every mark on the
+                page is still the accent. */}
+            <div className="lg:after:bg-bad/30 relative mt-8 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_260px] lg:pl-14 lg:after:absolute lg:after:inset-y-0 lg:after:right-65 lg:after:w-px lg:after:content-[''] xl:grid-cols-[minmax(0,1fr)_300px] xl:after:right-75">
               {SCRIPT.map((line, i) => (
                 <ScriptLine key={i} clause={line} />
               ))}
 
-              <div className="tally">
+              {/* An overdrawn ring: the overshoot past its own start is what
+                  reads as hand-drawn. */}
+              <div className="relative col-start-1 mt-8 flex items-baseline gap-2 justify-self-start px-5 py-2 lg:col-start-2 lg:ml-5">
                 <svg
-                  className="tally__ring"
+                  className="marking-ink text-brand absolute -inset-x-2 -inset-y-1 h-auto w-auto overflow-visible"
                   viewBox="0 0 100 56"
                   preserveAspectRatio="none"
                   fill="none"
@@ -157,74 +183,113 @@ export function MarkingScene() {
                   <path
                     pathLength={1}
                     d="M74 6C40-2 8 6 5 24 2 42 30 53 58 52 86 51 99 40 95 24 92 12 78 5 64 5"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    vectorEffect="non-scaling-stroke"
                   />
                 </svg>
-                <span className="tally__n" aria-hidden="true">
+                <span
+                  className="text-brand text-[34px] leading-none font-semibold tracking-[-0.02em] tabular-nums"
+                  aria-hidden="true"
+                >
                   4
                 </span>
-                <span className="tally__d t-body-sm" aria-hidden="true">
+                <span className="text-ink-3 text-[14px]" aria-hidden="true">
                   of 6
                 </span>
-                <span className="marking-sr">
+                <span className="sr-only">
                   Total for question 4 (b): 4 out of 6.
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="scheme">
-            <span className="scheme__tab t-micro">
+          {/* The fold: a perforated rule, not a border. */}
+          <div className="bg-panel relative px-6 py-10 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-[repeating-linear-gradient(to_right,var(--color-line-2)_0_6px,transparent_6px_13px)] before:content-[''] sm:px-10">
+            <span className="text-ink-3 absolute top-0 left-6 text-[12.5px] sm:left-10">
               Mark scheme, held back until you&rsquo;ve answered
             </span>
-            <p className="t-overline trim scheme__label">
+            <p className="text-ink-3 mt-6 text-[14px]">
               Credit points for 4 (b), in our wording
             </p>
 
-            <ol className="scheme__list">
+            <ol className="mt-4">
               {SCHEME.map((point) => (
                 <li
                   key={point.mp}
                   data-mp={point.mp}
-                  className={point.given ? "mp mp--given" : "mp"}
+                  className="border-line grid grid-cols-[52px_minmax(0,1fr)] items-baseline gap-x-3 gap-y-1 border-t py-3 first:border-t-0 sm:grid-cols-[52px_minmax(0,1fr)_auto]"
                 >
-                  <span className="mp__code t-micro">{point.mp}</span>
-                  <span className="mp__text t-body-sm">{point.text}</span>
-                  <span className="mp__award t-micro">
-                    <span className="mp__worth">(1)</span>
-                    <span className="mp__state">
+                  <span
+                    className={cn(
+                      "text-[12.5px] font-semibold tabular-nums",
+                      point.given ? "text-brand" : "text-ink-3",
+                    )}
+                  >
+                    {point.mp}
+                  </span>
+                  <span
+                    className={cn(
+                      "max-w-[62ch] text-[14px]",
+                      point.given || "text-ink-2",
+                    )}
+                  >
+                    {point.text}
+                  </span>
+                  <span className="text-ink-3 col-start-2 flex gap-4 text-[12.5px] tabular-nums sm:col-start-3">
+                    <span className="min-w-7">(1)</span>
+                    <span className={point.given ? "text-brand" : undefined}>
                       {point.given ? "given" : "not given"}
                     </span>
                   </span>
                   {point.rule ? (
-                    <span className="mp__rule t-micro">
-                      <b>{point.rule[0]}</b> {point.rule[1]}
+                    <span className="text-ink-3 col-start-2 text-[12.5px]">
+                      <b className="text-ink-2 font-semibold">
+                        {point.rule[0]}
+                      </b>{" "}
+                      {point.rule[1]}
                     </span>
                   ) : null}
                 </li>
               ))}
             </ol>
 
-            <div className="scheme__foot">
+            <div className="border-line-2 mt-8 grid items-start gap-8 border-t pt-6 sm:grid-cols-2 sm:items-end sm:gap-x-[clamp(24px,4vw,72px)]">
               <div>
-                <ol className="ledger">
+                <ol className="grid grid-cols-6 gap-1 sm:gap-2">
                   {SCHEME.map((point) => (
                     <li
                       key={point.mp}
                       data-mp={point.mp}
-                      data-state={point.given ? "given" : "open"}
-                      className="ledger__cell"
+                      className="grid justify-items-center gap-2"
                     >
-                      <span className="ledger__bar" aria-hidden="true" />
-                      <span className="ledger__lab t-micro">{point.mp}</span>
+                      <span
+                        className={cn(
+                          "h-2.5 w-full rounded-[3px]",
+                          point.given
+                            ? "bg-brand"
+                            : "bg-ink/8 shadow-[inset_0_0_0_1px_rgb(10_10_10/0.07)]",
+                        )}
+                        aria-hidden="true"
+                      />
+                      <span
+                        className={cn(
+                          "text-[12.5px] tabular-nums",
+                          point.given ? "text-ink-2" : "text-ink-3",
+                        )}
+                      >
+                        {point.mp}
+                      </span>
                     </li>
                   ))}
                 </ol>
-                <p className="ledger__caption t-micro">
+                <p className="text-ink-3 mt-4 text-[12.5px]">
                   One cell per marking point. Four filled, two left on the page.
                 </p>
               </div>
 
-              <p className="verdict t-body-sm">
+              <p className="text-ink-2 [&_strong]:text-ink max-w-[46ch] text-[14px] [&_strong]:font-semibold">
                 <strong>Four of six.</strong> Length was never the problem . MP5
                 and MP6 are simply not written down. The band is decided by the
                 points you hit, not by how much you wrote.
@@ -244,29 +309,51 @@ function ScriptLine({ clause }: { clause: Clause }) {
 
   return (
     <>
-      <p className="clause" data-mp={clause.mp}>
+      {/* Marks are drawn, not filled — the script has to stay readable as
+          writing. skip-ink is off: a pen does not lift for a descender. */}
+      <p
+        className="script-rule col-start-1 min-h-14 self-stretch text-[15px] leading-7"
+        data-mp={clause.mp}
+      >
         {clause.pre}
-        {clause.hit ? <span className="hit">{clause.hit}</span> : null}
-        {clause.slip ? <span className="slip">{clause.slip}</span> : null}
+        {clause.hit ? (
+          <span className="decoration-brand underline decoration-[1.5px] underline-offset-4 [text-decoration-skip-ink:none]">
+            {clause.hit}
+          </span>
+        ) : null}
+        {clause.slip ? (
+          <span className="decoration-ink/40 underline decoration-wavy decoration-1 underline-offset-4">
+            {clause.slip}
+          </span>
+        ) : null}
         {clause.post}
       </p>
 
       <div
-        className={given ? "note note--given" : "note note--none"}
+        className={cn(
+          "col-start-1 grid grid-cols-[20px_minmax(0,1fr)] gap-x-2 gap-y-1 self-start",
+          "ml-4 border-l-2 pl-4 lg:col-start-2 lg:mx-0 lg:my-0 lg:border-l-0 lg:pl-5",
+          "mt-3 mb-6 lg:mt-0 lg:mb-0",
+          given ? "border-brand/40" : "border-line-2",
+        )}
         data-mp={clause.mp}
       >
         {given ? (
           <>
             <Tick />
-            <span className="note__code t-micro">{clause.mp}</span>
-            <span className="note__quote t-body-sm">
-              <span className="marking-sr">given for </span>
+            <span className="text-brand col-start-2 text-[12.5px] font-semibold tabular-nums">
+              {clause.mp}
+            </span>
+            <span className="text-ink-2 col-start-2 text-[14px]">
+              <span className="sr-only">given for </span>
               &ldquo;{clause.quote}&rdquo;
             </span>
           </>
         ) : null}
         {clause.gloss ? (
-          <span className="note__gloss t-micro">{clause.gloss}</span>
+          <span className="text-ink-3 col-start-2 mt-1 text-[12.5px]">
+            {clause.gloss}
+          </span>
         ) : null}
       </div>
     </>

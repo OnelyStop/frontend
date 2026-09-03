@@ -1,9 +1,8 @@
-import "@/styles/global.css";
 import type { Metadata } from "next";
 import { AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase-server";
 import { getRole } from "@/features/auth/roles";
-import "./admin.css";
+import { Badge, Card, PageHeader, SectionTitle } from "@/design-system";
 
 export const metadata: Metadata = { title: "Admin" };
 
@@ -60,46 +59,44 @@ export default async function Page() {
   const failing = checks.filter((c) => !c.ok);
 
   return (
-    <div className="page">
-      <div className="page__eyebrow">Admin</div>
-      <h1 className="page__title">Control room</h1>
-      <p className="page__desc">
-        Manage the question bank, papers, and access.
-      </p>
+    <>
+      <PageHeader
+        title="Control room"
+        sub="Manage the question bank, papers, and access."
+      />
 
-      <section className="admin-status">
-        <div className="admin-status__head">
-          <h2 className="panel__title">RBAC status</h2>
-          {failing.length === 0 ? (
-            <span className="admin-pill admin-pill--ok">
-              All checks passing
-            </span>
-          ) : (
-            <span className="admin-pill admin-pill--bad">
-              {failing.length} failing
-            </span>
-          )}
-        </div>
+      <Card>
+        <SectionTitle
+          aside={
+            failing.length === 0 ? (
+              <Badge tone="ok">All checks passing</Badge>
+            ) : (
+              <Badge tone="bad">{failing.length} failing</Badge>
+            )
+          }
+        >
+          RBAC status
+        </SectionTitle>
 
-        <ul className="admin-checks">
+        <ul className="grid gap-3">
           {checks.map((c) => (
-            <li key={c.label} className="admin-check">
+            <li key={c.label} className="flex items-start gap-2.5">
               {c.ok ? (
-                <CheckCircle2 size={16} className="admin-check__ok" />
+                <CheckCircle2 size={16} className="text-ok mt-0.5 shrink-0" />
               ) : (
-                <XCircle size={16} className="admin-check__bad" />
+                <XCircle size={16} className="text-bad mt-0.5 shrink-0" />
               )}
               <div>
-                <div className="admin-check__label">{c.label}</div>
-                <div className="admin-check__detail">{c.detail}</div>
+                <div className="text-[14px]">{c.label}</div>
+                <div className="text-ink-3 text-[13px]">{c.detail}</div>
               </div>
             </li>
           ))}
         </ul>
 
         {failing.length > 0 && (
-          <div className="admin-hint">
-            <AlertCircle size={15} />
+          <div className="rounded-ctl bg-warn-soft text-warn mt-5 flex items-start gap-2 px-3 py-2.5 text-[13.5px] leading-relaxed">
+            <AlertCircle size={15} className="mt-0.5 shrink-0" />
             <div>
               Run <code>bun run db:migrate</code>. If a role is missing, grant
               it with an insert into <code>user_roles</code> from the SQL
@@ -107,20 +104,20 @@ export default async function Page() {
             </div>
           </div>
         )}
-      </section>
+      </Card>
 
-      <div className="grid-3" style={{ marginTop: 20 }}>
+      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {[
           { label: "Questions", hint: "Import, edit, and retire questions" },
           { label: "Papers", hint: "Group questions into full mock papers" },
           { label: "Users", hint: "Roles and plan management" },
         ].map((card) => (
-          <div key={card.label} className="stat-card">
-            <div className="stat-card__label">{card.label}</div>
-            <div className="stat-card__hint">{card.hint}</div>
-          </div>
+          <Card key={card.label} pad={false} className="p-5">
+            <div className="text-[15px] font-medium">{card.label}</div>
+            <div className="text-ink-3 mt-1 text-[13.5px]">{card.hint}</div>
+          </Card>
         ))}
       </div>
-    </div>
+    </>
   );
 }
