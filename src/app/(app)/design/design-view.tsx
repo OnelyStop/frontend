@@ -12,6 +12,8 @@ import {
   CutoffBar,
   DarkPanel,
   Divider,
+  Dropdown,
+  type DropdownOption,
   Empty,
   Field,
   IconButton,
@@ -57,8 +59,17 @@ const TYPE: [string, string, string][] = [
   ["Meta", "text-[13px] text-ink-3", "13 / 400"],
 ];
 
+type Board = "ibps-po" | "sbi-po" | "rbi-b";
+
+const BOARDS = [
+  { value: "ibps-po", label: "IBPS PO", hint: "Prelims & Mains · 12 Oct" },
+  { value: "sbi-po", label: "SBI PO", hint: "Prelims & Mains · 08 Nov" },
+  { value: "rbi-b", label: "RBI Grade B", hint: "Phase 1 & 2 · 23 Nov" },
+] as const satisfies readonly DropdownOption<Board>[];
+
 export function DesignView() {
   const [seg, setSeg] = useState<"One" | "Two" | "Three">("One");
+  const [board, setBoard] = useState<Board>("ibps-po");
   const [checked, setChecked] = useState(true);
 
   return (
@@ -294,6 +305,13 @@ export function DesignView() {
                 onChange={setSeg}
               />
             </div>
+            <Dropdown
+              label="Dropdown"
+              value={board}
+              options={BOARDS}
+              onChange={setBoard}
+              className="max-w-xs"
+            />
           </div>
         </Card>
       </Section>
