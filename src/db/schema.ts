@@ -307,20 +307,17 @@ export const profiles = pgTable(
   ],
 ).enableRLS();
 
-// ---------------------------------------------------------------------------
-// Question bank
-//
-// Imported from OnelyStop/question-bank's classified JSON (import-question-
-// bank.ts), never written by hand. papers/directions/questions are a closed
-// graph a re-import replaces wholesale, which is why they carry real foreign
-// keys with cascade -- the billing tables above deliberately don't, because
-// those mirror an external provider and are written by a webhook instead.
+// Question bank: imported from OnelyStop/question-bank's classified JSON
+// (import-question-bank.ts), never written by hand. papers/directions/questions
+// are a closed graph a re-import replaces wholesale, which is why they carry
+// real foreign keys with cascade -- the billing tables above deliberately
+// don't, because those mirror an external provider and are written by a
+// webhook instead.
 //
 // attempts/attempt_answers/user_topic_stats exist so the schema doesn't need
 // a second migration once scoring lands, but nothing writes them yet: 0% of
 // questions have an `answer` today (pipeline step 4 hasn't run), so there is
 // nothing to score against.
-// ---------------------------------------------------------------------------
 
 export const attemptMode = pgEnum("attempt_mode", ["bank", "mix", "paper"]);
 
@@ -447,11 +444,15 @@ export const questions = pgTable(
 export const attempts = pgTable(
   "attempts",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     mode: attemptMode("mode").notNull(),
     paperId: text("paper_id").references(() => papers.paperId),
-    startedAt: timestamp("started_at", { withTimezone: true }).notNull().defaultNow(),
+    startedAt: timestamp("started_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
     submittedAt: timestamp("submitted_at", { withTimezone: true }),
     score: numeric("score", { precision: 6, scale: 2 }),
   },
@@ -480,7 +481,9 @@ export const attempts = pgTable(
 export const attemptAnswers = pgTable(
   "attempt_answers",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     attemptId: bigint("attempt_id", { mode: "number" })
       .notNull()
       .references(() => attempts.id, { onDelete: "cascade" }),

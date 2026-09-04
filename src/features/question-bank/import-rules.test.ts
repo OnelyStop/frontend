@@ -1,12 +1,16 @@
 import { describe, expect, it } from "vitest";
 
-import { contentHash, directionsOf, examKey, isActive, type RawQuestion } from "./import-rules";
+import {
+  contentHash,
+  directionsOf,
+  examKey,
+  isActive,
+  type RawQuestion,
+} from "./import-rules";
 
 describe("contentHash", () => {
-  // Cross-checked against the real Python function this ports:
-  //   python -c "import sys,json;sys.path.insert(0,'pipeline/6-generate');
-  //   import generate;p=json.load(open('data/batch1/1.json'));
-  //   print(generate.content_key(p['questions'][0]))"
+  // Cross-checked against the real Python function this ports -- run:
+  //   python -c "import sys,json;sys.path.insert(0,'pipeline/6-generate');import generate;p=json.load(open('data/batch1/1.json'));print(generate.content_key(p['questions'][0]))"
   // on OnelyStop/question-bank's classified data. If this drifts, the port
   // has drifted from generate.py, not the other way round.
   it("matches generate.py's content_key for a real question", () => {
@@ -54,7 +58,10 @@ describe("contentHash", () => {
       stem: "A train travels 60 km in 2 hours. Find its speed.",
       options: { a: "20", b: "25", c: "30", d: "35" },
     };
-    const changed: RawQuestion = { ...base, stem: base.stem!.replace("60", "80") };
+    const changed: RawQuestion = {
+      ...base,
+      stem: base.stem!.replace("60", "80"),
+    };
     expect(contentHash(base)).not.toBe(contentHash(changed));
   });
 
@@ -89,16 +96,26 @@ describe("isActive", () => {
   });
 
   it("is inactive with fewer than 4 options", () => {
-    expect(isActive({ ...base, options: { a: "1", b: "2", c: "3" } })).toBe(false);
+    expect(isActive({ ...base, options: { a: "1", b: "2", c: "3" } })).toBe(
+      false,
+    );
   });
 
   it("is inactive when a needed figure was never extracted", () => {
     expect(isActive({ ...base, has_image: true, image_refs: [] })).toBe(false);
-    expect(isActive({ ...base, direction_has_image: true, direction_image_refs: [] })).toBe(false);
+    expect(
+      isActive({
+        ...base,
+        direction_has_image: true,
+        direction_image_refs: [],
+      }),
+    ).toBe(false);
   });
 
   it("is active when the needed figure IS present", () => {
-    expect(isActive({ ...base, has_image: true, image_refs: ["fig1.png"] })).toBe(true);
+    expect(
+      isActive({ ...base, has_image: true, image_refs: ["fig1.png"] }),
+    ).toBe(true);
   });
 
   it("respects an explicit is_active: false", () => {
@@ -133,9 +150,27 @@ describe("directionsOf", () => {
     const rows = directionsOf({
       paper_id: "p1",
       questions: [
-        { q_id: "p1::q1", paper_id: "p1", q_num: 1, direction_id: "d001", direction_text: "Passage A" },
-        { q_id: "p1::q2", paper_id: "p1", q_num: 2, direction_id: "d001", direction_text: "Passage A" },
-        { q_id: "p1::q3", paper_id: "p1", q_num: 3, direction_id: "d002", direction_text: "Passage B" },
+        {
+          q_id: "p1::q1",
+          paper_id: "p1",
+          q_num: 1,
+          direction_id: "d001",
+          direction_text: "Passage A",
+        },
+        {
+          q_id: "p1::q2",
+          paper_id: "p1",
+          q_num: 2,
+          direction_id: "d001",
+          direction_text: "Passage A",
+        },
+        {
+          q_id: "p1::q3",
+          paper_id: "p1",
+          q_num: 3,
+          direction_id: "d002",
+          direction_text: "Passage B",
+        },
         { q_id: "p1::q4", paper_id: "p1", q_num: 4 },
       ],
     });

@@ -49,7 +49,8 @@ function findPaperFiles(dataDir: string): string[] {
     if (!batch.isDirectory() || !batch.name.startsWith("batch")) continue;
     const batchDir = join(dataDir, batch.name);
     for (const f of readdirSync(batchDir)) {
-      if (!f.endsWith(".json") || f.endsWith(".meta.json") || SKIP_FILES.has(f)) continue;
+      if (!f.endsWith(".json") || f.endsWith(".meta.json") || SKIP_FILES.has(f))
+        continue;
       out.push(join(batchDir, f));
     }
   }
@@ -79,8 +80,13 @@ function loadPaper(path: string): RawPaper | null {
  * Ties break on the lowest paper_id, so the result is deterministic across
  * reruns rather than depending on file read order.
  */
-function computeCanonical(loaded: { paper: RawPaper; activeCount: number }[]): Set<string> {
-  const byExamKey = new Map<string, { paper: RawPaper; activeCount: number }[]>();
+function computeCanonical(
+  loaded: { paper: RawPaper; activeCount: number }[],
+): Set<string> {
+  const byExamKey = new Map<
+    string,
+    { paper: RawPaper; activeCount: number }[]
+  >();
   for (const row of loaded) {
     const key = examKey(row.paper);
     const bucket = byExamKey.get(key) ?? [];
@@ -112,7 +118,9 @@ async function main() {
 
   const files = findPaperFiles(DATA_DIR);
   if (files.length === 0) {
-    throw new Error(`No batch*/*.json files under ${DATA_DIR} — check QUESTION_BANK_DATA_DIR`);
+    throw new Error(
+      `No batch*/*.json files under ${DATA_DIR} — check QUESTION_BANK_DATA_DIR`,
+    );
   }
 
   const loaded: { paper: RawPaper; activeCount: number }[] = [];
@@ -149,11 +157,17 @@ async function main() {
     }
   }
 
-  console.log(`  papers found        ${loaded.length}  (${skippedFiles} non-paper files skipped)`);
+  console.log(
+    `  papers found        ${loaded.length}  (${skippedFiles} non-paper files skipped)`,
+  );
   console.log(`  questions           ${totalQuestions}`);
   console.log(`  active questions    ${totalActive}`);
-  console.log(`  section filled      ${totalSectioned} (${((totalSectioned / totalQuestions) * 100).toFixed(1)}%)`);
-  console.log(`  topic filled        ${totalTopiced} (${((totalTopiced / totalQuestions) * 100).toFixed(1)}%)`);
+  console.log(
+    `  section filled      ${totalSectioned} (${((totalSectioned / totalQuestions) * 100).toFixed(1)}%)`,
+  );
+  console.log(
+    `  topic filled        ${totalTopiced} (${((totalTopiced / totalQuestions) * 100).toFixed(1)}%)`,
+  );
   console.log(`  direction pairs     ${directionPairs.size}`);
   console.log(`  canonical papers    ${canonicalIds.size} of ${loaded.length}`);
 
@@ -202,7 +216,13 @@ async function main() {
       if (dirRows.length > 0) {
         await tx
           .insert(directions)
-          .values(dirRows.map((d) => ({ paperId: d.paperId, directionId: d.directionId, body: d.body })))
+          .values(
+            dirRows.map((d) => ({
+              paperId: d.paperId,
+              directionId: d.directionId,
+              body: d.body,
+            })),
+          )
           .onConflictDoUpdate({
             target: [directions.paperId, directions.directionId],
             set: { body: sql`excluded.body` },
