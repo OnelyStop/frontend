@@ -1,6 +1,6 @@
 import { gte } from "drizzle-orm";
-import { getDb } from "@/lib/gazette/db";
-import { articles } from "@/lib/gazette/db/schema";
+import { db } from "@/db";
+import { articles } from "@/db/schema";
 import { activeProfile } from "@/lib/gazette/config/profile";
 import { contentHash } from "@/lib/gazette/dedup/contentHash";
 import {
@@ -37,7 +37,6 @@ const defaultDeps: IngestDeps = {
 export async function runIngest(
   deps: IngestDeps = defaultDeps,
 ): Promise<IngestSummary> {
-  const db = await getDb();
   const [newsdata, rss] = await Promise.all([
     deps.fetchNews(),
     deps.fetchRss(),

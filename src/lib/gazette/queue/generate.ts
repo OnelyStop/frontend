@@ -1,8 +1,8 @@
 import { Queue } from "bullmq";
 import IORedis, { type RedisOptions } from "ioredis";
 import { and, eq, isNull, sql } from "drizzle-orm";
-import { getDb } from "@/lib/gazette/db";
-import { generateRuns } from "@/lib/gazette/db/schema";
+import { db } from "@/db";
+import { generateRuns } from "@/db/schema";
 import { log } from "@/lib/gazette/log";
 import {
   incrRun,
@@ -66,7 +66,6 @@ export async function planHandler(
   { day }: PlanJob,
   addArticleJob: (data: ArticleJob) => Promise<unknown>,
 ): Promise<{ runId: string; planned: number }> {
-  const db = await getDb();
   const rows = await selectNewArticles(day);
 
   const [run] = await db
@@ -96,7 +95,6 @@ export async function planHandler(
 
 /** Marks a run done once every planned article has reached a terminal outcome. */
 export async function maybeFinalizeRun(runId: string): Promise<void> {
-  const db = await getDb();
   const done = sql`(${generateRuns.published} + ${generateRuns.skippedThin} + ${generateRuns.skippedNonEnglish} + ${generateRuns.skippedIrrelevant} + ${generateRuns.rejectedIrrelevant} + ${generateRuns.rejectedGrounding} + ${generateRuns.errors}) >= ${generateRuns.planned}`;
   await db
     .update(generateRuns)

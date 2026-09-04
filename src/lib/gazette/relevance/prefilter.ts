@@ -1,6 +1,6 @@
 import { activeProfile } from "@/lib/gazette/config/profile";
 import { normalizeText } from "@/lib/gazette/dedup/normalize";
-import type { ArticleRow } from "@/lib/gazette/db/schema";
+import type { ArticleRow } from "@/db/schema";
 
 export type RelevanceVerdict = { drop: boolean; reason?: string };
 

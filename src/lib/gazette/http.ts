@@ -1,4 +1,4 @@
-import type { QuestionRow } from "@/lib/gazette/db/schema";
+import type { QuestionRow } from "@/db/schema";
 
 export const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 

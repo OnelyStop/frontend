@@ -1,7 +1,7 @@
 import { Queue } from "bullmq";
 import { desc, isNotNull } from "drizzle-orm";
-import { getDb } from "@/lib/gazette/db";
-import { generateRuns } from "@/lib/gazette/db/schema";
+import { db } from "@/db";
+import { generateRuns } from "@/db/schema";
 import { json } from "@/lib/gazette/http";
 import { GENERATE_QUEUE, createRedis } from "@/lib/gazette/queue/generate";
 
@@ -16,8 +16,6 @@ const QUEUE_DEPTH_ALARM = 200;
  * Returns 503 when not ok so the monitor alerts on status alone.
  */
 export async function GET() {
-  const db = await getDb();
-
   const [last] = await db
     .select()
     .from(generateRuns)

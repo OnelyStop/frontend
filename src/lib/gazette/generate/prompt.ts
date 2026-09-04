@@ -1,5 +1,5 @@
 import { activeProfile } from "@/lib/gazette/config/profile";
-import type { ArticleRow } from "@/lib/gazette/db/schema";
+import type { ArticleRow } from "@/db/schema";
 
 export const SYSTEM_PROMPT = `You prepare current-affairs multiple-choice questions for Indian banking-recruitment exams (IBPS, SBI, RBI Grade B and similar).
 

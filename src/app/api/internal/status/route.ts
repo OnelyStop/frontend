@@ -1,7 +1,7 @@
 import { Queue } from "bullmq";
 import { desc } from "drizzle-orm";
-import { getDb } from "@/lib/gazette/db";
-import { generateRuns } from "@/lib/gazette/db/schema";
+import { db } from "@/db";
+import { generateRuns } from "@/db/schema";
 import { isAuthorizedCron } from "@/lib/gazette/auth";
 import { json } from "@/lib/gazette/http";
 import { GENERATE_QUEUE, createRedis } from "@/lib/gazette/queue/generate";
@@ -12,7 +12,6 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   if (!isAuthorizedCron(request)) return json({ error: "unauthorized" }, 401);
 
-  const db = await getDb();
   const runs = await db
     .select()
     .from(generateRuns)

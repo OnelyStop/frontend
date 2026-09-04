@@ -1,8 +1,8 @@
 import { desc, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
-import { getDb } from "@/lib/gazette/db";
-import { questions } from "@/lib/gazette/db/schema";
+import { db } from "@/db";
+import { questions } from "@/db/schema";
 import { DAY_RE, json, serializeQuestion, todayIst } from "@/lib/gazette/http";
 
 export const dynamic = "force-dynamic";
@@ -34,7 +34,6 @@ export async function GET(request: Request) {
     ? Math.min(100, Math.max(1, Math.trunc(limitRaw)))
     : 50;
 
-  const db = await getDb();
   const rows = await db
     .select()
     .from(questions)

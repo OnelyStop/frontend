@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 import { env } from "@/lib/gazette/env";
 import { activeProfile } from "@/lib/gazette/config/profile";
-import type { ArticleRow } from "@/lib/gazette/db/schema";
+import type { ArticleRow } from "@/db/schema";
 import type { GeneratedQuestion } from "@/lib/gazette/types";
 import { SYSTEM_PROMPT, buildUserPrompt } from "./prompt";
 

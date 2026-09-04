@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
-import { getDb } from "@/lib/gazette/db";
-import { questions } from "@/lib/gazette/db/schema";
+import { db } from "@/db";
+import { questions } from "@/db/schema";
 import { json, serializeQuestion } from "@/lib/gazette/http";
 
 export const dynamic = "force-dynamic";
@@ -33,7 +33,6 @@ export async function GET(
     return json({ error: "invalid question_id" }, 400);
   }
 
-  const db = await getDb();
   const [row] = await db
     .select()
     .from(questions)

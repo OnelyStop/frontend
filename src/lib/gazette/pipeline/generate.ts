@@ -1,12 +1,12 @@
 import { and, desc, eq, gte, lt, sql } from "drizzle-orm";
-import { getDb } from "@/lib/gazette/db";
+import { db } from "@/db";
 import {
   articles,
   generateRuns,
   questions,
   type GenerateRunRow,
   type RunCounter,
-} from "@/lib/gazette/db/schema";
+} from "@/db/schema";
 import { activeProfile } from "@/lib/gazette/config/profile";
 import { istDayKey } from "@/lib/gazette/dedup/deduplicator";
 import { generateQuestion } from "@/lib/gazette/generate/generateQuestion";
@@ -63,7 +63,6 @@ export async function incrRun(
   col: RunCounter,
   n = 1,
 ): Promise<void> {
-  const db = await getDb();
   await db
     .update(generateRuns)
     .set({ [col]: sql`${generateRuns[col]} + ${n}` })
@@ -72,7 +71,6 @@ export async function incrRun(
 
 /** Articles this run will process — status `new`, optionally one IST day, capped. */
 export async function selectNewArticles(day?: string) {
-  const db = await getDb();
   const where = day
     ? and(
         eq(articles.status, "new"),
@@ -101,7 +99,6 @@ export async function processArticle(
   opts: { runId?: string; deps?: GenerateDeps } = {},
 ): Promise<ArticleOutcome> {
   const { runId, deps = defaultDeps } = opts;
-  const db = await getDb();
 
   const [article] = await db
     .select()
@@ -200,7 +197,6 @@ export async function runGenerate(
   day?: string,
   deps: GenerateDeps = defaultDeps,
 ): Promise<GenerateRunRow> {
-  const db = await getDb();
   const rows = await selectNewArticles(day);
 
   const [run] = await db
