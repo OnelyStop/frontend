@@ -112,12 +112,16 @@ export function fetchSubscription(id: string): Promise<RazorpaySubscription> {
   return call<RazorpaySubscription>(`/subscriptions/${id}`);
 }
 
-// At the cycle end, not now: the customer keeps what they paid for and no
-// pro-rata refund arithmetic enters the codebase.
-export function cancelSubscription(id: string): Promise<RazorpaySubscription> {
+// At the cycle end by default: the customer keeps what they paid for and no
+// pro-rata refund arithmetic enters the codebase. Closing an account is the
+// one caller that cannot wait for the cycle.
+export function cancelSubscription(
+  id: string,
+  { atCycleEnd = true }: { atCycleEnd?: boolean } = {},
+): Promise<RazorpaySubscription> {
   return call<RazorpaySubscription>(`/subscriptions/${id}/cancel`, {
     method: "POST",
-    body: { cancel_at_cycle_end: 1 },
+    body: { cancel_at_cycle_end: atCycleEnd ? 1 : 0 },
   });
 }
 

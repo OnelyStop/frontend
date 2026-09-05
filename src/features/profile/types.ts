@@ -23,6 +23,10 @@ export const profileUpdate = z
 
 export type ProfileUpdate = z.infer<typeof profileUpdate>;
 
+export const accountClose = z.object({
+  confirmEmail: z.string().trim().email(),
+});
+
 export type Profile = {
   id: string;
   displayName: string | null;

@@ -3,5 +3,10 @@ import { listPlans } from "@/features/billing/plans.server";
 import { LandingView } from "./landing-view";
 
 export default async function Page() {
-  return <LandingView prices={await listPlans(await requestCurrency())} />;
+  return (
+    <LandingView
+      prices={await listPlans(await requestCurrency())}
+      billingEnabled={process.env.BILLING_ENABLED === "true"}
+    />
+  );
 }

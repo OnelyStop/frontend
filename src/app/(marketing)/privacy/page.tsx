@@ -272,10 +272,9 @@ export default function Page() {
             as tax law requires.
           </li>
           <li>
-            <strong>Closing your account.</strong> Write to us at{" "}
-            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> from the
-            email address on your account. There is no self-serve delete yet; a
-            person does it, and confirms when it is done.
+            <strong>Closing your account.</strong> Go to Settings &rarr; Close
+            account. Your work is deleted immediately; payment records stay with
+            Razorpay for as long as tax law requires.
           </li>
         </ul>
       </section>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
 import { EXAMS, SECTIONS, SECTION_SHORT } from "@/data/navigation";
 import type { Profile, ProfileUpdate } from "@/features/profile/types";
+import { CloseAccountCard } from "./close-account-card";
 
 type Draft = {
   displayName: string;
@@ -220,6 +221,8 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
           Manage plan
         </Link>
       </div>
+
+      <CloseAccountCard />
     </div>
   );
 }

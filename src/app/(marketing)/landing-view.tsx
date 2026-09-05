@@ -88,7 +88,13 @@ const STRATEGY_ROWS = [
   },
 ];
 
-export function LandingView({ prices }: { prices: PlanPrice[] }) {
+export function LandingView({
+  prices,
+  billingEnabled,
+}: {
+  prices: PlanPrice[];
+  billingEnabled: boolean;
+}) {
   return (
     <main className="flex-1">
       <section className={`${GUTTER} pt-[clamp(56px,8vw,120px)]`}>
@@ -247,7 +253,12 @@ export function LandingView({ prices }: { prices: PlanPrice[] }) {
             unlimited mocks and drills, descriptive marking, the full
             current-affairs archive and Ask Onely on any passage.
           </p>
-          <PlanGrid variant="public" headingLevel={3} prices={prices} />
+          <PlanGrid
+            variant="public"
+            headingLevel={3}
+            prices={prices}
+            billingEnabled={billingEnabled}
+          />
         </div>
       </section>
 

@@ -313,11 +313,9 @@ export default function Page() {
           <span>Ending the agreement</span>
         </h2>
         <p>
-          You can close your account at any time by writing to{" "}
-          <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>. Closing it
-          deletes your work, except for records we are required by law to keep,
-          such as invoices. There is no self-serve delete yet; when there is,
-          this paragraph will change.
+          You can close your account at any time from Settings &rarr; Close
+          account. Closing it deletes your work immediately and cancels Pro;
+          payment records stay with Razorpay for as long as tax law requires.
         </p>
         <p>
           We may suspend or close an account that breaches these terms, and will

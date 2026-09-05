@@ -53,7 +53,11 @@ export function HomeView() {
   return (
     <>
       <PageHeader
-        title={`Good evening, ${profile.name.split(" ")[0]}`}
+        title={
+          profile.name
+            ? `Good evening, ${profile.name.split(" ")[0]}`
+            : "Good evening"
+        }
         sub={`${SECTION_SHORT[weakest.s]} is ${weakest.cutoff - weakest.score} marks under its sectional cutoff — the only section that is. Everything below is ordered around fixing that.`}
       />
 
