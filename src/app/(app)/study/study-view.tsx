@@ -3,8 +3,6 @@
 import { Empty, Lattice, LatticeCell, PageHeader } from "@/design-system";
 import type { SubjectSummary } from "@/features/study/types";
 
-/* One line per subject so the browse grid is not just names and counts. Static
-   presentational copy, like src/data/navigation.ts. */
 const BLURB: Record<string, string> = {
   "quantitative-aptitude":
     "Arithmetic, interest, work and motion — the calculation core of every prelims and mains paper.",
@@ -25,7 +23,7 @@ export function StudyBrowseView({ subjects }: { subjects: SubjectSummary[] }) {
     <div>
       <PageHeader
         title="Knowledge base"
-        sub="Structured lessons for every section. Pick a subject, then a chapter, then a topic — read, keep private notes, revise with flashcards and ask the tutor about what you are reading."
+        sub="Structured lessons for every section. Pick a subject, then a chapter, then a topic — read, keep private notes, revise with flashcards and ask Onely about any passage you select."
       />
 
       {subjects.length === 0 ? (

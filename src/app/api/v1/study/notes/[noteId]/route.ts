@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { requireUser, jsonError, readJson } from "@/features/study/api.server";
 import { deleteNote, updateNote } from "@/features/study/queries.server";
-import { rateLimit } from "@/features/study/rate-limit";
+import { noteUpdate } from "@/features/study/types";
+import { jsonError, readJson, requireUser } from "@/lib/api";
+import { rateLimit } from "@/lib/rate-limit";
 
 export async function PATCH(
   request: Request,
@@ -13,26 +14,13 @@ export async function PATCH(
   const limit = rateLimit(`note-write:${auth.userId}`, 60, 60_000);
   if (!limit.ok) return jsonError("rate_limited", 429);
 
-  const { noteId } = await params;
-  const body = await readJson<{
-    bodyMarkdown?: string;
-    color?: string;
-    expectedUpdatedAt?: string;
-  }>(request);
-  if (!body) return jsonError("invalid_json", 400);
-  if (body.bodyMarkdown === undefined && body.color === undefined)
-    return jsonError("nothing_to_update", 400);
+  const parsed = noteUpdate.safeParse(await readJson(request));
+  if (!parsed.success) return jsonError("invalid_body", 400);
 
-  const result = await updateNote(auth.userId, noteId, body);
-  if ("error" in result) {
-    const status =
-      result.error === "too_long"
-        ? 400
-        : result.error === "conflict"
-          ? 409
-          : 404;
-    return jsonError(result.error, status);
-  }
+  const { noteId } = await params;
+  const result = await updateNote(auth.userId, noteId, parsed.data);
+  if ("error" in result)
+    return jsonError(result.error, result.error === "conflict" ? 409 : 404);
   return NextResponse.json({ note: result });
 }
 

@@ -1179,6 +1179,12 @@ Do not expose author email, internal user ID, deleted content, private note revi
 - Later spaced repetition can add a separate `user_flashcard_state` table; it is not part of this MVP.
  
 ## 10. Topic-scoped AI tutor without vectors
+
+> **Superseded (2026-09-05).** The topic-scoped tutor was removed in favour of
+> the app-wide companion (`src/features/companion/`), which answers about any
+> selected passage inside an element marked `data-companion`. Migration
+> `0007_drop_tutor` drops its tables. Everything below describes the removed
+> design and is kept for the record.
  
 Client request:
  
@@ -1258,29 +1264,15 @@ Token controls:
  
 ```text
 
-GET    /api/study/subjects
-
-GET    /api/study/subjects/:subjectSlug/chapters
-
-GET    /api/study/topics/:topicSlug
-
-POST   /api/study/topics/:topicId/progress
+POST   /api/v1/study/topics/:topicId/progress
  
-GET    /api/study/topics/:topicId/notes
+GET    /api/v1/study/topics/:topicId/notes
 
-POST   /api/study/topics/:topicId/notes
+POST   /api/v1/study/topics/:topicId/notes
 
-PATCH  /api/study/notes/:noteId
+PATCH  /api/v1/study/notes/:noteId
 
-DELETE /api/study/notes/:noteId
- 
-GET    /api/study/topics/:topicId/flashcards
- 
-POST   /api/study/chat/conversations
-
-POST   /api/study/chat/conversations/:conversationId/messages
-
-GET    /api/study/chat/conversations/:conversationId/messages
+DELETE /api/v1/study/notes/:noteId
 
 ```
  

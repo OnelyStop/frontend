@@ -2,6 +2,7 @@ import "server-only";
 
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
+import { AUTH_DISABLED } from "@/config/auth";
 import { getRole } from "@/features/auth/roles";
 import type {
   ChapterOutline,
@@ -23,26 +24,17 @@ const {
   flashcards,
   userNotes,
   studyProgress,
-  chatConversations,
-  chatMessages,
 } = schema;
 
 type Preview = { preview?: boolean };
 
-/** Local dev, or a signed-in admin/editor, may see unpublished content. */
 export async function canPreview(): Promise<boolean> {
-  if (
-    process.env.AUTH_DISABLED === "true" &&
-    process.env.NODE_ENV !== "production"
-  )
-    return true;
+  if (AUTH_DISABLED) return true;
   return (await getRole()) !== null;
 }
 
 const publishedFilter = (opts?: Preview) =>
   opts?.preview ? undefined : eq(topics.status, "published");
-
-// --- catalogue ---------------------------------------------------------
 
 export async function listSubjects(opts?: Preview): Promise<SubjectSummary[]> {
   const statusClause = opts?.preview
@@ -141,14 +133,11 @@ export async function getSubjectChapters(
   };
 }
 
-// --- one topic -------------------------------------------------------
-
 type TopicRow = typeof topics.$inferSelect;
 
 const isUuid = (s: string) =>
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s);
 
-/** Accepts a topic slug or a topic UUID. Enforces published unless previewing. */
 async function resolveTopic(
   ref: string,
   opts?: Preview,
@@ -241,7 +230,6 @@ export async function getTopicOutline(
     sourceKeys: keysByBlock.get(b.id) ?? [],
   }));
 
-  // prev / next within the chapter, in stable order.
   const siblings = await db
     .select({
       slug: topics.slug,
@@ -311,8 +299,6 @@ export async function listFlashcards(
     position: r.position,
   }));
 }
-
-// --- notes (owner-scoped) -------------------------------------------
 
 const MAX_NOTE = 10_000;
 
@@ -435,8 +421,6 @@ export async function deleteNote(
   return deleted.length > 0;
 }
 
-// --- progress -------------------------------------------------------
-
 export async function upsertProgress(
   userId: string,
   topicId: string,
@@ -476,171 +460,6 @@ export async function upsertProgress(
     progressPercent: row.progressPercent,
     completedAt: row.completedAt?.toISOString() ?? null,
   };
-}
-
-// --- tutor: retrieval + persistence -------------------------------
-
-export type Conversation = {
-  id: string;
-  topicId: string;
-  topicSlug: string;
-  contentVersion: number;
-};
-
-export async function createConversation(
-  userId: string,
-  topicSlug: string,
-  opts?: Preview,
-): Promise<Conversation | null> {
-  const topic = await resolveTopic(topicSlug, opts);
-  if (!topic) return null;
-  const [row] = await db
-    .insert(chatConversations)
-    .values({
-      userId,
-      topicId: topic.id,
-      contentVersion: topic.currentVersion,
-    })
-    .returning();
-  return {
-    id: row.id,
-    topicId: topic.id,
-    topicSlug: topic.slug,
-    contentVersion: row.contentVersion,
-  };
-}
-
-export async function getOwnedConversation(
-  userId: string,
-  conversationId: string,
-): Promise<typeof chatConversations.$inferSelect | null> {
-  const row = await db.query.chatConversations.findFirst({
-    where: and(
-      eq(chatConversations.id, conversationId),
-      eq(chatConversations.userId, userId),
-    ),
-  });
-  return row ?? null;
-}
-
-export async function listMessages(userId: string, conversationId: string) {
-  const conv = await getOwnedConversation(userId, conversationId);
-  if (!conv) return null;
-  const rows = await db
-    .select()
-    .from(chatMessages)
-    .where(eq(chatMessages.conversationId, conversationId))
-    .orderBy(asc(chatMessages.createdAt));
-  return rows.map((r) => ({
-    id: r.id,
-    role: r.role as "user" | "assistant",
-    body: r.body,
-    citedBlockKeys: r.citedBlockKeys,
-    createdAt: r.createdAt.toISOString(),
-  }));
-}
-
-/** Blocks of the conversation's pinned version, plus the top FTS hits. */
-export async function loadTutorRetrieval(
-  conv: typeof chatConversations.$inferSelect,
-  question: string,
-  userId: string,
-  includeMyNotes: boolean,
-) {
-  const topic = await db.query.topics.findFirst({
-    where: eq(topics.id, conv.topicId),
-  });
-  if (!topic) return null;
-  const version = await db.query.contentVersions.findFirst({
-    where: and(
-      eq(contentVersions.topicId, conv.topicId),
-      eq(contentVersions.version, conv.contentVersion),
-    ),
-  });
-  if (!version) return null;
-
-  const allBlocks = await db
-    .select({
-      stableKey: contentBlocks.stableKey,
-      type: contentBlocks.type,
-      title: contentBlocks.title,
-      bodyMarkdown: contentBlocks.bodyMarkdown,
-      position: contentBlocks.position,
-    })
-    .from(contentBlocks)
-    .where(eq(contentBlocks.contentVersionId, version.id))
-    .orderBy(asc(contentBlocks.position));
-
-  const ftsRows = question.trim()
-    ? ((await db.execute(sql`
-        select stable_key
-        from content_blocks
-        where content_version_id = ${version.id}
-          and search_vector @@ plainto_tsquery('english', ${question})
-        order by ts_rank(search_vector, plainto_tsquery('english', ${question})) desc
-        limit 6
-      `)) as unknown as Array<{ stable_key: string }>)
-    : [];
-
-  const history = (
-    await db
-      .select({ role: chatMessages.role, body: chatMessages.body })
-      .from(chatMessages)
-      .where(eq(chatMessages.conversationId, conv.id))
-      .orderBy(asc(chatMessages.createdAt))
-  ).map((m) => ({ role: m.role as "user" | "assistant", content: m.body }));
-
-  const notes = includeMyNotes
-    ? (
-        await db
-          .select({ body: userNotes.bodyMarkdown })
-          .from(userNotes)
-          .where(
-            and(
-              eq(userNotes.userId, userId),
-              eq(userNotes.topicId, conv.topicId),
-            ),
-          )
-          .orderBy(asc(userNotes.createdAt))
-      ).map((n) => n.body)
-    : [];
-
-  return {
-    topic: {
-      title: topic.title,
-      summary: topic.summary,
-      learningObjectives: topic.learningObjectives,
-    },
-    allBlocks,
-    ftsBlockKeys: ftsRows.map((r) => r.stable_key),
-    history,
-    notes,
-  };
-}
-
-export async function saveTutorTurn(
-  conversationId: string,
-  question: string,
-  answer: string,
-  citedBlockKeys: string[],
-  tokenCount: number | null,
-) {
-  await db.transaction(async (tx) => {
-    await tx.insert(chatMessages).values([
-      { conversationId, role: "user", body: question, citedBlockKeys: [] },
-      {
-        conversationId,
-        role: "assistant",
-        body: answer,
-        citedBlockKeys,
-        tokenCount,
-      },
-    ]);
-    await tx
-      .update(chatConversations)
-      .set({ updatedAt: new Date() })
-      .where(eq(chatConversations.id, conversationId));
-  });
 }
 
 export async function topicIdFromSlug(

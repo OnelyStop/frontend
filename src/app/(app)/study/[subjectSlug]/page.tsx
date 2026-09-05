@@ -12,7 +12,9 @@ export async function generateMetadata({
   params: Promise<{ subjectSlug: string }>;
 }): Promise<Metadata> {
   const { subjectSlug } = await params;
-  const data = await getSubjectChapters(subjectSlug, { preview: true });
+  const data = await getSubjectChapters(subjectSlug, {
+    preview: await canPreview(),
+  });
   return { title: data?.name ?? "Knowledge base" };
 }
 

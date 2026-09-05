@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
-import { requireUser, jsonError, readJson } from "@/features/study/api.server";
 import {
   topicIdFromSlug,
   upsertProgress,
 } from "@/features/study/queries.server";
-import { rateLimit } from "@/features/study/rate-limit";
+import { progressUpdate } from "@/features/study/types";
+import { jsonError, readJson, requireUser } from "@/lib/api";
+import { rateLimit } from "@/lib/rate-limit";
 
 export async function POST(
   request: Request,
@@ -16,9 +17,8 @@ export async function POST(
   const limit = rateLimit(`progress:${auth.userId}`, 60, 60_000);
   if (!limit.ok) return jsonError("rate_limited", 429);
 
-  const body = await readJson<{ progressPercent?: number }>(request);
-  if (!body || typeof body.progressPercent !== "number")
-    return jsonError("progressPercent_required", 400);
+  const parsed = progressUpdate.safeParse(await readJson(request));
+  if (!parsed.success) return jsonError("invalid_body", 400);
 
   const { topicId: ref } = await params;
   const topicId = /^[0-9a-f-]{36}$/i.test(ref)
@@ -29,7 +29,7 @@ export async function POST(
   const result = await upsertProgress(
     auth.userId,
     topicId,
-    body.progressPercent,
+    parsed.data.progressPercent,
   );
   if ("error" in result) return jsonError(result.error, 404);
   return NextResponse.json(result);
