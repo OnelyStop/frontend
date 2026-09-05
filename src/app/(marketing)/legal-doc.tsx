@@ -18,8 +18,7 @@ const CONTENT = [
   "[&_strong]:text-ink [&_strong]:font-semibold",
 ].join(" ");
 
-/* An unfinished clause, marked so it is impossible to miss in review and
-   greppable by component name. */
+// Marks an unfinished clause; greppable by component name.
 export function LegalTodo({ children }: { children: ReactNode }) {
   return (
     <p className="border-brand bg-panel text-ink-2 mt-5 block border-l-2 px-5 py-4 text-[14px]">

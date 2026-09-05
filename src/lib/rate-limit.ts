@@ -1,11 +1,6 @@
-/* A best-effort in-memory sliding-window limiter.
- *
- * It is per-process, so on a serverless platform each instance keeps its own
- * count and the real ceiling is (limit x instances). That is acceptable for
- * what it guards here — tutor calls and note writes — where the goal is to blunt
- * a runaway client, not to meter exactly. A durable limit would be a Postgres
- * or Redis counter; noted as a known gap.
- */
+// Per-process: on serverless the real ceiling is (limit x instances). Enough to
+// blunt a runaway client, which is all it guards; a durable limit would be a
+// Redis or Postgres counter.
 
 const buckets = new Map<string, number[]>();
 

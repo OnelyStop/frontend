@@ -1,30 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-
-// Everything not listed here stays public and server-rendered for SEO.
-const PROTECTED = [
-  "/home",
-  "/attempt-map",
-  "/mocks",
-  "/drills",
-  "/descriptive",
-  "/study",
-  "/progress",
-  "/notes",
-  "/flashcards",
-  "/current-affairs",
-  "/community",
-  "/upgrade",
-  "/profile",
-  "/settings",
-  "/admin",
-];
-
-// Local-only escape hatch for working on signed-in screens without an account.
-// Refuses to engage in a production build, so it cannot be turned on by a stray
-// env var on a deployed instance. Server-side only — never NEXT_PUBLIC_.
-const AUTH_DISABLED =
-  process.env.AUTH_DISABLED === "true" && process.env.NODE_ENV !== "production";
+import { AUTH_DISABLED } from "@/config/auth";
+import { PROTECTED_PREFIXES } from "@/config/routes";
+import { safeInternalPath } from "@/features/auth/redirect";
 
 export async function proxy(request: NextRequest) {
   if (AUTH_DISABLED) return NextResponse.next({ request });
@@ -33,7 +11,7 @@ export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const { pathname, search } = request.nextUrl;
-  const needsAuth = PROTECTED.some(
+  const needsAuth = PROTECTED_PREFIXES.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
 
@@ -67,20 +45,26 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // A redirect built from scratch would drop the cookies a token refresh just
+  // wrote onto `response`, and the next request would present a refresh token
+  // that has already been rotated.
+  const redirect = (to: URL) => {
+    const redirected = NextResponse.redirect(to);
+    response.cookies.getAll().forEach((c) => redirected.cookies.set(c));
+    return redirected;
+  };
+
   if (needsAuth && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    url.search = "";
-    // Preserve the query string so ?billing=annual survives the round trip
-    url.searchParams.set("from", `${pathname}${search}`);
-    return NextResponse.redirect(url);
+    const login = request.nextUrl.clone();
+    login.pathname = "/login";
+    login.search = "";
+    login.searchParams.set("from", `${pathname}${search}`);
+    return redirect(login);
   }
 
-  // Redirects here are a UX nicety, not the security boundary — server actions
-  // can be invoked without ever passing through the proxy. Every admin page and
-  // action re-checks via requireRole(), and RLS enforces it at the database.
-  //
-  // Costs one query, but only on /admin, which one person opens occasionally.
+  // Not the security boundary — server actions never pass through the proxy.
+  // Every admin page and action re-checks via requireRole(), and RLS enforces
+  // it at the database.
   if (pathname.startsWith("/admin")) {
     const { data: row } = await supabase
       .from("user_roles")
@@ -89,27 +73,27 @@ export async function proxy(request: NextRequest) {
       .maybeSingle();
 
     if (row?.role !== "admin") {
-      const url = request.nextUrl.clone();
-      url.pathname = "/home";
-      url.search = "";
-      return NextResponse.redirect(url);
+      const home = request.nextUrl.clone();
+      home.pathname = "/home";
+      home.search = "";
+      return redirect(home);
     }
   }
 
-  // Only the root — deeper marketing pages stay readable while signed in.
+  // Only the root and the sign-in pages — deeper marketing pages stay
+  // readable while signed in.
   if (user && ["/", "/login", "/signup"].includes(pathname)) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/home";
-    url.search = "";
-    return NextResponse.redirect(url);
+    const from = request.nextUrl.searchParams.get("from");
+    return redirect(new URL(safeInternalPath(from), request.url));
   }
 
   return response;
 }
 
-export const proxyConfig = {
+// API routes authenticate themselves and the metadata files need no session,
+// so neither pays for the auth round-trip.
+export const config = {
   matcher: [
-    // Everything except static assets and image files
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!api/|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

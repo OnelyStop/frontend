@@ -1,50 +1,57 @@
 import { cn } from "@/design-system";
 
 const NAV_MAIN = [
-  ["Home", ""],
-  ["Question bank", "1,284"],
-  ["Past papers", "312"],
-  ["Marker", "4"],
+  ["Today", ""],
+  ["Attempt map", ""],
+  ["Mocks", "14"],
+  ["Drills", "6"],
 ];
-const NAV_REVISE = [
-  ["PYQ mixes", ""],
+const NAV_RECALL = [
+  ["Current affairs", "7"],
   ["Flashcards", "18"],
-  ["Progress", ""],
+  ["Notes", ""],
 ];
 
-const ANSWER_ROWS = [
+const SECTION_ROWS = [
   {
-    mp: "MP1",
-    text: "Oxygen diffuses from the alveolus into the blood",
-    hit: true,
+    name: "Quant",
+    detail: "22 attempted · 17 right · 5 wrong",
+    net: "15.75",
+    cutoff: "14.50",
+    clear: true,
   },
-  { mp: "MP2", text: "The alveolus wall is one cell thick", hit: true },
   {
-    mp: "MP3",
-    text: "Blood flow maintains the concentration gradient",
-    hit: false,
+    name: "Reasoning",
+    detail: "28 attempted · 21 right · 7 wrong",
+    net: "19.25",
+    cutoff: "18.25",
+    clear: true,
   },
-  { mp: "MP4", text: "Many alveoli give a large surface area", hit: true },
+  {
+    name: "English",
+    detail: "18 attempted · 10 right · 8 wrong",
+    net: "8.00",
+    cutoff: "9.75",
+    clear: false,
+  },
 ];
 
 const ACTIVITY = [
-  ["Marked", "Q4(b) · Gas exchange", "4/6", true],
-  ["Marked", "Q7(c) · Le Chatelier", "5/5", true],
-  ["Marked", "Q2(a) · Rate equations", "3/4", true],
-  ["Queued", "Q11 · Integration by parts", "—", false],
-  ["Queued", "Q5(b) · Enzyme kinetics", "—", false],
+  ["Sat", "Mock 14 · IBPS PO Prelims", "43.0", true],
+  ["Sat", "Mock 13 · IBPS PO Prelims", "38.5", true],
+  ["Sat", "Drill · Floor puzzles", "8/10", true],
+  ["Queued", "Mock 15 · SBI Clerk Prelims", "—", false],
+  ["Queued", "Drill · Cloze test", "—", false],
 ];
 
-const SUBJECT_DOT: Record<string, string> = {
-  Biology: "bg-brand",
-  Chemistry: "bg-[#7a6cf0]",
-  Maths: "bg-[#e0a33a]",
+const SECTION_DOT: Record<string, string> = {
+  Quant: "bg-brand",
+  Reasoning: "bg-[#7a6cf0]",
+  English: "bg-[#e0a33a]",
 };
 
-/* A drawn mock, not a screenshot: the real product screen would read as a busy
-   interface at this size, and a sparse drawn card reads as a wireframe. Its
-   greys are local to the illustration — it is a picture of an app, not app
-   chrome, so it does not track the design system's surfaces. */
+// Greys are local to the illustration on purpose: it is a picture of an app,
+// not app chrome, so it must not track the design system's surfaces.
 const RAIL = "bg-[#fbfbfa]";
 const LINE = "border-[rgb(10_10_11/0.08)]";
 const SOFT = "text-[#5f5f68]";
@@ -73,7 +80,7 @@ export function AppWindow() {
         <span className="rounded-pill size-[11px] bg-[#febc2e]" />
         <span className="rounded-pill size-[11px] bg-[#28c840]" />
         <span className={cn("mx-auto text-[11px]", MUTE)}>
-          Marker · OCR A H420 · Paper 1
+          Attempt map · Mock 14 · IBPS PO Prelims
         </span>
       </div>
 
@@ -87,12 +94,12 @@ export function AppWindow() {
         >
           <div className="flex items-center gap-2 px-2 pt-1 pb-3 text-[12px] font-semibold">
             <span className="size-[18px] rounded-[5px] bg-[#16161a]" />
-            Aarav · Year 13
+            Aarav · IBPS PO 2026
           </div>
           {NAV_MAIN.map(([label, count], i) => (
             <span
               key={label}
-              className={cn(NAV, i === 3 ? "bg-[#ececea] font-semibold" : SOFT)}
+              className={cn(NAV, i === 1 ? "bg-[#ececea] font-semibold" : SOFT)}
             >
               {label}
               {count ? (
@@ -107,8 +114,8 @@ export function AppWindow() {
               ) : null}
             </span>
           ))}
-          <p className={cn(GROUP, MUTE)}>Revise</p>
-          {NAV_REVISE.map(([label, count]) => (
+          <p className={cn(GROUP, MUTE)}>Recall</p>
+          {NAV_RECALL.map(([label, count]) => (
             <span key={label} className={cn(NAV, SOFT)}>
               {label}
               {count ? (
@@ -123,11 +130,11 @@ export function AppWindow() {
               ) : null}
             </span>
           ))}
-          <p className={cn(GROUP, MUTE)}>Subjects</p>
-          {["Biology", "Chemistry", "Maths"].map((s) => (
-            <span key={s} className={cn(NAV, SOFT)}>
-              <em className={cn("size-2 rounded-sm", SUBJECT_DOT[s])} />
-              {s}
+          <p className={cn(GROUP, MUTE)}>Sections</p>
+          {SECTION_ROWS.map((s) => (
+            <span key={s.name} className={cn(NAV, SOFT)}>
+              <em className={cn("size-2 rounded-sm", SECTION_DOT[s.name])} />
+              {s.name}
             </span>
           ))}
         </aside>
@@ -140,10 +147,10 @@ export function AppWindow() {
                 SOFT,
               )}
             >
-              6 marks
+              60 min
             </span>
             <span className="text-[13px] font-semibold">
-              Explain how the alveoli are adapted for efficient gas exchange.
+              Mock 14 · IBPS PO Prelims · 100 questions
             </span>
           </div>
 
@@ -156,36 +163,39 @@ export function AppWindow() {
             )}
           >
             <p>
-              Oxygen diffuses from the alveolus into the blood because there is
-              a higher concentration in the air sac. The alveolus wall is one
-              cell thick, so the diffusion distance is short. There are many
-              alveoli, which gives a large surface area for exchange.
+              Cleared the overall cutoff at 43.0 against 40.5 and missed English
+              by 1.75. Eight wrong answers there cost 2.0 marks; skipped, the
+              section clears.
             </p>
           </div>
 
-          <p className={cn(SECTION, MUTE)}>Marking points</p>
+          <p className={cn(SECTION, MUTE)}>Sections</p>
           <div
             className={cn(
               "grid gap-px overflow-hidden rounded-lg border bg-[rgb(10_10_11/0.08)]",
               LINE,
             )}
           >
-            {ANSWER_ROWS.map((r) => (
+            {SECTION_ROWS.map((s) => (
               <div
-                key={r.mp}
-                className="grid grid-cols-[38px_minmax(0,1fr)_16px] items-center gap-2.5 bg-white px-3 py-2.5"
+                key={s.name}
+                className="grid grid-cols-[72px_minmax(0,1fr)_16px] items-center gap-2.5 bg-white px-3 py-2.5"
               >
                 <span
                   className={cn(
-                    "text-[11px] font-semibold tabular-nums",
-                    r.hit ? "text-brand" : MUTE,
+                    "text-[11px] font-semibold",
+                    s.clear ? "text-brand" : MUTE,
                   )}
                 >
-                  {r.mp}
+                  {s.name}
                 </span>
-                <span className="truncate">{r.text}</span>
-                <span className={cn("text-right", r.hit ? "text-brand" : MUTE)}>
-                  {r.hit ? "✓" : "—"}
+                <span className="truncate tabular-nums">
+                  {s.detail} · net {s.net} vs {s.cutoff}
+                </span>
+                <span
+                  className={cn("text-right", s.clear ? "text-brand" : MUTE)}
+                >
+                  {s.clear ? "✓" : "—"}
                 </span>
               </div>
             ))}
@@ -195,18 +205,18 @@ export function AppWindow() {
         <aside
           className={cn("hidden border-l px-4 py-4.5 xl:block", RAIL, LINE)}
         >
-          <p className={cn("mb-2 text-[11px]", MUTE)}>This answer</p>
+          <p className={cn("mb-2 text-[11px]", MUTE)}>This mock</p>
           <div className="flex items-baseline gap-[5px]">
             <span className="text-brand text-[34px] leading-none font-semibold tracking-[-0.03em]">
-              4
+              43.0
             </span>
-            <i className={cn("not-italic", MUTE)}>/ 6</i>
+            <i className={cn("not-italic", MUTE)}>/ 100</i>
           </div>
           <div className="mt-3 grid gap-1.5">
             {[
-              ["Band", "5"],
-              ["AO3", "6/8"],
-              ["Time", "7m 12s"],
+              ["Cutoff", "40.5"],
+              ["Negative", "−5.00"],
+              ["Time", "59m 40s"],
             ].map(([k, v]) => (
               <div
                 key={k}
@@ -222,17 +232,19 @@ export function AppWindow() {
             ))}
           </div>
 
-          <p className={cn(SECTION, MUTE)}>Working grade</p>
+          <p className={cn(SECTION, MUTE)}>Cutoff band</p>
           <div className="flex gap-1">
-            {["D", "C", "B", "A", "A*"].map((g) => (
+            {["Below", "At cutoff", "Safe", "Strong"].map((band) => (
               <span
-                key={g}
+                key={band}
                 className={cn(
                   "flex-1 border-t-2 py-1 text-center text-[10px] font-semibold",
-                  g === "A" ? "border-brand text-brand" : cn(LINE, MUTE),
+                  band === "At cutoff"
+                    ? "border-brand text-brand"
+                    : cn(LINE, MUTE),
                 )}
               >
-                {g}
+                {band}
               </span>
             ))}
           </div>

@@ -39,8 +39,8 @@ export function getAuthErrorFromUrl(): AuthUrlError | null {
   return readError(initialHash) ?? readError(initialQuery);
 }
 
-// A PKCE authorization code means a token exchange is in flight, so the
-// callback screen should wait on it rather than declaring failure early
+// A PKCE code only verifies in the browser that requested it, so a code with
+// no session behind it means the link was opened somewhere else.
 export function hasPendingCodeExchange(): boolean {
   return new URLSearchParams(initialQuery).has("code");
 }
