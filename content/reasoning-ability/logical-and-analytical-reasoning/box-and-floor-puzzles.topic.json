@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "logical-and-analytical-reasoning",
+  "chapterName": "Logical and analytical reasoning",
+  "chapterPosition": 2,
+  "topicSlug": "box-and-floor-puzzles",
+  "topicPosition": 70,
+  "title": "Box and Floor Puzzles",
+  "summary": "The linear-order puzzle family — stacked boxes, building floors, a week's schedule — including how to translate 'above', 'gap of two', 'immediately' and negative clues, run an attribute column, and fix the most constrained variable first.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 30,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["linear-seating-arrangement"],
+  "learningObjectives": [
+    "Set a fixed numbering for the line and keep one 'top' convention throughout.",
+    "Translate above/below, gaps, 'immediately', and negative clues into position facts.",
+    "Fix the most constrained variable first and branch only when forced.",
+    "Carry a second attribute column and use position-to-attribute clues."
+  ],
+  "tags": ["reasoning", "puzzles", "linear-arrangement", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Puzzles/Logic_puzzles",
+      "title": "Puzzles/Logic puzzles",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for constraint-elimination technique. All puzzles here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm these puzzles are a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-puzzle-family",
+      "type": "introduction",
+      "title": "One family, many disguises",
+      "markdown": "Stacked boxes, floors of a building, and a Monday-to-Sunday schedule are the **same puzzle**: a set of items placed in a single line of numbered slots, with clues about who is where.\n\nOften there is also one **attribute** per item — a colour, a weight, a department — that you solve alongside the order.\n\nThe skill is turning loose phrases into hard position facts, then placing the most constrained item first and letting the rest fall out.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "box floor schedule same linear puzzle numbered slots",
+        "one attribute per item colour weight department",
+        "loose phrases into hard position facts most constrained first"
+      ],
+      "position": 10
+    },
+    {
+      "id": "set-up-the-frame",
+      "type": "method",
+      "title": "Set up the frame",
+      "markdown": "1. **Number the slots once.** For a stack or a building, decide whether slot 1 is the bottom or the top, write it down, and never switch.\n2. **Draw the empty column** with the slot numbers and a blank beside each.\n3. **List the items** to be placed and, if there is an attribute, add a second blank column for it.\n4. **Convert the fixed clues first** — 'X is at the bottom', 'Y is on the top floor' — and pencil them in.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "set up the frame number the slots once bottom or top",
+        "draw the empty column list the items second column for attribute",
+        "convert the fixed clues first"
+      ],
+      "position": 20
+    },
+    {
+      "id": "translate-the-clues",
+      "type": "method",
+      "title": "Translate the phrases",
+      "markdown": "- **'A is above B'** — A's slot number is higher than B's (with slot 1 at the bottom).\n- **'A is immediately above B'** — A's slot is exactly B's plus one.\n- **'there are two boxes between A and B'** — the slot numbers differ by **three**, not two. Count the boxes, not the gaps.\n- **'as many boxes above A as below B'** — a symmetry fact; try it against the slot count.\n- **Negative clues** — 'C is not on the top', 'D is not adjacent to E' — write them in a 'not here' list and apply them at every step.\n\nAnchor the most restrictive clue first: a fixed slot, then an 'immediately', then a wide gap.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "translate above immediately above two boxes between differ by three",
+        "count the boxes not the gaps symmetry fact negative clues not here list",
+        "anchor the most restrictive clue first"
+      ],
+      "position": 30
+    },
+    {
+      "id": "attribute-column",
+      "type": "method",
+      "title": "Running the attribute column",
+      "markdown": "When items also carry a colour or a weight:\n\n- **Solve the order as far as it will go first**, then bring in the attribute clues.\n- **Position-to-attribute clues** ('the bottom flat is green', 'the heaviest box is third') pin an attribute to a slot you may already know the occupant of.\n- **Difference clues** ('no two adjacent flats share a colour', 'each box is heavier than the one below') filter the remaining choices.\n- Keep the two columns side by side so a fact in one feeds the other.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "attribute column solve order first then attribute clues",
+        "position to attribute clues bottom flat green heaviest box third",
+        "difference clues no two adjacent same colour keep columns side by side"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-boxes",
+      "type": "worked_example",
+      "title": "Worked example: a stack of seven boxes",
+      "markdown": "Boxes P, Q, R, S, T, U, V are stacked. Slot 1 is the bottom, slot 7 the top.\n\n- c1. Only two boxes are above T.\n- c2. R is immediately above P.\n- c3. There are three boxes between P and Q.\n- c4. S is at the bottom.\n- c5. Q is above P.\n- c6. U is immediately below T.\n\n**Solve.** c4 gives S at 1. c1 puts T at 5 (slots 6 and 7 above it). c6 puts U at 4. Slots 2, 3, 6, 7 remain for P, Q, R, V. From c3 and c5, Q is P plus 4, so (P, Q) is (2, 6) or (3, 7). c2 needs R at P plus 1: if P is 3, R would be 4, which U holds — impossible. So P is 2, R is 3, Q is 6, and V takes slot 7.\n\n| Slot | Box |\n| --- | --- |\n| 7 (top) | V |\n| 6 | Q |\n| 5 | T |\n| 4 | U |\n| 3 | R |\n| 2 | P |\n| 1 (bottom) | S |\n\nThe order is fixed and unique. Top box: **V**. Boxes between R and Q: **2** (U and T). Immediately above U: **T**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example seven box stack P Q R S T U V",
+        "only two above T immediately above three between",
+        "unique order V Q T U R P S"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example-floors",
+      "type": "worked_example",
+      "title": "Worked example: six floors with a colour",
+      "markdown": "People A, B, C, D, E, F live one per floor of a six-floor block; floor 1 is the lowest. Each flat is painted red, blue, green, or yellow.\n\n*Order clues:* d1. A is on an even floor. d2. There are two floors between A and B. d3. C is immediately above D. d4. E is on the top floor. d5. F is on floor 1. d6. B is above A.\n\n*Colour clues:* d7. F's flat is green. d8. A's flat is blue. d9. C's flat is red. d10. D's flat is yellow. d11. E's flat is green. d12. No two vertically adjacent flats share a colour. d13. B's flat is not blue.\n\n**Solve the order.** d5 gives F on 1, d4 gives E on 6. d1 and d6 with d2 (B is A plus 3): A on 2 forces B on 5; A on 4 would put B on 7, which does not exist. So A on 2, B on 5. Floors 3 and 4 remain for C and D; d3 (C immediately above D) gives D on 3, C on 4.\n\n**Solve the colour.** B on floor 5 sits between C (floor 4, red) and E (floor 6, green), so by d12 B is not red or green, and by d13 not blue — so B's flat is **yellow**.\n\n| Floor | Person | Colour |\n| --- | --- | --- |\n| 6 | E | green |\n| 5 | B | yellow |\n| 4 | C | red |\n| 3 | D | yellow |\n| 2 | A | blue |\n| 1 | F | green |\n\nEverything is fixed. Floor 3: **D**. E's colour: **green**. Directly below C lives **D**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example six floors colour attribute A B C D E F",
+        "two floors between immediately above no two adjacent same colour",
+        "B flat yellow unique floor person colour table"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Switching the top convention** partway, so 'above' flips meaning.\n- **Reading 'two between' as a difference of two** — it is a difference of three.\n- **Assuming adjacency from 'near'** or from 'above' — 'above' is not 'immediately above'.\n- **Dropping a negative clue** after the first pass instead of checking it at every placement.\n- **Branching too early**, trying both options for a loose clue before the tight clues are placed.\n- **Solving colour before order** when a position-to-attribute clue needs the order first.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "box floor mistakes switching top convention two between is three",
+        "adjacency from near above is not immediately above dropping a negative clue",
+        "branching too early colour before order"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Number the slots once; fix the 'top' convention and keep it.\n- 'Two boxes between' means slot numbers differ by three. 'Immediately above' means plus one exactly. 'Above' only means higher.\n- Place fixed slots first, then 'immediately' clues, then wide gaps; carry negative clues through every step.\n- Solve the order as far as possible before the attribute; use position-to-attribute and difference clues to finish the second column.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "box floor puzzle summary revision number slots once top convention",
+        "two between differ by three immediately plus one above means higher",
+        "fixed then immediately then gaps negative clues order before attribute"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "L, M, N, O, P, Q and R each have one meeting on a different day from Monday to Sunday.\n\n- P's meeting is on Monday.\n- R's meeting is on Tuesday.\n- Q's meeting is on Sunday.\n- There are two days between L's meeting and M's meeting.\n- L's meeting is earlier in the week than M's.\n- N's meeting is the day immediately before O's.\n\nSolve the week, then answer, each with a one-line reason:\n\n1. Whose meeting is on Wednesday?\n2. On which day is N's meeting?\n3. How many meetings fall between R's and M's?\n4. Whose meeting immediately follows O's?\n5. Who meets on the day exactly midway between P's day and Q's day?\n6. Is anyone's meeting on Friday, and whose?",
+      "searchKeywords": [
+        "box floor practice weekday schedule L M N O P Q R",
+        "two days between immediately before unique week arrangement"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "two-between-is-three",
+      "front": "'There are two boxes between A and B.' What does that mean for the slot numbers?",
+      "back": "Their slot numbers differ by three. Count the boxes in the gap, not the gap itself.",
+      "explanation": "Two items between them plus the step to each side.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["translate-the-clues"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "above-vs-immediately",
+      "front": "How does 'A is above B' differ from 'A is immediately above B'?",
+      "back": "'Above' only means A's slot number is higher. 'Immediately above' means A's slot is exactly B's plus one.",
+      "explanation": "Never assume adjacency from 'above'.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["translate-the-clues"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "fix-convention",
+      "front": "What must you decide before placing any clue in a stack or building puzzle?",
+      "back": "Whether slot 1 is the bottom or the top — and then never switch. Switching flips the meaning of every 'above' and 'below'.",
+      "explanation": "Write the convention at the head of your grid.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["set-up-the-frame"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "most-constrained-first",
+      "front": "Which clue should you place first?",
+      "back": "The most restrictive: a fixed slot, then an 'immediately above/below', then a wide gap. Branch on loose clues only once the tight ones are in.",
+      "explanation": "This keeps the number of cases small.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["translate-the-clues"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "order-before-attribute",
+      "front": "In a puzzle with a colour or weight attribute, what do you solve first?",
+      "back": "The order, as far as it will go. Then apply position-to-attribute clues and difference clues to fill the second column.",
+      "explanation": "'The bottom flat is green' needs the bottom occupant known.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["attribute-column"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "negative-clues-persist",
+      "front": "What do you do with a negative clue like 'C is not on the top floor'?",
+      "back": "Keep it in a 'not here' list and re-check it at every placement, not just on the first pass.",
+      "explanation": "Negative clues often decide the last one or two slots.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["translate-the-clues"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "same-puzzle",
+      "front": "Why treat box-stack, floor, and weekday-schedule questions as one type?",
+      "back": "All three place items in a single line of numbered slots with order clues, sometimes plus one attribute. The same method solves all of them.",
+      "explanation": "Recognising this saves relearning each disguise.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-puzzle-family"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

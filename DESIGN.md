@@ -107,15 +107,15 @@ utilities (`bg-panel`, `text-ink-2`, `rounded-card`). Exception: the
 millisecond number, not a theme lookup, so those two only work via `var()`
 in raw CSS (that's how `.press` itself uses them).
 
-| Group | Tokens |
-|---|---|
-| Ground | `canvas` (white page), `panel` (grey — hover and recessed only), `line`, `line-2` |
-| Ink | `ink`, `ink-2`, `ink-3`, `ink-4` |
-| Meaning | `ok`, `warn`, `bad`, `brand` — each with a `-soft` fill |
-| Sections | `quant`, `reasoning`, `english`, `ga`, `computer` |
-| Radius | `ctl` 12, `card` 24, `xl` 28, `pill` |
-| Shadow | `pop` — the only one. `card` and `xs` are `none` by design. |
-| Motion | `ease-soft`, `ease-swift`, `ease-decelerate`, `ease-accelerate`, `duration-press` 120ms, `duration-slow` 200ms |
+| Group    | Tokens                                                                                                         |
+| -------- | -------------------------------------------------------------------------------------------------------------- |
+| Ground   | `canvas` (white page), `panel` (grey — hover and recessed only), `line`, `line-2`                              |
+| Ink      | `ink`, `ink-2`, `ink-3`, `ink-4`                                                                               |
+| Meaning  | `ok`, `warn`, `bad`, `brand` — each with a `-soft` fill                                                        |
+| Sections | `quant`, `reasoning`, `english`, `ga`, `computer`                                                              |
+| Radius   | `ctl` 12, `card` 24, `xl` 28, `pill`                                                                           |
+| Shadow   | `pop` — the only one. `card` and `xs` are `none` by design.                                                    |
+| Motion   | `ease-soft`, `ease-swift`, `ease-decelerate`, `ease-accelerate`, `duration-press` 120ms, `duration-slow` 200ms |
 
 Custom utilities: `tnum` (tabular figures — use on every number that changes),
 `card`, `ruled` (the answer-sheet lines), `plot-in` (staggered entrance),
@@ -128,7 +128,7 @@ pages that use it, and a same-named token silently reverts to their value
 instead of erroring. Two incidents so far: `--color-surface` did this and made
 every panel render white for an afternoon (the ground token is `panel` because
 of it); the obvious motion name `--ease-standard` was already claimed with a
-*different* value by those two files, so the token here is `-swift` instead.
+_different_ value by those two files, so the token here is `-swift` instead.
 
 ## Adding a component
 

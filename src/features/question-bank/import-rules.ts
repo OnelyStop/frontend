@@ -54,11 +54,7 @@ const MIN_OPTIONS = 4;
 // touched: 37% of near-duplicate pairs in this corpus differ only in their
 // numbers, so anything fuzzier on digits merges two different questions.
 function norm(s: string | null | undefined): string {
-  return (s ?? "")
-    .normalize("NFKC")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
+  return (s ?? "").normalize("NFKC").replace(/\s+/g, " ").trim().toLowerCase();
 }
 
 /**
@@ -109,12 +105,18 @@ export function isActive(q: RawQuestion): boolean {
 /** `[bank, role, examType, year, shift]` joined, per the spec doc's own definition. */
 export function examKey(paper: RawPaper): string {
   return [paper.bank, paper.role, paper.exam_type, paper.year, paper.shift]
-    .map((v) => (v === null || v === undefined || v === "" ? "unknown" : String(v)))
+    .map((v) =>
+      v === null || v === undefined || v === "" ? "unknown" : String(v),
+    )
     .join("|")
     .toLowerCase();
 }
 
-export type DirectionRow = { paperId: string; directionId: string; body: string };
+export type DirectionRow = {
+  paperId: string;
+  directionId: string;
+  body: string;
+};
 
 /**
  * One row per distinct (paper_id, direction_id) in this paper — the first
@@ -138,5 +140,9 @@ export function directionsOf(paper: RawPaper): DirectionRow[] {
       );
     }
   }
-  return Array.from(byId, ([directionId, body]) => ({ paperId: paper.paper_id, directionId, body }));
+  return Array.from(byId, ([directionId, body]) => ({
+    paperId: paper.paper_id,
+    directionId,
+    body,
+  }));
 }

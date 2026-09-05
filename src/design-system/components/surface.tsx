@@ -17,7 +17,9 @@ export function Card({
   pad?: boolean;
 }) {
   return (
-    <section className={cn("card", pad && "p-8", className)}>{children}</section>
+    <section className={cn("card", pad && "p-8", className)}>
+      {children}
+    </section>
   );
 }
 
@@ -59,7 +61,13 @@ export function Lattice({
   as?: "div" | "ul" | "ol";
 }) {
   return (
-    <As className={cn("grid border-l border-t border-line", COLS[cols], className)}>
+    <As
+      className={cn(
+        "border-line grid border-t border-l",
+        COLS[cols],
+        className,
+      )}
+    >
       {children}
     </As>
   );
@@ -95,7 +103,7 @@ export function LatticeCell({
   const marker = (
     <span
       aria-hidden
-      className="absolute bottom-[-2.5px] right-[-2.5px] size-[5px] rounded-full bg-ink-4"
+      className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
     />
   );
 
@@ -106,7 +114,12 @@ export function LatticeCell({
     </>
   );
 
-  if (href) return <a href={href} className={classes}>{body}</a>;
+  if (href)
+    return (
+      <a href={href} className={classes}>
+        {body}
+      </a>
+    );
   if (onClick)
     return (
       <button type="button" onClick={onClick} className={classes}>
@@ -145,7 +158,7 @@ export function Popover({
       aria-label={label}
       style={{ width }}
       className={cn(
-        "absolute top-11 z-50 rounded-[18px] border border-line bg-canvas p-1.5 shadow-pop",
+        "border-line bg-canvas shadow-pop absolute top-11 z-50 rounded-[18px] border p-1.5",
         align === "right" ? "right-0" : "left-0",
         className,
       )}
@@ -177,7 +190,7 @@ export function MenuRow({
     <>
       <span className="block text-[14px]">{label}</span>
       {hint ? (
-        <span className="mt-0.5 block text-[13px] leading-snug text-ink-3">
+        <span className="text-ink-3 mt-0.5 block text-[13px] leading-snug">
           {hint}
         </span>
       ) : null}

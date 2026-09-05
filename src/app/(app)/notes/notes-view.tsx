@@ -59,7 +59,8 @@ export function NotesView({ notes }: { notes: NoteSummary[] }) {
         SECTIONS.indexOf(SECTION_FROM_DB[a.section]) -
         SECTIONS.indexOf(SECTION_FROM_DB[b.section]),
     );
-    const groups: { key: string; topicTitle: string; items: NoteSummary[] }[] = [];
+    const groups: { key: string; topicTitle: string; items: NoteSummary[] }[] =
+      [];
     for (const n of bySection) {
       const key = `${n.section}::${n.topic}`;
       const last = groups.at(-1);
@@ -91,7 +92,7 @@ export function NotesView({ notes }: { notes: NoteSummary[] }) {
           onChange={(v) => setSection(v as Subject | "All")}
           labels={{ ...SECTION_LABEL, All: "All" }}
         />
-        <span className="text-[13px] text-ink-3">
+        <span className="text-ink-3 text-[13px]">
           {shown.length} of {notes.length}
         </span>
       </div>
@@ -105,21 +106,24 @@ export function NotesView({ notes }: { notes: NoteSummary[] }) {
         grouped.map((g, i) => {
           const isOpen = !collapsed.has(g.key);
           return (
-            <div key={g.key} className={`mb-10 ${i > 0 ? "border-t border-line pt-8" : ""}`}>
+            <div
+              key={g.key}
+              className={`mb-10 ${i > 0 ? "border-line border-t pt-8" : ""}`}
+            >
               <button
                 type="button"
                 onClick={() => toggleTopic(g.key)}
                 aria-expanded={isOpen}
                 className="mb-6 flex w-full items-baseline justify-between gap-4 text-left"
               >
-                <span className="flex items-center gap-2 text-[16px] font-medium tracking-[-0.01em] text-ink">
+                <span className="text-ink flex items-center gap-2 text-[16px] font-medium tracking-[-0.01em]">
                   <ChevronDown
                     size={15}
                     className={`text-ink-4 transition-transform duration-200 ${isOpen ? "" : "-rotate-90"}`}
                   />
                   {g.topicTitle}
                 </span>
-                <span className="text-[13px] text-ink-3">{g.items.length}</span>
+                <span className="text-ink-3 text-[13px]">{g.items.length}</span>
               </button>
               <div
                 className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
@@ -133,17 +137,23 @@ export function NotesView({ notes }: { notes: NoteSummary[] }) {
                           key={n.noteId}
                           as="li"
                           href={`/notes/${encodeURIComponent(n.noteId)}`}
-                          className="transition-all duration-200 hover:z-10 hover:-translate-y-0.5 hover:shadow-pop active:translate-y-0 active:scale-[0.99] active:shadow-none"
+                          className="hover:shadow-pop transition-all duration-200 hover:z-10 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] active:shadow-none"
                         >
                           <span
                             className="text-[13px]"
-                            style={{ color: `var(--color-${SECTION_KEY[subject]})` }}
+                            style={{
+                              color: `var(--color-${SECTION_KEY[subject]})`,
+                            }}
                           >
                             {SECTION_LABEL[subject]}
                             {n.subtopic ? ` · ${n.subtopic}` : ""}
                           </span>
-                          <h3 className="mt-2.5 text-[15.5px] leading-snug">{n.title}</h3>
-                          <p className="mt-2 text-[14px] leading-relaxed text-ink-2">{n.summary}</p>
+                          <h3 className="mt-2.5 text-[15.5px] leading-snug">
+                            {n.title}
+                          </h3>
+                          <p className="text-ink-2 mt-2 text-[14px] leading-relaxed">
+                            {n.summary}
+                          </p>
                           {n.difficulty ? (
                             <Badge tone="neutral" className="mt-3">
                               {n.difficulty}

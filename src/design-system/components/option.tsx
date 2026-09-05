@@ -33,8 +33,10 @@ export function OptionRow({
       whileTap={{ scale: 0.985 }}
       transition={SURFACE}
       className={cn(
-        "flex items-center gap-3.5 rounded-ctl border px-4 py-3.5 text-left text-[15px] transition-colors duration-150 ease-[var(--ease-swift)]",
-        selected ? "border-brand bg-brand-soft" : "border-line bg-canvas hover:border-line-2",
+        "rounded-ctl flex items-center gap-3.5 border px-4 py-3.5 text-left text-[15px] transition-colors duration-150 ease-[var(--ease-swift)]",
+        selected
+          ? "border-brand bg-brand-soft"
+          : "border-line bg-canvas hover:border-line-2",
         className,
       )}
     >

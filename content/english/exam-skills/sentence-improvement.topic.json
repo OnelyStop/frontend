@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "exam-skills",
+  "chapterName": "Exam question skills",
+  "chapterPosition": 2,
+  "topicSlug": "sentence-improvement",
+  "topicPosition": 20,
+  "title": "Sentence Improvement",
+  "summary": "How the replace-the-underlined-part question works, the recurring patterns it tests - parallelism, modifier placement, conciseness, idiom and preposition - and when the right answer is 'no improvement'.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["error-detection", "tenses", "prepositions"],
+  "learningObjectives": [
+    "Read a sentence-improvement item and identify what the underlined part is being tested for.",
+    "Apply the common improvement patterns: parallelism, misplaced or dangling modifiers, wordiness, idiom.",
+    "Reject an option that fixes one fault but introduces another.",
+    "Choose 'no improvement' when the original is already correct and clear."
+  ],
+  "tags": ["exam-skills", "sentence-improvement", "grammar", "style"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Consulted only to confirm that sentence improvement is a standard question type. No content was reused."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Verbs",
+      "title": "English Grammar/Basic Parts of Speech/Verbs",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the grammar behind each improvement pattern. All sentences and options here are original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "how-it-works",
+      "type": "introduction",
+      "title": "How the question is built",
+      "markdown": "A sentence-improvement item gives one sentence with a part underlined and four or five replacements for that part. One option, often the first, repeats the underlined part unchanged and means \"no improvement needed\".\n\nUnlike error detection, this question asks for the best version, not just whether something is wrong. So an option can be grammatical and still be worse than another because it is longer, less clear, or changes the meaning.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "sentence improvement format",
+        "replace the underlined part",
+        "no improvement option"
+      ],
+      "position": 10
+    },
+    {
+      "id": "read-first",
+      "type": "method",
+      "title": "A way to work the item",
+      "markdown": "1. Read the whole sentence, then the underlined part on its own. Ask what is being tested: a verb form, a modifier, a comparison, an idiom, a link word.\n2. Predict a clean fix before looking at the options.\n3. Match your prediction to an option; if none matches, take the shortest option that is fully correct and keeps the meaning.\n4. Read your chosen version back into the full sentence to confirm it fits both ends.\n5. If the original already reads correctly and clearly, choose \"no improvement\".",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "sentence improvement method",
+        "predict the fix",
+        "read the option back in"
+      ],
+      "position": 20
+    },
+    {
+      "id": "patterns",
+      "type": "concept",
+      "title": "The recurring patterns",
+      "markdown": "- **Parallelism:** items in a list, or the two halves of *not only ... but also*, *both ... and*, must share a form. *neither the branch nor the regional office were informed* becomes *was informed*.\n- **Misplaced modifier:** a describing phrase must sit next to what it describes. *Walking into the hall, the lights were off* has no walker; fix to *Walking into the hall, she found the lights off*.\n- **Wordiness:** *due to the fact that* becomes *because*; *in the event that* becomes *if*; *at this point in time* becomes *now*.\n- **Comparison:** compare like with like. *Her salary is higher than her colleague* becomes *than her colleague's* or *than that of her colleague*.\n- **Idiom and preposition:** *prefer tea than coffee* becomes *prefer tea to coffee*; *not so much a loan but a grant* becomes *but rather a grant*.\n- **Double negatives and redundancy:** *cannot hardly*, *return back*, *more preferable*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "sentence improvement patterns",
+        "parallelism misplaced modifier wordiness",
+        "prefer to comparison like with like"
+      ],
+      "position": 30
+    },
+    {
+      "id": "false-fixes",
+      "type": "warning",
+      "title": "Options that fix one thing and break another",
+      "markdown": "The wrong options are usually plausible. Watch for a replacement that:\n\n- corrects the tested fault but shifts the tense or the meaning;\n- adds a comma splice or a run-on;\n- turns a tight sentence into a wordy one;\n- swaps in an idiom that is close but wrong (*different than* for *different from*, *comprise of* for *comprise*);\n- fixes agreement but leaves a dangling modifier untouched.\n\nThe best option fixes the fault and introduces nothing new.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "plausible wrong option",
+        "fixes one breaks another",
+        "comma splice idiom close but wrong"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**Item 1.** *The audit team was asked to review the accounts, to flag discrepancies, and reporting to the board by Friday.*\nUnderlined: *and reporting to the board*. The list is *to review ... to flag ... reporting*. Parallelism needs *and to report to the board*. The best option is **\"and to report to the board\"**.\n\n**Item 2.** *Being a public holiday, the branch decided to keep a skeleton staff.*\nUnderlined: *Being a public holiday, the branch*. The branch is not the public holiday; the modifier dangles. The clean fix is **\"Since it was a public holiday, the branch\"**. An option that only changed *Being* to *As being* would still dangle and is wrong.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "sentence improvement worked example",
+        "parallel list to report",
+        "dangling modifier being a public holiday"
+      ],
+      "position": 50
+    },
+    {
+      "id": "no-improvement",
+      "type": "concept",
+      "title": "When 'no improvement' is right",
+      "markdown": "Choose \"no improvement\" when the underlined part is grammatical, idiomatic and as concise as any option offered, and every replacement either changes the meaning or adds a fault.\n\nA useful test: can you state a specific rule the original breaks? If not, and the alternatives are merely different rather than better, keep the original. Candidates lose marks both ways here - by fixing sentences that were fine and by leaving real faults because \"no improvement\" felt safe.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "when to choose no improvement",
+        "state the rule it breaks",
+        "different not better"
+      ],
+      "position": 60
+    },
+    {
+      "id": "strategy",
+      "type": "exam_tip",
+      "title": "Doing it under time",
+      "markdown": "- Decide the category in the first read; that narrows the options fast.\n- Eliminate options with an obvious new fault before comparing the rest.\n- Prefer the shorter correct option when two are both right.\n- Do not pick an option just because it sounds more formal or longer.\n- Spend about 30 seconds; flag and move on if two options still look equal.",
+      "sourceIds": ["SATHEE_ENGLISH"],
+      "searchKeywords": [
+        "sentence improvement strategy timing",
+        "eliminate new fault",
+        "shorter correct option"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- The task is the best version, not just a correct one; grammar alone does not win an option.\n- Name the category first: parallelism, modifier, wordiness, comparison, idiom, link word.\n- Predict a fix, then match it; if nothing matches, take the shortest fully correct option.\n- Reject options that fix the target fault but add a new one.\n- Compare like with like; keep both halves of a correlative pair parallel.\n- Choose \"no improvement\" only when you cannot name a rule the original breaks.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "sentence improvement summary",
+        "revision",
+        "best version not just correct"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "best-not-correct",
+      "front": "In sentence improvement, is a grammatical option automatically a good answer?",
+      "back": "No. The task is the best version. An option can be grammatical yet worse - longer, less clear, or a shift in meaning.",
+      "explanation": "This is the key difference from error detection.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["how-it-works"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "predict-first",
+      "front": "What should you do before reading the options?",
+      "back": "Identify what the underlined part is being tested for and predict a clean fix.",
+      "explanation": "A prediction protects you from plausible wrong options.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["read-first"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "parallel-correlative",
+      "front": "\"neither the branch nor the regional office ____ informed.\" was / were?",
+      "back": "\"was informed\" - with neither...nor the verb agrees with the nearer subject (office).",
+      "explanation": "Both halves of a correlative pair must also be parallel in form.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["patterns"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "dangling-modifier",
+      "front": "What is wrong with \"Being a public holiday, the branch kept a skeleton staff\"?",
+      "back": "The modifier dangles - the branch is not the holiday. Fix: \"Since it was a public holiday, the branch...\".",
+      "explanation": "An introductory phrase must describe the subject that follows.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "compare-like",
+      "front": "Fix: \"Her salary is higher than her colleague.\"",
+      "back": "\"...than her colleague's\" or \"...than that of her colleague\" - compare salary with salary.",
+      "explanation": "Faulty comparison: compare like with like.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["patterns"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "wordiness",
+      "front": "Tighten: \"due to the fact that\", \"in the event that\", \"at this point in time\".",
+      "back": "\"because\", \"if\", \"now\".",
+      "explanation": "Conciseness often decides between two grammatical options.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["patterns"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "no-improvement-test",
+      "front": "When is 'no improvement' the right choice?",
+      "back": "When you cannot name a specific rule the original breaks, and every option is merely different, not better.",
+      "explanation": "Marks are lost both by over-correcting and by hiding behind this option.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["no-improvement"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

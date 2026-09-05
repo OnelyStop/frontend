@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "counting-and-probability",
+  "chapterName": "Counting and probability",
+  "chapterPosition": 6,
+  "topicSlug": "factorials-permutations-and-combinations",
+  "topicPosition": 10,
+  "title": "Factorials, Permutations and Combinations",
+  "summary": "Counting arrangements and selections without listing them: the multiplication principle, factorials, nPr for ordered arrangements and nCr for unordered selections, plus identical items, circular arrangements and the at-least/at-most split.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 30,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "simplification-and-order-of-operations",
+    "ratio-and-proportion"
+  ],
+  "learningObjectives": [
+    "Apply the multiplication principle to count outcomes of a multi-stage choice.",
+    "Compute nPr and nCr and say which one a question needs.",
+    "Adjust a count for identical items and for a circular arrangement.",
+    "Split an 'at least' or 'at most' selection into disjoint cases and add them."
+  ],
+  "tags": [
+    "counting",
+    "permutations",
+    "combinations",
+    "factorial",
+    "bank-exams"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Combinatorics/Counting",
+      "title": "Combinatorics/Counting",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the multiplication principle and the nPr / nCr formulas. All wording and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm permutations and combinations are within scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "counting-without-listing",
+      "type": "introduction",
+      "title": "Counting without listing",
+      "markdown": "Some questions ask how many ways something can happen — arrange six people in a row, pick a team of three from ten, form a four-digit code. Listing every case is hopeless under time pressure, so we count with rules instead.\n\nTwo questions decide which rule to use:\n\n1. **Does order matter?** \"First, second, third\" and \"a code\" care about order — that is a permutation. \"A committee\", \"a handshake\", \"a selection\" do not — that is a combination.\n2. **Are the items all different?** Repeated letters or identical balls change the count.\n\nGet those two right and the formula follows.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "counting without listing arrangements selections",
+        "does order matter permutation versus combination",
+        "committee handshake selection is a combination",
+        "identical items change the count"
+      ],
+      "position": 10
+    },
+    {
+      "id": "multiplication-principle",
+      "type": "formula",
+      "title": "The multiplication principle",
+      "markdown": "If a task is done in stages, and stage 1 can happen in a ways, stage 2 in b ways (whatever stage 1 was), stage 3 in c ways, and so on, then the whole task can happen in a x b x c x ... ways.\n\nExample: a meal with 3 starters, 4 mains and 2 desserts allows 3 x 4 x 2 = 24 different meals.\n\nFor a 4-digit PIN with digits 0-9 and repetition allowed: 10 x 10 x 10 x 10 = 10,000. With no repetition: 10 x 9 x 8 x 7 = 5,040.\n\nWhen choices are alternatives rather than stages (\"a starter *or* a dessert\"), you add instead of multiply.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "multiplication principle stages multiply the counts",
+        "meal 3 starters 4 mains 2 desserts 24",
+        "PIN with and without repetition",
+        "alternatives add stages multiply"
+      ],
+      "position": 20
+    },
+    {
+      "id": "factorial",
+      "type": "definition",
+      "title": "Factorial",
+      "markdown": "n factorial, written n!, is the product of all whole numbers from n down to 1:\n\nn! = n x (n - 1) x (n - 2) x ... x 2 x 1\n\nSo 5! = 5 x 4 x 3 x 2 x 1 = 120. By definition 0! = 1 and 1! = 1.\n\nn! is exactly the number of ways to arrange n different items in a row, because the first slot has n choices, the next (n - 1), and so on.\n\nFactorials grow very fast, so in a fraction of factorials always cancel before multiplying: 8! / 6! = 8 x 7 = 56, not a division of two huge numbers.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "factorial n times n minus 1 down to 1",
+        "5 factorial is 120",
+        "0 factorial is 1",
+        "n factorial arranges n items cancel factorials in a fraction"
+      ],
+      "position": 30
+    },
+    {
+      "id": "npr-ncr",
+      "type": "formula",
+      "title": "nPr and nCr",
+      "markdown": "**Permutation — ordered arrangement of r items chosen from n:**\n\nnPr = n! / (n - r)! = n x (n - 1) x ... x (n - r + 1)   (r factors, counting down from n)\n\n**Combination — unordered selection of r items from n:**\n\nnCr = n! / (r! x (n - r)!) = nPr / r!\n\nUseful facts: nC0 = nCn = 1; nC1 = n; nCr = nC(n - r) (choosing r to keep is the same as choosing n - r to drop, so compute whichever has the smaller r).\n\nExample: 10C3 = (10 x 9 x 8) / (3 x 2 x 1) = 120. And 10P3 = 10 x 9 x 8 = 720 = 120 x 3!.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "nPr n factorial over n minus r factorial ordered",
+        "nCr n factorial over r factorial n minus r factorial",
+        "nCr equals nPr over r factorial",
+        "nCr equals nC n minus r choose the smaller"
+      ],
+      "position": 40
+    },
+    {
+      "id": "special-cases",
+      "type": "method",
+      "title": "Identical items, circles, and at-least",
+      "markdown": "- **Identical items.** Arrangements of n items where one group of p are alike, another q are alike, etc.: n! / (p! x q! x ...). The word LEVEL has 5 letters with L twice and E twice, so 5! / (2! x 2!) = 30 arrangements.\n- **Circular arrangement.** n distinct people around a round table: (n - 1)! arrangements, because rotating the whole circle is not a new seating. If clockwise and anticlockwise count as the same (a garland of beads), divide by 2 more.\n- **At least / at most.** Break into disjoint cases and add. \"A team of 3 from 5 men and 4 women with at least 2 men\" = (exactly 2 men) + (exactly 3 men) = 5C2 x 4C1 + 5C3 x 4C0.\n- **Complement.** Sometimes \"at least one\" is fastest as total minus \"none\".",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "identical items divide by p factorial q factorial",
+        "LEVEL 5 factorial over 2 factorial 2 factorial 30",
+        "circular arrangement n minus 1 factorial",
+        "at least split into cases and add or use the complement"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. Arranging books.** Five different books on a shelf: the count is 5! = 5 x 4 x 3 x 2 x 1 = **120**.\n\n**2. Choosing a committee.** A committee of 3 from 8 people, order not mattering: 8C3 = (8 x 7 x 6) / (3 x 2 x 1) = 336 / 6 = **56**.\n\n**3. A letter code.** A 3-letter code from the letters A to H with no letter repeated — order matters: 8P3 = 8 x 7 x 6 = **336**.\n\nNote how 2 and 3 use the same 8, 7, 6 product; dividing by 3! turns the 336 ordered codes into 56 unordered selections.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "arrange five books 5 factorial 120",
+        "committee of 3 from 8 is 8C3 56",
+        "3 letter code from 8 letters 8P3 336",
+        "divide ordered by r factorial to get unordered"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "1. arrangements of 5 books",
+          "value": 120,
+          "expression": "5*4*3*2*1"
+        },
+        {
+          "label": "2. committees of 3 from 8",
+          "value": 56,
+          "expression": "8*7*6/(3*2*1)"
+        },
+        {
+          "label": "3. three-letter codes from 8 letters",
+          "value": 336,
+          "expression": "8*7*6"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using a permutation where order does not matter** (or the reverse). A committee is nCr; a ranking is nPr.\n- **Forgetting to divide by the repeats** in an arrangement of identical items.\n- **Using n! for a circular table** instead of (n - 1)!.\n- **Adding when you should multiply**, or multiplying independent cases of an \"at least\" question instead of adding disjoint cases.\n- **Not cancelling factorials** and losing time (or precision) on huge products.\n- **Miscounting the r factors** in nPr — it is r numbers counting down from n, ending at (n - r + 1).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "permutation combination mistakes order matters or not",
+        "forgot to divide by repeats identical items",
+        "n factorial versus n minus 1 factorial for a circle",
+        "add disjoint cases for at least"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Multiplication principle: multiply the count at each stage; add for alternatives.\n- n! arranges n distinct items; 0! = 1; cancel factorials in a fraction.\n- Order matters: nPr = n!/(n - r)!. Order does not: nCr = n!/(r!(n - r)!) = nPr/r!.\n- nCr = nC(n - r); nC0 = nCn = 1; nC1 = n.\n- Identical items: n!/(p! q! ...). Circular: (n - 1)!.\n- At least / at most: split into disjoint cases and add, or use total minus complement.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "permutations combinations formula recap",
+        "nPr nCr circular identical items",
+        "at least complement",
+        "multiplication principle"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give a whole number.\n\n1. What is 6! ?\n2. Evaluate 7P2 (ordered arrangements of 2 from 7).\n3. Evaluate 10C2.\n4. How many distinct arrangements of the letters of the word LEVEL are there?\n5. In how many ways can 6 people sit around a circular table?\n6. From 5 men and 4 women, how many groups of 3 have exactly 2 men?\n7. How many diagonals does a 10-sided polygon have? (Diagonals = 10C2 minus the 10 sides.)\n8. How many 4-digit numbers can be formed from the digits 1 to 9 with no digit repeated?",
+      "searchKeywords": [
+        "permutations combinations practice questions",
+        "factorial nPr nCr circular table diagonals exercises"
+      ],
+      "position": 90,
+      "expectedAnswers": [
+        {
+          "label": "1. 6 factorial",
+          "value": 720,
+          "expression": "6*5*4*3*2*1"
+        },
+        { "label": "2. 7P2", "value": 42, "expression": "7*6" },
+        { "label": "3. 10C2", "value": 45, "expression": "10*9/(2*1)" },
+        {
+          "label": "4. arrangements of LEVEL",
+          "value": 30,
+          "expression": "5*4*3*2*1/(2*2)"
+        },
+        {
+          "label": "5. seatings around a round table",
+          "value": 120,
+          "expression": "5*4*3*2*1"
+        },
+        {
+          "label": "6. groups with exactly 2 men",
+          "value": 40,
+          "expression": "(5*4/(2*1))*(4)"
+        },
+        {
+          "label": "7. diagonals of a decagon",
+          "value": 35,
+          "expression": "10*9/(2*1) - 10"
+        },
+        {
+          "label": "8. four-digit numbers, digits 1-9 distinct",
+          "value": 3024,
+          "expression": "9*8*7*6"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "order-matters",
+      "front": "How do you decide between a permutation and a combination?",
+      "back": "If order matters (a ranking, a code, first/second/third) it is a permutation, nPr. If order does not matter (a committee, a handshake, a selection) it is a combination, nCr.",
+      "explanation": "nCr = nPr / r! — dividing out the r! orderings of each selection.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["counting-without-listing", "npr-ncr"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "multiplication-rule",
+      "front": "State the multiplication principle.",
+      "back": "If a task has stages with a, b, c, ... independent choices, the whole task has a x b x c x ... outcomes. Alternatives ('or') are added instead.",
+      "explanation": "A 4-digit no-repeat code from 10 digits: 10 x 9 x 8 x 7.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["multiplication-principle"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "factorial-def",
+      "front": "What is n! and what is 0! ?",
+      "back": "n! = n x (n-1) x ... x 2 x 1, the number of ways to arrange n distinct items. 0! = 1 by definition.",
+      "explanation": "Cancel factorials in a fraction: 8!/6! = 8 x 7 = 56.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["factorial"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "npr-ncr-formulas",
+      "front": "Formulas for nPr and nCr?",
+      "back": "nPr = n! / (n - r)! (r factors counting down from n). nCr = n! / (r! (n - r)!) = nPr / r!.",
+      "explanation": "10P3 = 10 x 9 x 8 = 720; 10C3 = 720 / 6 = 120.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["npr-ncr"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "ncr-symmetry",
+      "front": "Why is nCr = nC(n - r), and how does that help?",
+      "back": "Choosing r items to keep is the same as choosing n - r to leave out. Compute whichever has the smaller lower number: 20C18 = 20C2 = 190.",
+      "explanation": "Also nC0 = nCn = 1 and nC1 = n.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["npr-ncr"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "identical-and-circular",
+      "front": "Arrangements of n items with repeats? n people around a round table?",
+      "back": "With p and q alike: n! / (p! q! ...). Around a circular table: (n - 1)! (rotations are not new).",
+      "explanation": "LEVEL: 5!/(2! 2!) = 30. Six at a round table: 5! = 120.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["special-cases"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "at-least",
+      "front": "How do you count an 'at least 2 men' selection?",
+      "back": "Split into disjoint cases (exactly 2 men, exactly 3 men, ...) and add them. Or use total minus the complement when that is shorter.",
+      "explanation": "Never multiply the cases together.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["special-cases"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "arrangements-and-relations",
+  "chapterName": "Arrangements and relations",
+  "chapterPosition": 1,
+  "topicSlug": "blood-relations",
+  "topicPosition": 20,
+  "title": "Blood Relations",
+  "summary": "Relationship vocabulary across generations and in-laws, a symbol diagram that keeps the family straight, and set routines for pointing-to-a-photo statements and coded-relation expressions.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Name relations precisely across two or three generations, including in-laws.",
+    "Draw a family as a levelled diagram with fixed symbols.",
+    "Unpack a pointing-to-a-photo statement from the far end back to the speaker.",
+    "Evaluate a coded-relation expression one link at a time."
+  ],
+  "tags": ["reasoning", "blood-relations", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Discrete_Mathematics/Relations",
+      "title": "Discrete Mathematics/Relations",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for relation composition and inverses. All family puzzles here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm blood relations is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "relationship-map",
+      "type": "introduction",
+      "title": "The relationship map",
+      "markdown": "Blood-relation questions sit on a small family tree with three or four generations: grandparents, parents, the people in the puzzle, and sometimes their children.\n\nEvery question is really asking you to follow a path along that tree. The work is to build the tree correctly from the wording; once it is drawn, the answer is a short walk from one person to another. Nothing depends on names or ages unless the puzzle states them.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "blood relations small family tree three or four generations",
+        "follow a path along the tree",
+        "build the tree from the wording"
+      ],
+      "position": 10
+    },
+    {
+      "id": "vocabulary",
+      "type": "concept",
+      "title": "Relationship vocabulary",
+      "markdown": "- **Paternal** means on the father's side, **maternal** on the mother's side. Your father's brother is your paternal uncle; your mother's brother is your maternal uncle.\n- **In-laws** come through marriage: your spouse's brother and your sister's husband are both your brother-in-law; your son's wife is your daughter-in-law.\n- **Nephew and niece** are your sibling's children. Your **cousin** is your uncle's or aunt's child.\n- **Sibling** covers brother or sister without stating which. **Spouse** covers husband or wife.\n- Two people are of the **same generation** if the same number of parent-steps separates each from a shared ancestor.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "paternal maternal uncle aunt side",
+        "in laws brother in law daughter in law through marriage",
+        "nephew niece cousin sibling spouse same generation"
+      ],
+      "position": 20
+    },
+    {
+      "id": "family-diagram",
+      "type": "method",
+      "title": "Draw a family diagram",
+      "markdown": "Use one fixed set of marks so the picture never lies:\n\n- A triangle for a male, a circle for a female, a plain box when the sex is unknown.\n- A double line between two people who are married.\n- A vertical line dropping to their children, with siblings side by side on one level.\n- Keep every person of one generation on the same horizontal level, parents above, children below.\n\n```\n     A --=-- B          double line = married\n         |\n    +----+----+         vertical line = children\n    C         D          C and D on one level = siblings\n```\n\nAdd each fact to the diagram as you read it, and never carry a half-formed picture in your head.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "family diagram triangle male circle female box unknown",
+        "double line married vertical line children",
+        "one generation per horizontal level"
+      ],
+      "position": 30
+    },
+    {
+      "id": "pointing-statements",
+      "type": "method",
+      "title": "Pointing-to-a-photo statements",
+      "markdown": "A speaker points at someone and describes them through a chain like \"the only son of my grandfather's daughter\". Work the chain from the **far end back to the speaker**:\n\n1. Start at the last noun (\"my grandfather\") and move outward one link at a time.\n2. Replace every \"my\" and \"I\" with the speaker once the chain is built.\n3. Use words like \"only\" — \"the only daughter of X\" tells you X has no other daughters, which often pins the person down.\n4. Read the relationship of that person to the speaker off the finished diagram.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "pointing to a photo statement work from the far end back",
+        "replace my and i with the speaker",
+        "only daughter of x means no other daughters"
+      ],
+      "position": 40
+    },
+    {
+      "id": "coded-relations",
+      "type": "concept",
+      "title": "Coded relations",
+      "markdown": "Here each symbol fixes one relationship, and you are handed an expression to evaluate. A common key is:\n\n- `A + B` means A is the father of B.\n- `A - B` means A is the mother of B.\n- `A * B` means A is the brother of B.\n- `A / B` means A is the sister of B.\n\nBuild the expression left to right, one link at a time, drawing each into the diagram. The final question — say, how `A` relates to the last person — is then read straight off the picture. The sex of the end person is often not needed for the answer.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "coded relations symbol fixes one relationship",
+        "plus father minus mother star brother slash sister",
+        "build expression left to right read the diagram"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. Pointing.** Pointing at a boy, Meera says, \"His mother is the only daughter of my mother's father.\" How is the boy related to Meera?\n\nStart at the far end: \"my mother's father\" is Meera's maternal grandfather. \"The only daughter of\" him — since he has just one daughter, and Meera's mother is a daughter of his — is Meera's mother. So the boy's mother is Meera's mother, which makes the boy **Meera's brother**.\n\n**2. Coded.** With `+` for father, `-` for mother, `*` for brother, evaluate `P + Q - R * S` and state how P relates to S.\n\n`P + Q`: P is Q's father. `Q - R`: Q is R's mother. `R * S`: R is S's brother, so R and S share the parent Q. Q is the mother of S, and P is the father of Q. P is therefore the father of S's mother, that is, **S's maternal grandfather**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example pointing only daughter of mother's father brother",
+        "coded relation P plus Q minus R star S maternal grandfather",
+        "build chain from the far end"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Assuming a sex** the puzzle never gave — reading \"child\" as \"son\", or \"cousin\" as male.\n- **Confusing an uncle with a brother-in-law**, or a paternal uncle with a maternal one, when the side is stated.\n- **Working a pointing statement front to back**, which tangles the \"my\" references.\n- **Ignoring \"only\"** — \"the only son\" is often the fact that makes the answer unique.\n- **Mixing levels in the diagram**, so a cousin ends up drawn as a sibling.\n- **Answering with a sex** the question did not ask for, such as \"grandson\" when \"grandchild\" is all that follows.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "blood relations mistakes assuming sex uncle vs brother in law",
+        "pointing statement front to back tangle",
+        "ignoring only mixing diagram levels"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Key for the coded items: `+` father, `-` mother, `*` brother, `/` sister. Give the answer and a one-line reason.\n\n1. `A - B + C`: how is A related to C?\n2. `M * N - O`: how is M related to O?\n3. `P / Q * R`: how is P related to R?\n4. Pointing at a woman, Rohan says, \"She is the daughter of my father's only son.\" Rohan has no brothers. Who is she to Rohan?\n5. \"Sudha's father is my father's son, and I have no brothers or sisters.\" How is the speaker related to Sudha?\n6. `X + Y / Z`: how is X related to Z?\n7. K is the son of L. L is the sister of M. M is married to N. How is K related to N?",
+      "searchKeywords": [
+        "blood relations practice coded expressions pointing statements",
+        "grandmother maternal uncle sister daughter father nephew"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "paternal-maternal",
+      "front": "What is the difference between a paternal uncle and a maternal uncle?",
+      "back": "A paternal uncle is your father's brother; a maternal uncle is your mother's brother. 'Paternal' means the father's side, 'maternal' the mother's side.",
+      "explanation": "Questions that name the side expect you to use it.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["vocabulary"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "brother-in-law",
+      "front": "Two ways someone can be your brother-in-law?",
+      "back": "Your spouse's brother, or your sister's husband. Both are brothers-in-law by marriage, not by blood.",
+      "explanation": "In-law relations always pass through a marriage link.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["vocabulary"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "diagram-symbols",
+      "front": "What symbols keep a family diagram unambiguous?",
+      "back": "Triangle for male, circle for female, box for unknown sex; a double line for marriage; a vertical line down to children, with one generation per horizontal level.",
+      "explanation": "A fixed notation stops the picture from drifting as facts pile up.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["family-diagram"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "pointing-direction",
+      "front": "Which way do you unpack a pointing-to-a-photo statement?",
+      "back": "From the far end back to the speaker: start at the last noun, move outward one link at a time, then swap 'my' and 'I' for the speaker.",
+      "explanation": "Front-to-back reading tangles the possessives.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["pointing-statements"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "only-keyword",
+      "front": "Why does the word 'only' matter in 'the only daughter of my grandfather'?",
+      "back": "It says the grandfather has exactly one daughter, which usually pins that person down to a single identity in the tree.",
+      "explanation": "Without 'only' the person could be any of several daughters.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["pointing-statements"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "coded-build-order",
+      "front": "How do you evaluate a coded-relation expression such as 'P + Q - R'?",
+      "back": "Left to right, one symbol at a time, drawing each link into a diagram. Then read the asked relationship off the finished diagram.",
+      "explanation": "Each symbol is a fixed relationship; the diagram does the reasoning.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["coded-relations"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "sex-not-needed",
+      "front": "Do you always need the sex of the end person to name a relationship?",
+      "back": "No. 'Grandparent', 'parent', 'child', 'sibling' and 'cousin' don't depend on sex, so answer at that level unless the question asks for more.",
+      "explanation": "Adding an unasked-for sex is a common way to mark a right answer wrong.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

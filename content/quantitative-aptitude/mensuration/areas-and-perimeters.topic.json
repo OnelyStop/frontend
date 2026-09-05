@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "mensuration",
+  "chapterName": "Mensuration",
+  "chapterPosition": 5,
+  "topicSlug": "areas-and-perimeters",
+  "topicPosition": 10,
+  "title": "Areas and Perimeters",
+  "summary": "Perimeter and area formulas for the plane figures that appear in bank exams: rectangle, square, parallelogram, rhombus, trapezium, triangle and circle, with the unit traps and the reverse questions that go with them.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "fractions-and-decimals",
+    "simplification-and-order-of-operations"
+  ],
+  "learningObjectives": [
+    "State the area and perimeter formula for each standard plane figure from memory.",
+    "Choose the right formula from the measurements a question actually gives.",
+    "Use pi as 22/7 or 3.14159 consistently and keep length units matched.",
+    "Work a reverse question, recovering a side or radius from a given area or perimeter."
+  ],
+  "tags": ["mensuration", "area", "perimeter", "circle", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Geometry/Area",
+      "title": "Geometry/Area",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the standard area formulas. All wording, worked examples and practice items here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm mensuration is part of the quantitative-aptitude scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-mensuration-covers",
+      "type": "introduction",
+      "title": "What this topic covers",
+      "markdown": "Mensuration is the arithmetic of measurement: given a few lengths, find a perimeter (the distance round the boundary, a length) or an area (the space enclosed, a length squared).\n\nBank exams keep to a fixed set of plane figures — rectangle, square, parallelogram, rhombus, trapezium, triangle and circle — and reuse the same three question shapes: compute the area or perimeter directly; work backwards from a given area or perimeter to a side; or combine a figure with a cost or a count. Learn each formula so well that reading the measurements tells you which one to use.\n\nUnless a question says otherwise, this topic takes pi as 22/7 when the numbers are chosen to cancel with 7, and 3.14159 otherwise.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "what mensuration means",
+        "perimeter is a length area is length squared",
+        "standard plane figures in bank exams",
+        "pi convention 22/7"
+      ],
+      "position": 10
+    },
+    {
+      "id": "quadrilateral-formulas",
+      "type": "formula",
+      "title": "Quadrilaterals",
+      "markdown": "For a **rectangle** of length l and breadth b: area = l x b, perimeter = 2(l + b), diagonal = (l² + b²) to the power one half.\n\nFor a **square** of side a: area = a², perimeter = 4a, diagonal = a times (2 to the power one half). Given the area, the side is the area to the power one half.\n\nFor a **parallelogram** with base b and perpendicular height h: area = b x h. The slant side is not the height; only the perpendicular distance between the two parallel sides counts.\n\nFor a **rhombus** with diagonals d1 and d2: area = one half x d1 x d2. All four sides are equal, so perimeter = 4a, and the diagonals meet at right angles.\n\nFor a **trapezium** with parallel sides p and q a distance h apart: area = one half x (p + q) x h.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "rectangle area l times b perimeter 2 l plus b",
+        "square area a squared diagonal a root 2",
+        "parallelogram area base times perpendicular height",
+        "rhombus area half product of diagonals",
+        "trapezium area half sum of parallel sides times height"
+      ],
+      "position": 20
+    },
+    {
+      "id": "triangle-formulas",
+      "type": "formula",
+      "title": "Triangles",
+      "markdown": "**Base and height:** area = one half x base x height, where the height is the perpendicular from the opposite vertex to that base.\n\n**Three sides known (Heron's rule):** let s = (a + b + c) / 2 be the semi-perimeter. Then area = (s(s - a)(s - b)(s - c)) to the power one half.\n\n**Equilateral triangle of side a:** area = (3 to the power one half) / 4 x a², which is about 0.433 x a²; height = (3 to the power one half) / 2 x a.\n\n**Right-angled triangle:** the two legs are a base-and-height pair, so area = one half x (leg1) x (leg2).\n\nPerimeter of any triangle is just a + b + c.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "triangle area half base times height",
+        "heron formula semi perimeter",
+        "equilateral triangle area root 3 by 4 a squared",
+        "right triangle area half product of legs"
+      ],
+      "position": 30
+    },
+    {
+      "id": "circle-formulas",
+      "type": "formula",
+      "title": "Circle, sector and ring",
+      "markdown": "For a circle of radius r (diameter d = 2r):\n\n- Area = pi x r²\n- Circumference = 2 x pi x r = pi x d\n\nGiven the circumference C, the radius is r = C / (2 pi). Given the area A, the radius is r = (A / pi) to the power one half.\n\n**Sector** of angle theta degrees: area = (theta / 360) x pi x r²; arc length = (theta / 360) x 2 pi r.\n\n**Ring (annulus)** between an outer radius R and an inner radius r: area = pi x (R² - r²). This is the shape of a circular path or a washer.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "circle area pi r squared circumference 2 pi r",
+        "radius from circumference C over 2 pi",
+        "sector area theta over 360 times pi r squared",
+        "ring annulus area pi R squared minus r squared"
+      ],
+      "position": 40
+    },
+    {
+      "id": "choosing-and-units",
+      "type": "method",
+      "title": "Choosing the formula and matching units",
+      "markdown": "1. **Name the figure and list what you are given.** \"Two parallel sides and the distance between them\" is a trapezium; \"two diagonals\" is a rhombus; \"three sides\" means Heron.\n2. **Match the units before you multiply.** If one length is in metres and another in centimetres, convert first. 1 m = 100 cm, so 1 m² = 10,000 cm² and 1 m³ = 1,000,000 cm³ — the squared and cubed factors trip people up.\n3. **Keep pi symbolic until the end** when the radius is not a multiple of 7; substitute 3.14159 in the last step.\n4. **For a reverse question, write the formula and solve for the unknown** rather than guessing: side = (area) to the power one half for a square, r = C / (2 pi) for a circle.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "identify the figure from the measurements given",
+        "convert units before multiplying 1 m squared is 10000 cm squared",
+        "keep pi symbolic until the end",
+        "reverse question solve the formula for the unknown"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. A rectangular hall floor.** The floor is 24 m long and 15 m wide.\n\n(a) Area = length x breadth = 24 x 15 = **360 m²**.\n(b) Polishing costs 35 rupees per square metre, so the cost = 360 x 35 = **12,600 rupees**. In one line, cost = 24 x 15 x 35.\n\n**2. A circular lawn.** The lawn has radius 21 m. Because 21 is a multiple of 7, take pi = 22/7.\n\n(a) Area = pi x r² = (22/7) x 21² = (22/7) x 441 = **1,386 m²**.\n(b) Circumference = 2 x pi x r = 2 x (22/7) x 21 = **132 m**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "rectangle floor area and polishing cost worked example",
+        "circular lawn area and circumference pi 22 by 7",
+        "area times rate gives cost"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "1a. floor area (m^2)",
+          "value": 360,
+          "expression": "24*15"
+        },
+        {
+          "label": "1b. polishing cost (rupees)",
+          "value": 12600,
+          "expression": "24*15*35"
+        },
+        {
+          "label": "2a. lawn area (m^2)",
+          "value": 1386,
+          "expression": "(22/7)*21**2"
+        },
+        {
+          "label": "2b. lawn circumference (m)",
+          "value": 132,
+          "expression": "2*(22/7)*21"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using a slant side as the height** of a parallelogram or triangle. Only the perpendicular distance works.\n- **Forgetting to halve** in the triangle, trapezium and rhombus formulas.\n- **Mixing metres and centimetres**, and forgetting that the conversion factor is squared for area (10,000, not 100).\n- **Confusing radius and diameter** in the circle formulas. If the diameter is given, halve it first.\n- **Rounding pi too early**, or switching between 22/7 and 3.14 within one question.\n- **Answering the wrong quantity** — giving a perimeter when the question asked for area, or vice versa.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "mensuration mistakes slant side is not the height",
+        "forgetting to halve triangle trapezium rhombus",
+        "metre centimetre area factor is 10000",
+        "radius versus diameter in circle formulas"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Rectangle: area l x b, perimeter 2(l + b). Square: area a², perimeter 4a, side = (area) to the power one half.\n- Parallelogram: base x perpendicular height. Rhombus: one half x d1 x d2. Trapezium: one half x (p + q) x h.\n- Triangle: one half x base x height; Heron with s = (a + b + c)/2; equilateral about 0.433 a².\n- Circle: area pi r², circumference 2 pi r; from C, r = C / (2 pi). Sector scales by theta / 360. Ring: pi (R² - r²).\n- Match units first; the area conversion factor between m and cm is 10,000. Keep pi consistent.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "areas and perimeters formula recap",
+        "square side from area",
+        "circle radius from circumference",
+        "ring area formula"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the value with units.\n\n1. A rectangular plot is 45 m by 28 m. Find its perimeter.\n2. A square field has area 169 m². Find its side.\n3. A triangle has base 30 cm and height 16 cm. Find its area.\n4. A parallelogram has base 18 cm and perpendicular height 12 cm. Find its area.\n5. A rhombus has diagonals 24 cm and 10 cm. Find its area.\n6. A circular plate has radius 14 m. Find its area, taking pi as 22/7.\n7. A trapezium has parallel sides 22 cm and 14 cm, 9 cm apart. Find its area.\n8. A circular track has circumference 44 m. Find its radius, taking pi as 22/7.",
+      "searchKeywords": [
+        "areas and perimeters practice questions",
+        "rectangle square triangle rhombus trapezium circle exercises"
+      ],
+      "position": 90,
+      "expectedAnswers": [
+        {
+          "label": "1. perimeter (m)",
+          "value": 146,
+          "expression": "2*(45+28)"
+        },
+        {
+          "label": "2. square side (m)",
+          "value": 13,
+          "expression": "169**0.5"
+        },
+        {
+          "label": "3. triangle area (cm^2)",
+          "value": 240,
+          "expression": "0.5*30*16"
+        },
+        {
+          "label": "4. parallelogram area (cm^2)",
+          "value": 216,
+          "expression": "18*12"
+        },
+        {
+          "label": "5. rhombus area (cm^2)",
+          "value": 120,
+          "expression": "0.5*24*10"
+        },
+        {
+          "label": "6. circle area (m^2)",
+          "value": 616,
+          "expression": "(22/7)*14**2"
+        },
+        {
+          "label": "7. trapezium area (cm^2)",
+          "value": 162,
+          "expression": "0.5*(22+14)*9"
+        },
+        {
+          "label": "8. circle radius (m)",
+          "value": 7,
+          "expression": "44/(2*(22/7))"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "rectangle-square",
+      "front": "Area and perimeter of a rectangle (l, b) and a square (a)?",
+      "back": "Rectangle: area l x b, perimeter 2(l + b). Square: area a squared, perimeter 4a. Square side from area = (area) to the power one half.",
+      "explanation": "The square is the l = b case of the rectangle.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["quadrilateral-formulas"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "half-formulas",
+      "front": "Which plane-figure area formulas have a factor of one half?",
+      "back": "Triangle (half x base x height), trapezium (half x sum of parallel sides x height), and rhombus (half x product of diagonals).",
+      "explanation": "Forgetting the half is the most common slip in these three.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["triangle-formulas", "quadrilateral-formulas"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "parallelogram-height",
+      "front": "For a parallelogram's area, which length is the 'height'?",
+      "back": "The perpendicular distance between the two parallel sides, not the slant side. Area = base x perpendicular height.",
+      "explanation": "Same trap as the triangle: the sloping edge is longer than the true height.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["quadrilateral-formulas"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "equilateral-area",
+      "front": "Area of an equilateral triangle of side a?",
+      "back": "(3 to the power one half) / 4 x a squared, about 0.433 a squared. Its height is (3 to the power one half) / 2 x a.",
+      "explanation": "Handy when only the side is given.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["triangle-formulas"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "circle-basics",
+      "front": "Area and circumference of a circle of radius r?",
+      "back": "Area = pi r squared. Circumference = 2 pi r = pi d. From circumference C, radius r = C / (2 pi).",
+      "explanation": "If the diameter is given, halve it before using these.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["circle-formulas"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "ring-area",
+      "front": "Area of a ring between outer radius R and inner radius r?",
+      "back": "pi x (R squared - r squared). This is the shape of a circular path or border.",
+      "explanation": "Subtract the inner circle from the outer circle.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["circle-formulas"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "unit-factor",
+      "front": "1 m^2 equals how many cm^2? 1 m^3 equals how many cm^3?",
+      "back": "1 m^2 = 10,000 cm^2 and 1 m^3 = 1,000,000 cm^3. The 100 factor for length is squared or cubed for area or volume.",
+      "explanation": "Convert all lengths to one unit before multiplying.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["choosing-and-units"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

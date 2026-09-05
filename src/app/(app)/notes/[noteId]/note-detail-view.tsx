@@ -1,4 +1,10 @@
-import { ButtonLink, Badge, Card, Divider, SectionTitle } from "@/design-system";
+import {
+  ButtonLink,
+  Badge,
+  Card,
+  Divider,
+  SectionTitle,
+} from "@/design-system";
 import { SECTION_FROM_DB, SECTION_KEY, SECTION_LABEL } from "@/data/navigation";
 import type { NoteDetail } from "@/features/notes/types";
 
@@ -7,7 +13,12 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
 
   return (
     <div data-companion className="max-w-[68ch]">
-      <ButtonLink href="/notes" variant="ghost" size="sm" className="mb-8 -ml-3.5">
+      <ButtonLink
+        href="/notes"
+        variant="ghost"
+        size="sm"
+        className="mb-8 -ml-3.5"
+      >
         ← Notes
       </ButtonLink>
 
@@ -21,12 +32,14 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
       <h1 className="mt-2.5 max-w-[24ch] text-[38px] leading-[1.08] tracking-[-0.03em]">
         {note.title}
       </h1>
-      <p className="mt-4 max-w-[52ch] text-[16px] leading-[1.55] text-ink-2">
+      <p className="text-ink-2 mt-4 max-w-[52ch] text-[16px] leading-[1.55]">
         {note.summary}
       </p>
 
       <div className="mt-5 flex flex-wrap gap-2">
-        {note.difficulty ? <Badge tone="neutral">{note.difficulty}</Badge> : null}
+        {note.difficulty ? (
+          <Badge tone="neutral">{note.difficulty}</Badge>
+        ) : null}
         {note.examRelevance.exams.map((e) => (
           <Badge key={e} tone="brand">
             {e.replaceAll("_", " ")}
@@ -48,7 +61,7 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
 
       <Card className="mb-6">
         <SectionTitle>Concept</SectionTitle>
-        <p className="whitespace-pre-wrap text-[15px] leading-[1.7] text-ink-2">
+        <p className="text-ink-2 text-[15px] leading-[1.7] whitespace-pre-wrap">
           {note.concept}
         </p>
       </Card>
@@ -60,9 +73,11 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
             {note.formulas.map((f) => (
               <div key={f.name}>
                 <p className="text-[14px]">{f.name}</p>
-                <p className="tnum mt-1 text-[15px] text-ink">{f.expression}</p>
+                <p className="tnum text-ink mt-1 text-[15px]">{f.expression}</p>
                 {f.notes ? (
-                  <p className="mt-1 text-[13px] leading-relaxed text-ink-3">{f.notes}</p>
+                  <p className="text-ink-3 mt-1 text-[13px] leading-relaxed">
+                    {f.notes}
+                  </p>
                 ) : null}
               </div>
             ))}
@@ -77,14 +92,14 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
             {note.tricks.map((t) => (
               <div key={t.name}>
                 <p className="text-[14.5px]">{t.name}</p>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-ink-2">
+                <p className="text-ink-2 mt-1.5 text-[14px] leading-relaxed">
                   {t.description}
                 </p>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-ink-3">
+                <p className="text-ink-3 mt-1.5 text-[13px] leading-relaxed">
                   When to use: {t.whenToUse}
                 </p>
                 {t.example ? (
-                  <p className="mt-1.5 text-[13px] leading-relaxed text-ink-3">
+                  <p className="text-ink-3 mt-1.5 text-[13px] leading-relaxed">
                     e.g. {t.example}
                   </p>
                 ) : null}
@@ -99,7 +114,7 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
           <SectionTitle>Common mistakes</SectionTitle>
           <ul className="space-y-2.5">
             {note.commonMistakes.map((m) => (
-              <li key={m} className="text-[14px] leading-relaxed text-ink-2">
+              <li key={m} className="text-ink-2 text-[14px] leading-relaxed">
                 {m}
               </li>
             ))}
@@ -114,9 +129,12 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
             {note.workedExamples.map((w, i) => (
               <div key={i}>
                 <p className="text-[14.5px] leading-relaxed">{w.problem}</p>
-                <ol className="mt-3 space-y-1.5 border-l border-line pl-4">
+                <ol className="border-line mt-3 space-y-1.5 border-l pl-4">
                   {w.steps.map((step, j) => (
-                    <li key={j} className="text-[13.5px] leading-relaxed text-ink-2">
+                    <li
+                      key={j}
+                      className="text-ink-2 text-[13.5px] leading-relaxed"
+                    >
                       {step}
                     </li>
                   ))}

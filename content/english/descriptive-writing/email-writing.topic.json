@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "descriptive-writing",
+  "chapterName": "Descriptive writing",
+  "chapterPosition": 3,
+  "topicSlug": "email-writing",
+  "topicPosition": 50,
+  "title": "Email Writing",
+  "summary": "The short workplace email: when a task wants an email rather than a letter, the subject-line, greeting, one or two paragraphs and sign-off, the register for an internal versus an external reader, and a worked internal notice.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 20,
+  "examTags": ["sbi-po", "ibps-po"],
+  "prerequisiteTopicSlugs": [
+    "formal-letter-writing",
+    "descriptive-paper-overview"
+  ],
+  "learningObjectives": [
+    "Decide when a task calls for an email rather than a formal letter.",
+    "Structure an email: subject line, greeting, one or two short paragraphs, sign-off.",
+    "Write a subject line that names the matter and any action or date.",
+    "Match the register to an internal colleague or an external customer."
+  ],
+  "tags": ["descriptive-writing", "email", "workplace-writing", "register"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm short-form writing tasks are in scope. No model email was taken from it."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/Professional_and_Technical_Writing/Correspondence",
+      "title": "Professional and Technical Writing/Correspondence",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for email conventions and subject-line practice. The worked email and all examples here are original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "email-or-letter",
+      "type": "introduction",
+      "title": "Email or letter",
+      "markdown": "Some tasks ask for an email instead of a letter — a notice to branch staff, a short update to a customer, a message to another department. An email is shorter and less formal than a letter, but for an exam it is still **complete sentences, a clear structure and a formal-neutral tone** — not a chat message.\n\nUse the letter form when the task says *letter* or the reader is a formal external authority; use the email form when the task says *email* or the exchange is a routine workplace one.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "email versus letter shorter less formal still complete sentences",
+        "notice to staff short update to customer message to department",
+        "use email form when task says email or routine workplace exchange"
+      ],
+      "position": 10
+    },
+    {
+      "id": "structure",
+      "type": "method",
+      "title": "The structure",
+      "markdown": "1. **Subject line.** One line naming the matter and, where relevant, the action or date: *Revised counter timings from 15 September*.\n2. **Greeting.** *Dear Team,* / *Dear Ms Rao,* / *Dear Colleagues,*. Not *Hi* or *Hey* in an exam answer.\n3. **First paragraph — the point.** Say why you are writing in the first sentence. One or two sentences.\n4. **Second paragraph — the detail or the ask.** The specifics: what changes, what the reader must do, by when. Keep it to two or three sentences.\n5. **Sign-off.** *Regards,* or *Best regards,* then your name and role.\n\nTwo short paragraphs is usually the whole email. If it needs three, consider whether a letter was the right form.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "email structure subject line greeting first paragraph point second paragraph detail sign-off",
+        "dear team dear ms rao not hi hey",
+        "two short paragraphs regards name and role"
+      ],
+      "position": 20
+    },
+    {
+      "id": "subject-and-register",
+      "type": "concept",
+      "title": "Subject line and register",
+      "markdown": "**Subject line.** It should let the reader know the topic and priority without opening the email. *Update* or *Important* is useless; *Locker-room access suspended on 12 September for maintenance* is not. Include a date or an action word if there is one.\n\n**Register by reader:**\n\n- **Internal (a colleague or team):** formal-neutral. Direct, courteous, no need for the full letter formality. *Please update your counter signage by Friday.*\n- **External (a customer):** closer to letter register. More explanation, softer phrasing, no internal jargon. *We are writing to let you know that…*\n\nEither way: no contractions in the exam answer, no slang, no emoji, one clear ask.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "email subject line names topic and priority date or action word",
+        "internal register formal neutral direct external register closer to letter",
+        "no contractions no slang one clear ask"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: an internal notice",
+      "markdown": "*Task: As branch operations officer, email branch staff that public counter hours change from 10 am–4 pm to 10 am–3:30 pm from 15 September, with staff still expected until 4:30 pm for day-end work.*\n\n---\n\n**Subject:** Revised public counter hours from 15 September\n\nDear Team,\n\nFrom Monday, 15 September 2026, the branch will serve customers at the counters from 10:00 am to 3:30 pm, half an hour earlier than the current closing time. This follows the head-office circular on standard branch hours.\n\nStaff rosters do not change: please remain until 4:30 pm as usual for cash balancing and day-end entries. Kindly update the counter signage and the branch notice board before 15 September, and inform any regular customers you deal with this week.\n\nRegards,  \nS. Menon  \nBranch Operations Officer\n\n---\n\n**Why it works.** The subject line carries the change and the date, so a reader can act on it from the inbox. The first paragraph states the change and its reason in two sentences. The second paragraph separates what does *not* change (rosters) from the two actions required (signage, informing customers) and gives a deadline. The tone is direct and courteous — right for an internal team — and there are no contractions. It is about 110 words.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "email worked example internal notice revised counter hours",
+        "subject line carries change and date",
+        "first paragraph change and reason second paragraph what stays and actions with deadline"
+      ],
+      "position": 40
+    },
+    {
+      "id": "common-faults",
+      "type": "warning",
+      "title": "Common faults",
+      "markdown": "- **A vague subject line** — *Notice*, *Update*, *Important* — or none at all.\n- **Too informal** — *Hi all*, contractions, *thanks!*, an emoji.\n- **Burying the point** in the third sentence instead of the first.\n- **No clear action or date** when the email exists to make something happen.\n- **Letter-length.** If it runs past two tight paragraphs, the form is probably wrong.\n- **Internal jargon in a customer email** — codes, desk names, abbreviations the reader will not know.\n- **No sign-off with name and role.**",
+      "searchKeywords": [
+        "email faults vague subject line too informal burying the point",
+        "no clear action or date letter length",
+        "internal jargon in a customer email no sign-off"
+      ],
+      "position": 50
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Use the email form when the task says *email* or the exchange is a routine workplace one; use a letter for a formal external authority.\n- Structure: informative subject line → greeting (*Dear Team,* / *Dear Ms Rao,*) → first paragraph states the point → second paragraph gives the detail or the ask with a deadline → *Regards,* name and role.\n- Subject line names the matter plus any date or action; *Update* alone is useless.\n- Register: internal is formal-neutral and direct; external is closer to letter register with more explanation and no jargon.\n- No contractions, no slang, one clear ask; usually two short paragraphs.",
+      "searchKeywords": [
+        "email summary revision form structure subject line register recap"
+      ],
+      "position": 60
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Choose the best option and give a one-line reason.\n\n1. Best subject line for an email telling staff the lift will be off for repair on 12 September: (a) \"Important notice\" (b) \"Lift\" (c) \"Lift out of service on 12 September for repair\" (d) \"Please read this\"\n2. An exam email to a customer begins: \"Hi Rahul, hope you're doing well! Just wanted to quickly flag…\". The main problem: (a) it is too short (b) the register is too informal for a customer email in an exam (c) it has no subject line issue (d) nothing is wrong\n3. Where should the reason for writing appear in a workplace email? (a) in the first sentence of the first paragraph (b) in the sign-off (c) after all the background detail (d) in the subject line only\n4. An internal email asks the team to do something but gives no date. Best fix: (a) leave it, the team will ask (b) add the specific deadline to the action sentence (c) mark the email high priority instead (d) send a second email later\n5. Which belongs in a customer email but NOT an internal one? (a) a clear ask (b) a short explanation in plain terms with no branch codes or desk names (c) a subject line (d) a sign-off with name and role\n6. An email answer has grown to three full paragraphs with a heading block and a formal close. This suggests: (a) it is thorough and fine (b) the task probably wanted a letter, or the email needs cutting to two tight paragraphs (c) add a fourth paragraph to balance it (d) remove the subject line",
+      "searchKeywords": [
+        "email practice subject line register point placement deadline customer versus internal length"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "email-when",
+      "front": "When does a descriptive task call for an email rather than a letter?",
+      "back": "When the task says \"email\", or the exchange is a routine workplace one — a notice to staff, a short customer update, a message to another department. A formal external authority still gets a letter.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["email-or-letter"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "email-structure",
+      "front": "What is the structure of a workplace email?",
+      "back": "Informative subject line; greeting (Dear Team, / Dear Ms Rao,); first paragraph stating the point; second paragraph with the detail or ask and a deadline; sign-off with name and role.",
+      "explanation": "Two short paragraphs is usually the whole email.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["structure"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "email-subject-line",
+      "front": "What makes an email subject line useful?",
+      "back": "It names the specific matter and any date or action, so the reader can act from the inbox. \"Update\", \"Notice\" or \"Important\" alone tell the reader nothing.",
+      "explanation": "\"Lift out of service on 12 September for repair\" versus \"Important notice\".",
+      "difficulty": "easy",
+      "sourceBlockIds": ["subject-and-register", "common-faults"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "email-register",
+      "front": "How does email register differ for an internal versus an external reader?",
+      "back": "Internal: formal-neutral and direct, no full letter formality. External (customer): closer to letter register — more explanation, softer phrasing, no internal jargon. Neither uses contractions or slang in an exam.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["subject-and-register"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "email-point-first",
+      "front": "Where does the reason for writing go in a workplace email?",
+      "back": "In the first sentence of the first paragraph. Burying it after the background is a common fault.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["structure", "common-faults"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "email-length-signal",
+      "front": "Your email answer has grown to three formal paragraphs with a heading block. What does that suggest?",
+      "back": "The task probably wanted a letter, or the email needs cutting back to two tight paragraphs. An email that reaches letter length is usually the wrong form.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["structure", "common-faults"],
+      "position": 60,
+      "status": "approved"
+    }
+  ]
+}

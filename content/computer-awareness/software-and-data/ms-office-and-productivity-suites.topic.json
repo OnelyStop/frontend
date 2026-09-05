@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "software-and-data",
+  "chapterName": "Software and data",
+  "chapterPosition": 2,
+  "topicSlug": "ms-office-and-productivity-suites",
+  "topicPosition": 30,
+  "title": "Office and Productivity Suites",
+  "summary": "The word processor, spreadsheet and presentation concepts exams test: editing shortcuts, relative and absolute cell references, the everyday spreadsheet functions, formula versus value, sort and filter, chart choice, presentation views, and common file formats.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["operating-systems-and-software"],
+  "learningObjectives": [
+    "Recall the common editing shortcuts and the function-key actions used across office apps.",
+    "Tell a relative reference from an absolute or mixed one and predict how each changes when a formula is copied.",
+    "Choose the right spreadsheet function for a counting, lookup or conditional task.",
+    "Match a data set to a suitable chart type and name the main office file formats."
+  ],
+  "tags": [
+    "computer-awareness",
+    "office",
+    "spreadsheet",
+    "shortcuts",
+    "file-formats"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "LIBREOFFICE_GUIDES",
+      "url": "https://books.libreoffice.org/",
+      "title": "LibreOffice guides",
+      "publisher": "The Document Foundation",
+      "usageMode": "open_adaptable",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for spreadsheet function behaviour, cell-reference rules and file-format lists. Restated in original wording; all worked figures are original."
+    },
+    {
+      "sourceId": "LIBREOFFICE_LICENSE",
+      "url": "https://www.libreoffice.org/licenses/",
+      "publisher": "The Document Foundation",
+      "title": "LibreOffice licence page",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Website text and guides are generally CC BY-SA unless marked otherwise; only concepts were reused."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Wikibooks Basic Computing",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the editing-shortcut list and document/presentation terminology."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm that office-suite operation is part of the computer-awareness syllabus. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-suite-is",
+      "type": "introduction",
+      "title": "What an office suite is",
+      "markdown": "An **office suite** bundles three core tools:\n\n- a **word processor** for documents (Writer, Word);\n- a **spreadsheet** for tables and calculation (Calc, Excel);\n- a **presentation** tool for slides (Impress, PowerPoint).\n\nThe common suites are Microsoft Office (desktop and Microsoft 365), LibreOffice (free and open source) and Google's browser-based apps. Exam questions rarely depend on one brand — they test the shared ideas: editing shortcuts, how a formula refers to cells, which function does a job, and which file format to save.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "SATHEE_BANK"],
+      "searchKeywords": [
+        "office suite word processor spreadsheet presentation",
+        "microsoft office libreoffice google",
+        "writer calc impress word excel powerpoint",
+        "brand-independent concepts"
+      ],
+      "position": 10
+    },
+    {
+      "id": "editing-shortcuts",
+      "type": "shortcut",
+      "title": "Editing shortcuts and function keys",
+      "markdown": "Shortcuts that work across almost every office app (use **Cmd** in place of **Ctrl** on a Mac):\n\n| Keys | Action |\n| --- | --- |\n| Ctrl+C / Ctrl+X / Ctrl+V | copy / cut / paste |\n| Ctrl+Z / Ctrl+Y | undo / redo |\n| Ctrl+A | select all |\n| Ctrl+B / Ctrl+I / Ctrl+U | bold / italic / underline |\n| Ctrl+F / Ctrl+H | find / find and replace |\n| Ctrl+S / Ctrl+P | save / print |\n| Ctrl+Home / Ctrl+End | jump to start / end of document |\n\nUseful function keys in a spreadsheet: **F2** edit the active cell, **F4** toggle the `$` in a reference, **F5** go to a cell or open the navigator, **F7** spell-check, **F12** save as.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "LIBREOFFICE_GUIDES"],
+      "searchKeywords": [
+        "office editing shortcuts ctrl c x v z y",
+        "ctrl b i u bold italic underline",
+        "ctrl f find ctrl h replace ctrl s save ctrl p print",
+        "function keys f2 f4 f5 f7 f12 spreadsheet"
+      ],
+      "position": 20
+    },
+    {
+      "id": "word-and-presentation",
+      "type": "concept",
+      "title": "Word processor and presentation essentials",
+      "markdown": "**Word processor.** Text is shaped with **styles** (a named set of formatting applied in one click), **find and replace**, **headers and footers**, **page layout** (margins, orientation, columns), **track changes** for review, and **mail merge** to produce many personalised letters from one template plus a data list. Save as **.docx** (or **.odt**); export to **.pdf** for a fixed layout that anyone can open but not easily edit.\n\n**Presentation.** A file is a deck of **slides**. The main views are **Normal** (edit one slide), **Slide Sorter** / **outline** (reorder and see structure), **Notes** (speaker notes under each slide) and **Slide Show** (full-screen delivery). A **slide master** sets the common look; **transitions** animate slide changes and **animations** animate objects on a slide. Save as **.pptx** (or **.odp**).",
+      "sourceIds": ["LIBREOFFICE_GUIDES", "WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "word processor styles find replace headers footers mail merge track changes",
+        "docx odt pdf export fixed layout",
+        "presentation slides normal slide sorter notes slide show view",
+        "slide master transition animation pptx odp"
+      ],
+      "position": 30
+    },
+    {
+      "id": "cell-references",
+      "type": "concept",
+      "title": "Cells, values and references",
+      "markdown": "A spreadsheet is a grid of **cells** named by **column letter + row number** (`B4`). A cell holds either a **value** you typed or a **formula** that starts with `=` and computes a value; the sheet shows the result while the **formula bar** shows the formula.\n\nWhen you copy a formula, its references shift unless you lock them with `$`:\n\n- **Relative** `B4` — both parts shift. Copied one column right and one row down it becomes `C5`.\n- **Absolute** `$B$4` — neither part shifts; always points at `B4`.\n- **Mixed** `B$4` (row locked) or `$B4` (column locked) — only the unlocked part shifts.\n\nUse an absolute reference for a fixed cell every row must divide by or multiply against — a tax rate, a grand total.\n\n**Ranges** are written with a colon (`B2:B10`). Basic maths uses `+ - * /` and `^` for powers; order of operations applies, so use brackets.",
+      "sourceIds": ["LIBREOFFICE_GUIDES"],
+      "searchKeywords": [
+        "spreadsheet cell column row formula versus value formula bar",
+        "relative absolute mixed reference dollar sign",
+        "b4 shifts to c5 when copied lock with dollar",
+        "range colon b2 b10 operators powers brackets"
+      ],
+      "position": 40
+    },
+    {
+      "id": "common-functions",
+      "type": "concept",
+      "title": "Everyday functions",
+      "markdown": "| Function | What it does |\n| --- | --- |\n| `SUM(range)` | adds the numbers in the range |\n| `AVERAGE(range)` | mean of the numbers |\n| `COUNT(range)` | how many cells hold **numbers** |\n| `COUNTA(range)` | how many cells are **not empty** (any type) |\n| `COUNTIF(range, test)` | how many cells match a condition |\n| `MIN` / `MAX` | smallest / largest value |\n| `ROUND(x, n)` | round `x` to `n` decimal places |\n| `IF(test, a, b)` | return `a` when the test is true, else `b` |\n| `VLOOKUP(key, table, col, 0)` | find `key` down the first column of `table`, return the value in column `col` of that row; `0` (or FALSE) means exact match |\n| `HLOOKUP` | the same, searching across the first **row** |\n| `CONCATENATE(...)` or `&` | join text: `=A2 & \" \" & B2` |\n\n`COUNT` vs `COUNTA` is a favourite trap: `COUNT` ignores text and blanks, `COUNTA` counts everything that is not blank.",
+      "sourceIds": ["LIBREOFFICE_GUIDES"],
+      "searchKeywords": [
+        "spreadsheet functions sum average count counta countif",
+        "if vlookup hlookup min max round concatenate ampersand",
+        "vlookup exact match zero false first column",
+        "count ignores text counta counts non-empty"
+      ],
+      "position": 50
+    },
+    {
+      "id": "data-and-charts",
+      "type": "concept",
+      "title": "Sorting, filtering and charts",
+      "markdown": "- **Sort** reorders rows by one or more columns; always extend the selection to whole rows so the data stays aligned.\n- **Filter** (AutoFilter) hides rows that do not match a condition without deleting them.\n- **Freeze panes** keeps header rows or the first column visible while you scroll.\n\nChoosing a chart:\n\n| Chart | Best for |\n| --- | --- |\n| Column / bar | comparing categories |\n| Line | a trend over time |\n| Pie | parts of a single whole (few slices) |\n| Scatter (XY) | relationship between two numeric variables |\n\nA pie chart with many thin slices, or used to show change over time, is the classic wrong choice.",
+      "sourceIds": ["LIBREOFFICE_GUIDES"],
+      "searchKeywords": [
+        "sort rows by column filter autofilter freeze panes",
+        "chart type column bar compare line trend pie parts of whole scatter",
+        "extend selection to whole rows when sorting",
+        "pie chart wrong for time series or many slices"
+      ],
+      "position": 60
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: a small order sheet",
+      "markdown": "Columns: **A** item, **B** quantity, **C** unit price, **D** amount, **E** flag.\n\n| Row | A | B | C |\n| --- | --- | --- | --- |\n| 2 | Pens | 12 | 5 |\n| 3 | Files | 8 | 25 |\n| 4 | Markers | 15 | 18 |\n\n**Amount, relative reference.** In `D2` type `=B2*C2` → **60**. Fill down: `D3` becomes `=B3*C3` → **200**, `D4` → `=B4*C4` → **270**.\n\n**Grand total, then a share with an absolute reference.** `D5 = SUM(D2:D4)` → **530**. In `F2` type `=D2/$D$5` and fill down; `$D$5` stays fixed, so `F2 = 60/530`, `F3 = 200/530`, `F4 = 270/530`.\n\n**Flag with IF.** `E2 = IF(D2>=200,\"bulk\",\"small\")` → `D2` is 60 so **small**; `E3` and `E4` are **bulk**.\n\n**Count the bulk rows.** `=COUNTIF(E2:E4,\"bulk\")` → **2**.",
+      "sourceIds": ["LIBREOFFICE_GUIDES"],
+      "searchKeywords": [
+        "spreadsheet worked example order sheet amount quantity price",
+        "relative reference fill down b2 c2",
+        "absolute reference share of grand total dollar d5",
+        "if bulk small countif count matching rows"
+      ],
+      "position": 70,
+      "expectedAnswers": [
+        { "label": "D2 = B2*C2", "value": 60, "expression": "12*5" },
+        { "label": "D3 = B3*C3", "value": 200, "expression": "8*25" },
+        { "label": "D4 = B4*C4", "value": 270, "expression": "15*18" },
+        {
+          "label": "D5 = SUM(D2:D4)",
+          "value": 530,
+          "expression": "60+200+270"
+        },
+        { "label": "COUNTIF bulk rows", "value": 2, "expression": "1+1" }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **The cell shows the result; the formula bar shows the formula.** They are not two different values.\n- **A relative reference moves when copied.** If a formula must always hit one cell, lock it with `$`.\n- **`COUNT` counts only numbers; `COUNTA` counts any non-empty cell.**\n- **`VLOOKUP` searches the first column of its table** and needs `0`/FALSE for an exact match; without it you can get a wrong \"near\" hit.\n- **`.csv` is plain values only** — it drops formulas, formatting, multiple sheets and charts.\n- **`.pdf` is for sharing a fixed layout, not for editing** later.\n- **Sorting only the selected column** scrambles the rows; select the whole table.",
+      "sourceIds": ["LIBREOFFICE_GUIDES"],
+      "searchKeywords": [
+        "office confusions formula bar versus cell result",
+        "relative reference moves lock with dollar",
+        "count versus counta vlookup first column exact match",
+        "csv loses formulas pdf not for editing sort whole table"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Editing shortcuts are shared across apps: Ctrl+C/X/V, Ctrl+Z/Y, Ctrl+B/I/U, Ctrl+F/H, Ctrl+S/P, Ctrl+Home/End. In a sheet: F2 edit, F4 toggle `$`, F5 go-to, F7 spell-check.\n- A formula starts with `=`. Relative `B4` shifts on copy; absolute `$B$4` never shifts; mixed locks one part.\n- Functions: SUM, AVERAGE, COUNT (numbers) vs COUNTA (non-empty), COUNTIF, IF, VLOOKUP/HLOOKUP (exact match needs 0), MIN/MAX, ROUND, `&` to join text.\n- Sort whole rows; filter hides without deleting; freeze panes to keep headers visible.\n- Charts: column/bar to compare, line for trend, pie for parts of one whole, scatter for two numeric variables.\n- Formats: .docx/.xlsx/.pptx (or .odt/.ods/.odp); .csv is values only; .pdf is fixed layout.",
+      "sourceIds": ["LIBREOFFICE_GUIDES", "WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "office suite summary revision",
+        "shortcuts references functions charts file formats recap"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer and a one-line reason.\n\n1. `=A$2*$B3` is in `C3` and copied to `E7`. Which parts of the reference change?\n2. A range holds numbers, text labels and some empty cells. Which returns only the count of the numbers: `COUNT(range)` or `COUNTA(range)`?\n3. You need the mean of `D2:D50`. Which function?\n4. A formula must always divide by the tax rate in `G1`. How should `G1` appear in the formula?\n5. Which chart type suits monthly deposits over two years?\n6. Which key edits the active cell in place in a spreadsheet?\n7. You save a multi-sheet workbook as `.csv`. What is lost?\n8. `=VLOOKUP(\"KOL\", A2:C40, 3, 0)` — what does the `3` mean, and what does the `0` mean?",
+      "searchKeywords": [
+        "office practice questions references count functions chart shortcut csv vlookup"
+      ],
+      "position": 100
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "relative-vs-absolute",
+      "front": "In a spreadsheet, how do B4, $B$4 and B$4 behave when a formula is copied?",
+      "back": "B4 (relative) — both column and row shift. $B$4 (absolute) — neither shifts. B$4 (mixed) — column shifts, row is locked; $B4 locks the column instead.",
+      "explanation": "F4 cycles a reference through the four lock states.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cell-references"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "count-vs-counta",
+      "front": "COUNT vs COUNTA?",
+      "back": "COUNT(range) counts only cells containing numbers. COUNTA(range) counts every cell that is not empty, whatever the type.",
+      "explanation": "Neither counts truly blank cells.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-functions"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "vlookup",
+      "front": "What do the last two arguments of =VLOOKUP(key, table, 3, 0) mean?",
+      "back": "3 = return the value from the third column of the matched row. 0 (or FALSE) = require an exact match on the key, searched down the first column of the table.",
+      "explanation": "A non-zero/TRUE last argument does an approximate match and needs the first column sorted.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-functions"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "formula-vs-value",
+      "front": "Where do you see the formula, and where the result?",
+      "back": "The cell displays the computed result; the formula bar shows the underlying formula (which always begins with =).",
+      "explanation": "Press F2 to edit the formula in the cell.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["cell-references"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "chart-choice",
+      "front": "Which chart for: comparing categories, a trend over time, parts of one whole?",
+      "back": "Comparing categories — column or bar. Trend over time — line. Parts of one whole (few slices) — pie. Two numeric variables — scatter.",
+      "explanation": "Pie for a time series or many slices is the classic wrong choice.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["data-and-charts"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "office-formats",
+      "front": "What is special about .csv and about .pdf as save formats?",
+      "back": ".csv holds plain comma-separated values only — no formulas, formatting, extra sheets or charts. .pdf fixes the layout for viewing/printing anywhere but is not meant for later editing.",
+      "explanation": ".docx/.xlsx/.pptx and .odt/.ods/.odp keep the full editable document.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-a-suite-is", "common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "mail-merge",
+      "front": "What is mail merge?",
+      "back": "Producing many personalised documents from one template plus a data list (e.g. a name/address table), one output document per row.",
+      "explanation": "A word-processor feature, driven by a spreadsheet or database as the data source.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["word-and-presentation"],
+      "position": 70,
+      "status": "approved"
+    },
+    {
+      "id": "presentation-views",
+      "front": "Name the main presentation views and what each is for.",
+      "back": "Normal — edit one slide. Slide Sorter/Outline — reorder and see structure. Notes — speaker notes per slide. Slide Show — full-screen delivery.",
+      "explanation": "The slide master sets the shared look across slides.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["word-and-presentation"],
+      "position": 80,
+      "status": "approved"
+    }
+  ]
+}

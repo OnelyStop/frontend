@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "algebra",
+  "chapterName": "Algebra",
+  "chapterPosition": 7,
+  "topicSlug": "linear-equations",
+  "topicPosition": 20,
+  "title": "Linear Equations",
+  "summary": "Solving one linear equation, solving a pair by substitution and elimination, forming equations from word problems, and recognising when a pair has one solution, none, or infinitely many.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["simplification-and-order-of-operations"],
+  "learningObjectives": [
+    "Solve a linear equation in one variable, clearing brackets and fractions first.",
+    "Solve a pair of linear equations by substitution and by elimination.",
+    "Translate an age, coin or two-digit-number problem into a pair of equations.",
+    "Decide from the coefficients whether a pair has one, no, or infinitely many solutions."
+  ],
+  "tags": [
+    "algebra",
+    "linear-equations",
+    "simultaneous-equations",
+    "bank-exams"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Algebra/Systems_of_Equations",
+      "title": "Algebra/Systems of Equations",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the substitution and elimination methods and the consistency conditions. All wording and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm linear equations are part of the quantitative-aptitude scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-linear-means",
+      "type": "introduction",
+      "title": "What linear means",
+      "markdown": "An equation is linear when every variable appears only to the first power, with no products of variables and nothing under a root. So 3x minus 5 equals 7 is linear; x^2 equals 9 and xy equals 6 are not.\n\nIn the exam, linear equations turn up in two shapes. One is a bare equation or pair of equations to solve. The other, more common, is a word problem about ages, coins, marks, a two-digit number, or a break-even quantity, where the real work is setting up the equations. Both are covered here.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "linear equation definition first power",
+        "linear equations in bank exams",
+        "word problem versus bare equation"
+      ],
+      "position": 10
+    },
+    {
+      "id": "one-variable",
+      "type": "method",
+      "title": "One equation, one variable",
+      "markdown": "1. **Clear fractions** by multiplying every term by the common denominator.\n2. **Clear brackets** by distributing.\n3. **Collect the variable on one side** and the numbers on the other.\n4. **Divide** by the coefficient of the variable.\n5. **Check** by putting the value back into the original equation.\n\nFor 2(x minus 3) equals x plus 4: distribute to get 2x minus 6 equals x plus 4; move terms to get x equals 10; check 2 times 7 equals 14 and 10 plus 4 equals 14. Correct.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "solve linear equation one variable steps",
+        "clear fractions and brackets",
+        "check by substitution"
+      ],
+      "position": 20
+    },
+    {
+      "id": "two-variables",
+      "type": "method",
+      "title": "Two variables: substitution and elimination",
+      "markdown": "A pair of linear equations in x and y usually has one solution.\n\n**Substitution.** Make one variable the subject of one equation, then put that into the other. Best when a coefficient is already 1.\n\n**Elimination.** Scale the two equations so one variable has the same coefficient in both, then add or subtract to remove it. Best when neither coefficient is 1.\n\nExample by elimination: 3p plus 2n equals 80 and 4p plus 3n equals 110. Multiply the first by 3 and the second by 2 to match the n terms: 9p plus 6n equals 240 and 8p plus 6n equals 220. Subtract: p equals 20. Back-substitute: 60 plus 2n equals 80, so n equals 10.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "substitution method simultaneous equations",
+        "elimination method match coefficients",
+        "back substitute to find the second variable"
+      ],
+      "position": 30
+    },
+    {
+      "id": "from-words",
+      "type": "method",
+      "title": "Turning a word problem into equations",
+      "markdown": "1. **Name the unknowns** with letters and write what each stands for, including units.\n2. **Write one equation per fact.** \"Twice as old\", \"in 10 years\", \"the digits add to 9\" — each sentence is an equation.\n3. **Solve, then answer the actual question**, which may be a sum or difference of the unknowns rather than one of them.\n\nStandard set-ups:\n\n- **Ages.** If a father is three times as old as his son now, write f equals 3s. \"In 10 years\" adds 10 to each side's age.\n- **Two-digit number.** A number with tens digit t and units digit u is 10t plus u; the reversed number is 10u plus t.\n- **Coins or notes.** Value equals count times denomination; write one equation for the total count and one for the total value.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "form equations from a word problem",
+        "age problem father three times son",
+        "two-digit number 10t plus u reversed"
+      ],
+      "position": 40
+    },
+    {
+      "id": "consistency",
+      "type": "concept",
+      "title": "One solution, none, or infinitely many",
+      "markdown": "For a1 x plus b1 y equals c1 and a2 x plus b2 y equals c2, compare the ratios a1 over a2, b1 over b2 and c1 over c2.\n\n- **One solution** when a1 over a2 is not equal to b1 over b2. The lines cross at a point.\n- **No solution** when a1 over a2 equals b1 over b2 but neither equals c1 over c2. The lines are parallel.\n- **Infinitely many** when all three ratios are equal. The two equations describe the same line.\n\nA quick check: 2x plus 3y equals 5 and 4x plus 6y equals 11 have 2 over 4 equal to 3 over 6 but not equal to 5 over 11, so there is no solution.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "consistency of a pair of linear equations",
+        "ratio test unique no infinite solutions",
+        "parallel lines no solution same line infinite"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. An age problem.** A father is three times as old as his son. In 10 years he will be twice as old as his son will be then. Find their present ages.\n\nLet the son be s years old, so the father is 3s. In 10 years: 3s plus 10 equals 2 times (s plus 10). Expand: 3s plus 10 equals 2s plus 20, so s equals 10. The son is **10** and the father is 3 times 10, that is **30**.\n\n**2. A pair by elimination.** Three pens and two notebooks cost 80 rupees; four pens and three notebooks cost 110 rupees. Find the price of each.\n\nWrite 3p plus 2n equals 80 and 4p plus 3n equals 110. Multiply the first by 3 and the second by 2: 9p plus 6n equals 240 and 8p plus 6n equals 220. Subtract to get p equals **20**. Then 3 times 20 plus 2n equals 80, so 2n equals 20 and n equals **10**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "age word problem worked example present ages",
+        "elimination worked example pens and notebooks",
+        "set up and solve two equations"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "1. son's present age",
+          "value": 10,
+          "expression": "20 - 10"
+        },
+        {
+          "label": "1. father's present age",
+          "value": 30,
+          "expression": "3*(20 - 10)"
+        },
+        {
+          "label": "2. price of a pen",
+          "value": 20,
+          "expression": "240 - 220"
+        },
+        {
+          "label": "2. price of a notebook",
+          "value": 10,
+          "expression": "(80 - 3*20)/2"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Not applying an operation to every term.** Multiplying to clear a fraction must hit the terms without fractions too.\n- **Sign errors when moving a term across the equals sign.** Moving minus 6 to the other side makes it plus 6.\n- **Answering the wrong thing.** If the question asks for the difference of the two ages, do not stop at one age.\n- **Adding when you should subtract in elimination**, or the reverse — check whether the matched terms have the same or opposite signs.\n- **Assuming every pair has a solution.** Run the ratio test if the numbers look proportional.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "linear equation mistakes sign errors",
+        "multiply every term when clearing fractions",
+        "elimination add or subtract check signs"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Solve one equation: clear fractions, clear brackets, collect the variable, divide, check.\n- Solve a pair: substitution when a coefficient is 1, elimination otherwise; scale to match one variable, then add or subtract.\n- Word problems: name the unknowns with units, write one equation per fact, then answer exactly what is asked.\n- A two-digit number with digits t and u is 10t plus u; reversed it is 10u plus t.\n- Ratio test: unique solution when a1 over a2 is not equal to b1 over b2; no solution when a1 over a2 equals b1 over b2 but not c1 over c2; infinitely many when all three are equal.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "linear equations summary",
+        "revision substitution elimination word problems",
+        "consistency ratio test recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Solve, then state exactly what was asked.\n\n1. Solve 5x minus 7 equals 3x plus 9.\n2. Solve 2(x minus 3) equals x plus 4.\n3. If x plus y equals 12 and x minus y equals 4, find x.\n4. For the same pair, find y.\n5. If 2x plus 3y equals 13 and x equals 2, find y.\n6. A two-digit number has digits adding to 9, and the number is 27 more than the number with its digits reversed. Find the number.\n7. The sum of two numbers is 40, and one is 4 more than three times the other. Find the smaller number.\n8. Solve 7x minus 5 equals 4x plus 16.",
+      "searchKeywords": [
+        "linear equations practice questions",
+        "simultaneous equations exercises",
+        "two-digit number word problem practice"
+      ],
+      "position": 90,
+      "expectedAnswers": [
+        { "label": "1. x", "value": 8, "expression": "(9 + 7)/2" },
+        { "label": "2. x", "value": 10, "expression": "4 + 6" },
+        { "label": "3. x", "value": 8, "expression": "(12 + 4)/2" },
+        { "label": "4. y", "value": 4, "expression": "(12 - 4)/2" },
+        { "label": "5. y", "value": 3, "expression": "(13 - 2*2)/3" },
+        {
+          "label": "6. the two-digit number",
+          "value": 63,
+          "expression": "10*6 + 3"
+        },
+        {
+          "label": "7. the smaller number",
+          "value": 9,
+          "expression": "(40 - 4)/4"
+        },
+        { "label": "8. x", "value": 7, "expression": "(16 + 5)/3" }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "solve-one-variable",
+      "front": "What is the order of steps to solve a linear equation in one variable?",
+      "back": "Clear fractions, clear brackets, collect the variable on one side and numbers on the other, divide by the coefficient, then check by substitution.",
+      "explanation": "Doing fractions and brackets first keeps the arithmetic clean.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["one-variable"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "substitution-vs-elimination",
+      "front": "When do you prefer substitution over elimination for a pair of equations?",
+      "back": "Substitution when a variable already has coefficient 1 in one equation. Elimination when neither coefficient is 1 — scale to match one variable, then add or subtract.",
+      "explanation": "Both give the same answer; the choice is about arithmetic effort.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["two-variables"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "two-digit-number",
+      "front": "How do you write a two-digit number and its reverse in algebra?",
+      "back": "A number with tens digit t and units digit u is 10t + u. Reversing the digits gives 10u + t.",
+      "explanation": "The difference (10t + u) - (10u + t) is 9(t - u), always a multiple of 9.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["from-words"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "age-in-years",
+      "front": "In an age problem, how do you handle 'in 10 years' or '5 years ago'?",
+      "back": "Add 10 to every person's current age expression, or subtract 5. Then write the comparison the sentence states as an equation.",
+      "explanation": "Everyone ages by the same amount, so the same number is added to each.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["from-words", "worked-example"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "consistency-test",
+      "front": "For a1x + b1y = c1 and a2x + b2y = c2, when is there no solution?",
+      "back": "When a1/a2 = b1/b2 but that common ratio is not equal to c1/c2 — the lines are parallel.",
+      "explanation": "If all three ratios match, the equations are the same line (infinitely many solutions).",
+      "difficulty": "hard",
+      "sourceBlockIds": ["consistency"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "answer-the-question",
+      "front": "You solved for both ages but the question asks for the difference. What is the risk?",
+      "back": "Stopping at one value. Always finish by computing the exact quantity asked — a sum, difference, or ratio of the unknowns.",
+      "explanation": "Exam options often include the individual values as traps.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["from-words", "common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "elimination-example",
+      "front": "3p + 2n = 80 and 4p + 3n = 110. Outline the elimination.",
+      "back": "Multiply the first by 3 and the second by 2 to get 6n in both: 9p + 6n = 240 and 8p + 6n = 220. Subtract: p = 20, then n = 10.",
+      "explanation": "Scaling to a common coefficient on n lets one subtraction remove it.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["two-variables", "worked-example"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

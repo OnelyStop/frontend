@@ -1,75 +1,133 @@
-import "@/styles/global.css";
-import { ButtonLink } from "@/components/marketing/Button";
-import { Brand } from "@/components/marketing/Logo";
-import "./MarketingLayout.css";
 import Link from "next/link";
+import { Brand, ButtonLink } from "@/design-system";
+
+const NAV = [
+  { href: "#features", label: "Features" },
+  { href: "#pricing", label: "Pricing" },
+];
+
+const FOOTER_COLS = [
+  {
+    title: "Product",
+    items: [
+      { href: "#features", label: "Features" },
+      { href: "#pricing", label: "Pricing" },
+      { href: "/signup", label: "Question bank" },
+    ],
+  },
+  {
+    title: "Boards",
+    items: ["OCR", "AQA", "Edexcel", "CIE", "WJEC"].map((label) => ({
+      label,
+      href: null,
+    })),
+  },
+  {
+    title: "Revise",
+    items: ["Past papers", "PYQ mixes", "AI exams", "Memory"].map((label) => ({
+      label,
+      href: null,
+    })),
+  },
+  {
+    title: "Company",
+    items: [
+      { label: "About", href: null },
+      { label: "Contact", href: null },
+      { href: "/privacy", label: "Privacy" },
+      { href: "/terms", label: "Terms" },
+    ],
+  },
+];
 
 export function MarketingLayout({ children }: { children: React.ReactNode }) {
-
   return (
-    <div className="mk-shell">
-      <Link href="/signup" className="mk-banner t-label">
+    <div className="bg-canvas flex min-h-dvh flex-col">
+      <Link
+        href="/signup"
+        className="border-line bg-panel text-ink-2 hover:text-ink flex items-center justify-center gap-1 border-b px-5 py-2.5 text-center text-[14px] transition-colors"
+      >
         Every past paper we can legally host is free, forever
         <span aria-hidden>&nbsp;→</span>
       </Link>
-      <header className="mk-nav">
+
+      {/* Opaque, not translucent: the page has dark sections, and any
+          transparency turns the bar a muddy grey as they scroll under it. */}
+      <header className="border-line bg-canvas sticky top-0 z-50 flex h-14 items-center gap-10 border-b px-5 sm:px-8 lg:px-16">
         <Brand href="/" />
-        <nav className="mk-nav__links">
-          <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
+        {/* Dim-the-siblings: hovering the row hushes every link, then restores
+            the one under the cursor. */}
+        <nav className="group flex flex-1 gap-6">
+          {NAV.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-ink-2 group-hover:text-ink-3 hover:text-ink! text-[14px] transition-colors"
+            >
+              {l.label}
+            </a>
+          ))}
         </nav>
-        <div className="mk-nav__actions">
-          <ButtonLink href="/login" variant="outline" size="sm">Log in</ButtonLink>
-          <ButtonLink href="/signup" size="sm">Start free</ButtonLink>
+        <div className="flex items-center gap-2">
+          <ButtonLink href="/login" variant="secondary" size="sm">
+            Log in
+          </ButtonLink>
+          <ButtonLink href="/signup" size="sm">
+            Start free
+          </ButtonLink>
         </div>
       </header>
 
       {children}
 
-      <footer className="mk-footer">
-        <div className="mk-footer__panel t-slab">
-          <div className="mk-footer__inner">
-          <div className="mk-footer__brand">
-            <div className="mk-footer__name">onelystop</div>
-            <p>Your one stop from first mock to A*.</p>
+      <footer className="bg-canvas mt-auto px-2 sm:px-3">
+        <div className="bg-ink rounded-t-xl px-6 pt-14 pb-8 text-white sm:px-10 lg:px-14">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1.3fr)_repeat(2,minmax(0,1fr))] lg:grid-cols-[minmax(0,1.3fr)_repeat(4,minmax(0,1fr))]">
+            <div className="max-w-75">
+              <div className="text-[20px] font-semibold tracking-[-0.02em]">
+                onelystop
+              </div>
+              <p className="mt-2 text-[14px] leading-relaxed text-white/50">
+                Your one stop from first mock to A*.
+              </p>
+            </div>
+
+            {FOOTER_COLS.map((col) => (
+              <div key={col.title} className="grid content-start gap-2">
+                <div className="mb-1 text-[14px] font-medium text-white/90">
+                  {col.title}
+                </div>
+                {col.items.map((i) =>
+                  i.href ? (
+                    <Link
+                      key={i.label}
+                      href={i.href}
+                      className="text-[14px] leading-relaxed text-white/60 transition-colors hover:text-white"
+                    >
+                      {i.label}
+                    </Link>
+                  ) : (
+                    <span
+                      key={i.label}
+                      className="text-[14px] leading-relaxed text-white/60"
+                    >
+                      {i.label}
+                    </span>
+                  ),
+                )}
+              </div>
+            ))}
           </div>
-          <div className="mk-footer__cols">
-            <div>
-              <div className="mk-footer__col-title">Product</div>
-              <a href="#features">Features</a>
-              <a href="#pricing">Pricing</a>
-              <Link href="/signup">Question bank</Link>
-            </div>
-            <div>
-              <div className="mk-footer__col-title">Boards</div>
-              <span>OCR</span>
-              <span>AQA</span>
-              <span>Edexcel</span>
-              <span>CIE</span>
-              <span>WJEC</span>
-            </div>
-            <div>
-              <div className="mk-footer__col-title">Revise</div>
-              <span>Past papers</span>
-              <span>PYQ mixes</span>
-              <span>AI exams</span>
-              <span>Memory</span>
-            </div>
-            <div>
-              <div className="mk-footer__col-title">Company</div>
-              <span>About</span>
-              <span>Contact</span>
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/terms">Terms</Link>
-            </div>
-          </div>
-        </div>
-          <div className="mk-footer__legal">
+
+          {/* 1px, not a hairline: a half-pixel white rule disappears here. */}
+          <div className="mt-14 border-t border-white/10 pt-5 text-[12.5px] text-white/50">
             <p>
               © onelystop {new Date().getFullYear()} · Made for people sitting
               these papers.
             </p>
-            <p className="mk-footer__disclaimer">
+            {/* Not boilerplate: this is what makes naming real specification
+                codes safe. */}
+            <p className="mt-3 max-w-[68ch]">
               onelystop is not affiliated with, endorsed by, or connected to
               OCR, AQA, Pearson Edexcel or Cambridge International.
               Specification codes are used to identify the syllabus a question

@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { useApp } from "@/context/AppContext";
 import {
   Button,
-  Card,
   OptionRow,
   PageHeader,
   Segmented,
@@ -40,7 +39,10 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
   useEffect(() => {
     if (!live) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && confirm("Leave the mock? Your attempt is lost."))
+      if (
+        e.key === "Escape" &&
+        confirm("Leave the mock? Your attempt is lost.")
+      )
         setLive(null);
     };
     window.addEventListener("keydown", onKey);
@@ -59,11 +61,11 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
     const answered = Object.keys(picked).length;
 
     return (
-      <div className="fixed inset-0 z-100 flex flex-col bg-canvas text-ink">
-        <header className="flex items-center gap-6 border-b border-line px-8 py-4">
+      <div className="bg-canvas text-ink fixed inset-0 z-100 flex flex-col">
+        <header className="border-line flex items-center gap-6 border-b px-8 py-4">
           <span className="text-[15px]">
             {live.name} {live.year}
-            <span className="ml-2 text-ink-3">{live.stage}</span>
+            <span className="text-ink-3 ml-2">{live.stage}</span>
           </span>
 
           {/* Sections are locked in order, so they read as a track you are
@@ -87,7 +89,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
 
           <span className="flex-1" />
 
-          <span className="text-[13px] text-ink-3">
+          <span className="text-ink-3 text-[13px]">
             section {secIdx + 1} of {SECTIONS.length}
           </span>
           <span
@@ -115,7 +117,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                     animate="center"
                     exit="exit"
                   >
-                    <p className="tnum text-[13px] text-ink-3">
+                    <p className="tnum text-ink-3 text-[13px]">
                       Question {qIdx + 1} of {perSection} ·{" "}
                       {SECTION_LABEL[SECTIONS[secIdx]]}
                     </p>
@@ -174,10 +176,10 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
             </div>
           </div>
 
-          <aside className="hidden w-[268px] shrink-0 flex-col border-l border-line xl:flex">
-            <div className="border-b border-line px-6 py-4">
+          <aside className="border-line hidden w-[268px] shrink-0 flex-col border-l xl:flex">
+            <div className="border-line border-b px-6 py-4">
               <p className="text-[14px]">Question palette</p>
-              <p className="tnum mt-1 text-[13px] text-ink-3">
+              <p className="tnum text-ink-3 mt-1 text-[13px]">
                 {answered} answered · {perSection - answered} left
               </p>
             </div>
@@ -208,8 +210,8 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           </aside>
         </div>
 
-        <footer className="flex items-center gap-3 border-t border-line px-8 py-4">
-          <span className="text-[13px] text-ink-3">Esc to leave</span>
+        <footer className="border-line flex items-center gap-3 border-t px-8 py-4">
+          <span className="text-ink-3 text-[13px]">Esc to leave</span>
           <span className="flex-1" />
           <Button
             variant="secondary"
@@ -242,32 +244,36 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
         }
       />
 
-      <div className="grid grid-cols-1 border-l border-t border-line lg:grid-cols-2">
+      <div className="border-line grid grid-cols-1 border-t border-l lg:grid-cols-2">
         {shown.map((m) => {
           const cleared = m.score !== null && m.score >= m.cutoff;
           const scale = Math.max(m.cutoff, m.score ?? 0) * 1.3;
           return (
             <div
               key={m.id}
-              className="relative flex items-start gap-4 border-b border-r border-line p-7 transition-colors duration-200 hover:bg-brand-soft/40"
+              className="border-line hover:bg-brand-soft/40 relative flex items-start gap-4 border-r border-b p-7 transition-colors duration-200"
             >
               <div className="min-w-0 flex-1">
                 <p className="text-[19px] tracking-[-0.02em]">
                   {m.name} {m.year}
                 </p>
-                <p className="tnum mt-1.5 text-[13px] text-ink-3">
+                <p className="tnum text-ink-3 mt-1.5 text-[13px]">
                   {m.stage} · {m.qs} questions · {m.mins} min
                 </p>
 
                 <div className="mt-7 flex items-baseline gap-2">
                   <span
                     className={`tnum text-[26px] leading-none tracking-[-0.03em] ${
-                      m.score === null ? "text-ink-4" : cleared ? "" : "text-bad"
+                      m.score === null
+                        ? "text-ink-4"
+                        : cleared
+                          ? ""
+                          : "text-bad"
                     }`}
                   >
                     {m.score ?? "—"}
                   </span>
-                  <span className="text-[13px] text-ink-3">
+                  <span className="text-ink-3 text-[13px]">
                     {m.score === null
                       ? "not attempted"
                       : cleared
@@ -279,15 +285,15 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
 
                 {/* Same notch as Today: the cutoff, not the maximum, is what
                     the bar is read against. */}
-                <div className="relative mt-3 h-1.5 rounded-pill bg-line">
+                <div className="rounded-pill bg-line relative mt-3 h-1.5">
                   {m.score !== null ? (
                     <div
-                      className={`h-full rounded-pill ${cleared ? "bg-ink" : "bg-bad"}`}
+                      className={`rounded-pill h-full ${cleared ? "bg-ink" : "bg-bad"}`}
                       style={{ width: `${(m.score / scale) * 100}%` }}
                     />
                   ) : null}
                   <span
-                    className="absolute -top-1 h-[14px] w-px bg-ink-3"
+                    className="bg-ink-3 absolute -top-1 h-[14px] w-px"
                     style={{ left: `${(m.cutoff / scale) * 100}%` }}
                     aria-hidden
                   />
@@ -295,11 +301,11 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
 
                 <span
                   aria-hidden
-                  className="absolute bottom-[-2.5px] right-[-2.5px] size-[5px] rounded-full bg-ink-4"
+                  className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
                 />
               </div>
               <button
-                className="h-10 shrink-0 rounded-pill bg-ink px-5 text-[14px] font-medium text-white transition-colors hover:bg-ink/90"
+                className="rounded-pill bg-ink hover:bg-ink/90 h-10 shrink-0 px-5 text-[14px] font-medium text-white transition-colors"
                 onClick={() => {
                   setLive(m);
                   setSecIdx(0);

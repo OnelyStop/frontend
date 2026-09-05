@@ -6,11 +6,12 @@ import { useAuth } from "@/features/auth/AuthContext";
 import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
 import { AuthShell } from "@/features/auth/components/AuthShell";
 import {
+  AuthDivider,
   AuthError,
   GoogleButton,
   SetupNotice,
 } from "@/features/auth/components/AuthBits";
-import { Button } from "@/components/marketing/Button";
+import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -51,13 +52,20 @@ export function SignupView() {
         subtitle={`We sent a confirmation link to ${email}. Click it to activate your account.`}
         footer={
           <>
-            Wrong address? <Link href="/signup">Try again</Link>
+            Wrong address?{" "}
+            <Link href="/signup" className="text-ink font-medium">
+              Try again
+            </Link>
           </>
         }
       >
-        <div className="auth-form auth-confirm">
-          <MailCheck size={48} strokeWidth={1.5} />
-          <p className="auth-shell__subtitle">
+        <div className="mt-6 text-center">
+          <MailCheck
+            size={48}
+            strokeWidth={1.5}
+            className="text-brand mx-auto mb-3.5"
+          />
+          <p className="text-ink-2 text-[14px]">
             The link expires in 24 hours. Check your spam folder if it hasn't
             arrived in a couple of minutes.
           </p>
@@ -72,48 +80,48 @@ export function SignupView() {
       subtitle="No card needed. Your first marked answer is on us."
       footer={
         <>
-          Already have an account? <Link href="/login">Sign in</Link>
+          Already have an account?{" "}
+          <Link href="/login" className="text-ink font-medium">
+            Sign in
+          </Link>
         </>
       }
     >
-      <form className="auth-form" onSubmit={handleSubmit}>
+      <form className="mt-6" onSubmit={handleSubmit}>
         {!configured && <SetupNotice />}
 
         {googleEnabled && (
           <>
             <GoogleButton onClick={handleGoogle} disabled={busy} />
-            <div className="auth-form__divider">or</div>
+            <AuthDivider />
           </>
         )}
 
-        <div className="form-grid">
-          <div className="field">
-            <label htmlFor="signup-name">Full name</label>
-            <input
+        <div className="grid gap-3.5">
+          <Field label="Full name" htmlFor="signup-name">
+            <Input
               id="signup-name"
               type="text"
               autoComplete="name"
-              placeholder="Alex Morgan"
+              placeholder="Aarav Mehta"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
-          </div>
-          <div className="field">
-            <label htmlFor="signup-email">Email</label>
-            <input
+          </Field>
+          <Field label="Email" htmlFor="signup-email">
+            <Input
               id="signup-email"
               type="email"
               autoComplete="email"
-              placeholder="you@school.ac.uk"
+              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-          </div>
-          <div className="field">
-            <label htmlFor="signup-password">Password</label>
-            <input
+          </Field>
+          <Field label="Password" htmlFor="signup-password">
+            <Input
               id="signup-password"
               type="password"
               autoComplete="new-password"
@@ -123,7 +131,7 @@ export function SignupView() {
               minLength={MIN_PASSWORD_LENGTH}
               required
             />
-          </div>
+          </Field>
         </div>
 
         {error && <AuthError message={error} />}
@@ -131,12 +139,11 @@ export function SignupView() {
         <Button
           type="submit"
           size="lg"
-          className="auth-form__submit"
+          block
+          className="mt-5"
           disabled={busy || !configured}
-          leftIcon={
-            busy ? <Loader2 size={16} className="auth-spinner" /> : undefined
-          }
         >
+          {busy ? <Loader2 size={16} className="animate-spin" /> : null}
           {busy ? "Creating account…" : "Create free account"}
         </Button>
       </form>

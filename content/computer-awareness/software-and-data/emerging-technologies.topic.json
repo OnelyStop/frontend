@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "software-and-data",
+  "chapterName": "Software and data",
+  "chapterPosition": 2,
+  "topicSlug": "emerging-technologies",
+  "topicPosition": 40,
+  "title": "Emerging Technologies",
+  "summary": "Concept-level coverage of the terms bank exams now test: cloud computing and its service and deployment models, virtualisation and containers, AI/ML/deep learning and generative AI, Big Data, IoT and edge computing, and blockchain and distributed ledgers.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "operating-systems-and-software",
+    "computer-networks"
+  ],
+  "learningObjectives": [
+    "Distinguish the cloud service models (IaaS, PaaS, SaaS) and deployment models (public, private, hybrid).",
+    "Place AI, machine learning, deep learning and generative AI as nested ideas.",
+    "State what Big Data, IoT and edge computing mean and why each matters.",
+    "Explain a blockchain / distributed ledger at a concept level and how a cryptocurrency uses one."
+  ],
+  "tags": [
+    "computer-awareness",
+    "emerging-technology",
+    "cloud",
+    "ai",
+    "blockchain"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "NIST_GLOSSARY",
+      "url": "https://csrc.nist.gov/glossary",
+      "title": "NIST CSRC glossary",
+      "publisher": "NIST",
+      "usageMode": "open_adaptable",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the cloud service/deployment model definitions (which the glossary draws from NIST SP 800-145) and for the blockchain and IoT terms. Each restated in original teaching wording."
+    },
+    {
+      "sourceId": "NIST_COPYRIGHT",
+      "url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
+      "title": "NIST copyright and licensing",
+      "publisher": "NIST",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "NIST-authored technical-series works carry worldwide reuse permission; only NIST-authored definitions were consulted."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Wikibooks Basic Computing",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for virtualisation, AI and Big Data terminology; wording is original."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm emerging-technology awareness is part of the syllabus. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-this-covers",
+      "type": "introduction",
+      "title": "What the exam expects",
+      "markdown": "This topic is tested at the level of \"match the term to the description\" and \"which model is this an example of\". You are not expected to configure anything — you are expected to place each buzzword correctly and not confuse two neighbours (AI with ML, a blockchain with a cryptocurrency, virtualisation with a container).\n\nEverything below is described at a concept level. Nothing here is investment or financial advice.",
+      "sourceIds": ["SATHEE_BANK", "WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "emerging technology exam match term to description",
+        "which cloud model is this an example of",
+        "do not confuse ai with ml blockchain with cryptocurrency",
+        "concept level not configuration"
+      ],
+      "position": 10
+    },
+    {
+      "id": "cloud-computing",
+      "type": "concept",
+      "title": "Cloud computing",
+      "markdown": "**Cloud computing** is renting computing resources — servers, storage, databases, software — over the Internet, on demand, and paying for what you use instead of buying and running your own hardware. Its usual traits: on-demand self-service, broad network access, resource pooling, rapid elasticity, and measured (metered) usage.\n\n**Service models** — how much the provider manages:\n\n- **IaaS** (Infrastructure as a Service): you rent raw compute, storage and networking; you manage the OS and everything above.\n- **PaaS** (Platform as a Service): you get a ready platform to deploy your code; the provider manages the OS and runtime.\n- **SaaS** (Software as a Service): you just use the finished application in a browser; the provider manages everything.\n\n**Deployment models:** **public** (shared provider infrastructure), **private** (dedicated to one organisation), **hybrid** (a mix, with data or workloads moving between them), and **community** (shared by organisations with common needs).",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "cloud computing rent resources on demand pay as you go",
+        "on-demand self-service resource pooling elasticity measured usage",
+        "iaas paas saas how much provider manages",
+        "public private hybrid community deployment model"
+      ],
+      "position": 20
+    },
+    {
+      "id": "iaas-paas-saas",
+      "type": "comparison",
+      "title": "IaaS vs PaaS vs SaaS, public vs private",
+      "markdown": "| Model | You manage | Provider manages | Example shape |\n| --- | --- | --- | --- |\n| **IaaS** | OS, runtime, apps, data | hardware, virtualisation, network | renting virtual machines and disks |\n| **PaaS** | your app code and data | OS, runtime, scaling, patching | pushing code to a managed platform |\n| **SaaS** | just your settings and data | everything else | using a web email or CRM app |\n\n| Deployment | Who uses it | Trade-off |\n| --- | --- | --- |\n| **Public cloud** | many tenants share the provider's infrastructure | lowest cost, least control |\n| **Private cloud** | one organisation only | most control and isolation, higher cost |\n| **Hybrid** | both, linked | keep sensitive data private, burst to public for scale |\n\n**Virtualisation vs containers:** a **virtual machine** emulates a whole computer including its own OS; a **container** packages just an app and its dependencies and shares the host OS kernel — lighter and faster to start.",
+      "sourceIds": ["NIST_GLOSSARY", "WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "iaas paas saas who manages what table",
+        "public cloud shared cheap private cloud isolated hybrid burst",
+        "virtual machine emulates whole computer own os",
+        "container shares host kernel lighter faster"
+      ],
+      "position": 30
+    },
+    {
+      "id": "ai-ml-dl",
+      "type": "concept",
+      "title": "AI, machine learning and generative AI",
+      "markdown": "These are **nested**, not separate:\n\n- **Artificial Intelligence (AI):** the broad goal of getting machines to perform tasks that normally need human intelligence.\n- **Machine Learning (ML):** a subset of AI where a system learns patterns from data instead of being explicitly programmed with rules. It is trained on examples, then makes predictions on new inputs.\n- **Deep Learning:** a subset of ML using multi-layer neural networks; it powers modern image and speech recognition.\n- **Generative AI:** models (often large language models) that produce new text, images, audio or code from a prompt, having learned statistical patterns from very large training sets.\n\n**NLP** (Natural Language Processing) is the field of making computers work with human language — the base for chatbots, translation and search.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "ai ml deep learning generative ai nested not separate",
+        "machine learning learns patterns from data not explicit rules",
+        "deep learning multi-layer neural networks",
+        "generative ai large language model produces new text images from prompt nlp"
+      ],
+      "position": 40
+    },
+    {
+      "id": "data-iot-edge",
+      "type": "concept",
+      "title": "Big Data, IoT and edge",
+      "markdown": "- **Big Data** means data sets too large or fast-moving for traditional tools, usually described by the *V*s — **Volume** (scale), **Velocity** (speed of arrival), **Variety** (mixed formats), and often **Veracity** (trustworthiness) and **Value**.\n- **IoT** (Internet of Things): everyday physical objects — meters, sensors, appliances, vehicles — fitted with sensors and network connections so they can report data and be controlled remotely.\n- **Edge computing:** processing data near where it is produced (on or beside the device) instead of sending all of it to a distant cloud — lower latency and less bandwidth, useful for IoT.\n- **5G:** the fifth-generation mobile network standard — higher speed, lower latency, more simultaneous devices than 4G.\n- **Quantum computing:** an experimental model that uses quantum states (qubits) to attack certain problems; still largely in the research stage.",
+      "sourceIds": ["NIST_GLOSSARY", "WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "big data volume velocity variety veracity value the vs",
+        "iot internet of things sensors network everyday objects report data",
+        "edge computing process data near the device lower latency bandwidth",
+        "5g mobile network standard quantum computing qubits experimental"
+      ],
+      "position": 50
+    },
+    {
+      "id": "blockchain",
+      "type": "concept",
+      "title": "Blockchain and distributed ledgers",
+      "markdown": "A **distributed ledger** is a record of transactions copied across many computers, with no single central keeper; the copies are kept in agreement by a **consensus** procedure.\n\nA **blockchain** is one kind of distributed ledger: transactions are grouped into **blocks**, each block carries a cryptographic **hash** of the previous block, so the blocks form a chain. Changing an old record would break every hash after it, which makes the history **tamper-evident**.\n\nA **cryptocurrency** is a digital asset that records its ownership and transfers on such a blockchain rather than in a bank's books. A **smart contract** is code stored on a blockchain that runs automatically when its conditions are met. Beyond currencies, ledgers are being trialled for supply-chain tracking, land records and trade finance. *(Descriptive only — nothing here is financial advice.)*",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "distributed ledger transactions copied across computers no central keeper consensus",
+        "blockchain blocks linked by hash of previous block tamper evident",
+        "cryptocurrency records ownership on a blockchain not bank books",
+        "smart contract code runs automatically supply chain land records"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **A web email service is SaaS, not IaaS.** IaaS is renting bare servers and disks.\n- **AI is the umbrella; ML is a subset; deep learning is a subset of ML.** They are not three parallel things.\n- **A blockchain is the ledger technology; a cryptocurrency is one application of it.** Ledgers have non-currency uses.\n- **A container is not a small virtual machine** — a VM carries its own OS; a container shares the host's kernel.\n- **Edge computing does not replace the cloud;** it handles time-critical processing near the device and still uses the cloud for the rest.\n- **\"The cloud\" is still physical servers** — in someone else's data centre, rented rather than owned.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "emerging tech confusions saas not iaas",
+        "ai umbrella ml subset deep learning subset of ml",
+        "blockchain is ledger cryptocurrency is an application",
+        "container not a small vm edge does not replace cloud"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Cloud = on-demand rented computing, pay per use. Service models by how much the provider runs: IaaS (bare infra) → PaaS (managed platform) → SaaS (finished app). Deployment: public, private, hybrid, community.\n- VM emulates a whole computer with its own OS; a container shares the host kernel and is lighter.\n- AI ⊃ ML ⊃ deep learning. Generative AI produces new content from a prompt; NLP handles human language.\n- Big Data covers Volume, Velocity, Variety (+ Veracity, Value). IoT = connected physical objects. Edge = process near the device.\n- Blockchain = a distributed, tamper-evident ledger of blocks chained by hashes; a cryptocurrency is one use, a smart contract another.",
+      "sourceIds": ["NIST_GLOSSARY"],
+      "searchKeywords": [
+        "emerging technologies summary revision",
+        "cloud vm container ai big data iot edge blockchain recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Match the term to the description; give a one-line reason.\n\n1. A company rents virtual servers and installs its own operating system on them. Which service model?\n2. Staff use a browser-based payroll application and manage nothing else. Which service model?\n3. \"A subset of AI in which a system learns patterns from data rather than following hand-written rules.\" Which term?\n4. Grouping records into blocks each linked by the hash of the previous block. Which technology?\n5. Processing a sensor's data on the machine beside it to cut latency, instead of sending it to a distant data centre. Which term?\n6. The \"three Vs\" most often used to describe this. Which term?\n7. A lighter alternative to a virtual machine that shares the host OS kernel. Which term?\n8. A private cloud plus a public cloud, linked so workloads can move between them. Which deployment model?",
+      "searchKeywords": [
+        "emerging technologies practice match term iaas saas ml blockchain edge big data container hybrid"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "iaas-paas-saas-card",
+      "front": "IaaS vs PaaS vs SaaS?",
+      "back": "IaaS: rent raw compute/storage/network, you manage the OS up. PaaS: a managed platform to deploy your code, provider runs the OS/runtime. SaaS: use a finished application, provider runs everything.",
+      "explanation": "The line moves up the stack from IaaS to SaaS.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cloud-computing", "iaas-paas-saas"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "cloud-deployment-card",
+      "front": "Public, private and hybrid cloud?",
+      "back": "Public: shared provider infrastructure, cheapest, least control. Private: dedicated to one organisation, most control, costlier. Hybrid: both linked, keeping sensitive workloads private while bursting to public for scale.",
+      "explanation": "Community cloud is shared by organisations with common requirements.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["cloud-computing", "iaas-paas-saas"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "vm-vs-container-card",
+      "front": "Virtual machine vs container?",
+      "back": "A VM emulates a whole computer and runs its own guest OS. A container packages an app with its dependencies and shares the host OS kernel — smaller and faster to start.",
+      "explanation": "A container is not a lightweight VM; the kernel-sharing is the key difference.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["iaas-paas-saas"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "ai-ml-nesting-card",
+      "front": "How do AI, ML and deep learning relate?",
+      "back": "They are nested: AI is the broad goal; machine learning is a subset of AI that learns from data; deep learning is a subset of ML using multi-layer neural networks.",
+      "explanation": "Generative AI is ML that produces new content from a prompt.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["ai-ml-dl", "common-mistakes"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "big-data-vs-card",
+      "front": "What do the 'V's of Big Data stand for?",
+      "back": "Volume (scale), Velocity (speed of arrival), Variety (mixed formats), and often Veracity (trustworthiness) and Value.",
+      "explanation": "Big Data = data too large or fast for traditional tools.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["data-iot-edge"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "iot-edge-card",
+      "front": "What are IoT and edge computing, and how do they fit together?",
+      "back": "IoT is everyday physical objects fitted with sensors and network links so they report data and can be controlled. Edge computing processes that data near the device to cut latency and bandwidth, instead of sending it all to a distant cloud.",
+      "explanation": "Edge complements the cloud; it does not replace it.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["data-iot-edge", "common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "blockchain-card",
+      "front": "What makes a blockchain tamper-evident?",
+      "back": "Transactions are grouped into blocks, and each block stores a cryptographic hash of the previous block. Altering an old record changes its hash and breaks every following block, so tampering is detectable.",
+      "explanation": "It is one kind of distributed ledger, kept consistent by a consensus procedure.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["blockchain"],
+      "position": 70,
+      "status": "approved"
+    },
+    {
+      "id": "blockchain-vs-crypto-card",
+      "front": "Is a blockchain the same as a cryptocurrency?",
+      "back": "No. A blockchain is the distributed-ledger technology. A cryptocurrency is one application of it — recording asset ownership and transfers on a blockchain. Ledgers are also trialled for supply chains, land records and trade finance.",
+      "explanation": "A smart contract is another application: code that runs on the ledger when conditions are met.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["blockchain", "common-mistakes"],
+      "position": 80,
+      "status": "approved"
+    }
+  ]
+}

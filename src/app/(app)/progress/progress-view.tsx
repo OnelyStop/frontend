@@ -34,7 +34,7 @@ export function ProgressView() {
         sub={`${board} · last 30 days. Accuracy alone does not clear a cutoff — pace and the marks negative marking takes back decide the paper.`}
       />
 
-      <div className="mb-10 grid grid-cols-1 border-l border-t border-line md:grid-cols-3">
+      <div className="border-line mb-10 grid grid-cols-1 border-t border-l md:grid-cols-3">
         <Stat
           label="Accuracy"
           value={`${acc}%`}
@@ -76,9 +76,9 @@ export function ProgressView() {
                   </div>
                   {/* One weight for volume; colour is spent on the pace verdict
                       beside it, which is the number that decides the paper. */}
-                  <div className="h-1.5 overflow-hidden rounded-pill bg-line">
+                  <div className="rounded-pill bg-line h-1.5 overflow-hidden">
                     <div
-                      className="h-full rounded-pill bg-ink"
+                      className="rounded-pill bg-ink h-full"
                       style={{ width: `${a}%` }}
                     />
                   </div>
@@ -87,7 +87,7 @@ export function ProgressView() {
             })}
           </div>
 
-          <p className="mt-7 border-t border-line pt-5 text-[13px] leading-relaxed text-ink-3">
+          <p className="border-line text-ink-3 mt-7 border-t pt-5 text-[13px] leading-relaxed">
             A section can be accurate and still cost you the paper if it is
             slow. Reasoning is your best accuracy and your worst pace.
           </p>
@@ -106,14 +106,14 @@ export function ProgressView() {
                     title={`${q} questions`}
                   />
                 </div>
-                <span className="text-center text-[12px] text-ink-4">
+                <span className="text-ink-4 text-center text-[12px]">
                   {DAYS[i]}
                 </span>
               </div>
             ))}
           </div>
 
-          <p className="mt-6 border-t border-line pt-5 text-[13px] leading-relaxed text-ink-3">
+          <p className="border-line text-ink-3 mt-6 border-t pt-5 text-[13px] leading-relaxed">
             Wednesday is the only blank day. A broken streak costs more in
             recall than a heavy Saturday gains.
           </p>
@@ -133,15 +133,15 @@ function Stat({
   note: string;
 }) {
   return (
-    <div className="relative border-b border-r border-line p-7">
-      <p className="text-[14px] text-ink-2">{label}</p>
+    <div className="border-line relative border-r border-b p-7">
+      <p className="text-ink-2 text-[14px]">{label}</p>
       <p className="tnum mt-3 text-[38px] leading-none tracking-[-0.03em]">
         {value}
       </p>
-      <p className="mt-3 text-[13px] leading-relaxed text-ink-3">{note}</p>
+      <p className="text-ink-3 mt-3 text-[13px] leading-relaxed">{note}</p>
       <span
         aria-hidden
-        className="absolute bottom-[-2.5px] right-[-2.5px] size-[5px] rounded-full bg-ink-4"
+        className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
       />
     </div>
   );

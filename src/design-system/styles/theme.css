@@ -53,8 +53,8 @@
   /* Only things that genuinely float get a shadow: the palette, a tooltip. */
   --shadow-xs: none;
   --shadow-card: none;
-  --shadow-pop: 0 2px 6px rgb(10 10 10 / 0.05),
-    0 20px 50px -12px rgb(10 10 10 / 0.22);
+  --shadow-pop:
+    0 2px 6px rgb(10 10 10 / 0.05), 0 20px 50px -12px rgb(10 10 10 / 0.22);
 
   --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
 
@@ -132,6 +132,92 @@
   transform: none;
 }
 
+/* Study module — the tutor mascot and the sticky-note affordances. These are
+   the one place the app is allowed a little character: a resting idle loop, and
+   a reaction on hover. Every use is behind `motion-safe:` so reduced-motion
+   users get a still icon. */
+@keyframes float-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes mascot-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes mascot-orbit {
+  from {
+    transform: rotate(0deg) translateX(12px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(12px) rotate(-360deg);
+  }
+}
+@keyframes mascot-wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(20deg);
+  }
+  60% {
+    transform: rotate(-12deg);
+  }
+}
+@keyframes spark-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+@keyframes note-nudge {
+  0%,
+  100% {
+    transform: rotate(-1.4deg);
+  }
+  50% {
+    transform: rotate(1.4deg);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility pop-in {
+  animation: pop-in 0.26s var(--ease-soft) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pop-in {
+    animation: none;
+  }
+}
+
 /* A panel is white ground inside a hairline, like the code block on a ruled
    page. No fill and no shadow — grey blocks made every screen look like a
    dashboard, so the rule does the work instead. */
@@ -160,6 +246,58 @@
   line-height: 32px;
 }
 
+/* The marked-script scene. These four cannot be utilities: a relational
+   selector, a scroll-driven timeline, and two textures that need their own
+   gradient stops. Everything else in that section is ordinary utilities. */
+@utility script-rule {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 27px,
+    rgb(21 21 26 / 0.045) 27px 28px
+  );
+  background-position: 0 -3px;
+}
+
+@utility script-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+/* Hovering any one marking point lights its three appearances at once: the
+   words in the script, the note in the margin, the credit point in the scheme.
+   The box-shadow bleeds the wash past the box without moving anything. */
+@media (hover: hover) {
+  .marking-scene:has([data-mp="MP1"]:hover) [data-mp="MP1"],
+  .marking-scene:has([data-mp="MP2"]:hover) [data-mp="MP2"],
+  .marking-scene:has([data-mp="MP3"]:hover) [data-mp="MP3"],
+  .marking-scene:has([data-mp="MP4"]:hover) [data-mp="MP4"],
+  .marking-scene:has([data-mp="MP5"]:hover) [data-mp="MP5"],
+  .marking-scene:has([data-mp="MP6"]:hover) [data-mp="MP6"] {
+    background-color: var(--color-brand-soft);
+    border-radius: 6px;
+    box-shadow: 0 0 0 6px var(--color-brand-soft);
+  }
+}
+
+/* The ink draws itself as the scene scrolls in. Unsupported browsers get the
+   stroke already complete, which is the correct resting state. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .marking-ink path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: marking-ink 1ms linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 30%;
+    }
+  }
+}
+
+@keyframes marking-ink {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @layer base {
   *,
   *::before,
@@ -171,14 +309,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    /* Lenis drives the scroll position, so the native bar is decoration that
-       fights the design. Scrolling and keyboard paging are unaffected. */
-    scrollbar-width: none;
-  }
-
-  html::-webkit-scrollbar,
-  body::-webkit-scrollbar {
-    display: none;
   }
 
   html,

@@ -26,7 +26,7 @@ export function SelectionAsk() {
       }
       const node = sel.anchorNode;
       const host =
-        node instanceof Element ? node : node?.parentElement ?? null;
+        node instanceof Element ? node : (node?.parentElement ?? null);
       if (!host?.closest("[data-companion]")) {
         setAnchor(null);
         return;
@@ -61,7 +61,7 @@ export function SelectionAsk() {
   return (
     <button
       type="button"
-      className="press fixed z-90 flex -translate-x-1/2 -translate-y-full items-center gap-1.5 rounded-pill bg-ink px-3 py-1.5 text-[12.5px] font-medium text-white shadow-pop"
+      className="press rounded-pill bg-ink shadow-pop fixed z-90 flex -translate-x-1/2 -translate-y-full items-center gap-1.5 px-3 py-1.5 text-[12.5px] font-medium text-white"
       style={{ left: anchor.x, top: anchor.y }}
       onClick={() => {
         openWith(textRef.current);

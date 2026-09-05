@@ -1,13 +1,9 @@
-/* The design system's single entry point.
-
-     import { Button, Card, Lattice, Stat } from "@/design-system";
-
-   Tokens live in styles/theme.css and are imported once by the root layout.
-   See DESIGN.md at the repo root for what each component is for and when to
-   reach for it. */
-
 export { cn } from "./lib/cn";
 export * from "./lib/motion";
+
+export { Brand } from "./components/brand";
+
+export { Dropdown, type DropdownOption } from "./components/dropdown";
 
 export {
   Button,

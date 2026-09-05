@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "algebra",
+  "chapterName": "Algebra",
+  "chapterPosition": 7,
+  "topicSlug": "surds-indices-and-exponents",
+  "topicPosition": 40,
+  "title": "Surds, Indices and Exponents",
+  "summary": "The laws of indices, fractional and negative powers as roots and reciprocals, simplifying and comparing surds, rationalising a denominator, and solving simple exponential equations by matching bases.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["simplification-and-order-of-operations"],
+  "learningObjectives": [
+    "Apply the laws of indices for products, quotients and powers of powers.",
+    "Read a fractional index as a root and a negative index as a reciprocal.",
+    "Simplify a surd, rationalise a denominator and compare two surds.",
+    "Solve an exponential equation by writing both sides to a common base."
+  ],
+  "tags": ["algebra", "indices", "surds", "exponents", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Algebra/Exponents",
+      "title": "Algebra/Exponents",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the laws of indices and the meaning of fractional and negative powers. All wording and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm surds and indices are part of the quantitative-aptitude scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-an-index-is",
+      "type": "introduction",
+      "title": "What an index is",
+      "markdown": "An index, or exponent, is the small number that says how many times a base is multiplied by itself: in 2^5 the base is 2 and the index is 5, so the value is 32.\n\nExam questions in this area are quick if you know the laws below and slow if you do not. They come as a chain of powers to simplify, a fractional power to evaluate, a surd expression to tidy or compare, or an equation like 4 to the power (x plus 1) equals 8 to the power x. All of these reduce to writing everything with the same base.\n\nThe caret sign here means \"to the power of\".",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "index exponent meaning base power",
+        "types of indices question in bank exams",
+        "reduce everything to a common base"
+      ],
+      "position": 10
+    },
+    {
+      "id": "laws-of-indices",
+      "type": "formula",
+      "title": "The laws of indices",
+      "markdown": "For any non-zero base a and any indices m and n:\n\n- a^m times a^n equals a^(m plus n)\n- a^m divided by a^n equals a^(m minus n)\n- (a^m)^n equals a^(m times n)\n- (a times b)^n equals a^n times b^n\n- (a divided by b)^n equals a^n divided by b^n\n- a^0 equals 1\n\nSo (2^10 times 2^3) divided by 2^7 equals 2^(10 plus 3 minus 7), which is 2^6, or 64. Add the indices when multiplying, subtract when dividing, multiply when raising a power to a power.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "laws of indices add subtract multiply exponents",
+        "a to the m times a to the n equals a to the m plus n",
+        "power of a power multiply indices"
+      ],
+      "position": 20
+    },
+    {
+      "id": "fractional-and-negative",
+      "type": "concept",
+      "title": "Fractional and negative indices",
+      "markdown": "- **Negative index** means reciprocal: a^( minus n) equals 1 divided by a^n. So 2^( minus 3) equals one eighth.\n- **Fractional index** means a root: a^(1 over n) is the n-th root of a, and a^(m over n) is the n-th root of a^m, equivalently (the n-th root of a) raised to m.\n\nSo 27^(2 over 3) is the cube root of 27, squared, that is 3 squared, or 9. And 16^(3 over 4) is the fourth root of 16, cubed, that is 2 cubed, or 8. Work the root first when it makes the numbers small, then apply the power.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "negative index means reciprocal",
+        "fractional index means root",
+        "27 to the two thirds equals 9"
+      ],
+      "position": 30
+    },
+    {
+      "id": "simplifying-surds",
+      "type": "method",
+      "title": "Simplifying and comparing surds",
+      "markdown": "A surd is a root that does not come out exact, such as the square root of 2.\n\n- **Simplify** by pulling out the largest square factor: the square root of 50 is the square root of (25 times 2), that is 5 times the square root of 2.\n- **Add or subtract** only like surds: the square root of 50 plus the square root of 18 is 5 root 2 plus 3 root 2, that is 8 root 2.\n- **Compare** two surds by squaring both, or by writing them with the same root index. To compare the cube root of 10 with the square root of 4, raise both to the sixth power: 10 squared is 100 against 4 cubed is 64, so the cube root of 10 is larger.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simplify surd pull out square factor",
+        "add like surds only",
+        "compare surds by raising to a common power"
+      ],
+      "position": 40
+    },
+    {
+      "id": "rationalising",
+      "type": "method",
+      "title": "Rationalising a denominator",
+      "markdown": "To clear a surd from the bottom of a fraction, multiply the top and bottom by a factor that removes it.\n\n- For 1 divided by the square root of a, multiply top and bottom by the square root of a.\n- For 1 divided by (the square root of a minus the square root of b), multiply by (the square root of a plus the square root of b). The bottom becomes a minus b, a whole number.\n\nSo 1 divided by (the square root of 5 minus the square root of 3) becomes (the square root of 5 plus the square root of 3) divided by (5 minus 3), that is (root 5 plus root 3) divided by 2.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "rationalise the denominator surd",
+        "multiply by the conjugate root a plus root b",
+        "denominator becomes a minus b"
+      ],
+      "position": 50
+    },
+    {
+      "id": "matching-bases",
+      "type": "method",
+      "title": "Exponential equations by matching bases",
+      "markdown": "If two powers are equal and you can write them with the same base, their indices are equal.\n\n1. **Write every base as a power of one common base**, usually the smallest.\n2. **Use the power-of-a-power law** to bring each side to base^(something).\n3. **Set the indices equal** and solve the resulting linear equation.\n\nFor 4^(x plus 1) equals 8^x, write 4 as 2^2 and 8 as 2^3: the left side is 2^(2x plus 2) and the right side is 2^(3x). So 2x plus 2 equals 3x, which gives x equals 2. Check: 4^3 is 64 and 8^2 is 64.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "solve exponential equation by matching bases",
+        "write 4 and 8 as powers of 2",
+        "set the indices equal"
+      ],
+      "position": 60
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. A chain of powers.** Simplify (2^10 times 2^3) divided by 2^7. Adding and subtracting indices, this is 2^(10 plus 3 minus 7), that is 2^6, equal to **64**.\n\n**2. A fractional power.** Evaluate 27^(2 over 3) plus 16^(3 over 4). The first is the cube root of 27, squared, that is 9. The second is the fourth root of 16, cubed, that is 8. The total is **17**.\n\n**3. Matching bases.** Solve 4^(x plus 1) equals 8^x. Writing base 2: 2^(2x plus 2) equals 2^(3x), so 2x plus 2 equals 3x and **x equals 2**. Both sides then equal 64.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simplify chain of powers worked example base 2",
+        "evaluate 27 to the two thirds plus 16 to the three quarters",
+        "solve 4 to the x plus 1 equals 8 to the x"
+      ],
+      "position": 70,
+      "expectedAnswers": [
+        {
+          "label": "1. (2^10 * 2^3) / 2^7",
+          "value": 64,
+          "expression": "(2**10 * 2**3) / 2**7"
+        },
+        {
+          "label": "2. 27^(2/3) + 16^(3/4)",
+          "value": 17,
+          "tolerance": 0.01,
+          "expression": "27**(2/3) + 16**0.75"
+        },
+        {
+          "label": "3. check LHS 4^(x+1) at x=2",
+          "value": 64,
+          "expression": "4**(2 + 1)"
+        },
+        {
+          "label": "3. check RHS 8^x at x=2",
+          "value": 64,
+          "expression": "8**2"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Multiplying the bases.** 2^3 times 2^4 is 2^7, not 4^7. The base does not change.\n- **Adding indices when raising a power to a power.** (2^3)^4 is 2^12, not 2^7.\n- **Treating a^( minus n) as negative.** It is a reciprocal, 1 over a^n, and stays positive for positive a.\n- **Adding unlike surds.** The square root of 2 plus the square root of 3 does not simplify to the square root of 5.\n- **Comparing surds by eye.** Square both, or raise both to a common power, before deciding which is larger.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "indices mistakes base does not change",
+        "power of a power multiply not add",
+        "negative index is a reciprocal not negative"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- a^m times a^n equals a^(m plus n); a^m divided by a^n equals a^(m minus n); (a^m)^n equals a^(mn); a^0 equals 1.\n- a^( minus n) equals 1 over a^n. a^(m over n) is the n-th root of a^m.\n- Simplify a surd by pulling out the largest square factor; add only like surds.\n- Rationalise 1 over (root a minus root b) by multiplying top and bottom by (root a plus root b); the bottom becomes a minus b.\n- Solve exponential equations by writing both sides to a common base and equating the indices.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "indices and surds summary",
+        "revision laws of indices fractional negative",
+        "rationalising and matching bases recap"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Evaluate or simplify to a number.\n\n1. Simplify (3^5 times 3^4) divided by 3^7.\n2. Evaluate 2^0 plus 3^( minus 1) as a decimal.\n3. Write the square root of 50 plus the square root of 18 as a decimal.\n4. Evaluate 64^(2 over 3).\n5. Evaluate (the square root of 5) times (the square root of 20).\n6. Evaluate 81^(3 over 4).\n7. Evaluate 3^( minus 2) plus 2^( minus 2) as a decimal.\n8. Simplify 7^6 divided by (7^3 times 7^2).",
+      "searchKeywords": [
+        "indices and surds practice questions",
+        "evaluate fractional powers exercises",
+        "simplify surd expressions practice"
+      ],
+      "position": 100,
+      "expectedAnswers": [
+        {
+          "label": "1. (3^5 * 3^4) / 3^7",
+          "value": 9,
+          "expression": "(3**5 * 3**4) / 3**7"
+        },
+        {
+          "label": "2. 2^0 + 3^(-1)",
+          "value": 1.3333,
+          "tolerance": 0.001,
+          "expression": "2**0 + 3**(-1)"
+        },
+        {
+          "label": "3. sqrt(50) + sqrt(18)",
+          "value": 11.3137,
+          "tolerance": 0.01,
+          "expression": "50**0.5 + 18**0.5"
+        },
+        {
+          "label": "4. 64^(2/3)",
+          "value": 16,
+          "tolerance": 0.01,
+          "expression": "64**(2/3)"
+        },
+        {
+          "label": "5. sqrt(5) * sqrt(20)",
+          "value": 10,
+          "tolerance": 0.001,
+          "expression": "5**0.5 * 20**0.5"
+        },
+        {
+          "label": "6. 81^(3/4)",
+          "value": 27,
+          "tolerance": 0.01,
+          "expression": "81**0.75"
+        },
+        {
+          "label": "7. 3^(-2) + 2^(-2)",
+          "value": 0.3611,
+          "tolerance": 0.001,
+          "expression": "3**(-2) + 2**(-2)"
+        },
+        {
+          "label": "8. 7^6 / (7^3 * 7^2)",
+          "value": 7,
+          "expression": "7**6 / (7**3 * 7**2)"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "three-laws",
+      "front": "State the three core laws of indices for a^m and a^n.",
+      "back": "a^m x a^n = a^(m+n); a^m / a^n = a^(m-n); (a^m)^n = a^(mn). The base never changes.",
+      "explanation": "Add when multiplying, subtract when dividing, multiply for a power of a power.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["laws-of-indices"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "zero-and-negative",
+      "front": "What do a^0 and a^(-n) equal?",
+      "back": "a^0 = 1 for any non-zero a. a^(-n) = 1 / a^n, a positive value for positive a.",
+      "explanation": "A negative index is a reciprocal, not a negative number.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["laws-of-indices", "fractional-and-negative"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "fractional-index",
+      "front": "How do you read a^(m/n), and what is 27^(2/3)?",
+      "back": "a^(m/n) is the n-th root of a^m, or (n-th root of a) to the power m. 27^(2/3) = (cube root of 27)^2 = 3^2 = 9.",
+      "explanation": "Take the root first when it keeps the numbers small.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["fractional-and-negative", "worked-example"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "simplify-surd",
+      "front": "Simplify sqrt(50), and hence sqrt(50) + sqrt(18).",
+      "back": "sqrt(50) = sqrt(25 x 2) = 5 sqrt(2). sqrt(18) = 3 sqrt(2). Sum = 8 sqrt(2).",
+      "explanation": "Only like surds can be added.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["simplifying-surds"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "rationalise",
+      "front": "How do you rationalise 1 / (sqrt(5) - sqrt(3))?",
+      "back": "Multiply top and bottom by (sqrt(5) + sqrt(3)). The denominator becomes 5 - 3 = 2, giving (sqrt(5) + sqrt(3)) / 2.",
+      "explanation": "The conjugate turns a difference of roots into a whole number.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["rationalising"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "compare-surds",
+      "front": "Which is larger, the cube root of 10 or the square root of 4?",
+      "back": "Raise both to the sixth power: 10^2 = 100 versus 4^3 = 64. So the cube root of 10 is larger.",
+      "explanation": "Compare surds by bringing them to a common power, not by eye.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["simplifying-surds"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "matching-bases-card",
+      "front": "Solve 4^(x+1) = 8^x by matching bases.",
+      "back": "Write base 2: 2^(2x+2) = 2^(3x). Equate indices: 2x + 2 = 3x, so x = 2. Check: 4^3 = 8^2 = 64.",
+      "explanation": "Equal powers with the same base have equal indices.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["matching-bases", "worked-example"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

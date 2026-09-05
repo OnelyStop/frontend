@@ -11,7 +11,12 @@ import {
   SectionTitle,
   questionVariants,
 } from "@/design-system";
-import { SECTIONS, SECTION_DB, SECTION_LABEL, type Subject } from "@/data/navigation";
+import {
+  SECTIONS,
+  SECTION_DB,
+  SECTION_LABEL,
+  type Subject,
+} from "@/data/navigation";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
 /* Drills. Defaults are the feature: land, press Start, you are practising.
@@ -33,7 +38,9 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
   // "Weak topics"/"Speed"/"Mixed" don't change the pool yet — none of them
   // have attempt data to aim at (see attempts/user_topic_stats in
   // src/db/schema.ts: created, but nothing writes them until scoring lands).
-  const set = pool.filter((q) => q.section === SECTION_DB[section]).slice(0, len);
+  const set = pool
+    .filter((q) => q.section === SECTION_DB[section])
+    .slice(0, len);
   const q = set[qIdx];
 
   function advance() {
@@ -58,10 +65,10 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
           {/* Pace bar: the drill's whole point is training the 45-second
               instinct, so the budget is visible before you answer. */}
           <div className="mb-6 flex items-center gap-3">
-            <div className="h-1.5 flex-1 overflow-hidden rounded-pill bg-line">
-              <div className="h-full w-1/4 rounded-pill bg-brand" />
+            <div className="rounded-pill bg-line h-1.5 flex-1 overflow-hidden">
+              <div className="rounded-pill bg-brand h-full w-1/4" />
             </div>
-            <span className="tnum text-[13px] text-ink-3">11s / 45s</span>
+            <span className="tnum text-ink-3 text-[13px]">11s / 45s</span>
           </div>
 
           {/* min-h so mode="wait" doesn't collapse the card to 0 in the gap
@@ -77,7 +84,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
                 exit="exit"
               >
                 {q.direction ? (
-                  <p className="mt-4 rounded-[14px] bg-canvas p-5 text-[16px] leading-relaxed text-ink-2 ring-1 ring-line">
+                  <p className="bg-canvas text-ink-2 ring-line mt-4 rounded-[14px] p-5 text-[16px] leading-relaxed ring-1">
                     {q.direction}
                   </p>
                 ) : null}
@@ -99,7 +106,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
             </AnimatePresence>
           </div>
 
-          <div className="mt-6 flex items-center gap-3 border-t border-line pt-5">
+          <div className="border-line mt-6 flex items-center gap-3 border-t pt-5">
             {/* No `answer` exists on any question yet (pipeline step 4 hasn't
                 run), so this can only advance, not mark right or wrong. */}
             <Button disabled={picked === null} onClick={advance}>
@@ -156,7 +163,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
           </Field>
         </div>
 
-        <p className="mt-6 border-t border-line pt-4 text-[13px] leading-relaxed text-ink-3">
+        <p className="border-line text-ink-3 mt-6 border-t pt-4 text-[13px] leading-relaxed">
           {set.length === 0
             ? `No ${SECTION_LABEL[section]} questions in the pool right now.`
             : "Weak topics pulls from the bottom-left of your attempt map. Speed keeps the accuracy you have and cuts the clock."}
@@ -175,7 +182,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <span className="w-20 shrink-0 text-[13px] text-ink-3">{label}</span>
+      <span className="text-ink-3 w-20 shrink-0 text-[13px]">{label}</span>
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
@@ -193,7 +200,7 @@ function Pick({
   return (
     <button
       onClick={onClick}
-      className={`press tnum h-9 rounded-ctl border px-4 text-[13px] font-medium transition-colors duration-150 ease-[var(--ease-swift)] ${
+      className={`press tnum rounded-ctl h-9 border px-4 text-[13px] font-medium transition-colors duration-150 ease-[var(--ease-swift)] ${
         on
           ? "border-ink bg-ink text-white"
           : "border-line bg-canvas text-ink-2 hover:border-line-2"

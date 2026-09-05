@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 .vite
+.pgdata/
 *.local
 
 # Env
@@ -41,3 +42,7 @@ next-env.d.ts
 # of PDFs and images that must not follow the app around.
 /parser/
 /sample/
+
+# Build artifact: tracked once, it dirties every branch and lands in diffs.
+tsconfig.tsbuildinfo
+*.tsbuildinfo

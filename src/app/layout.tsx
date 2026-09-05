@@ -28,11 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${instrument.variable} ${jakarta.variable}`}
-    >
-      <body>
+    <html lang="en" className={`${instrument.variable} ${jakarta.variable}`}>
+      <body suppressHydrationWarning>
         <AuthProvider>
           <AppProvider>
             <SmoothScroll />

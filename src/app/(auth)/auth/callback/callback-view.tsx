@@ -10,7 +10,7 @@ import {
 } from "@/lib/supabase";
 import { AuthShell } from "@/features/auth/components/AuthShell";
 import { AuthError } from "@/features/auth/components/AuthBits";
-import { Button } from "@/components/marketing/Button";
+import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -53,7 +53,6 @@ export function CallbackView() {
     if (user) router.replace("/home");
   }, [user, router]);
 
-
   if (!urlError && (loading || settling)) {
     return (
       <AuthShell
@@ -65,16 +64,19 @@ export function CallbackView() {
           </>
         }
       >
-        <div className="auth-form auth-confirm">
-          <Loader2 size={40} className="auth-spinner" strokeWidth={1.5} />
+        <div className="mt-6 text-center">
+          <Loader2
+            size={40}
+            strokeWidth={1.5}
+            className="text-brand mx-auto animate-spin"
+          />
         </div>
       </AuthShell>
     );
   }
 
   const denied = urlError && DENIED_CODES.includes(urlError.code);
-  const expired =
-    urlError && !denied && EXPIRED_CODES.includes(urlError.code);
+  const expired = urlError && !denied && EXPIRED_CODES.includes(urlError.code);
 
   // A cancelled OAuth consent has no link to resend — send them back to sign in
   if (denied) {
@@ -88,8 +90,8 @@ export function CallbackView() {
           </>
         }
       >
-        <div className="auth-form auth-confirm">
-          <Button size="lg" className="auth-form__submit" onClick={() => router.push("/login")}>
+        <div className="mt-6">
+          <Button size="lg" block onClick={() => router.push("/login")}>
             Back to sign in
           </Button>
         </div>
@@ -121,9 +123,13 @@ export function CallbackView() {
           </>
         }
       >
-        <div className="auth-form auth-confirm">
-          <MailCheck size={48} strokeWidth={1.5} />
-          <p className="auth-shell__subtitle">
+        <div className="mt-6 text-center">
+          <MailCheck
+            size={48}
+            strokeWidth={1.5}
+            className="text-brand mx-auto mb-3.5"
+          />
+          <p className="text-ink-2 text-[14px]">
             Open it promptly — confirmation links are single-use and expire.
           </p>
         </div>
@@ -137,7 +143,8 @@ export function CallbackView() {
       subtitle={
         expired
           ? "Confirmation links are single-use and time-limited. Enter your email and we'll send a fresh one."
-          : urlError?.description ?? "Something went wrong verifying your link."
+          : (urlError?.description ??
+            "Something went wrong verifying your link.")
       }
       footer={
         <>
@@ -145,33 +152,23 @@ export function CallbackView() {
         </>
       }
     >
-      <form className="auth-form" onSubmit={handleResend}>
-        <div className="form-grid">
-          <div className="field">
-            <label htmlFor="callback-email">Email</label>
-            <input
-              id="callback-email"
-              type="email"
-              autoComplete="email"
-              placeholder="you@school.ac.uk"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-        </div>
+      <form className="mt-6" onSubmit={handleResend}>
+        <Field label="Email" htmlFor="callback-email">
+          <Input
+            id="callback-email"
+            type="email"
+            autoComplete="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </Field>
 
         {resendError && <AuthError message={resendError} />}
 
-        <Button
-          type="submit"
-          size="lg"
-          className="auth-form__submit"
-          disabled={busy}
-          leftIcon={
-            busy ? <Loader2 size={16} className="auth-spinner" /> : undefined
-          }
-        >
+        <Button type="submit" size="lg" block className="mt-5" disabled={busy}>
+          {busy ? <Loader2 size={16} className="animate-spin" /> : null}
           {busy ? "Sending…" : "Send a new link"}
         </Button>
       </form>

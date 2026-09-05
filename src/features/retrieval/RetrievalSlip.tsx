@@ -72,7 +72,8 @@ export function RetrievalSlip() {
 
   return (
     <div
-      className="fixed inset-0 z-100 flex items-start justify-center bg-ink/25 px-6 pt-[14vh] backdrop-blur-sm"
+      data-lenis-prevent
+      className="bg-ink/25 fixed inset-0 z-100 flex items-start justify-center overscroll-contain px-6 pt-[14vh] backdrop-blur-sm"
       onMouseDown={() => setOpen(false)}
     >
       <div
@@ -80,11 +81,11 @@ export function RetrievalSlip() {
         aria-modal="true"
         aria-label="Retrieval"
         onMouseDown={(e) => e.stopPropagation()}
-        className="w-full max-w-[600px] overflow-hidden rounded-xl border border-line bg-canvas shadow-pop"
+        className="border-line bg-canvas shadow-pop w-full max-w-150 overflow-hidden rounded-xl border"
       >
-        <div className="flex items-center gap-3 border-b border-line px-5">
+        <div className="border-line flex items-center gap-3 border-b px-5">
           <span
-            className="rounded-md bg-line px-1.5 py-0.5 text-[11px] font-medium text-ink-3"
+            className="bg-line text-ink-3 rounded-md px-1.5 py-0.5 text-[11px] font-medium"
             aria-hidden
           >
             ⌘K
@@ -105,17 +106,17 @@ export function RetrievalSlip() {
               setSel(0);
             }}
             onKeyDown={onKeyDown}
-            className="h-14 flex-1 bg-transparent text-[16px] outline-none placeholder:text-ink-4"
+            className="placeholder:text-ink-4 h-14 flex-1 bg-transparent text-[16px] outline-none"
           />
           {typed ? (
-            <span className="tnum text-[12px] text-ink-4">
+            <span className="tnum text-ink-4 text-[12px]">
               {results.length}
             </span>
           ) : null}
         </div>
 
         {results.length === 0 ? (
-          <p className="px-5 py-8 text-center text-[13px] leading-relaxed text-ink-3">
+          <p className="text-ink-3 px-5 py-8 text-center text-[13px] leading-relaxed">
             Nothing matches that. ⌘K reads your syllabus, your papers, and
             everything you can do.
           </p>
@@ -124,12 +125,11 @@ export function RetrievalSlip() {
             id="slip-results"
             role="listbox"
             aria-label="Results"
-            className="max-h-[52vh] overflow-y-auto p-2"
+            data-lenis-prevent
+            className="max-h-[52vh] overflow-y-auto overscroll-contain p-2"
           >
             {!typed ? (
-              <p className="px-3 pb-1.5 pt-2 text-[13px] text-ink-3">
-                Jump to
-              </p>
+              <p className="text-ink-3 px-3 pt-2 pb-1.5 text-[13px]">Jump to</p>
             ) : null}
 
             {results.map((t, i) => (
@@ -141,23 +141,23 @@ export function RetrievalSlip() {
                 aria-selected={i === sel}
                 onMouseEnter={() => setSel(i)}
                 onClick={() => fire(t)}
-                className={`press flex w-full items-center gap-3 rounded-ctl px-3 py-2.5 text-left ${
+                className={`press rounded-ctl flex w-full items-center gap-3 px-3 py-2.5 text-left ${
                   i === sel ? "bg-brand-soft" : "hover:bg-brand-soft/50"
                 }`}
               >
-                <span className="tnum w-20 shrink-0 truncate text-[11.5px] text-ink-4">
+                <span className="tnum text-ink-4 w-20 shrink-0 truncate text-[11.5px]">
                   {t.code}
                 </span>
                 <span
-                  className={`min-w-0 flex-1 truncate text-[14px] ${i === sel ? "font-medium text-brand" : ""}`}
+                  className={`min-w-0 flex-1 truncate text-[14px] ${i === sel ? "text-brand font-medium" : ""}`}
                 >
                   {t.label}
                 </span>
-                <span className="shrink-0 truncate text-[12px] text-ink-3">
+                <span className="text-ink-3 shrink-0 truncate text-[12px]">
                   {t.detail}
                 </span>
                 {t.wash && t.wash !== "none" ? (
-                  <span className="shrink-0 text-[11px] text-ink-4" aria-hidden>
+                  <span className="text-ink-4 shrink-0 text-[11px]" aria-hidden>
                     {RAG[t.wash]}
                   </span>
                 ) : null}
@@ -166,11 +166,11 @@ export function RetrievalSlip() {
           </div>
         )}
 
-        <div className="flex items-center justify-between gap-4 border-t border-line bg-canvas px-5 py-2.5 text-[12px] text-ink-3">
+        <div className="border-line bg-canvas text-ink-3 flex items-center justify-between gap-4 border-t px-5 py-2.5 text-[12px]">
           <span className="truncate">
             {current ? (
               <>
-                <kbd className="mr-1.5 rounded border border-line bg-canvas px-1 py-0.5 text-[11px]">
+                <kbd className="border-line bg-canvas mr-1.5 rounded border px-1 py-0.5 text-[11px]">
                   ⏎
                 </kbd>
                 {current.does}
@@ -179,7 +179,7 @@ export function RetrievalSlip() {
               "nothing to open"
             )}
           </span>
-          <span className="shrink-0 text-ink-4">↑↓ choose · esc closes</span>
+          <span className="text-ink-4 shrink-0">↑↓ choose · esc closes</span>
         </div>
       </div>
     </div>

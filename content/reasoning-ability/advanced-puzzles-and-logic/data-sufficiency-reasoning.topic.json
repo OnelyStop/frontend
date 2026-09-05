@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "advanced-puzzles-and-logic",
+  "chapterName": "Advanced puzzles and logic",
+  "chapterPosition": 3,
+  "topicSlug": "data-sufficiency-reasoning",
+  "topicPosition": 40,
+  "title": "Data Sufficiency in Reasoning",
+  "summary": "The 'is statement I / II / both / either / neither sufficient' format applied to relations, orders, directions and codes. Test each statement alone before combining, and stop as soon as the answer is uniquely fixed.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["blood-relations", "linear-seating-arrangement"],
+  "learningObjectives": [
+    "Apply the five standard sufficiency options without solving the whole question.",
+    "Evaluate statement I alone, then statement II alone, before ever combining them.",
+    "Judge 'sufficient' as 'the answer is uniquely determined', not 'I found an answer'.",
+    "Avoid the traps: assumed positive integers, assumed directions, and combining too early."
+  ],
+  "tags": ["reasoning", "data-sufficiency", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Logic_for_Computer_Science/Propositional_Logic",
+      "title": "Logic for Computer Science/Propositional Logic",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for 'a fact is entailed only if true in every model'. All items here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm reasoning data sufficiency is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-format",
+      "type": "introduction",
+      "title": "The format and the five options",
+      "markdown": "A question is followed by two statements, I and II. You do not give the answer to the question — you say **how much of the data is needed** to answer it. The five standard options:\n\n- **(a)** I alone is sufficient, II alone is not.\n- **(b)** II alone is sufficient, I alone is not.\n- **(c)** each statement alone is sufficient.\n- **(d)** I and II together are sufficient, but neither alone.\n- **(e)** I and II together are still not sufficient.\n\nThe question can be about a family relation, a seating order, a direction, a rank, or a code.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "data sufficiency format two statements how much data is needed not the answer",
+        "five options I alone II alone each alone both together neither together",
+        "question about relation seating direction rank or code"
+      ],
+      "position": 10
+    },
+    {
+      "id": "alone-then-together",
+      "type": "method",
+      "title": "Alone first, then together",
+      "markdown": "1. **Cover statement II. Ask: does I alone fix the answer to exactly one value?** Yes → I is sufficient. No → not.\n2. **Cover statement I. Ask the same of II alone.**\n3. **Map to an option.** Both alone → (c). Only I → (a). Only II → (b).\n4. **Only if neither alone works, combine them.** Together fix it → (d). Still ambiguous → (e).\n\nNever let a fact from I leak into your test of II. The whole method depends on judging each in isolation first.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "cover statement two ask does one alone fix the answer to exactly one value",
+        "cover statement one ask the same map to an option both only I only II",
+        "combine only if neither alone works never let a fact from I leak into II"
+      ],
+      "position": 20
+    },
+    {
+      "id": "sufficient-means-unique",
+      "type": "concept",
+      "title": "'Sufficient' means uniquely determined",
+      "markdown": "A statement is sufficient when it narrows the answer to **one** possibility — not when it lets you compute *an* answer.\n\n- If a statement leaves two valid seatings, two possible codes, or two candidates for 'youngest', it is **not** sufficient, even if one of them feels more likely.\n- You do **not** need to state the final answer. Stop the moment you know it is pinned to one value.\n- 'Not sufficient' includes the case where the statement is simply irrelevant to the question.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "sufficient means narrows the answer to one possibility not compute an answer",
+        "two valid seatings two codes two candidates for youngest is not sufficient",
+        "do not state the final answer stop when pinned to one value irrelevant also counts as not sufficient"
+      ],
+      "position": 30
+    },
+    {
+      "id": "traps",
+      "type": "warning",
+      "title": "The usual traps",
+      "markdown": "- **Assuming a direction.** 'A person walks and turns left' — from which facing? Do not assume north.\n- **Assuming a gender or a generation.** 'X is a child of Y' does not tell you X's gender; 'related to' answers may still be fine as 'parent' or 'spouse'.\n- **Assuming distinct values or an order** the statement did not give.\n- **Combining too early**, then reporting (d) when one statement alone was already enough — you must rule (a)/(b)/(c) out first.\n- **Reporting (e) out of laziness.** Check that the combination genuinely leaves more than one answer.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "data sufficiency traps assuming a direction from which facing not north",
+        "assuming gender or generation from child of assuming distinct values or an order",
+        "combining too early reporting d when one alone was enough reporting e out of laziness"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples through all five options",
+      "markdown": "**Item 1.** *Five friends P, Q, R, S, T sit in a row of five facing north. Who is exactly in the middle?*\n- I. P sits second to the left of R, and R sits at one of the ends.\n- II. Q and S are both immediate neighbours of T.\n\n*I alone:* R at an end. 'Second to the left of R' only exists if R is at the right end (position 5), putting P at position 3 — the middle. **I alone is sufficient.**\n*II alone:* T is between Q and S, so that trio is three consecutive seats with T in their centre — T could be at position 2, 3 or 4. **Not sufficient.**\nAnswer: **(a)**.\n\n**Item 2.** *In a code language, what is the code for 'bank'?*\n- I. 'open the bank' is coded `ma pe ta`.\n- II. 'bank is closed' is coded `ta ki su`.\n\n*I alone:* three words, three codes, 'bank' not isolated. **Not sufficient.**\n*II alone:* same problem. **Not sufficient.**\n*Together:* the only common word is 'bank' and the only common code is `ta`, so 'bank' = `ta`. **Together sufficient, neither alone.**\nAnswer: **(d)**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example five friends row who is in the middle I alone sufficient answer a",
+        "second to the left of R only exists if R at right end P at position 3",
+        "code for bank I alone not II alone not together common word common code ta answer d"
+      ],
+      "position": 50
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- You report the sufficiency option, not the answer to the question.\n- Test I alone, then II alone, each in complete isolation. Combine only if neither alone suffices.\n- Sufficient = the answer is pinned to exactly one value; two possibilities means not sufficient.\n- Map: both alone → (c); only I → (a); only II → (b); together only → (d); together still ambiguous → (e).\n- Do not assume a facing direction, a gender, a generation, distinct values, or an order the statement did not state.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "data sufficiency summary report the option not the answer test I alone then II alone in isolation",
+        "sufficient means pinned to one value two possibilities means not sufficient",
+        "map both alone c only I a only II b together only d together ambiguous e do not assume"
+      ],
+      "position": 60
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "For each, choose (a), (b), (c), (d) or (e) as defined above, with a one-line reason.\n\n1. *How is D related to A?* I. A is the mother of B, who is the sister of C. II. C is the son of D, and D is married to A.\n2. *On which day of the week (Monday to Sunday) is the seminar?* I. The seminar is not on a weekend. II. The seminar is two days after Wednesday.\n3. *Among A, B, C, D, E, each of a different age, who is the youngest?* I. B is older than C and D. II. A is older than B, and E is younger than C.\n4. *What is the direction of point X from point Y?* I. From Y, a person walks 3 km north and then 4 km east to reach X. II. X is to the north-east of Y.\n5. *What is R's rank from the top in a class of 30?* I. S is 12th from the top and there are exactly four students between S and R. II. R is ranked above S.\n6. *Who among P, Q, R, S is the tallest?* I. Q is taller than P and S but shorter than R. II. R is taller than Q, and P is the shortest.\n7. *What is the code for 'river'?* I. 'river is wide' is `sa mo pe` and 'the wide road' is `pe ka du`. II. 'river flows fast' is `mo lo ti` and 'fast red car' is `ti bo re`.",
+      "searchKeywords": [
+        "data sufficiency reasoning practice how is D related to which day youngest direction rank tallest code",
+        "choose a b c d e with one line reason isolation combine exercises"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "report-the-option",
+      "front": "In a data-sufficiency question, what do you actually report?",
+      "back": "The sufficiency option (a-e) — how much of the data is needed — not the answer to the underlying question.",
+      "explanation": "You often never compute the final answer.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-format"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "alone-first",
+      "front": "What is the fixed order of testing in data sufficiency?",
+      "back": "Statement I alone, then statement II alone, each in complete isolation. Combine only if neither alone is sufficient.",
+      "explanation": "A fact from I must not leak into the test of II.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["alone-then-together"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "sufficient-unique",
+      "front": "When is a statement 'sufficient'?",
+      "back": "When it narrows the answer to exactly one possibility — not when it merely lets you find some answer. Two valid possibilities means not sufficient.",
+      "explanation": "Even a 'more likely' second option makes it insufficient.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sufficient-means-unique"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "option-map",
+      "front": "Map the four test outcomes to options.",
+      "back": "Both alone → (c); only I → (a); only II → (b); neither alone but together → (d); together still ambiguous → (e).",
+      "explanation": "Rule out (a)/(b)/(c) before ever answering (d).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["alone-then-together"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "direction-trap",
+      "front": "Statement: 'a person walks 5 km and turns left'. What must you not assume?",
+      "back": "The initial facing direction. Without it, 'turns left' fixes nothing — do not default to north.",
+      "explanation": "A common way a statement looks sufficient but isn't.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["traps"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "code-common",
+      "front": "Two coded phrases share exactly one word and exactly one code. What can you conclude?",
+      "back": "That shared word maps to that shared code. This is why two code statements are often sufficient together but not alone.",
+      "explanation": "'open the bank' + 'bank is closed', common code = 'bank'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "not-lazy-e",
+      "front": "Before answering (e), what must you verify?",
+      "back": "That statements I and II combined genuinely leave more than one valid answer — not just that the question felt hard.",
+      "explanation": "(e) is a positive claim of insufficiency, not a fallback.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["traps"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

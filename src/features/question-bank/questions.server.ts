@@ -4,7 +4,7 @@ import { and, eq, sql } from "drizzle-orm";
 
 import { SECTION_DB } from "@/data/navigation";
 import { db } from "@/db";
-import { directions, questions } from "@/db/schema";
+import { bankQuestions, directions } from "@/db/schema";
 import type { DrillQuestion } from "./types";
 
 const SECTIONS_DB = Object.values(SECTION_DB);
@@ -20,22 +20,30 @@ export async function listDrillPool(perSection = 40): Promise<DrillQuestion[]> {
     SECTIONS_DB.map((section) =>
       db
         .select({
-          qId: questions.qId,
-          section: questions.section,
-          topic: questions.topic,
-          stem: questions.stem,
-          options: questions.options,
+          qId: bankQuestions.qId,
+          section: bankQuestions.section,
+          topic: bankQuestions.topic,
+          stem: bankQuestions.stem,
+          options: bankQuestions.options,
           direction: directions.body,
         })
-        .from(questions)
+        .from(bankQuestions)
         // Both columns, always — direction_id is only unique within a paper
         // (see schema.ts's comment on `directions`), so joining on
         // direction_id alone would attach the wrong passage to a question.
         .leftJoin(
           directions,
-          and(eq(directions.paperId, questions.paperId), eq(directions.directionId, questions.directionId)),
+          and(
+            eq(directions.paperId, bankQuestions.paperId),
+            eq(directions.directionId, bankQuestions.directionId),
+          ),
         )
-        .where(and(eq(questions.isActive, true), eq(questions.section, section)))
+        .where(
+          and(
+            eq(bankQuestions.isActive, true),
+            eq(bankQuestions.section, section),
+          ),
+        )
         .orderBy(sql`random()`)
         .limit(perSection),
     ),

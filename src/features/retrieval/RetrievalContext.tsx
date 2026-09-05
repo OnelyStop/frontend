@@ -40,6 +40,7 @@ export function RetrievalProvider({ children }: { children: ReactNode }) {
 
 export function useRetrieval() {
   const ctx = useContext(RetrievalContext);
-  if (!ctx) throw new Error("useRetrieval must be used within RetrievalProvider");
+  if (!ctx)
+    throw new Error("useRetrieval must be used within RetrievalProvider");
   return ctx;
 }

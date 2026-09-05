@@ -1,7 +1,11 @@
 /** Shapes shared between the server query modules and the client views —
  * plain data, no `server-only`, so a client view can import the type. */
 
-export type NoteFormula = { name: string; expression: string; notes: string | null };
+export type NoteFormula = {
+  name: string;
+  expression: string;
+  notes: string | null;
+};
 
 export type NoteTrick = {
   name: string;
@@ -10,7 +14,11 @@ export type NoteTrick = {
   example: string | null;
 };
 
-export type NoteWorkedExample = { problem: string; steps: string[]; answer: string };
+export type NoteWorkedExample = {
+  problem: string;
+  steps: string[];
+  answer: string;
+};
 
 export type NoteSource = {
   name: string;

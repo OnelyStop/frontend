@@ -6,7 +6,7 @@ import { useAuth } from "@/features/auth/AuthContext";
 import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
 import { AuthShell } from "@/features/auth/components/AuthShell";
 import { AuthError, SetupNotice } from "@/features/auth/components/AuthBits";
-import { Button } from "@/components/marketing/Button";
+import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 
 export function ForgotPasswordView() {
@@ -28,44 +28,47 @@ export function ForgotPasswordView() {
       }
       footer={
         <>
-          Remembered it? <Link href="/login">Back to sign in</Link>
+          Remembered it?{" "}
+          <Link href="/login" className="text-ink font-medium">
+            Back to sign in
+          </Link>
         </>
       }
     >
       {sent ? (
-        <div className="auth-form auth-confirm">
-          <MailCheck size={48} strokeWidth={1.5} />
+        <div className="mt-6 text-center">
+          <MailCheck
+            size={48}
+            strokeWidth={1.5}
+            className="text-brand mx-auto"
+          />
         </div>
       ) : (
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="mt-6" onSubmit={handleSubmit}>
           {!configured && <SetupNotice />}
 
-          <div className="form-grid">
-            <div className="field">
-              <label htmlFor="reset-email">Email</label>
-              <input
-                id="reset-email"
-                type="email"
-                autoComplete="email"
-                placeholder="you@school.ac.uk"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-          </div>
+          <Field label="Email" htmlFor="reset-email">
+            <Input
+              id="reset-email"
+              type="email"
+              autoComplete="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </Field>
 
           {error && <AuthError message={error} />}
 
           <Button
             type="submit"
             size="lg"
-            className="auth-form__submit"
+            block
+            className="mt-5"
             disabled={busy || !configured}
-            leftIcon={
-              busy ? <Loader2 size={16} className="auth-spinner" /> : undefined
-            }
           >
+            {busy ? <Loader2 size={16} className="animate-spin" /> : null}
             {busy ? "Sending…" : "Send reset link"}
           </Button>
         </form>

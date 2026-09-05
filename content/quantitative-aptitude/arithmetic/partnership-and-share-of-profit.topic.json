@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "arithmetic",
+  "chapterName": "Arithmetic",
+  "chapterPosition": 2,
+  "topicSlug": "partnership-and-share-of-profit",
+  "topicPosition": 80,
+  "title": "Partnership and Share of Profit",
+  "summary": "How a business profit is split between partners: in the ratio of capital when the time is equal, in the ratio of capital times months when it is not, and after taking a working partner's salary or commission off the top.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["ratio-and-proportion", "percentages"],
+  "learningObjectives": [
+    "Split a profit in the ratio of the partners' capitals when investment periods are equal.",
+    "Weight each partner's capital by the number of months it was invested when periods differ.",
+    "Handle a working partner's salary or commission taken before the ratio split.",
+    "Combine mid-year changes in investment into a single capital-months figure per partner."
+  ],
+  "tags": ["partnership", "profit-sharing", "ratio", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Ratios_and_Proportions",
+      "title": "Arithmetic/Ratios and Proportions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for dividing a quantity in a given ratio. All wording and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm partnership is within scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "how-profit-is-split",
+      "type": "introduction",
+      "title": "How a partnership profit is split",
+      "markdown": "When two or more people run a business together, the profit is shared in proportion to how much each partner's money worked, and for how long. The core idea is one line:\n\n**Each partner's share is proportional to (capital invested) x (months invested).**\n\nIf everyone invests for the same length of time, the months cancel and the split is simply in the ratio of the capitals. If the periods differ, or someone joins late or withdraws early, weight each capital by its months first. Any fixed salary or commission for a working partner is taken out before the rest is split by ratio.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "partnership profit proportional to capital times months",
+        "equal time means split by ratio of capitals",
+        "weight capital by months when periods differ",
+        "salary or commission taken off the top first"
+      ],
+      "position": 10
+    },
+    {
+      "id": "equal-time",
+      "type": "formula",
+      "title": "Equal periods: ratio of capitals",
+      "markdown": "If partners A, B, C invest capitals a, b, c for the same period, then:\n\nprofit share of A : B : C = a : b : c\n\nSo A's share of a total profit P is P x a / (a + b + c), and similarly for the others.\n\nExample: capitals 20,000, 30,000 and 50,000 — ratio 2 : 3 : 5 — split a profit of 40,000 into 8,000, 12,000 and 20,000.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "equal time profit share ratio of capitals a to b to c",
+        "A share equals P times a over sum of capitals",
+        "20000 30000 50000 ratio 2 3 5",
+        "divide profit in the capital ratio"
+      ],
+      "position": 20
+    },
+    {
+      "id": "unequal-time",
+      "type": "formula",
+      "title": "Unequal periods: capital times months",
+      "markdown": "When the investment periods differ, replace each capital by its **capital-months** (capital x number of months invested):\n\nshare of A : B = (a x t_a) : (b x t_b)\n\nExample: A puts in 40,000 for 12 months; B joins after 4 months with 50,000, so B is in for 8 months.\n\n- A's capital-months = 40,000 x 12 = 480,000\n- B's capital-months = 50,000 x 8 = 400,000\n- Ratio A : B = 480 : 400 = 6 : 5\n\nB's share of a profit P is P x 5 / 11.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "unequal time capital months capital times months",
+        "share ratio a t a to b t b",
+        "A 40000 for 12 months B 50000 for 8 months 6 to 5",
+        "partner joins late fewer months"
+      ],
+      "position": 30
+    },
+    {
+      "id": "working-partner-and-changes",
+      "type": "method",
+      "title": "Working partners and mid-year changes",
+      "markdown": "- **Working partner.** A partner who also runs the business may get a salary or a commission (often a percent of the profit) *before* the ratio split. Subtract it from the total profit, split the remainder by capital-months, then add the salary back to that partner's share.\n- **Investment changes mid-year.** Break the year into periods and add the capital-months across periods for each partner. If A has 36,000 for 8 months and then 48,000 for the last 4 months, A's capital-months = 36,000 x 8 + 48,000 x 4.\n- **Withdrawal** is the same idea with a smaller capital for the later period.\n- Always convert every period to the same time unit (months) before forming the ratio.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "working partner salary or commission before the ratio split",
+        "add the salary back to that partner",
+        "mid year change add capital months across periods",
+        "withdrawal smaller capital for the later period"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. Equal time.** A invests 60,000 and B invests 90,000 for the same period. The total profit is 25,000. Find each share.\n\nRatio A : B = 60,000 : 90,000 = 2 : 3. So A gets 25,000 x 2 / 5 = **10,000** and B gets 25,000 x 3 / 5 = **15,000**.\n\n**2. Unequal time.** A invests 40,000 for the whole 12 months. B joins after 4 months with 50,000, so B is invested for 8 months. The profit is 17,000. Find B's share.\n\nCapital-months: A = 40,000 x 12 = 480,000; B = 50,000 x 8 = 400,000. B's share = 17,000 x 400,000 / (480,000 + 400,000) = 17,000 x 400,000 / 880,000 = **7,727.27** (to two decimals).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "partnership equal time A 60000 B 90000 profit 25000 shares 10000 15000",
+        "unequal time B joins after 4 months capital months",
+        "B share 17000 times 400000 over 880000"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "1. A's share (rupees)",
+          "value": 10000,
+          "expression": "25000*2/5"
+        },
+        {
+          "label": "1. B's share (rupees)",
+          "value": 15000,
+          "expression": "25000*3/5"
+        },
+        {
+          "label": "2. B's share (rupees)",
+          "value": 7727.27,
+          "tolerance": 0.5,
+          "expression": "17000*(50000*8)/(40000*12 + 50000*8)"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Splitting by capital alone when the periods differ** — you must weight by months first.\n- **Counting the wrong number of months** for a partner who joins late or leaves early.\n- **Splitting the whole profit by ratio and then also giving the salary** — the salary comes out of the total first, and only the remainder is split.\n- **Mixing time units** — convert everything to months (or all to years) before forming the ratio.\n- **Not reducing the capital-months ratio**, which makes the final fractions harder than they need to be.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "partnership mistakes split by capital alone when time differs",
+        "wrong month count for a late joiner",
+        "salary taken from total first then split remainder",
+        "convert all periods to months"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Share is proportional to capital x months.\n- Equal periods: split in the ratio of capitals; A's share = P x a / (sum of capitals).\n- Unequal periods: use capital-months, a x t_a : b x t_b.\n- Working partner: take the salary or commission out of the total first, split the rest by ratio, then add the salary back.\n- Mid-year change or withdrawal: add each partner's capital-months across the sub-periods.\n- Reduce the ratio before computing shares.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "partnership formula recap capital times months",
+        "equal versus unequal periods",
+        "working partner salary first",
+        "capital months across periods"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the value in rupees (or the stated quantity).\n\n1. P and Q invest 25,000 and 35,000 for the same time. The profit is 18,000. Find Q's share.\n2. Three partners invest 10,000, 20,000 and 30,000 for the same time; the profit is 36,000. Find the largest share.\n3. A invests 50,000 for 6 months and B invests 30,000 for 10 months. Find the ratio A : B as a single number (A / B).\n4. A (80,000) and B (1,20,000) invest for 12 months each. B, the working partner, first takes 10% of the 40,000 profit, and the rest is split by capital. Find B's total.\n5. A and B invest in the ratio 3 : 5, for times in the ratio 2 : 3. Find the profit-share ratio A : B as a single number (A / B).\n6. A profit of 22,000 is split between X and Y in the ratio 4 : 7. Find Y's share.\n7. A invests 36,000. After 8 months he adds 12,000 more, for the last 4 months. Find A's capital-months for the year.\n8. P, Q and R invest 15,000, 20,000 and 25,000 for the same time. The profit is 12,000. Find R's share.",
+      "searchKeywords": [
+        "partnership practice questions",
+        "equal unequal time working partner capital months exercises"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. Q's share (rupees)",
+          "value": 10500,
+          "expression": "18000*35000/(25000+35000)"
+        },
+        {
+          "label": "2. largest share (rupees)",
+          "value": 18000,
+          "expression": "36000*30/(10+20+30)"
+        },
+        {
+          "label": "3. ratio A / B",
+          "value": 1,
+          "expression": "(50000*6)/(30000*10)"
+        },
+        {
+          "label": "4. B's total (rupees)",
+          "value": 25600,
+          "expression": "0.10*40000 + (40000 - 0.10*40000)*3/5"
+        },
+        {
+          "label": "5. profit-share ratio A / B",
+          "value": 0.4,
+          "expression": "(3*2)/(5*3)"
+        },
+        {
+          "label": "6. Y's share (rupees)",
+          "value": 14000,
+          "expression": "22000*7/11"
+        },
+        {
+          "label": "7. A's capital-months",
+          "value": 480000,
+          "expression": "36000*8 + 48000*4"
+        },
+        {
+          "label": "8. R's share (rupees)",
+          "value": 5000,
+          "expression": "12000*25000/(15000+20000+25000)"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "core-rule",
+      "front": "In a partnership, each partner's profit share is proportional to what?",
+      "back": "Capital invested x number of months invested (the 'capital-months'). If all periods are equal, the months cancel and it is just the ratio of capitals.",
+      "explanation": "One rule covers every partnership question.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["how-profit-is-split"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "equal-time-card",
+      "front": "Partners invest a, b, c for the same time. How is a profit P split?",
+      "back": "In the ratio a : b : c. A's share = P x a / (a + b + c).",
+      "explanation": "Capitals 20k, 30k, 50k -> 2 : 3 : 5.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["equal-time"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "capital-months",
+      "front": "How do you handle partners who invest for different lengths of time?",
+      "back": "Multiply each capital by its months invested and split the profit in the ratio of these capital-months.",
+      "explanation": "40k for 12 months vs 50k for 8 months -> 480 : 400 = 6 : 5.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["unequal-time"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "working-partner",
+      "front": "A working partner gets a salary plus a share. What is the order of operations?",
+      "back": "Subtract the salary or commission from the total profit first, split the remainder by the capital-months ratio, then add the salary back to that partner's share.",
+      "explanation": "Do not split the whole profit and also pay the salary.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["working-partner-and-changes"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "mid-year-change",
+      "front": "A partner changes his investment part-way through the year. How do you find his capital-months?",
+      "back": "Split the year into sub-periods and add (capital x months) across them. 36,000 for 8 months then 48,000 for 4 months = 36,000 x 8 + 48,000 x 4.",
+      "explanation": "A withdrawal is the same with a smaller later capital.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["working-partner-and-changes"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "time-ratio",
+      "front": "Capitals are in ratio 3 : 5 and times in ratio 2 : 3. What is the profit-share ratio?",
+      "back": "Multiply term by term: (3 x 2) : (5 x 3) = 6 : 15 = 2 : 5.",
+      "explanation": "Profit share follows capital x time.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["unequal-time"],
+      "position": 60,
+      "status": "approved"
+    }
+  ]
+}

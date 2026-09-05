@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   checks:
@@ -23,89 +24,119 @@ jobs:
         with:
           bun-version: latest
 
+      - name: PR closes an issue
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          n=$(gh pr view "$PR" --json closingIssuesReferences \
+                --jq '[.closingIssuesReferences[].number] | length')
+          if [ "${n:-0}" -gt 0 ]; then
+            echo "OK - closes $n issue(s)"
+            exit 0
+          fi
+          if gh pr view "$PR" --json labels --jq '.labels[].name' | grep -qx 'no-issue'; then
+            echo "OK - labelled no-issue"
+            exit 0
+          fi
+          echo "::error::this PR closes no issue — open one with the Gate 1 output, then add 'Closes #N' to the body"
+          echo "Give each issue its own keyword: 'Closes #12, closes #13'."
+          echo "'Closes #12, #13' closes only the first, silently."
+          echo
+          echo "GitHub registers a closing reference only when the base is the"
+          echo "default branch, so a PR stacked on another shows none. Retarget"
+          echo "to main, or label it no-issue if it is a typo, a revert, or a"
+          echo "fix for something already broken on main."
+          exit 1
+
       - name: Install
         run: bun install --frozen-lockfile
 
       - name: Types
         run: bunx tsc --noEmit
 
+      - name: Formatting
+        run: bun run format:check
+
+      - name: Every file sits in the folder that owns it
+        run: bun run check:layout
+
+      # A suite that runs nothing reports green, so the count is checked too.
+      # The ANSI strip is load-bearing: vitest colours the summary here but not
+      # through a local pipe, so a pattern that works on a laptop reads
+      # "Tests \e[22m \e[1m\e[32m68 passed" in CI and matches nothing.
       - name: Tests
-        run: bun run test
-
-      # No lint step: `next lint` was removed in Next 16, so `bun run lint` is
-      # already broken here, and ESLint 9 is installed with no config file at
-      # all. Wiring it up is its own change — it will surface a backlog on an
-      # existing codebase, and that belongs in a PR someone can read, not
-      # smuggled in with CI.
-
-      # A NEXT_PUBLIC_ var is compiled into the browser bundle. Naming a secret
-      # one is not a leak that shows up in review -- it looks like every other
-      # env var until it is already public. The anon key is the exception: it is
-      # designed to be public and RLS is what protects the data behind it.
-      - name: No secret is named NEXT_PUBLIC_
         run: |
-          if git grep -nIE 'NEXT_PUBLIC_[A-Z0-9_]*(SECRET|SERVICE|PRIVATE|TOKEN|PASSWORD)' \
-               -- . ':!.github/workflows/'; then
-            echo "::error::a NEXT_PUBLIC_ var is carrying a secret — it ships in the bundle"
+          set -o pipefail
+          bun run test 2>&1 | tee /tmp/vitest.log
+          sed -E $'s/\x1b\\[[0-9;]*m//g' /tmp/vitest.log \
+            | grep -qE 'Tests +[1-9][0-9]* passed' || {
+            echo "::error::vitest reported no passing tests — the suite ran nothing"
             exit 1
-          fi
-          if git grep -nIE 'NEXT_PUBLIC_[A-Z0-9_]*KEY' -- . ':!.github/workflows/' \
-               | grep -v 'NEXT_PUBLIC_SUPABASE_ANON_KEY'; then
-            echo "::error::a NEXT_PUBLIC_ key var that is not the anon key"
-            exit 1
-          fi
-          echo "OK - none found"
+          }
 
-      - name: No secrets committed
-        run: |
-          # Two greps, because the two halves have different false-positive
-          # profiles. A literal live key is a leak wherever it appears, tests
-          # included. `NAME = value` is only a leak when the value is a quoted
-          # literal -- a test assigning a fixture (`= KEY_SECRET`) is not one,
-          # and matching it trained us to ignore this check.
-          if git grep -nIE '(sk-[A-Za-z0-9]{20,}|rzp_live_[A-Za-z0-9]+|postgres(ql)?://[^ ]*:[^ @]+@|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.)' \
-               -- . ':!*.md' ':!.github/workflows/'; then
-            echo "::error::a live key, connection string or JWT is committed"
-            exit 1
-          fi
-          # `service_role` as a bare word is not matched: it is the name of a
-          # Postgres role and appears in every RLS policy we write.
-          if git grep -nIE '(SUPABASE_SERVICE_ROLE_KEY|RAZORPAY_KEY_SECRET|RAZORPAY_WEBHOOK_SECRET|DATABASE_URL|DIRECT_URL) *[:=] *["'"'"'][^"'"'"']' \
-               -- . ':!*.md' ':!.github/workflows/' ':!*.test.ts'; then
-            echo "::error::a secret env var is assigned a literal value in source"
-            exit 1
-          fi
-          echo "OK - none found"
+      # One script, shared with .husky/pre-commit, so the two cannot drift.
+      - name: Source guards
+        run: bun run check:source
 
-      # Money is stored in minor units as integers. A float amount is a rounding
-      # error on a real charge -- 7.99 * 100 is 798.9999… in float64 -- and it
-      # reads as perfectly ordinary code.
-      - name: Amounts are integers
-        run: |
-          if git grep -nIE '(amountMinor|amount_minor)[^=\n]*[=:] *[0-9]+\.[0-9]' -- src scripts; then
-            echo "::error::a minor-unit amount was written as a decimal"
-            exit 1
-          fi
-          if git grep -nIE 'parseFloat\([^)]*(amount|price)' -- src scripts; then
-            echo "::error::parseFloat on an amount — use integer minor units"
-            exit 1
-          fi
-          echo "OK - none found"
+      # Advisories are found by GitHub's Dependabot too, but only after a
+      # merge. This is the same information before one.
+      - name: Dependencies
+        run: bun run check:deps
 
-      # drizzle generates the SQL from src/db/schema.ts. Editing the schema and
-      # forgetting to generate leaves the database behind the code, and the
-      # failure lands at runtime on whoever deploys.
-      - name: Schema changes carry a migration
+      # tsc type-checks; it does not build. A bad import or a server/client
+      # boundary violation passes types and breaks on deploy.
+      - name: Build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+        run: bun run build
+
+      # Asks drizzle, rather than comparing which files a PR touched — the
+      # filename version failed on a PR that only reformatted schema.ts.
+      # generate never connects, so the URL only has to parse.
+      - name: Schema and migrations agree
+        env:
+          DATABASE_URL: postgresql://placeholder:placeholder@localhost:5432/placeholder
         run: |
-          base='${{ github.event.pull_request.base.sha }}'
-          [ -n "$base" ] || base="$(git rev-parse HEAD^ 2>/dev/null || git rev-parse HEAD)"
-          changed="$(git diff --name-only "$base"...HEAD)"
-          if echo "$changed" | grep -q '^src/db/schema.ts$' \
-             && ! echo "$changed" | grep -q '^src/migrations/.*\.sql$'; then
-            echo "::error::src/db/schema.ts changed with no migration — run bun run db:generate"
+          before="$(ls src/migrations/*.sql | wc -l)"
+          bun run db:generate
+          after="$(ls src/migrations/*.sql | wc -l)"
+          if [ "$after" -ne "$before" ] || ! git diff --quiet -- src/migrations; then
+            echo "::error::schema.ts has changes the migrations do not carry — run bun run db:generate and commit the result"
+            git status --short -- src/migrations
             exit 1
           fi
-          echo "OK"
+          echo "OK - schema and migrations agree"
+
+      # Git conflicts on identical paths, so 0003_study.sql and
+      # 0003_question_bank.sql merge cleanly and both claim 0003. The test suite
+      # catches that afterwards; this catches it while it is still one rename.
+      - name: Migration numbers are not already taken
+        if: github.event_name == 'pull_request'
+        run: |
+          # The base as it is NOW, not the merge base: a number that was free
+          # when the branch was cut is exactly the one that gets taken from
+          # under it. No --depth here — a shallow fetch into a full clone
+          # writes .git/shallow and breaks the three-dot diffs that follow.
+          git fetch --no-tags origin '${{ github.event.pull_request.base.ref }}'
+          taken="$(git ls-tree FETCH_HEAD src/migrations/ --name-only \
+                    | grep -E '/[0-9]+_.*\.sql$' | xargs -r -n1 basename)"
+          fail=0
+          # The pathspec also matches rollback/, whose files share these names.
+          for f in $(git diff --name-only --diff-filter=A FETCH_HEAD...HEAD -- 'src/migrations/*.sql'); do
+            case "$f" in src/migrations/rollback/*) continue ;; esac
+            name="$(basename "$f")"
+            num="${name%%_*}"
+            clash="$(printf '%s\n' "$taken" | grep -E "^${num}_" || true)"
+            if [ -n "$clash" ] && [ "$clash" != "$name" ]; then
+              echo "::error file=$f::migration $num is already taken on $clash — renumber this one"
+              fail=1
+            fi
+          done
+          if [ "$fail" -ne 0 ]; then exit 1; fi
+          echo "OK - no migration number collides with the base"
 
       - name: No large files added
         run: |

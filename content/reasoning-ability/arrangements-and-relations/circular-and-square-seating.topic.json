@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "arrangements-and-relations",
+  "chapterName": "Arrangements and relations",
+  "chapterPosition": 1,
+  "topicSlug": "circular-and-square-seating",
+  "topicPosition": 50,
+  "title": "Circular and Square Seating",
+  "summary": "Seating around a round table and around a square or rectangular one: which way is left when you face the centre, how facing outward reverses it, counting positions and opposite seats, and where people sit at corners and mid-sides.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["linear-seating-arrangement"],
+  "learningObjectives": [
+    "State which circular direction is a person's left when they face the centre.",
+    "Reverse left and right for a person who faces outward.",
+    "Count 'third to the left' and find the opposite seat around a circle.",
+    "Lay out a square table with people at corners and mid-sides."
+  ],
+  "tags": ["reasoning", "seating-arrangement", "puzzles", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Combinatorics/Circular_permutations",
+      "title": "Combinatorics/Circular permutations",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for positions around a circle. All puzzles here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm circular arrangement is a standard puzzle type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "round-and-square",
+      "type": "introduction",
+      "title": "Round tables and square tables",
+      "markdown": "Two table shapes carry most of these puzzles:\n\n- **Round table:** people sit evenly around a circle. All may face the centre, all may face outward, or the puzzle may mix the two.\n- **Square or rectangular table:** people sit at the corners and at the middle of each side. Corner people and mid-side people often face different ways.\n\nAs with a row, the clues fix exactly one seating. The extra care a circle needs is over left and right, because those depend on which way each person faces.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "round table square table seating",
+        "all face centre all face outward or mixed",
+        "clues fix exactly one seating"
+      ],
+      "position": 10
+    },
+    {
+      "id": "left-facing-centre",
+      "type": "method",
+      "title": "Left and right when facing the centre",
+      "markdown": "Number the seats 1, 2, 3 and so on going **clockwise** around the table.\n\nPicture yourself at the six-o'clock seat, facing the centre. Your left hand points towards the nine-o'clock side, which is the clockwise direction as the seat numbers were drawn. So for a person **facing the centre**:\n\n- their **left** is the next seat clockwise, that is seat number plus one;\n- their **right** is the next seat anticlockwise, seat number minus one;\n- counts wrap around: after the last seat comes seat 1 again.\n\n\"Third to the left of\" a centre-facer means three seats clockwise from them.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "seats numbered clockwise",
+        "facing the centre left is next seat clockwise right is anticlockwise",
+        "third to the left means three seats clockwise wrap around"
+      ],
+      "position": 20
+    },
+    {
+      "id": "facing-outward",
+      "type": "method",
+      "title": "Facing outward reverses left and right",
+      "markdown": "Turn the same person around to face **outward** and their left and right swap:\n\n- their **left** is now the next seat anticlockwise, seat number minus one;\n- their **right** is the next seat clockwise, seat number plus one.\n\nIn a mixed puzzle you must apply the rule **per person**, checking which way that particular person faces before you place a neighbour. A clue such as \"S is immediately to the left of the outward-facing T\" places S one seat anticlockwise of T, not clockwise.\n\nA short check: if X and Y sit next to each other but face opposite ways, then X is on Y's left exactly when Y is also on X's left.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "facing outward reverses left and right",
+        "outward facer left is anticlockwise right is clockwise",
+        "apply the rule per person check facing before placing a neighbour"
+      ],
+      "position": 30
+    },
+    {
+      "id": "counting-and-opposite",
+      "type": "concept",
+      "title": "Counting positions and opposite seats",
+      "markdown": "- To move \"k to the left\" of someone, take k single steps in their left direction, wrapping past the highest seat number back to 1.\n- **Between** two people means the shorter arc unless the puzzle says \"counting clockwise\" or names a side.\n- On a circle with an **even** number of seats, the seat **directly opposite** seat n is the one halfway round: for eight seats, opposite seat n is seat n plus four (wrapping). For ten seats it is n plus five.\n- An odd circle has no exactly-opposite seat; \"opposite\" there means the pair of seats closest to halfway.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "move k to the left k single steps wrapping",
+        "between means the shorter arc unless a side is named",
+        "even circle opposite seat n plus half odd circle no exact opposite"
+      ],
+      "position": 40
+    },
+    {
+      "id": "square-tables",
+      "type": "method",
+      "title": "Square and rectangular tables",
+      "markdown": "Lay the eight seats out clockwise as corner, mid-side, corner, mid-side, and so on. Keep two facts straight from the clue text:\n\n- **Which seats face which way.** A common setup has the four corner people facing the centre and the four mid-side people facing outward, but always read it from the puzzle.\n- **Opposite seats.** A corner is opposite the corner two places round; a mid-side seat is opposite the mid-side seat two places round.\n\nOnce facings are marked, the left and right rules are exactly those for a circle: plus one clockwise for a centre-facer's left, minus one for an outward-facer's left.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "square table eight seats corner mid-side clockwise",
+        "which seats face which way corners centre mid-sides outward",
+        "opposite corner two places round left right rules as for a circle"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example-circle",
+      "type": "worked_example",
+      "title": "Worked example: mixed circle",
+      "markdown": "Eight people A to H sit around a circular table. All face the centre except D and G, who face outward. Seats are numbered 1 to 8 clockwise.\n\n- (1) A sits second to the right of C.\n- (2) B sits between A and C.\n- (3) D is an immediate neighbour of C.\n- (4) E sits immediately to the right of D.\n- (5) G sits directly opposite C.\n- (6) F sits between E and G.\n- (7) H is an immediate neighbour of both A and G.\n\n**Solve.** Fix C, say at seat 3. By (1), A is two seats to C's right; C faces the centre, so right is anticlockwise, putting A at seat 1. By (2), B is the single seat between them, seat 2. By (3), D neighbours C on the other side, seat 4. D faces **outward**, so by (4) D's right is clockwise and E is at seat 5. By (5), G is opposite C, seat 7. By (6), F is the seat between E and G, seat 6. By (7), the last seat, 8, sits between A and G and is H.\n\n**Clockwise order from seat 1: A, B, C, D, E, F, G, H.**",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example eight people circle mixed facing D G outward",
+        "second to the right of a centre facer is anticlockwise opposite seat plus four",
+        "clockwise order A B C D E F G H"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using one left-right rule for the whole table** when some people face outward. The rule is per person.\n- **Forgetting to wrap** the count past the highest seat number.\n- **Taking the long arc** for \"between\" when the shorter arc was meant.\n- **Reading \"opposite\" on an odd circle** as an exact seat; there isn't one.\n- **Mixing corner and mid-side seats** on a square table, or losing track of which set faces which way.\n- **Not re-checking every clue** against the finished circle, including the facing of each person.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "circular seating mistakes one left right rule for whole table",
+        "forgetting to wrap long arc for between",
+        "opposite on odd circle mixing corner mid-side not re-checking clues"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Number seats clockwise. Facing the centre: left is plus one (clockwise), right is minus one. Facing outward: the reverse.\n- Apply the left-right rule separately for each person, after checking which way they face.\n- \"k to the left\" is k single steps, wrapping past the last seat. \"Between\" is the shorter arc unless a side is named.\n- On an even circle, opposite seat n is n plus half the seats. An odd circle has no exact opposite.\n- On a square table, set corners and mid-sides, mark facings, then use the circle rules.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "circular seating summary clockwise numbering facing centre outward rules",
+        "k to the left steps wrapping between shorter arc",
+        "even circle opposite square table corners mid-sides"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Eight people P to W sit around a square table. P, R, T, V are at the four corners and face the centre; Q, S, U, W are at the middle of the four sides and face outward. Seats are numbered 1 to 8 clockwise as corner, mid-side, corner, mid-side, and so on. \"Nth to the left or right of X\" means N seats from X in X's own left or right direction.\n\n- (1) R sits second to the left of P.\n- (2) Q sits between P and R.\n- (3) T sits directly opposite P.\n- (4) S sits immediately to the right of T.\n- (5) V sits directly opposite R.\n- (6) U sits immediately to the right of V.\n- (7) W sits between V and P.\n\nFix the arrangement, then answer, each with a one-line reason:\n\n1. Who sits immediately to the right of P?\n2. Who sits between R and T?\n3. How is U placed with respect to T?\n4. Who sits second to the left of W?\n5. Which one of Q, S, U, V sits at a corner?",
+      "searchKeywords": [
+        "circular seating practice square table eight people corners mid-sides",
+        "second to the left immediately to the left opposite",
+        "corner centre facing mid-side outward facing"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "centre-left-rule",
+      "front": "Seats numbered clockwise. For a person facing the centre, which seat is on their left?",
+      "back": "The next seat clockwise, that is seat number plus one. Their right is the next seat anticlockwise, seat number minus one.",
+      "explanation": "Picture the six-o'clock seat facing in: the left hand points the clockwise way.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["left-facing-centre"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "outward-reverses",
+      "front": "How do left and right change for a person facing outward?",
+      "back": "They swap. Left becomes the next seat anticlockwise (minus one); right becomes the next seat clockwise (plus one).",
+      "explanation": "Turning to face out mirrors the person's sense of left and right.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["facing-outward"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "per-person-rule",
+      "front": "In a mixed circle, how many times do you decide the left-right rule?",
+      "back": "Once per person. Check which way that person faces before placing anyone to their left or right.",
+      "explanation": "One rule for the whole table is the classic mixed-circle mistake.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["facing-outward"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "opposite-seat",
+      "front": "On a table with 8 seats, which seat is directly opposite seat n?",
+      "back": "Seat n plus 4, wrapping past 8 back to 1. On a 10-seat circle it is n plus 5. An odd circle has no exact opposite.",
+      "explanation": "Opposite is always half the seats around.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["counting-and-opposite"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "between-arc",
+      "front": "'C sits between A and B' around a circle — which arc?",
+      "back": "The shorter arc, unless the puzzle says 'counting clockwise' or names a side.",
+      "explanation": "Assuming the long arc creates room for a wrong placement.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["counting-and-opposite"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "square-layout",
+      "front": "How do you lay out a square table for eight people?",
+      "back": "Seats clockwise as corner, mid-side, corner, mid-side, and so on. Mark which set faces the centre and which faces outward, then use the circle left-right rules.",
+      "explanation": "Opposite corner is two places round; opposite mid-side is two places round.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["square-tables"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "wrap-count",
+      "front": "How do you count 'third to the left' around a circle?",
+      "back": "Three single steps in that person's left direction, wrapping past the highest seat number back to seat 1.",
+      "explanation": "Forgetting the wrap lands you one seat short or on no seat at all.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["counting-and-opposite"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

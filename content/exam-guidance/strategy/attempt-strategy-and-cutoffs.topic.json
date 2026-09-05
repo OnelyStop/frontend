@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "exam-guidance",
+  "subjectName": "Exam Guidelines and Strategy",
+  "subjectPosition": 5,
+  "chapterSlug": "strategy",
+  "chapterName": "Strategy",
+  "chapterPosition": 1,
+  "topicSlug": "attempt-strategy-and-cutoffs",
+  "topicPosition": 70,
+  "title": "Attempt Strategy and Cut-offs",
+  "summary": "Deciding how many questions to attempt per section once sectional and overall cut-offs are in play: a simple net-score model, the expected value of a guess after eliminating options, an accuracy target, and when to stop attempting a section. Builds on Negative-Marking Strategy. Guidance only.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "negative-marking-strategy",
+    "sectional-time-management"
+  ],
+  "learningObjectives": [
+    "Explain why both the sectional and the overall cut-off must be cleared.",
+    "Estimate net marks from attempts and accuracy with a simple model.",
+    "Compute the expected value of a guess after eliminating one, two or three options.",
+    "Recognise the point at which attempting more questions in a section stops helping."
+  ],
+  "tags": ["exam-guidance", "strategy", "cut-offs", "attempts", "accuracy"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SBI_PO_OVERVIEW",
+      "url": "https://sbi.co.in/web/careers/probationary-officers",
+      "title": "SBI - Probationary Officers information",
+      "publisher": "State Bank of India",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm that objective papers apply a wrong-answer penalty and that selection uses sectional as well as overall qualifying marks. Exact cut-offs are set each cycle and are not published in advance; no text was reused."
+    },
+    {
+      "sourceId": "IBPS_HOME",
+      "url": "https://www.ibps.in/",
+      "title": "IBPS - home",
+      "publisher": "Institute of Banking Personnel Selection",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm that CRP results apply category-wise qualifying marks per test and overall. Candidates must read the official handout."
+    },
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Subject:Mathematics",
+      "title": "Wikibooks mathematics collection",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Cross-check for the expected-value arithmetic. All numbers and scenarios here are original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "two-cutoffs",
+      "type": "concept",
+      "title": "Two cut-offs, both binding",
+      "markdown": "A typical selection applies **two** kinds of qualifying mark:\n\n- a **sectional cut-off** you must reach in *each* test, and\n- an **overall cut-off** on the total.\n\nBoth bind. A strong total does not rescue a section that fell below its own line, and clearing every section does not help if the total is short. The exact figures are set after the exam from the candidate pool and are not announced in advance.\n\nThe practical consequence: you cannot treat a weak section as something the others will cover. Each section needs enough safe attempts to clear its own line first; only then does maximising the total matter.",
+      "sourceIds": ["SBI_PO_OVERVIEW", "IBPS_HOME"],
+      "searchKeywords": [
+        "sectional cut-off and overall cut-off both bind",
+        "strong total does not rescue a weak section",
+        "cut-offs set after the exam from the pool",
+        "each section needs safe attempts to clear its line"
+      ],
+      "position": 10
+    },
+    {
+      "id": "accuracy-target",
+      "type": "concept",
+      "title": "Why accuracy near 85 percent is the target",
+      "markdown": "Once accuracy in a section falls much below the mid-eighties, each additional attempt adds very little net score and a lot of variance. The reason is the double loss on a wrong answer: you spend time you could have used on a question you knew, and you pay the penalty.\n\nSo the aim is not \"attempt as many as possible\". It is: attempt as many as you can while **holding accuracy around 85 percent or above**. The number of questions that allows depends on the paper's difficulty that day and on your preparation - it is not a fixed target you carry in.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "accuracy target mid eighties per section",
+        "below that each attempt adds little and much variance",
+        "double loss on a wrong answer",
+        "attempts allowed depend on difficulty not a fixed target"
+      ],
+      "position": 20
+    },
+    {
+      "id": "the-net-score-model",
+      "type": "method",
+      "title": "A back-of-envelope net-score model",
+      "markdown": "For one-mark questions with a one-fourth penalty, if you make **A** attempts at accuracy **p** (a fraction between 0 and 1), your expected net score is roughly\n\n> net = A x ( p - 0.25 x (1 - p) )\n\nThe bracket is the **net marks per attempt**. At p = 0.85 it is 0.85 - 0.25 x 0.15 = 0.8125. At p = 0.70 it is 0.70 - 0.25 x 0.30 = 0.625.\n\nUse it two ways: estimate the net a plan of attempts will yield, or fix a target net (say the likely sectional cut-off plus a margin) and back out how many accurate attempts you need. If that number is out of reach at your accuracy, the fix is accuracy, not more attempts.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "net equals attempts times p minus 0.25 times 1 minus p",
+        "net marks per attempt bracket",
+        "0.8125 at 85 percent 0.625 at 70 percent",
+        "back out accurate attempts needed for a target net"
+      ],
+      "position": 30
+    },
+    {
+      "id": "the-numbers",
+      "type": "worked_example",
+      "title": "Worked example: the numbers",
+      "markdown": "One-mark questions, penalty one-fourth throughout.\n\n**Net score from a section.** A candidate makes 68 attempts: 58 right, 10 wrong. Net = 58 minus 10 times 0.25 = 58 minus 2.5 = 55.5. Another, steadier: 45 right, 5 wrong gives 45 minus 1.25 = 43.75.\n\n**Expected value of one guess** on a five-option question, by how many options you have ruled out. With n options left, the value is one chance in n of plus 1 and n minus 1 chances in n of minus 0.25:\n\n- Rule out none (5 left): (1/5)(+1) + (4/5)(-0.25) = 0.\n- Rule out 1 (4 left): (1/4)(+1) + (3/4)(-0.25) = +0.0625.\n- Rule out 2 (3 left): (1/3)(+1) + (2/3)(-0.25) = about +0.167.\n- Rule out 3 (2 left): (1/2)(+1) + (1/2)(-0.25) = +0.375.\n\nSo a guess is worth taking once two options are gone, and clearly so once three are.\n\n**Same attempts, different accuracy.** 40 attempts at 85 percent accuracy nets 40 x (0.85 - 0.25 x 0.15) = 40 x 0.8125 = 32.5. The same 40 attempts at 70 percent net 40 x (0.70 - 0.25 x 0.30) = 40 x 0.625 = 25. Seven and a half marks, from accuracy alone.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "net 58 right 10 wrong equals 55.5",
+        "expected value of a guess by options eliminated",
+        "guess worth it after two options gone",
+        "40 attempts 85 percent nets 32.5 versus 25 at 70 percent"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "Net score: 58 right, 10 wrong",
+          "value": 55.5,
+          "expression": "58 - 10*0.25"
+        },
+        {
+          "label": "Net score: 45 right, 5 wrong",
+          "value": 43.75,
+          "expression": "45 - 5*0.25"
+        },
+        {
+          "label": "Expected value of a blind guess, 5 options",
+          "value": 0,
+          "expression": "(1/5)*1 + (4/5)*(-0.25)"
+        },
+        {
+          "label": "Expected value of a guess, 1 option eliminated",
+          "value": 0.0625,
+          "expression": "(1/4)*1 + (3/4)*(-0.25)"
+        },
+        {
+          "label": "Expected value of a guess, 2 options eliminated",
+          "value": 0.1667,
+          "expression": "(1/3)*1 + (2/3)*(-0.25)",
+          "tolerance": 0.001
+        },
+        {
+          "label": "Expected value of a guess, 3 options eliminated",
+          "value": 0.375,
+          "expression": "(1/2)*1 + (1/2)*(-0.25)"
+        },
+        {
+          "label": "Net from 40 attempts at 85 percent accuracy",
+          "value": 32.5,
+          "expression": "40*(0.85 - 0.25*(1-0.85))"
+        },
+        {
+          "label": "Net from 40 attempts at 70 percent accuracy",
+          "value": 25,
+          "expression": "40*(0.70 - 0.25*(1-0.70))"
+        }
+      ]
+    },
+    {
+      "id": "when-to-stop-a-section",
+      "type": "method",
+      "title": "When to stop attempting a section",
+      "markdown": "Signs you have reached your ceiling in a section for the day:\n\n- your **last few attempts were two-option guesses**, not solved questions;\n- your running **accuracy is sliding** and each new attempt is harder than the last;\n- everything left is a long set you have already judged not worth the time.\n\nAt that point, on a **single overall clock**, the marginal minute is better spent banking easy marks in another section. Under **fixed sectional timing**, you cannot move the time, so spend the remainder rechecking flagged answers you actually reasoned out - not blind-filling.\n\nStopping is a decision, not a failure. A section cleared at its cut-off with room to spare has done its job.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "signs you have hit your ceiling in a section",
+        "last attempts were two option guesses",
+        "single clock move to another section",
+        "sectional timing recheck flagged answers not blind fill"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Playing for the total and missing a sectional cut-off.** Clear every section first.\n- **Carrying a fixed attempt target** - \"60 in quant, always\" - regardless of how hard the paper is that day.\n- **Guessing to finish the paper.** A blind guess at a one-fourth penalty averages to zero and adds risk.\n- **Treating the net-score model as exact.** It is a planning estimate; questions are not all one mark and not equally hard.\n- **Pushing attempts while accuracy falls** because the section \"feels\" recoverable.\n- **Assuming this cycle's cut-off equals last cycle's.** It is set from this year's pool and paper.",
+      "sourceIds": ["SBI_PO_OVERVIEW"],
+      "searchKeywords": [
+        "attempt strategy mistakes",
+        "playing for the total missing a sectional cut-off",
+        "fixed attempt target regardless of difficulty",
+        "guessing to finish the paper",
+        "this cycle cut-off not equal to last"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Two cut-offs bind: each section's own qualifying mark and the overall total. A strong total will not save a failed section.\n- Aim to attempt as many as you can while holding accuracy around 85 percent or higher; the number that allows varies with the paper.\n- Net-score estimate: net = attempts x ( p - 0.25 (1 - p) ). The bracket is net marks per attempt: 0.8125 at 85 percent, 0.625 at 70 percent.\n- Expected value of one guess: 0 with five options, +0.0625 after eliminating one, about +0.167 after two, +0.375 after three. Guess once two are gone.\n- Same 40 attempts net 32.5 at 85 percent accuracy versus 25 at 70 percent.\n- Stop a section when recent attempts are just two-option guesses; move the time to another section on a single clock, or recheck reasoned answers under sectional timing.",
+      "sourceIds": ["SBI_PO_OVERVIEW", "WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "attempt strategy summary",
+        "revision",
+        "two cut-offs accuracy net model guess EV stop section recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One-mark questions, one-fourth penalty. Give the answer and a one-line reason.\n\n1. In reasoning you attempt 52: 47 right, 5 wrong. Net score?\n2. Five options, and you can rule out two. Is a guess worth taking?\n3. Your total clears last cycle's overall mark comfortably, but your English net is one mark below the English sectional cut-off. Do you go through?\n4. A section run at 90 percent accuracy: net marks per attempt?\n5. Same 40 attempts: candidate A at 80 percent accuracy, candidate B at 65 percent. Net score for each?\n6. This section is separately timed with two minutes left; your last four answers were two-option guesses. Best use of the time?\n7. Is \"attempt exactly 60 in quantitative aptitude every time\" a sound rule?\n\n**Answers.** 1 47 minus 5 times 0.25 = 45.75. 2 Yes - three options left gives an expected value of about +0.17 per guess, clearly positive. 3 No - every section must independently clear its own cut-off; the total cannot compensate. 4 0.90 minus 0.25 times 0.10 = 0.875 marks per attempt. 5 A: 40 x (0.80 - 0.25 x 0.20) = 30. B: 40 x (0.65 - 0.25 x 0.35) = 22.5. 6 Recheck flagged answers you actually reasoned out - you are at your accuracy ceiling and the time cannot move to another section. 7 No - the attempt count should flex with the day's difficulty and your running accuracy against the cut-off, not be a fixed number.",
+      "searchKeywords": [
+        "attempt strategy practice scenarios",
+        "net score guess value sectional cut-off accuracy ceiling exercises"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "two-cutoffs-card",
+      "front": "Which cut-offs must a candidate clear, and how do they interact?",
+      "back": "Both a sectional cut-off in every test and an overall cut-off on the total. They are independent: a strong total does not rescue a section below its line, and vice versa.",
+      "explanation": "So a weak section still needs enough safe attempts of its own.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["two-cutoffs"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "blind-guess-zero",
+      "front": "Expected value of a blind guess on a five-option question with a one-fourth penalty?",
+      "back": "Zero: (1/5)(+1) + (4/5)(-0.25) = 0. It only adds variance.",
+      "explanation": "Guessing is not a scoring strategy until you can eliminate options.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-numbers"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "guess-after-two",
+      "front": "After eliminating two of five options, what is one guess worth?",
+      "back": "About +0.167: (1/3)(+1) + (2/3)(-0.25). Clearly positive, so worth taking; after three eliminations it rises to +0.375.",
+      "explanation": "Rule of thumb: guess once at least two options are gone.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-numbers"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "net-marks-per-attempt",
+      "front": "In the net-score model, what is the 'net marks per attempt' at accuracy p (one-fourth penalty)?",
+      "back": "p - 0.25 x (1 - p). At 85 percent that is 0.8125; at 70 percent, 0.625.",
+      "explanation": "Multiply by the number of attempts for an estimated section net.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["the-net-score-model"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "accuracy-worth",
+      "front": "40 attempts at 85 percent accuracy versus 40 at 70 percent - net scores?",
+      "back": "32.5 versus 25, a gap of 7.5 marks from accuracy alone (same attempt count, one-fourth penalty).",
+      "explanation": "More attempts at low accuracy is a poor trade.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-numbers"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "accuracy-target-card",
+      "front": "What section accuracy should you try to hold while choosing how many to attempt?",
+      "back": "Around 85 percent or higher. Below the mid-eighties, each extra attempt adds little net score and a lot of variance.",
+      "explanation": "The attempts that allows depend on the day's paper.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["accuracy-target"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "no-fixed-target",
+      "front": "Is a fixed rule like 'always attempt 60 in quant' sound?",
+      "back": "No. The attempt count should flex with the paper's difficulty that day and your running accuracy against the cut-off.",
+      "explanation": "A fixed target ignores how hard the section actually is.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

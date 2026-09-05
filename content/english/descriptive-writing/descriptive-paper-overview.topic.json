@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "descriptive-writing",
+  "chapterName": "Descriptive writing",
+  "chapterPosition": 3,
+  "topicSlug": "descriptive-paper-overview",
+  "topicPosition": 10,
+  "title": "The Descriptive Paper: What It Tests",
+  "summary": "How the typed descriptive paper is set and marked — a letter and an essay in about thirty minutes — what the four marking areas are, how to split the time, and why word count, paragraphing and a formal register decide most of the score.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 18,
+  "examTags": ["sbi-po", "ibps-po"],
+  "prerequisiteTopicSlugs": ["sentence-structure"],
+  "learningObjectives": [
+    "State the format of the descriptive paper: a letter and an essay, typed, in about thirty minutes.",
+    "List the four things the examiner marks: content, organisation, language and length.",
+    "Plan a time split that leaves room to read, plan and check.",
+    "Explain why staying inside the word range and paragraphing well protect the score."
+  ],
+  "tags": ["descriptive-writing", "exam-format", "essay", "letter"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm that a typed descriptive paper with a letter and an essay is part of the mains stage. No text was taken from it."
+    },
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/Rhetoric_and_Composition/Paragraphs",
+      "title": "Rhetoric and Composition/Paragraphs",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the paragraphing and organisation points. All wording here is original."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-the-paper-is",
+      "type": "introduction",
+      "title": "What the paper is",
+      "markdown": "The descriptive paper comes at the mains stage. You type two pieces on screen — a **letter** and an **essay** — inside a single time slot of about thirty minutes, with a combined mark that carries real weight against the sectional cut-off.\n\nThere is no choice of medium: the question tells you the type (letter or essay), the topic, and a word range. You are marked on what you write, not on handwriting or neatness, but the on-screen editor has no spellcheck you can rely on, so proofreading is on you.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "descriptive paper format letter and essay",
+        "typed on screen thirty minutes mains",
+        "no spellcheck proofread yourself"
+      ],
+      "position": 10
+    },
+    {
+      "id": "how-it-is-marked",
+      "type": "concept",
+      "title": "The four things marked",
+      "markdown": "Every descriptive answer is judged on four areas, and a weak one drags the whole mark down:\n\n1. **Content** — does the answer actually address the task, with specific points rather than filler?\n2. **Organisation** — a clear opening, ordered middle, and a closing; one idea per paragraph.\n3. **Language** — correct grammar, formal vocabulary, varied but controlled sentences.\n4. **Length** — inside the stated word range. Well short or well over both cost marks.\n\nContent and organisation are where most marks are won or lost. A grammatically clean answer that misses the point still scores low.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "descriptive marking content organisation language length",
+        "one idea per paragraph",
+        "clean grammar off topic still scores low"
+      ],
+      "position": 20
+    },
+    {
+      "id": "splitting-the-time",
+      "type": "method",
+      "title": "Splitting the time",
+      "markdown": "For a roughly thirty-minute slot covering both pieces, a workable split is:\n\n- **2 minutes** — read both prompts, note the type, topic and word range for each.\n- **3–4 minutes** — plan: a one-line point list for each piece before writing anything.\n- **18–20 minutes** — write, letter first (it is shorter and more formulaic, so it banks marks fast).\n- **3–4 minutes** — read back for verb agreement, tense, spelling and word count.\n\nThe plan is not wasted time. A two-minute plan is what stops you rewriting a paragraph at minute twenty-five.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "descriptive time split plan write check",
+        "letter first banks marks",
+        "two minute plan stops rewriting"
+      ],
+      "position": 30
+    },
+    {
+      "id": "letter-essay-precis-compared",
+      "type": "comparison",
+      "title": "Letter, essay and precis compared",
+      "markdown": "The chapter covers three forms. They are marked on the same four areas but differ in purpose and shape:\n\n| Form | Purpose | Typical length | Structure | Tone |\n| --- | --- | --- | --- | --- |\n| Formal letter | Get a specific reader to act | ~120–150 words | Fixed: heading, subject, three short paragraphs, close | Firm, courteous, impersonal |\n| Essay | Argue or explain a view on a topic | ~200–300 words | Intro, two or three body paragraphs, conclusion | Balanced, formal, third person |\n| Precis | Compress a given passage | About one-third of the passage | One paragraph, same order of ideas, a title | Neutral, reported, your own words |\n\nA letter has the tightest form and the least room for style; a precis has strict length and content rules; an essay gives the most freedom and so is judged hardest on organisation.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "letter vs essay vs precis purpose length structure tone",
+        "formal letter fixed form",
+        "precis one third length same order"
+      ],
+      "position": 40
+    },
+    {
+      "id": "register",
+      "type": "concept",
+      "title": "Register: formal and impersonal",
+      "markdown": "Descriptive answers are written in a **formal register**:\n\n- **No contractions** — write *do not*, *cannot*, *it is*.\n- **No slang or texting shorthand**, no exclamation marks, no rhetorical questions in a letter.\n- **Impersonal where possible** — *It is requested that…*, *The issue affects many customers*, rather than *I really want you to…*.\n- **Measured claims** — *This may reduce queues* reads better than *This will completely solve the problem*.\n- **Third person in the essay** — keep *I* out of an essay unless the prompt asks for a personal view.\n\nThe register is consistent from the first line to the last; one casual sentence stands out and costs a language mark.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "formal register no contractions no slang",
+        "impersonal it is requested that",
+        "third person essay measured claims"
+      ],
+      "position": 50
+    },
+    {
+      "id": "where-marks-leak",
+      "type": "warning",
+      "title": "Where marks leak",
+      "markdown": "- **Ignoring the word range.** A 300-word letter or a 120-word essay is capped before the examiner reads a sentence.\n- **One long paragraph.** No visible structure reads as no organisation.\n- **Restating the prompt as the introduction** instead of framing your own line.\n- **A memorised essay bent onto the topic** — examiners spot the seams, and the content mark falls.\n- **Running out of time on the essay** because the letter was over-polished.\n- **No proofread.** Two agreement errors and a wrong tense in the last paragraph are avoidable.",
+      "searchKeywords": [
+        "descriptive marks leak word range one paragraph",
+        "memorised essay bent onto topic",
+        "no proofread agreement errors"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Two pieces — a letter and an essay — typed, in about thirty minutes, marked together.\n- Marked on content, organisation, language and length; content and organisation carry the most.\n- Time split: read (2) → plan (3–4) → write, letter first (18–20) → check (3–4).\n- Formal register throughout: no contractions, no slang, impersonal phrasing, measured claims, third person in the essay.\n- Stay inside the word range; one idea per paragraph; leave time to proofread.",
+      "searchKeywords": [
+        "descriptive paper summary revision",
+        "format marking time split register recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice: judgement calls",
+      "markdown": "Pick the best action and give a one-line reason.\n\n1. The essay task says 200–250 words. At minute 20 you have written 400 words and not reached the conclusion. (a) keep going and finish the argument (b) stop, write a two-sentence conclusion, and cut the weakest body paragraph in the check phase (c) delete everything and restart shorter (d) leave it without a conclusion\n2. You are given one letter task and one essay task and 30 minutes. (a) essay first because it carries more marks (b) letter first because it is shorter and more formulaic (c) whichever topic you like more (d) split exactly 15/15 regardless\n3. The letter prompt gives a word range of 120–150. Your draft is 95 words and complete. (a) submit as is (b) pad with a fourth paragraph of general remarks (c) expand the detail paragraph with the specific facts a real complaint would include (d) repeat the request in different words\n4. You finish both pieces with 4 minutes left. (a) add another body paragraph to the essay (b) read both back for agreement, tense, spelling and word count (c) rewrite the essay introduction to sound grander (d) submit early\n5. The essay topic is unfamiliar and you have a well-practised essay on a nearby topic. (a) write the practised essay with the title changed (b) use only the points from the practised essay that genuinely fit this prompt, and plan the rest fresh (c) skip the essay (d) write about the nearby topic instead\n6. Your letter is fluent but uses \"can't\", \"I'd\" and one exclamation mark. (a) leave it, the content is fine (b) in the check phase, expand the contractions and remove the exclamation mark (c) rewrite the whole letter (d) add more exclamation marks for emphasis\n7. Halfway through the essay you see your second body point just repeats the first. (a) leave both, it fills space (b) replace the repeat with a fresh point, or merge the two and add a new paragraph (c) delete the essay (d) ignore it\n8. The letter task states no word count. (a) write as much as you can (b) keep to the usual 120-150 words for a formal letter unless told otherwise (c) write exactly 250 (d) write three lines",
+      "searchKeywords": [
+        "descriptive paper practice judgement word count time management register"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "paper-format",
+      "front": "What does the descriptive paper contain and how long is it?",
+      "back": "A letter and an essay, typed on screen, in a single slot of about thirty minutes, marked together against the sectional cut-off.",
+      "explanation": "The question fixes the type, topic and word range — there is no choice of medium.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-the-paper-is"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "four-marking-areas",
+      "front": "What four areas is a descriptive answer marked on?",
+      "back": "Content, organisation, language and length. Content and organisation carry the most weight.",
+      "explanation": "A grammatically clean answer that misses the task still scores low.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["how-it-is-marked"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "time-split",
+      "front": "How should you split about 30 minutes across the descriptive paper?",
+      "back": "Read prompts (2 min) → plan both pieces (3–4) → write, letter first (18–20) → proofread (3–4).",
+      "explanation": "The letter is shorter and formulaic, so writing it first banks marks quickly.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["splitting-the-time"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "why-letter-first",
+      "front": "Why write the letter before the essay?",
+      "back": "It is shorter and has a fixed form, so it earns marks fast and leaves a known block of time for the essay.",
+      "explanation": "Over-polishing the letter is the usual reason candidates run out of time on the essay.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["splitting-the-time", "where-marks-leak"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "word-range",
+      "front": "What happens if you write well outside the stated word range?",
+      "back": "The answer is capped on the length criterion before the content is judged — both well short and well over cost marks.",
+      "explanation": "Staying in range is the cheapest marks in the paper.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["how-it-is-marked", "where-marks-leak"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "register-rules",
+      "front": "Name three features of the formal register expected in descriptive writing.",
+      "back": "No contractions; no slang, exclamation marks or rhetorical questions; impersonal phrasing and measured claims; third person in the essay.",
+      "explanation": "The register must be consistent — one casual sentence stands out.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["register"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "three-forms",
+      "front": "How do a formal letter, an essay and a precis differ in length?",
+      "back": "Letter ~120–150 words; essay ~200–300 words; precis about one-third of the given passage.",
+      "explanation": "All three are marked on the same four areas but the precis has the strictest length rule.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["letter-essay-precis-compared"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

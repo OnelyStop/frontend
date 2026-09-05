@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "central-banking",
+  "chapterName": "Central banking and regulation",
+  "chapterPosition": 3,
+  "topicSlug": "government-financial-schemes",
+  "topicPosition": 50,
+  "title": "Government Financial Schemes",
+  "summary": "The credit-guarantee and targeted-lending schemes exams ask about — PMMY/MUDRA, Stand-Up India, CGTMSE, PM SVANidhi, KCC and PMEGP — grouped by whether they guarantee a loan, subsidise it, or simply target a borrower group, with a note that ceilings change by notification.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "priority-sector-lending-and-financial-inclusion",
+    "financial-inclusion-schemes"
+  ],
+  "learningObjectives": [
+    "Separate a credit-guarantee scheme from a subsidy scheme from a targeted-credit scheme.",
+    "Match PMMY, Stand-Up India, CGTMSE, PM SVANidhi, KCC and PMEGP to their borrower groups.",
+    "Recall the MUDRA loan tiers by name and rough size.",
+    "Explain why the exact scheme ceilings must be treated as revisable."
+  ],
+  "tags": ["banking-awareness", "mudra", "cgtmse", "kcc", "government-schemes"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_FAME",
+      "url": "https://www.rbi.org.in/commonperson/English/Scripts/PressReleases.aspx?Id=2123",
+      "title": "RBI financial-literacy and financial-inclusion material",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the RBI's description of government-sponsored credit schemes routed through banks. Explained in original wording; scheme ceilings flagged as revisable."
+    },
+    {
+      "sourceId": "RBI_MASTER_DIRECTIONS",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "title": "RBI Master Directions index (priority sector and sponsored schemes)",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for how sponsored schemes interact with priority-sector classification. No figures quoted verbatim."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - awareness section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm that government credit schemes are a standard awareness topic. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "why-these-schemes",
+      "type": "introduction",
+      "title": "Why these schemes exist",
+      "markdown": "Small borrowers — a street vendor, a first-time entrepreneur, a marginal farmer — are creditworthy in substance but fail a bank's usual tests: no collateral, no credit history, tiny ticket size. Government schemes bridge that gap in one of three ways:\n\n- **Guarantee** the loan, so the bank can lend without collateral and still be protected against default.\n- **Subsidise** the loan, through a margin-money grant or an interest subvention, so the effective cost to the borrower falls.\n- **Target** a borrower group and set simplified norms, so banks route a defined share of credit to it.\n\nThe loan is still made by a bank on its own books; the scheme changes the risk or the price, not the lender.",
+      "sourceIds": ["RBI_FAME", "RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "why government financial schemes small borrowers no collateral no credit history",
+        "guarantee subsidise target the three mechanisms",
+        "loan still made by a bank scheme changes risk or price not the lender"
+      ],
+      "position": 10
+    },
+    {
+      "id": "credit-guarantee",
+      "type": "concept",
+      "title": "Credit-guarantee schemes",
+      "markdown": "A **credit-guarantee** scheme puts a fund between the bank and the loss. If a covered loan defaults, the fund pays the bank most of the shortfall, so the bank can lend collateral-free.\n\n- **CGTMSE** — Credit Guarantee Fund Trust for Micro and Small Enterprises. Set up by the Government and SIDBI, it guarantees collateral-free working-capital and term loans to micro and small enterprises up to a ceiling that has been raised several times. The bank pays an annual guarantee fee; the trust bears an agreed share of any default.\n- Similar guarantee structures back parts of the education-loan and street-vendor schemes.\n\nA guarantee is not a subsidy — the borrower still repays in full and at the normal rate; only the bank's downside is covered.",
+      "sourceIds": ["RBI_FAME"],
+      "searchKeywords": [
+        "credit guarantee scheme fund between bank and loss pays shortfall lend collateral-free",
+        "CGTMSE micro and small enterprises collateral-free ceiling raised guarantee fee",
+        "guarantee is not a subsidy borrower repays in full only bank downside covered"
+      ],
+      "position": 20
+    },
+    {
+      "id": "mudra-tiers",
+      "type": "concept",
+      "title": "PMMY / MUDRA loan tiers",
+      "markdown": "The **Pradhan Mantri MUDRA Yojana (PMMY)** covers collateral-free loans to non-farm micro-enterprises — manufacturing, trading, services — routed through banks, NBFCs and micro-finance institutions. **MUDRA** (Micro Units Development and Refinance Agency, a SIDBI subsidiary) refinances the lenders and runs a guarantee.\n\nLoans are grouped by size into named tiers:\n\n- **Shishu** — the smallest loans, for a new or very small unit.\n- **Kishore** — mid-sized loans for a unit that is growing.\n- **Tarun** — the largest tier, for an established micro-enterprise scaling up.\n\nRemember the *order and names* of the tiers; the rupee bands for each tier have been revised and a higher tier has since been added, so treat any specific figure as revisable.",
+      "sourceIds": ["RBI_FAME", "SATHEE_BANK"],
+      "searchKeywords": [
+        "Pradhan Mantri MUDRA Yojana PMMY collateral-free loans non-farm micro enterprises",
+        "MUDRA micro units development refinance agency SIDBI subsidiary refinances guarantee",
+        "Shishu Kishore Tarun tiers order and names rupee bands revised higher tier added"
+      ],
+      "position": 30
+    },
+    {
+      "id": "targeted-schemes",
+      "type": "concept",
+      "title": "Targeted-credit and subsidy schemes",
+      "markdown": "| Scheme | Who it targets | The facility |\n| --- | --- | --- |\n| **Stand-Up India** | At least one Scheduled Caste / Scheduled Tribe borrower and at least one woman borrower per bank branch | A bank loan for a *greenfield* (new) enterprise in manufacturing, services or trading |\n| **PM SVANidhi** | Street vendors | A small collateral-free working-capital loan, stepped up on timely repayment, with an interest subsidy and a cashback for digital transactions |\n| **KCC** — Kisan Credit Card | Farmers (also animal husbandry and fisheries) | A revolving short-term credit limit for crop and allied needs, with an interest subvention for prompt repayment |\n| **PMEGP** — Prime Minister's Employment Generation Programme | New micro-enterprises, often first-generation entrepreneurs | A bank loan with a **margin-money subsidy** (a grant that reduces the borrower's own contribution), administered with KVIC |\n| **ECLGS** (historical) | Businesses hit by the COVID-19 disruption | A fully government-guaranteed emergency credit line, additional to existing limits — a time-bound scheme |",
+      "sourceIds": ["RBI_FAME", "RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "Stand-Up India SC ST and woman borrower per branch greenfield enterprise bank loan",
+        "PM SVANidhi street vendors collateral-free working capital stepped up interest subsidy",
+        "Kisan Credit Card KCC revolving short-term crop credit interest subvention prompt repayment",
+        "PMEGP margin money subsidy new micro enterprises KVIC",
+        "ECLGS COVID government-guaranteed emergency credit line time-bound"
+      ],
+      "position": 40
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **A guarantee scheme and a subsidy scheme are different.** CGTMSE covers the bank's loss; PMEGP gives the borrower a margin-money grant; KCC and PM SVANidhi give an interest subsidy.\n- **MUDRA is not a bank.** It is a refinance-and-guarantee agency; the loan is disbursed by a bank, NBFC or MFI.\n- **Shishu / Kishore / Tarun are size tiers, not separate schemes**, all under PMMY.\n- **Stand-Up India requires a *new* enterprise** and a borrower from the target group; it is not a general SC/ST loan.\n- **KCC is a revolving limit, not a one-time loan**, and it now covers animal husbandry and fisheries, not only crops.\n- **Treat every rupee ceiling as revisable.** The schemes' limits, subsidy rates and tenor are changed by notification; the exam-safe facts are the target group and the mechanism.",
+      "searchKeywords": [
+        "guarantee scheme versus subsidy scheme CGTMSE PMEGP KCC SVANidhi",
+        "MUDRA is not a bank refinance and guarantee agency",
+        "Shishu Kishore Tarun are tiers under PMMY not separate schemes",
+        "Stand-Up India requires a new enterprise and target-group borrower",
+        "KCC revolving limit covers animal husbandry and fisheries",
+        "treat scheme ceilings as revisable target group and mechanism are the safe facts"
+      ],
+      "position": 50
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Schemes bridge the small-borrower gap by guaranteeing, subsidising or targeting a loan that a bank still makes on its own books.\n- CGTMSE guarantees collateral-free loans to micro and small enterprises; the bank pays a fee and the trust bears a share of any default.\n- PMMY / MUDRA: collateral-free loans to non-farm micro-enterprises in three named size tiers — Shishu, Kishore, Tarun (bands revised, a higher tier added). MUDRA refinances and guarantees; it is not a bank.\n- Stand-Up India: a new enterprise loan for an SC/ST borrower and a woman borrower per branch. PM SVANidhi: stepped working-capital loans for street vendors with an interest subsidy. KCC: a revolving short-term limit for farmers with interest subvention. PMEGP: a bank loan with a margin-money subsidy for new micro-enterprises.\n- Learn the target group and mechanism; treat rupee ceilings as revisable.",
+      "searchKeywords": [
+        "government financial schemes summary revision",
+        "CGTMSE PMMY MUDRA Stand-Up India SVANidhi KCC PMEGP mechanisms recap"
+      ],
+      "position": 60
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. A scheme pays the bank most of its loss if a collateral-free micro-enterprise loan defaults. Guarantee or subsidy?\n2. Under which scheme does a bank branch lend to at least one SC/ST borrower and one woman borrower for a brand-new enterprise?\n3. Shishu, Kishore and Tarun are tiers of which scheme?\n4. A street vendor takes a first small working-capital loan and a larger one after repaying on time. Name the scheme.\n5. A farmer needs a revolving limit for seeds and fertiliser, with cheaper interest if repaid promptly. Name the instrument.\n6. PMEGP helps a new unit by giving the borrower a ____ , which reduces the borrower's own contribution.\n7. True or false: MUDRA disburses loans directly to borrowers.\n8. Why should you not memorise a specific rupee ceiling for these schemes as a hard fact?\n\n**Answers:** 1 Guarantee — the borrower still repays in full; only the bank's downside is covered (CGTMSE-type). 2 Stand-Up India. 3 PMMY / MUDRA. 4 PM SVANidhi. 5 Kisan Credit Card (KCC). 6 margin-money subsidy (a grant). 7 False — MUDRA refinances and guarantees; a bank, NBFC or MFI disburses. 8 The ceilings, subsidy rates and tenor are revised by notification; only the target group and mechanism are stable.",
+      "searchKeywords": [
+        "government schemes practice match scheme to borrower group mechanism",
+        "CGTMSE Stand-Up India MUDRA SVANidhi KCC PMEGP exercise"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "three-mechanisms",
+      "front": "Three ways a government scheme helps a small borrower get bank credit?",
+      "back": "Guarantee the loan (bank protected against default), subsidise it (margin-money grant or interest subvention), or target a borrower group with simplified norms. The bank still makes the loan on its own books.",
+      "explanation": "The scheme changes the risk or the price, not the lender.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["why-these-schemes"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "cgtmse",
+      "front": "What does CGTMSE do?",
+      "back": "It is a guarantee fund (Government + SIDBI) that lets banks give collateral-free loans to micro and small enterprises: the bank pays an annual fee, and the trust bears an agreed share of any default.",
+      "explanation": "A guarantee, not a subsidy — the borrower repays in full at the normal rate.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["credit-guarantee"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "mudra-tiers",
+      "front": "Name the MUDRA / PMMY loan tiers in order of size.",
+      "back": "Shishu (smallest), Kishore (mid-sized), Tarun (largest). They are size bands under one scheme — PMMY — for collateral-free loans to non-farm micro-enterprises. The rupee bands have been revised.",
+      "explanation": "MUDRA refinances and guarantees the lenders; it is not a bank.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["mudra-tiers"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "stand-up-india",
+      "front": "Who does Stand-Up India target, and for what?",
+      "back": "At least one Scheduled Caste / Scheduled Tribe borrower and at least one woman borrower per bank branch, for a bank loan to set up a new (greenfield) enterprise in manufacturing, services or trading.",
+      "explanation": "It requires a new enterprise — not a general-purpose SC/ST loan.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["targeted-schemes"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "kcc",
+      "front": "What is the Kisan Credit Card (KCC)?",
+      "back": "A revolving short-term credit limit for farmers (and now animal husbandry and fisheries) covering crop and allied needs, with an interest subvention for prompt repayment.",
+      "explanation": "A running limit, not a one-time loan.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["targeted-schemes"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "pmegp-vs-pm-svanidhi",
+      "front": "How does PMEGP help a borrower, versus PM SVANidhi?",
+      "back": "PMEGP gives a margin-money subsidy — a grant that reduces the borrower's own contribution to a new micro-enterprise loan. PM SVANidhi gives street vendors a stepped-up working-capital loan with an interest subsidy and a digital-transaction cashback.",
+      "explanation": "PMEGP subsidises capital cost; SVANidhi subsidises interest.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["targeted-schemes"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "ceilings-revisable",
+      "front": "Which facts about a government credit scheme are exam-safe, and which are not?",
+      "back": "Safe: the target group and the mechanism (guarantee / subsidy / targeting). Not safe: the exact rupee ceiling, subsidy rate and tenor — these are changed by notification.",
+      "explanation": "Learn the structure, not the current numbers.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["common-confusions"],
+      "status": "approved",
+      "position": 70
+    }
+  ]
+}

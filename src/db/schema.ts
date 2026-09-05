@@ -3,6 +3,7 @@ import {
   bigint,
   boolean,
   char,
+  check,
   foreignKey,
   index,
   integer,
@@ -19,6 +20,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import { anonRole, authenticatedRole } from "drizzle-orm/supabase";
+export * from "../lib/gazette/db/schema";
 
 export const appRole = pgEnum("app_role", ["admin", "editor"]);
 
@@ -35,7 +37,9 @@ export const appPermission = pgEnum("app_permission", [
 export const userRoles = pgTable(
   "user_roles",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     role: appRole("role").notNull(),
   },
@@ -58,7 +62,9 @@ export const userRoles = pgTable(
 export const rolePermissions = pgTable(
   "role_permissions",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     role: appRole("role").notNull(),
     permission: appPermission("permission").notNull(),
   },
@@ -73,16 +79,13 @@ export const rolePermissions = pgTable(
   ],
 ).enableRLS();
 
-// ---------------------------------------------------------------------------
-// Billing
-//
-// Access is decided by one column: entitlements.access_until. Everything else
-// here -- Razorpay's subscription states, the payments, the webhook events --
-// is the audit trail that explains how that timestamp got its value. A feature
-// asks "is access_until in the future", never "what is Razorpay saying".
-// ---------------------------------------------------------------------------
+// Access is one column: entitlements.access_until. Everything below is the
+// audit trail explaining how that timestamp got its value, never the check.
 
-export const billingInterval = pgEnum("billing_interval", ["monthly", "yearly"]);
+export const billingInterval = pgEnum("billing_interval", [
+  "monthly",
+  "yearly",
+]);
 
 // One plan object exists in Razorpay per currency, because Razorpay fixes the
 // currency on the plan itself -- so .in and .com are different plan ids for the
@@ -113,7 +116,9 @@ export const planKey = pgEnum("plan_key", ["pro", "school"]);
 export const paymentPlans = pgTable(
   "payment_plans",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     plan: planKey("plan").notNull(),
     interval: billingInterval("interval").notNull(),
     currency: currencyCode("currency").notNull(),
@@ -123,7 +128,9 @@ export const paymentPlans = pgTable(
     // float64, and a rounding error in an amount is a real charge.
     amountMinor: integer("amount_minor").notNull(),
     active: boolean("active").notNull().default(true),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     // Partial, not a plain unique: Razorpay plan objects are immutable, so
@@ -149,18 +156,26 @@ export const paymentPlans = pgTable(
 export const subscriptions = pgTable(
   "subscriptions",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     razorpaySubscriptionId: text("razorpay_subscription_id").notNull(),
     planId: bigint("plan_id", { mode: "number" }).notNull(),
     status: subscriptionStatus("status").notNull(),
     currentPeriodEnd: timestamp("current_period_end", { withTimezone: true }),
     cancelledAt: timestamp("cancelled_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
-    unique("subscriptions_razorpay_subscription_id_key").on(t.razorpaySubscriptionId),
+    unique("subscriptions_razorpay_subscription_id_key").on(
+      t.razorpaySubscriptionId,
+    ),
     index("subscriptions_user_id_idx").on(t.userId),
 
     pgPolicy("signed-in users can read their own subscriptions", {
@@ -176,7 +191,9 @@ export const subscriptions = pgTable(
 export const payments = pgTable(
   "payments",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     subscriptionId: bigint("subscription_id", { mode: "number" }),
     razorpayPaymentId: text("razorpay_payment_id").notNull(),
@@ -185,7 +202,9 @@ export const payments = pgTable(
     status: text("status").notNull(),
     method: text("method"),
     capturedAt: timestamp("captured_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     // Razorpay may deliver the same payment on more than one event. This is
@@ -209,11 +228,15 @@ export const payments = pgTable(
 export const paymentEvents = pgTable(
   "payment_events",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     eventId: text("event_id").notNull(),
     eventType: text("event_type").notNull(),
     payload: jsonb("payload").notNull(),
-    receivedAt: timestamp("received_at", { withTimezone: true }).notNull().defaultNow(),
+    receivedAt: timestamp("received_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     unique("payment_events_event_id_key").on(t.eventId),
@@ -230,7 +253,9 @@ export const paymentEvents = pgTable(
 export const entitlements = pgTable(
   "entitlements",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     plan: planKey("plan").notNull(),
     // The single access check: access_until > now(). One comparison, in one
@@ -239,7 +264,9 @@ export const entitlements = pgTable(
     // Informational -- why access_until says what it does. Never the check.
     status: subscriptionStatus("status").notNull(),
     subscriptionId: bigint("subscription_id", { mode: "number" }),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     // One live entitlement per user. Renewals move access_until forward on
@@ -262,7 +289,9 @@ export const profiles = pgTable(
     bio: text("bio"),
     // Never used for pricing -- currency comes from the request host.
     country: char("country", { length: 2 }).notNull().default("IN"),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (t) => [
     pgPolicy("signed-in users can read their own profile", {
@@ -280,20 +309,17 @@ export const profiles = pgTable(
   ],
 ).enableRLS();
 
-// ---------------------------------------------------------------------------
-// Question bank
-//
-// Imported from OnelyStop/question-bank's classified JSON (import-question-
-// bank.ts), never written by hand. papers/directions/questions are a closed
-// graph a re-import replaces wholesale, which is why they carry real foreign
-// keys with cascade -- the billing tables above deliberately don't, because
-// those mirror an external provider and are written by a webhook instead.
+// Question bank: imported from OnelyStop/question-bank's classified JSON
+// (import-question-bank.ts), never written by hand. papers/directions/questions
+// are a closed graph a re-import replaces wholesale, which is why they carry
+// real foreign keys with cascade -- the billing tables above deliberately
+// don't, because those mirror an external provider and are written by a
+// webhook instead.
 //
 // attempts/attempt_answers/user_topic_stats exist so the schema doesn't need
 // a second migration once scoring lands, but nothing writes them yet: 0% of
 // questions have an `answer` today (pipeline step 4 hasn't run), so there is
 // nothing to score against.
-// ---------------------------------------------------------------------------
 
 export const attemptMode = pgEnum("attempt_mode", ["bank", "mix", "paper"]);
 
@@ -363,8 +389,10 @@ export const directions = pgTable(
   ],
 ).enableRLS();
 
-export const questions = pgTable(
-  "questions",
+// Named bank_questions, not questions -- the Gazette engine's current-affairs
+// table already claims that name (src/lib/gazette/db/schema.ts).
+export const bankQuestions = pgTable(
+  "bank_questions",
   {
     qId: text("q_id").primaryKey(),
     paperId: text("paper_id")
@@ -397,10 +425,13 @@ export const questions = pgTable(
     isActive: boolean("is_active").notNull().default(true),
   },
   (t) => [
-    unique("questions_paper_id_q_num_key").on(t.paperId, t.qNum),
-    index("questions_paper_id_direction_id_idx").on(t.paperId, t.directionId),
-    index("questions_section_topic_idx").on(t.section, t.topic),
-    index("questions_content_hash_idx").on(t.contentHash),
+    unique("bank_questions_paper_id_q_num_key").on(t.paperId, t.qNum),
+    index("bank_questions_paper_id_direction_id_idx").on(
+      t.paperId,
+      t.directionId,
+    ),
+    index("bank_questions_section_topic_idx").on(t.section, t.topic),
+    index("bank_questions_content_hash_idx").on(t.contentHash),
 
     // Nullable on directionId, so the ~29% of standalone questions (no
     // passage) skip this check entirely rather than needing a sentinel row.
@@ -409,7 +440,7 @@ export const questions = pgTable(
       foreignColumns: [directions.paperId, directions.directionId],
     }),
 
-    pgPolicy("anyone can read questions", {
+    pgPolicy("anyone can read bank questions", {
       for: "select",
       to: [anonRole, authenticatedRole],
       using: sql`true`,
@@ -420,11 +451,15 @@ export const questions = pgTable(
 export const attempts = pgTable(
   "attempts",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     userId: uuid("user_id").notNull(),
     mode: attemptMode("mode").notNull(),
     paperId: text("paper_id").references(() => papers.paperId),
-    startedAt: timestamp("started_at", { withTimezone: true }).notNull().defaultNow(),
+    startedAt: timestamp("started_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
     submittedAt: timestamp("submitted_at", { withTimezone: true }),
     score: numeric("score", { precision: 6, scale: 2 }),
   },
@@ -453,13 +488,15 @@ export const attempts = pgTable(
 export const attemptAnswers = pgTable(
   "attempt_answers",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().generatedByDefaultAsIdentity(),
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
     attemptId: bigint("attempt_id", { mode: "number" })
       .notNull()
       .references(() => attempts.id, { onDelete: "cascade" }),
     qId: text("q_id")
       .notNull()
-      .references(() => questions.qId),
+      .references(() => bankQuestions.qId),
     chosen: char("chosen", { length: 1 }),
     isCorrect: boolean("is_correct"),
     timeMs: integer("time_ms"),
@@ -520,23 +557,17 @@ export const userTopicStats = pgTable(
   ],
 ).enableRLS();
 
-// ---------------------------------------------------------------------------
-// Notes (knowledge base)
-//
-// Imported from bank_exam/notes's hand-authored JSON (import-notes.ts), never
-// written by hand. One row per (section, topic, subtopic) -- the source
-// repo's own validate_notes.py already enforces that uniqueness before
-// anything here ever sees a file, so the unique constraint below is a second,
-// cheap guarantee, not the primary one -- Postgres treats NULL subtopic as
-// distinct from itself, so it would not actually catch two general notes for
-// the same topic colliding; the source's own check is what really prevents
-// that.
-//
-// section/topic use the same one-word vocabulary as questions.section/topic
-// (topic_taxonomy.json) -- see SECTION_DB in data/navigation.ts for the
-// mapping from a Subject's full name, same join key as the question bank.
-// ---------------------------------------------------------------------------
-
+// Notes (knowledge base), imported from bank_exam/notes's hand-authored JSON
+// (import-notes.ts), never written by hand. One row per (section, topic,
+// subtopic) -- the source repo's own validate_notes.py already enforces that
+// uniqueness before anything here ever sees a file, so the unique constraint
+// below is a second, cheap guarantee, not the primary one -- Postgres treats
+// NULL subtopic as distinct from itself, so it would not actually catch two
+// general notes for the same topic colliding; the source's own check is what
+// really prevents that. section/topic use the same one-word vocabulary as
+// questions.section/topic (topic_taxonomy.json) -- see SECTION_DB in
+// data/navigation.ts for the mapping from a Subject's full name, same join
+// key as the question bank.
 export const notes = pgTable(
   "notes",
   {
@@ -566,11 +597,19 @@ export const notes = pgTable(
       .default([]),
     tricks: jsonb("tricks")
       .$type<
-        { name: string; description: string; whenToUse: string; example: string | null }[]
+        {
+          name: string;
+          description: string;
+          whenToUse: string;
+          example: string | null;
+        }[]
       >()
       .notNull()
       .default([]),
-    commonMistakes: jsonb("common_mistakes").$type<string[]>().notNull().default([]),
+    commonMistakes: jsonb("common_mistakes")
+      .$type<string[]>()
+      .notNull()
+      .default([]),
     workedExamples: jsonb("worked_examples")
       .$type<{ problem: string; steps: string[]; answer: string }[]>()
       .notNull()
@@ -578,10 +617,21 @@ export const notes = pgTable(
     // Points at questions.qId, not a real FK -- notes and questions import
     // from two separate repos on two separate schedules, and a dangling
     // reference here should never block a notes import.
-    relatedQuestionIds: jsonb("related_question_ids").$type<string[]>().notNull().default([]),
+    relatedQuestionIds: jsonb("related_question_ids")
+      .$type<string[]>()
+      .notNull()
+      .default([]),
     difficulty: text("difficulty"),
     sources: jsonb("sources")
-      .$type<{ name: string; url: string; tier: number; contribution: string; accessed: string }[]>()
+      .$type<
+        {
+          name: string;
+          url: string;
+          tier: number;
+          contribution: string;
+          accessed: string;
+        }[]
+      >()
       .notNull()
       .default([]),
     confirmations: integer("confirmations"),
@@ -593,7 +643,11 @@ export const notes = pgTable(
     isActive: boolean("is_active").notNull().default(true),
   },
   (t) => [
-    unique("notes_section_topic_subtopic_key").on(t.section, t.topic, t.subtopic),
+    unique("notes_section_topic_subtopic_key").on(
+      t.section,
+      t.topic,
+      t.subtopic,
+    ),
     index("notes_section_topic_idx").on(t.section, t.topic),
 
     pgPolicy("anyone can read notes", {
@@ -601,5 +655,442 @@ export const notes = pgTable(
       to: [anonRole, authenticatedRole],
       using: sql`true`,
     }),
+  ],
+).enableRLS();
+
+// Study module (knowledge base). Topic JSON under content/ is the Git-managed
+// authoring source; scripts/study-import.ts projects it into these tables. The
+// importer connects as the database owner and bypasses RLS, so the policies
+// below are the backstop — the app's own queries additionally filter by the
+// authenticated user id in the route handler (see src/features/study). A
+// standalone Postgres has no auth.uid(); docker/postgres/init.sql shims it for
+// local dev.
+
+export const contentStatus = pgEnum("content_status", [
+  "draft",
+  "in_review",
+  "published",
+  "retired",
+]);
+
+export const noteVisibility = pgEnum("note_visibility", [
+  "private",
+  "unlisted",
+  "public",
+]);
+
+export const moderationStatus = pgEnum("moderation_status", [
+  "not_required",
+  "pending",
+  "approved",
+  "rejected",
+]);
+
+export const flashcardStatus = pgEnum("flashcard_status", [
+  "draft",
+  "approved",
+  "rejected",
+]);
+
+// Content read to any signed-in learner. Publication is enforced by the route
+// handler (status = 'published'), not the policy — the policy only keeps the
+// anon key from reading the table at all.
+const contentReadable = (name: string) =>
+  pgPolicy(name, { for: "select", to: authenticatedRole, using: sql`true` });
+
+export const subjects = pgTable(
+  "subjects",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    slug: text("slug").notNull().unique(),
+    name: text("name").notNull(),
+    description: text("description"),
+    position: integer("position").notNull(),
+    isActive: boolean("is_active").notNull().default(true),
+  },
+  () => [contentReadable("signed-in users can read subjects")],
+).enableRLS();
+
+export const chapters = pgTable(
+  "chapters",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    subjectId: uuid("subject_id")
+      .notNull()
+      .references(() => subjects.id),
+    slug: text("slug").notNull(),
+    name: text("name").notNull(),
+    description: text("description"),
+    position: integer("position").notNull(),
+  },
+  (t) => [
+    unique("chapters_subject_id_slug_key").on(t.subjectId, t.slug),
+    index("chapters_subject_id_idx").on(t.subjectId),
+    contentReadable("signed-in users can read chapters"),
+  ],
+).enableRLS();
+
+export const topics = pgTable(
+  "topics",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    chapterId: uuid("chapter_id")
+      .notNull()
+      .references(() => chapters.id),
+    slug: text("slug").notNull(),
+    position: integer("position").notNull().default(0),
+    title: text("title").notNull(),
+    summary: text("summary").notNull(),
+    difficulty: text("difficulty").notNull(),
+    estimatedMinutes: integer("estimated_minutes").notNull(),
+    examTags: text("exam_tags")
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    prerequisiteTopicSlugs: text("prerequisite_topic_slugs")
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    learningObjectives: jsonb("learning_objectives")
+      .$type<string[]>()
+      .notNull()
+      .default([]),
+    tags: text("tags")
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    status: contentStatus("status").notNull().default("draft"),
+    currentVersion: integer("current_version").notNull().default(1),
+    reviewCadenceDays: integer("review_cadence_days").notNull().default(365),
+    lastReviewedAt: timestamp("last_reviewed_at", { withTimezone: true }),
+    publishedAt: timestamp("published_at", { withTimezone: true }),
+  },
+  (t) => [
+    unique("topics_chapter_id_slug_key").on(t.chapterId, t.slug),
+    index("topics_chapter_id_idx").on(t.chapterId),
+    index("topics_slug_idx").on(t.slug),
+    check(
+      "topics_difficulty_check",
+      sql`${t.difficulty} in ('beginner','intermediate','advanced')`,
+    ),
+    check("topics_estimated_minutes_check", sql`${t.estimatedMinutes} > 0`),
+    contentReadable("signed-in users can read topics"),
+  ],
+).enableRLS();
+
+export const contentVersions = pgTable(
+  "content_versions",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    topicId: uuid("topic_id")
+      .notNull()
+      .references(() => topics.id),
+    version: integer("version").notNull(),
+    sourceHash: text("source_hash").notNull(),
+    authoredBy: text("authored_by"),
+    reviewedBy: text("reviewed_by"),
+    reviewNotes: text("review_notes"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    unique("content_versions_topic_id_version_key").on(t.topicId, t.version),
+    contentReadable("signed-in users can read content versions"),
+  ],
+).enableRLS();
+
+export const contentBlocks = pgTable(
+  "content_blocks",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    contentVersionId: uuid("content_version_id")
+      .notNull()
+      .references(() => contentVersions.id, { onDelete: "cascade" }),
+    stableKey: text("stable_key").notNull(),
+    type: text("type").notNull(),
+    title: text("title").notNull(),
+    bodyMarkdown: text("body_markdown").notNull(),
+    searchKeywords: text("search_keywords")
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    position: integer("position").notNull(),
+  },
+  (t) => [
+    unique("content_blocks_content_version_id_stable_key_key").on(
+      t.contentVersionId,
+      t.stableKey,
+    ),
+    index("content_blocks_content_version_id_idx").on(t.contentVersionId),
+    contentReadable("signed-in users can read content blocks"),
+  ],
+).enableRLS();
+
+export const contentSources = pgTable(
+  "content_sources",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    registryKey: text("registry_key"),
+    url: text("url").notNull(),
+    title: text("title").notNull(),
+    publisher: text("publisher").notNull(),
+    usageMode: text("usage_mode").notNull(),
+    license: text("license"),
+    retrievedAt: timestamp("retrieved_at", { withTimezone: true }).notNull(),
+    sourceUpdatedAt: timestamp("source_updated_at", { withTimezone: true }),
+    contentHash: text("content_hash"),
+    notes: text("notes"),
+  },
+  (t) => [
+    unique("content_sources_url_retrieved_at_key").on(t.url, t.retrievedAt),
+    contentReadable("signed-in users can read content sources"),
+  ],
+).enableRLS();
+
+export const contentBlockSources = pgTable(
+  "content_block_sources",
+  {
+    blockId: uuid("block_id")
+      .notNull()
+      .references(() => contentBlocks.id, { onDelete: "cascade" }),
+    sourceId: uuid("source_id")
+      .notNull()
+      .references(() => contentSources.id),
+  },
+  (t) => [
+    primaryKey({ columns: [t.blockId, t.sourceId] }),
+    contentReadable("signed-in users can read content block sources"),
+  ],
+).enableRLS();
+
+export const flashcards = pgTable(
+  "flashcards",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    topicId: uuid("topic_id")
+      .notNull()
+      .references(() => topics.id, { onDelete: "cascade" }),
+    contentVersion: integer("content_version").notNull(),
+    stableKey: text("stable_key").notNull(),
+    front: text("front").notNull(),
+    back: text("back").notNull(),
+    explanation: text("explanation"),
+    difficulty: text("difficulty").notNull(),
+    sourceBlockKeys: text("source_block_keys")
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    status: flashcardStatus("status").notNull().default("draft"),
+    position: integer("position").notNull(),
+    generatedBy: text("generated_by"),
+    reviewedBy: text("reviewed_by"),
+  },
+  (t) => [
+    unique("flashcards_topic_id_content_version_stable_key_key").on(
+      t.topicId,
+      t.contentVersion,
+      t.stableKey,
+    ),
+    index("flashcards_topic_id_idx").on(t.topicId),
+    check("flashcards_front_len_check", sql`char_length(${t.front}) <= 240`),
+    check("flashcards_back_len_check", sql`char_length(${t.back}) <= 800`),
+    check(
+      "flashcards_difficulty_check",
+      sql`${t.difficulty} in ('easy','medium','hard')`,
+    ),
+    contentReadable("signed-in users can read flashcards"),
+  ],
+).enableRLS();
+
+export const userNotes = pgTable(
+  "user_notes",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id").notNull(),
+    topicId: uuid("topic_id")
+      .notNull()
+      .references(() => topics.id, { onDelete: "cascade" }),
+    blockStableKey: text("block_stable_key"),
+    contentVersion: integer("content_version"),
+    selectedText: text("selected_text"),
+    textBefore: text("text_before"),
+    textAfter: text("text_after"),
+    bodyMarkdown: text("body_markdown").notNull(),
+    color: text("color").notNull().default("yellow"),
+    visibility: noteVisibility("visibility").notNull().default("private"),
+    moderation: moderationStatus("moderation")
+      .notNull()
+      .default("not_required"),
+    publishedAt: timestamp("published_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    index("user_notes_owner_topic_idx").on(t.userId, t.topicId),
+    check(
+      "user_notes_body_len_check",
+      sql`char_length(${t.bodyMarkdown}) <= 10000`,
+    ),
+    pgPolicy("owners read their own notes", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("owners create their own notes", {
+      for: "insert",
+      to: authenticatedRole,
+      withCheck: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("owners update their own notes", {
+      for: "update",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+      withCheck: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("owners delete their own notes", {
+      for: "delete",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+  ],
+).enableRLS();
+
+export const studyProgress = pgTable(
+  "study_progress",
+  {
+    userId: uuid("user_id").notNull(),
+    topicId: uuid("topic_id")
+      .notNull()
+      .references(() => topics.id, { onDelete: "cascade" }),
+    progressPercent: integer("progress_percent").notNull().default(0),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    lastOpenedAt: timestamp("last_opened_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.userId, t.topicId] }),
+    check(
+      "study_progress_percent_check",
+      sql`${t.progressPercent} between 0 and 100`,
+    ),
+    pgPolicy("owners read their own progress", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("owners upsert their own progress", {
+      for: "insert",
+      to: authenticatedRole,
+      withCheck: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("owners update their own progress", {
+      for: "update",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+      withCheck: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+  ],
+).enableRLS();
+
+export const chatConversations = pgTable(
+  "chat_conversations",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id").notNull(),
+    topicId: uuid("topic_id")
+      .notNull()
+      .references(() => topics.id),
+    contentVersion: integer("content_version").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    index("chat_conversations_owner_idx").on(t.userId, t.topicId),
+    pgPolicy("owners read their own conversations", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("owners create their own conversations", {
+      for: "insert",
+      to: authenticatedRole,
+      withCheck: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+    pgPolicy("owners update their own conversations", {
+      for: "update",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+      withCheck: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+  ],
+).enableRLS();
+
+export const chatMessages = pgTable(
+  "chat_messages",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    conversationId: uuid("conversation_id")
+      .notNull()
+      .references(() => chatConversations.id, { onDelete: "cascade" }),
+    role: text("role").notNull(),
+    body: text("body").notNull(),
+    citedBlockKeys: text("cited_block_keys")
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    tokenCount: integer("token_count"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    index("chat_messages_conversation_idx").on(t.conversationId),
+    check("chat_messages_role_check", sql`${t.role} in ('user','assistant')`),
+    // No user_id column: ownership is the parent conversation's.
+    pgPolicy("owners read messages in their conversations", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = (select user_id from chat_conversations c where c.id = ${t.conversationId})`,
+    }),
+    pgPolicy("owners add messages to their conversations", {
+      for: "insert",
+      to: authenticatedRole,
+      withCheck: sql`(select auth.uid()) = (select user_id from chat_conversations c where c.id = ${t.conversationId})`,
+    }),
+  ],
+).enableRLS();
+
+// Schema-only for the MVP: no binary assets are stored yet (see spec §3.2).
+// Present so a later PDF/image/audio feature is a migration, not a redesign.
+export const contentAssets = pgTable(
+  "content_assets",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    topicId: uuid("topic_id").references(() => topics.id),
+    objectKey: text("object_key").notNull().unique(),
+    bucket: text("bucket").notNull(),
+    mimeType: text("mime_type").notNull(),
+    byteSize: bigint("byte_size", { mode: "number" }).notNull(),
+    sha256: text("sha256").notNull(),
+    altText: text("alt_text"),
+    license: text("license"),
+    attribution: text("attribution"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    check("content_assets_byte_size_check", sql`${t.byteSize} >= 0`),
+    contentReadable("signed-in users can read content assets"),
   ],
 ).enableRLS();

@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "arithmetic",
+  "chapterName": "Arithmetic",
+  "chapterPosition": 2,
+  "topicSlug": "mixtures-and-alligation",
+  "topicPosition": 70,
+  "title": "Mixtures and Alligation",
+  "summary": "Weighted average and the alligation rule for mixing two ingredients of different price or strength, plus the repeated-replacement formula for a liquid drawn off and topped up with water.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["ratio-and-proportion", "average", "percentages"],
+  "learningObjectives": [
+    "Compute the price or strength of a mixture as a weighted average of its parts.",
+    "Use the alligation rule to find the ratio in which two ingredients are mixed.",
+    "Apply the repeated-replacement formula for a liquid removed and replaced with water.",
+    "Set up a dilution or concentration change by tracking the amount of the unchanged component."
+  ],
+  "tags": ["mixtures", "alligation", "weighted-average", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Ratios_and_Proportions",
+      "title": "Arithmetic/Ratios and Proportions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the weighted-average idea behind alligation. All wording and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm mixtures and alligation are within scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-a-mixture-question-asks",
+      "type": "introduction",
+      "title": "What a mixture question asks",
+      "markdown": "A mixture question combines two (sometimes more) ingredients that differ in price per unit, or in the fraction of some component such as milk, acid or a metal. It then asks one of: the price or strength of the blend, the ratio the two were mixed in, or how much of one to add to reach a target.\n\nEvery one of these is a **weighted average** in disguise. Alligation is a fast way to run that weighted average backwards to get the ratio.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "mixture question price strength ratio target",
+        "two ingredients different price or concentration",
+        "every mixture is a weighted average",
+        "alligation runs the average backwards"
+      ],
+      "position": 10
+    },
+    {
+      "id": "weighted-average",
+      "type": "concept",
+      "title": "Weighted average",
+      "markdown": "If quantity q1 of an ingredient at value v1 is mixed with quantity q2 at value v2, the blend's value is:\n\nv = (q1 x v1 + q2 x v2) / (q1 + q2)\n\n\"Value\" can be a price per kg, a percentage of milk, a purity — anything measured per unit. The blend value always lies between v1 and v2, closer to whichever ingredient there is more of.\n\nExample: 2 kg of tea at 300 per kg with 3 kg at 200 per kg gives (2 x 300 + 3 x 200) / 5 = 1200 / 5 = 240 per kg.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "weighted average formula q1 v1 plus q2 v2 over q1 plus q2",
+        "blend value lies between the two ingredients",
+        "closer to the larger quantity",
+        "price per kg percentage purity"
+      ],
+      "position": 20
+    },
+    {
+      "id": "alligation-rule",
+      "type": "formula",
+      "title": "The alligation rule",
+      "markdown": "To get the **ratio** in which two ingredients (cheaper value c, dearer value d) must be mixed to reach a mean value m:\n\nquantity of cheaper : quantity of dearer = (d - m) : (m - c)\n\nEach ingredient's share is proportional to its distance from the mean on the *far* side. The cross diagram:\n\n```\n   c            d\n      \\        /\n         m\n      /        \\\n  (d - m)     (m - c)\n```\n\nSo cheaper : dearer = (d - m) : (m - c). The mean must lie between c and d, or no non-negative mix exists.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "alligation rule cheaper to dearer equals d minus m to m minus c",
+        "distance from the mean on the far side",
+        "cross diagram alligation",
+        "mean must lie between the two values"
+      ],
+      "position": 30
+    },
+    {
+      "id": "repeated-replacement",
+      "type": "formula",
+      "title": "Repeated replacement",
+      "markdown": "A container holds V units of pure liquid. Each round, x units of the mixture are drawn off and replaced with water, and the draw-and-replace is done n times. The amount of the **original liquid** left is:\n\noriginal left = V x (1 - x / V) to the power n\n\nBecause each round removes the same fraction x/V of whatever original liquid is present. The water content is V minus that.\n\nExample: 50 litres of milk, 5 litres removed and replaced with water twice: milk left = 50 x (1 - 5/50)² = 50 x 0.81 = 40.5 litres.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "repeated replacement formula V times 1 minus x over V to the power n",
+        "each round removes the same fraction x over V",
+        "milk drawn off and replaced with water n times",
+        "50 litres 5 removed twice 40.5 left"
+      ],
+      "position": 40
+    },
+    {
+      "id": "dilution-method",
+      "type": "method",
+      "title": "Dilution and concentration by the unchanged part",
+      "markdown": "When water is added or evaporated, the amount of the other component does not change — anchor on that.\n\n1. Find the fixed amount (say acid = 25% of 40 L = 10 L).\n2. Write the target as a fraction of the new total: 10 = 20% of (new total), so new total = 10 / 0.20 = 50 L.\n3. Water added = 50 - 40 = 10 L. (For evaporation the new total is smaller.)\n\nFor \"how much of ingredient A to add to raise its share\", let x be the amount added and solve (A + x) / (total + x) = target fraction.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "dilution anchor on the unchanged component",
+        "acid stays fixed water is added",
+        "target equals fixed amount over new total",
+        "add x of ingredient A solve A plus x over total plus x"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. Alligation.** In what ratio must rice at 40 per kg be mixed with rice at 55 per kg to get a mixture worth 46 per kg?\n\ncheaper : dearer = (55 - 46) : (46 - 40) = 9 : 6 = **3 : 2**.\n\nThe cheaper distance is (d - m) = 55 - 46 = 9; the dearer distance is (m - c) = 46 - 40 = 6; the ratio value cheaper/dearer = 9/6 = 1.5.\n\n**2. Dilution.** A 40-litre mixture is 25% acid. How much water must be added to make it 20% acid?\n\nAcid stays at 25% of 40 = 10 L. After adding water this 10 L must be 20% of the new total, so new total = 10 / 0.20 = 50 L. Water to add = 50 - 40 = **10 litres**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "alligation rice 40 and 55 mixture 46 ratio 3 to 2",
+        "cheaper distance d minus m dearer distance m minus c",
+        "dilution 40 litre 25 percent acid to 20 percent add 10 litres water"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "1. cheaper : dearer ratio value",
+          "value": 1.5,
+          "expression": "(55-46)/(46-40)"
+        },
+        {
+          "label": "2. water to add (litres)",
+          "value": 10,
+          "expression": "10/0.20 - 40"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Getting the alligation ratio backwards** — the cheaper quantity is proportional to (d - m), the *far* distance, not (m - c).\n- **Using a mean outside the two values** — then there is no valid non-negative mixture.\n- **Applying the replacement formula per litre instead of per round** — the exponent n is the number of draw-and-replace operations.\n- **Forgetting that the removed liquid is itself a mixture** after round one, so it carries away some water too — which is exactly what (1 - x/V)^n accounts for.\n- **Not anchoring on the unchanged component** in a dilution question.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "mixtures mistakes alligation ratio backwards",
+        "mean outside the two values no valid mix",
+        "replacement exponent is number of rounds",
+        "anchor on the unchanged component"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Weighted average: v = (q1 v1 + q2 v2) / (q1 + q2); the blend lies between the two, nearer the larger quantity.\n- Alligation: cheaper : dearer = (d - m) : (m - c). The mean must lie between c and d.\n- Repeated replacement: original left = V (1 - x/V)^n, where n is the number of rounds.\n- Dilution: the non-water component is fixed; write it as the target fraction of the new total and solve.\n- To raise ingredient A's share by adding x of it: (A + x)/(total + x) = target.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "mixtures and alligation formula recap",
+        "weighted average alligation replacement dilution",
+        "n is the number of rounds",
+        "anchor the fixed component"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the value; ratios as a single number (cheaper/dearer or first/second).\n\n1. Milk at 30 per litre and milk at 45 per litre are mixed in the ratio 2 : 3. Find the cost per litre of the mixture.\n2. In what ratio must sugar at 32 per kg be mixed with sugar at 42 per kg to get a mixture at 36 per kg? Give (first / second).\n3. A 60-litre mixture has milk and water in the ratio 7 : 3. How many litres of water does it contain?\n4. To the mixture in question 3, how many litres of milk must be added to make the milk-to-water ratio 4 : 1?\n5. A vessel has 50 litres of pure milk. 5 litres are removed and replaced with water, once. How much milk is left?\n6. In question 5, if the draw-and-replace is done twice, how much milk is left?\n7. Two alloys, one 60% copper and one 35% copper, are mixed in equal amounts. What percent of the result is copper?\n8. An 80-kg mixture is 40% type A. How many kg of type A must be added to make it 50% type A?",
+      "searchKeywords": [
+        "mixtures and alligation practice questions",
+        "weighted average alligation replacement dilution exercises"
+      ],
+      "position": 90,
+      "expectedAnswers": [
+        {
+          "label": "1. mixture cost per litre",
+          "value": 39,
+          "expression": "(2*30 + 3*45)/5"
+        },
+        {
+          "label": "2. ratio value (first / second)",
+          "value": 1.5,
+          "expression": "(42-36)/(36-32)"
+        },
+        {
+          "label": "3. water in the mixture (litres)",
+          "value": 18,
+          "expression": "60*3/10"
+        },
+        {
+          "label": "4. milk to add (litres)",
+          "value": 30,
+          "expression": "4*18 - (60*7/10)"
+        },
+        {
+          "label": "5. milk left after one round (litres)",
+          "value": 45,
+          "expression": "50*(1 - 5/50)"
+        },
+        {
+          "label": "6. milk left after two rounds (litres)",
+          "value": 40.5,
+          "expression": "50*(1 - 5/50)**2"
+        },
+        {
+          "label": "7. copper in the result (percent)",
+          "value": 47.5,
+          "expression": "(60 + 35)/2"
+        },
+        {
+          "label": "8. type A to add (kg)",
+          "value": 16,
+          "expression": "(0.5*80 - 0.40*80)/(1 - 0.5)"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "weighted-average-card",
+      "front": "How do you find the price or strength of a blend of two ingredients?",
+      "back": "Weighted average: v = (q1 v1 + q2 v2) / (q1 + q2). The result lies between the two values, closer to the ingredient present in greater quantity.",
+      "explanation": "Alligation is this formula solved for the ratio instead of the value.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["weighted-average"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "alligation-card",
+      "front": "State the alligation rule for the mixing ratio.",
+      "back": "cheaper : dearer = (d - m) : (m - c), where c and d are the two values and m is the mean. Each quantity is proportional to its distance from the mean on the opposite side.",
+      "explanation": "The mean m must lie strictly between c and d.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["alligation-rule"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "alligation-direction",
+      "front": "In alligation, the cheaper ingredient's quantity is proportional to which distance?",
+      "back": "(d - m) — the distance from the dearer value to the mean, i.e. the far side. Getting this backwards is the classic error.",
+      "explanation": "More of the ingredient whose value is farther from the mean.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["alligation-rule"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "replacement-card",
+      "front": "A container of V litres has x litres drawn and replaced with water, n times. Original liquid left?",
+      "back": "V x (1 - x/V) to the power n. Each round removes the fraction x/V of whatever original liquid remains.",
+      "explanation": "n is the number of draw-and-replace rounds, not litres.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["repeated-replacement"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "dilution-anchor",
+      "front": "How do you set up a 'how much water to add' question?",
+      "back": "The non-water component is unchanged. Write it as the target fraction of the new total, solve for the new total, then subtract the old total to get the water added.",
+      "explanation": "For evaporation the new total is smaller than the old.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["dilution-method"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "raise-share",
+      "front": "How much of ingredient A must be added to raise A's share to a target fraction?",
+      "back": "Let x be the amount added and solve (A + x) / (total + x) = target fraction for x.",
+      "explanation": "Both the numerator and the denominator grow by x.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["dilution-method"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "blend-position",
+      "front": "2 kg of tea at 300/kg is mixed with 3 kg at 200/kg. Roughly where does the blend price sit?",
+      "back": "Between 200 and 300, and below the midpoint 250 because there is more of the cheaper tea. Exactly (2 x 300 + 3 x 200)/5 = 240.",
+      "explanation": "The weighted average leans toward the larger quantity.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["weighted-average"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

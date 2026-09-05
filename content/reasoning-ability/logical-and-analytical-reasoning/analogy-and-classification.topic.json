@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "logical-and-analytical-reasoning",
+  "chapterName": "Logical and analytical reasoning",
+  "chapterPosition": 2,
+  "topicSlug": "analogy-and-classification",
+  "topicPosition": 20,
+  "title": "Analogy and Classification",
+  "summary": "How to name the relation inside an 'A is to B' pair and carry it across, and how to find the shared property that four items have and the odd one lacks.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "State the relation in an analogy pair as a short sentence before choosing.",
+    "Apply the same relation, in the same direction, to the second pair.",
+    "Solve number and letter analogies using arithmetic and position gaps.",
+    "Find the single property that separates the odd one out from the rest."
+  ],
+  "tags": ["reasoning", "analogy", "classification", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Set_Theory/Relations",
+      "title": "Set Theory/Relations",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for what a relation between two items formally is. All pairs and groups here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm analogy and classification are standard question types. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "two-question-types",
+      "type": "introduction",
+      "title": "Two shapes, one skill",
+      "markdown": "**Analogy** gives a pair that share a relation and asks you to complete a second pair the same way: *stone is to sculptor as clay is to ____*.\n\n**Classification** (odd one out) gives four or five items of which all but one share a property, and asks for the exception.\n\nBoth turn on the same move: state the relation or the shared property in plain words, then test the options against that sentence.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "analogy complete the second pair same relation",
+        "classification odd one out shared property",
+        "state the relation in plain words then test options"
+      ],
+      "position": 10
+    },
+    {
+      "id": "name-the-relation",
+      "type": "method",
+      "title": "Name the relation",
+      "markdown": "Write the link between the first two terms as a short sentence, as specific as you can make it. Common kinds:\n\n- **Worker and tool** — *carpenter : chisel*.\n- **Worker and workplace** — *teacher : school*.\n- **Maker and made** — *author : novel*.\n- **Part and whole** — *petal : flower*.\n- **Category and member** — *reptile : crocodile*.\n- **Object and function** — *knife : cut*.\n- **Degree** — *warm : hot*.\n- **Cause and effect** — *rain : flood*.\n\nThen apply that exact sentence to the second pair, in the **same direction**. If *doctor : hospital* is worker-to-workplace, the answer to *judge : ?* is *court*, not *law*.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "name the relation worker tool workplace maker made part whole",
+        "category member object function degree cause effect",
+        "apply the same sentence in the same direction"
+      ],
+      "position": 20
+    },
+    {
+      "id": "number-and-letter-analogy",
+      "type": "method",
+      "title": "Number and letter analogies",
+      "markdown": "**Numbers.** Try the simple links: one is the square or cube of the other, double or half, a factor, or *n* to *n(n+1)*. *5 : 30* is *n : n(n+1)*, so *7 : ?* is *56*.\n\n**Letters.** Convert to positions (A is 1 to Z is 26). Look for a constant shift applied to each letter of a block, a reversal, or a mirror (position paired with 27 minus it). If *CFI : DGJ* adds 1 to every letter, then *KNQ : ?* is *LOR*.\n\nConfirm the rule on the whole given pair before you apply it.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "number analogy square cube double factor n times n plus one",
+        "letter analogy constant shift reversal mirror 27 minus",
+        "confirm the rule on the whole given pair"
+      ],
+      "position": 30
+    },
+    {
+      "id": "classification-method",
+      "type": "method",
+      "title": "Finding the odd one out",
+      "markdown": "1. **Look for the property four of them share** — same category, same shape, same origin, same grammatical form.\n2. **Name it, then check each item against it.** The one that fails is the answer.\n3. **If two groupings seem possible, take the sharper one.** In *rose, lily, oak, jasmine, marigold*, four are flowers and one, oak, is a tree — that split is clean, so oak is the odd one.\n4. **Watch for a trap property** that catches a different item on a weaker basis; the intended split is usually the most specific one that leaves exactly one out.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "odd one out property four share name it check each",
+        "if two groupings possible take the sharper one",
+        "trap property intended split leaves exactly one out"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. Analogy.** *author : novel :: composer : ?*\n\nThe relation is maker-to-work. A composer makes a **symphony** (or any musical composition). The answer is a piece of music, not an instrument or a performer.\n\n**2. Number analogy.** *16 : 4 :: 49 : ?*\n\n16 is the square of 4, so the link is 'number to its positive square root'. The square root of 49 is **7**.\n\n**3. Classification.** *square, rectangle, rhombus, triangle, parallelogram*\n\nFour of the five are quadrilaterals (four sides). A **triangle** has three sides, so it is the odd one out.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "analogy author novel composer symphony maker to work",
+        "number analogy 16 4 49 7 square root",
+        "classification triangle odd one out quadrilaterals"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Leaving the relation vague.** 'They are connected' fits every option; 'the first is the tool the second uses' fits one.\n- **Reversing the direction** in the second pair.\n- **Choosing a word from the same topic** as the answer when it does not hold the same relation.\n- **In classification, picking the item that feels unusual** rather than the one that fails a stated property.\n- **Settling for a grouping that leaves two items out** — refine the property until exactly one is excluded.\n- **Skipping the check on the given pair** in a number or letter analogy, so a coincidence passes for the rule.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "analogy mistakes vague relation reversed direction same topic word",
+        "classification picking the unusual item grouping leaves two out",
+        "skipping the check on the given pair"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Analogy: write the relation as a specific sentence, then apply it to the second pair in the same direction.\n- Number analogy: test square, cube, double, half, factor, and *n* to *n(n+1)*.\n- Letter analogy: use positions A is 1 to Z is 26; look for a constant shift, a reversal, or a mirror; confirm on the given pair.\n- Classification: name the property four items share, check each against it, and choose the property that leaves exactly one out.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "analogy classification summary revision",
+        "specific relation sentence same direction number letter tests",
+        "property four share leaves exactly one out"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer and, in one line, the relation or the shared property.\n\n1. *doctor : hospital :: teacher : ?*\n2. *thermometer : temperature :: barometer : ?*\n3. *5 : 30 :: 7 : ?*\n4. *CFI : DGJ :: KNQ : ?*\n5. Odd one out: *square, rectangle, rhombus, triangle, parallelogram*\n6. Odd one out: *January, March, May, July, September*\n7. *kitten : cat :: puppy : ?*",
+      "searchKeywords": [
+        "analogy classification practice questions",
+        "workplace instrument quantity number pattern letter shift odd one out exercises"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "specific-sentence",
+      "front": "What makes an analogy relation usable?",
+      "back": "Stating it as a specific sentence — 'the first is the workplace of the second', not 'they are related'. A vague link fits every option.",
+      "explanation": "Specificity is what eliminates the distractors.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["name-the-relation"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "same-direction",
+      "front": "In 'doctor : hospital :: judge : ?', why is 'law' wrong?",
+      "back": "The relation is worker-to-workplace, so the answer must be a workplace: court. 'Law' breaks the direction and the relation type.",
+      "explanation": "Apply the relation the same way round in the second pair.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["name-the-relation"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "number-links",
+      "front": "Which links should you test first in a number analogy?",
+      "back": "Square, cube, double, half, factor, and n to n(n+1). Confirm the link on the given pair before applying it.",
+      "explanation": "5 : 30 is n : n(n+1), so 7 : 56.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["number-and-letter-analogy"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "letter-block-shift",
+      "front": "How do you solve a letter analogy like CFI : DGJ :: KNQ : ?",
+      "back": "Find the shift applied to each letter of the block (here +1) and apply the same shift: KNQ becomes LOR.",
+      "explanation": "Also check for reversal or mirror patterns.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["number-and-letter-analogy"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "odd-one-property",
+      "front": "How do you choose the odd one out when two groupings look possible?",
+      "back": "Take the sharper, more specific property — the one that leaves exactly one item excluded. Refine until only one fails.",
+      "explanation": "rose/lily/oak/jasmine/marigold: 'is a flower' leaves out only oak.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["classification-method"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "not-the-unusual-one",
+      "front": "In a classification question, should you pick the item that just feels unusual?",
+      "back": "No. Pick the one that fails a stated shared property. 'Feels different' is not a criterion an examiner can defend.",
+      "explanation": "Name the property first, then test.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["classification-method"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "relation-kinds",
+      "front": "Name five relation types that show up in analogies.",
+      "back": "Worker-tool, worker-workplace, maker-made, part-whole, category-member, object-function, degree, cause-effect.",
+      "explanation": "Recognising the kind narrows the answer fast.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["name-the-relation"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

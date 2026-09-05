@@ -95,7 +95,7 @@ export function IconButton({
       type="button"
       aria-label={label}
       className={cn(
-        "press grid size-9 shrink-0 place-items-center rounded-pill text-ink-3 hover:text-ink",
+        "press rounded-pill text-ink-3 hover:text-ink grid size-9 shrink-0 place-items-center",
         className,
       )}
       {...rest}

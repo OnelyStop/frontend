@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "conjunctions-and-connectors",
+  "topicPosition": 50,
+  "title": "Conjunctions and Connectors",
+  "summary": "Coordinating, subordinating and correlative conjunctions, how they punctuate, conjunctive adverbs and transition words, and choosing the connector whose meaning — contrast, cause, addition, sequence, condition — matches the logic of the two ideas.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["sentence-structure", "parts-of-speech"],
+  "learningObjectives": [
+    "Distinguish coordinating, subordinating and correlative conjunctions and punctuate each correctly.",
+    "Use a conjunctive adverb with the right punctuation, and avoid the comma splice.",
+    "Pick the connector whose meaning fits the relationship between the two ideas.",
+    "Keep both halves of a correlative pair parallel."
+  ],
+  "tags": [
+    "grammar",
+    "conjunctions",
+    "connectors",
+    "transitions",
+    "comma-splice"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Conjunctions",
+      "title": "English Grammar/Basic Parts of Speech/Conjunctions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the classification of conjunctions. All example sentences, connector lists by meaning, and exercises here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "coordinating",
+      "type": "concept",
+      "title": "Coordinating conjunctions",
+      "markdown": "The seven coordinating conjunctions — **for, and, nor, but, or, yet, so** (FANBOYS) — join two elements of equal rank: two words, two phrases, or two independent clauses.\n\n- Joining two independent clauses: use a **comma before** the conjunction. *The reconciliation was complete, but the report was still pending.*\n- Joining just two words or phrases: **no comma**. *the manager and the cashier*, *quick but careful*.\n- Starting a sentence with *And* or *But* is acceptable in modern usage but is often avoided in formal exam writing.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "coordinating conjunctions FANBOYS",
+        "comma before conjunction joining two independent clauses",
+        "no comma joining two words",
+        "starting a sentence with and or but"
+      ],
+      "position": 10
+    },
+    {
+      "id": "subordinating",
+      "type": "concept",
+      "title": "Subordinating conjunctions",
+      "markdown": "A **subordinating conjunction** turns a clause into a dependent one and shows how it relates to the main clause: *because*, *since*, *as* (cause); *although*, *though*, *even though*, *whereas*, *while* (contrast); *if*, *unless*, *provided that* (condition); *when*, *before*, *after*, *until*, *as soon as* (time).\n\n- Dependent clause first: put a **comma** after it. *Although the queue was long, it moved quickly.*\n- Dependent clause second: **no comma** usually. *The queue moved quickly although it was long.*\n- A subordinate clause on its own is a fragment — it must attach to a main clause.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "subordinating conjunction because since although if when",
+        "comma after opening dependent clause",
+        "no comma when dependent clause is second",
+        "subordinate clause alone is a fragment"
+      ],
+      "position": 20
+    },
+    {
+      "id": "correlative",
+      "type": "concept",
+      "title": "Correlative conjunctions",
+      "markdown": "Correlatives come in pairs: **either ... or**, **neither ... nor**, **not only ... but also**, **both ... and**, **whether ... or**, **no sooner ... than**.\n\n- **Keep the structure after each half parallel.** *She is responsible not only for audit but also for compliance* (preposition phrase after each). *She not only audits but also advises* (verb after each).\n- **Verb agreement with *either...or* / *neither...nor*:** the verb agrees with the nearer subject. *Neither the clerks nor the manager was informed.*\n- **Placement:** the two halves must sit just before the items they join. *not only ... but also* should not have extra words dangling on one side only.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "correlative conjunctions either or neither nor not only but also both and",
+        "keep structure parallel after each half",
+        "verb agrees with nearer subject",
+        "no sooner than"
+      ],
+      "position": 30
+    },
+    {
+      "id": "conjunctive-adverbs",
+      "type": "method",
+      "title": "Conjunctive adverbs and transitions",
+      "markdown": "Words like *however*, *therefore*, *moreover*, *nevertheless*, *consequently*, *meanwhile*, *instead*, *hence* are **conjunctive adverbs**. They signal a relationship but are **not** conjunctions — they cannot join two independent clauses with a comma.\n\n- Between two independent clauses: use a **semicolon before** and a **comma after**. *The system was slow; however, the queue kept moving.*\n- Inside one clause: set it off with commas. *The queue, however, kept moving.*\n- Two independent clauses joined by only a comma and *however* is a **comma splice** — a frequent exam error.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "conjunctive adverb however therefore moreover nevertheless",
+        "semicolon before comma after between clauses",
+        "not a conjunction cannot join with a comma",
+        "however comma splice"
+      ],
+      "position": 40
+    },
+    {
+      "id": "choosing-by-meaning",
+      "type": "method",
+      "title": "Choosing the connector by meaning",
+      "markdown": "Match the connector to the logic between the two ideas.\n\n- **Contrast:** but, however, yet, although, whereas, on the other hand, nevertheless, in contrast.\n- **Cause / reason:** because, since, as, for.\n- **Result / effect:** so, therefore, consequently, hence, as a result, thus.\n- **Addition:** and, also, moreover, furthermore, in addition, besides.\n- **Example:** for instance, for example, such as, namely.\n- **Sequence / time:** first, then, next, meanwhile, subsequently, finally, before, after.\n- **Condition:** if, unless, provided that, in case, as long as.\n- **Concession:** although, even though, despite (+ noun), in spite of (+ noun).\n\nIn a fill-in, read what comes before and after the blank: does the second idea oppose, explain, add to, or follow from the first?",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "connectors by meaning contrast cause result addition example sequence condition concession",
+        "however yet although whereas",
+        "because since as",
+        "therefore consequently hence",
+        "read before and after the blank"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**1.** *The branch met its deposit target; ____, it missed the loan target.*\nThe two clauses contrast, and they are both independent, joined by a semicolon. A contrast conjunctive adverb fits, punctuated with a comma after: **however**. *The branch met its deposit target; however, it missed the loan target.*\n\n**2.** *She is skilled not only in data analysis but also ____.*\nThe first half after *not only* is a prepositional phrase (*in data analysis*), so the second half must match: **in report writing**, not *she writes reports*. Parallel structure after each part of the correlative.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "semicolon however comma contrast worked example",
+        "not only in X but also in Y parallel",
+        "match the phrase type after each correlative half"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Comma splice with a conjunctive adverb:** *The system was slow, however the queue kept moving.* Use a semicolon before *however*.\n- **No comma before a coordinating conjunction that joins two independent clauses**, or a comma before one that only joins two words.\n- **Unbalanced correlatives:** *not only she audits but also advises* — the *not only* is misplaced; it should sit just before *audits*.\n- **\"Despite\" or \"in spite of\" followed by a clause:** they take a noun. Use *although* before a clause.\n- **\"Reason is because\":** redundant. Use *the reason is that* or just *because*.\n- **Two contrast words together:** *But however*, *Although ... yet* in the same sentence.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "conjunction connector mistakes",
+        "comma splice with however",
+        "comma rules with coordinating conjunctions",
+        "unbalanced not only but also",
+        "despite takes a noun",
+        "reason is because redundant",
+        "although yet double"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Coordinating (FANBOYS): comma before when joining two independent clauses; no comma for two words.\n- Subordinating: makes a clause dependent; comma after it when it comes first, none when it comes second; alone it is a fragment.\n- Correlative pairs: keep the structure after each half parallel; with *either...or* / *neither...nor* the verb agrees with the nearer subject.\n- Conjunctive adverbs (however, therefore, moreover) are not conjunctions: semicolon before, comma after, when between two independent clauses.\n- Choose the connector by meaning: contrast, cause, result, addition, example, sequence, condition, concession. Read before and after the blank.\n- *Despite* / *in spite of* + noun; *although* + clause. Avoid \"reason is because\" and doubled contrast words.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "conjunctions connectors summary",
+        "revision",
+        "coordinating subordinating correlative conjunctive adverb meaning recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Fill the blank or fix the sentence; give a one-line reason.\n\n1. The report was thorough, ____ it was submitted a day late. (contrast, joining two clauses)\n2. ____ the network failed, the branch switched to offline mode. (cause, opening clause)\n3. The scheme is open to both salaried employees ____ self-employed applicants.\n4. Sales rose sharply; ____, the marketing spend was cut. (contrast, conjunctive adverb)\n5. Fix: Despite the queue was long, the staff stayed calm.\n6. Fix: The clerk not only counted the cash but also the cheque was verified by him.",
+      "searchKeywords": [
+        "conjunctions connectors practice questions",
+        "contrast cause correlative conjunctive adverb despite parallel exercises"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "fanboys-comma",
+      "front": "When do you put a comma before 'and', 'but', 'or'?",
+      "back": "When the coordinating conjunction joins two independent clauses. No comma when it only joins two words or phrases.",
+      "explanation": "\"clean, but late\" (two clauses) vs \"quick but careful\" (two adjectives).",
+      "difficulty": "easy",
+      "sourceBlockIds": ["coordinating"],
+      "position": 10
+    },
+    {
+      "id": "however-punctuation",
+      "front": "How do you punctuate 'however' between two independent clauses?",
+      "back": "Semicolon before, comma after: \"The system was slow; however, the queue kept moving.\" A comma alone is a comma splice.",
+      "explanation": "'however' is a conjunctive adverb, not a conjunction.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["conjunctive-adverbs"],
+      "position": 20
+    },
+    {
+      "id": "opening-subordinate-comma",
+      "front": "Comma rule for a subordinate clause?",
+      "back": "Comma after it when it opens the sentence (\"Although it was long, it moved fast\"); no comma when it comes second (\"It moved fast although it was long\").",
+      "explanation": "A subordinate clause alone is a fragment.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["subordinating"],
+      "position": 30
+    },
+    {
+      "id": "correlative-parallel",
+      "front": "\"not only in data analysis but also ____\" — what must the blank match?",
+      "back": "A prepositional phrase, e.g. \"in report writing\" — the structure after each half of a correlative pair must be parallel.",
+      "explanation": "Whatever follows 'not only' must be echoed after 'but also'.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["correlative", "worked-example"],
+      "position": 40
+    },
+    {
+      "id": "despite-clause",
+      "front": "Fix: \"Despite the queue was long, the staff stayed calm.\"",
+      "back": "\"Despite the long queue\" (noun) or \"Although the queue was long\" (clause). 'Despite' / 'in spite of' take a noun, not a clause.",
+      "explanation": "'although' / 'even though' introduce clauses.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 50
+    },
+    {
+      "id": "neither-nor-verb",
+      "front": "\"Neither the clerks nor the manager (was / were) informed.\" Which?",
+      "back": "\"was\" — with neither…nor / either…or, the verb agrees with the nearer subject (manager).",
+      "explanation": "Reverse the order and it flips to 'were'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["correlative"],
+      "position": 60
+    },
+    {
+      "id": "connector-by-meaning",
+      "front": "In a fill-in-the-blank connector question, what do you do first?",
+      "back": "Read the ideas before and after the blank and decide the relationship: contrast, cause, result, addition, example, sequence or condition. Then pick a connector with that meaning.",
+      "explanation": "Meaning first, punctuation second.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["choosing-by-meaning"],
+      "position": 70
+    }
+  ]
+}

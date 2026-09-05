@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "arrangements-and-relations",
+  "chapterName": "Arrangements and relations",
+  "chapterPosition": 1,
+  "topicSlug": "coding-decoding",
+  "topicPosition": 10,
+  "title": "Coding and Decoding",
+  "summary": "The four families of code question — letter shifts, letter-to-number, symbol substitution, and codes you deduce from example pairs — and a fixed routine for cracking each one.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Spot a constant letter shift and apply it, wrapping past Z.",
+    "Convert between letters and their position numbers both ways.",
+    "Deduce a substitution rule by lining up an example word against its code.",
+    "Read a coded relationship or direction expression one link at a time."
+  ],
+  "tags": ["reasoning", "coding-decoding", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Cryptography/Simple_substitution_cipher",
+      "title": "Cryptography/Simple substitution cipher",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for how substitution and shift ciphers work. All example words and codes here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm coding-decoding is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "four-families",
+      "type": "introduction",
+      "title": "Four kinds of code",
+      "markdown": "Almost every coding question is one of four kinds:\n\n1. **Letter shift** — each letter moves a fixed number of places along the alphabet.\n2. **Letter to number** — each letter is replaced by its position (A is 1, Z is 26) or by some arithmetic on that position.\n3. **Symbol or number substitution** — each letter maps to a fixed symbol or digit, with no pattern to find, only a table to build.\n4. **Deduced word codes** — you are given two or three words with their codes and must work out the mapping, then apply it.\n\nDecide which kind you are looking at before you try anything else. The method is different for each.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "four kinds of coding decoding question",
+        "letter shift letter to number substitution deduced word code",
+        "identify the code type first"
+      ],
+      "position": 10
+    },
+    {
+      "id": "letter-shift",
+      "type": "method",
+      "title": "Letter-shift codes",
+      "markdown": "Write the plain word and its code one above the other and find the gap for each letter:\n\n- If every letter moves the **same** number of steps forward, that is the shift. `CHAIR` becoming `EJCKT` is a shift of plus two.\n- The alphabet wraps: two steps past `Y` is `A`, three steps past `Z` is `C`.\n- Some codes shift **backward**, and a few shift the first half of the word one way and the second half the other, so always check two or three letters before trusting the pattern.\n- Once the shift is confirmed on the given word, apply the very same shift to the asked word.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "letter shift code find the constant gap",
+        "alphabet wraps past z",
+        "confirm the shift on two or three letters"
+      ],
+      "position": 20
+    },
+    {
+      "id": "letters-and-numbers",
+      "type": "method",
+      "title": "Letters and numbers",
+      "markdown": "Keep the position values in mind: A is 1, E is 5, I is 9, M is 13, Q is 17, U is 21, Z is 26.\n\n- A plain letter-to-number code just prints those values, sometimes with dashes or spaces between them.\n- A worked code does arithmetic on the value first — double it, add three, or take twenty-seven minus the value, which is the **mirror** letter (A pairs with Z, B with Y, since one plus twenty-six is twenty-seven).\n- To decode, reverse the arithmetic: if the code adds three, subtract three, then turn the number back into a letter.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "letter position values a1 z26",
+        "mirror letter twenty seven minus value a pairs with z",
+        "reverse the arithmetic to decode"
+      ],
+      "position": 30
+    },
+    {
+      "id": "deduced-and-relational",
+      "type": "concept",
+      "title": "Deduced word codes and coded relationships",
+      "markdown": "**Deduced word codes.** Line the word up against its code letter by letter. If two given words share a letter and their codes share a symbol in the matching place, that pairing is fixed. Watch for codes whose parts are **reordered** — the mapping can still be one-to-one even when the positions are shuffled.\n\n**Coded relationships and directions.** Here a symbol stands for a fixed operation, such as `P # Q` meaning Q is north of P, or `A @ B` meaning A is the mother of B. Build the picture one symbol at a time from left to right, drawing as you go, then read the final question off the finished picture.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "deduced word code line up letter by letter shared letter fixed",
+        "reordered code parts still one to one",
+        "coded relationship direction build left to right"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example",
+      "markdown": "**1. Letter shift.** In a code, `CHAIR` is `EJCKT` and `TABLE` is `VCDNG`. Write `DESK`.\n\nCompare `CHAIR` with `EJCKT`: C to E is plus two, H to J is plus two, A to C is plus two, I to K is plus two, R to T is plus two. Check on `TABLE`: T to V, A to C, B to D, L to N, E to G — all plus two. Apply plus two to `DESK`: D to F, E to G, S to U, K to M. The code is **FGUM**.\n\n**2. Symbol substitution.** If `LOAN` is `4 9 1 7` and `NOTE` is `7 9 3 5`, write `TALE`.\n\nFrom the first: L is 4, O is 9, A is 1, N is 7. From the second: N is 7 and O is 9 agree, and T is 3, E is 5. So `TALE` is T 3, A 1, L 4, E 5, that is **3 1 4 5**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example letter shift plus two desk fgum",
+        "symbol substitution loan note tale 3145",
+        "confirm rule on second word then apply"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Reading the shift off one letter** and not checking a second, so a mixed pattern slips past.\n- **Forgetting the wrap**, and stopping at Z instead of continuing to A.\n- **Mixing up the direction** — the code shifts forward but you decode by also going forward instead of back.\n- **Assuming the code keeps letter order** when the parts have been reordered.\n- **Building a fresh table for every word** in a substitution set, instead of carrying the one table across all the questions.\n- **In a relational code, jumping to the question** before the full picture is drawn.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "coding mistakes one letter shift no wrap wrong direction",
+        "assuming letter order reordered parts",
+        "rebuild table every word relational jump ahead"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Name the code family first: shift, letter-to-number, substitution, or deduced word code.\n- For a shift, find the constant gap, confirm it on two or three letters, mind the wrap past Z, then apply the same gap to the asked word.\n- For number codes, remember A is 1 to Z is 26; undo any arithmetic to decode; twenty-seven minus the value is the mirror letter.\n- For substitution, build one table and reuse it for every question in the set.\n- For coded relationships and directions, draw the picture link by link, then answer from the picture.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "coding decoding summary revision",
+        "name the family find the gap build one table draw the picture",
+        "a1 z26 mirror twenty seven minus"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer and a one-line reason.\n\n1. If `RAIN` is `SBJO`, write `SNOW`.\n2. If `MANGO` is `NBOHP`, write `APPLE`.\n3. With A as 1 up to Z as 26, decode `13 1 20 8`.\n4. If `DELHI` is `WVOSR` (each letter replaced by its mirror), write `PATNA`.\n5. If `CAT` is `3-1-20` and `DOG` is `4-15-7`, write `BAD`.\n6. If `pen` is `qfo` and `ink` is `jol`, write `cap`.\n7. If `FROG` is `IURJ`, write `TOAD`.",
+      "searchKeywords": [
+        "coding decoding practice questions",
+        "letter shift mirror letter to number substitution exercises"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "find-the-shift",
+      "front": "How do you find the shift in a letter-shift code?",
+      "back": "Write the word above its code, measure the gap for each letter, and confirm the same gap holds for at least two or three letters before applying it.",
+      "explanation": "Some codes change direction partway, so one letter is never enough.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["letter-shift"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "wrap-past-z",
+      "front": "In a letter-shift code, what is three steps forward from Z?",
+      "back": "C. The alphabet wraps around: one past Z is A, two past Z is B, three past Z is C.",
+      "explanation": "Forgetting the wrap is the most common shift-code error.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["letter-shift"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "position-values",
+      "front": "What are the position numbers of A, M, and Z?",
+      "back": "A is 1, M is 13, Z is 26. Handy anchors: E is 5, I is 9, Q is 17, U is 21.",
+      "explanation": "Knowing a few anchors lets you count to any letter quickly.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["letters-and-numbers"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "mirror-letter",
+      "front": "What is the mirror letter of a given letter, and how do you compute it?",
+      "back": "The letter paired from the other end of the alphabet: A with Z, B with Y, C with X. Its value is 27 minus the original value.",
+      "explanation": "1 + 26 = 27, so mirror pairs always sum to 27.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["letters-and-numbers"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "deduce-mapping",
+      "front": "Two coded words share a letter and their codes share a symbol in the same place. What can you conclude?",
+      "back": "That letter maps to that symbol. Fix it and use it to unlock the rest of the words in the set.",
+      "explanation": "Shared letters across pairs are the fastest way into a deduced code.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["deduced-and-relational"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "reordered-parts",
+      "front": "The parts of a word code don't line up with the letters in order. Is the code broken?",
+      "back": "Not necessarily. The mapping can still be one-to-one with the code parts reordered. Match on shared letters rather than on position.",
+      "explanation": "Reordering is a deliberate twist, not a contradiction.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["deduced-and-relational"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "relational-code",
+      "front": "How do you handle a coded relationship like 'P # Q @ R'?",
+      "back": "Treat each symbol as a fixed operation and build the picture one link at a time from left to right, then read the answer off the finished picture.",
+      "explanation": "Trying to hold the whole chain in your head causes slips.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["deduced-and-relational"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

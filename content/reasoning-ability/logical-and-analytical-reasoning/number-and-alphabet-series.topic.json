@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "logical-and-analytical-reasoning",
+  "chapterName": "Logical and analytical reasoning",
+  "chapterPosition": 2,
+  "topicSlug": "number-and-alphabet-series",
+  "topicPosition": 10,
+  "title": "Number and Alphabet Series",
+  "summary": "The patterns behind number series and alphabet series, the fixed routine for finding the next term, and the 'wrong term' variant where one entry breaks an otherwise clean rule.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Test a number series for a difference, ratio, or square-and-cube pattern.",
+    "Handle two-tier series where the differences themselves form a pattern.",
+    "Find the single wrong term by assuming the rule from the majority of terms.",
+    "Work an alphabet or alphanumeric series using letter position numbers."
+  ],
+  "tags": ["reasoning", "series", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Sequences_and_Series",
+      "title": "Arithmetic/Sequences and Series",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for arithmetic and geometric progressions and difference patterns. All series here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm series questions are a standard type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "series-question-shape",
+      "type": "introduction",
+      "title": "What a series question asks",
+      "markdown": "A series gives you an ordered list of numbers or letters built on one hidden rule, and asks for the next term, a missing middle term, or the one term that does not fit.\n\nThree things to settle fast:\n\n- Is it a **number** series, an **alphabet** series, or an **alphanumeric** stream mixing letters, digits and symbols?\n- Is the trend rising fast (think multiplication or powers), rising slowly (think addition), or going up and down (think two interleaved series)?\n- Are you asked for the **next term** or for the **wrong term**? The wrong-term variant is solved differently.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "series question next term missing term wrong term",
+        "number alphabet alphanumeric series",
+        "rising fast multiplication rising slow addition alternating"
+      ],
+      "position": 10
+    },
+    {
+      "id": "number-series-patterns",
+      "type": "method",
+      "title": "The common number patterns",
+      "markdown": "Check these in order:\n\n1. **Constant difference** — 4, 9, 14, 19 (add 5).\n2. **Constant ratio** — 3, 6, 12, 24 (times 2).\n3. **Changing difference with its own rule** — 3, 6, 11, 18, 27: the gaps are 3, 5, 7, 9, so the next gap is 11 and the next term is 38.\n4. **Squares and cubes, often shifted** — 2, 5, 10, 17, 26 is n squared plus 1.\n5. **Multiply then add or subtract** — 3, 7, 15, 31: each term is twice the last plus 1.\n6. **Two interleaved series** — 1, 10, 2, 8, 3, 6: odd places 1, 2, 3 and even places 10, 8, 6.\n\nWrite the gaps under the series first; the gap row usually gives the pattern away.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "number series constant difference constant ratio",
+        "difference of differences two tier series",
+        "n squared plus one multiply then add interleaved series",
+        "write the gaps under the series"
+      ],
+      "position": 20
+    },
+    {
+      "id": "wrong-term-variant",
+      "type": "method",
+      "title": "The wrong-term variant",
+      "markdown": "Here every term but one obeys a rule, and you name the odd one.\n\n1. **Find the rule from the first three or four terms**, where it is usually intact.\n2. **Extend that rule forward** term by term and compare with what is printed.\n3. **The first place they disagree is the wrong term** — but check that the rule still works for every later term once you skip the bad one.\n\nExample: 4, 9, 19, 39, 80, 159 on the rule 'twice the previous plus 1' gives 4, 9, 19, 39, 79, 159. The printed 80 should be 79, so 80 is the wrong term.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "wrong term series find rule from first three terms",
+        "extend rule forward compare printed",
+        "first disagreement is the wrong term check later terms"
+      ],
+      "position": 30
+    },
+    {
+      "id": "alphabet-and-alphanumeric",
+      "type": "method",
+      "title": "Alphabet and alphanumeric series",
+      "markdown": "Turn letters into position numbers: A is 1, B is 2, up to Z is 26.\n\n- A plain alphabet series has a constant or patterned gap: B, D, G, K, P has gaps 2, 3, 4, 5, so the next gap is 6 and the next letter is V.\n- Some series step **backward**, and some wrap past Z back to A.\n- In an alphanumeric stream, the letters, the digits and the symbols each often follow their own small rule; separate the three tracks and read each on its own.\n- A common alphanumeric pattern ties the number to the letter, such as A1, C3, E5, G7 where the digit equals the letter's position.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "alphabet series letter position numbers a1 z26",
+        "constant or patterned letter gap wrap past z",
+        "alphanumeric stream separate letters digits symbols tracks",
+        "digit equals letter position pattern"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. Next term.** 3, 6, 11, 18, 27, ?\n\nGaps: 3, 5, 7, 9. These rise by 2, so the next gap is 11 and the next term is 27 plus 11, which is **38**.\n\n**2. Next term.** 5, 6, 10, 19, 35, ?\n\nGaps: 1, 4, 9, 16 — the perfect squares. The next gap is 25, so the answer is 35 plus 25, which is **60**.\n\n**3. Wrong term.** 4, 9, 19, 39, 80, 159\n\nTest 'double and add 1': 4, then 9, then 19, then 39, then 79, then 159. Every term matches except the fifth, which is printed as 80. The wrong term is **80**.\n\n**4. Alphabet.** C, F, I, L, ?\n\nEach letter is 3 places on from the last: C to F to I to L to **O**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example series gaps rise by two answer 38",
+        "gaps are squares answer 60",
+        "double and add one wrong term 80",
+        "alphabet plus three C F I L O"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Guessing the rule from two terms.** Two terms fit far too many rules; use at least three.\n- **Stopping at the first pattern that works for one gap** instead of checking it across the whole row.\n- **Missing an interleaved series** because you read the terms in one run rather than odd places and even places apart.\n- **In the wrong-term type, changing the rule to fit the bad term** — the rule comes from the majority, and exactly one term breaks it.\n- **Forgetting the wrap** in an alphabet series that runs past Z.\n- **Treating an alphanumeric stream as one rule** when the letters and digits move independently.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "series mistakes rule from two terms one gap only",
+        "missing interleaved series changing rule to fit bad term",
+        "alphabet wrap alphanumeric independent tracks"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Decide the type first: number, alphabet, or alphanumeric; next term or wrong term.\n- Write the gap row under a number series. Check constant difference, constant ratio, patterned difference, squares and cubes, 'multiply then add', and two interleaved series — in that order.\n- For a wrong term, take the rule from the first three or four terms, extend it, and flag the first mismatch.\n- For letters, use A is 1 to Z is 26, watch for backward steps and the wrap past Z, and split an alphanumeric stream into separate tracks.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "series summary revision",
+        "gap row check difference ratio squares multiply add interleaved",
+        "wrong term rule from first terms letters a1 z26 split tracks"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer and, in one line, the rule.\n\n1. 7, 10, 16, 25, 37, ?\n2. 2, 3, 5, 9, 17, ?\n3. 1, 4, 27, 16, 125, ?\n4. 6, 11, 21, 36, 56, ?\n5. Wrong term: 3, 7, 15, 31, 64, 127\n6. B, D, G, K, P, ?\n7. A1, C3, E5, G7, ?",
+      "searchKeywords": [
+        "series practice questions",
+        "difference squares cubes multiply add wrong term alphabet alphanumeric exercises"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "gap-row-first",
+      "front": "What is the first thing to do with a number series?",
+      "back": "Write the row of gaps (differences) under it. The gap row usually reveals the rule — constant, rising by a fixed amount, or itself a series of squares.",
+      "explanation": "Differences expose additive and two-tier patterns immediately.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["number-series-patterns"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "two-tier",
+      "front": "The gaps of a series are 3, 5, 7, 9. What comes next and why?",
+      "back": "The next gap is 11 (the gaps rise by 2), so you add 11 to the last term. This is a two-tier series: the differences have their own rule.",
+      "explanation": "3, 6, 11, 18, 27 → next term 38.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["number-series-patterns"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "interleaved",
+      "front": "How do you spot an interleaved (alternating) series?",
+      "back": "Read the odd-position terms as one series and the even-position terms as another. Each track has its own simple rule.",
+      "explanation": "1, 10, 2, 8, 3, 6 → odd places 1,2,3; even places 10,8,6.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["number-series-patterns"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "wrong-term-method",
+      "front": "How do you solve a 'find the wrong term' series?",
+      "back": "Take the rule from the first three or four terms, extend it forward yourself, and name the first printed term that disagrees. Exactly one term breaks the rule.",
+      "explanation": "Never bend the rule to fit the bad term.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["wrong-term-variant"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "letter-positions",
+      "front": "In an alphabet series, how do you handle the letters?",
+      "back": "Convert to position numbers (A is 1 to Z is 26), find the gap pattern, and remember steps can go backward and can wrap past Z back to A.",
+      "explanation": "B, D, G, K, P has gaps 2, 3, 4, 5 → next is V.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["alphabet-and-alphanumeric"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "alphanumeric-tracks",
+      "front": "How do you read an alphanumeric stream like A1, C3, E5, G7?",
+      "back": "Split it into tracks — letters, digits, symbols — and find each track's rule separately. Here letters step +2 and the digit equals the letter's position.",
+      "explanation": "Next term I9.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["alphabet-and-alphanumeric"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "fast-vs-slow",
+      "front": "The terms of a series grow very quickly. What rules should you try first?",
+      "back": "Multiplication (constant ratio), 'multiply then add or subtract', or powers (squares and cubes). Slow growth points to addition instead.",
+      "explanation": "3, 7, 15, 31 is 'double and add 1'.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["number-series-patterns"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

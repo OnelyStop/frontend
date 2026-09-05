@@ -27,14 +27,30 @@ import { notes } from "../src/db/schema";
 
 const DATA_DIR = process.env.NOTES_DATA_DIR ?? "../bank_exam/notes";
 const TAXONOMY_PATH =
-  process.env.TOPIC_TAXONOMY_PATH ?? join(DATA_DIR, "..", "topic_taxonomy.json");
+  process.env.TOPIC_TAXONOMY_PATH ??
+  join(DATA_DIR, "..", "topic_taxonomy.json");
 
 // Generated files that live alongside the topic files, not topics themselves.
 const SKIP_FILES = new Set(["notes_report.json"]);
 
-type RawSource = { name: string; url: string; tier: number; contribution: string; accessed: string };
-type RawTrick = { name: string; description: string; when_to_use: string; example: string | null };
-type RawWorkedExample = { problem: string; solution_steps: string[]; answer: string };
+type RawSource = {
+  name: string;
+  url: string;
+  tier: number;
+  contribution: string;
+  accessed: string;
+};
+type RawTrick = {
+  name: string;
+  description: string;
+  when_to_use: string;
+  example: string | null;
+};
+type RawWorkedExample = {
+  problem: string;
+  solution_steps: string[];
+  answer: string;
+};
 type RawExamRelevance = { exams: string[]; stage: string[] };
 
 type RawSubtopic = {
@@ -109,7 +125,10 @@ function loadTopicNote(path: string): RawTopicNote | null {
 }
 
 /** De-dupe by source name, subtopic-specific citations first (they're more precise). */
-function mergeSources(subtopicSources: RawSource[], topicSources: RawSource[]): RawSource[] {
+function mergeSources(
+  subtopicSources: RawSource[],
+  topicSources: RawSource[],
+): RawSource[] {
   const seen = new Set<string>();
   const merged: RawSource[] = [];
   for (const s of [...subtopicSources, ...topicSources]) {
@@ -125,11 +144,15 @@ type TopicTaxonomy = { sections: Record<string, string[]> };
 async function main() {
   const apply = process.argv.includes("--apply");
 
-  const taxonomy: TopicTaxonomy = JSON.parse(readFileSync(TAXONOMY_PATH, "utf-8"));
+  const taxonomy: TopicTaxonomy = JSON.parse(
+    readFileSync(TAXONOMY_PATH, "utf-8"),
+  );
 
   const files = findTopicFiles(DATA_DIR);
   if (files.length === 0) {
-    throw new Error(`No topic *.json files under ${DATA_DIR} — check NOTES_DATA_DIR`);
+    throw new Error(
+      `No topic *.json files under ${DATA_DIR} — check NOTES_DATA_DIR`,
+    );
   }
 
   const loaded: RawTopicNote[] = [];
@@ -138,7 +161,9 @@ async function main() {
     const topicNote = loadTopicNote(path);
     if (!topicNote) {
       skippedFiles++;
-      console.warn(`[import-notes] skipping ${path} — missing a required field`);
+      console.warn(
+        `[import-notes] skipping ${path} — missing a required field`,
+      );
       continue;
     }
     loaded.push(topicNote);
@@ -147,11 +172,16 @@ async function main() {
   const bySection = new Map<string, number>();
   let totalSubtopics = 0;
   for (const t of loaded) {
-    bySection.set(t.section, (bySection.get(t.section) ?? 0) + t.subtopics.length);
+    bySection.set(
+      t.section,
+      (bySection.get(t.section) ?? 0) + t.subtopics.length,
+    );
     totalSubtopics += t.subtopics.length;
   }
 
-  console.log(`  topics found        ${loaded.length}  (${skippedFiles} file(s) skipped)`);
+  console.log(
+    `  topics found        ${loaded.length}  (${skippedFiles} file(s) skipped)`,
+  );
   console.log(`  subtopics (rows)    ${totalSubtopics}`);
   for (const [section, count] of [...bySection.entries()].sort()) {
     console.log(`    ${section.padEnd(14)} ${count}`);
@@ -256,7 +286,9 @@ async function main() {
     .where(notInArray(notes.noteId, currentIds))
     .returning({ noteId: notes.noteId });
   if (removed.length > 0) {
-    console.log(`\n  removed ${removed.length} orphaned row(s) no longer in source:`);
+    console.log(
+      `\n  removed ${removed.length} orphaned row(s) no longer in source:`,
+    );
     for (const r of removed) console.log(`    ${r.noteId}`);
   }
 }

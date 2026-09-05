@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "products",
+  "chapterName": "Banking products and operations",
+  "chapterPosition": 2,
+  "topicSlug": "kyc-and-aml-basics",
+  "topicPosition": 30,
+  "title": "KYC and Anti-Money-Laundering Basics",
+  "summary": "Why banks must Know Their Customer, the elements of customer due diligence, officially valid documents and periodic updation, the anti-money-laundering framework under the PMLA, and the roles of FIU-IND and the RBI.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["deposit-accounts"],
+  "learningObjectives": [
+    "State the purpose of KYC and the three stages of customer due diligence.",
+    "Identify what counts as an officially valid document for identity and address.",
+    "Explain risk categorisation and periodic KYC updation.",
+    "Outline the AML framework: the PMLA, suspicious-transaction reporting, and FIU-IND."
+  ],
+  "tags": ["banking-awareness", "kyc", "aml", "pmla", "fiu-ind"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 180,
+  "sources": [
+    {
+      "sourceId": "RBI_MASTER_DIRECTIONS",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "title": "RBI Master Directions index (Know Your Customer)",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the current KYC framework: CDD elements, officially valid documents, risk categorisation and periodic updation. Restated in original wording; specific timelines are flagged volatile."
+    },
+    {
+      "sourceId": "RBI_FAME",
+      "url": "https://www.rbi.org.in/commonperson/English/Scripts/PressReleases.aspx?Id=2123",
+      "title": "RBI consumer material on KYC",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the customer-facing explanation of KYC. Explained in original wording."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "why-kyc",
+      "type": "introduction",
+      "title": "Why banks must know their customer",
+      "markdown": "**Know Your Customer (KYC)** is the process by which a bank establishes who its customer really is, understands the nature of the customer's activity, and forms a view of the money-laundering and terrorist-financing risk the relationship carries.\n\nKYC exists so that the banking system is not misused to launder the proceeds of crime or to move funds for terrorism, and so that a customer's identity can be relied on for the whole life of the relationship. It is required by the **Prevention of Money-Laundering Act (PMLA), 2002** and the rules under it, and is implemented for banks through the RBI's Master Direction on KYC.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "know your customer purpose",
+        "prevent money laundering terrorist financing",
+        "PMLA 2002",
+        "RBI KYC master direction"
+      ],
+      "position": 10
+    },
+    {
+      "id": "customer-due-diligence",
+      "type": "concept",
+      "title": "Customer due diligence",
+      "markdown": "**Customer Due Diligence (CDD)** has three parts:\n\n- **Identification and verification:** collect and independently verify the customer's identity and address, and, for a non-individual, the identity of those who own or control it - the **beneficial owners**.\n- **Understanding the relationship:** record the purpose and intended nature of the account.\n- **Ongoing monitoring:** watch transactions through the life of the account to check they are consistent with what is known about the customer, and update records as needed.\n\nWhere the risk is higher - for example a politically exposed person or a complex ownership structure - the bank applies **Enhanced Due Diligence**. For very low-risk, small accounts it may apply **Simplified Due Diligence**.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "customer due diligence CDD three parts",
+        "beneficial owner",
+        "ongoing monitoring",
+        "enhanced due diligence politically exposed person",
+        "simplified due diligence"
+      ],
+      "position": 20
+    },
+    {
+      "id": "ovds",
+      "type": "concept",
+      "title": "Officially valid documents",
+      "markdown": "Identity and address are established using an **Officially Valid Document (OVD)**. The list is set by the rules and includes the passport, the driving licence, proof of possession of an Aadhaar number, the Voter ID card, and a job card issued under NREGA, among others.\n\n- **e-KYC / Aadhaar-based verification** and **video-based Customer Identification Process (V-CIP)** are permitted, subject to consent and safeguards.\n- If an OVD does not carry a current address, a separate document for address may be accepted for a limited period, after which the updated OVD must be provided.\n- A **Central KYC Records Registry (CKYCR)** stores a customer's KYC once so it can be reused across regulated entities.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "officially valid document OVD",
+        "passport driving licence Aadhaar voter id NREGA",
+        "e-KYC video CIP V-CIP",
+        "central KYC records registry CKYCR"
+      ],
+      "position": 30
+    },
+    {
+      "id": "risk-and-updation",
+      "type": "method",
+      "title": "Risk categorisation and periodic updation",
+      "markdown": "A bank classifies each customer as **low, medium or high risk** based on identity, social and financial status, nature of business and location. The category drives how closely the account is monitored and how often KYC is refreshed.\n\n**Periodic updation** requires the bank to re-verify KYC at set intervals - more frequently for high-risk customers, less often for low-risk. The exact intervals are prescribed by the RBI and have been revised, so treat any specific number of years as volatile and check the current Master Direction.\n\nIf a customer does not complete required KYC or updation, the bank may restrict or freeze operations until it is done.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "risk categorisation low medium high",
+        "periodic KYC updation intervals",
+        "high risk more frequent",
+        "account freeze on KYC non-compliance"
+      ],
+      "position": 40
+    },
+    {
+      "id": "aml-framework",
+      "type": "concept",
+      "title": "The anti-money-laundering framework",
+      "markdown": "Money laundering is turning the proceeds of crime into apparently legitimate funds, classically in three stages: **placement** (getting cash into the system), **layering** (moving it through many transactions to obscure the trail), and **integration** (bringing it back as clean-looking wealth).\n\nUnder the PMLA and its rules, a bank must:\n\n- maintain records of transactions and identity for a prescribed period;\n- file reports with **FIU-IND (Financial Intelligence Unit - India)** - **Cash Transaction Reports** for large cash transactions, **Suspicious Transaction Reports** whenever a transaction gives grounds for suspicion regardless of amount, and reports for cross-border wire transfers and certain other events;\n- appoint a **Principal Officer** responsible for reporting, and a Designated Director at senior level.\n\nFIU-IND analyses these reports and shares intelligence with enforcement and regulatory agencies. The RBI supervises banks' compliance.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "money laundering placement layering integration",
+        "PMLA record keeping",
+        "FIU-IND cash transaction report suspicious transaction report",
+        "principal officer designated director"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **KYC is not a one-time step.** It is done at onboarding and refreshed periodically, and monitoring continues throughout.\n- **A Suspicious Transaction Report has no monetary threshold** - suspicion alone triggers it. Cash Transaction Reports are threshold-based.\n- **The reports go to FIU-IND**, which is under the Department of Revenue, not to the RBI.\n- **Aadhaar can be used for KYC with consent**, but the bank cannot compel Aadhaar where the rules allow other OVDs.\n- **Enhanced Due Diligence is for higher-risk cases** such as politically exposed persons; it is not the default.\n- **All KYC timelines and thresholds are set by the RBI or the PMLA rules and are revised** - do not quote a fixed period without checking.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "KYC AML confusions",
+        "STR no threshold CTR threshold",
+        "reports to FIU-IND not RBI",
+        "Aadhaar with consent not compulsory",
+        "EDD not default"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- KYC establishes who the customer is, why the account exists, and the risk it carries; required by the PMLA, 2002 and the RBI's KYC Master Direction.\n- CDD: identify and verify (including beneficial owners), record the purpose, and monitor on an ongoing basis. Enhanced DD for high risk; Simplified DD for low-risk small accounts.\n- Identity/address via an Officially Valid Document (passport, driving licence, Aadhaar proof, Voter ID, NREGA job card...); e-KYC and V-CIP allowed with consent; CKYCR stores KYC for reuse.\n- Customers are low/medium/high risk; KYC is refreshed periodically at RBI-prescribed intervals (volatile); non-compliance can freeze the account.\n- Money laundering: placement, layering, integration. Banks keep records, file CTRs (threshold), STRs (suspicion, no threshold) and other reports with FIU-IND, and appoint a Principal Officer. The RBI supervises compliance.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "KYC AML summary",
+        "revision",
+        "CDD OVD risk category FIU-IND CTR STR recap"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "kyc-purpose",
+      "front": "What is the purpose of KYC?",
+      "back": "To establish who the customer really is, understand the account's purpose, and assess money-laundering / terrorist-financing risk - so the banking system is not misused.",
+      "explanation": "Required by the PMLA, 2002 and the RBI KYC Master Direction.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["why-kyc"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "cdd-parts",
+      "front": "What are the three parts of Customer Due Diligence?",
+      "back": "Identify and verify the customer (and beneficial owners), record the purpose of the relationship, and monitor transactions on an ongoing basis.",
+      "explanation": "Enhanced DD for higher risk; Simplified DD for low-risk small accounts.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["customer-due-diligence"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "ovd",
+      "front": "Give three examples of an Officially Valid Document.",
+      "back": "Passport, driving licence, proof of possession of an Aadhaar number, Voter ID card, NREGA job card.",
+      "explanation": "e-KYC and video-based CIP are also permitted, with consent.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["ovds"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "ckycr",
+      "front": "What does the CKYCR do?",
+      "back": "The Central KYC Records Registry stores a customer's KYC once so it can be reused across regulated entities, avoiding repeat KYC.",
+      "explanation": "A single KYC identifier is generated per customer.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["ovds"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "ml-stages",
+      "front": "Name the three classic stages of money laundering.",
+      "back": "Placement (get cash into the system), layering (obscure the trail with many transactions), integration (bring it back as clean wealth).",
+      "explanation": "AML controls try to catch it at each stage.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["aml-framework"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "str-vs-ctr",
+      "front": "STR vs CTR: which has a monetary threshold?",
+      "back": "The Cash Transaction Report (CTR) is threshold-based. A Suspicious Transaction Report (STR) has no threshold - suspicion alone triggers it.",
+      "explanation": "Both are filed with FIU-IND.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["aml-framework", "common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "fiu-ind",
+      "front": "Which body receives banks' AML reports, and who does the bank appoint to file them?",
+      "back": "FIU-IND (Financial Intelligence Unit - India) receives the reports. The bank appoints a Principal Officer (and a senior Designated Director).",
+      "explanation": "FIU-IND is under the Department of Revenue, not the RBI.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["aml-framework"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

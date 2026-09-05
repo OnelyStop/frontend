@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "algebra",
+  "chapterName": "Algebra",
+  "chapterPosition": 7,
+  "topicSlug": "quadratic-equations",
+  "topicPosition": 30,
+  "title": "Quadratic Equations",
+  "summary": "Solving quadratics by factorisation and by formula, reading the discriminant, using the sum and product of roots, forming a quadratic from its roots, and the compare-the-roots question.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "algebraic-expressions-and-identities",
+    "linear-equations"
+  ],
+  "learningObjectives": [
+    "Solve a quadratic by factorisation and by the quadratic formula.",
+    "Use the discriminant to state the nature of the roots without solving.",
+    "Apply sum of roots = -b/a and product of roots = c/a, and form a quadratic from given roots.",
+    "Answer a compare-the-roots question by finding both root sets and checking the ranges."
+  ],
+  "tags": ["algebra", "quadratic-equations", "roots", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Algebra/Quadratic_Equation",
+      "title": "Algebra/Quadratic Equation",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the quadratic formula, the discriminant and the root relationships. All wording, worked examples and practice items here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm quadratic equations are part of the quantitative-aptitude scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "standard-form",
+      "type": "introduction",
+      "title": "Standard form",
+      "markdown": "A quadratic equation is one that can be written as ax^2 plus bx plus c equals 0, with a not equal to 0. The letters a, b and c are the coefficients; x is the unknown.\n\nA quadratic has at most two roots. Bank exams ask you to solve one, to state how many real roots it has, to use the sum or product of the roots, or to compare the roots of two quadratics and say how one variable relates to the other. Each of these is a short calculation once you know the four tools below.\n\nThis topic writes x^2 for x squared and uses the caret sign for other powers.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "quadratic equation standard form ax squared plus bx plus c",
+        "a quadratic has at most two roots",
+        "types of quadratic question in bank exams"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-formula",
+      "type": "formula",
+      "title": "The quadratic formula",
+      "markdown": "For ax^2 plus bx plus c equals 0, the roots are\n\nx equals ( minus b plus the square root of (b^2 minus 4ac) ) divided by 2a, and\n\nx equals ( minus b minus the square root of (b^2 minus 4ac) ) divided by 2a.\n\nThe quantity under the root, b^2 minus 4ac, is the discriminant, written D. The formula always works; factorisation is faster when the numbers are friendly.\n\nExample: for 2x^2 plus x minus 6 equals 0, a is 2, b is 1, c is minus 6. D is 1 minus 4 times 2 times minus 6, that is 1 plus 48, or 49. The roots are ( minus 1 plus 7 ) over 4 and ( minus 1 minus 7 ) over 4, that is 1.5 and minus 2.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "quadratic formula minus b plus or minus root discriminant over 2a",
+        "discriminant b squared minus 4ac",
+        "apply the formula worked"
+      ],
+      "position": 20
+    },
+    {
+      "id": "by-factorisation",
+      "type": "method",
+      "title": "Solving by factorisation",
+      "markdown": "When a is 1 and the numbers are small, split the middle term.\n\n1. **Find two numbers** that multiply to c and add to b.\n2. **Rewrite** bx as the sum of those two terms, then factorise in pairs.\n3. **Set each bracket to 0** and read off the roots.\n\nFor x^2 minus 7x plus 12 equals 0, two numbers multiplying to 12 and adding to minus 7 are minus 3 and minus 4. So (x minus 3)(x minus 4) equals 0, and x is 3 or 4.\n\nWhen a is not 1, look for two numbers multiplying to a times c and adding to b, then group.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "factorise quadratic split the middle term",
+        "two numbers multiply to c add to b",
+        "set each bracket to zero"
+      ],
+      "position": 30
+    },
+    {
+      "id": "the-discriminant",
+      "type": "concept",
+      "title": "The discriminant and the nature of the roots",
+      "markdown": "The discriminant D equals b^2 minus 4ac tells you what kind of roots you have, without solving.\n\n- **D greater than 0**: two distinct real roots.\n- **D equal to 0**: one repeated real root (a perfect square quadratic).\n- **D less than 0**: no real roots.\n\nAlso, if a, b and c are integers and D is a perfect square, the roots are rational and the quadratic factorises over the integers. For x^2 minus 6x plus 9 equals 0, D is 36 minus 36, which is 0, so there is one repeated root, x equals 3.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "discriminant nature of roots real repeated none",
+        "d greater than zero two distinct roots",
+        "perfect square discriminant rational roots"
+      ],
+      "position": 40
+    },
+    {
+      "id": "sum-and-product",
+      "type": "formula",
+      "title": "Sum and product of the roots",
+      "markdown": "If the roots of ax^2 plus bx plus c equals 0 are p and q, then\n\n- p plus q equals minus b over a\n- p times q equals c over a\n\nThis lets you answer many questions without solving. To **form a quadratic from roots** p and q, use x^2 minus (p plus q) x plus (p times q) equals 0. Roots 2 and 7 give x^2 minus 9x plus 14 equals 0.\n\nIf you are told one root and a coefficient, the product or sum relation gives the other root: if one root of x^2 minus kx plus 18 equals 0 is 3, the product of roots is 18, so the other root is 6.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "sum of roots minus b over a product c over a",
+        "form a quadratic from its roots",
+        "find the other root from product"
+      ],
+      "position": 50
+    },
+    {
+      "id": "compare-the-roots",
+      "type": "method",
+      "title": "The compare-the-roots question",
+      "markdown": "This format gives two quadratics, one in x and one in y, and asks how x compares with y. Work it as a range comparison.\n\n1. **Solve both quadratics** for their two roots each.\n2. **List the x values and the y values** on a number line in your head.\n3. **Compare the ranges.** If every x value is at least every y value, the answer is x is greater than or equal to y. If the two sets overlap so that neither is always larger, the answer is that no fixed relation can be established.\n\nExample: x^2 minus 9x plus 20 equals 0 gives x equal to 4 or 5. y^2 minus 7y plus 12 equals 0 gives y equal to 3 or 4. The smallest x is 4 and the largest y is 4, so every x value is at least every y value: x is greater than or equal to y.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "compare roots of two quadratics x and y",
+        "range comparison of root sets",
+        "no relation can be established when ranges overlap"
+      ],
+      "position": 60
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. By factorisation.** Solve x^2 minus 7x plus 12 equals 0. Two numbers multiplying to 12 and adding to minus 7 are minus 3 and minus 4, so (x minus 3)(x minus 4) equals 0. The roots are **3 and 4**.\n\n**2. By formula.** Solve 2x^2 plus x minus 6 equals 0. Here a is 2, b is 1, c is minus 6, and D is 1 plus 48, that is 49. The roots are ( minus 1 plus 7 ) over 4 and ( minus 1 minus 7 ) over 4, that is **1.5 and minus 2**.\n\n**3. Compare the roots.** For x^2 minus 9x plus 20 equals 0 the roots are 5 and 4. For y^2 minus 7y plus 12 equals 0 the roots are 4 and 3. Every x value is at least every y value, so **x is greater than or equal to y**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "solve quadratic by factorisation worked example",
+        "solve quadratic by formula worked example",
+        "compare roots worked example x greater than or equal to y"
+      ],
+      "position": 70,
+      "expectedAnswers": [
+        {
+          "label": "1. larger root of x^2 - 7x + 12 = 0",
+          "value": 4,
+          "expression": "(7 + ((-7)**2 - 4*1*12)**0.5)/(2*1)"
+        },
+        {
+          "label": "1. smaller root of x^2 - 7x + 12 = 0",
+          "value": 3,
+          "expression": "(7 - ((-7)**2 - 4*1*12)**0.5)/(2*1)"
+        },
+        {
+          "label": "2. larger root of 2x^2 + x - 6 = 0",
+          "value": 1.5,
+          "expression": "(-1 + (1**2 - 4*2*(-6))**0.5)/(2*2)"
+        },
+        {
+          "label": "2. smaller root of 2x^2 + x - 6 = 0",
+          "value": -2,
+          "expression": "(-1 - (1**2 - 4*2*(-6))**0.5)/(2*2)"
+        },
+        {
+          "label": "3. smallest x root",
+          "value": 4,
+          "expression": "(9 - ((-9)**2 - 4*1*20)**0.5)/(2*1)"
+        },
+        {
+          "label": "3. largest y root",
+          "value": 4,
+          "expression": "(7 + ((-7)**2 - 4*1*12)**0.5)/(2*1)"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Sign of b in the formula.** The formula starts with minus b. For x^2 minus 7x plus 12, b is minus 7, so minus b is plus 7.\n- **Forgetting the second root.** Both the plus and the minus branch of the formula are roots.\n- **Reading the sum of roots with the wrong sign.** It is minus b over a, not b over a.\n- **Calling D equal to 0 \"no solution\".** It is one repeated real root, not none.\n- **In a compare question, stopping after one quadratic**, or concluding a relation from a single pair of roots instead of the full ranges.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "quadratic mistakes sign of b",
+        "forgetting the second root",
+        "discriminant zero is a repeated root not none"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Standard form ax^2 plus bx plus c equals 0, with a not 0.\n- Roots: ( minus b plus or minus the square root of (b^2 minus 4ac) ) over 2a. Factorise instead when the numbers are small.\n- Discriminant D equals b^2 minus 4ac: D greater than 0 means two real roots, D equal to 0 means one repeated root, D less than 0 means no real roots.\n- Sum of roots equals minus b over a; product equals c over a.\n- Form a quadratic from roots p and q: x^2 minus (p plus q) x plus pq equals 0.\n- Compare-the-roots: solve both, compare the full ranges, and answer \"no relation\" if they overlap.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "quadratic equations summary",
+        "revision formula discriminant sum product",
+        "compare roots recap"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Solve or evaluate as asked.\n\n1. Solve x^2 minus 5x plus 6 equals 0 and give the smaller root.\n2. Solve x^2 plus 2x minus 15 equals 0 and give the positive root.\n3. Find the sum of the roots of 3x^2 minus 12x plus 7 equals 0.\n4. Find the product of the roots of 3x^2 minus 12x plus 7 equals 0.\n5. Find the discriminant of x^2 minus 6x plus 9 equals 0.\n6. Form the quadratic with roots 2 and 7 and give its constant term.\n7. One root of x^2 minus kx plus 18 equals 0 is 3. Find the other root.\n8. Solve 4x^2 minus 12x plus 9 equals 0 (a repeated root).",
+      "searchKeywords": [
+        "quadratic equations practice questions",
+        "sum and product of roots exercises",
+        "discriminant practice"
+      ],
+      "position": 100,
+      "expectedAnswers": [
+        {
+          "label": "1. smaller root",
+          "value": 2,
+          "expression": "(5 - ((-5)**2 - 4*1*6)**0.5)/(2*1)"
+        },
+        {
+          "label": "2. positive root",
+          "value": 3,
+          "expression": "(-2 + (2**2 - 4*1*(-15))**0.5)/(2*1)"
+        },
+        { "label": "3. sum of roots", "value": 4, "expression": "-(-12)/3" },
+        {
+          "label": "4. product of roots",
+          "value": 2.3333,
+          "tolerance": 0.001,
+          "expression": "7/3"
+        },
+        {
+          "label": "5. discriminant",
+          "value": 0,
+          "tolerance": 0.0001,
+          "expression": "(-6)**2 - 4*1*9"
+        },
+        { "label": "6. constant term", "value": 14, "expression": "2*7" },
+        { "label": "7. other root", "value": 6, "expression": "18/3" },
+        {
+          "label": "8. repeated root",
+          "value": 1.5,
+          "expression": "(12 - ((-12)**2 - 4*4*9)**0.5)/(2*4)"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "the-formula-card",
+      "front": "State the quadratic formula for ax^2 + bx + c = 0.",
+      "back": "x = ( -b + sqrt(b^2 - 4ac) ) / 2a and x = ( -b - sqrt(b^2 - 4ac) ) / 2a. Both branches are roots.",
+      "explanation": "Always valid; factorisation is just faster when the numbers are friendly.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-formula"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "discriminant-card",
+      "front": "What does the discriminant D = b^2 - 4ac tell you?",
+      "back": "D greater than 0: two distinct real roots. D = 0: one repeated real root. D less than 0: no real roots. If D is a perfect square (integer a,b,c), the roots are rational.",
+      "explanation": "Lets you state the nature of the roots without solving.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-discriminant"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "sum-product-card",
+      "front": "For roots p and q of ax^2 + bx + c = 0, what are p + q and pq?",
+      "back": "p + q = -b/a and pq = c/a.",
+      "explanation": "Comes from comparing a(x - p)(x - q) with ax^2 + bx + c.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sum-and-product"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "form-from-roots-card",
+      "front": "How do you form a quadratic with roots p and q?",
+      "back": "x^2 - (p + q)x + pq = 0. Roots 2 and 7 give x^2 - 9x + 14 = 0.",
+      "explanation": "Uses the sum and product relations with a = 1.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sum-and-product"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "factorise-card",
+      "front": "How do you factorise x^2 - 7x + 12 = 0 by splitting the middle term?",
+      "back": "Find two numbers multiplying to 12 and adding to -7: they are -3 and -4. So (x - 3)(x - 4) = 0, giving x = 3 or 4.",
+      "explanation": "For a not equal to 1, use two numbers multiplying to a x c and adding to b.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["by-factorisation"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "compare-roots-card",
+      "front": "How do you answer a 'compare the roots of two quadratics' question?",
+      "back": "Solve both for their two roots each, place the x set and y set on a number line, and compare the full ranges. If they overlap so neither is always larger, answer 'no relation can be established'.",
+      "explanation": "A single pair of roots is not enough; use every value.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["compare-the-roots", "worked-example"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "other-root-card",
+      "front": "One root of x^2 - kx + 18 = 0 is 3. Find the other root.",
+      "back": "Product of roots = c/a = 18. So the other root is 18 / 3 = 6.",
+      "explanation": "The product relation gives the second root without needing k.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sum-and-product"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "foundations",
+  "chapterName": "Foundations",
+  "chapterPosition": 1,
+  "topicSlug": "simplification-and-order-of-operations",
+  "topicPosition": 30,
+  "title": "Simplification and Order of Operations",
+  "summary": "The VBODMAS order and how to apply it without slips, handling signs and nested brackets, keeping fractions and decimals under control, and the four algebraic identities that turn an ugly product into a two-step mental calculation.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["number-system-and-divisibility"],
+  "learningObjectives": [
+    "Apply the VBODMAS order, resolving 'of', division and multiplication correctly.",
+    "Work through nested brackets and sign changes without error.",
+    "Simplify an expression that mixes fractions and decimals.",
+    "Use (a+b)², (a−b)², a²−b² and (a+b)(a−b) to speed up a product."
+  ],
+  "tags": [
+    "arithmetic",
+    "foundations",
+    "simplification",
+    "bodmas",
+    "identities"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Number_Operations",
+      "title": "Arithmetic/Number Operations",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the standard order of the four operations. The VBODMAS treatment, identities, examples and practice here are original and independently verified."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-order",
+      "type": "concept",
+      "title": "The VBODMAS order",
+      "markdown": "Work an expression in this order:\n\n1. **V — Vinculum:** a bar over part of an expression, treated as a bracket. Resolve what is under it first.\n2. **B — Brackets:** innermost first — round, then curly, then square.\n3. **O — Of:** \"3/5 of 40\" means multiply, and it is done before ordinary division and multiplication.\n4. **D and M — Division and Multiplication:** together, left to right. Neither outranks the other.\n5. **A and S — Addition and Subtraction:** together, left to right.\n\nThe two points people get wrong: division and multiplication are equal (go left to right), and \"of\" is settled before them.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "VBODMAS order of operations",
+        "of before division and multiplication",
+        "division and multiplication left to right",
+        "vinculum bar as bracket"
+      ],
+      "position": 10
+    },
+    {
+      "id": "signs-and-brackets",
+      "type": "method",
+      "title": "Signs and nested brackets",
+      "markdown": "- **Removing a bracket after a minus sign flips every sign inside it:** a minus (b minus c) becomes a minus b plus c.\n- **A minus times a minus is a plus;** a minus times a plus is a minus. Count the minus signs in a product: an even count gives a positive result, an odd count a negative one.\n- **Work nested brackets from the inside out,** collapsing each to a single number before touching the next layer.\n- **Do not \"distribute\" across a division bar loosely.** (a plus b) divided by c equals a over c plus b over c, but a divided by (b plus c) is not a over b plus a over c.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "minus sign before bracket flips signs",
+        "product of minus signs even positive odd negative",
+        "nested brackets inside out",
+        "cannot split a over (b plus c)"
+      ],
+      "position": 20
+    },
+    {
+      "id": "fractions-and-decimals",
+      "type": "method",
+      "title": "Fractions and decimals under time pressure",
+      "markdown": "- **Convert once, then commit.** Either turn every fraction into a decimal or keep everything as fractions; do not switch back and forth mid-line.\n- **Cancel before you multiply.** In a chain of fractions, cancel a numerator against any denominator before doing any multiplication.\n- **Recognise standard decimals:** 0.5 is 1/2, 0.25 is 1/4, 0.125 is 1/8, 0.2 is 1/5, 0.333... is 1/3. Seeing 0.375 as 3/8 saves a division.\n- **Move the decimal point deliberately.** Multiplying by 10 shifts it one place right; dividing by 100 shifts it two places left. Count the shifts before writing the answer.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "convert fractions to decimals once",
+        "cancel before multiplying fractions",
+        "standard decimal equivalents",
+        "moving the decimal point by tens"
+      ],
+      "position": 30
+    },
+    {
+      "id": "identities",
+      "type": "formula",
+      "title": "Four identities that speed up products",
+      "markdown": "- (a plus b) squared equals a squared plus 2ab plus b squared.\n- (a minus b) squared equals a squared minus 2ab plus b squared.\n- a squared minus b squared equals (a plus b) times (a minus b).\n- (a plus b) times (a minus b) equals a squared minus b squared.\n\nUse them to split a hard product into round numbers. 43 squared is (40 plus 3) squared, which is 1,600 plus 240 plus 9, equal to 1,849. And 104 times 96 is (100 plus 4) times (100 minus 4), which is 10,000 minus 16, equal to 9,984.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "algebraic identities a plus b squared",
+        "a squared minus b squared",
+        "43 squared 1849",
+        "104 times 96 is 9984"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-brackets",
+      "type": "worked_example",
+      "title": "Worked example: order and brackets",
+      "markdown": "**Simplify 18 plus 6 divided by 2 times (5 minus 3).**\n\nBrackets first: 5 minus 3 is 2.\n\nNow 18 plus 6 divided by 2 times 2. Division and multiplication, left to right: 6 divided by 2 is 3; 3 times 2 is 6.\n\nFinally the addition: 18 plus 6 is **24**.\n\nA common wrong route is to do the multiplication before the division (2 times 2 is 4, then 6 divided by 4), which gives 19.5. Division and multiplication have equal rank — go left to right.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simplify 18 + 6 / 2 * (5 - 3)",
+        "answer 24",
+        "left to right for division and multiplication"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "value of the expression",
+          "value": 24,
+          "expression": "18 + 6/2*(5-3)"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-fractions",
+      "type": "worked_example",
+      "title": "Worked example: a fraction chain",
+      "markdown": "**Simplify (3/4 of 48) plus (2/5 of 75) minus 12.**\n\n\"Of\" is a multiplication, done before the plus and minus.\n\n3/4 of 48: cancel 4 into 48 to get 12, then times 3 is 36.\n\n2/5 of 75: cancel 5 into 75 to get 15, then times 2 is 30.\n\nNow 36 plus 30 minus 12, left to right: 66 minus 12 is **54**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simplify 3/4 of 48 + 2/5 of 75 - 12",
+        "of means multiply first",
+        "answer 54"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "value of the expression",
+          "value": 54,
+          "expression": "3/4*48 + 2/5*75 - 12"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-identities",
+      "type": "worked_example",
+      "title": "Worked example: identities for a product",
+      "markdown": "**Find 104 times 96, and 43 squared, without long multiplication.**\n\n104 times 96 is (100 plus 4) times (100 minus 4), which is 100 squared minus 4 squared, that is 10,000 minus 16, equal to **9,984**.\n\n43 squared is (40 plus 3) squared, which is 40 squared plus 2 times 40 times 3 plus 3 squared, that is 1,600 plus 240 plus 9, equal to **1,849**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "104 times 96 using a squared minus b squared",
+        "9984",
+        "43 squared using a plus b squared",
+        "1849"
+      ],
+      "position": 70,
+      "expectedAnswers": [
+        {
+          "label": "104 x 96",
+          "value": 9984,
+          "expression": "100*100 - 4*4"
+        },
+        {
+          "label": "43 squared",
+          "value": 1849,
+          "expression": "40*40 + 2*40*3 + 3*3"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Ranking multiplication above division.** They are equal; go left to right.\n- **Doing \"of\" as ordinary multiplication after a division.** \"Of\" comes first: 1/2 of 8 divided by 2 is 4 divided by 2, which is 2, not 1/2 of 4.\n- **Not flipping signs when removing a bracket after a minus.**\n- **Splitting a divided by (b plus c) as a over b plus a over c.** Only the numerator can be split over a common denominator, not the other way.\n- **Switching between fraction and decimal form mid-calculation** and losing a factor.\n- **Miscounting decimal shifts** when multiplying or dividing by powers of ten.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simplification mistakes",
+        "multiplication not above division",
+        "of comes first",
+        "sign flip removing bracket",
+        "cannot split denominator"
+      ],
+      "position": 80
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Order: Vinculum, Brackets (innermost first), Of, Division and Multiplication (equal, left to right), Addition and Subtraction (equal, left to right).\n- A minus before a bracket flips every sign inside. An even number of minus signs in a product gives a positive result.\n- Fix on one form (all fractions or all decimals), cancel before multiplying, and know the standard decimal equivalents.\n- Identities: (a plus or minus b) squared and a squared minus b squared turn a hard product into two easy steps.\n- Only a numerator splits over a common denominator; a divided by (b plus c) does not split.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "simplification summary",
+        "revision",
+        "VBODMAS signs fractions identities recap"
+      ],
+      "position": 90
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "1. Simplify 36 divided by 4 times 3 plus 12 minus 5 times 2.\n2. Simplify 2/3 of 45 plus 60 percent of 150 minus 25.\n3. Simplify 84 minus [ 20 minus { 15 minus (6 minus 3) } ].\n4. Find 97 times 103 using an identity.\n5. Find 58 squared using an identity.\n6. Simplify (0.6 times 0.6 minus 0.4 times 0.4) divided by 0.2.\n7. Simplify 12 plus 6 of 3 minus 8 divided by 2.\n8. Find the value of 3.5 times 3.5 plus 2 times 3.5 times 1.5 plus 1.5 times 1.5 using an identity.",
+      "searchKeywords": [
+        "simplification practice questions",
+        "BODMAS brackets identities decimals exercises"
+      ],
+      "position": 100
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "d-and-m-equal",
+      "front": "In BODMAS, does multiplication come before division?",
+      "back": "No. Division and multiplication have equal rank — do them left to right. Same for addition and subtraction.",
+      "explanation": "A frequent source of wrong answers.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-order"],
+      "position": 10
+    },
+    {
+      "id": "of-first",
+      "front": "Where does 'of' sit in the order of operations?",
+      "back": "Right after brackets, before ordinary division and multiplication. \"1/2 of 8 ÷ 2\" = 4 ÷ 2 = 2.",
+      "explanation": "The O in VBODMAS.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-order"],
+      "position": 20
+    },
+    {
+      "id": "sign-flip",
+      "front": "What happens to the signs inside a bracket when you remove it after a minus sign?",
+      "back": "Every sign inside flips: a − (b − c) = a − b + c.",
+      "explanation": "The minus multiplies through the bracket.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["signs-and-brackets"],
+      "position": 30
+    },
+    {
+      "id": "identity-diff-squares",
+      "front": "Use an identity: 104 × 96 = ?",
+      "back": "(100 + 4)(100 − 4) = 100² − 4² = 10000 − 16 = 9984.",
+      "explanation": "a² − b² = (a+b)(a−b).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-identities"],
+      "position": 40
+    },
+    {
+      "id": "identity-square",
+      "front": "Use an identity: 43² = ?",
+      "back": "(40 + 3)² = 40² + 2·40·3 + 3² = 1600 + 240 + 9 = 1849.",
+      "explanation": "(a+b)² = a² + 2ab + b².",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-identities"],
+      "position": 50
+    },
+    {
+      "id": "cannot-split-denominator",
+      "front": "Is a ÷ (b + c) equal to a/b + a/c?",
+      "back": "No. Only a numerator splits over a common denominator: (a + b)/c = a/c + b/c. The denominator does not split.",
+      "explanation": "A classic algebra slip.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60
+    },
+    {
+      "id": "standard-decimals",
+      "front": "Give the fraction for 0.125, 0.375 and 0.2.",
+      "back": "0.125 = 1/8, 0.375 = 3/8, 0.2 = 1/5. Recognising these avoids a division.",
+      "explanation": "Also 0.333… = 1/3, 0.25 = 1/4.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["fractions-and-decimals"],
+      "position": 70
+    }
+  ]
+}

@@ -30,7 +30,11 @@ export async function listNotes(): Promise<NoteSummary[]> {
     })
     .from(notes)
     .where(and(eq(notes.isActive, true), ne(notes.status, "draft")))
-    .orderBy(asc(notes.section), asc(notes.topicOrder), asc(notes.subtopicOrder));
+    .orderBy(
+      asc(notes.section),
+      asc(notes.topicOrder),
+      asc(notes.subtopicOrder),
+    );
 
   return rows;
 }
@@ -40,31 +44,37 @@ export async function listNotes(): Promise<NoteSummary[]> {
  * calls this once for generateMetadata and once for the page body — cache()
  * dedupes both into a single query per request rather than two.
  */
-export const getNote = cache(async (noteId: string): Promise<NoteDetail | null> => {
-  const [row] = await db.select().from(notes).where(eq(notes.noteId, noteId)).limit(1);
-  if (!row || !row.isActive || row.status === "draft") return null;
+export const getNote = cache(
+  async (noteId: string): Promise<NoteDetail | null> => {
+    const [row] = await db
+      .select()
+      .from(notes)
+      .where(eq(notes.noteId, noteId))
+      .limit(1);
+    if (!row || !row.isActive || row.status === "draft") return null;
 
-  return {
-    noteId: row.noteId,
-    section: row.section,
-    topic: row.topic,
-    subtopic: row.subtopic,
-    topicTitle: row.topicTitle,
-    topicOrder: row.topicOrder,
-    subtopicOrder: row.subtopicOrder,
-    title: row.title,
-    summary: row.summary,
-    difficulty: row.difficulty,
-    tags: row.tags,
-    aliases: row.aliases,
-    examRelevance: row.examRelevance,
-    concept: row.concept,
-    formulas: row.formulas,
-    tricks: row.tricks,
-    commonMistakes: row.commonMistakes,
-    workedExamples: row.workedExamples,
-    relatedQuestionIds: row.relatedQuestionIds,
-    sources: row.sources,
-    confirmations: row.confirmations,
-  };
-});
+    return {
+      noteId: row.noteId,
+      section: row.section,
+      topic: row.topic,
+      subtopic: row.subtopic,
+      topicTitle: row.topicTitle,
+      topicOrder: row.topicOrder,
+      subtopicOrder: row.subtopicOrder,
+      title: row.title,
+      summary: row.summary,
+      difficulty: row.difficulty,
+      tags: row.tags,
+      aliases: row.aliases,
+      examRelevance: row.examRelevance,
+      concept: row.concept,
+      formulas: row.formulas,
+      tricks: row.tricks,
+      commonMistakes: row.commonMistakes,
+      workedExamples: row.workedExamples,
+      relatedQuestionIds: row.relatedQuestionIds,
+      sources: row.sources,
+      confirmations: row.confirmations,
+    };
+  },
+);

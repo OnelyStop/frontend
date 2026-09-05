@@ -4,7 +4,7 @@ import { and, count, desc, eq, inArray } from "drizzle-orm";
 
 import { CUTOFF_LADDER } from "@/data/navigation";
 import { db } from "@/db";
-import { papers, questions } from "@/db/schema";
+import { bankQuestions, papers } from "@/db/schema";
 import type { Mock } from "./types";
 
 // A recall's own bank/role/year won't necessarily match its cutoff exactly,
@@ -13,7 +13,8 @@ import type { Mock } from "./types";
 // definition of "at cutoff" from CUTOFF_LADDER (55% — data/navigation.ts) as
 // a placeholder scaled to the paper's question count. Replace with a real
 // per-paper cutoff once papers.total_marks/cutoff data exists.
-const AT_CUTOFF_PCT = CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
+const AT_CUTOFF_PCT =
+  CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 
 /**
  * Every canonical paper with enough active questions to sit as a mock, most
@@ -29,10 +30,16 @@ export async function listMockPapers(): Promise<Mock[]> {
       examType: papers.examType,
       year: papers.year,
       durationMin: papers.durationMin,
-      qs: count(questions.qId),
+      qs: count(bankQuestions.qId),
     })
     .from(papers)
-    .innerJoin(questions, and(eq(questions.paperId, papers.paperId), eq(questions.isActive, true)))
+    .innerJoin(
+      bankQuestions,
+      and(
+        eq(bankQuestions.paperId, papers.paperId),
+        eq(bankQuestions.isActive, true),
+      ),
+    )
     .where(
       and(
         eq(papers.isActive, true),
@@ -40,24 +47,33 @@ export async function listMockPapers(): Promise<Mock[]> {
         inArray(papers.examType, ["Prelims", "Mains"]),
       ),
     )
-    .groupBy(papers.paperId, papers.bank, papers.role, papers.examType, papers.year, papers.durationMin)
+    .groupBy(
+      papers.paperId,
+      papers.bank,
+      papers.role,
+      papers.examType,
+      papers.year,
+      papers.durationMin,
+    )
     .orderBy(desc(papers.year), papers.bank, papers.role);
 
-  return rows
-    // A handful of active questions is not a mock paper.
-    .filter((r) => r.qs >= 20)
-    .map((r) => {
-      const stage = r.examType as Mock["stage"];
-      const mins = r.durationMin ?? (stage === "Mains" ? 180 : 60);
-      return {
-        id: r.paperId,
-        name: `${r.bank ?? "Unknown"} ${r.role ?? ""}`.trim(),
-        year: r.year ?? 0,
-        stage,
-        qs: r.qs,
-        mins,
-        score: null,
-        cutoff: Math.round(r.qs * AT_CUTOFF_PCT),
-      };
-    });
+  return (
+    rows
+      // A handful of active questions is not a mock paper.
+      .filter((r) => r.qs >= 20)
+      .map((r) => {
+        const stage = r.examType as Mock["stage"];
+        const mins = r.durationMin ?? (stage === "Mains" ? 180 : 60);
+        return {
+          id: r.paperId,
+          name: `${r.bank ?? "Unknown"} ${r.role ?? ""}`.trim(),
+          year: r.year ?? 0,
+          stage,
+          qs: r.qs,
+          mins,
+          score: null,
+          cutoff: Math.round(r.qs * AT_CUTOFF_PCT),
+        };
+      })
+  );
 }

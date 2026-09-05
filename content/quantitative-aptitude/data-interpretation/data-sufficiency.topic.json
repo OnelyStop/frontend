@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "data-sufficiency",
+  "topicPosition": 60,
+  "title": "Data Sufficiency",
+  "summary": "You decide whether the given statements are enough to answer, not what the answer is. The five standard options, the discipline of testing each statement alone before combining, and the traps that catch fast readers.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "ibps-po"],
+  "prerequisiteTopicSlugs": ["percentages", "ratio-and-proportion", "average"],
+  "learningObjectives": [
+    "State the five standard data-sufficiency options precisely.",
+    "Test statement I alone and statement II alone before ever combining them.",
+    "Judge sufficiency as 'is the answer uniquely determined', and stop there.",
+    "Recognise the assumption traps that make an insufficient statement look sufficient."
+  ],
+  "tags": [
+    "data-interpretation",
+    "data-sufficiency",
+    "reasoning",
+    "bank-exams"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Logic_for_Computer_Science/Propositional_Logic",
+      "title": "Logic for Computer Science/Propositional Logic",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for what 'a statement is sufficient to determine a value' means. Every question here is original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm data sufficiency is a standard question format. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-data-sufficiency-asks",
+      "type": "introduction",
+      "title": "A different question",
+      "markdown": "A data sufficiency item gives a question and two numbered statements. You are **not** asked for the answer to the question. You are asked whether the statements — alone, or together — give enough information to pin the answer down to a single value.\n\nThis means you often stop well before a full solution. The moment you can see that a statement forces one and only one answer, that statement is sufficient; you do not compute it. Equally, the moment you find two different answers consistent with a statement, it is insufficient.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "data sufficiency asks whether enough information",
+        "not asked for the answer",
+        "stop once the answer is forced or shown to vary"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-five-options",
+      "type": "concept",
+      "title": "The five standard options",
+      "markdown": "Bank papers use this option set. Learn it word for word:\n\n- **A** — Statement I alone is sufficient, but statement II alone is not.\n- **B** — Statement II alone is sufficient, but statement I alone is not.\n- **C** — Either statement alone is sufficient.\n- **D** — Both statements together are sufficient, but neither alone is.\n- **E** — The two statements together are still not sufficient.\n\nEvery item resolves to exactly one of these. The whole method is a decision procedure for choosing between them.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "five data sufficiency options A B C D E",
+        "statement I alone II alone either both neither",
+        "decision procedure"
+      ],
+      "position": 20
+    },
+    {
+      "id": "test-each-statement-alone-first",
+      "type": "method",
+      "title": "Test each statement alone, then combine",
+      "markdown": "1. **Read only the question first.** Note exactly what single value or yes/no answer would settle it.\n2. **Cover statement II. Judge statement I alone.** Is the answer forced? If yes, note \"I sufficient\".\n3. **Cover statement I. Judge statement II alone.** Same test.\n4. **Now read the result off:**\n   - both alone sufficient → **C**\n   - only I → **A**; only II → **B**\n   - neither alone → go to step 5\n5. **Combine I and II.** Sufficient together → **D**. Still not → **E**.\n\nThe cardinal rule is step 2 and 3 before step 5. Combining first is how a statement gets \"credit\" for information it does not carry on its own.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "test statement one alone then statement two alone",
+        "cover the other statement",
+        "combine only if neither alone works",
+        "never combine first"
+      ],
+      "position": 30
+    },
+    {
+      "id": "what-counts-as-sufficient",
+      "type": "concept",
+      "title": "What 'sufficient' means",
+      "markdown": "A statement is **sufficient** if it narrows the answer to exactly one value (for a value question) or to a definite yes or no (for a yes/no question).\n\n- The value being **ugly or large does not matter** — \"the principal is 7,431\" is still one value, so it is sufficient.\n- For a yes/no question, a statement that always gives \"no\" is just as sufficient as one that always gives \"yes\". Insufficient means the answer could be either.\n- **Do not solve past the point of uniqueness.** Once you know the answer is forced, mark it and move on.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "sufficient means one value or definite yes or no",
+        "ugly value still sufficient",
+        "a definite no is sufficient",
+        "do not solve past uniqueness"
+      ],
+      "position": 40
+    },
+    {
+      "id": "solved-examples",
+      "type": "method",
+      "title": "Three solved items",
+      "markdown": "**Item 1.** *What is the two-digit number N?* (I) The sum of its digits is 9. (II) N is divisible by 9 and lies between 40 and 50.\n\nI alone: 18, 27, 36, 45, 54, 63, 72, 81, 90 all fit — many values, insufficient. II alone: the only multiple of 9 between 40 and 50 is 45 — one value, sufficient. Only II works, so the answer is **B**.\n\n**Item 2.** *Is x greater than y?* (I) x = y + 3. (II) x and y are consecutive even integers, with x the later one.\n\nI alone: x is 3 more than y, so x is greater — a definite yes, sufficient. II alone: consecutive even integers with x later means x = y + 2, so x is greater — a definite yes, sufficient. Either alone works, so the answer is **C**.\n\n**Item 3.** *How many students are in the class?* (I) The number is a multiple of 6. (II) The number is between 20 and 30.\n\nI alone: 6, 12, 18, 24, 30, … — insufficient. II alone: 21 to 29 — insufficient. Together: a multiple of 6 between 20 and 30 is 24 only — sufficient. Neither alone but both together, so the answer is **D**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "solved data sufficiency two digit number",
+        "is x greater than y consecutive even",
+        "multiple of 6 between 20 and 30",
+        "answers B C D"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-traps",
+      "type": "warning",
+      "title": "Common traps",
+      "markdown": "- **Assuming a value is a positive integer** when the question never said so. \"x squared is 16\" gives x = 4 or x = −4 unless x is restricted.\n- **Assuming a figure is drawn to scale.** A geometry statement that \"looks like\" a right angle is not one until stated.\n- **Combining the statements before testing each alone**, so statement I is judged with statement II's information in mind.\n- **A statement that only restates the question** carries no new information and is insufficient.\n- **Stopping at \"I can form an equation\"** — one equation in two unknowns does not determine a value.\n- **Reading a yes/no question as a value question** — a firm \"no\" is a sufficient answer there.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "data sufficiency traps positive integer assumption",
+        "figure not to scale combine before testing alone",
+        "statement restates the question one equation two unknowns"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- You judge whether the statements determine the answer; you do not find the answer.\n- Options: A (I only), B (II only), C (either alone), D (both together, neither alone), E (not even together).\n- Method: read the question, test I alone, test II alone, and only combine if neither alone is enough.\n- Sufficient = one value, or a definite yes/no. An ugly value still counts; a definite \"no\" still counts.\n- Do not assume positive integers, do not trust a figure's scale, and never let one statement borrow the other's information.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "data sufficiency summary revision",
+        "options method sufficient definition traps recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "For each item choose one option, using this key: **A** I alone sufficient; **B** II alone sufficient; **C** either alone sufficient; **D** both together sufficient, neither alone; **E** not sufficient even together. Give a one-line reason.\n\n1. What is the average age of the five members of a team? (I) The oldest is 40 and the youngest is 24. (II) The sum of all five ages is 165.\n2. Is the number P divisible by 12? (I) P is divisible by 4. (II) P is divisible by 6.\n3. What is the cost price of an article? (I) It was sold for ₹550 at a 10 per cent profit. (II) It was sold for ₹550, which is ₹50 more than the cost price.\n4. What is the speed of train A? (I) Train B's speed is 60 km/h. (II) The two trains move in opposite directions.\n5. What is the two-digit number? (I) The tens digit is twice the units digit. (II) The number is 36.\n6. Is quadrilateral ABCD a square? (I) All four sides are equal. (II) All four angles are 90 degrees.\n7. What is the simple interest earned in two years? (I) The principal is ₹8,000. (II) The rate is 5 per cent per annum and the amount after two years is ₹8,800.\n8. How old is Rahul now? (I) Five years ago he was three times as old as his sister. (II) His sister is now 15.",
+      "searchKeywords": [
+        "data sufficiency practice average age divisible cost price train square simple interest ages",
+        "choose A B C D E with reason"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "ds-what-is-asked",
+      "front": "In a data sufficiency question, what are you actually deciding?",
+      "back": "Whether the statements, alone or together, are enough to pin the answer to a single value or a definite yes/no. You do not compute the answer itself.",
+      "explanation": "Stop as soon as sufficiency (or its failure) is clear.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-data-sufficiency-asks"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "ds-five-options",
+      "front": "State the five standard data sufficiency options.",
+      "back": "A: I alone. B: II alone. C: either alone. D: both together, neither alone. E: not sufficient even together.",
+      "explanation": "Every item resolves to exactly one of these.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-five-options"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "ds-order-of-testing",
+      "front": "What is the cardinal rule of the data sufficiency method?",
+      "back": "Test statement I alone and statement II alone before ever combining them. Combine only if neither alone is sufficient.",
+      "explanation": "Combining first lets a weak statement borrow the other's information.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["test-each-statement-alone-first"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "ds-ugly-value",
+      "front": "A statement forces the principal to be exactly 7,431. Is it sufficient?",
+      "back": "Yes. Sufficiency is about the answer being a single value, not a neat one. An ugly or large value still counts.",
+      "explanation": "You never have to actually compute it.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["what-counts-as-sufficient"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "ds-definite-no",
+      "front": "For a yes/no question, a statement always yields 'no'. Sufficient or not?",
+      "back": "Sufficient. A definite 'no' settles the question just as well as a definite 'yes'. Insufficient means the answer could go either way.",
+      "explanation": "Don't mistake a yes/no question for a value question.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["what-counts-as-sufficient"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "ds-integer-trap",
+      "front": "A statement says x squared is 16. What is the trap?",
+      "back": "x could be 4 or -4. Do not assume x is a positive integer unless the question restricts it, or you will call an insufficient statement sufficient.",
+      "explanation": "Same caution applies to 'to scale' figures.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-traps"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "ds-one-equation",
+      "front": "A statement lets you write one equation in two unknowns. Is that sufficient for a value?",
+      "back": "No. One equation in two unknowns does not determine a value. 'I can form an equation' is not the stopping point.",
+      "explanation": "You need enough independent equations to isolate the quantity asked for.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-traps"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}
