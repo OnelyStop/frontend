@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useApp } from "@/context/AppContext";
 import { Card, PageHeader, SectionTitle } from "@/design-system";
-import { SECTION_KEY, SECTION_SHORT, SECTIONS } from "@/data/navigation";
+import { SECTION_KEY, SECTION_LABEL, SECTIONS } from "@/data/navigation";
 
 /* A profile here is a record card, not a social page: what you have sat, what
    cleared, and where the marks went. */
@@ -106,7 +106,7 @@ export function ProfileView() {
                   />
                 </div>
                 <div className="tnum mt-2 text-[13px]">{SECTION_BEST[i]}</div>
-                <div className="text-ink-4 text-[12px]">{SECTION_SHORT[s]}</div>
+                <div className="text-ink-4 text-[12px]">{SECTION_LABEL[s]}</div>
               </div>
             ))}
           </div>

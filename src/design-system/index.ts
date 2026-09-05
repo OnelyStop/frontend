@@ -1,4 +1,5 @@
 export { cn } from "./lib/cn";
+export * from "./lib/motion";
 
 export { Brand } from "./components/brand";
 
@@ -46,3 +47,5 @@ export {
 } from "./components/data";
 
 export { Divider, Empty, PageHeader, SectionTitle } from "./components/page";
+
+export { OptionRow } from "./components/option";

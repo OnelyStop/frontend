@@ -8,6 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { MotionConfig } from "motion/react";
 import { useAuth } from "@/features/auth/AuthContext";
 import {
   FEATURE_MASTERY,
@@ -136,7 +137,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
   }, [subject, board, profile, settings, examDaysLeft]);
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  // Mirror the Settings toggle onto <html> so the CSS `.press` utility (which
+  // can't read React context) also respects it. `motion`'s own
+  // reducedMotion="user" already covers the OS-level preference on its own.
+  useEffect(() => {
+    document.documentElement.toggleAttribute(
+      "data-reduce-motion",
+      settings.reduceMotion,
+    );
+  }, [settings.reduceMotion]);
+
+  return (
+    <AppContext.Provider value={value}>
+      <MotionConfig reducedMotion={settings.reduceMotion ? "always" : "user"}>
+        {children}
+      </MotionConfig>
+    </AppContext.Provider>
+  );
 }
 
 export function useApp() {

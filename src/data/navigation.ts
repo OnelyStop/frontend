@@ -35,13 +35,36 @@ export const SECTION_KEY: Record<Subject, string> = {
   "Computer Aptitude": "computer",
 };
 
-export const SECTION_SHORT: Record<Subject, string> = {
-  "Quantitative Aptitude": "Quant",
+/* Official subject names, not abbreviations — every UI spot that shows a
+   section name uses this, so there's one place to change if that ever
+   needs to be shorthand again. */
+export const SECTION_LABEL: Record<Subject, string> = {
+  "Quantitative Aptitude": "Quantitative Aptitude",
+  "Reasoning Ability": "Reasoning Ability",
+  "English Language": "English Language",
+  "General Awareness": "General Awareness",
+  "Computer Aptitude": "Computer Aptitude",
+};
+
+/* The question bank labels sections with one word each (its own
+   classifier's vocabulary, in pipeline/2-classify/topic_taxonomy.json);
+   navigation uses the exam's full subject name. Joining a DB query on the
+   wrong one of these silently returns zero rows, not an error. */
+export const SECTION_DB: Record<Subject, string> = {
+  "Quantitative Aptitude": "Quantitative",
   "Reasoning Ability": "Reasoning",
   "English Language": "English",
   "General Awareness": "GA",
   "Computer Aptitude": "Computer",
 };
+
+/* The reverse of SECTION_DB, for displaying a row that already carries the
+   question bank's one-word section (e.g. notes.section) as a full Subject
+   label/colour. Derived from SECTION_DB rather than declared twice, so the
+   two can never drift apart. */
+export const SECTION_FROM_DB: Record<string, Subject> = Object.fromEntries(
+  Object.entries(SECTION_DB).map(([subject, db]) => [db, subject as Subject]),
+);
 
 /* Negative marking is 1/4 of a mark on every wrong answer across IBPS and SBI.
    It is the single fact that governs attempt strategy, so it lives here. */

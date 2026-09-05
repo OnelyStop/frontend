@@ -40,7 +40,7 @@ export function CompanionPanel() {
           type="button"
           onClick={close}
           aria-label="Close Ask Onely"
-          className="rounded-ctl text-ink-3 hover:bg-line hover:text-ink grid size-8 place-items-center transition-colors"
+          className="press rounded-ctl text-ink-3 hover:bg-line hover:text-ink grid size-8 place-items-center"
         >
           <X size={16} strokeWidth={1.75} />
         </button>
@@ -117,7 +117,7 @@ export function CompanionPanel() {
         <button
           type="submit"
           disabled={busy || !draft.trim()}
-          className="rounded-ctl bg-ink hover:bg-ink/90 mt-2 h-9 w-full text-[14px] font-medium text-white transition-colors disabled:opacity-40"
+          className="press rounded-ctl bg-ink hover:bg-ink/90 mt-2 h-9 w-full text-[14px] font-medium text-white disabled:opacity-40"
         >
           Send
         </button>

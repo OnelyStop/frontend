@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { Button, Empty, PageHeader, Segmented } from "@/design-system";
 import { POST_QUOTA, type PlanTier } from "@/features/community/quota";
-import { SECTIONS, SECTION_SHORT, type Subject } from "@/data/navigation";
+import { SECTIONS, SECTION_LABEL, type Subject } from "@/data/navigation";
 
 /* Doubts, not a forum. Every doubt is pinned to a section and a topic, and the
    only reaction is "stuck here too" — so the page sorts by how many people are
@@ -182,7 +182,7 @@ export function CommunityView() {
             <div className="border-line mt-4 flex items-center gap-3 border-t pt-4">
               <select className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none">
                 {SECTIONS.map((s) => (
-                  <option key={s}>{SECTION_SHORT[s]}</option>
+                  <option key={s}>{SECTION_LABEL[s]}</option>
                 ))}
               </select>
               <span className="flex-1" />
@@ -199,7 +199,7 @@ export function CommunityView() {
             value={section}
             options={["All", ...SECTIONS] as const}
             onChange={setSection}
-            labels={{ ...SECTION_SHORT, All: "All" }}
+            labels={{ ...SECTION_LABEL, All: "All" }}
           />
           <span className="flex-1" />
           <button
@@ -248,7 +248,7 @@ export function CommunityView() {
                   <div className="min-w-0 flex-1">
                     <div className="text-ink-3 flex items-center gap-2 text-[13px]">
                       <span className="text-ink-2 font-medium">
-                        {SECTION_SHORT[d.section]}
+                        {SECTION_LABEL[d.section]}
                       </span>
                       <span aria-hidden>·</span>
                       <span>{d.topic}</span>

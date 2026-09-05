@@ -8,7 +8,7 @@ import {
   type UserSettings,
 } from "@/context/AppContext";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
-import { EXAMS, SECTIONS, SECTION_SHORT } from "@/data/navigation";
+import { EXAMS, SECTIONS, SECTION_LABEL } from "@/data/navigation";
 
 const PREFS: [keyof UserSettings, string, string][] = [
   [
@@ -174,7 +174,7 @@ export function SettingsView() {
                     : "border-line bg-canvas hover:border-line-2"
                 }`}
               >
-                {SECTION_SHORT[s]}
+                {SECTION_LABEL[s]}
               </button>
             ))}
           </div>
@@ -197,7 +197,7 @@ export function SettingsView() {
                 onChange={(e) =>
                   setPrefs({ ...prefs, [key]: e.target.checked })
                 }
-                className="mt-0.5 size-4 accent-[#4f46e5]"
+                className="accent-brand mt-0.5 size-4"
               />
               <span>
                 <span className="block text-[14px] font-medium">{title}</span>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Card, PageHeader, SectionTitle } from "@/design-system";
-import { SECTION_SHORT, SECTIONS } from "@/data/navigation";
+import { SECTION_LABEL, SECTIONS } from "@/data/navigation";
 
 /* Today. The whole screen answers one question: what do I do in the next hour,
    and why that. Sectional readiness against cutoff drives the answer. */
@@ -57,7 +57,7 @@ export function HomeView() {
     <>
       <PageHeader
         title={`Good evening, ${profile.name.split(" ")[0]}`}
-        sub={`${SECTION_SHORT[weakest.s]} is ${weakest.cutoff - weakest.score} marks under its sectional cutoff — the only section that is. Everything below is ordered around fixing that.`}
+        sub={`${SECTION_LABEL[weakest.s]} is ${weakest.cutoff - weakest.score} marks under its sectional cutoff — the only section that is. Everything below is ordered around fixing that.`}
       />
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -74,7 +74,7 @@ export function HomeView() {
               return (
                 <div key={r.s} className="grid gap-2">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[14.5px]">{SECTION_SHORT[r.s]}</span>
+                    <span className="text-[14.5px]">{SECTION_LABEL[r.s]}</span>
                     <span className="flex-1" />
                     <span
                       className={`tnum text-[14.5px] ${safe ? "" : "text-bad"}`}

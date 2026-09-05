@@ -57,6 +57,19 @@
     0 2px 6px rgb(10 10 10 / 0.05), 0 20px 50px -12px rgb(10 10 10 / 0.22);
 
   --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Motion. tokens.css has --duration/--ease but app routes never load that
+     file (only theme.css, from app/layout.tsx) — so the runner needs its own
+     small scale rather than reaching for a token that silently isn't there.
+     Named --ease-swift, not the more obvious -standard, because that exact
+     name is already claimed with a different value by tokens.css and
+     MarketingLayout.css — the same silent-collision trap DESIGN.md warns
+     about for --color-surface. */
+  --ease-swift: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --duration-press: 120ms;
+  --duration-slow: 200ms;
 }
 
 @utility tnum {
@@ -85,6 +98,38 @@
   .plot-in {
     animation: none;
   }
+}
+
+/* Press feedback: down is quicker than the return, which is what reads as a
+   physical button instead of a wobble. One class, every button gets it.
+   Property list is explicit (not the `transition` shorthand) and includes
+   colour/border alongside transform: it's meant to sit alone on a clickable
+   element and replace Tailwind's `transition-colors`, not stack with it —
+   two same-layer utilities both writing `transition-property` on one
+   element don't merge, whichever wins the cascade drops the other's
+   properties entirely. */
+@utility press {
+  transition-property: transform, color, background-color, border-color;
+  transition-timing-function: var(--ease-swift);
+  transition-duration: var(--duration-slow);
+}
+
+.press:active {
+  transform: scale(0.97);
+  transition-duration: var(--duration-press);
+}
+
+/* Reduced motion: keep colour/opacity as the state signal, drop the
+   transform. `[data-reduce-motion]` is the in-app Settings toggle (see
+   AppContext); the media query is the OS-level one. */
+@media (prefers-reduced-motion: reduce) {
+  .press:active {
+    transform: none;
+  }
+}
+
+[data-reduce-motion] .press:active {
+  transform: none;
 }
 
 /* Study module — the tutor mascot and the sticky-note affordances. These are

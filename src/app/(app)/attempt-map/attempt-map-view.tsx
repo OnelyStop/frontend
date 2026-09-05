@@ -9,7 +9,7 @@ import {
   NEGATIVE_MARK,
   SECTIONS,
   SECTION_KEY,
-  SECTION_SHORT,
+  SECTION_LABEL,
   type Subject,
 } from "@/data/navigation";
 
@@ -361,7 +361,7 @@ export function AttemptMapView() {
               setSection(v);
               setOpen(null);
             }}
-            labels={{ ...SECTION_SHORT, All: "All" }}
+            labels={{ ...SECTION_LABEL, All: "All" }}
           />
         }
       />
@@ -606,7 +606,7 @@ export function AttemptMapView() {
                       }}
                       aria-hidden
                     />
-                    {SECTION_SHORT[open.section]} · {open.qs} attempted
+                    {SECTION_LABEL[open.section]} · {open.qs} attempted
                   </p>
                 </div>
                 <button
@@ -682,7 +682,7 @@ export function AttemptMapView() {
                 <p className="text-ink-3 text-[13px] leading-relaxed">
                   Nothing in this section lands in the skip corner. Attempt it
                   in full and spend the saved time on{" "}
-                  {SECTION_SHORT[SECTIONS[2]]}.
+                  {SECTION_LABEL[SECTIONS[2]]}.
                 </p>
               ) : (
                 <ol className="grid gap-3">
@@ -800,7 +800,7 @@ export function AttemptMapView() {
                         />
                         <span className="text-[14.5px]">{t.name}</span>
                         <span className="text-ink-4 text-[13px]">
-                          {SECTION_SHORT[t.section]}
+                          {SECTION_LABEL[t.section]}
                         </span>
                       </span>
                     </td>
