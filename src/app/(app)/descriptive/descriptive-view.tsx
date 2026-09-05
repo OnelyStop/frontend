@@ -4,11 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
 
-/* The descriptive paper. IBPS PO Mains and SBI PO give you 30 minutes for one
-   letter and one essay, and most marks are lost to format and length, not to
-   ideas. So the format checklist ticks live as you type — you should never
-   reach the end of 30 minutes and discover you forgot the subject line. */
-
 type Task = {
   id: string;
   kind: "Letter" | "Essay";
@@ -17,7 +12,6 @@ type Task = {
   min: number;
   max: number;
   marks: number;
-  /* Each check is a real test against the draft, not a rubric line to read. */
   checks: { label: string; hint: string; test: (t: string) => boolean }[];
 };
 
@@ -266,8 +260,6 @@ export function DescriptiveView() {
               / {task.min}–{task.max} words
             </span>
 
-            {/* The word budget as a single bar: the shaded stretch is the band
-                the examiner expects you to land in. */}
             <span className="rounded-pill bg-line relative h-2 max-w-64 flex-1 overflow-hidden">
               <span
                 className="bg-line-2 absolute inset-y-0"

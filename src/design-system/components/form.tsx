@@ -1,8 +1,7 @@
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-/* Form controls. One height (40px), one radius, one focus treatment: the
-   border goes to brand. No fills, no rings. */
+// One height, one radius, one focus treatment (border to brand). No fills, no rings.
 
 const CONTROL =
   "w-full rounded-ctl border border-line bg-canvas text-[14px] outline-none transition-colors focus:border-brand disabled:opacity-50";
@@ -94,8 +93,7 @@ export function Checkbox({
   );
 }
 
-/* Segmented control: a hairline pill group, the live option filled black.
-   Used for every in-page filter so a filter never looks like a button. */
+// Used for every in-page filter so a filter never looks like a button.
 export function Segmented<T extends string>({
   value,
   options,

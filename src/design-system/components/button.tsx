@@ -5,9 +5,7 @@ import { cn } from "../lib/cn";
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
 
-/* Every action is a pill. Primary is black, secondary is a hairline on white,
-   ghost is text alone. Nothing fills grey on hover — a bordered control
-   darkens its border, a text control darkens its ink. */
+// No grey fill on hover: a bordered control darkens its border, a text one its ink.
 const VARIANT: Record<ButtonVariant, string> = {
   primary: "bg-ink text-white hover:bg-ink/85",
   secondary: "border border-line-2 bg-canvas text-ink hover:border-ink/25",
@@ -83,7 +81,6 @@ export function ButtonLink({
   );
 }
 
-/** Bare icon, no label: close, dismiss, step. */
 export function IconButton({
   label,
   children,

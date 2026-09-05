@@ -3,10 +3,6 @@
 import { useEffect, useState } from "react";
 import { Button, Card, PageHeader } from "@/design-system";
 
-/* Flashcards is the mechanism; a deck is the content. Current affairs is one
-   deck among several — the same reveal-and-grade loop has to serve formulae
-   and vocabulary too, or GA becomes the only thing you can revise here. */
-
 type Item = { q: string; a: string; date?: string };
 
 type Deck = {

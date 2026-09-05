@@ -10,9 +10,6 @@ import {
   type Subject,
 } from "@/data/navigation";
 
-/* Notes. In this market notes are formulae, shortcuts and tricks — so they are
-   filed by section and searchable, not a board of coloured squares. */
-
 type Note = {
   id: number;
   section: Subject;
@@ -79,8 +76,6 @@ export function NotesView() {
         (q.trim() === "" ||
           (n.title + n.body).toLowerCase().includes(q.toLowerCase())),
     )
-    // Pinned first, then newest — a pin is only useful if it actually holds
-    // the note at the top of whatever you are looking at.
     .sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)));
 
   const togglePin = (id: number) =>
@@ -155,8 +150,6 @@ function NoteSheet({
         note.pinned && "shadow-pop",
       )}
     >
-      {/* The punched margin: a ruled sheet torn from a pad, so the note reads
-          as something written rather than a card in a dashboard. */}
       <span aria-hidden className="bg-bad/25 absolute inset-y-0 left-11 w-px" />
       <span
         aria-hidden

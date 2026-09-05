@@ -5,9 +5,6 @@ import { useApp } from "@/context/AppContext";
 import { PageHeader, Segmented } from "@/design-system";
 import { SECTIONS, SECTION_SHORT } from "@/data/navigation";
 
-/* Mocks. Sectional timing is the thing banking aspirants actually train for —
-   each section locks when its clock runs out, and you cannot go back. */
-
 type Mock = {
   id: string;
   name: string;
@@ -114,9 +111,8 @@ export function MocksView() {
     return () => window.removeEventListener("keydown", onKey);
   }, [live]);
 
-  // Exam conditions: the app gets out of the way entirely. The question
-  // palette on the right is the thing every Indian aspirant already knows from
-  // the real IBPS interface — without it the screen reads as an empty void.
+  // The question palette mirrors the real IBPS interface every aspirant knows;
+  // without it the screen reads as an empty void.
   if (live) {
     const secMins = Math.round(live.mins / SECTIONS.length);
     const mm = String(Math.floor(left / 60)).padStart(2, "0");
@@ -133,8 +129,6 @@ export function MocksView() {
             <span className="ml-2 text-white/40">{live.stage}</span>
           </span>
 
-          {/* Sections are locked in order, so they read as a track you are
-              moving along, not as tabs you can pick from. */}
           <span className="hidden items-center gap-1.5 lg:flex">
             {SECTIONS.map((s, i) => (
               <span
@@ -338,8 +332,6 @@ export function MocksView() {
                   </span>
                 </div>
 
-                {/* Same notch as Today: the cutoff, not the maximum, is what
-                    the bar is read against. */}
                 <div className="rounded-pill bg-line relative mt-3 h-1.5">
                   {m.score !== null ? (
                     <div

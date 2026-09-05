@@ -6,9 +6,6 @@ import { useApp } from "@/context/AppContext";
 import { Card, PageHeader, SectionTitle } from "@/design-system";
 import { SECTION_SHORT, SECTIONS } from "@/data/navigation";
 
-/* Today. The whole screen answers one question: what do I do in the next hour,
-   and why that. Sectional readiness against cutoff drives the answer. */
-
 const SECTION_STATE = [
   { s: SECTIONS[0], score: 62, cutoff: 55, trend: +4 },
   { s: SECTIONS[1], score: 71, cutoff: 58, trend: +2 },
@@ -94,8 +91,6 @@ export function HomeView() {
                     </span>
                   </div>
 
-                  {/* The notch is the cutoff. Only the section that misses it is
-                      coloured — colour here means "act", not "category". */}
                   <div className="rounded-pill bg-line relative h-1.5">
                     <div
                       className={`rounded-pill h-full ${safe ? "bg-ink" : "bg-bad"}`}
