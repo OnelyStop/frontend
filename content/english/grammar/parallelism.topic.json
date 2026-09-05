@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "grammar",
+  "chapterName": "Grammar foundations",
+  "chapterPosition": 1,
+  "topicSlug": "parallelism",
+  "topicPosition": 60,
+  "title": "Parallelism",
+  "summary": "Putting items that play the same role into the same grammatical form — in a list, after a correlative pair, in a comparison, and after a single governing word — and spotting the faulty parallelism that error-detection and sentence-improvement questions rely on.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["parts-of-speech", "conjunctions-and-connectors"],
+  "learningObjectives": [
+    "Explain what parallel structure is and why an exam tests it.",
+    "Make the items in a list or series parallel.",
+    "Keep both halves of a correlative pair and both sides of a comparison parallel.",
+    "Spot faulty parallelism after a shared verb, preposition or article."
+  ],
+  "tags": [
+    "grammar",
+    "parallelism",
+    "parallel-structure",
+    "sentence-improvement",
+    "error-detection"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar/Basic_Parts_of_Speech/Conjunctions",
+      "title": "English Grammar/Basic Parts of Speech/Conjunctions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the treatment of items joined by conjunctions. The parallelism rules, examples and exercises here are original."
+    },
+    {
+      "sourceId": "GUTENBERG_GRAMMAR",
+      "url": "https://www.gutenberg.org/ebooks/11615",
+      "title": "The Grammar of English Grammars",
+      "publisher": "Project Gutenberg (Goold Brown)",
+      "usageMode": "public_domain",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Historical grammar consulted only to confirm the traditional principle of matching constructions. All wording here is original and reflects current usage."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-parallelism-is",
+      "type": "introduction",
+      "title": "What parallel structure is",
+      "markdown": "**Parallelism** means that two or more items doing the same job in a sentence appear in the same grammatical form — all nouns, or all *-ing* forms, or all clauses of the same shape.\n\n*The role involves planning projects, coordinating teams, and reporting to the board.* — three *-ing* phrases.\n\n*The role involves planning projects, to coordinate teams, and reports to the board.* — a mix, so it reads as broken. Exams test parallelism heavily in error detection and sentence improvement because the fault is easy to miss on a first read.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "parallel structure same grammatical form",
+        "planning coordinating reporting parallel",
+        "mix of -ing and to- breaks parallelism",
+        "exams test parallelism in error detection"
+      ],
+      "position": 10
+    },
+    {
+      "id": "in-a-list",
+      "type": "method",
+      "title": "Parallelism in a list or series",
+      "markdown": "Every item joined by *and*, *or* or a comma series should share a form.\n\n- All nouns: *the branch needs a scanner, a printer and a shredder*.\n- All verb phrases in the same tense: *she opened the file, checked the totals and signed off*.\n- All *-ing* forms or all *to-* forms: *the plan is to hire staff, to train them and to deploy them* — or drop the repeated *to*: *to hire, train and deploy staff*.\n- If you repeat the marker (*to*, *the*, a preposition) before the first item, repeat it before every item, or before none.\n\nFix a mixed list by rewriting the odd item to match the others, usually the majority form.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "parallelism in a list series",
+        "all nouns all verb phrases all -ing or all to-",
+        "repeat the marker before every item or none",
+        "rewrite the odd item to the majority form"
+      ],
+      "position": 20
+    },
+    {
+      "id": "with-correlatives",
+      "type": "method",
+      "title": "Parallelism with correlatives",
+      "markdown": "With **either ... or**, **neither ... nor**, **not only ... but also**, **both ... and**, whatever kind of phrase follows the first half must follow the second.\n\n- *She is responsible not only for the audit but also for compliance.* (preposition phrase both sides)\n- *She not only audits the accounts but also advises the board.* (verb phrase both sides)\n- Wrong: *She is not only responsible for the audit but also she advises the board.* — an adjective phrase on one side, a full clause on the other.\n\nA quick fix: find the word right after the first half, then make sure the word right after the second half is the same part of speech.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "parallelism with correlative conjunctions",
+        "not only for X but also for Y",
+        "same phrase type after each half",
+        "check the word right after each half"
+      ],
+      "position": 30
+    },
+    {
+      "id": "in-comparisons",
+      "type": "method",
+      "title": "Parallelism in comparisons",
+      "markdown": "When you compare two things with *than*, *as ... as*, *like*, *prefer ... to*, compare like with like.\n\n- Wrong: *Her salary is higher than her colleague.* — a salary compared with a person. Fix: *higher than her colleague's* or *than that of her colleague*.\n- Wrong: *Working from the branch is easier than to work from home.* Fix: *than working from home*.\n- *prefer X to Y*: keep X and Y the same form — *prefer walking to driving*, not *prefer walking to drive*.\n- *as much as*, *more than*: the two quantities must be comparable.",
+      "sourceIds": ["GUTENBERG_GRAMMAR"],
+      "searchKeywords": [
+        "parallelism in comparisons compare like with like",
+        "higher than her colleague's",
+        "than working from home not to work",
+        "prefer walking to driving"
+      ],
+      "position": 40
+    },
+    {
+      "id": "after-a-shared-word",
+      "type": "concept",
+      "title": "Parallelism after a shared word",
+      "markdown": "When one word governs two or more parts, each part must fit that word.\n\n- **Shared verb:** *The circular was written and circulated by the regional office.* — both past participles fit *was*. Wrong: *was written and the office circulated it*.\n- **Shared preposition:** *interested in reading and in writing*, or *interested in reading and writing* — but not *interested in reading and to write*.\n- **Shared auxiliary:** *The staff have completed the audit and submitted the report.* — both fit *have*. Wrong: *have completed the audit and the report submitted*.\n- Read the sentence with the shared word before each item in turn; if any reading is ungrammatical, the parallelism is broken.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "parallelism after a shared verb preposition auxiliary",
+        "each part must fit the governing word",
+        "was written and circulated",
+        "read the shared word before each item"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: three items",
+      "markdown": "**1.** *The new policy aims to reduce costs, improving turnaround, and to raise customer trust.*\nThe list after *aims* mixes *to reduce*, *improving*, *to raise*. Make all three match: **\"to reduce costs, improve turnaround, and raise customer trust\"** (drop the repeated *to*) — or *to reduce ... to improve ... to raise*.\n\n**2.** *The trainer was praised for her clarity, patience, and because she was well prepared.*\nTwo nouns (*clarity*, *patience*) then a clause. Make the third a noun: **\"her clarity, patience, and preparation\"**.\n\n**3.** *He would rather resign than accepting the transfer.*\n*would rather ... than* needs matching forms: **\"than accept the transfer\"**.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "faulty parallelism to reduce improving to raise",
+        "clarity patience and preparation",
+        "would rather resign than accept",
+        "make the odd item match"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Switching form mid-list:** two *-ing* items then a *to-* item, or two nouns then a clause.\n- **Repeating the marker unevenly:** *to hire, train, and to deploy* — put *to* before all or none.\n- **Comparing unlike things:** a salary with a person, an activity with an infinitive.\n- **Correlative halves that do not match:** *not only responsible ... but also she advises*.\n- **A shared verb or auxiliary that does not fit the second item:** *have completed the audit and the report submitted*.\n- **\"Both ... as well as\":** use *both ... and*; *as well as* does not pair with *both*.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "parallelism mistakes",
+        "switching form mid-list",
+        "uneven marker to",
+        "comparing unlike things",
+        "correlative halves mismatch",
+        "shared verb does not fit",
+        "both as well as wrong"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Items doing the same job take the same grammatical form.\n- In a list: all nouns, or all verb phrases in one tense, or all *-ing* / all *to-* forms. Repeat a marker before every item or before none.\n- Correlatives: whatever phrase type follows the first half must follow the second. Check the word right after each half.\n- Comparisons: compare like with like — a salary with a salary, an activity with an activity. *prefer X to Y*, *would rather X than Y* need matching X and Y.\n- After a shared verb, preposition or auxiliary, each item must read correctly with that word in front of it.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "parallelism summary",
+        "revision",
+        "list correlative comparison shared word recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Rewrite each to make it parallel; give a one-line reason.\n\n1. The job involves auditing branches, to prepare reports, and training junior staff.\n2. The scheme is designed both to reward loyalty as well as to attract new customers.\n3. The output of the new machine is far greater than the old machine.\n4. She is not only quick but also she is accurate.\n5. The team has reviewed the accounts and the discrepancies were flagged.\n6. He prefers reading circulars to attend long meetings.",
+      "searchKeywords": [
+        "parallelism practice questions",
+        "list correlative comparison shared verb rewrite exercises"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "parallel-list",
+      "front": "Fix the list: \"to reduce costs, improving turnaround, and to raise trust\".",
+      "back": "Make all three match: \"to reduce costs, improve turnaround, and raise trust\" (drop the repeated 'to'), or use 'to' before all three.",
+      "explanation": "Items joined by 'and' share one grammatical form.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["in-a-list", "worked-example"],
+      "position": 10
+    },
+    {
+      "id": "marker-repetition",
+      "front": "\"to hire, train, and to deploy staff\" — what is wrong?",
+      "back": "The marker 'to' is repeated before some items but not all. Put it before every item or before none: \"to hire, train and deploy\" or \"to hire, to train and to deploy\".",
+      "explanation": "Consistency of the shared marker.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["in-a-list"],
+      "position": 20
+    },
+    {
+      "id": "correlative-check",
+      "front": "Quick check for parallelism with 'not only … but also'?",
+      "back": "Look at the word right after 'not only' and the word right after 'but also' — they should be the same part of speech / phrase type.",
+      "explanation": "\"not only for audit but also for compliance\" (both prepositions).",
+      "difficulty": "hard",
+      "sourceBlockIds": ["with-correlatives"],
+      "position": 30
+    },
+    {
+      "id": "comparison-like",
+      "front": "Fix: \"Her salary is higher than her colleague.\"",
+      "back": "\"…than her colleague's\" or \"…than that of her colleague\" — compare salary with salary, not with a person.",
+      "explanation": "Comparisons must be between like things.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["in-comparisons"],
+      "position": 40
+    },
+    {
+      "id": "prefer-x-to-y",
+      "front": "\"He prefers reading circulars to ____ long meetings.\" What form?",
+      "back": "\"attending\" — 'prefer X to Y' needs X and Y in the same form (both -ing here).",
+      "explanation": "Also: 'would rather X than Y' needs matching X and Y.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["in-comparisons"],
+      "position": 50
+    },
+    {
+      "id": "shared-verb",
+      "front": "What is wrong with \"The team has reviewed the accounts and the discrepancies were flagged\"?",
+      "back": "The auxiliary 'has' governs the first verb but not the second, which switches to a passive clause. Fix: \"has reviewed the accounts and flagged the discrepancies\".",
+      "explanation": "Each item must read correctly with the shared word in front of it.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["after-a-shared-word"],
+      "position": 60
+    },
+    {
+      "id": "both-and",
+      "front": "\"designed both to reward loyalty as well as to attract customers\" — what is the error?",
+      "back": "'both' pairs with 'and', not 'as well as'. Use \"both to reward loyalty and to attract customers\".",
+      "explanation": "Mixed correlatives break the structure.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70
+    }
+  ]
+}

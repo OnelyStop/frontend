@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "algebra",
+  "chapterName": "Algebra",
+  "chapterPosition": 7,
+  "topicSlug": "number-series-quant",
+  "topicPosition": 50,
+  "title": "Number Series",
+  "summary": "Spotting the rule behind a numeric sequence — differences, ratios, times-n-plus-k, squares and cubes with an offset, alternating and second-level patterns — to find a missing term or the term that breaks the rule.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["simplification-and-order-of-operations"],
+  "learningObjectives": [
+    "Check a sequence against the common patterns in a fixed order.",
+    "Use the first and second differences to identify a pattern.",
+    "Tell a missing-term question from a wrong-term question and solve each.",
+    "Confirm a rule against every gap before committing to an answer."
+  ],
+  "tags": ["algebra", "number-series", "patterns", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Algebra/Sequences_and_Series",
+      "title": "Algebra/Sequences and Series",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for arithmetic and geometric progressions and difference methods. All sequences and problems here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm number series is part of the quantitative-aptitude scope. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-the-question-tests",
+      "type": "introduction",
+      "title": "What the question tests",
+      "markdown": "A number series question gives a sequence built by one hidden rule and asks for a term. Two versions appear: **find the missing term**, shown as a blank or a question mark, and **find the wrong term**, where every number is printed but one does not fit the rule.\n\nThe skill is pattern recognition under time pressure, not heavy calculation. A rule is almost always one of a short list, so you check that list in order rather than staring at the numbers. This topic is about numeric patterns; the letter and reasoning versions sit in the reasoning section.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "number series missing term and wrong term",
+        "pattern recognition under time pressure",
+        "check a short list of rules in order"
+      ],
+      "position": 10
+    },
+    {
+      "id": "patterns-in-order",
+      "type": "method",
+      "title": "The patterns to check, in order",
+      "markdown": "Run down this list until one fits every gap.\n\n1. **Constant difference.** Each term is the previous plus a fixed number: 4, 9, 14, 19.\n2. **Constant ratio.** Each term is the previous times a fixed number: 3, 6, 12, 24.\n3. **Times n plus or minus k.** Each term is the previous times a number, then plus or minus a constant: 4, 9, 19, 39 is times 2 plus 1.\n4. **Changing difference.** The differences themselves follow a pattern — rising by a constant, or being 1, 4, 9, 16 (the squares), or 2, 4, 8, 16.\n5. **Squares or cubes with an offset.** Terms are n^2 plus 1, or n^3 minus 1, for n equal to 1, 2, 3, and so on.\n6. **Alternating series.** Two rules interleaved: odd positions do one thing, even positions another.\n7. **Difference of differences.** If the first differences are not regular, take their differences; a constant there means the terms follow a quadratic rule.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "number series pattern checklist",
+        "constant difference ratio times n plus k",
+        "squares cubes offset alternating second differences"
+      ],
+      "position": 20
+    },
+    {
+      "id": "missing-vs-wrong",
+      "type": "method",
+      "title": "Missing term versus wrong term",
+      "markdown": "**Missing term.** Find the rule from the terms you can see on both sides of the gap, then apply it once to fill the blank. Confirm the rule works across every other gap too.\n\n**Wrong term.** Assume the rule holds and generate the series yourself from the first two or three terms. The first place your value disagrees with the printed value is the wrong term. Report what it should be, not just its position, if the question asks.\n\nA useful habit for wrong-term questions: check the last term. If your generated series lands exactly on the printed last term, the error is somewhere in the middle and the outer terms are safe anchors.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "missing term find rule from both sides",
+        "wrong term generate the series yourself",
+        "check the last term as an anchor"
+      ],
+      "position": 30
+    },
+    {
+      "id": "reading-the-gaps",
+      "type": "concept",
+      "title": "Reading the pattern from the gaps",
+      "markdown": "Write the differences between consecutive terms under the series. For 2, 5, 10, 17, 26 the differences are 3, 5, 7, 9 — odd numbers rising by 2, so the next difference is 11 and the next term is 37. That same series is also n^2 plus 1 for n equal to 1, 2, 3, and so on: 1 plus 1, 4 plus 1, 9 plus 1, and 26 is 25 plus 1.\n\nIf the first differences grow but not evenly, take the second differences. A constant second difference means the terms are given by a quadratic in the position number, and you can extend the series by continuing the difference rows downward.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "write the first differences under the series",
+        "differences of differences second differences",
+        "quadratic rule from constant second difference"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. Missing term, constant ratio.** 3, 6, 12, 24, ?, 96. Each term doubles, so the missing term is 24 times 2, that is **48** (and 48 times 2 is 96, which checks).\n\n**2. Missing term, changing difference.** 2, 5, 10, 17, 26, ?. The differences are 3, 5, 7, 9, then 11, so the next term is 26 plus 11, equal to **37**.\n\n**3. Wrong term.** 4, 9, 19, 39, 80, 159. The rule looks like times 2 plus 1: 4, 9, 19, 39, then 39 times 2 plus 1 is **79**, not 80. So 80 is the wrong term; it should be 79 (and 79 times 2 plus 1 is 159, which checks).",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "missing term doubling series worked example",
+        "changing difference series worked example 37",
+        "wrong term times two plus one series 80 should be 79"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        { "label": "1. missing term", "value": 48, "expression": "24*2" },
+        { "label": "2. missing term", "value": 37, "expression": "26 + 11" },
+        {
+          "label": "3. correct value in place of the wrong term",
+          "value": 79,
+          "expression": "39*2 + 1"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Fitting a rule to one gap only.** A rule must explain every step of the series, not just the pair around the blank.\n- **Stopping at the position of a wrong term.** If asked for the value, give the number that belongs there.\n- **Missing an alternating pattern.** If nothing fits, try reading odd and even positions as two separate series.\n- **Over-thinking simple series.** Check constant difference and constant ratio first; they are the most common.\n- **Arithmetic slips extending squares or cubes.** Recompute n^2 or n^3 for the specific position rather than adding on from memory.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "number series mistakes fitting one gap",
+        "give the value not the position for a wrong term",
+        "try alternating odd and even positions"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Check the rules in order: constant difference, constant ratio, times n plus or minus k, changing difference, squares or cubes with an offset, alternating, second differences.\n- Missing term: find the rule from both sides of the gap, apply once, then confirm on every other gap.\n- Wrong term: generate the series yourself from the first terms; the first mismatch is the wrong term.\n- Write the first differences under the series; if they are irregular, take the second differences.\n- Give the correct value, not just the position, when the question asks for it.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "number series summary",
+        "revision rule checklist missing and wrong term",
+        "first and second differences recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Find the term asked for and state the rule.\n\n1. 5, 11, 23, 47, ? — find the next term.\n2. 7, 10, 16, 25, 37, ? — find the next term.\n3. 1, 4, 9, 16, 25, ? — find the next term.\n4. 2, 6, 12, 20, 30, ? — find the next term.\n5. 3, 4, 8, 17, 33, ? — find the next term.\n6. 100, 50, 25, 12.5, ? — find the next term.\n7. 6, 11, 21, 36, 56, ? — find the next term.\n8. 3, 7, 15, 30, 63, 127 — one term is wrong; give the value that belongs there.",
+      "searchKeywords": [
+        "number series practice questions next term",
+        "wrong term practice give correct value",
+        "difference and ratio series exercises"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. next term (x2 + 1)",
+          "value": 95,
+          "expression": "47*2 + 1"
+        },
+        {
+          "label": "2. next term (differences 3,6,9,12,15)",
+          "value": 52,
+          "expression": "37 + 15"
+        },
+        {
+          "label": "3. next term (squares)",
+          "value": 36,
+          "expression": "6**2"
+        },
+        {
+          "label": "4. next term (differences 4,6,8,10,12)",
+          "value": 42,
+          "expression": "30 + 12"
+        },
+        {
+          "label": "5. next term (add 1,4,9,16,25)",
+          "value": 58,
+          "expression": "33 + 25"
+        },
+        {
+          "label": "6. next term (halving)",
+          "value": 6.25,
+          "expression": "12.5/2"
+        },
+        {
+          "label": "7. next term (differences 5,10,15,20,25)",
+          "value": 81,
+          "expression": "56 + 25"
+        },
+        {
+          "label": "8. correct value in place of the wrong term",
+          "value": 31,
+          "expression": "15*2 + 1"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "rule-checklist",
+      "front": "What order do you check number-series rules in?",
+      "back": "Constant difference, constant ratio, times n plus or minus k, changing difference, squares/cubes with an offset, alternating series, then second differences.",
+      "explanation": "The first two are the most common, so they are checked first.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["patterns-in-order"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "first-differences",
+      "front": "Your series is 2, 5, 10, 17, 26. How do you find the next term?",
+      "back": "Write the differences: 3, 5, 7, 9. They rise by 2, so the next difference is 11 and the next term is 26 + 11 = 37.",
+      "explanation": "The same series is also n^2 + 1 for n = 1, 2, 3, ...",
+      "difficulty": "medium",
+      "sourceBlockIds": ["reading-the-gaps", "worked-example"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "times-n-plus-k",
+      "front": "Identify the rule: 4, 9, 19, 39, 79.",
+      "back": "Times 2 plus 1: each term is double the previous plus 1. 4 -> 9 -> 19 -> 39 -> 79.",
+      "explanation": "A times-n-plus-k rule fits when neither a constant difference nor a constant ratio works.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["patterns-in-order"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "wrong-term-method",
+      "front": "How do you find the wrong term in a printed series?",
+      "back": "Work out the rule from the first two or three terms, generate the series yourself, and take the first number that disagrees with the print. Give the correct value if asked.",
+      "explanation": "Checking that your series hits the printed last term confirms the outer terms are safe.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["missing-vs-wrong", "worked-example"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "second-differences",
+      "front": "The first differences of a series are irregular. What next?",
+      "back": "Take the differences of those differences. A constant second difference means the terms follow a quadratic rule and you can extend by continuing the rows.",
+      "explanation": "For example 3, 4, 8, 17, 33 has first differences 1, 4, 9, 16 and second differences 3, 5, 7.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["reading-the-gaps"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "alternating",
+      "front": "Nothing on the checklist fits your series. What is the fallback?",
+      "back": "Read the odd-position terms as one series and the even-position terms as another; each may follow its own simple rule.",
+      "explanation": "Interleaved series are common when consecutive differences swing wildly.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["patterns-in-order", "common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "value-not-position",
+      "front": "A wrong-term question: is naming the position enough?",
+      "back": "Only if that is all it asks. If it asks what the term should be, give the number the rule produces at that position.",
+      "explanation": "Exam options usually include the position-only answer as a trap.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["missing-vs-wrong", "common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

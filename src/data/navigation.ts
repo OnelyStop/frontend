@@ -66,6 +66,20 @@ export type NavGroup = {
 
 export const NAV_GROUPS: NavGroup[] = [
   {
+    id: "learn",
+    label: "Learn",
+    items: [
+      {
+        id: "study",
+        label: "Knowledge base",
+        path: "/study",
+        icon: "book",
+        hint: "Subjects, chapters and topics — read, take private notes, ask the tutor",
+        badge: "BETA",
+      },
+    ],
+  },
+  {
     id: "practise",
     label: "Practise",
     items: [
@@ -103,6 +117,14 @@ export const NAV_GROUPS: NavGroup[] = [
     id: "recall",
     label: "Recall",
     items: [
+      {
+        id: "current-affairs",
+        label: "Current affairs",
+        path: "/current-affairs",
+        icon: "news",
+        hint: "One grounded MCQ per major story, from the day's news and RBI/PIB/SEBI",
+        badge: "NEW",
+      },
       {
         id: "flashcards",
         label: "Flashcards",

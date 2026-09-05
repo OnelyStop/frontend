@@ -1,11 +1,10 @@
 import { ArrowUpRight } from "lucide-react";
-import { ButtonLink } from "@/components/marketing/Button";
+import { ButtonLink } from "@/design-system";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
 import { AppWindow } from "./_sections/app-window";
 import { Cta } from "./_sections/cta";
 import { MarkingScene } from "./_sections/marking";
 import { Mosaic } from "./_sections/mosaic";
-import "./landing.css";
 
 const SPEC_CODES = [
   "OCR A H420",
@@ -20,6 +19,21 @@ const SPEC_CODES = [
 
 // The date is the point: a pledge that can be quietly edited is not one.
 const PLEDGE_DATED = "29 August 2026";
+
+const GUTTER = "px-5 sm:px-8 lg:px-16";
+const SECTION_Y = "py-[clamp(64px,7vw,104px)]";
+
+const HERO_GLOW: React.CSSProperties = {
+  inset: "-8% -4% 18%",
+  borderRadius: "50%",
+  filter: "blur(44px)",
+  opacity: 0.92,
+  background: [
+    "radial-gradient(46% 62% at 20% 46%, #bcd4ff 0%, transparent 68%)",
+    "radial-gradient(42% 58% at 60% 32%, #cfc6ff 0%, transparent 70%)",
+    "radial-gradient(44% 60% at 88% 58%, #b6ecdd 0%, transparent 68%)",
+  ].join(","),
+};
 
 const PLEDGE = [
   {
@@ -85,39 +99,52 @@ const MEMORY_ROWS = [
 
 export function LandingView() {
   return (
-    <main className="landing">
-      <section className="hero">
-        <div className="pair pair--hero">
-          <div className="hero__copy">
-            <p className="t-overline trim">
+    <main className="flex-1">
+      <section className={`${GUTTER} pt-[clamp(56px,8vw,120px)]`}>
+        <div className="mx-auto grid max-w-300 items-end gap-x-12 gap-y-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
+          <div>
+            <p className="text-ink-3 text-[14px]">
               GCSE &amp; A-Level · OCR · AQA · Edexcel · CIE
             </p>
-            <h1 className="display d1 trim hero-h1">
+            <h1 className="mt-4 text-[36px] leading-[1.08] tracking-[-0.022em] text-balance md:text-[44px] lg:text-[52px]">
               Your answer marked against the official mark scheme
             </h1>
-            <div className="hero__actions">
+            <div className="mt-14 flex flex-wrap gap-4">
               <ButtonLink href="/signup" size="lg">
                 Mark my first answer
               </ButtonLink>
-              <ButtonLink href="#marking" size="lg" variant="outline">
+              <ButtonLink href="#marking" size="lg" variant="secondary">
                 See a marked answer
               </ButtonLink>
             </div>
           </div>
-          <p className="t-lede trim pair__lede">
+          <p className="text-ink-2 text-[18px] leading-relaxed lg:text-[19px]">
             Questions tagged to your spec points, whole past papers, and a
             working grade that moves with every mark.
           </p>
         </div>
-        <div className="hero__stage">
+
+        {/* The one colour moment on the page: a soft field the product sits on.
+            Three blurred radials, so no single hue reads as a brand colour. */}
+        <div className="relative isolate mx-auto mt-[clamp(32px,4.5vw,64px)] max-w-300">
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-1"
+            style={HERO_GLOW}
+          />
           <AppWindow />
         </div>
       </section>
 
-      <section className="spec-strip" aria-label="Specifications covered">
-        <div className="spec-strip__inner">
-          <p className="t-overline trim">Specifications covered at launch</p>
-          <ul className="spec-strip__list t-label">
+      <section
+        className={`${GUTTER} border-line border-y py-10`}
+        aria-label="Specifications covered"
+      >
+        <div className="mx-auto flex max-w-300 flex-wrap items-baseline gap-8">
+          <p className="text-ink-3 text-[14px]">
+            Specifications covered at launch
+          </p>
+          <ul className="text-ink-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] tabular-nums">
             {SPEC_CODES.map((code) => (
               <li key={code}>{code}</li>
             ))}
@@ -129,11 +156,8 @@ export function LandingView() {
 
       <MarkingScene />
 
-      {/* The pledge is drawn as ruled ground, not as eight objects: hairlines
-          divide it into square cells and a marker sits at every intersection,
-          so the promises read as one document with eight clauses. */}
-      <section className="pledge bg-panel/40" id="promises">
-        <div className="mx-auto max-w-[1200px]">
+      <section className={`${GUTTER} ${SECTION_Y} bg-panel/40`} id="promises">
+        <div className="mx-auto max-w-300">
           <header className="flex flex-wrap items-start justify-between gap-x-16 gap-y-6 pb-12">
             <div>
               <p className="text-ink-3 text-[15px]">Our promises</p>
@@ -164,7 +188,7 @@ export function LandingView() {
 
                 <span
                   aria-hidden
-                  className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
+                  className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-1.25 rounded-full"
                 />
               </li>
             ))}
@@ -185,47 +209,56 @@ export function LandingView() {
         </div>
       </section>
 
-      <section className="memory" id="memory">
-        <div className="memory__inner">
-          <header className="pair pair--stack memory__head">
-            <h2 className="display d2 trim">
+      <section
+        className={`${GUTTER} ${SECTION_Y} bg-canvas border-line border-t`}
+        id="memory"
+      >
+        <div className="mx-auto grid max-w-300 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-[clamp(32px,6vw,88px)]">
+          <header className="lg:sticky lg:top-22">
+            <h2 className="text-[30px] tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
               Your exam date sets the schedule
             </h2>
-            <p className="t-lede trim pair__lede">
+            <p className="text-ink-2 mt-5 text-[18px] leading-relaxed lg:text-[19px]">
               Not a generic review queue. The intervals are computed back from
               the paper you are actually sitting, and the cards come from marks
               you dropped.
             </p>
           </header>
-          <div className="memory__rows">
+          <div className="grid">
             {MEMORY_ROWS.map((row, i) => (
               <details
                 key={row.label}
                 name="memory"
-                className="memory__row"
                 open={i === 0}
+                className="border-line-2 group border-t last:border-b"
               >
-                <summary className="t-title">
+                <summary className="text-ink-2 hover:text-ink group-open:text-ink flex cursor-pointer list-none items-baseline gap-4 py-5 text-[16px] transition-colors [&::-webkit-details-marker]:hidden">
                   <span>{row.label}</span>
+                  <span
+                    aria-hidden
+                    className="ml-auto size-2.5 shrink-0 -translate-y-0.5 rotate-45 border-r-[1.5px] border-b-[1.5px] border-current transition-transform duration-300 group-open:translate-y-0.5 group-open:-rotate-135"
+                  />
                 </summary>
-                <p className="t-body-sm hushed">{row.body}</p>
+                <p className="text-ink-3 max-w-[54ch] pb-5 text-[14px] leading-relaxed">
+                  {row.body}
+                </p>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="pricing" id="pricing">
-        <div className="pricing__inner">
-          <header className="pair pair--stack pair--center pricing__head">
-            <h2 className="display d5 trim">The free plan is not a trial</h2>
-            <p className="t-lede trim pair__lede">
-              Free covers the whole question bank, every past paper we can
-              legally host, and your working grade. No card, no expiry. Pro adds
-              unlimited marking, Ask Onely on any paper, and flashcard
-              scheduling tied to your exam dates.
-            </p>
-          </header>
+      <section className={`${GUTTER} ${SECTION_Y}`} id="pricing">
+        <div className="mx-auto max-w-300 text-center">
+          <h2 className="mx-auto max-w-[18ch] text-[26px] tracking-[-0.02em] text-balance md:text-[30px]">
+            The free plan is not a trial
+          </h2>
+          <p className="text-ink-2 mx-auto mt-5 max-w-[62ch] text-[18px] leading-relaxed lg:text-[19px]">
+            Free covers the whole question bank, every past paper we can legally
+            host, and your working grade. No card, no expiry. Pro adds unlimited
+            marking, Ask Onely on any paper, and flashcard scheduling tied to
+            your exam dates.
+          </p>
           <PlanGrid variant="public" headingLevel={3} />
         </div>
       </section>

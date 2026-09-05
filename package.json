@@ -2,6 +2,9 @@
   "name": "onelystopp",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,27 +14,40 @@
     "check:layout": "node scripts/check-layout.mjs",
     "check:source": "./scripts/check-source.sh",
     "check:deps": "node scripts/check-deps.mjs",
+    "lint": "next lint",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
+    "study:validate": "node scripts/study-validate.mjs",
+    "study:import": "bun scripts/study-import.ts",
     "test": "vitest run",
     "test:watch": "vitest",
+    "pipeline": "bun scripts/run-stage.ts",
+    "worker": "bun scripts/worker.ts",
     "prepare": "husky"
   },
   "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@google/genai": "^2.19.0",
+    "@mozilla/readability": "^0.6.0",
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.112.3",
+    "bullmq": "^6.3.2",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.2",
     "fuse.js": "^7.5.0",
+    "ioredis": "^5.4.1",
     "lenis": "^1.3.26",
+    "linkedom": "^0.18.13",
     "lucide-react": "^1.31.0",
     "next": "^16.3.1",
     "postgres": "^3.4.9",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "rss-parser": "^3.13.0",
     "server-only": "^0.0.1",
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",
@@ -49,6 +65,9 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
-    "vitest": "^4.1.11"
-  }
+    "vitest": "^3.2.4"
+  },
+  "trustedDependencies": [
+    "unrs-resolver"
+  ]
 }

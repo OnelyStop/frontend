@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "advanced-puzzles-and-logic",
+  "chapterName": "Advanced puzzles and logic",
+  "chapterPosition": 3,
+  "topicSlug": "decision-making-and-eligibility",
+  "topicPosition": 60,
+  "title": "Decision Making and Eligibility",
+  "summary": "The 'given these rules, does this candidate qualify, get referred, or get rejected' question. How to read a rules block with exceptions, apply it case by case, and use the 'data inadequate' verdict when a required fact is missing.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["statement-and-conclusion-and-inference"],
+  "learningObjectives": [
+    "Extract the core conditions, the referral conditions, and the rejection conditions from a rules block.",
+    "Check a candidate against every core condition before considering an exception.",
+    "Apply exactly one referral route when a single core condition is narrowly missed.",
+    "Return 'data inadequate' when a fact needed to decide is not given."
+  ],
+  "tags": ["reasoning", "decision-making", "eligibility", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Logic_for_Computer_Science/Propositional_Logic",
+      "title": "Logic for Computer Science/Propositional Logic",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for evaluating a conjunction of conditions with exception clauses. All rule sets and candidates here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm decision-making / eligibility is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-format",
+      "type": "introduction",
+      "title": "Rules, candidates, verdicts",
+      "markdown": "You are given a **rules block** — the conditions for some outcome (a loan, a seat, a promotion), with a few **exception clauses** that send a near-miss candidate to a named authority. Then several candidate profiles, each to be given one verdict:\n\n- **Qualifies / selected** — every condition met.\n- **Referred to X** — exactly one condition narrowly missed, and an exception names X.\n- **Rejected / not eligible** — a condition missed with no exception for it.\n- **Data inadequate** — a fact needed to decide is not stated.\n\nRead the rules once in full before looking at any candidate.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "rules block conditions for an outcome exception clauses near miss to a named authority",
+        "verdicts qualifies referred rejected data inadequate",
+        "read the rules once in full before looking at any candidate"
+      ],
+      "position": 10
+    },
+    {
+      "id": "method",
+      "type": "method",
+      "title": "Working a candidate",
+      "markdown": "1. **List the core conditions** as a checklist (age band, income floor, score floor, tenure, …).\n2. **Tick each one for the candidate.** Stop reading exceptions until the checklist is done.\n3. **All ticked → qualifies.**\n4. **Exactly one missed → look for an exception** that covers *that* condition and *this* candidate's numbers. If one fits, the verdict is the referral it names. If none fits, **rejected**.\n5. **Two or more missed → rejected** (referrals cover a single narrow miss only).\n6. **A needed fact absent → data inadequate**, but only if the candidate would otherwise pass or be referrable — a candidate already rejected on a stated fact stays rejected.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "list the core conditions as a checklist tick each one stop reading exceptions until done",
+        "all ticked qualifies exactly one missed look for an exception covering that condition",
+        "two or more missed rejected needed fact absent data inadequate"
+      ],
+      "position": 20
+    },
+    {
+      "id": "data-inadequate",
+      "type": "concept",
+      "title": "When to say 'data inadequate'",
+      "markdown": "Use it only when a fact you **need in order to decide** is missing.\n\n- If the candidate already fails a stated condition, the missing fact does not matter — **rejected**.\n- If every stated fact passes and only one required fact is unstated, you cannot confirm 'qualifies' — **data inadequate**.\n- If a fact is missing but an exception would apply either way, decide by the exception.\n\nDo not treat 'not mentioned' as 'condition met' or as 'condition failed'. It is its own verdict.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "data inadequate only when a fact needed to decide is missing",
+        "candidate already fails a stated condition missing fact does not matter rejected",
+        "every stated fact passes one required fact unstated cannot confirm qualifies"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-loan",
+      "type": "worked_example",
+      "title": "Worked example: personal loan",
+      "markdown": "**Rules.** A personal loan is granted if the applicant: (i) is aged 23 to 58 inclusive; (ii) has monthly net income of at least ₹30,000; (iii) has been in the current job for at least 2 years; (iv) has a credit score of at least 700.\n\n*Exceptions.* (A) If (i), (ii), (iii) are met but the score is 650–699, refer to the **Credit Manager**. (B) If (i), (ii), (iv) are met but current-job tenure is 1–2 years while income is at least ₹60,000, refer to the **Branch Head**.\n\n| Candidate | Facts | Verdict |\n| --- | --- | --- |\n| Rahul | 30 yrs, ₹45,000, 4 yrs in job, score 720 | **Loan granted** — all four met. |\n| Meena | 40 yrs, ₹35,000, 3 yrs, score 680 | **Refer to Credit Manager** — only the score is missed, in the 650–699 band (exception A). |\n| Sam | 26 yrs, ₹70,000, 1.5 yrs, score 710 | **Refer to Branch Head** — only tenure missed, income ≥ ₹60,000 (exception B). |\n| Priya | 22 yrs, ₹50,000, 3 yrs, score 730 | **Rejected** — age below 23, and no exception covers the age condition. |",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example personal loan rules age income tenure credit score exceptions credit manager branch head",
+        "Rahul all met granted Meena score 680 refer credit manager Sam tenure income branch head",
+        "Priya age below 23 no exception rejected"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-recruitment",
+      "type": "worked_example",
+      "title": "Worked example: trainee recruitment",
+      "markdown": "**Rules.** Select a management trainee if the candidate: (i) is a graduate with at least 60% marks; (ii) is aged 21 to 28 as on 1 January 2026; (iii) scored at least 50 in the written test; (iv) can join within 30 days.\n\n*Exceptions.* (A) If (ii), (iii), (iv) are met but marks are 55–59%, refer to the **Selection Committee**. (B) If (i), (iii), (iv) are met but age is 29 or 30, refer to the **General Manager**.\n\n| Candidate | Facts | Verdict |\n| --- | --- | --- |\n| Kiran | graduate 72%, 24 yrs, test 65, joins in 20 days | **Selected** — all four met. |\n| Rohit | graduate 58%, 25 yrs, test 55, joins in 15 days | **Refer to Selection Committee** — only marks missed, in the 55–59% band (exception A). |\n| Sneha | graduate 68%, 30 yrs, test 60, joins in 10 days | **Refer to General Manager** — only age missed, at 30 (exception B). |\n| Vikas | graduate 65%, 26 yrs, test 58, joining date not stated | **Data inadequate** — (i), (ii), (iii) pass; joining time is required and unstated. |\n| Asha | graduate 62%, 24 yrs, test 45 | **Rejected** — written score below 50, no exception for it. |",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example trainee recruitment graduate marks age written test joining exceptions selection committee general manager",
+        "Kiran selected Rohit 58 percent selection committee Sneha age 30 general manager",
+        "Vikas joining date not stated data inadequate Asha test 45 rejected"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Jumping to an exception** before checking every core condition — an exception applies only when exactly one core condition is missed.\n- **Stacking two exceptions** for a candidate who misses two conditions. That candidate is rejected.\n- **Reading a band wrongly** — 'score 650–699' does not include 649 or 700.\n- **Treating 'not mentioned' as met.** If a needed fact is absent and the rest pass, the verdict is data inadequate.\n- **Applying an exception whose own sub-conditions fail** — exception B needs income ≥ ₹60,000, not just short tenure.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "decision making mistakes jumping to an exception before checking every core condition",
+        "stacking two exceptions candidate misses two conditions rejected reading a band wrongly",
+        "treating not mentioned as met applying an exception whose sub conditions fail"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Build a checklist of the core conditions; tick each for the candidate before reading exceptions.\n- All ticked → qualifies. Exactly one missed → the referral named by a matching exception, else rejected. Two or more missed → rejected.\n- An exception applies only if its own sub-conditions (income floor, marks band, age band) also hold.\n- A required fact left unstated, with everything else passing → data inadequate; a candidate already failing a stated condition stays rejected.\n- Read number bands exactly — endpoints matter.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "decision making summary checklist core conditions tick before exceptions",
+        "all ticked qualifies one missed referral or rejected two missed rejected",
+        "exception needs its own sub conditions required fact unstated data inadequate read bands exactly"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Use the **personal loan** rules from the first worked example: aged 23–58 inclusive; net income ≥ ₹30,000; current-job tenure ≥ 2 years; credit score ≥ 700. Exception A — (i),(ii),(iii) met but score 650–699 → Credit Manager. Exception B — (i),(ii),(iv) met but tenure 1–2 years and income ≥ ₹60,000 → Branch Head.\n\nGive each candidate one verdict (granted / refer to Credit Manager / refer to Branch Head / rejected / data inadequate) with a one-line reason.\n\n1. Deepak — 35 yrs, ₹32,000, 5 yrs in job, score 705.\n2. Farah — 45 yrs, ₹28,000, 6 yrs, score 780.\n3. Gita — 50 yrs, ₹40,000, 3 yrs, score 690.\n4. Harish — 27 yrs, ₹65,000, 1 year 8 months in job, score 712.\n5. Irfan — 60 yrs, ₹90,000, 20 yrs, score 800; states he will not add a co-applicant.\n6. Jaya — 29 yrs, ₹55,000, score 720; her current-job tenure is not stated.\n7. Karan — 33 yrs, ₹58,000, 1.5 yrs, score 720.",
+      "searchKeywords": [
+        "decision making practice personal loan candidates verdict granted refer credit manager branch head rejected data inadequate",
+        "Deepak Farah Gita Harish Irfan Jaya Karan one line reason exercises"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "check-core-first",
+      "front": "Before applying any exception clause, what must you do?",
+      "back": "Check the candidate against every core condition. An exception applies only when exactly one core condition is narrowly missed.",
+      "explanation": "Reading exceptions early causes wrong referrals.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["method"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "two-missed",
+      "front": "A candidate misses two core conditions. What is the verdict?",
+      "back": "Rejected. Referral exceptions cover a single narrow miss only — you cannot stack two of them.",
+      "explanation": "No exception is written for two simultaneous misses.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["method", "common-mistakes"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "data-inadequate-when",
+      "front": "When is 'data inadequate' the right verdict?",
+      "back": "When every stated fact passes and exactly one fact required to decide is missing. If a stated fact already fails, it is 'rejected' instead.",
+      "explanation": "'Not mentioned' is neither 'met' nor 'failed'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["data-inadequate"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "exception-subconditions",
+      "front": "An exception says 'tenure 1-2 years but income ≥ ₹60,000 → Branch Head'. A candidate has short tenure but income ₹50,000. Apply it?",
+      "back": "No. The exception's own sub-condition (income ≥ ₹60,000) fails, so the exception does not apply — the candidate is rejected.",
+      "explanation": "Every part of the exception must hold.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "bands-endpoints",
+      "front": "The rule needs a score of at least 700; the exception covers 650-699. What is the verdict for a score of exactly 700? For 649?",
+      "back": "700 meets the core rule (that condition is ticked). 649 is outside the exception band, so if that is the only condition context, the exception cannot rescue it.",
+      "explanation": "Read band endpoints exactly.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "four-verdicts",
+      "front": "List the four possible verdicts for a candidate.",
+      "back": "Qualifies/granted; referred to a named authority; rejected; data inadequate.",
+      "explanation": "Each candidate gets exactly one.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-format"],
+      "position": 60,
+      "status": "approved"
+    }
+  ]
+}

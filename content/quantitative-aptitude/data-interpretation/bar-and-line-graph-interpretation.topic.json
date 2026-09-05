@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "bar-and-line-graph-interpretation",
+  "topicPosition": 30,
+  "title": "Bar and Line Graph Interpretation",
+  "summary": "Reading grouped and stacked bar charts and single or multi-series line graphs: telling a segment from a total, reading a trend, and measuring change between two points.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["percentages", "ratio-and-proportion", "average"],
+  "learningObjectives": [
+    "Tell a grouped bar from a stacked bar and read a single segment in each.",
+    "Read a line graph for trend, peak, trough, and rate of change.",
+    "Measure percentage change between two points on the same series.",
+    "Distinguish a period figure from a cumulative one."
+  ],
+  "tags": ["data-interpretation", "bar-chart", "line-graph", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Statistics/Displaying_Data",
+      "title": "Statistics/Displaying Data",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for what bar and line displays represent. All datasets and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm bar and line graph DI is a standard question format. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "bars-and-lines",
+      "type": "introduction",
+      "title": "What bars and lines are for",
+      "markdown": "A **bar chart** compares separate categories — branches, quarters, products. Bars can be **grouped** (two or three bars standing side by side for each category) or **stacked** (one bar split into coloured segments that add up to the bar's height).\n\nA **line graph** shows how one quantity moves across an ordered scale, almost always time. Several lines on one grid compare series. The exam gives the picture; here the same numbers are given as a small table so you can practise the reading, which is the part that matters.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "bar chart compares categories grouped stacked",
+        "line graph movement over time",
+        "several lines compare series"
+      ],
+      "position": 10
+    },
+    {
+      "id": "reading-a-bar-chart",
+      "type": "method",
+      "title": "Reading a bar chart",
+      "markdown": "- **Grouped bars**: each bar is its own value. Read the height directly; the group just places related bars together for comparison.\n- **Stacked bars**: the whole bar is a total, and each segment is a part. A segment's value is the distance between its two boundary lines, not the height of its top edge.\n- **Comparing across categories**: line up the same series (same colour) across the axis and read each height.\n- **A missing value**: in a stacked bar, one segment can be found as the bar total minus the segments you can read.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "reading grouped bars each bar a value",
+        "stacked bar whole is total segment is part",
+        "segment value is distance between boundaries"
+      ],
+      "position": 20
+    },
+    {
+      "id": "reading-a-line-graph",
+      "type": "method",
+      "title": "Reading a line graph",
+      "markdown": "- **Trend**: is the line rising, falling, or flat over the stretch the question asks about?\n- **Peak and trough**: the highest and lowest points; questions often ask for the month of the maximum or the gap between max and min.\n- **Steepness is rate, not level.** A steep segment means a fast change; it does not mean the values are high. Two lines can cross — before the crossing one is higher, after it the other.\n- **Period vs cumulative**: check the title. \"Loans disbursed each month\" is a period figure; \"total loans disbursed so far\" is cumulative and never goes down.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "line graph trend peak trough",
+        "steepness is rate not level lines can cross",
+        "period versus cumulative figure"
+      ],
+      "position": 30
+    },
+    {
+      "id": "change-between-points",
+      "type": "formula",
+      "title": "Change between two points",
+      "markdown": "To measure how a series moved from one point to another, use the earlier point as the base: (later value − earlier value) ÷ earlier value × 100.\n\nA rise from 20 to 33 is (33 − 20) ÷ 20 × 100 = 65 per cent. A fall from 66 to 60 is (60 − 66) ÷ 66 × 100 ≈ −9.09 per cent. For the gap between two series at the same point, just subtract one height from the other.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "change between two points earlier as base",
+        "rise and fall percentage on a series",
+        "gap between two series is a subtraction"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-line",
+      "type": "worked_example",
+      "title": "Worked example: two loan series",
+      "markdown": "Loans disbursed, in ₹ crore:\n\n| Month | Home | Auto |\n| ----- | ---- | ---- |\n| Jan | 40 | 20 |\n| Feb | 44 | 25 |\n| Mar | 55 | 22 |\n| Apr | 50 | 30 |\n| May | 60 | 27 |\n| Jun | 66 | 33 |\n\n**Q1. Total home loans disbursed over the six months.** 40 + 44 + 55 + 50 + 60 + 66 = 315 crore.\n\n**Q2. Percentage increase in auto loans from January to June.** Base is January: (33 − 20) ÷ 20 × 100 = 65 per cent.\n\n**Q3. Ratio of home loans to auto loans in March.** 55 ÷ 22 = 2.5, i.e. 5 : 2.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example home auto loans line graph",
+        "six month total percentage increase ratio at a point"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "total home loans over six months (crore)",
+          "value": 315,
+          "expression": "40+44+55+50+60+66"
+        },
+        {
+          "label": "auto loans Jan to Jun increase (%)",
+          "value": 65,
+          "expression": "(33-20)/20*100"
+        },
+        {
+          "label": "home : auto ratio in March",
+          "value": 2.5,
+          "expression": "55/22"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Reading a stacked segment's top edge as its value** instead of the distance between its two boundaries.\n- **Treating a steep line as a high value.** Steepness is the speed of change, not the level.\n- **Mixing up period and cumulative** figures — a cumulative line that appears to \"grow fast\" may just be adding steady monthly amounts.\n- **Comparing different series** across the axis by colour and misreading one bar for its neighbour.\n- **Using the later point as the base** for a change between two points.\n- **Ignoring the axis scale** — bars may start at a value other than zero, exaggerating differences.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "bar line graph mistakes",
+        "stacked segment top edge steep line high value",
+        "period cumulative confusion axis scale"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Bar chart compares categories; grouped bars are separate values, stacked bars are a total split into parts.\n- A stacked segment's value is the distance between its two boundaries; a missing segment is the bar total minus the rest.\n- Line graph shows trend, peak and trough; steepness is rate of change, not level; lines can cross.\n- Check period vs cumulative from the title.\n- Change between two points divides by the earlier point; the gap between two series is a subtraction.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "bar line summary revision",
+        "grouped stacked trend peak rate period cumulative recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Cards issued, in thousands (grouped bars):\n\n| Quarter | Credit | Debit |\n| ------- | ------ | ----- |\n| Q1 | 15 | 60 |\n| Q2 | 18 | 66 |\n| Q3 | 24 | 60 |\n| Q4 | 27 | 72 |\n\n1. Total debit cards issued in the year.\n2. Percentage growth in credit cards from Q1 to Q4.\n3. Ratio of credit cards to debit cards in Q2, as a decimal.\n4. Total cards (credit plus debit) issued in Q3.\n5. Average quarterly credit cards over the year.\n6. Percentage change in debit cards from Q2 to Q3.\n7. By what per cent do total Q4 cards exceed total Q1 cards?\n8. Combined credit cards issued in the first half (Q1 plus Q2).",
+      "searchKeywords": [
+        "bar graph practice credit debit cards by quarter",
+        "total growth ratio average percentage change"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. total debit cards",
+          "value": 258,
+          "expression": "60+66+60+72"
+        },
+        {
+          "label": "2. credit cards Q1 to Q4 growth (%)",
+          "value": 80,
+          "expression": "(27-15)/15*100"
+        },
+        {
+          "label": "3. credit : debit in Q2",
+          "value": 0.27,
+          "tolerance": 0.01,
+          "expression": "18/66"
+        },
+        { "label": "4. total cards in Q3", "value": 84, "expression": "24+60" },
+        {
+          "label": "5. average quarterly credit cards",
+          "value": 21,
+          "expression": "(15+18+24+27)/4"
+        },
+        {
+          "label": "6. debit cards Q2 to Q3 % change",
+          "value": -9.09,
+          "tolerance": 0.01,
+          "expression": "(60-66)/66*100"
+        },
+        {
+          "label": "7. % by which Q4 total exceeds Q1 total",
+          "value": 32,
+          "expression": "((27+72)-(15+60))/(15+60)*100"
+        },
+        {
+          "label": "8. credit cards Q1 + Q2",
+          "value": 33,
+          "expression": "15+18"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "bar-grouped-vs-stacked",
+      "front": "What is the difference between a grouped bar chart and a stacked one?",
+      "back": "Grouped: two or three separate bars per category, each its own value. Stacked: one bar per category, split into segments that sum to the bar's total.",
+      "explanation": "In a stacked bar the whole height is a total, not a single value.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["reading-a-bar-chart"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "bar-stacked-segment",
+      "front": "How do you read the value of one segment in a stacked bar?",
+      "back": "Take the distance between its lower and upper boundary lines, not the height of its top edge. A missing segment = bar total minus the segments you can read.",
+      "explanation": "Reading the top edge gives a running subtotal, not the segment.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["reading-a-bar-chart"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "line-steepness",
+      "front": "On a line graph, what does a steep segment tell you?",
+      "back": "A fast rate of change over that stretch. It does not mean the values are high — a steep line can sit low on the axis.",
+      "explanation": "Two lines can cross; the higher one swaps at the crossing point.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["reading-a-line-graph"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "line-period-cumulative",
+      "front": "How do you tell a period figure from a cumulative one on a line graph?",
+      "back": "Read the title. 'Loans disbursed each month' is a period figure and can rise or fall; 'total loans disbursed so far' is cumulative and never decreases.",
+      "explanation": "A cumulative line rising steadily is just adding constant monthly amounts.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["reading-a-line-graph"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "line-change-base",
+      "front": "How do you measure the change in one series between two points on a graph?",
+      "back": "(later value - earlier value) / earlier value x 100. The earlier point is the base.",
+      "explanation": "The gap between two different series at one point is just a subtraction.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["change-between-points"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "bar-axis-scale",
+      "front": "Why check where a bar chart's value axis starts?",
+      "back": "If it starts above zero, small differences between bars look much larger than they are. Read the numbers, not the relative bar heights.",
+      "explanation": "A truncated axis is a common way a chart misleads.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "bar-compare-series",
+      "front": "How do you compare one series across categories in a grouped bar chart?",
+      "back": "Follow the same-coloured bar across the axis and read each height in turn, keeping clear of the neighbouring bar in each group.",
+      "explanation": "Misreading a bar for its group neighbour is a frequent slip.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["reading-a-bar-chart"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

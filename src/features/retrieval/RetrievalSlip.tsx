@@ -72,7 +72,8 @@ export function RetrievalSlip() {
 
   return (
     <div
-      className="bg-ink/25 fixed inset-0 z-100 flex items-start justify-center px-6 pt-[14vh] backdrop-blur-sm"
+      data-lenis-prevent
+      className="bg-ink/25 fixed inset-0 z-100 flex items-start justify-center overscroll-contain px-6 pt-[14vh] backdrop-blur-sm"
       onMouseDown={() => setOpen(false)}
     >
       <div
@@ -80,7 +81,7 @@ export function RetrievalSlip() {
         aria-modal="true"
         aria-label="Retrieval"
         onMouseDown={(e) => e.stopPropagation()}
-        className="border-line bg-canvas shadow-pop w-full max-w-[600px] overflow-hidden rounded-xl border"
+        className="border-line bg-canvas shadow-pop w-full max-w-150 overflow-hidden rounded-xl border"
       >
         <div className="border-line flex items-center gap-3 border-b px-5">
           <span
@@ -124,7 +125,8 @@ export function RetrievalSlip() {
             id="slip-results"
             role="listbox"
             aria-label="Results"
-            className="max-h-[52vh] overflow-y-auto p-2"
+            data-lenis-prevent
+            className="max-h-[52vh] overflow-y-auto overscroll-contain p-2"
           >
             {!typed ? (
               <p className="text-ink-3 px-3 pt-2 pb-1.5 text-[13px]">Jump to</p>

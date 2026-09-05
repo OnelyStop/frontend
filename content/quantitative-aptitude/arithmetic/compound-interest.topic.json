@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "arithmetic",
+  "chapterName": "Arithmetic",
+  "chapterPosition": 2,
+  "topicSlug": "compound-interest",
+  "topicPosition": 60,
+  "title": "Compound Interest",
+  "summary": "The compound-interest formula, compounding more often than yearly, the difference between compound and simple interest over two and three years, and how to read compound interest as repeated percentage change.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["percentages", "simple-interest"],
+  "learningObjectives": [
+    "Apply the compound-interest formula for yearly and more frequent compounding.",
+    "Compute the gap between compound and simple interest for two and three years.",
+    "See compound interest as a chain of identical percentage increases.",
+    "Recover the principal or rate from a compound-interest fact."
+  ],
+  "tags": ["arithmetic", "compound-interest", "interest", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Financial_Math_FM/Formulas",
+      "title": "Financial Math FM/Formulas",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to cross-check the compound accumulation relationship a(t) = (1 + i)^t. All wording, examples and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "introduction",
+      "type": "introduction",
+      "title": "What compound interest is",
+      "markdown": "Compound interest adds each period's interest back to the principal, so the next period's interest is calculated on a larger balance. Interest earns interest.\n\nThe practical effect is that the balance is multiplied by the same factor every period. After n periods the balance is the principal times that factor raised to the n. Reading compound interest as repeated percentage change, rather than a special formula, makes most questions quicker.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "compound interest meaning",
+        "interest on interest",
+        "repeated multiplication"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-formula",
+      "type": "formula",
+      "title": "The formula",
+      "markdown": "With principal P, annual rate R percent and n years, compounded yearly:\n\n- Amount equals P times (1 plus R over 100), raised to the power n.\n- Compound interest equals amount minus P.\n\nIf compounding happens k times a year, use the rate per period, R over k, and the number of periods, n times k. So 10 percent per annum compounded half-yearly for one year means a rate of 5 percent for 2 periods.\n\nFor a non-integer term such as two years and 3 months, apply the yearly factor for the whole years, then simple interest on that balance for the leftover fraction.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "compound interest formula",
+        "half yearly compounding",
+        "rate per period"
+      ],
+      "position": 20
+    },
+    {
+      "id": "ci-minus-si",
+      "type": "method",
+      "title": "The gap between compound and simple interest",
+      "markdown": "Over the same principal, rate and time, compound interest always exceeds simple interest, because compound interest also charges interest on the earlier interest.\n\n- For 2 years, the difference is P times (R over 100) squared. It is exactly one year's interest on the first year's interest.\n- For 3 years, the difference is P times (R over 100) squared, times (3 plus R over 100).\n\nThese identities let you solve backwards: a stated 2-year difference gives P at once.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "difference between compound and simple interest",
+        "two year difference formula",
+        "three year difference"
+      ],
+      "position": 30
+    },
+    {
+      "id": "worked-example-basic",
+      "type": "worked_example",
+      "title": "Worked example: two-year compound interest",
+      "markdown": "Find the compound interest on 8,000 rupees at 10 percent per annum for 2 years, compounded yearly.\n\nThe yearly factor is 1.10, so after 2 years the amount is 8,000 times 1.10 times 1.10.\n\n8,000 times 1.10 is 8,800; 8,800 times 1.10 is 9,680 rupees.\n\nCompound interest is 9,680 minus 8,000, that is 1,680 rupees. Simple interest would have been 1,600, so the 80 rupee gap is interest on the first year's 800 rupees.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "compound interest 10 percent 2 years",
+        "8000 compound interest",
+        "yearly factor"
+      ],
+      "position": 40,
+      "expectedAnswers": [
+        {
+          "label": "amount after 2 years",
+          "value": 9680,
+          "expression": "8000*1.10*1.10"
+        },
+        {
+          "label": "compound interest",
+          "value": 1680,
+          "expression": "8000*1.10*1.10 - 8000"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-difference",
+      "type": "worked_example",
+      "title": "Worked example: principal from the CI minus SI gap",
+      "markdown": "For a certain sum at 10 percent per annum for 2 years, the compound interest exceeds the simple interest by 60 rupees. **Find the sum.**\n\nThe 2-year difference is P times (10 over 100) squared, that is P times 0.01.\n\nSo P times 0.01 equals 60, which gives P equals 6,000 rupees.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "CI minus SI is 60",
+        "find the sum",
+        "difference of interests 2 years"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "principal",
+          "value": 6000,
+          "expression": "60/(0.10*0.10)"
+        }
+      ]
+    },
+    {
+      "id": "worked-example-half-yearly",
+      "type": "worked_example",
+      "title": "Worked example: half-yearly compounding",
+      "markdown": "Find the compound interest on 12,000 rupees at 10 percent per annum for one year, compounded half-yearly.\n\nHalf-yearly means a rate of 5 percent per period for 2 periods, so the factor is 1.05 twice.\n\nThe amount is 12,000 times 1.05 times 1.05, that is 12,000 times 1.1025, which is 13,230 rupees.\n\nCompound interest is 13,230 minus 12,000, that is 1,230 rupees. Yearly compounding would have given only 1,200, so compounding more often earns more.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "half yearly compound interest example",
+        "12000 at 10 percent half yearly",
+        "1230"
+      ],
+      "position": 60,
+      "expectedAnswers": [
+        {
+          "label": "amount after 1 year, half-yearly",
+          "value": 13230,
+          "expression": "12000*1.05*1.05"
+        },
+        {
+          "label": "compound interest",
+          "value": 1230,
+          "expression": "12000*1.05*1.05 - 12000"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using the annual rate for a half-yearly period.** Halve the rate and double the number of periods.\n- **Adding the interest instead of compounding.** After year one, the rate applies to the new, larger balance.\n- **Confusing n with years for sub-annual compounding.** n is the number of compounding periods.\n- **Applying the 2-year difference formula to 3 years.** The 3-year gap has an extra factor of (3 plus R over 100).\n- **Forgetting the fractional-year rule.** Compound for whole years, then simple interest for the leftover months.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "compound interest mistakes",
+        "half yearly rate",
+        "fractional year"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Amount equals P times (1 plus R over 100) to the power n; compound interest equals amount minus P.\n- Compounded k times a year: rate per period is R over k, number of periods is n times k.\n- 2-year difference, compound minus simple, is P times (R over 100) squared.\n- 3-year difference is P times (R over 100) squared, times (3 plus R over 100).\n- Compound interest is a chain of identical percentage rises, so the same multiplier applies every period.\n- More frequent compounding at the same annual rate always earns a little more.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "compound interest summary",
+        "revision",
+        "difference formulas"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "ci-formula",
+      "front": "State the compound-interest amount for yearly compounding.",
+      "back": "Amount = P(1 + R/100)^n; CI = Amount − P. For k-times-a-year compounding use rate R/k over n·k periods.",
+      "explanation": "The balance is multiplied by the same factor each period.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-formula"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "ci-as-percent-change",
+      "front": "How can compound interest be read without the power formula?",
+      "back": "As repeated identical percentage increases — multiply the balance by (1 + R/100) once per period.",
+      "explanation": "This lets you use the multiplier method from percentages.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["introduction"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "ci-2-year",
+      "front": "CI on 8000 at 10% for 2 years (yearly)?",
+      "back": "8000 × 1.1 × 1.1 = 9680, so CI = 1680. (SI would be 1600.)",
+      "explanation": "The extra 80 is interest on the first year's 800.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-basic"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "ci-minus-si-2yr",
+      "front": "For 2 years, what is (compound interest − simple interest)?",
+      "back": "P × (R/100)². E.g. a 60-rupee gap at 10% gives P × 0.01 = 60, so P = 6000.",
+      "explanation": "It equals one year's interest on the first year's interest.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["ci-minus-si", "worked-example-difference"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "ci-half-yearly",
+      "front": "10% per annum compounded half-yearly for 1 year — what rate and how many periods?",
+      "back": "5% per period, 2 periods. On 12000: 12000 × 1.05 × 1.05 = 13230, CI = 1230.",
+      "explanation": "Halve the rate, double the periods.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["worked-example-half-yearly"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "ci-3-year-diff",
+      "front": "Does the 2-year (CI − SI) formula work for 3 years?",
+      "back": "No. The 3-year gap is P × (R/100)² × (3 + R/100).",
+      "explanation": "The third year adds interest on two earlier years of interest.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "ci-fractional-year",
+      "front": "How do you handle a term of 2 years 3 months under compound interest?",
+      "back": "Compound for the 2 whole years, then apply simple interest on that balance for the 3-month fraction.",
+      "explanation": "Standard exam convention for a part-year.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-formula"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

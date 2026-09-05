@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "networks-and-security",
+  "chapterName": "Networks and security",
+  "chapterPosition": 3,
+  "topicSlug": "the-internet-web-and-email",
+  "topicPosition": 30,
+  "title": "The Internet, the Web and Email",
+  "summary": "How the Internet differs from the Web, IP addresses and DNS, the parts of a URL, HTTP versus HTTPS and status codes, browser cache and cookies, how email is sent and retrieved with SMTP, POP3 and IMAP, and the port numbers exams expect you to know.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 26,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["computer-networks"],
+  "learningObjectives": [
+    "State the difference between the Internet and the World Wide Web.",
+    "Explain how DNS turns a domain name into an IP address and name the parts of a URL.",
+    "Describe what HTTPS adds over HTTP and read an HTTP status code by its family.",
+    "Distinguish SMTP, POP3 and IMAP and recall the common port numbers."
+  ],
+  "tags": ["computer-awareness", "internet", "web", "email", "protocols"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Wikibooks Basic Computing",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for Internet/Web, browser, URL and email terminology. Restated in original wording; the walkthrough and examples are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks reuse terms",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike checked; only concepts were adapted."
+    },
+    {
+      "sourceId": "NIST_GLOSSARY",
+      "url": "https://csrc.nist.gov/glossary",
+      "title": "NIST CSRC glossary",
+      "publisher": "NIST",
+      "usageMode": "open_adaptable",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for TLS/HTTPS, phishing and spam definitions; each restated in original teaching wording."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm Internet, web and email basics are part of the syllabus. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "internet-vs-web",
+      "type": "introduction",
+      "title": "Internet vs Web",
+      "markdown": "The **Internet** is the global network of networks — the wiring, routers and addressing that let any two connected machines exchange data. It carries many services: the Web, email, file transfer, video calls, app traffic.\n\nThe **World Wide Web** is *one* service on the Internet: a system of linked pages and resources identified by URLs, fetched over HTTP and viewed in a browser. So every website uses the Internet, but email and a video call use the Internet without using the Web.\n\nMost Internet services follow the **client–server** model: a **client** (your browser or mail app) sends a request; a **server** (a machine that hosts the site or mailbox) sends a response.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "SATHEE_BANK"],
+      "searchKeywords": [
+        "internet versus world wide web difference",
+        "internet is network of networks web is one service",
+        "email file transfer video use internet not web",
+        "client server model request response"
+      ],
+      "position": 10
+    },
+    {
+      "id": "addressing-and-dns",
+      "type": "concept",
+      "title": "IP addresses and DNS",
+      "markdown": "Every device on the Internet has an **IP address**. **IPv4** writes it as four numbers 0–255 separated by dots, e.g. `142.250.190.14` (about 4.3 billion possible addresses). **IPv6** was introduced because those ran short; it uses eight groups of hexadecimal digits and a vastly larger space.\n\nPeople use names, not numbers. The **Domain Name System (DNS)** is the Internet's directory: it resolves a **domain name** like `example.org` to the IP address of a server. A domain reads right to left — `org` is the top-level domain, `example` the registered name, and anything before it (`mail.example.org`) is a subdomain.\n\n**DHCP** is a related service that hands a device its IP address automatically when it joins a network.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "ip address ipv4 dotted quad four numbers ipv6 hexadecimal",
+        "dns resolves domain name to ip address directory",
+        "domain reads right to left top-level domain subdomain",
+        "dhcp assigns ip automatically"
+      ],
+      "position": 20
+    },
+    {
+      "id": "url-anatomy",
+      "type": "concept",
+      "title": "The parts of a URL",
+      "markdown": "A **URL** (Uniform Resource Locator) is the full address of a web resource:\n\n```\nhttps://news.example.org:443/world/asia?page=2#top\n```\n\n| Part | Value here | Meaning |\n| --- | --- | --- |\n| scheme | `https` | the protocol to use |\n| host | `news.example.org` | the server (subdomain + domain + TLD) |\n| port | `443` | which service on the server (usually implied and hidden) |\n| path | `/world/asia` | which resource on the server |\n| query | `?page=2` | extra parameters, as `key=value` pairs joined by `&` |\n| fragment | `#top` | a spot within the page; handled by the browser, never sent to the server |",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "url parts scheme host port path query fragment",
+        "https news example org 443 world asia page 2 top",
+        "query string key value pairs ampersand",
+        "fragment hash handled by browser not sent to server"
+      ],
+      "position": 30
+    },
+    {
+      "id": "http-https-status",
+      "type": "concept",
+      "title": "HTTP, HTTPS, status codes and ports",
+      "markdown": "**HTTP** is the request–response protocol the Web runs on. A request uses a **method** — most often **GET** (fetch a resource) or **POST** (send data, e.g. a form). **HTTPS** is HTTP wrapped in **TLS**, which encrypts the traffic and lets the browser verify the server's identity through a **digital certificate** (the padlock). Never send a password or card number over plain HTTP.\n\nEvery response carries a **status code**, read by its first digit:\n\n| Family | Meaning | Examples |\n| --- | --- | --- |\n| 2xx | success | 200 OK |\n| 3xx | redirection | 301 moved permanently, 304 not modified |\n| 4xx | client error | 400 bad request, 401 unauthorised, 403 forbidden, 404 not found |\n| 5xx | server error | 500 internal error, 503 service unavailable |\n\nA **port** number tells a server which service a connection is for. Well-known ports to remember:\n\n| Port | Service | Port | Service |\n| --- | --- | --- | --- |\n| 20 / 21 | FTP | 80 | HTTP |\n| 22 | SSH | 110 | POP3 |\n| 25 | SMTP | 143 | IMAP |\n| 53 | DNS | 443 | HTTPS |\n\nSecure mail variants use other ports (IMAP over TLS 993, POP3 over TLS 995), but the eight above are the ones usually asked.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "NIST_GLOSSARY"],
+      "searchKeywords": [
+        "http request response get post method",
+        "https is http over tls encryption certificate padlock",
+        "status code families 2xx success 3xx redirect 4xx client 5xx server",
+        "200 ok 301 404 403 500 503",
+        "well known ports 21 ftp 22 ssh 25 smtp 53 dns 80 http 110 pop3 143 imap 443 https"
+      ],
+      "position": 40
+    },
+    {
+      "id": "browser-basics",
+      "type": "concept",
+      "title": "How the browser helps and remembers",
+      "markdown": "- **Cache:** copies of recently fetched files (images, scripts) kept locally so a repeat visit loads faster and uses less data. A stale cache is why a hard refresh sometimes fixes a page.\n- **Cookie:** a small text value a site asks the browser to store and send back on the next request — used to keep you logged in or remember a preference. A cookie is data, not a program; it cannot itself infect a machine, but a tracking cookie is a privacy concern.\n- **Bookmark / favourite:** a saved URL. **History:** the list of pages visited. **Incognito / private** windows keep no history and drop cookies when closed, but do not hide traffic from the network.\n- **Autofill** stores form entries and, separately, saved passwords in the browser's password store.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "browser cache local copies faster repeat visit hard refresh",
+        "cookie small value stored sent back keeps you logged in not a program",
+        "bookmark favourite saved url history list of pages",
+        "incognito private no history not anonymous to network"
+      ],
+      "position": 50
+    },
+    {
+      "id": "email-protocols",
+      "type": "concept",
+      "title": "How email works",
+      "markdown": "An address is **local-part@domain** (`asha@example.org`). Behind it:\n\n- **SMTP** — Simple Mail Transfer Protocol — **sends** mail from your app to your provider's server and between mail servers.\n- **POP3** — **downloads** mail to one device and (by default) removes it from the server. Good for a single machine, poor for many.\n- **IMAP** — keeps mail **on the server** and syncs it, so every device shows the same folders, read/unread state and sent items. This is the usual choice today.\n\nRecipient fields: **To** (primary), **Cc** (carbon copy, visible to all), **Bcc** (blind copy — other recipients cannot see these addresses). **Attachments** ride along with the message; providers cap the total size (often around 25 MB). **Spam** is unsolicited bulk mail; **phishing** mail impersonates a trusted body to steal credentials — never act on its links or share a one-time password.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "NIST_GLOSSARY"],
+      "searchKeywords": [
+        "email address local part at domain",
+        "smtp sends mail pop3 downloads and removes imap keeps on server syncs",
+        "to cc bcc blind carbon copy hidden recipients",
+        "attachment size limit spam phishing never share otp"
+      ],
+      "position": 60
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: from URL to page, and back to parts",
+      "markdown": "**A. What happens when you enter `https://shop.example.org/cart` and press Enter?**\n\n1. The browser checks its **cache**; if the answer is not fresh it asks a **DNS** resolver for the IP address of `shop.example.org`.\n2. It opens a **TCP** connection to that IP on **port 443**, then performs a **TLS** handshake and checks the server's **certificate**.\n3. It sends an **HTTP GET** request for `/cart`.\n4. The server replies with a **status code** (ideally `200 OK`) and the page's HTML.\n5. The browser **renders** the HTML, then fetches the images, CSS and scripts it references (some served from the cache) and runs the scripts.\n\n**B. Break down `http://data.example.org/reports/2025?type=csv#summary`.**\n\n- scheme `http` (not encrypted), host `data.example.org`, implied port `80`, path `/reports/2025`, query `type=csv`, fragment `#summary` (browser-only). Because the scheme is `http`, anything sent here travels in the clear.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING", "NIST_GLOSSARY"],
+      "searchKeywords": [
+        "what happens when you type a url dns tcp tls http get render",
+        "browser cache dns lookup port 443 certificate 200 ok",
+        "break down url scheme host port path query fragment",
+        "http not encrypted travels in the clear"
+      ],
+      "position": 80
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **The Internet is not the Web.** The Web is one service that runs on the Internet.\n- **DNS resolves names to IP addresses;** it does not host or store the pages.\n- **HTTPS secures the connection**, proving you are talking to the certified server and encrypting the traffic — it does not vouch that the site's owner is honest.\n- **A cookie is stored data, not a program;** it cannot run or infect. Tracking cookies are a privacy issue, not a virus.\n- **POP3 pulls mail off the server** (usually deleting it); **IMAP leaves it there and syncs.** Multiple devices → IMAP.\n- **Bcc recipients are hidden from everyone;** Cc recipients are visible to all.\n- **The fragment (`#...`) never reaches the server** — it is handled in the browser.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "internet web confusion dns not hosting",
+        "https secures connection not owner honesty",
+        "cookie is data not program",
+        "pop3 removes imap syncs bcc hidden cc visible fragment not sent"
+      ],
+      "position": 90
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Internet = the global network of networks; the Web = one service (linked pages via HTTP) on it. Client sends a request, server sends a response.\n- IP address identifies a device (IPv4 dotted quad; IPv6 much larger). DNS turns a domain name into an IP; DHCP hands out IPs automatically.\n- URL = scheme://host:port/path?query#fragment. The fragment stays in the browser.\n- HTTP methods: GET fetches, POST sends. HTTPS = HTTP + TLS (encryption + certificate). Status families: 2xx ok, 3xx redirect, 4xx client error, 5xx server error.\n- Email: SMTP sends; POP3 downloads and removes; IMAP keeps on server and syncs. To/Cc visible, Bcc hidden.\n- Ports: 21 FTP, 22 SSH, 25 SMTP, 53 DNS, 80 HTTP, 110 POP3, 143 IMAP, 443 HTTPS.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "internet web email summary revision",
+        "ip dns url http https status email protocols ports recap"
+      ],
+      "position": 100
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer and a one-line reason.\n\n1. A colleague says \"the Internet is down\" but can still send email — is that possible?\n2. Which system turns `bank.example.in` into `203.0.113.9`?\n3. In `https://a.example.org/x/y?id=7#foot`, which part is never sent to the server?\n4. You get HTTP `404`. Whose side is the problem on, broadly?\n5. You read the same mailbox on a phone and a laptop and want both in sync. POP3 or IMAP?\n6. Which port does HTTPS use by default?\n7. You want three managers to get a copy of a mail without the client seeing their addresses. Which field?\n8. Does the padlock icon mean the website's owner is trustworthy?",
+      "searchKeywords": [
+        "internet web email practice questions dns url status pop3 imap port bcc padlock"
+      ],
+      "position": 110
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "internet-vs-web-card",
+      "front": "Internet vs World Wide Web?",
+      "back": "The Internet is the global network of networks carrying many services. The Web is one of those services: linked pages and resources identified by URLs, fetched over HTTP and shown in a browser.",
+      "explanation": "Email and video calls use the Internet without using the Web.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["internet-vs-web"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "dns-card",
+      "front": "What does DNS do?",
+      "back": "It resolves a human-readable domain name (example.org) to the IP address of a server. It is the Internet's directory; it does not store the web pages themselves.",
+      "explanation": "DHCP is the related service that assigns a device its own IP automatically.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["addressing-and-dns"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "url-parts-card",
+      "front": "Name the parts of https://host/path?query#fragment.",
+      "back": "scheme (protocol), host (server), optional port, path (which resource), query (?key=value pairs), fragment (#spot in the page — browser only, never sent to the server).",
+      "explanation": "Missing port means the scheme's default (80 for http, 443 for https).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["url-anatomy"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "https-card",
+      "front": "What does HTTPS add over HTTP?",
+      "back": "A TLS layer that encrypts the traffic and lets the browser verify the server's identity via a digital certificate. It does not certify that the site owner is honest.",
+      "explanation": "Never send credentials or card details over plain HTTP.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["http-https-status"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "status-families-card",
+      "front": "What do HTTP status families 2xx, 3xx, 4xx, 5xx mean?",
+      "back": "2xx success (200 OK), 3xx redirection (301, 304), 4xx client error (400, 401, 403, 404), 5xx server error (500, 503).",
+      "explanation": "Read the first digit to place the response.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["http-https-status"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "smtp-pop-imap-card",
+      "front": "SMTP vs POP3 vs IMAP?",
+      "back": "SMTP sends mail (client→server and server→server). POP3 downloads mail to one device and usually deletes it from the server. IMAP keeps mail on the server and syncs it across devices.",
+      "explanation": "Use IMAP when you read the same mailbox from more than one device.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["email-protocols"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "cc-bcc-card",
+      "front": "Difference between Cc and Bcc?",
+      "back": "Cc (carbon copy) recipients are visible to everyone on the mail. Bcc (blind carbon copy) recipients are hidden — no other recipient can see those addresses.",
+      "explanation": "To is the primary recipient; Cc and Bcc are additional copies.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["email-protocols"],
+      "position": 70,
+      "status": "approved"
+    },
+    {
+      "id": "ports-card",
+      "front": "Default ports for HTTP, HTTPS, SMTP, POP3, IMAP, DNS, SSH, FTP?",
+      "back": "HTTP 80, HTTPS 443, SMTP 25, POP3 110, IMAP 143, DNS 53, SSH 22, FTP 20/21.",
+      "explanation": "The port tells the server which service a connection is for.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["http-https-status"],
+      "position": 80,
+      "status": "approved"
+    },
+    {
+      "id": "cookie-card",
+      "front": "Is a browser cookie a program that can infect your computer?",
+      "back": "No. A cookie is a small piece of stored text a site asks the browser to save and send back on later requests (to keep you logged in or remember a setting). Tracking cookies are a privacy concern, not malware.",
+      "explanation": "The cache is a separate store of fetched files kept for speed.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["browser-basics"],
+      "position": 90,
+      "status": "approved"
+    }
+  ]
+}

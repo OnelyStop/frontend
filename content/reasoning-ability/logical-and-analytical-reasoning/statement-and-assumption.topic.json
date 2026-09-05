@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "logical-and-analytical-reasoning",
+  "chapterName": "Logical and analytical reasoning",
+  "chapterPosition": 2,
+  "topicSlug": "statement-and-assumption",
+  "topicPosition": 40,
+  "title": "Statement and Assumption",
+  "summary": "What counts as an implicit assumption, the negation test that decides it, and the four quick checks that reject a stated fact, an over-strong claim, an unconnected idea, or a mere hope.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Define an implicit assumption as an unstated idea the statement depends on.",
+    "Apply the negation test: if denying it breaks the statement, it is assumed.",
+    "Reject an option that merely restates the statement or is unconnected to it.",
+    "Reject an option that is stronger or wider than the statement needs."
+  ],
+  "tags": ["reasoning", "critical-reasoning", "assumption", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Logic_for_Computer_Science/Propositional_Logic",
+      "title": "Logic for Computer Science/Propositional Logic",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for entailment and negation. All statements and options here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm statement-and-assumption is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-is-an-assumption",
+      "type": "definition",
+      "title": "What an assumption is",
+      "markdown": "An **assumption** is something the speaker takes for granted — not written in the statement, but needed for the statement to make sense or to have any point.\n\nIt is not the same as a conclusion (which *follows from* the statement) or an inference (which *may* follow). An assumption sits *underneath* the statement and holds it up.\n\nA typical item gives a statement and two candidate assumptions, I and II, and asks which are 'implicit' — that is, genuinely relied on.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "assumption taken for granted unstated needed for the statement",
+        "not a conclusion not an inference sits underneath",
+        "which assumptions are implicit"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-negation-test",
+      "type": "method",
+      "title": "The negation test",
+      "markdown": "The single most reliable check:\n\n1. **Write the opposite of the candidate assumption.**\n2. **Put that opposite next to the statement.**\n3. **If the statement now falls apart** — becomes pointless, impossible, or self-defeating — the assumption is implicit.\n4. **If the statement still stands** with the opposite true, the assumption is not implicit.\n\nStatement: *'Use the mobile app for balance checks to cut counter queues.'* Candidate: *'Some customers have phones that can run the app.'* Negate it: *no customer has such a phone*. Then the advice helps no one — the statement collapses. So the assumption is implicit.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "negation test write the opposite put it next to the statement",
+        "if the statement falls apart the assumption is implicit",
+        "mobile app balance checks phones that can run the app"
+      ],
+      "position": 20
+    },
+    {
+      "id": "four-quick-rejections",
+      "type": "method",
+      "title": "Four quick rejections",
+      "markdown": "Before the negation test, an option can often be dismissed outright:\n\n- **Already stated.** If it just repeats part of the statement, it is not an *unstated* assumption.\n- **Too strong or too wide.** Words like *all*, *every*, *never*, *only*, *always* usually overreach what the statement needs.\n- **Not connected.** If it talks about cost, history, or motive that the statement does not lean on, it is out.\n- **A hope, not a basis.** *'People will respond well'* is a desired outcome, not something the statement takes for granted.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "quick rejections already stated too strong too wide all every never",
+        "not connected cost history motive",
+        "a hope not a basis desired outcome"
+      ],
+      "position": 30
+    },
+    {
+      "id": "notices-and-appeals",
+      "type": "concept",
+      "title": "Notices, appeals and instructions",
+      "markdown": "Many items are worded as a notice or an instruction. Two assumptions are almost always in play:\n\n- **The audience can act on it.** A notice telling staff to use the stairs assumes there *are* usable stairs.\n- **The audience will see it.** An appeal assumes the people it targets will read it.\n\nAnything beyond those — that the audience *agrees*, that the action will *succeed* — is usually a step too far and fails the negation test.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "notices appeals instructions audience can act on it can see it",
+        "stairs notice assumes usable stairs appeal assumes people read it",
+        "agreement or success is a step too far"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1.** Statement: *'To cut queueing, the bank has asked customers to use the mobile app for balance checks.'*\n\n- I. A number of customers own phones that can run the app. Negate: none do. Then the request cannot cut queues. **Implicit.**\n- II. Balance checks make up a meaningful share of counter visits. Negate: they are negligible. Then moving them would not affect queues, and the statement's purpose fails. **Implicit.**\n\nBoth I and II are implicit.\n\n**2.** Statement: *'Notice: the lift will be shut for repair on Sunday; staff should use the stairs.'*\n\n- I. The building has stairs that staff can use. Negate: it has none. Then the instruction is impossible. **Implicit.**\n- II. The lift cannot be repaired while it is running. Negate: it can. The notice does not depend on this — it is about Sunday access, not repair method. **Not implicit.**\n\nOnly I is implicit.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example bank mobile app balance checks both implicit",
+        "lift shut sunday use the stairs only I implicit",
+        "negate the candidate check if the statement collapses"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Marking an assumption implicit because it is true in the real world.** It must be something *this statement* relies on, not just a fact.\n- **Accepting an option with *all* or *every*** when the statement only needs *some*.\n- **Treating a restated part of the statement as an assumption.**\n- **Rejecting a plainly needed assumption** because it 'feels too obvious' — obvious ones are still implicit.\n- **Bringing in cost, history, or intent** the statement never uses.\n- **Skipping the negation test** and going on gut feel.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "assumption mistakes true in the real world all every when some suffices",
+        "restated part obvious ones still implicit",
+        "cost history intent skipping the negation test"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- An assumption is unstated and load-bearing: the statement needs it.\n- Negation test: deny the candidate; if the statement then collapses, the assumption is implicit; if the statement survives, it is not.\n- Quick rejects: already stated, too strong or wide (*all*, *never*), unconnected, or a mere hope.\n- Notice and appeal items almost always assume the audience can act on the message and will see it — but not that they will agree or that it will work.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "statement assumption summary revision negation test",
+        "quick rejects already stated too strong unconnected a hope",
+        "notice appeal audience can act and will see"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "For each, mark I, II, both, or neither as implicit, and give a one-line negation-test reason.\n\n1. Statement: *'Submit the form by Friday so it can be processed next week.'*  I. Forms received after Friday cannot be processed next week.  II. The office will be working next week.\n2. Statement: *'Our new branch has extended hours to serve working customers better.'*  I. Some working customers find the standard hours inconvenient.  II. Every customer of the branch is employed.\n3. Statement: *'The training was moved online to reach staff in remote branches.'*  I. Remote-branch staff have a way to access online training.  II. Online training costs the bank less than in-person training.\n4. Statement: *'Warning: never share your OTP with anyone, including bank staff.'*  I. Bank staff do not need a customer's OTP to do their work.  II. Customers sometimes receive requests to share their OTP.\n5. Statement: *'Switch off your monitor before leaving to save electricity.'*  I. A monitor left on consumes electricity.  II. All staff leave the office at the same time.\n6. Statement: *'The bank has added a ramp at the entrance.'*  I. Some visitors to the bank cannot use steps.  II. The entrance previously had a step or a level change.\n7. Statement: *'Apply online; postal applications will not be accepted this year.'*  I. Applicants have a means to apply online.  II. Postal applications were accepted in earlier years.",
+      "searchKeywords": [
+        "statement assumption practice questions negation test",
+        "form deadline extended hours online training otp warning ramp apply online"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "assumption-definition",
+      "front": "What is an implicit assumption in these questions?",
+      "back": "An idea not written in the statement that the statement nonetheless depends on — it sits underneath the statement and holds it up.",
+      "explanation": "Different from a conclusion, which follows from the statement.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-is-an-assumption"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "negation-test-card",
+      "front": "State the negation test for an assumption.",
+      "back": "Negate the candidate assumption and place it beside the statement. If the statement then falls apart, the assumption is implicit; if the statement still stands, it is not.",
+      "explanation": "The most reliable single check.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-negation-test"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "too-strong",
+      "front": "An option says 'every customer of the branch is employed'. Why is it usually not implicit?",
+      "back": "It is far stronger than the statement needs. The statement only needs that *some* customers work; 'every' overreaches.",
+      "explanation": "Watch for all / every / never / only / always.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["four-quick-rejections"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "true-vs-relied-on",
+      "front": "An assumption option is a true real-world fact. Does that make it implicit?",
+      "back": "No. It is implicit only if this particular statement relies on it. A true but unused fact fails the negation test.",
+      "explanation": "Relevance to the statement, not truth, is the test.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "notice-assumptions",
+      "front": "Which two assumptions almost always underlie a notice or an appeal?",
+      "back": "That the audience can act on the message (the means exist) and that the audience will see it.",
+      "explanation": "Agreement or success is usually a step too far.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["notices-and-appeals"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "restated-not-assumed",
+      "front": "An option repeats part of the statement almost word for word. Implicit or not?",
+      "back": "Not implicit. An assumption must be unstated. A restatement of the statement is not an assumption.",
+      "explanation": "Quick reject before the negation test.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["four-quick-rejections"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "hope-not-basis",
+      "front": "Is 'people will respond well to this' typically an implicit assumption?",
+      "back": "No. It is a hoped-for outcome, not something the statement takes for granted. It fails the negation test.",
+      "explanation": "Desired results are conclusions at best, not assumptions.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["four-quick-rejections"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

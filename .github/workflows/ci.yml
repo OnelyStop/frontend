@@ -110,6 +110,34 @@ jobs:
           fi
           echo "OK - schema and migrations agree"
 
+      # Git conflicts on identical paths, so 0003_study.sql and
+      # 0003_question_bank.sql merge cleanly and both claim 0003. The test suite
+      # catches that afterwards; this catches it while it is still one rename.
+      - name: Migration numbers are not already taken
+        if: github.event_name == 'pull_request'
+        run: |
+          # The base as it is NOW, not the merge base: a number that was free
+          # when the branch was cut is exactly the one that gets taken from
+          # under it. No --depth here — a shallow fetch into a full clone
+          # writes .git/shallow and breaks the three-dot diffs that follow.
+          git fetch --no-tags origin '${{ github.event.pull_request.base.ref }}'
+          taken="$(git ls-tree FETCH_HEAD src/migrations/ --name-only \
+                    | grep -E '/[0-9]+_.*\.sql$' | xargs -r -n1 basename)"
+          fail=0
+          # The pathspec also matches rollback/, whose files share these names.
+          for f in $(git diff --name-only --diff-filter=A FETCH_HEAD...HEAD -- 'src/migrations/*.sql'); do
+            case "$f" in src/migrations/rollback/*) continue ;; esac
+            name="$(basename "$f")"
+            num="${name%%_*}"
+            clash="$(printf '%s\n' "$taken" | grep -E "^${num}_" || true)"
+            if [ -n "$clash" ] && [ "$clash" != "$name" ]; then
+              echo "::error file=$f::migration $num is already taken on $clash — renumber this one"
+              fail=1
+            fi
+          done
+          if [ "$fail" -ne 0 ]; then exit 1; fi
+          echo "OK - no migration number collides with the base"
+
       - name: No large files added
         run: |
           base='${{ github.event.pull_request.base.sha }}'

@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import "./mosaic.css";
+import { cn } from "@/design-system";
 
 type Tile = {
   title: string;
@@ -69,12 +69,21 @@ const TILES: Tile[] = [
   },
 ];
 
+const MOCK = "mt-5";
+const ROW = "border-line flex items-baseline gap-2 border-b pb-2 text-[12.5px]";
+
 function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
   if (kind === "grade") {
     return (
-      <div className="tile__mock tile__grade" aria-hidden>
+      <div className={`${MOCK} flex items-baseline gap-2`} aria-hidden>
         {["D", "C", "B", "A", "A*"].map((g) => (
-          <span key={g} className={g === "A" ? "is-now" : undefined}>
+          <span
+            key={g}
+            className={cn(
+              "flex-1 border-t-2 py-1 text-center text-[14px] font-semibold",
+              g === "A" ? "border-brand text-brand" : "border-line text-ink-3",
+            )}
+          >
             {g}
           </span>
         ))}
@@ -83,15 +92,15 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
   }
   if (kind === "posts") {
     return (
-      <div className="tile__mock tile__posts" aria-hidden>
+      <div className={`${MOCK} grid gap-2`} aria-hidden>
         {[
           ["Priya", "How strict is AO3 on the 20-markers?"],
           ["Sam", "Q4(b) 2023 mark scheme wording?"],
           ["Leah", "Best order for Paper 2 revision?"],
         ].map(([who, q]) => (
-          <div key={who}>
-            <span className="tile__post-who">{who}</span>
-            <span className="tile__post-q">{q}</span>
+          <div key={who} className={ROW}>
+            <span className="text-ink-2 shrink-0 font-semibold">{who}</span>
+            <span className="text-ink-3 truncate">{q}</span>
           </div>
         ))}
       </div>
@@ -99,11 +108,11 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
   }
   if (kind === "papers") {
     return (
-      <div className="tile__mock tile__papers" aria-hidden>
+      <div className={`${MOCK} grid gap-2`} aria-hidden>
         {["2024", "2023", "2022"].map((y) => (
-          <div key={y}>
-            <span className="t-num">{y}</span>
-            <span className="t-micro hushed">Paper 1 · Paper 2</span>
+          <div key={y} className={`${ROW} justify-between gap-3`}>
+            <span className="tnum text-[15px] font-medium">{y}</span>
+            <span className="text-ink-3">Paper 1 · Paper 2</span>
           </div>
         ))}
       </div>
@@ -111,10 +120,18 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
   }
   if (kind === "filters") {
     return (
-      <div className="tile__mock tile__filters" aria-hidden>
+      <div className={`${MOCK} grid gap-2`} aria-hidden>
         {["3.1.2 Enzymes", "3.1.4 Transport", "4.2 Gas exchange"].map(
           (f, i) => (
-            <span key={f} className={i === 1 ? "is-on" : undefined}>
+            <span
+              key={f}
+              className={cn(
+                "rounded-md border px-2.5 py-1.5 text-[12.5px]",
+                i === 1
+                  ? "border-brand bg-brand-soft text-brand"
+                  : "border-line text-ink-3",
+              )}
+            >
               {f}
             </span>
           ),
@@ -124,27 +141,33 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
   }
   if (kind === "queue") {
     return (
-      <div className="tile__mock tile__queue" aria-hidden>
+      <div className={`${MOCK} grid gap-2`} aria-hidden>
         {[
           ["Q4(b)", "Gas exchange"],
           ["Q7(c)", "Le Chatelier"],
           ["Q2(a)", "Rate equations"],
         ].map(([q, t]) => (
-          <div key={q}>
-            <span className="t-num">{q}</span>
+          <div key={q} className={`${ROW} text-ink-3 gap-3`}>
+            <span className="tnum text-ink-2 text-[13px] font-medium">{q}</span>
             <span>{t}</span>
           </div>
         ))}
-        <p className="tile__timer t-num">12:00</p>
+        <p className="tnum mt-1 text-[16px] font-medium">12:00</p>
       </div>
     );
   }
   if (kind === "due") {
     return (
-      <div className="tile__mock tile__due" aria-hidden>
+      <div className={`${MOCK} flex gap-4`} aria-hidden>
         {["Today", "Tue", "Fri", "In 2 wks"].map((d, i) => (
-          <div key={d}>
-            <i style={{ opacity: 1 - i * 0.22 }} />
+          <div
+            key={d}
+            className="text-ink-3 grid justify-items-center gap-2 text-[12.5px]"
+          >
+            <i
+              className="bg-brand rounded-pill size-2.5"
+              style={{ opacity: 1 - i * 0.22 }}
+            />
             <span>{d}</span>
           </div>
         ))}
@@ -152,9 +175,9 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
     );
   }
   return (
-    <div className="tile__mock tile__codes" aria-hidden>
+    <div className={`${MOCK} text-ink-3 grid gap-1`} aria-hidden>
       {["OCR A H420", "AQA 7405", "Edexcel 9MA0", "CIE 9700"].map((c) => (
-        <span key={c} className="t-micro">
+        <span key={c} className="text-[12.5px]">
           {c}
         </span>
       ))}
@@ -164,35 +187,62 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
 
 export function Mosaic() {
   return (
-    <section className="mosaic-section" id="features">
-      <div className="mosaic-section__inner">
-        <header className="pair">
-          <h2 className="display d2 trim">The whole of revision in one tab</h2>
-          <p className="t-lede trim pair__lede">
+    <section
+      className="px-5 py-[clamp(64px,7vw,104px)] sm:px-8 lg:px-16"
+      id="features"
+    >
+      <div className="mx-auto max-w-300">
+        <header className="mb-[clamp(32px,4.5vw,64px)] grid items-start gap-x-[clamp(32px,6vw,96px)] gap-y-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <h2 className="max-w-[13em] text-[30px] tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
+            The whole of revision in one tab
+          </h2>
+          <p className="text-ink-2 text-[18px] leading-relaxed lg:text-[19px]">
             The question bank, the past papers, the marker and the memory
             schedule are one product, not four tabs and four logins.
           </p>
         </header>
 
-        <div className="mosaic">
+        {/* The gaps are the borders: no cell carries one, so junctions never
+            double-seam and the grid reads as a single object. */}
+        <div className="bg-line-2 rounded-ctl grid gap-px overflow-hidden p-px md:grid-cols-4 lg:grid-cols-8">
           {TILES.map((tile) => (
             <article
               key={tile.title}
-              className={`tile${tile.href ? "tile--link" : ""}`}
+              className={cn(
+                "bg-canvas group relative flex flex-col gap-2 overflow-hidden p-5 transition-colors md:col-span-2",
+                "lg:[grid-column:var(--col)] lg:[grid-row:var(--row)]",
+                tile.href && "hover:bg-panel",
+              )}
               style={
                 { "--col": tile.col, "--row": tile.row } as React.CSSProperties
               }
             >
-              <h3 className="t-title trim">{tile.title}</h3>
-              <p className="t-body tile__body">{tile.body}</p>
+              <h3 className="text-ink-3 text-[16px] font-medium">
+                {tile.title}
+              </h3>
+              <p className="max-w-[34ch] text-[15px] leading-relaxed">
+                {tile.body}
+              </p>
               {tile.mock ? <TileMock kind={tile.mock} /> : null}
               {tile.href ? (
                 <>
-                  <span className="tile__badge" aria-hidden>
-                    <ArrowUpRight size={14} strokeWidth={2} />
+                  <span
+                    className="bg-ink/5 rounded-pill text-ink group-hover:bg-ink/10 absolute top-4 right-4 grid size-6 place-items-center opacity-0 backdrop-blur-sm transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
+                    aria-hidden
+                  >
+                    <ArrowUpRight
+                      size={14}
+                      strokeWidth={2}
+                      className="-rotate-45 transition-transform group-hover:rotate-0"
+                    />
                   </span>
-                  <Link href={tile.href} className="tile-overlay">
-                    <span className="tile__sr">{tile.title}</span>
+                  {/* A pseudo-element covers the tile, so the whole card is the
+                      link without nesting an interactive element inside one. */}
+                  <Link
+                    href={tile.href}
+                    className="static before:absolute before:inset-0 before:z-0 before:cursor-pointer before:content-['']"
+                  >
+                    <span className="sr-only">{tile.title}</span>
                   </Link>
                 </>
               ) : null}

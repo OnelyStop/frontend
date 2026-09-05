@@ -29,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${instrument.variable} ${jakarta.variable}`}>
-      <body>
+      <body suppressHydrationWarning>
         <AuthProvider>
           <AppProvider>
             <SmoothScroll />

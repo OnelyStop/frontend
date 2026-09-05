@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "logical-and-analytical-reasoning",
+  "chapterName": "Logical and analytical reasoning",
+  "chapterPosition": 2,
+  "topicSlug": "logical-venn-diagrams",
+  "topicPosition": 30,
+  "title": "Logical Venn Diagrams",
+  "summary": "Choosing the diagram that fits a set of related terms by checking every pair of classes, and reading a region-count diagram to answer 'how many are in X but not Y'.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "Classify each pair of terms as separate, one-inside-the-other, or overlapping.",
+    "Pick the single diagram that satisfies every pairwise relation at once.",
+    "Read a region-count diagram to find 'only X', 'X and Y', and 'at least one'.",
+    "Avoid the trap of forcing an overlap that real-world meaning rules out."
+  ],
+  "tags": ["reasoning", "venn-diagram", "sets", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/High_School_Mathematics_Extensions/Set_Theory_and_Logic",
+      "title": "High School Mathematics Extensions/Set Theory and Logic",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for set relations and region counting. All term sets and figures here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm Venn diagram questions are a standard type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-it-asks",
+      "type": "introduction",
+      "title": "Two forms of the question",
+      "markdown": "**Choose the diagram.** You are given three or four class names, such as *Men, Fathers, Doctors*, and must pick the circle picture that shows how they sit together.\n\n**Read the counts.** You are given a filled-in diagram with a number in each region and asked for something like 'how many play cricket but not football'.\n\nThe first form tests whether you can classify every pair of classes correctly. The second is careful addition over the right regions.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "logical venn choose the diagram for class names",
+        "read the region counts cricket but not football",
+        "classify every pair of classes careful addition"
+      ],
+      "position": 10
+    },
+    {
+      "id": "relations-between-classes",
+      "type": "concept",
+      "title": "Three ways two classes can relate",
+      "markdown": "For any two class names, exactly one of these holds:\n\n1. **Separate** — nothing is both. *Cats* and *Dogs*: two circles that do not touch.\n2. **One inside the other** — every member of one is a member of the other. *Sparrows* inside *Birds*.\n3. **Partial overlap** — some members are shared, some are not, on each side. *Doctors* and *Women*: a lens where the circles cross.\n\nTo decide, ask: *is every A a B?* and *is every B an A?* and *could something be both?* The three answers fix the relation.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "two classes separate one inside the other partial overlap",
+        "is every a a b is every b an a could something be both",
+        "sparrows inside birds doctors and women overlap"
+      ],
+      "position": 20
+    },
+    {
+      "id": "choosing-the-diagram",
+      "type": "method",
+      "title": "Choosing the diagram",
+      "markdown": "1. **List every pair** of the three or four terms.\n2. **Classify each pair** as separate, nested, or overlapping using the three questions.\n3. **Find the one option** that shows all of those relations together. If any pair in the option contradicts your classification, reject that option.\n4. **Use real meaning, not word similarity.** *Every father is a man* is true, so *Fathers* must sit fully inside *Men*, never merely overlapping it.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "choosing the diagram list every pair classify separate nested overlapping",
+        "find the option that shows all relations together reject contradiction",
+        "use real meaning every father is a man fathers inside men"
+      ],
+      "position": 30
+    },
+    {
+      "id": "reading-region-counts",
+      "type": "method",
+      "title": "Reading a region-count diagram",
+      "markdown": "For two overlapping circles X and Y there are four regions: X only, the overlap (X and Y), Y only, and outside both.\n\n- **'X but not Y'** is the X-only region alone.\n- **'X'** in total is X only plus the overlap.\n- **'at least one of X, Y'** is X only plus overlap plus Y only.\n- **'neither'** is the outside-both region.\n\nWrite the four counts in a small table, then pick the regions the question names and add them. Do not double-count the overlap.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "region count diagram four regions x only overlap y only outside",
+        "x but not y is x only x total is x only plus overlap",
+        "at least one neither do not double count the overlap"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. Choose the diagram for *Men, Fathers, Doctors*.**\n\n- *Fathers* and *Men*: every father is a man, and some men are not fathers, so *Fathers* sits fully inside *Men*.\n- *Doctors* and *Men*: some men are doctors, some are not, and some doctors are women, so *Doctors* partially overlaps *Men*.\n- *Doctors* and *Fathers*: some fathers are doctors, many are not, so *Doctors* partially overlaps *Fathers* too.\n\nThe correct figure is a large circle *Men* with a smaller circle *Fathers* wholly inside it, and a circle *Doctors* that cuts across both — crossing the *Men* boundary and clipping part of the *Fathers* circle.\n\n**2. Read the counts.** In a survey of 100 people, likes of tea and coffee were recorded:\n\n| Region | Count |\n| --- | --- |\n| Tea only | 30 |\n| Tea and coffee | 20 |\n| Coffee only | 25 |\n| Neither | 25 |\n\n- People who like tea in total: 30 plus 20, which is **50**.\n- People who like at least one drink: 30 plus 25 plus 20, which is **75**.\n- People who like coffee in total: 25 plus 20, which is **45**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example men fathers doctors fathers inside men doctors overlap",
+        "survey 100 tea coffee region table",
+        "tea total 50 at least one 75 coffee total 45"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        { "label": "like tea in total", "value": 50, "expression": "30+20" },
+        {
+          "label": "like at least one drink",
+          "value": 75,
+          "expression": "30+25+20"
+        },
+        { "label": "like coffee in total", "value": 45, "expression": "25+20" }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Overlapping two classes when one is fully inside the other.** *Fathers* and *Men* is nested, not a lens.\n- **Making classes separate because the words look unrelated.** *Doctors* and *Fathers* do overlap.\n- **Counting the overlap twice** when adding 'X in total' and 'Y in total'.\n- **Reading 'X only' as 'all of X'.** 'X only' excludes the overlap.\n- **Forgetting the outside-both region** exists when the question asks for 'neither' or for a grand total.\n- **Choosing an option because two of its three circles are right** — every pair must match.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "venn mistakes overlap when nested separate when overlapping",
+        "counting the overlap twice x only vs all of x",
+        "forgetting the outside region two circles right is not enough"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Every pair of classes is separate, nested, or partially overlapping — decide with 'is every A a B?', 'is every B an A?', 'could something be both?'.\n- Pick the diagram where **every** pair matches your classification; base it on real meaning, not similar words.\n- For counts, tabulate the four regions. 'X but not Y' is X only; 'X' is X only plus overlap; 'at least one' is the three inner regions; 'neither' is outside both.\n- Never double-count the overlap.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "venn summary revision separate nested overlapping",
+        "every pair matches real meaning tabulate four regions",
+        "x but not y x total at least one neither no double count"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "For 1 to 3, describe the correct figure. For 4 to 6, give the number and the regions you added.\n\n1. *Dogs, Animals, Cats*\n2. *Doctors, Women, Engineers*\n3. *Pigeons, Birds, Dogs*\n4. In a class of 40, 22 play cricket, 18 play football, and 8 play both. How many play cricket but not football? How many play neither?\n5. *Furniture, Table, Wood* — describe the figure.\n6. Of 60 students, 35 passed Maths, 30 passed English, and 20 passed both. How many passed exactly one subject? How many failed both?",
+      "searchKeywords": [
+        "venn practice describe the figure region count exercises",
+        "dogs animals cats doctors women engineers cricket football maths english"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "Q4 cricket but not football",
+          "value": 14,
+          "expression": "22-8"
+        },
+        { "label": "Q4 neither", "value": 8, "expression": "40-(22+18-8)" },
+        {
+          "label": "Q6 exactly one subject",
+          "value": 25,
+          "expression": "(35-20)+(30-20)"
+        },
+        {
+          "label": "Q6 failed both",
+          "value": 15,
+          "expression": "60-(35+30-20)"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "three-relations",
+      "front": "What are the only three ways two classes can relate in a Venn question?",
+      "back": "Separate (no shared members), nested (one wholly inside the other), or partial overlap (some shared, some not on each side).",
+      "explanation": "Decide with three yes/no questions about membership.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["relations-between-classes"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "nested-not-overlap",
+      "front": "How should 'Fathers' and 'Men' be drawn?",
+      "back": "Fathers as a circle wholly inside Men, because every father is a man. Not as two overlapping circles.",
+      "explanation": "Use real meaning: 'is every A a B?' is yes here.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["choosing-the-diagram"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "every-pair-matches",
+      "front": "When choosing a Venn diagram, is it enough that two of the three circles are placed right?",
+      "back": "No. Every pair of classes must match your classification. One contradicting pair rejects the whole option.",
+      "explanation": "List all pairs, classify each, then match.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["choosing-the-diagram"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "x-only-vs-x",
+      "front": "In a two-circle count diagram, what is 'X but not Y' versus 'X in total'?",
+      "back": "'X but not Y' is the X-only region alone. 'X in total' is X-only plus the overlap.",
+      "explanation": "The overlap belongs to X's total but not to 'X only'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["reading-region-counts"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "at-least-one",
+      "front": "How do you count 'at least one of X, Y' from a region diagram?",
+      "back": "Add X-only, the overlap, and Y-only. That is everything except the outside-both region.",
+      "explanation": "Equivalently, total minus 'neither'.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["reading-region-counts"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "no-double-count",
+      "front": "What is the classic arithmetic error in Venn count questions?",
+      "back": "Double-counting the overlap when adding 'X in total' and 'Y in total'. Members in both get counted once too often.",
+      "explanation": "|X or Y| = |X| + |Y| - |both|.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "neither-region",
+      "front": "A question asks 'how many like neither'. Which region is that?",
+      "back": "The region outside both circles. It equals the grand total minus 'at least one'.",
+      "explanation": "Easy to forget it exists.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["reading-region-counts"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "exam-guidance",
+  "subjectName": "Exam Guidelines and Strategy",
+  "subjectPosition": 5,
+  "chapterSlug": "strategy",
+  "chapterName": "Strategy",
+  "chapterPosition": 1,
+  "topicSlug": "revision-and-retention",
+  "topicPosition": 80,
+  "title": "Revision and Retention",
+  "summary": "Keeping what you have learned: why unreviewed material fades, why active recall beats re-reading, spacing reviews at expanding intervals, condensing topics to one-page sheets, interleaving practice, and a revision cadence for the final month. Guidance only.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 18,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["building-a-study-plan", "mock-test-analysis"],
+  "learningObjectives": [
+    "Explain why a topic touched once is largely lost by exam day.",
+    "Contrast active recall with re-reading and say why recall wins.",
+    "Schedule reviews of a topic at expanding intervals.",
+    "Plan a final-month revision cadence that starts no new topics late."
+  ],
+  "tags": [
+    "exam-guidance",
+    "strategy",
+    "revision",
+    "retention",
+    "spaced-repetition"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm that structured revision and repeated practice are part of standard preparation guidance. No text was reused."
+    },
+    {
+      "sourceId": "SBI_PO_OVERVIEW",
+      "url": "https://sbi.co.in/web/careers/probationary-officers",
+      "title": "SBI - Probationary Officers information",
+      "publisher": "State Bank of India",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Used only to confirm the two-stage structure the final-month cadence is timed against. The current notification governs dates."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "the-forgetting-curve",
+      "type": "concept",
+      "title": "Unreviewed material fades",
+      "markdown": "Recall of something learned once drops steadily over the following days without review. Each time you deliberately bring it back to mind, the next drop is slower and the memory lasts longer.\n\nThe practical reading: a topic studied once and never revisited is, by exam day, mostly gone. Revision is not an optional polish at the end - it is what converts a week of learning into marks two months later. Plan the reviews at the same time you plan the learning.",
+      "sourceIds": ["SATHEE_BANK"],
+      "searchKeywords": [
+        "recall drops over days without review",
+        "each review slows the next drop",
+        "a topic studied once is mostly gone by exam day",
+        "plan reviews with the learning"
+      ],
+      "position": 10
+    },
+    {
+      "id": "recall-vs-rereading",
+      "type": "comparison",
+      "title": "Active recall versus re-reading",
+      "markdown": "| | Re-reading notes | Active recall |\n| --- | --- | --- |\n| What you do | Read the page again | Shut the page, write or say everything you remember, then check |\n| How it feels | Smooth, familiar, productive | Effortful, and you notice the gaps |\n| What it does | Builds recognition - you know it when you see it | Builds retrieval - you can produce it in the exam |\n\nRecognition is not what the exam tests. The moment of struggling to retrieve an answer is what strengthens the memory, so the uncomfortable method is the one that works.\n\nA strong form of recall is the **teach-it-back** test: explain the topic aloud as if to a student. Wherever you stumble or hand-wave is exactly what goes on the next revision list.",
+      "sourceIds": ["SATHEE_BANK"],
+      "searchKeywords": [
+        "active recall versus re-reading table",
+        "re-reading builds recognition recall builds retrieval",
+        "the struggle to retrieve strengthens memory",
+        "teach it back test finds the gaps"
+      ],
+      "position": 20
+    },
+    {
+      "id": "spaced-schedule",
+      "type": "method",
+      "title": "Space the reviews",
+      "markdown": "Review a new topic at **expanding intervals** rather than in one block: once about a day later, again after roughly three days, then about a week, then a fortnight. Each successful recall lets you push the next review further out.\n\nKeep it lightweight. A review is a few minutes of recall from a summary sheet plus two or three problems, not a re-study of the chapter. Track which topics are due; a simple dated list or a flashcard app is enough. A topic that fails its recall check drops back to a short interval.",
+      "sourceIds": ["SATHEE_BANK"],
+      "searchKeywords": [
+        "review at expanding intervals day three days week fortnight",
+        "successful recall pushes the next review out",
+        "a review is a few minutes not a re-study",
+        "failed recall drops back to a short interval"
+      ],
+      "position": 30
+    },
+    {
+      "id": "one-pagers-and-flashcards",
+      "type": "method",
+      "title": "One-page sheets and flashcards",
+      "markdown": "- **One page per topic.** Condense each topic to a single sheet: the formulas, the rules, the standard traps, and one representative solved example. If it does not fit on a page, it is not a revision sheet yet.\n- **Flashcards for atomic facts** - a formula, a rule, a conversion, a definition. One idea per card, question on one side.\n- **A fixed weekly slot** to cycle the sheets. The 20 percent revision block from your study plan is where these live.\n- **Build the sheet as you learn the topic,** not the week before the exam. Making it is itself a strong recall exercise.",
+      "sourceIds": ["SATHEE_BANK"],
+      "searchKeywords": [
+        "one page sheet per topic formulas rules traps",
+        "flashcards one idea per card",
+        "fixed weekly slot to cycle sheets",
+        "build the sheet as you learn the topic"
+      ],
+      "position": 40
+    },
+    {
+      "id": "interleaving",
+      "type": "method",
+      "title": "Mix topics in a practice session",
+      "markdown": "Practising one topic in a long unbroken block (all percentages, then all ratios) feels efficient and produces a weaker result than **interleaving** - mixing question types within a session.\n\nInterleaved practice is harder because you must first work out *which* method a question needs, then apply it. That extra step is exactly the skill a mixed exam paper demands. Block practice while first learning a method; switch to interleaved sets once the method is in place, and lean on them heavily in the last month.",
+      "sourceIds": ["SATHEE_BANK"],
+      "searchKeywords": [
+        "interleaving mixes question types within a session",
+        "block practice feels efficient produces weaker result",
+        "interleaved practice forces you to pick the method",
+        "block while learning interleave once method is in place"
+      ],
+      "position": 50
+    },
+    {
+      "id": "final-month-cadence",
+      "type": "method",
+      "title": "The final month",
+      "markdown": "- **Weeks 4 and 3 before the exam:** learning is nearly done. Most time goes to full mocks, the error log, and cycling the summary sheets. Learn only to plug a specific leak a mock has named.\n- **Week 2:** mocks plus targeted revision of the topics that still show up in your error log. Interleaved sets only.\n- **Last 10 days:** no new topics. A topic you have not started by now costs certain revision time for an uncertain few marks. Consolidate: sheets, flashcards, light mocks, and timing rehearsal.\n- **Last 2 days:** taper. Skim sheets, sleep normally, and rehearse the exam-day routine rather than cramming.",
+      "sourceIds": ["SBI_PO_OVERVIEW", "SATHEE_BANK"],
+      "searchKeywords": [
+        "final month cadence weeks 4 and 3 mocks and sheets",
+        "week 2 targeted revision from the error log",
+        "last 10 days no new topics",
+        "last 2 days taper and rehearse the routine"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Counting re-reading as revision.** It builds recognition, not the retrieval the exam needs.\n- **Revising only your strong topics** because recall there is pleasant. Marks are lost in the weak ones.\n- **No fixed revision slot,** so it is the first thing dropped in a busy week.\n- **Notes so long nobody re-reads them.** If a topic will not fit on one page, it is not condensed yet.\n- **Cramming a new topic in the last week.** It trades guaranteed revision for an uncertain return.\n- **One massed review** instead of several spaced ones - the single session fades almost as fast as no review.",
+      "sourceIds": ["SATHEE_BANK"],
+      "searchKeywords": [
+        "revision mistakes",
+        "counting re-reading as revision",
+        "revising only strong topics",
+        "notes too long to re-read",
+        "cramming a new topic in the last week"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A topic learned once and not revisited is mostly gone by exam day; schedule reviews when you schedule the learning.\n- Active recall - shut the page and retrieve - beats re-reading, which only builds recognition. Teach-it-back exposes the gaps.\n- Space reviews at expanding intervals: about a day, then three days, then a week, then a fortnight; a failed check drops back to a short interval.\n- Condense each topic to one page of formulas, rules, traps and one example; use flashcards for atomic facts; keep a fixed weekly slot.\n- Interleave question types once the method is learned; block practice only while first learning it.\n- Final month: mocks plus sheet cycling; last 10 days no new topics; last 2 days taper.",
+      "sourceIds": ["SATHEE_BANK"],
+      "searchKeywords": [
+        "revision and retention summary",
+        "recall spacing one pagers interleaving final month recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Pick the best response and give a one-line reason.\n\n1. You have re-read the ratio chapter three times and still miss the questions. Best use of the next hour?\n2. You learned a new reasoning topic today. When should its first review be?\n3. Your notes run to about 40 pages per subject. What is the problem, and the fix?\n4. Ten days to go and you have not started one whole topic. Begin it now?\n5. You tend to revise only the sections you already score well in. Why change that?\n6. For the last month, is blocked practice (all of one type) or interleaved practice (mixed) the better choice?\n\n**Answers.** 1 Do 15 to 20 mixed ratio problems closed-book, then review only the ones you missed - retrieval, not another read. 2 Within about a day, then space it out (roughly three days, a week, a fortnight). 3 They are too long to revisit; condense each topic to a one-page sheet of rules, formulas, traps and one example. 4 No - in the last 10 days consolidate what you know; a new topic trades certain revision time for an uncertain few marks. 5 Marks are lost in the weak sections, so revision time should be weighted toward them and protected by a fixed slot. 6 Interleaved - it matches a mixed paper and trains you to pick the right method under uncertainty.",
+      "searchKeywords": [
+        "revision practice scenarios",
+        "recall first review notes length new topic weak sections interleaving exercises"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "review-flattens-curve",
+      "front": "What happens to a topic studied once and never revisited?",
+      "back": "Recall of it drops steadily over the following days, and by exam day it is mostly gone. Each deliberate review slows the next drop.",
+      "explanation": "So reviews are planned alongside the learning, not added at the end.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-forgetting-curve"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "recall-beats-rereading",
+      "front": "Why does active recall beat re-reading for exam preparation?",
+      "back": "Re-reading builds recognition - knowing it when you see it. Recall builds retrieval - producing it in the exam. The struggle to retrieve is what strengthens the memory.",
+      "explanation": "The exam tests retrieval, not recognition.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["recall-vs-rereading"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "expanding-intervals",
+      "front": "At what spacing should you review a new topic?",
+      "back": "Expanding intervals: about a day later, then roughly three days, then a week, then a fortnight. A failed recall check drops it back to a short interval.",
+      "explanation": "One massed review fades almost as fast as none.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["spaced-schedule"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "one-page-sheet",
+      "front": "How long should a revision sheet for one topic be?",
+      "back": "One page: the formulas, rules, standard traps, and one solved example. If it does not fit on a page, it is not condensed yet.",
+      "explanation": "Making the sheet is itself a strong recall exercise.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["one-pagers-and-flashcards"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "interleaving-card",
+      "front": "Blocked practice or interleaved practice once a method is learned?",
+      "back": "Interleaved - mixing question types forces you to first identify the method, which is the skill a mixed exam paper needs. Block only while first learning the method.",
+      "explanation": "Interleaving feels harder and produces the stronger result.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["interleaving"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "teach-it-back",
+      "front": "What is the teach-it-back test?",
+      "back": "Explaining a topic aloud as if teaching it. Wherever you stumble or hand-wave is what goes on the next revision list.",
+      "explanation": "It is a demanding form of active recall.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["recall-vs-rereading"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "no-new-topics-late",
+      "front": "In the last 10 days before the exam, do you start a topic you never covered?",
+      "back": "No. Consolidate what you know - sheets, flashcards, light mocks, timing. A new topic trades certain revision time for an uncertain few marks.",
+      "explanation": "The last two days are a taper, not a cram.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["final-month-cadence"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

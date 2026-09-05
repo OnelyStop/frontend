@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "reasoning-ability",
+  "subjectName": "Reasoning Ability",
+  "subjectPosition": 6,
+  "chapterSlug": "logical-and-analytical-reasoning",
+  "chapterName": "Logical and analytical reasoning",
+  "chapterPosition": 2,
+  "topicSlug": "statement-and-conclusion-and-inference",
+  "topicPosition": 50,
+  "title": "Statement, Conclusion and Inference",
+  "summary": "Deciding what genuinely follows from a statement using only its own words, and grading an inference from a passage as definitely true, probably true, data inadequate, probably false, or definitely false.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["statement-and-assumption"],
+  "learningObjectives": [
+    "Accept a conclusion only when the statement's own words fully support it.",
+    "Reject conclusions that add scope, strength, or a cause the statement omits.",
+    "Grade an inference on the five-point scale against a given passage.",
+    "Combine two statements to see what jointly follows."
+  ],
+  "tags": [
+    "reasoning",
+    "critical-reasoning",
+    "conclusion",
+    "inference",
+    "bank-exams"
+  ],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Logic_for_Computer_Science/Propositional_Logic",
+      "title": "Logic for Computer Science/Propositional Logic",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for valid entailment and the contrapositive. All statements and passages here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm statement-and-conclusion is a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "conclusion-vs-assumption",
+      "type": "introduction",
+      "title": "What 'follows' means here",
+      "markdown": "A **conclusion** follows from a statement only if the statement's own words guarantee it. You may not use outside knowledge, and you may not fill gaps with what is 'probably' true.\n\nThis is the opposite direction from an assumption: an assumption sits *under* the statement; a conclusion comes *out of* it.\n\nThe **inference** variant is softer: given a short passage, you grade a candidate on a five-point scale from *definitely true* to *definitely false*, allowing 'probably' and 'data inadequate' in between.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "conclusion follows only if the words guarantee it no outside knowledge",
+        "assumption under the statement conclusion out of it",
+        "inference five point scale definitely true to definitely false"
+      ],
+      "position": 10
+    },
+    {
+      "id": "does-it-follow",
+      "type": "method",
+      "title": "Does the conclusion follow?",
+      "markdown": "Check the candidate against the statement, part by part:\n\n1. **Every noun and every claim in the conclusion must be traceable to the statement.** New people, places, or numbers mean it does not follow.\n2. **Reject added strength.** If the statement says *some*, a conclusion with *all*, *most*, or *only* does not follow.\n3. **Reject added cause.** A statement that reports two things happening does not let you conclude one *caused* the other.\n4. **Accept plain restatement and the contrapositive.** *'All who finished got a badge; Sam has no badge'* gives *'Sam did not finish'*.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "does the conclusion follow every claim traceable to the statement",
+        "reject added strength some to all most only",
+        "reject added cause accept restatement and contrapositive"
+      ],
+      "position": 20
+    },
+    {
+      "id": "some-does-not-give-some-not",
+      "type": "concept",
+      "title": "The 'some' trap",
+      "markdown": "*'Some of the loans are overdue'* does **not** let you conclude *'some of the loans are not overdue'*.\n\n'Some' means *at least one*, and leaves open that it could be *all*. So from *'some X are Y'* you cannot get *'some X are not Y'*. The reverse fails too.\n\nThe only safe move from *'some X are Y'* is *'some Y are X'* — 'some' statements convert.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "some trap some overdue does not give some not overdue",
+        "some means at least one could be all",
+        "some x are y gives some y are x conversion"
+      ],
+      "position": 30
+    },
+    {
+      "id": "inference-five-point",
+      "type": "method",
+      "title": "Grading an inference",
+      "markdown": "Against the passage, place the candidate in one bucket:\n\n- **Definitely true** — the passage states it or strictly implies it.\n- **Probably true** — the passage points that way but does not nail it.\n- **Data inadequate** — the passage neither supports nor denies it.\n- **Probably false** — the passage leans against it.\n- **Definitely false** — the passage states or strictly implies the opposite.\n\nAsk *what does the passage actually commit to?* Anything the passage is silent on is 'data inadequate', not 'false'.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "grading an inference definitely true probably true data inadequate",
+        "probably false definitely false against the passage",
+        "silence is data inadequate not false"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked examples",
+      "markdown": "**1. Statement and conclusions.** *'All branches in the district met their deposit target this quarter, and two of them exceeded it by more than 20%.'*\n\n- I. Every branch in the district reached at least its deposit target this quarter. This restates *'all ... met their target'*. **Follows.**\n- II. Most branches in the district exceeded their target. Only *two* are said to have exceeded it; *most* is unsupported. **Does not follow.**\n\n**2. Inference.** Passage: *'The canteen switched to self-clearing trays. Within a month, complaints about long lunch queues had dropped, though a few notes now complain of uncleared tables at peak time.'*\n\nCandidate: *'The tray change removed every complaint about the canteen.'* The passage says some complaints (about tables) still come in. The candidate is **definitely false**.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example all branches met target conclusion I follows II does not",
+        "most is unsupported when only two exceeded",
+        "canteen trays inference definitely false complaints remain"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Using general knowledge** to fill a gap the statement leaves open.\n- **Upgrading *some* to *most* or *all*** in the conclusion.\n- **Reading a cause into a bare correlation.**\n- **Marking a conclusion false when the statement is simply silent** — that is 'does not follow' or 'data inadequate', not 'false'.\n- **Accepting a conclusion because it is realistic**, rather than because the statement forces it.\n- **In two-statement items, using only one** of the two statements.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "conclusion mistakes general knowledge upgrading some to all cause from correlation",
+        "silent is not false realistic is not forced",
+        "two statement items use both"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A conclusion follows only if the statement's own words guarantee it; no outside knowledge, no filling of gaps.\n- Reject added scope (new nouns or numbers), added strength (*some* to *all*), and added cause.\n- Accept plain restatement and the contrapositive.\n- From *some X are Y* you may only get *some Y are X* — never *some X are not Y*.\n- Inference: grade against the passage; silence means 'data inadequate', not 'false'.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "statement conclusion inference summary revision",
+        "reject added scope strength cause accept restatement contrapositive",
+        "some conversion only silence is data inadequate"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Mark each conclusion 'follows' or 'does not follow', with a one-line reason.\n\n1. Statement: *'The 4 p.m. counter stops issuing new tokens at 3:30, but people already holding tokens are served until 4.'*  Conclusion: A person who reaches the counter at 3:45 without a token will not be served there today.\n2. Statement: *'Ticket prices rose 10% in June; ridership in July equalled ridership in May.'*  Conclusion: The price rise had no effect on ridership.\n3. Statement: *'Everyone who completed the safety course received a certificate. Rahul did not receive a certificate.'*  Conclusion: Rahul did not complete the safety course.\n4. Statement: *'Some of the loans sanctioned last year are now overdue.'*  Conclusion: Some of the loans sanctioned last year are not overdue.\n5. Statement: *'The library is open 9 to 8 on weekdays and 10 to 5 on Saturdays.'*  Conclusion: The library is open more hours on a weekday than on a Saturday.\n6. Statement: *'Most customers who tried the mobile app said they would recommend it.'*  Conclusion: Most of the branch's customers use the mobile app.\n7. Statement: *'A report says the scheme reached 60% of eligible households in the state.'*  Conclusion: The scheme did not reach 40% of eligible households in the state.",
+      "searchKeywords": [
+        "statement conclusion practice questions follows does not follow",
+        "token counter price ridership contrapositive some overdue library hours app recommend scheme reach"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "follows-definition",
+      "front": "When does a conclusion 'follow' from a statement?",
+      "back": "Only when the statement's own words guarantee it. No outside knowledge, and no filling of gaps with what is probably true.",
+      "explanation": "Stricter than everyday reasoning.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["conclusion-vs-assumption"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "added-strength",
+      "front": "The statement says 'some'. The conclusion says 'most'. Does it follow?",
+      "back": "No. Adding strength — some to most or all — breaks the entailment. The conclusion may use at most the strength the statement gave.",
+      "explanation": "Same for narrowing words like 'only'.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["does-it-follow"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "correlation-not-cause",
+      "front": "A statement reports two events happening together. Can you conclude one caused the other?",
+      "back": "No. A bare correlation does not license a causal conclusion; other explanations remain open.",
+      "explanation": "Adding a cause is a classic wrong conclusion.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["does-it-follow"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "contrapositive-ok",
+      "front": "'All who finished got a badge. Sam has no badge.' What follows?",
+      "back": "Sam did not finish. This is the contrapositive of 'all who finished got a badge', and it is valid.",
+      "explanation": "Restatement and contrapositive are the safe moves.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["does-it-follow"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "some-trap-card",
+      "front": "From 'some loans are overdue', can you conclude 'some loans are not overdue'?",
+      "back": "No. 'Some' allows 'all', so it does not guarantee that any are not overdue. Only 'some overdue things are loans' follows.",
+      "explanation": "'Some' statements convert but do not flip.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["some-does-not-give-some-not"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "silence-is-inadequate",
+      "front": "The passage says nothing about a candidate inference. How is it graded?",
+      "back": "Data inadequate — not 'false'. 'False' needs the passage to support the opposite.",
+      "explanation": "Silence never proves the negative.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["inference-five-point"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "five-point-scale",
+      "front": "List the five grades for an inference against a passage.",
+      "back": "Definitely true, probably true, data inadequate, probably false, definitely false.",
+      "explanation": "The two 'definitely' grades need the passage to state or strictly imply it.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["inference-five-point"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

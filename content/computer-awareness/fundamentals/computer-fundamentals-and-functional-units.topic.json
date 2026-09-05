@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "fundamentals",
+  "chapterName": "Fundamentals",
+  "chapterPosition": 1,
+  "topicSlug": "computer-fundamentals-and-functional-units",
+  "topicPosition": 10,
+  "title": "Computer Fundamentals and Functional Units",
+  "summary": "What a computer is, its defining characteristics, the five functional units (input, memory, arithmetic-logic, control, output) and how they work together, the stored-program idea, and a summary view of the generations of computers.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 20,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [],
+  "learningObjectives": [
+    "State the defining characteristics of a computer.",
+    "Name the five functional units and the job of each.",
+    "Explain the stored-program concept and the role of the CPU.",
+    "Summarise the generations of computers by their core technology."
+  ],
+  "tags": ["computer-awareness", "functional-units", "cpu", "generations"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Basic Computing Using Windows",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to cross-check the standard description of a computer's parts. Explained in original, vendor-neutral wording."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-is-a-computer",
+      "type": "definition",
+      "title": "What a computer is",
+      "markdown": "A computer is an electronic device that accepts data, processes it according to a stored set of instructions, produces output, and can store both data and instructions for later use.\n\nIts defining characteristics are **speed** (operations measured in millions or billions per second), **accuracy** (errors come from wrong data or wrong instructions, not from the machine - the idea of \"garbage in, garbage out\"), **diligence** (no fatigue or loss of concentration over long runs), **versatility** (the same hardware runs many different tasks), and **storage** (large volumes of data kept and retrieved reliably). A computer has no intelligence of its own; it does exactly what its instructions say.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "what is a computer",
+        "speed accuracy diligence versatility storage",
+        "garbage in garbage out",
+        "stored instructions"
+      ],
+      "position": 10
+    },
+    {
+      "id": "the-five-units",
+      "type": "concept",
+      "title": "The five functional units",
+      "markdown": "A computer is organised into five units:\n\n- **Input unit:** converts data and instructions from a human-usable form into the machine's internal form and feeds them in (keyboard, mouse, scanner).\n- **Memory unit:** holds data and instructions currently in use, and intermediate and final results.\n- **Arithmetic and Logic Unit (ALU):** performs calculations and comparisons.\n- **Control Unit (CU):** fetches instructions, decodes them, and directs the other units - it does not process data itself, it coordinates.\n- **Output unit:** converts results from the internal form back to a human-usable form (monitor, printer).\n\nThe ALU and CU together, with a set of fast internal **registers**, form the **Central Processing Unit (CPU)**.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "five functional units",
+        "input memory ALU control output",
+        "ALU CU form CPU",
+        "registers"
+      ],
+      "position": 20
+    },
+    {
+      "id": "how-they-work-together",
+      "type": "method",
+      "title": "How the units work together",
+      "markdown": "Processing follows an **input - process - output** cycle, with storage available at every stage.\n\n1. The input unit places data and the program into memory.\n2. The control unit fetches the next instruction from memory, decodes it, and issues signals.\n3. The ALU carries out the arithmetic or logic the instruction requires, using data from memory or registers, and writes the result back.\n4. Steps 2 and 3 repeat, instruction by instruction - the **fetch-decode-execute cycle**.\n5. The output unit presents the final results; anything to keep goes to secondary storage.\n\nBecause both instructions and data live in the same memory, a program can be loaded, replaced or modified without rewiring the machine - the **stored-program concept**.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "input process output cycle",
+        "fetch decode execute cycle",
+        "stored program concept",
+        "instructions and data same memory"
+      ],
+      "position": 30
+    },
+    {
+      "id": "generations",
+      "type": "concept",
+      "title": "Generations of computers - a summary view",
+      "markdown": "Generations are usually described by the switching technology of the era. This is exam shorthand, not a precise timeline:\n\n- **First generation:** vacuum tubes. Bulky, hot, high power, machine-language programming.\n- **Second generation:** transistors. Smaller, more reliable, assembly and early high-level languages.\n- **Third generation:** integrated circuits (many transistors on one chip). Time-sharing operating systems, keyboards and monitors.\n- **Fourth generation:** the microprocessor (a CPU on a single chip). Personal computers, graphical interfaces, networking.\n- **Fifth generation:** described in terms of massive parallelism and artificial-intelligence techniques; the boundary here is loose.\n\nTreat generation dates and \"example machine\" names as approximate.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "generations of computers",
+        "vacuum tube transistor integrated circuit microprocessor",
+        "fifth generation AI parallelism",
+        "exam summary approximate"
+      ],
+      "position": 40
+    },
+    {
+      "id": "hardware-vs-software",
+      "type": "comparison",
+      "title": "Hardware and software",
+      "markdown": "- **Hardware** is the physical part you can touch: the processor, memory chips, drives, board, and peripherals.\n- **Software** is the set of instructions that tells the hardware what to do. It has no physical form of its own.\n\nSoftware divides into **system software** (the operating system, device drivers, utilities - it runs and manages the machine) and **application software** (programs a user runs to get work done - a word processor, a spreadsheet, a browser). **Firmware** is software stored on a chip inside a device, part-way between the two.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "hardware versus software",
+        "system software application software",
+        "firmware",
+        "physical versus instructions"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **The control unit does not do calculations.** The ALU does; the CU coordinates.\n- **CPU is not the whole box.** The CPU is the processor chip (ALU + CU + registers); the \"CPU cabinet\" in common speech is the system unit.\n- **Memory is not the same as storage.** \"Memory\" usually means the main memory the CPU works from directly; \"storage\" usually means secondary storage like a disk.\n- **A computer is accurate, not intelligent.** Wrong output comes from wrong input or wrong instructions.\n- **Generation boundaries are approximate.** Do not treat a single date or machine name as definitive.\n- **Firmware is software**, even though it lives on a chip.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "computer fundamentals confusions",
+        "control unit no calculation",
+        "CPU is the chip not the box",
+        "memory versus storage"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Characteristics: speed, accuracy, diligence, versatility, storage; no intrinsic intelligence.\n- Five units: input, memory, ALU, control, output. ALU + CU + registers = CPU.\n- Cycle: input - process - output, driven by fetch-decode-execute; storage available throughout.\n- Stored-program concept: instructions and data share memory, so programs can be changed without rewiring.\n- Generations by technology: vacuum tube, transistor, integrated circuit, microprocessor, then AI/parallel - dates approximate.\n- Hardware is physical; software is instructions (system vs application); firmware is software on a chip.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "computer fundamentals summary",
+        "revision",
+        "five units CPU stored program generations recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Which part of the CPU does arithmetic and comparisons?\n2. Which part of the CPU directs the sequence of operations?\n3. Name the four basic functions of a computer.\n4. In what unit is CPU clock speed usually measured?\n5. Which component carries out program instructions and is called the brain of the computer?\n6. Where are the data and instructions currently being processed held?\n7. Turning a user's key-presses into a form the CPU can use is which function?\n8. A set of instructions that tells the computer what to do is called what?",
+      "searchKeywords": [
+        "computer fundamentals practice",
+        "ALU control unit CPU input processing storage output clock speed program"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "characteristics",
+      "front": "List the defining characteristics of a computer.",
+      "back": "Speed, accuracy, diligence, versatility, and storage. It has no intelligence of its own - garbage in, garbage out.",
+      "explanation": "Accuracy means the machine does not err; wrong data or instructions do.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-is-a-computer"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "five-units",
+      "front": "Name the five functional units of a computer.",
+      "back": "Input, memory, arithmetic-and-logic unit (ALU), control unit (CU), output.",
+      "explanation": "ALU + CU + registers together form the CPU.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["the-five-units"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "cu-vs-alu",
+      "front": "Which unit performs calculations, and which coordinates the others?",
+      "back": "The ALU performs arithmetic and logic. The control unit fetches, decodes and directs - it does not process data itself.",
+      "explanation": "A common exam trap.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-five-units"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "fetch-decode-execute",
+      "front": "What is the fetch-decode-execute cycle?",
+      "back": "The repeating loop by which the CPU processes a program: fetch the next instruction from memory, decode it, execute it in the ALU, write back the result, repeat.",
+      "explanation": "It is the core of the input-process-output flow.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["how-they-work-together"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "stored-program",
+      "front": "What is the stored-program concept?",
+      "back": "Instructions and data are held in the same memory, so a program can be loaded, replaced or modified without changing the hardware.",
+      "explanation": "It is what makes a computer general-purpose.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["how-they-work-together"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "generations-tech",
+      "front": "Match the generation to its switching technology: 1st to 4th.",
+      "back": "1st - vacuum tubes; 2nd - transistors; 3rd - integrated circuits; 4th - microprocessors. (5th - AI / massive parallelism.)",
+      "explanation": "Dates and example machines are approximate.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["generations"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "system-vs-application",
+      "front": "System software vs application software - give one example of each.",
+      "back": "System: the operating system (also drivers, utilities). Application: a word processor, spreadsheet or browser.",
+      "explanation": "Firmware is software stored on a chip, in between the two.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["hardware-vs-software"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

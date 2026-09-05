@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "markets-and-institutions",
+  "chapterName": "Financial markets and institutions",
+  "chapterPosition": 6,
+  "topicSlug": "development-financial-institutions",
+  "topicPosition": 20,
+  "title": "Development Financial Institutions",
+  "summary": "What a development financial institution is, what 'refinance' and 'apex institution' mean, and the mandates of NABARD, SIDBI, EXIM Bank, NHB and NaBFID — plus how a DFI differs from a commercial bank.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "types-of-banks-in-india",
+    "structure-of-the-indian-financial-system"
+  ],
+  "learningObjectives": [
+    "Define a development financial institution and the apex-and-refinance model.",
+    "Match NABARD, SIDBI, EXIM Bank, NHB and NaBFID to their sectors.",
+    "Explain how a DFI differs from a commercial bank in funding and customers.",
+    "Identify which regulator supervises housing-finance companies after the 2019 change."
+  ],
+  "tags": ["banking-awareness", "dfi", "nabard", "sidbi", "exim-bank"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_ROLES",
+      "url": "https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=1983",
+      "title": "RBI - current roles and functions",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the RBI's description of all-India financial institutions and the supervisory change for housing finance. Restated in original wording."
+    },
+    {
+      "sourceId": "INDIACODE_BANKING_ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1885",
+      "title": "Banking Regulation Act, 1949",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Statutory backdrop for how banks and non-bank financial institutions are defined and separated. No text reproduced."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - awareness section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm that DFIs are a standard awareness topic. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "what-is-a-dfi",
+      "type": "introduction",
+      "title": "What a development financial institution is",
+      "markdown": "A **development financial institution (DFI)** is set up by statute or by the government to channel long-term finance into a sector that ordinary commercial banks under-serve — agriculture, small industry, exports, housing, infrastructure.\n\nBanks are cautious about very long loans because their own funding (deposits) is short-term and can be withdrawn. A DFI is funded differently — by bonds, borrowings from the government and multilateral agencies, and its own capital — so it can lend for 10, 15 or 20 years and take on projects a bank would avoid.\n\nDFIs do not take deposits from the public. They are wholesale lenders, and many of them lend *to* banks and other institutions rather than to the final borrower.",
+      "sourceIds": ["RBI_ROLES", "INDIACODE_BANKING_ACT"],
+      "searchKeywords": [
+        "development financial institution definition long term finance underserved sector",
+        "DFI funded by bonds government multilateral borrowings not deposits",
+        "wholesale lender lends to banks not the final borrower"
+      ],
+      "position": 10
+    },
+    {
+      "id": "refinance-and-apex",
+      "type": "concept",
+      "title": "Refinance and the apex model",
+      "markdown": "Two terms recur:\n\n- **Refinance:** a DFI lends money to a bank or a cooperative society *against loans that lender has already made*. The village bank makes the crop loan and carries the customer relationship; NABARD then reimburses part of it, freeing the bank's funds to lend again. The DFI's borrower is the bank, not the farmer.\n- **Apex institution:** the institution at the top of a sector's credit pyramid. It refinances, sets standards, supervises the tier below, and runs development funds — but usually does not deal with the ultimate borrower directly.\n\nSo NABARD is the apex body for rural and agricultural credit, SIDBI for micro and small enterprise credit, and NHB has been the apex body for housing finance.",
+      "sourceIds": ["RBI_ROLES"],
+      "searchKeywords": [
+        "refinance DFI lends to bank against loans already made freeing funds",
+        "apex institution top of the sector credit pyramid refinances supervises sets standards",
+        "NABARD apex rural SIDBI apex MSME NHB apex housing"
+      ],
+      "position": 20
+    },
+    {
+      "id": "the-main-dfis",
+      "type": "concept",
+      "title": "The main all-India DFIs",
+      "markdown": "| Institution | Sector | What it does |\n| --- | --- | --- |\n| **NABARD** — National Bank for Agriculture and Rural Development | Rural, agriculture | Refinances cooperative banks and regional rural banks; runs the Rural Infrastructure Development Fund (RIDF); supervises RRBs and cooperative banks on the RBI's behalf. |\n| **SIDBI** — Small Industries Development Bank of India | Micro, small and medium enterprises | Refinances and directly lends to MSME lenders; supports venture and risk capital for small units; administers several credit-guarantee and subsidy schemes. |\n| **EXIM Bank** — Export-Import Bank of India | Foreign trade | Finances exporters and importers, buyer's and supplier's credit, and lines of credit to overseas governments to buy Indian goods. |\n| **NHB** — National Housing Bank | Housing finance | Refinances housing loans; promotes housing-finance companies. Regulation of housing-finance companies moved from NHB to the **RBI** in 2019, though NHB keeps a supervisory and refinance role. |\n| **NaBFID** — National Bank for Financing Infrastructure and Development | Infrastructure | A newer DFI created to provide long-tenor infrastructure finance and to help develop the bond market for infrastructure. |",
+      "sourceIds": ["RBI_ROLES", "INDIACODE_BANKING_ACT"],
+      "searchKeywords": [
+        "NABARD refinance cooperative banks RRBs RIDF supervises",
+        "SIDBI MSME refinance venture capital credit guarantee schemes",
+        "EXIM Bank export import finance buyers credit lines of credit",
+        "NHB housing finance refinance regulation moved to RBI 2019",
+        "NaBFID infrastructure finance bond market development"
+      ],
+      "position": 30
+    },
+    {
+      "id": "dfi-vs-bank",
+      "type": "comparison",
+      "title": "DFI versus commercial bank",
+      "markdown": "| Feature | Development financial institution | Commercial bank |\n| --- | --- | --- |\n| Main funding | Bonds, government and multilateral borrowings, own capital | Public deposits |\n| Customers | Banks, cooperatives, institutions, large projects | Individuals and businesses of every size |\n| Loan tenor | Long — often 10 to 20 years | Mostly short and medium term |\n| Deposits from the public | No | Yes |\n| Geographic reach | Sector-wide, through other lenders | Branch network serving customers directly |\n| Typical objective | Sectoral development, filling a credit gap | Commercial return on a broad book |",
+      "sourceIds": ["RBI_ROLES", "INDIACODE_BANKING_ACT"],
+      "searchKeywords": [
+        "DFI versus commercial bank comparison funding customers tenor deposits",
+        "DFI wholesale sector development bank retail deposits commercial return"
+      ],
+      "position": 40
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **NABARD does not lend to farmers directly.** It refinances the banks and cooperatives that do.\n- **A DFI is not a commercial bank** and cannot take deposits from the public.\n- **Housing-finance companies are now regulated by the RBI**, not NHB, since 2019 — NHB still refinances and supervises but the regulatory power sits with the RBI.\n- **SIDBI is the apex for MSME credit; NABARD is the apex for rural credit.** Do not swap them.\n- **EXIM Bank finances trade, not foreign exchange policy** — that is the RBI.\n- **RIDF is run by NABARD**, funded largely by the shortfall amounts banks deposit when they miss priority-sector targets.",
+      "searchKeywords": [
+        "NABARD does not lend to farmers directly refinances banks",
+        "DFI cannot take public deposits",
+        "housing finance companies regulated by RBI since 2019",
+        "SIDBI MSME NABARD rural do not swap",
+        "RIDF run by NABARD priority sector shortfall"
+      ],
+      "position": 50
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- A DFI provides long-term, sector-focused finance, funded by bonds and borrowings rather than public deposits, and often lends to banks rather than to final borrowers.\n- Refinance = lending to a bank against loans it has already made; an apex institution sits at the top of a sector's credit pyramid.\n- NABARD — rural and agriculture (refinances cooperatives and RRBs, runs RIDF, supervises for the RBI). SIDBI — MSME. EXIM Bank — foreign trade. NHB — housing finance (regulation of HFCs moved to the RBI in 2019). NaBFID — infrastructure.\n- A DFI differs from a commercial bank in its funding (wholesale, not deposits), its customers (institutions and projects), and its tenor (long).",
+      "searchKeywords": [
+        "development financial institutions summary revision",
+        "NABARD SIDBI EXIM NHB NaBFID mandates apex refinance recap"
+      ],
+      "position": 60
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. Which institution refinances regional rural banks and cooperative banks and runs the RIDF?\n2. A small engineering unit's bank needs long-term funds and risk capital support to on-lend to such units. Which apex institution backs it?\n3. An Indian firm exporting machinery abroad needs buyer's credit for its overseas customer. Which institution?\n4. After 2019, which body is the regulator of housing-finance companies?\n5. True or false: NABARD gives crop loans directly to farmers.\n6. Which DFI was created specifically to provide long-tenor infrastructure finance?\n7. A DFI raises most of its money from ____ , not from ____ .\n8. Name the fund, run by NABARD, that is financed largely by banks' priority-sector shortfall deposits.\n\n**Answers:** 1 NABARD. 2 SIDBI — the apex for MSME credit. 3 EXIM Bank. 4 The RBI — regulation of HFCs moved from NHB to the RBI in 2019. 5 False — NABARD refinances the banks and cooperatives that lend to farmers. 6 NaBFID. 7 bonds, government and multilateral borrowings; public deposits. 8 The Rural Infrastructure Development Fund (RIDF).",
+      "searchKeywords": [
+        "DFI practice match institution to mandate",
+        "NABARD SIDBI EXIM NHB NaBFID RIDF exercise"
+      ],
+      "position": 70
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "dfi-definition",
+      "front": "What is a development financial institution (DFI)?",
+      "back": "A statutory or government-backed institution that provides long-term finance to an under-served sector, funded by bonds and borrowings rather than public deposits, and often lending to banks rather than to final borrowers.",
+      "explanation": "DFIs cannot take deposits from the public.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["what-is-a-dfi"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "refinance",
+      "front": "What does 'refinance' mean for a DFI?",
+      "back": "The DFI lends to a bank or cooperative against loans that lender has already made, reimbursing part of them and freeing the lender's funds to lend again. The DFI's borrower is the bank, not the final customer.",
+      "explanation": "This is how NABARD supports crop lending without dealing with farmers.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["refinance-and-apex"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "nabard",
+      "front": "What is NABARD's role?",
+      "back": "Apex body for rural and agricultural credit: refinances cooperative banks and regional rural banks, runs the Rural Infrastructure Development Fund (RIDF), and supervises RRBs and cooperative banks on the RBI's behalf.",
+      "explanation": "It does not lend to farmers directly.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-main-dfis"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "sidbi",
+      "front": "What sector is SIDBI the apex institution for?",
+      "back": "Micro, small and medium enterprises — it refinances and directly lends to MSME lenders, supports risk capital for small units, and administers several credit-guarantee and subsidy schemes.",
+      "explanation": "Do not swap SIDBI (MSME) with NABARD (rural).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-main-dfis"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "exim-bank",
+      "front": "What does EXIM Bank of India finance?",
+      "back": "Foreign trade — exporters and importers, buyer's and supplier's credit, and lines of credit to overseas governments to purchase Indian goods.",
+      "explanation": "Trade finance, not foreign-exchange policy (that is the RBI).",
+      "difficulty": "medium",
+      "sourceBlockIds": ["the-main-dfis"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "nhb-2019",
+      "front": "Who regulates housing-finance companies after 2019?",
+      "back": "The RBI. Regulation moved from the National Housing Bank to the RBI in 2019; NHB keeps a refinance and supervisory role.",
+      "explanation": "A common trap: assuming NHB is still the regulator.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["the-main-dfis", "common-confusions"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "dfi-vs-bank",
+      "front": "Two ways a DFI differs from a commercial bank?",
+      "back": "Funding — a DFI uses bonds and borrowings, a bank uses public deposits. Customers and tenor — a DFI lends long-term to institutions and projects, a bank lends mostly short and medium term to the public directly.",
+      "explanation": "A DFI is a wholesale, sector-focused lender.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["dfi-vs-bank"],
+      "status": "approved",
+      "position": 70
+    }
+  ]
+}

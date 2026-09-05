@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "quantitative-aptitude",
+  "subjectName": "Quantitative Aptitude",
+  "subjectPosition": 1,
+  "chapterSlug": "data-interpretation",
+  "chapterName": "Data Interpretation",
+  "chapterPosition": 4,
+  "topicSlug": "table-data-interpretation",
+  "topicPosition": 20,
+  "title": "Table Data Interpretation",
+  "summary": "Reading a rows-by-columns table fast: row totals versus column totals, per-unit figures, growth between columns, ratios across rows, and rounding to the options.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 24,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["percentages", "ratio-and-proportion", "average"],
+  "learningObjectives": [
+    "Tell a row total from a column total and compute whichever the question needs.",
+    "Derive per-unit figures by dividing one column by another.",
+    "Find growth between two columns using the earlier column as the base.",
+    "Round table figures sensibly when the options are far apart."
+  ],
+  "tags": ["data-interpretation", "table-di", "bank-exams"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_MATH",
+      "url": "https://en.wikibooks.org/wiki/Arithmetic/Percents_Decimals_and_Fractions",
+      "title": "Arithmetic/Percents Decimals and Fractions",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for the percentage and ratio arithmetic only. All tables and questions here are original."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms checked for the reference page above."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm table DI is a standard question format. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "tables-in-di",
+      "type": "introduction",
+      "title": "How a table set is laid out",
+      "markdown": "A table DI set has one axis running down the rows (branches, products, cities, people) and another running across the columns (years, months, categories). Every cell is one absolute figure unless the title says otherwise.\n\nThe questions ask you to combine cells: down a column, across a row, or one cell against another. Nothing is hidden, but a wide table makes it easy to read the wrong line, so keep a finger or a pointer on the row you are working.",
+      "sourceIds": ["WIKIBOOKS_MATH", "SATHEE_BANK"],
+      "searchKeywords": [
+        "table di layout rows and columns",
+        "every cell an absolute figure",
+        "combine cells down across against"
+      ],
+      "position": 10
+    },
+    {
+      "id": "row-and-column-reading",
+      "type": "method",
+      "title": "Row totals, column totals, and comparisons",
+      "markdown": "- **Row total**: add across one row — a branch's figure over all the years, a product's over all the months.\n- **Column total**: add down one column — every branch in a single year.\n- **Growth between two columns**: take the later cell minus the earlier cell, divided by the **earlier** cell, times 100.\n- **Ratio across rows**: pick the same column in two rows and divide.\n- **Share of a total**: one cell divided by its row total or column total, times 100.\n\nWork out which of these the question wants before adding anything, and compute each shared total only once.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "row total column total",
+        "growth between two columns earlier as base",
+        "ratio across rows share of total"
+      ],
+      "position": 20
+    },
+    {
+      "id": "per-unit-and-derived-figures",
+      "type": "concept",
+      "title": "Per-unit and other derived figures",
+      "markdown": "Many table questions want a figure that is not printed but is one division away:\n\n- Revenue ÷ units sold = price per unit.\n- Total salary ÷ number of staff = average salary.\n- Accounts ÷ branches = accounts per branch.\n- Output ÷ machines = output per machine.\n\nWhenever a question mentions \"per\", \"average\", or \"each\", you are dividing one column by another for the same row. Keep the two columns straight — revenue over units, never units over revenue.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "per unit figure revenue over units",
+        "average salary total over staff",
+        "divide one column by another same row"
+      ],
+      "position": 30
+    },
+    {
+      "id": "approximation-with-options",
+      "type": "shortcut",
+      "title": "Round to the options",
+      "markdown": "When the answer choices are far apart — say 18%, 25%, 32%, 40% — you do not need an exact figure. Round each table value to something you can divide in your head: 297 becomes 300, 148 becomes 150, 41 becomes 40. Do the rough sum and pick the nearest option.\n\nUse this only when the options actually are spread out. If two options are 24% and 25%, round nothing and compute properly.",
+      "searchKeywords": [
+        "round to the options di",
+        "approximate when choices are far apart",
+        "compute exactly when options are close"
+      ],
+      "position": 40
+    },
+    {
+      "id": "worked-example-branch-year",
+      "type": "worked_example",
+      "title": "Worked example: new accounts by branch and year",
+      "markdown": "New accounts opened, in hundreds:\n\n| Branch | 2021 | 2022 | 2023 | 2024 |\n| ------ | ---- | ---- | ---- | ---- |\n| P | 12 | 15 | 18 | 21 |\n| Q | 20 | 18 | 22 | 20 |\n| R | 8 | 10 | 14 | 16 |\n| S | 25 | 30 | 27 | 33 |\n| T | 15 | 16 | 20 | 24 |\n\n**Q1. Total new accounts opened by Branch S over the four years.** Row total for S: 25 + 30 + 27 + 33 = 115 hundred.\n\n**Q2. Percentage growth for Branch R from 2021 to 2024.** Base is the 2021 figure: (16 − 8) ÷ 8 × 100 = 100 per cent.\n\n**Q3. Total new accounts across all branches in 2022.** Column total for 2022: 15 + 18 + 10 + 30 + 16 = 89 hundred.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "worked example new accounts branch year table",
+        "row total percentage growth column total"
+      ],
+      "position": 50,
+      "expectedAnswers": [
+        {
+          "label": "S four-year total (hundreds)",
+          "value": 115,
+          "expression": "25+30+27+33"
+        },
+        {
+          "label": "R growth 2021 to 2024 (%)",
+          "value": 100,
+          "expression": "(16-8)/8*100"
+        },
+        {
+          "label": "2022 total across branches (hundreds)",
+          "value": 89,
+          "expression": "15+18+10+30+16"
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Adding the wrong direction** — a row when the question wants a column, or the reverse.\n- **Using the later column as the base** for growth. Growth is measured against the earlier figure.\n- **Slipping a row** in a wide table, so one cell in a sum belongs to the wrong branch.\n- **Forgetting the unit multiplier** — the table is in hundreds or lakh, and the answer must carry that.\n- **Inverting a per-unit ratio** — units over revenue instead of revenue over units.\n- **Computing a shared column total twice** because it was not written down.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "table di mistakes",
+        "wrong direction sum later column as base row slip",
+        "unit multiplier inverted ratio"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Rows and columns each hold one axis; every cell is an absolute figure unless stated.\n- Row total = across one row; column total = down one column; both computed once and reused.\n- Growth between columns divides by the earlier column. Share of a total divides by the relevant total.\n- \"Per\", \"average\", \"each\" means divide one column by another for the same row, in the right order.\n- Round to the options only when the options are far apart; carry the table's unit into the answer.",
+      "sourceIds": ["WIKIBOOKS_MATH"],
+      "searchKeywords": [
+        "table di summary revision",
+        "row column totals growth per unit rounding recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Revenue, in ₹ lakh:\n\n| Product | Jul | Aug | Sep |\n| ------- | --- | --- | --- |\n| Alpha | 30 | 36 | 45 |\n| Beta | 50 | 45 | 40 |\n| Gamma | 20 | 25 | 30 |\n| Delta | 40 | 44 | 48 |\n\n1. Total September revenue across all products.\n2. Percentage change in Alpha's revenue from July to September.\n3. Percentage change in Beta's revenue from July to September.\n4. Gamma's total revenue over the three months.\n5. Ratio of Delta's August revenue to Alpha's August revenue, as a decimal.\n6. Beta's average monthly revenue over the three months.\n7. Total July revenue across all products.\n8. By what per cent is total September revenue more than total July revenue?",
+      "searchKeywords": [
+        "table di practice product month revenue",
+        "column total percentage change ratio average"
+      ],
+      "position": 80,
+      "expectedAnswers": [
+        {
+          "label": "1. total Sep revenue",
+          "value": 163,
+          "expression": "45+40+30+48"
+        },
+        {
+          "label": "2. Alpha Jul to Sep % change",
+          "value": 50,
+          "expression": "(45-30)/30*100"
+        },
+        {
+          "label": "3. Beta Jul to Sep % change",
+          "value": -20,
+          "expression": "(40-50)/50*100"
+        },
+        {
+          "label": "4. Gamma three-month total",
+          "value": 75,
+          "expression": "20+25+30"
+        },
+        {
+          "label": "5. Delta Aug : Alpha Aug",
+          "value": 1.22,
+          "tolerance": 0.01,
+          "expression": "44/36"
+        },
+        {
+          "label": "6. Beta average monthly revenue",
+          "value": 45,
+          "expression": "(50+45+40)/3"
+        },
+        {
+          "label": "7. total Jul revenue",
+          "value": 140,
+          "expression": "30+50+20+40"
+        },
+        {
+          "label": "8. % by which Sep total exceeds Jul total",
+          "value": 16.43,
+          "tolerance": 0.01,
+          "expression": "(163-140)/140*100"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "table-row-vs-column",
+      "front": "In a table DI set, what is a row total versus a column total?",
+      "back": "A row total adds across one row (one branch over all years); a column total adds down one column (all branches in one year). Compute each once and reuse it.",
+      "explanation": "Choosing the wrong direction is the most common table error.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["row-and-column-reading"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "table-growth-base",
+      "front": "How do you find percentage growth between two columns of a table?",
+      "back": "(later cell - earlier cell) / earlier cell x 100. The earlier column is always the base.",
+      "explanation": "Dividing by the later cell gives a different, wrong figure.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["row-and-column-reading"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "table-per-unit",
+      "front": "A question asks for revenue 'per unit' or 'average salary'. What operation is that?",
+      "back": "Divide one column by another for the same row, in the right order: revenue / units, total salary / staff count.",
+      "explanation": "The words 'per', 'average' and 'each' all signal this division.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["per-unit-and-derived-figures"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "table-share-of-total",
+      "front": "How do you express one table cell as a share of a total?",
+      "back": "Divide the cell by the relevant row total or column total, then multiply by 100.",
+      "explanation": "Decide first which total the question means.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["row-and-column-reading"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "table-round-to-options",
+      "front": "When is it safe to round table figures heavily?",
+      "back": "When the answer options are far apart. Round each value to something you can divide mentally, do the rough sum, pick the nearest option. If two options are close, compute exactly.",
+      "explanation": "Approximation saves time only when the spread allows it.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["approximation-with-options"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "table-unit-multiplier",
+      "front": "The table title says 'in hundreds'. What must you remember?",
+      "back": "Carry the multiplier into the answer. A row total of 115 means 11,500 accounts, and any value the question wants in actual numbers must be scaled up.",
+      "explanation": "Forgetting the unit is a silent error the arithmetic won't catch.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "table-write-totals-down",
+      "front": "Why write intermediate totals down in a table set?",
+      "back": "One column or row total is often reused across three questions. Writing it once avoids re-adding the same line and the slips that come with it.",
+      "explanation": "Skim all the questions first so you know which totals recur.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["row-and-column-reading"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

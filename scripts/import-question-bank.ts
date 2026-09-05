@@ -22,7 +22,7 @@ config({ path: ".env.local" });
 import { sql } from "drizzle-orm";
 
 import { db } from "../src/db";
-import { directions, papers, questions } from "../src/db/schema";
+import { bankQuestions, directions, papers } from "../src/db/schema";
 import {
   contentHash,
   directionsOf,
@@ -265,10 +265,10 @@ async function main() {
 
       for (const batch of chunk(qRows, CHUNK)) {
         await tx
-          .insert(questions)
+          .insert(bankQuestions)
           .values(batch)
           .onConflictDoUpdate({
-            target: questions.qId,
+            target: bankQuestions.qId,
             set: {
               stem: sql`excluded.stem`,
               options: sql`excluded.options`,

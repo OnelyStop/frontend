@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "computer-awareness",
+  "subjectName": "Computer Awareness",
+  "subjectPosition": 4,
+  "chapterSlug": "fundamentals",
+  "chapterName": "Fundamentals",
+  "chapterPosition": 1,
+  "topicSlug": "memory-and-storage",
+  "topicPosition": 40,
+  "title": "Memory and Storage",
+  "summary": "Primary memory versus secondary storage, the memory hierarchy from registers to disk, RAM and ROM and their variants, cache, volatility, and the main secondary-storage technologies - magnetic, optical and solid state.",
+  "difficulty": "beginner",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["computer-fundamentals-and-functional-units"],
+  "learningObjectives": [
+    "Distinguish primary memory from secondary storage on speed, cost, volatility and role.",
+    "Place registers, cache, RAM and disk in a memory hierarchy.",
+    "Describe RAM, ROM and their common variants.",
+    "Name the main secondary-storage technologies and their trade-offs."
+  ],
+  "tags": ["computer-awareness", "memory", "ram-rom", "cache", "storage"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-01T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_COMPUTING",
+      "url": "https://en.wikibooks.org/wiki/Basic_Computing_Using_Windows",
+      "title": "Basic Computing Using Windows",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted to cross-check the standard treatment of the memory hierarchy. Explained in original, vendor-neutral wording."
+    },
+    {
+      "sourceId": "WIKIBOOKS_COPYRIGHT",
+      "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+      "title": "Wikibooks:Copyrights",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "policy",
+      "retrievedAt": "2026-09-01T00:00:00Z",
+      "notes": "Attribution and ShareAlike terms noted."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "primary-vs-secondary",
+      "type": "definition",
+      "title": "Primary memory and secondary storage",
+      "markdown": "- **Primary (main) memory** is the memory the CPU can read from and write to **directly**. It is fast, relatively expensive per byte, limited in size, and mostly **volatile** - its contents are lost when power is removed. RAM is the main example.\n- **Secondary storage** holds data and programs **not currently in use**, and keeps them when the power is off (**non-volatile**). It is slower, much cheaper per byte, and far larger. The CPU cannot run a program straight from secondary storage; it must first be loaded into primary memory.\n\nA rough rule: as you move closer to the CPU, storage gets faster, smaller and costlier per byte.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "primary memory secondary storage",
+        "CPU accesses primary directly",
+        "volatile non-volatile",
+        "cost speed size trade-off"
+      ],
+      "position": 10
+    },
+    {
+      "id": "memory-hierarchy",
+      "type": "concept",
+      "title": "The memory hierarchy",
+      "markdown": "From fastest and smallest to slowest and largest:\n\n1. **Registers:** a handful of storage locations inside the CPU, holding the operands and results of the current instruction. Fastest of all.\n2. **Cache:** small, very fast memory (levels L1, L2, sometimes L3) that keeps copies of the data and instructions the CPU is most likely to need next, cutting trips to main memory.\n3. **Main memory (RAM):** where the running program and its data live.\n4. **Secondary storage:** SSD or hard disk - the program's permanent home.\n5. **Tertiary / offline:** external drives, optical discs, tape - archives and backups.\n\nEach level acts as a fast buffer for the level below it.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "memory hierarchy",
+        "registers cache L1 L2 L3",
+        "main memory RAM",
+        "secondary tertiary storage",
+        "buffer for the level below"
+      ],
+      "position": 20
+    },
+    {
+      "id": "ram",
+      "type": "concept",
+      "title": "RAM",
+      "markdown": "**RAM (Random Access Memory)** allows any location to be read or written in about the same time, in any order. It is **volatile**.\n\n- **DRAM (Dynamic RAM):** stores each bit as a charge in a capacitor that leaks, so it must be **refreshed** thousands of times a second. It is dense and cheap and is used as main memory.\n- **SRAM (Static RAM):** stores each bit in a latch, needs no refresh, is faster but larger and costlier per bit. It is used for cache.\n\n\"Adding RAM\" to a machine means adding DRAM modules.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "RAM random access memory volatile",
+        "DRAM dynamic refresh capacitor main memory",
+        "SRAM static no refresh cache",
+        "adding RAM modules"
+      ],
+      "position": 30
+    },
+    {
+      "id": "rom",
+      "type": "concept",
+      "title": "ROM",
+      "markdown": "**ROM (Read-Only Memory)** keeps its contents without power (**non-volatile**) and, in its pure form, cannot be rewritten in normal use. It stores start-up code and firmware.\n\n- **PROM:** programmable once by the user.\n- **EPROM:** erasable by ultraviolet light, then reprogrammable.\n- **EEPROM:** erasable electrically, in place; used for small configuration stores.\n- **Flash memory:** a fast, block-erasable descendant of EEPROM. It is what SSDs, memory cards and USB drives are built from, and it now holds the system firmware (**UEFI/BIOS**) on most computers.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "ROM read only non-volatile firmware",
+        "PROM EPROM EEPROM",
+        "flash memory block erasable EEPROM descendant",
+        "UEFI BIOS firmware"
+      ],
+      "position": 40
+    },
+    {
+      "id": "secondary-technologies",
+      "type": "comparison",
+      "title": "Secondary-storage technologies",
+      "markdown": "- **Magnetic:** the **hard disk drive (HDD)** stores bits as magnetised regions on spinning platters read by a moving head. Large and cheap per byte, but mechanical, so slower and more fragile. **Magnetic tape** is sequential-access and used mainly for backup and archives.\n- **Optical:** **CD, DVD and Blu-ray** store bits as pits and lands read by a laser. Capacities rise across the three. Now largely superseded for everyday use.\n- **Solid state:** the **solid-state drive (SSD)** uses flash memory, has no moving parts, and is much faster and more shock-resistant than an HDD, at a higher cost per byte. Memory cards and USB flash drives use the same technology.\n\nAccess type matters: HDD, SSD and optical are **direct (random) access**; tape is **sequential access**.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "hard disk drive magnetic platters",
+        "magnetic tape sequential backup",
+        "CD DVD Blu-ray optical laser pits",
+        "SSD flash no moving parts",
+        "direct versus sequential access"
+      ],
+      "position": 50
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **RAM is volatile; ROM is non-volatile.** Losing power wipes RAM, not ROM.\n- **\"Random access\" in RAM means any address in equal time**, not that data is stored randomly.\n- **Cache is not the same as RAM.** Cache is small, very fast SRAM between the CPU and main memory.\n- **An SSD is secondary storage**, even though it is built from memory chips - it is non-volatile and not directly executed from.\n- **A program runs from RAM, not from the disk.** It must be loaded first.\n- **Registers are the fastest storage, inside the CPU** - not a type of RAM module.\n- **Flash and EEPROM are related**; flash is the block-erasable, higher-capacity form.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "memory storage confusions",
+        "RAM volatile ROM non-volatile",
+        "random access meaning",
+        "cache is SRAM not RAM",
+        "SSD is secondary storage"
+      ],
+      "position": 60
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Primary memory: CPU-accessible directly, fast, small, costly, mostly volatile (RAM). Secondary storage: not directly executed, slow, large, cheap, non-volatile.\n- Hierarchy: registers, cache (L1/L2/L3), main memory (RAM), secondary (SSD/HDD), offline (external/optical/tape). Each buffers the level below.\n- RAM is volatile: DRAM (needs refresh; main memory), SRAM (no refresh; cache).\n- ROM is non-volatile: PROM, EPROM (UV-erase), EEPROM (electrical), flash (block-erasable, used in SSDs, cards, USB drives, firmware).\n- Secondary tech: magnetic (HDD large/cheap/mechanical; tape sequential backup), optical (CD/DVD/Blu-ray, laser, superseded), solid state (SSD, flash, fast, no moving parts). HDD/SSD/optical are direct access; tape is sequential.",
+      "sourceIds": ["WIKIBOOKS_COMPUTING"],
+      "searchKeywords": [
+        "memory storage summary",
+        "revision",
+        "hierarchy RAM ROM secondary technologies recap"
+      ],
+      "position": 70
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Answer in one line each.\n\n1. Which loses its contents when power is cut, RAM or ROM?\n2. Which is faster to access, main memory or a hard disk?\n3. Order by increasing size: KB, TB, MB, GB.\n4. How many bits are in one byte?\n5. Which has no moving parts, an HDD or an SSD?\n6. Which memory holds the start-up instructions a PC needs before the OS loads?\n7. What is the job of cache memory between the CPU and RAM?\n8. Is a USB pen drive primary or secondary storage?",
+      "searchKeywords": [
+        "memory and storage practice",
+        "RAM ROM volatile cache HDD SSD byte primary secondary"
+      ],
+      "position": 80
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "primary-secondary",
+      "front": "Give two differences between primary memory and secondary storage.",
+      "back": "Primary: CPU accesses it directly, fast, small, mostly volatile. Secondary: not directly executed, slower, large, cheap, non-volatile.",
+      "explanation": "A program must be loaded from secondary into primary to run.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["primary-vs-secondary"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "hierarchy-order",
+      "front": "Order these by speed (fastest first): main memory, cache, registers, SSD.",
+      "back": "Registers, cache, main memory (RAM), SSD.",
+      "explanation": "Faster levels are smaller and costlier per byte, and buffer the level below.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["memory-hierarchy"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "dram-sram",
+      "front": "DRAM vs SRAM - which needs refreshing, and where is each used?",
+      "back": "DRAM stores bits as leaking charge and must be refreshed; used as main memory. SRAM uses latches, no refresh, faster but costlier; used for cache.",
+      "explanation": "Both are volatile.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["ram"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "rom-variants",
+      "front": "Put in order of flexibility: PROM, EPROM, EEPROM.",
+      "back": "PROM - programmable once. EPROM - erasable by UV light, then reprogrammable. EEPROM - erasable electrically, in place. Flash is a block-erasable descendant of EEPROM.",
+      "explanation": "All are non-volatile.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["rom"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "ssd-vs-hdd",
+      "front": "SSD vs HDD - two trade-offs.",
+      "back": "SSD: flash-based, no moving parts, much faster and more shock-resistant, higher cost per byte. HDD: magnetic platters, mechanical, cheaper and larger per byte, slower and more fragile.",
+      "explanation": "Both are non-volatile secondary storage with direct access.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["secondary-technologies"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "random-access-meaning",
+      "front": "What does 'random access' mean in 'RAM'?",
+      "back": "Any storage location can be read or written in about the same time, in any order - not that data is stored randomly.",
+      "explanation": "Contrast with tape, which is sequential access.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "cache-not-ram",
+      "front": "Is cache the same as RAM?",
+      "back": "No. Cache is small, very fast SRAM sitting between the CPU and main memory, holding data the CPU is likely to use next.",
+      "explanation": "Main memory is DRAM; cache is SRAM.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["common-mistakes"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

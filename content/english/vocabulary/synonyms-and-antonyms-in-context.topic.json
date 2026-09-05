@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "english",
+  "subjectName": "English",
+  "subjectPosition": 2,
+  "chapterSlug": "vocabulary",
+  "chapterName": "Vocabulary",
+  "chapterPosition": 4,
+  "topicSlug": "synonyms-and-antonyms-in-context",
+  "topicPosition": 30,
+  "title": "Synonyms and Antonyms in Context",
+  "summary": "Why the right synonym or antonym depends on the sentence and not a dictionary list, how register and connotation decide between close options, and a working set of exam words with a best synonym and best antonym for each.",
+  "difficulty": "intermediate",
+  "estimatedMinutes": 22,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": [
+    "parts-of-speech",
+    "reading-comprehension-strategy"
+  ],
+  "learningObjectives": [
+    "Explain why the sentence, not a word list, fixes the answer.",
+    "Use connotation and register to choose between close options.",
+    "Handle an unfamiliar word through its prefix, root and sentence role.",
+    "Recall a core set of exam words with their opposites."
+  ],
+  "tags": ["vocabulary", "synonyms", "antonyms", "connotation"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": null,
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "WIKIBOOKS_ENGLISH_GRAMMAR",
+      "url": "https://en.wikibooks.org/wiki/English_Grammar",
+      "title": "English Grammar",
+      "publisher": "Wikibooks contributors",
+      "usageMode": "open_adaptable",
+      "license": "CC-BY-SA-4.0",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Cross-check for word class and formation. Every target word's sentence here is original."
+    },
+    {
+      "sourceId": "SATHEE_ENGLISH",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - English section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm synonym and antonym items are a standard question type. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "context-decides",
+      "type": "introduction",
+      "title": "The sentence decides",
+      "markdown": "A synonym item asks for the word *closest in meaning*; an antonym item asks for the word *most nearly opposite* - both **as the word is used in the sentence**. A word can have several senses, and the options usually target different ones.\n\n*Address* can mean a location, a formal speech, or the act of dealing with a problem. \"The manager will **address** the backlog today\" needs *tackle*, not *speech* or *location*. Read the sentence first; decide the sense; then compare options against that sense.",
+      "sourceIds": ["SATHEE_ENGLISH", "WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "synonym closest in meaning antonym most nearly opposite as used in the sentence",
+        "a word has several senses options target different ones",
+        "address tackle versus speech versus location"
+      ],
+      "position": 10
+    },
+    {
+      "id": "connotation-and-register",
+      "type": "concept",
+      "title": "Connotation and register",
+      "markdown": "When two options both fit the sense, decide on **connotation** (positive, negative or neutral) and **register** (formal or informal).\n\n- *Thrifty* and *stingy* both mean spending little - but *thrifty* is approving, *stingy* is critical. The sentence's tone tells you which.\n- *Firm*, *determined*, *stubborn*, *obstinate* run from positive to negative for the same behaviour.\n- *Childlike* (innocent) versus *childish* (immature) - same root, opposite feeling.\n- An informal option (*put up with*) rarely answers a formal sentence that wants *tolerate* or *endure*.\n\nIf the sentence praises someone, the synonym should be a word you could use to praise them.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "connotation positive negative neutral register formal informal",
+        "thrifty approving stingy critical firm determined stubborn obstinate",
+        "childlike versus childish match the sentence tone"
+      ],
+      "position": 20
+    },
+    {
+      "id": "unknown-words",
+      "type": "method",
+      "title": "When you do not know the word",
+      "markdown": "1. **Word class.** Fix whether the target is a noun, verb or adjective from its place in the sentence; drop options of the wrong class.\n2. **Prefix.** *Un-, in-, dis-, mis-, a-* often flip meaning; *bene-* good, *mal-* bad, *sub-* under, *super-* over.\n3. **Root you recognise.** *Ten/tain* = hold (*tenuous*, *tenable*), *dict* = say, *ver* = true (*verify*, *veracity*).\n4. **Charge from the sentence.** Is the word doing something good or bad here? Even a rough +/- reading removes two options.\n5. **Substitute and read aloud.** The best option leaves the sentence saying the same thing.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "unknown word method word class prefix root charge substitute",
+        "un in dis mis a prefixes flip meaning bene mal sub super",
+        "rough plus minus reading removes two options"
+      ],
+      "position": 30
+    },
+    {
+      "id": "word-set-one",
+      "type": "concept",
+      "title": "Core words (1): finance and judgement",
+      "markdown": "| Word | Sentence | Best synonym | Best antonym |\n|---|---|---|---|\n| curtail | The bank curtailed weekend hours to save on staffing. | cut back | extend |\n| prudent | A prudent lender checks cash flow, not just collateral. | cautious | reckless |\n| lucrative | The wealth arm proved the most lucrative unit. | profitable | unprofitable |\n| volatile | Markets were volatile before the policy statement. | unstable | steady |\n| mitigate | Diversifying the book helps mitigate sector risk. | lessen | aggravate |\n| scarce | Small notes were scarce at the branch that week. | in short supply | plentiful |\n| surplus | The branch ran a cash surplus and sent it to the chest. | excess | shortage |\n| robust | Capital stayed robust through the downturn. | strong | fragile |\n| deteriorate | Asset quality deteriorated in the farm segment. | worsen | improve |",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "core exam words curtail prudent lucrative volatile mitigate scarce surplus robust deteriorate",
+        "synonym antonym cut back extend cautious reckless profitable",
+        "finance judgement vocabulary set"
+      ],
+      "position": 40
+    },
+    {
+      "id": "word-set-two",
+      "type": "concept",
+      "title": "Core words (2): people and communication",
+      "markdown": "| Word | Sentence | Best synonym | Best antonym |\n|---|---|---|---|\n| candid | The head was candid about the shortfall. | frank | evasive |\n| meticulous | The reconciliation was meticulous, to the last rupee. | thorough | careless |\n| diligent | A diligent officer follows up every pending paper. | conscientious | negligent |\n| reluctant | Customers were reluctant to move to the app. | unwilling | eager |\n| concede | Management conceded the target was too high. | admit | deny |\n| ambiguous | The clause was ambiguous; two branches read it apart. | unclear | explicit |\n| transparent | The new fee card is more transparent than the old one. | open | opaque |\n| credible | The account was credible and matched the log. | believable | implausible |\n| arduous | Tracing the old record was arduous. | laborious | effortless |\n| tenuous | The link between the accounts was tenuous. | flimsy | solid |",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "core exam words candid meticulous diligent reluctant concede ambiguous transparent credible arduous tenuous",
+        "synonym antonym frank evasive thorough careless admit deny",
+        "people communication vocabulary set"
+      ],
+      "position": 50
+    },
+    {
+      "id": "worked-example",
+      "type": "worked_example",
+      "title": "Worked example: two items",
+      "markdown": "**1. Synonym.** *The committee chose a **prudent** course and kept a large cash buffer.*\nClosest in meaning to *prudent* here: (a) timid (b) cautious (c) generous (d) clever\n\n*Prudent* is careful-and-sensible, with a positive charge; the sentence approves the choice. **(b) cautious**. *Timid* is the negative near-miss (fearful, not wise); *clever* misses the care.\n\n**2. Antonym.** *Footfall in the hall **deteriorated** month after month.*\nMost nearly opposite to *deteriorated*: (a) stabilised (b) improved (c) continued (d) collapsed\n\n*Deteriorate* = get worse, so the opposite is *get better*: **(b) improved**. *Stabilised* only means \"stopped changing\", not \"got better\" - the classic antonym near-miss.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "synonym worked example prudent cautious positive charge timid near miss",
+        "antonym worked example deteriorated improved stabilised near miss"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-mistakes",
+      "type": "warning",
+      "title": "Common mistakes",
+      "markdown": "- **Answering from the word alone.** You picked a dictionary synonym that fits a different sense than the sentence uses.\n- **Antonym near-miss.** For an antonym, \"stopped\" or \"reduced\" is not the opposite of \"grew\" - *shrank* or *fell* is.\n- **Ignoring charge.** Choosing a negative word (*stingy*, *timid*) where the sentence is clearly approving.\n- **Wrong word class.** The target is an adjective; you picked a verb because it \"felt right\".\n- **Over-reading.** The answer is the plain nearest word, not the most impressive one.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "synonym antonym mistakes answering from the word alone wrong sense",
+        "antonym near miss stopped is not opposite of grew",
+        "ignoring charge wrong word class over-reading"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- Read the sentence, fix the sense of the target word, then test options against that sense.\n- Between close options, decide on connotation (+/-/neutral) and register (formal/informal); match the sentence's tone.\n- Unknown word: fix its word class, read its prefix and root, take a rough +/- charge, substitute and read aloud.\n- Antonym trap: \"stopped / reduced\" is not the opposite of \"grew\"; you need a word for the reverse movement.\n- Know the core set: curtail, prudent, mitigate, volatile, candid, meticulous, ambiguous, tenuous, deteriorate - with their opposites.",
+      "sourceIds": ["WIKIBOOKS_ENGLISH_GRAMMAR"],
+      "searchKeywords": [
+        "synonyms antonyms summary revision sense connotation register unknown word antonym trap core set"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "Give the answer and a one-line reason.\n\n1. Synonym of **curtail** in \"The bank curtailed its ATM rollout this year.\" (a) cancel (b) cut back (c) speed up (d) review\n2. Antonym of **scarce** in \"Cashiers were scarce during the festival week.\" (a) absent (b) plentiful (c) idle (d) tired\n3. Synonym of **candid** in \"She gave a candid account of what went wrong.\" (a) brief (b) frank (c) polite (d) rehearsed\n4. Antonym of **robust** in \"The bank's capital position was robust.\" (a) average (b) fragile (c) growing (d) audited\n5. Synonym of **mitigate** in \"Insurance mitigates the loss from a default.\" (a) prevent (b) lessen (c) record (d) transfer\n6. Antonym of **reluctant** in \"Branches were reluctant to adopt the new form.\" (a) slow (b) eager (c) unable (d) required\n7. Synonym of **tenuous** in \"The evidence linking the two firms was tenuous.\" (a) hidden (b) flimsy (c) recent (d) illegal\n8. Antonym of **transparent** in \"The old pricing was anything but transparent.\" (a) cheap (b) opaque (c) fixed (d) fair",
+      "searchKeywords": [
+        "synonyms antonyms practice curtail scarce candid robust mitigate reluctant tenuous transparent",
+        "cut back plentiful frank fragile lessen eager flimsy opaque"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "sense-first",
+      "front": "Before comparing options on a synonym/antonym item, what must you do?",
+      "back": "Read the sentence and fix which sense of the target word is in play - options usually target different senses.",
+      "explanation": "'Address the backlog' = tackle, not speech or location.",
+      "difficulty": "easy",
+      "sourceBlockIds": ["context-decides"],
+      "position": 10,
+      "status": "approved"
+    },
+    {
+      "id": "connotation",
+      "front": "Two options both fit the sense. How do you choose?",
+      "back": "By connotation (positive / negative / neutral) and register (formal / informal), matched to the sentence's tone.",
+      "explanation": "'Thrifty' praises; 'stingy' criticises - same behaviour.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["connotation-and-register"],
+      "position": 20,
+      "status": "approved"
+    },
+    {
+      "id": "antonym-trap",
+      "front": "Why is 'stabilised' a trap answer for the antonym of 'deteriorated'?",
+      "back": "'Stabilised' only means it stopped changing; the true opposite of 'got worse' is 'improved' - a reverse movement, not a halt.",
+      "explanation": "Same trap: 'reduced' is not the opposite of 'grew'.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["worked-example", "common-mistakes"],
+      "position": 30,
+      "status": "approved"
+    },
+    {
+      "id": "prudent",
+      "front": "Best synonym for 'prudent' in an approving sentence?",
+      "back": "Cautious (careful and sensible). Not 'timid', which is the negative near-miss.",
+      "explanation": "Charge matters: prudent is positive.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["word-set-one", "worked-example"],
+      "position": 40,
+      "status": "approved"
+    },
+    {
+      "id": "mitigate",
+      "front": "'Mitigate' means? Give its opposite.",
+      "back": "To lessen or ease (a risk, loss, effect). Opposite: aggravate / worsen.",
+      "explanation": "Not 'prevent' - mitigate reduces, it does not stop.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["word-set-one"],
+      "position": 50,
+      "status": "approved"
+    },
+    {
+      "id": "tenuous",
+      "front": "'The link was tenuous.' Synonym and antonym of 'tenuous'?",
+      "back": "Synonym: flimsy / weak. Antonym: solid / strong.",
+      "explanation": "Root ten- = hold; a tenuous link barely holds.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["word-set-two"],
+      "position": 60,
+      "status": "approved"
+    },
+    {
+      "id": "unknown-word",
+      "front": "You don't know the target word. First move?",
+      "back": "Fix its word class from the sentence and drop options of the wrong class; then read its prefix/root and take a rough +/- charge.",
+      "explanation": "Even a rough charge removes two options.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["unknown-words"],
+      "position": 70,
+      "status": "approved"
+    }
+  ]
+}

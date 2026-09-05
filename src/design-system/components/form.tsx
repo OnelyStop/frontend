@@ -106,7 +106,8 @@ export function Segmented<T extends string>({
   value: T;
   options: readonly T[];
   onChange: (v: T) => void;
-  labels?: Record<string, string>;
+  // ReactNode, not string: the billing toggle puts a Badge inside a pill.
+  labels?: Record<string, ReactNode>;
   className?: string;
 }) {
   return (
@@ -122,7 +123,7 @@ export function Segmented<T extends string>({
           type="button"
           onClick={() => onChange(o)}
           className={cn(
-            "rounded-pill px-4 py-1.5 text-[14px] transition-colors duration-150",
+            "rounded-pill inline-flex items-center gap-2 px-4 py-1.5 text-[14px] transition-colors duration-150",
             value === o ? "bg-ink text-white" : "text-ink-3 hover:text-ink",
           )}
         >

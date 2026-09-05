@@ -6,11 +6,12 @@ import { useAuth } from "@/features/auth/AuthContext";
 import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
 import { AuthShell } from "@/features/auth/components/AuthShell";
 import {
+  AuthDivider,
   AuthError,
   GoogleButton,
   SetupNotice,
 } from "@/features/auth/components/AuthBits";
-import { Button } from "@/components/marketing/Button";
+import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -40,39 +41,40 @@ export function LoginView({ from }: { from: string }) {
   return (
     <AuthShell
       title="Welcome back"
-      subtitle="Pick up your path to A* where you left off."
+      subtitle="Pick up where you left off."
       footer={
         <>
-          New here? <Link href="/signup">Create an account</Link>
+          New here?{" "}
+          <Link href="/signup" className="text-ink font-medium">
+            Create an account
+          </Link>
         </>
       }
     >
-      <form className="auth-form" onSubmit={handleSubmit}>
+      <form className="mt-6" onSubmit={handleSubmit}>
         {!configured && <SetupNotice />}
 
         {googleEnabled && (
           <>
             <GoogleButton onClick={handleGoogle} disabled={busy} />
-            <div className="auth-form__divider">or</div>
+            <AuthDivider />
           </>
         )}
 
-        <div className="form-grid">
-          <div className="field">
-            <label htmlFor="login-email">Email</label>
-            <input
+        <div className="grid gap-3.5">
+          <Field label="Email" htmlFor="login-email">
+            <Input
               id="login-email"
               type="email"
               autoComplete="email"
-              placeholder="you@school.ac.uk"
+              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-          </div>
-          <div className="field">
-            <label htmlFor="login-password">Password</label>
-            <input
+          </Field>
+          <Field label="Password" htmlFor="login-password">
+            <Input
               id="login-password"
               type="password"
               autoComplete="current-password"
@@ -81,10 +83,15 @@ export function LoginView({ from }: { from: string }) {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <div className="auth-form__meta">
-              <Link href="/forgot-password">Forgot password?</Link>
+            <div className="mt-2 flex justify-end">
+              <Link
+                href="/forgot-password"
+                className="text-ink-2 hover:text-ink text-[12.5px]"
+              >
+                Forgot password?
+              </Link>
             </div>
-          </div>
+          </Field>
         </div>
 
         {error && <AuthError message={error} />}
@@ -92,12 +99,11 @@ export function LoginView({ from }: { from: string }) {
         <Button
           type="submit"
           size="lg"
-          className="auth-form__submit"
+          block
+          className="mt-5"
           disabled={busy || !configured}
-          leftIcon={
-            busy ? <Loader2 size={16} className="auth-spinner" /> : undefined
-          }
         >
+          {busy ? <Loader2 size={16} className="animate-spin" /> : null}
           {busy ? "Signing in…" : "Sign in"}
         </Button>
       </form>

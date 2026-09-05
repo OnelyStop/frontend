@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "subjectSlug": "banking-awareness",
+  "subjectName": "Banking Awareness",
+  "subjectPosition": 3,
+  "chapterSlug": "prudential-regulation",
+  "chapterName": "Prudential regulation and risk",
+  "chapterPosition": 5,
+  "topicSlug": "npa-resolution-and-recovery",
+  "topicPosition": 30,
+  "title": "NPA Resolution and Recovery",
+  "summary": "Once a loan is an NPA, the routes to recover it: SARFAESI enforcement of security without a court, the Debt Recovery Tribunals under the RDDBFI Act, the Insolvency and Bankruptcy Code with its NCLT process, and settlement routes like Lok Adalats and one-time settlements — with the RBI's stressed-asset framework sitting above all of them.",
+  "difficulty": "advanced",
+  "estimatedMinutes": 28,
+  "examTags": ["sbi-po", "sbi-clerk", "ibps-po", "ibps-clerk"],
+  "prerequisiteTopicSlugs": ["asset-quality-and-npas"],
+  "learningObjectives": [
+    "Describe the SARFAESI route and when a secured creditor can use it without going to court.",
+    "Explain what a Debt Recovery Tribunal does and the Act behind it.",
+    "Outline the IBC process: who can trigger it, the Committee of Creditors, and resolution versus liquidation.",
+    "Match a stressed-account scenario to the most appropriate recovery route."
+  ],
+  "tags": ["banking-awareness", "sarfaesi", "ibc", "drt", "recovery"],
+  "contentStatus": "published",
+  "contentVersion": 1,
+  "authoredBy": "content-pipeline",
+  "lastReviewedAt": "2026-09-02T00:00:00Z",
+  "reviewCadenceDays": 365,
+  "sources": [
+    {
+      "sourceId": "RBI_MASTER_DIRECTIONS",
+      "url": "https://www.rbi.org.in/scripts/BS_ViewMasterDirections.aspx?did=339",
+      "title": "RBI Master Directions and framework on resolution of stressed assets",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Consulted for the RBI's Prudential Framework for Resolution of Stressed Assets and the interaction of recovery routes with provisioning. Restated in original wording; no timelines quoted verbatim."
+    },
+    {
+      "sourceId": "INDIACODE_BANKING_ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1885",
+      "title": "Banking Regulation Act, 1949 (with related recovery statutes on India Code)",
+      "publisher": "India Code (Government of India)",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "India Code is the source for the statutory recovery framework (SARFAESI Act 2002, RDDBFI Act 1993, Insolvency and Bankruptcy Code 2016). Provisions summarised in original wording; no section text reproduced."
+    },
+    {
+      "sourceId": "RBI_HOME",
+      "url": "https://www.rbi.org.in/",
+      "title": "Reserve Bank of India",
+      "publisher": "Reserve Bank of India",
+      "usageMode": "reference_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "adapted": false,
+      "notes": "Used to confirm current terminology for asset reconstruction companies and the reference of large accounts to the IBC."
+    },
+    {
+      "sourceId": "SATHEE_BANK",
+      "url": "https://sathee.iitk.ac.in/sathee-bank-exam/",
+      "title": "SATHEE Bank Exam - awareness section",
+      "publisher": "Ministry of Education / IIT Kanpur",
+      "usageMode": "scope_only",
+      "retrievedAt": "2026-09-02T00:00:00Z",
+      "notes": "Consulted only to confirm that NPA recovery routes are a standard awareness topic. No content reused."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "from-classification-to-recovery",
+      "type": "introduction",
+      "title": "From classification to recovery",
+      "markdown": "Classifying a loan as an NPA and providing for it protects the balance sheet, but the bank still wants its money back. Recovery routes fall into three families:\n\n- **Enforce the security** yourself, outside court — the SARFAESI route.\n- **Go to a specialised court** for a recovery order — the Debt Recovery Tribunal.\n- **Put the borrower through an insolvency process** run by the creditors as a group — the Insolvency and Bankruptcy Code.\n\nSmaller dues are often settled instead — through a Lok Adalat or a negotiated one-time settlement. Above all of these sits the RBI's framework telling banks *when* they must start resolving a stressed account.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "INDIACODE_BANKING_ACT"],
+      "searchKeywords": [
+        "NPA recovery routes enforce security go to specialised court insolvency process",
+        "SARFAESI DRT IBC three families of recovery",
+        "smaller dues settled Lok Adalat one-time settlement RBI stressed asset framework"
+      ],
+      "position": 10
+    },
+    {
+      "id": "sarfaesi",
+      "type": "concept",
+      "title": "SARFAESI — enforcing security without a court",
+      "markdown": "The **Securitisation and Reconstruction of Financial Assets and Enforcement of Security Interest Act, 2002 (SARFAESI)** lets a **secured** creditor recover from the collateral without first obtaining a court decree.\n\n- The lender issues a **demand notice** giving the borrower **60 days** to repay.\n- If the borrower does not, the lender can take **possession** of the secured asset, manage it, or sell it, and apply the proceeds to the debt.\n- The borrower can appeal to the **Debt Recovery Tribunal**; the lender does not need the tribunal's permission to act, but the tribunal can review.\n\nSARFAESI also created **asset reconstruction companies (ARCs)** — entities that buy bad loans from banks (often against security receipts) and pursue recovery themselves.\n\nLimits: it needs a **security interest** (an unsecured loan cannot use it), it does not apply to very small loans or to agricultural land, and possession of occupied property may still need the magistrate's help.",
+      "sourceIds": ["INDIACODE_BANKING_ACT", "RBI_HOME"],
+      "searchKeywords": [
+        "SARFAESI 2002 secured creditor recover from collateral without court decree",
+        "demand notice 60 days then take possession manage or sell the secured asset",
+        "borrower appeals to Debt Recovery Tribunal lender does not need permission to act",
+        "asset reconstruction companies buy bad loans security receipts",
+        "SARFAESI needs a security interest not for unsecured loans agricultural land excluded"
+      ],
+      "position": 20
+    },
+    {
+      "id": "drt",
+      "type": "concept",
+      "title": "Debt Recovery Tribunals and the RDDBFI Act",
+      "markdown": "The **Recovery of Debts Due to Banks and Financial Institutions Act, 1993 (RDDBFI)** set up **Debt Recovery Tribunals (DRTs)** and **Debt Recovery Appellate Tribunals (DRATs)** as a faster alternative to ordinary civil courts for bank dues above a threshold amount.\n\n- A bank files an **original application** in the DRT for a **recovery certificate** — an order confirming the amount due.\n- A **recovery officer** then enforces the certificate, by attaching and selling the borrower's property.\n- Appeals go to the DRAT, usually after the borrower deposits a part of the amount.\n\nThe DRT is also the appellate forum for a borrower aggrieved by a SARFAESI action. It handles both secured and unsecured claims, which SARFAESI cannot.",
+      "sourceIds": ["INDIACODE_BANKING_ACT"],
+      "searchKeywords": [
+        "RDDBFI Act 1993 Debt Recovery Tribunal DRT DRAT faster than civil courts threshold amount",
+        "original application recovery certificate recovery officer attaches and sells property",
+        "appeal to DRAT after depositing part of the amount",
+        "DRT is appellate forum for SARFAESI action handles secured and unsecured claims"
+      ],
+      "position": 30
+    },
+    {
+      "id": "ibc",
+      "type": "concept",
+      "title": "The Insolvency and Bankruptcy Code",
+      "markdown": "The **Insolvency and Bankruptcy Code, 2016 (IBC)** is a time-bound, creditor-driven process to resolve a defaulting company as a whole, not just one loan.\n\n- A **financial creditor**, an **operational creditor**, or the company itself can apply to the **National Company Law Tribunal (NCLT)** — the adjudicating authority — once a default crosses the prescribed minimum.\n- On admission, the **Corporate Insolvency Resolution Process (CIRP)** begins: a **moratorium** freezes recovery actions and suits; an **insolvency professional** takes over management; and a **Committee of Creditors (CoC)**, made up of the financial creditors weighted by claim, runs the show.\n- The CoC invites **resolution plans** from outside applicants and approves one by the required majority. The plan binds all stakeholders.\n- If no plan is approved within the outer time limit, the company goes into **liquidation** and assets are distributed in the statutory **waterfall** — secured creditors and workmen rank high, equity last.\n\nThe IBC shifted control from the defaulting promoter to the creditors, and set an outer clock on the process.",
+      "sourceIds": ["INDIACODE_BANKING_ACT", "RBI_HOME"],
+      "searchKeywords": [
+        "Insolvency and Bankruptcy Code 2016 time-bound creditor-driven resolve company as a whole",
+        "financial creditor operational creditor or company applies to NCLT adjudicating authority default crosses minimum",
+        "CIRP moratorium insolvency professional takes over Committee of Creditors weighted by claim",
+        "resolution plans approved by required majority bind all stakeholders",
+        "no plan means liquidation waterfall secured creditors workmen high equity last",
+        "IBC shifted control from promoter to creditors outer time limit"
+      ],
+      "position": 40
+    },
+    {
+      "id": "settlement-and-framework",
+      "type": "concept",
+      "title": "Settlement routes and the RBI framework",
+      "markdown": "- **Lok Adalat:** a conciliation forum for small dues, where a compromise reached is recorded as a binding award without appeal. Cheap and quick, used for retail and small-business NPAs.\n- **One-time settlement (OTS) / compromise:** the bank agrees to accept less than the full dues in a lump sum, closing the account. It is a commercial call, made under a board-approved policy, when full recovery looks unlikely or too slow.\n- **RBI Prudential Framework for Resolution of Stressed Assets (June 2019):** once a borrower defaults, lenders must review the account promptly, and if they choose to restructure they must sign an **inter-creditor agreement** and implement a plan within a set timeline — failing which extra provisioning kicks in. Large accounts can be referred to the IBC.\n\nBanks use these in parallel: a bank might pursue SARFAESI on the collateral while the account is also in the NCLT.",
+      "sourceIds": ["RBI_MASTER_DIRECTIONS", "INDIACODE_BANKING_ACT"],
+      "searchKeywords": [
+        "Lok Adalat conciliation small dues compromise recorded as binding award no appeal",
+        "one-time settlement OTS compromise bank accepts less than full dues lump sum board-approved policy",
+        "RBI Prudential Framework Resolution of Stressed Assets June 2019 inter-creditor agreement timeline extra provisioning",
+        "banks pursue SARFAESI and NCLT in parallel"
+      ],
+      "position": 50
+    },
+    {
+      "id": "route-comparison",
+      "type": "comparison",
+      "title": "SARFAESI versus DRT versus IBC",
+      "markdown": "| Feature | SARFAESI | DRT (RDDBFI) | IBC |\n| --- | --- | --- | --- |\n| What it targets | The specific secured asset | The debt owed to the bank | The whole defaulting company |\n| Who initiates | The secured creditor, on its own | The bank, by filing in the tribunal | Any financial or operational creditor, or the company |\n| Forum | No court needed to act; DRT hears appeals | Debt Recovery Tribunal, appeal to DRAT | National Company Law Tribunal, appeal to NCLAT |\n| Needs security? | Yes — a security interest is essential | No — secured or unsecured | No |\n| Outcome | Sale of the collateral | Recovery certificate, then attachment and sale | An approved resolution plan, or liquidation |\n| Control of the borrower | Stays with the borrower (asset taken over) | Stays with the borrower | Passes to an insolvency professional and the creditors |",
+      "sourceIds": ["INDIACODE_BANKING_ACT", "RBI_MASTER_DIRECTIONS"],
+      "searchKeywords": [
+        "SARFAESI versus DRT versus IBC comparison target initiator forum security outcome control",
+        "SARFAESI secured asset self-help DRT recovery certificate IBC whole company resolution plan"
+      ],
+      "position": 60
+    },
+    {
+      "id": "common-confusions",
+      "type": "warning",
+      "title": "Common confusions",
+      "markdown": "- **SARFAESI needs security.** An unsecured lender must go to the DRT or the IBC, not SARFAESI.\n- **SARFAESI does not require a court order to act** — the borrower's remedy is to appeal to the DRT *after* the action.\n- **The DRT gives a recovery certificate; it does not run the borrower's business.** The IBC does — control passes to an insolvency professional.\n- **The IBC resolves the whole company, not one loan.** A single lender cannot pick and choose.\n- **The Committee of Creditors is made of financial creditors**, weighted by claim; operational creditors have limited voting rights.\n- **A one-time settlement writes off part of the dues by agreement; a write-off alone does not release the borrower.** OTS closes the account.\n- **NCLT, not DRT, is the IBC forum.** DRT/DRAT belong to RDDBFI and SARFAESI appeals.",
+      "searchKeywords": [
+        "SARFAESI needs security unsecured lender uses DRT or IBC",
+        "SARFAESI no court order to act borrower appeals to DRT after",
+        "DRT gives recovery certificate IBC control passes to insolvency professional",
+        "IBC resolves whole company not one loan",
+        "Committee of Creditors financial creditors weighted by claim operational limited votes",
+        "one-time settlement closes account by agreement NCLT is IBC forum not DRT"
+      ],
+      "position": 70
+    },
+    {
+      "id": "quick-revision",
+      "type": "summary",
+      "title": "Quick revision",
+      "markdown": "- SARFAESI (2002): a secured creditor issues a 60-day demand notice, then takes possession and sells the collateral without a court order; the borrower appeals to the DRT. It created asset reconstruction companies. No security interest, no SARFAESI.\n- RDDBFI (1993): a bank files in a Debt Recovery Tribunal for a recovery certificate above a threshold; a recovery officer then attaches and sells property; appeal to the DRAT. Handles secured and unsecured claims.\n- IBC (2016): any financial or operational creditor, or the company, applies to the NCLT once default crosses the minimum; the CIRP starts with a moratorium, an insolvency professional takes over, and a Committee of Creditors approves a resolution plan or the company is liquidated on the statutory waterfall. Appeal to the NCLAT.\n- Lok Adalats and one-time settlements dispose of smaller or hard-to-recover dues by compromise.\n- The RBI's June-2019 Prudential Framework sets when lenders must start resolving a stressed account and requires an inter-creditor agreement and a time-bound plan.",
+      "searchKeywords": [
+        "NPA resolution and recovery summary revision",
+        "SARFAESI RDDBFI IBC Lok Adalat OTS RBI framework recap"
+      ],
+      "position": 80
+    },
+    {
+      "id": "practice",
+      "type": "practice",
+      "title": "Practice",
+      "markdown": "One defensible answer each, with a one-line reason.\n\n1. A bank holds a mortgage over a defaulting borrower's warehouse and wants to sell it without first suing. Which route, and how many days' notice?\n2. A borrower is aggrieved by the bank's possession notice under SARFAESI. Which forum hears the appeal?\n3. An unsecured working-capital loan of a mid-size firm has defaulted and the bank wants a recovery order. Which route?\n4. A large company has defaulted to several banks and an operational creditor; the lenders want a single time-bound process that binds everyone. Which route, and which forum?\n5. Under the IBC, who runs the company during the resolution process, and which body of creditors decides the outcome?\n6. If the Committee of Creditors approves no resolution plan within the outer time limit, what happens?\n7. A branch wants to close a small, long-pending NPA by accepting a reduced lump sum under a board policy. Name this route.\n8. Which body created asset reconstruction companies, and under which Act?\n\n**Answers:** 1 SARFAESI — a 60-day demand notice, then possession and sale, as it is a secured creditor. 2 The Debt Recovery Tribunal (DRT). 3 The DRT under the RDDBFI Act — SARFAESI is unavailable without security. 4 The IBC, before the National Company Law Tribunal (NCLT). 5 An insolvency professional runs the company; the Committee of Creditors (the financial creditors, weighted by claim) decides. 6 The company goes into liquidation and assets are distributed on the statutory waterfall. 7 A one-time settlement (OTS) / compromise. 8 SARFAESI created asset reconstruction companies, under the SARFAESI Act, 2002.",
+      "searchKeywords": [
+        "NPA recovery practice match scenario to route SARFAESI DRT IBC OTS",
+        "60 day notice recovery certificate NCLT Committee of Creditors liquidation waterfall exercise"
+      ],
+      "position": 90
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "sarfaesi-basics",
+      "front": "What does the SARFAESI Act, 2002 let a secured creditor do?",
+      "back": "Recover from the collateral without first getting a court decree: issue a 60-day demand notice, then take possession of the secured asset and sell it, applying the proceeds to the debt. The borrower's remedy is to appeal to the DRT.",
+      "explanation": "It needs a security interest — an unsecured loan cannot use it.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sarfaesi"],
+      "status": "approved",
+      "position": 10
+    },
+    {
+      "id": "arc",
+      "front": "What is an asset reconstruction company (ARC)?",
+      "back": "An entity, created under the SARFAESI Act, that buys bad loans from banks (often against security receipts) and pursues recovery itself, taking the NPA off the bank's books.",
+      "explanation": "It lets a bank exit a stressed exposure for a discounted price.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["sarfaesi"],
+      "status": "approved",
+      "position": 20
+    },
+    {
+      "id": "drt-rddbfi",
+      "front": "What is a Debt Recovery Tribunal and which Act set it up?",
+      "back": "A specialised tribunal under the RDDBFI Act, 1993 for recovering bank dues above a threshold faster than a civil court. The bank files for a recovery certificate; a recovery officer then attaches and sells property; appeals go to the DRAT.",
+      "explanation": "It handles secured and unsecured claims and hears SARFAESI appeals.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["drt"],
+      "status": "approved",
+      "position": 30
+    },
+    {
+      "id": "ibc-trigger",
+      "front": "Who can start an IBC process, and before which forum?",
+      "back": "A financial creditor, an operational creditor, or the corporate debtor itself can apply to the National Company Law Tribunal (NCLT) once a default crosses the prescribed minimum amount.",
+      "explanation": "NCLT is the adjudicating authority; appeals go to the NCLAT.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["ibc"],
+      "status": "approved",
+      "position": 40
+    },
+    {
+      "id": "coc",
+      "front": "In a CIRP, who manages the company and who decides the outcome?",
+      "back": "An insolvency professional takes over management; the Committee of Creditors — the financial creditors, weighted by the size of their claims — approves a resolution plan by the required majority, or the company is liquidated.",
+      "explanation": "The IBC shifted control from the promoter to the creditors.",
+      "difficulty": "hard",
+      "sourceBlockIds": ["ibc"],
+      "status": "approved",
+      "position": 50
+    },
+    {
+      "id": "liquidation-waterfall",
+      "front": "What happens under the IBC if no resolution plan is approved in time?",
+      "back": "The company goes into liquidation and its assets are distributed in the statutory waterfall — secured creditors and workmen's dues rank near the top, equity shareholders last.",
+      "explanation": "The outer time limit forces a decision.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["ibc"],
+      "status": "approved",
+      "position": 60
+    },
+    {
+      "id": "sarfaesi-vs-ibc",
+      "front": "Key difference between SARFAESI and the IBC?",
+      "back": "SARFAESI targets one specific secured asset and is used by a single secured creditor acting on its own. The IBC targets the whole defaulting company through a collective, creditor-driven process before the NCLT, ending in a resolution plan or liquidation.",
+      "explanation": "One enforces a charge; the other resolves the company.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["route-comparison"],
+      "status": "approved",
+      "position": 70
+    },
+    {
+      "id": "ots",
+      "front": "What is a one-time settlement (OTS)?",
+      "back": "A commercial agreement, under a board-approved policy, where the bank accepts less than the full dues in a lump sum and closes the account — used when full recovery looks unlikely or too slow.",
+      "explanation": "Unlike a bare write-off, OTS releases the borrower and closes the account.",
+      "difficulty": "medium",
+      "sourceBlockIds": ["settlement-and-framework"],
+      "status": "approved",
+      "position": 80
+    }
+  ]
+}
