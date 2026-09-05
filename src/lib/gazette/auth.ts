@@ -1,14 +1,9 @@
 import { timingSafeEqual } from "node:crypto";
 
-/**
- * The `/internal/*` routes accept `Authorization: Bearer <CRON_SECRET>`.
- * Vercel Cron sends this automatically once CRON_SECRET is set in project env;
- * the same header lets an operator curl a manual re-run.
- *
- * Reads `process.env` directly rather than the validated `env` object: the auth
- * gate must not depend on DB / LLM keys being present. No secret configured →
- * nothing is authorized.
- */
+// `/internal/*` accepts `Authorization: Bearer <CRON_SECRET>`, which Vercel
+// Cron sends automatically. Reads process.env directly so the gate cannot
+// depend on DB / LLM keys being present. No secret configured → nothing is
+// authorized.
 export function isAuthorizedCron(req: Request): boolean {
   const secret = process.env.CRON_SECRET ?? "";
   if (secret.length < 16) {

@@ -6,8 +6,7 @@ export type GroundingResult = { ok: boolean; reason: string };
 
 type Source = { title: string; summary: string };
 
-// Titles/honorifics that legitimately appear in a model's answer phrasing but
-// not in a terse news snippet — don't count them against a name match.
+// Honorifics appear in a model's answer phrasing but not in a terse snippet.
 const HONORIFICS = new Set([
   "shri",
   "smt",
@@ -26,17 +25,9 @@ const HONORIFICS = new Set([
   "sushri",
 ]);
 
-/**
- * The pipeline's only quality gate (spec §4): confirm the stated answer is
- * grounded in the source. Deterministic — no second model call.
- *
- * The "source" here is only the title + snippet we store (NewsData/RSS don't
- * give full body text on the free tier), so the check is lenient about
- * phrasing: an answer counts as grounded if it appears verbatim, shares a
- * distinguishing number, or has most of its content words present (tolerating
- * word-join/split and dropped honorifics). The firm guard that stays strict:
- * if the explanation cites a number, that number must appear in the source.
- */
+// The only quality gate, deterministic. The source is just title + snippet
+// (no full body on the free tier), so phrasing is matched leniently — but a
+// number cited in the explanation must appear in the source.
 export function isGrounded(q: DraftQuestion, source: Source): GroundingResult {
   const srcText = normalizeText(`${source.title} ${source.summary}`);
   if (!srcText) return { ok: false, reason: "empty source text" };

@@ -2,9 +2,8 @@ import Parser from "rss-parser";
 import { activeProfile } from "@/lib/gazette/config/profile";
 import type { RawArticle } from "@/lib/gazette/types";
 
-// Several government sites (SEBI especially) drop requests without a
-// browser-ish User-Agent, and SEBI in particular is slow — hence the longer
-// timeout. A feed that still fails is handled below, not fatal.
+// SEBI drops requests without a browser-ish User-Agent and is slow — hence
+// the longer timeout.
 const parser = new Parser({
   timeout: 30_000,
   headers: {
@@ -22,11 +21,6 @@ function stripHtml(s: string): string {
     .trim();
 }
 
-/**
- * RBI / PIB / SEBI press-release feeds — the official announcements banking
- * exams actually quiz on. A feed that fails to load is treated as empty so one
- * dead endpoint doesn't sink the whole ingest pass.
- */
 export async function fetchRssFeeds(): Promise<RawArticle[]> {
   const results = await Promise.allSettled(
     activeProfile.rssFeeds.map(async (feed) => {

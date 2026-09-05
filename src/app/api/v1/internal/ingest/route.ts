@@ -5,8 +5,9 @@ import { runIngest } from "@/lib/gazette/pipeline/ingest";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
+// Same region as the database and the Indian news sources.
+export const preferredRegion = "bom1";
 
-// POST /internal/ingest — cron (06:00 & 18:00 IST) or manual re-run.
 export async function POST(request: Request) {
   if (!isAuthorizedCron(request)) return json({ error: "unauthorized" }, 401);
 
