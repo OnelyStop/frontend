@@ -1,6 +1,6 @@
-# onelystopp
+# onelystop
 
-Frontend for the onelystopp revision platform — question bank, PYQ mixes, AI exams, answer marking, diagrams, interview practice, and progress tools.
+Frontend for onelystop — mocks under sectional timing, drills, daily current affairs, descriptive marking and a doubts community for IBPS, SBI and RBI exam prep.
 
 ## Stack
 
@@ -87,28 +87,39 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY
 These are inlined at build time, so **changing them requires a redeploy**.
 `DATABASE_URL` is only needed for migrations, not at runtime.
 
-Supabase → Authentication → URL Configuration → Redirect URLs must include the
-deployed callback, or sign-in silently writes no cookie:
+Supabase → Authentication → URL Configuration → Redirect URLs must include
+both of these, or sign-in silently writes no cookie and password resets land
+on Site URL:
 
 ```
 https://<your-domain>/auth/callback
+https://<your-domain>/reset-password
 ```
+
+Email links only work on any device if the templates (Confirm signup, Reset
+password, Magic link, Invite) point at the token-hash route instead of the
+default PKCE callback:
+
+```
+{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup
+```
+
+with `type` set to `recovery`, `magiclink` or `invite` in the other templates.
+`/auth/callback` stays for Google sign-in.
 
 ## Feature routes
 
-| Route            | Feature                             |
-| ---------------- | ----------------------------------- |
-| `/`              | Home study path                     |
-| `/question-bank` | Question bank                       |
-| `/past-papers`   | Past paper finder                   |
-| `/pyq-mix`       | PYQ mix generator                   |
-| `/ai-exams`      | AI-curated exams                    |
-| `/theory`        | Theory & tricks                     |
-| `/revision`      | Revision guide                      |
-| `/marker`        | Answer / Essay / Long Answer Marker |
-| `/diagrams`      | Diagram generator                   |
-| `/interview`     | AI Interview                        |
-| `/tutor`         | AI tutor                            |
-| `/progress`      | Progress tracker                    |
-| `/memory`        | A* memory                           |
-| `/notes`         | Sticky notes                        |
+| Route                                  | Feature                                              |
+| -------------------------------------- | ---------------------------------------------------- |
+| `/`, `/privacy`, `/terms`              | Public pages, server-rendered for SEO                |
+| `/login`, `/signup`, `/reset-password` | Auth; `/auth/callback` (OAuth) and `/auth/confirm`   |
+| `/home`                                | Today — every section against its cutoff             |
+| `/attempt-map`                         | Accuracy against pace: what to bank and what to skip |
+| `/mocks`, `/drills`                    | Full papers under sectional timing; short timed sets |
+| `/study`                               | Knowledge base                                       |
+| `/current-affairs`                     | One grounded question per story, daily               |
+| `/flashcards`, `/notes`                | Recall                                               |
+| `/progress`, `/descriptive`            | Progress; letter and essay marking                   |
+| `/community`                           | Doubts ranked by how many are stuck                  |
+| `/profile`, `/settings`, `/upgrade`    | Account and billing                                  |
+| `/admin`                               | Role-gated via `requireRole()`                       |

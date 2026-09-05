@@ -5,9 +5,6 @@ import { useApp } from "@/context/AppContext";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
 import { SECTIONS, SECTION_SHORT, type Subject } from "@/data/navigation";
 
-/* Drills. Defaults are the feature: land, press Start, you are practising.
-   The set is already aimed at whatever the attempt map says is costing marks. */
-
 const LENGTHS = [10, 20, 30] as const;
 const MODES = ["Weak topics", "Speed", "Mixed"] as const;
 
@@ -37,8 +34,6 @@ export function DrillsView() {
         />
 
         <Card className="p-8">
-          {/* Pace bar: the drill's whole point is training the 45-second
-              instinct, so the budget is visible before you answer. */}
           <div className="mb-6 flex items-center gap-3">
             <div className="rounded-pill bg-line h-1.5 flex-1 overflow-hidden">
               <div className="rounded-pill bg-brand h-full w-1/4" />

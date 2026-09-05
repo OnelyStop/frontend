@@ -1,24 +1,15 @@
 import { ArrowUpRight } from "lucide-react";
 import { ButtonLink } from "@/design-system";
+import { EXAMS } from "@/data/navigation";
+import type { PlanPrice } from "@/features/billing/types";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
 import { AppWindow } from "./_sections/app-window";
 import { Cta } from "./_sections/cta";
 import { MarkingScene } from "./_sections/marking";
 import { Mosaic } from "./_sections/mosaic";
 
-const SPEC_CODES = [
-  "OCR A H420",
-  "AQA 7405",
-  "AQA 7408",
-  "Edexcel 9MA0",
-  "CIE 9700",
-  "AQA 8464",
-  "OCR J250",
-  "Edexcel 1MA1",
-];
-
 // The date is the point: a pledge that can be quietly edited is not one.
-const PLEDGE_DATED = "29 August 2026";
+const PLEDGE_DATED = "5 September 2026";
 
 const GUTTER = "px-5 sm:px-8 lg:px-16";
 const SECTION_Y = "py-[clamp(64px,7vw,104px)]";
@@ -38,18 +29,18 @@ const HERO_GLOW: React.CSSProperties = {
 const PLEDGE = [
   {
     no: "01",
-    claim: "Every past paper we can legally host is free, forever.",
+    claim: "Two full mocks a month are free, forever.",
     rest: "No trial, no card, no countdown.",
   },
   {
     no: "02",
-    claim: "The marking is a model reading a mark scheme.",
-    rest: "It is fast and it is specific, and it is not your teacher.",
+    claim: "The descriptive marking is a model reading a rubric.",
+    rest: "It is fast and it is specific, and it is not an examiner.",
   },
   {
     no: "03",
     claim: "You can see why it gave every mark.",
-    rest: "Each one points at the marking point it came from.",
+    rest: "Each one points at the rubric line it came from.",
   },
   {
     no: "04",
@@ -59,7 +50,7 @@ const PLEDGE = [
   {
     no: "05",
     claim: "Your answers are yours.",
-    rest: "They are not used to train anything, and you can delete the lot in one click.",
+    rest: "They are not used to train anything, and closing your account deletes them.",
   },
   {
     no: "06",
@@ -68,50 +59,54 @@ const PLEDGE = [
   },
   {
     no: "07",
-    claim: "We say when the marking is unsure.",
-    rest: "Low-confidence marks are flagged, not quietly averaged in.",
+    claim: "Every current-affairs question names its source.",
+    rest: "Written from the day's reporting and checked against it before you see it.",
   },
   {
     no: "08",
-    claim: "You can take your work with you.",
-    rest: "Every answer and mark exports in one file, any time.",
+    claim: "Negative marking is never hidden.",
+    rest: "Every score shows what wrong answers took back, a quarter mark at a time.",
   },
 ];
 
-const MEMORY_ROWS = [
+const STRATEGY_ROWS = [
   {
-    label: "It counts down to your actual exam date.",
-    body: "Set the paper, and the schedule compresses as the date gets closer instead of running the same intervals all year.",
+    label: "Every wrong answer costs a quarter mark.",
+    body: "IBPS and SBI deduct 0.25 for each wrong answer. The attempt map prices that into every question before you commit to it.",
   },
   {
-    label: "What you got wrong comes back sooner.",
-    body: "A marking point you dropped in a six-marker becomes a card, automatically.",
+    label: "Accuracy against pace, per topic.",
+    body: "Bank what you get right quickly. Skip what you get wrong slowly. The map shows which is which, from your own sittings.",
   },
   {
-    label: "It's the same content as the question bank.",
-    body: "Nothing to re-enter. The facts are already tagged to your spec.",
+    label: "Sectional timing is real timing.",
+    body: "Twenty minutes for English means twenty minutes. The mock moves on without you, the way the paper does.",
   },
   {
     label: "Ten minutes is a real session.",
-    body: "Built to fit a bus ride, not to demand a study block you don't have.",
+    body: "A drill fits a bus ride, not a study block you don't have.",
   },
 ];
 
-export function LandingView() {
+export function LandingView({
+  prices,
+  billingEnabled,
+}: {
+  prices: PlanPrice[];
+  billingEnabled: boolean;
+}) {
   return (
     <main className="flex-1">
       <section className={`${GUTTER} pt-[clamp(56px,8vw,120px)]`}>
         <div className="mx-auto grid max-w-300 items-end gap-x-12 gap-y-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
           <div>
-            <p className="text-ink-3 text-[14px]">
-              GCSE &amp; A-Level · OCR · AQA · Edexcel · CIE
-            </p>
+            <p className="text-ink-3 text-[14px]">{EXAMS.join(" · ")}</p>
             <h1 className="mt-4 text-[36px] leading-[1.08] tracking-[-0.022em] text-balance md:text-[44px] lg:text-[52px]">
-              Your answer marked against the official mark scheme
+              Clear every sectional cutoff
             </h1>
             <div className="mt-14 flex flex-wrap gap-4">
               <ButtonLink href="/signup" size="lg">
-                Mark my first answer
+                Sit a free mock
               </ButtonLink>
               <ButtonLink href="#marking" size="lg" variant="secondary">
                 See a marked answer
@@ -119,8 +114,9 @@ export function LandingView() {
             </div>
           </div>
           <p className="text-ink-2 text-[18px] leading-relaxed lg:text-[19px]">
-            Questions tagged to your spec points, whole past papers, and a
-            working grade that moves with every mark.
+            Full mocks under real sectional timing, drills aimed at what costs
+            you marks, and one grounded question per current-affairs story.
+            Scored the way the paper is, negative marking included.
           </p>
         </div>
 
@@ -138,15 +134,13 @@ export function LandingView() {
 
       <section
         className={`${GUTTER} border-line border-y py-10`}
-        aria-label="Specifications covered"
+        aria-label="Exams covered"
       >
         <div className="mx-auto flex max-w-300 flex-wrap items-baseline gap-8">
-          <p className="text-ink-3 text-[14px]">
-            Specifications covered at launch
-          </p>
-          <ul className="text-ink-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] tabular-nums">
-            {SPEC_CODES.map((code) => (
-              <li key={code}>{code}</li>
+          <p className="text-ink-3 text-[14px]">Exams covered at launch</p>
+          <ul className="text-ink-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px]">
+            {EXAMS.map((exam) => (
+              <li key={exam}>{exam}</li>
             ))}
           </ul>
         </div>
@@ -211,24 +205,24 @@ export function LandingView() {
 
       <section
         className={`${GUTTER} ${SECTION_Y} bg-canvas border-line border-t`}
-        id="memory"
+        id="attempt-map"
       >
         <div className="mx-auto grid max-w-300 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-[clamp(32px,6vw,88px)]">
           <header className="lg:sticky lg:top-22">
             <h2 className="text-[30px] tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
-              Your exam date sets the schedule
+              Negative marking sets the strategy
             </h2>
             <p className="text-ink-2 mt-5 text-[18px] leading-relaxed lg:text-[19px]">
-              Not a generic review queue. The intervals are computed back from
-              the paper you are actually sitting, and the cards come from marks
-              you dropped.
+              Not a generic score. The attempt map reads accuracy against pace
+              from your own sittings, and prices a quarter-mark penalty into
+              every question you might attempt.
             </p>
           </header>
           <div className="grid">
-            {MEMORY_ROWS.map((row, i) => (
+            {STRATEGY_ROWS.map((row, i) => (
               <details
                 key={row.label}
-                name="memory"
+                name="strategy"
                 open={i === 0}
                 className="border-line-2 group border-t last:border-b"
               >
@@ -254,12 +248,17 @@ export function LandingView() {
             The free plan is not a trial
           </h2>
           <p className="text-ink-2 mx-auto mt-5 max-w-[62ch] text-[18px] leading-relaxed lg:text-[19px]">
-            Free covers the whole question bank, every past paper we can legally
-            host, and your working grade. No card, no expiry. Pro adds unlimited
-            marking, Ask Onely on any paper, and flashcard scheduling tied to
-            your exam dates.
+            Free covers the knowledge base, two full mocks a month, a week of
+            current affairs and your private notes. No card, no expiry. Pro adds
+            unlimited mocks and drills, descriptive marking, the full
+            current-affairs archive and Ask Onely on any passage.
           </p>
-          <PlanGrid variant="public" headingLevel={3} />
+          <PlanGrid
+            variant="public"
+            headingLevel={3}
+            prices={prices}
+            billingEnabled={billingEnabled}
+          />
         </div>
       </section>
 

@@ -36,14 +36,11 @@ export function AuthShell({ title, subtitle, children, footer }: Props) {
         className="border-line bg-panel hidden flex-col justify-center gap-7 border-l px-6 py-12 lg:flex lg:px-14"
         aria-hidden
       >
-        <blockquote className="max-w-95 text-[18px] leading-snug font-semibold tracking-[-0.02em]">
-          “I was clearing the total and failing the English cutoff every time.
-          The attempt map showed me I was answering the questions I should have
-          been skipping.”
-          <cite className="text-ink-2 mt-3 block text-[14px] font-medium not-italic">
-            Priya · IBPS PO 2025
-          </cite>
-        </blockquote>
+        <p className="max-w-95 text-[18px] leading-snug font-semibold tracking-[-0.02em]">
+          The total is not the exam. Every section has its own cutoff and the
+          paper is cleared one section at a time, so that is how every sitting
+          here is scored.
+        </p>
         <ul className="text-ink-2 grid gap-2.5 text-[14px]">
           {PROOF_POINTS.map((point) => (
             <li key={point} className="flex items-start gap-2">

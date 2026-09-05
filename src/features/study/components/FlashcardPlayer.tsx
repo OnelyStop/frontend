@@ -5,36 +5,15 @@ import { X } from "lucide-react";
 import { Button } from "@/design-system";
 import type { Flashcard } from "../types";
 
-const GRADES = [
-  { key: "j", label: "Again" },
-  { key: "k", label: "Hard" },
-  { key: "l", label: "Good" },
-  { key: ";", label: "Easy" },
-];
-
 export function FlashcardPlayer({
-  topicSlug,
+  cards,
   onClose,
 }: {
-  topicSlug: string;
+  cards: Flashcard[];
   onClose: () => void;
 }) {
-  const [cards, setCards] = useState<Flashcard[] | null>(null);
   const [i, setI] = useState(0);
   const [shown, setShown] = useState(false);
-
-  useEffect(() => {
-    let live = true;
-    fetch(`/api/study/topics/${topicSlug}/flashcards`)
-      .then((r) => r.json())
-      .then((d: { flashcards?: Flashcard[] }) => {
-        if (live) setCards(d.flashcards ?? []);
-      })
-      .catch(() => live && setCards([]));
-    return () => {
-      live = false;
-    };
-  }, [topicSlug]);
 
   const advance = useCallback(() => {
     setShown(false);
@@ -51,28 +30,33 @@ export function FlashcardPlayer({
         onClose();
         return;
       }
-      if (!cards) return;
-      if (e.key === " ") {
+      if (e.key === " " && !shown) {
         e.preventDefault();
         setShown(true);
         return;
       }
-      if (shown && GRADES.some((g) => g.key === e.key)) advance();
+      if (
+        shown &&
+        (e.key === "Enter" || e.key === "ArrowRight" || e.key === " ")
+      ) {
+        e.preventDefault();
+        advance();
+      }
     };
     window.addEventListener("keydown", onKey, { capture: true });
     return () =>
       window.removeEventListener("keydown", onKey, { capture: true });
-  }, [cards, shown, advance, onClose]);
+  }, [shown, advance, onClose]);
 
-  const done = cards ? i >= cards.length : false;
-  const card = cards && !done ? cards[i] : null;
+  const done = i >= cards.length;
+  const card = done ? null : cards[i];
 
   return (
     <div className="bg-canvas fixed inset-0 z-90 flex flex-col">
       <header className="border-line flex h-16 shrink-0 items-center gap-3 border-b px-6">
         <span className="text-[14px]">Flashcards</span>
         <span className="tnum text-ink-3 text-[13px]">
-          {cards && !done ? `${i + 1} of ${cards.length}` : ""}
+          {card ? `${i + 1} of ${cards.length}` : ""}
         </span>
         <span className="flex-1" />
         <button
@@ -85,9 +69,7 @@ export function FlashcardPlayer({
       </header>
 
       <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center px-6">
-        {cards === null ? (
-          <p className="text-ink-3 text-center text-[14px]">Loading…</p>
-        ) : cards.length === 0 ? (
+        {cards.length === 0 ? (
           <div className="text-center">
             <p className="text-[18px]">No flashcards for this topic yet</p>
             <p className="text-ink-3 mx-auto mt-2 max-w-[42ch] text-[14px] leading-relaxed">
@@ -146,21 +128,11 @@ export function FlashcardPlayer({
             </button>
 
             {shown ? (
-              <div className="mt-6 flex flex-wrap gap-2.5">
-                {GRADES.map((g, n) => (
-                  <button
-                    key={g.key}
-                    onClick={advance}
-                    className={`rounded-pill inline-flex h-10 items-center gap-2 px-5 text-[14px] transition-colors ${
-                      n < 2
-                        ? "border-line-2 hover:border-ink/25 border"
-                        : "bg-ink hover:bg-ink/85 text-white"
-                    }`}
-                  >
-                    {g.label}
-                    <kbd className="text-[12px] opacity-50">{g.key}</kbd>
-                  </button>
-                ))}
+              <div className="mt-6 flex items-center gap-3">
+                <Button onClick={advance}>Next card</Button>
+                <span className="text-ink-4 text-[12px]">
+                  Enter or → to continue
+                </span>
               </div>
             ) : null}
           </>

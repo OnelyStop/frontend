@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
+import { useEnabledProviders } from "@/features/auth/hooks/useEnabledProviders";
 import { AuthShell } from "@/features/auth/components/AuthShell";
 import {
   AuthDivider,
@@ -16,13 +17,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export function LoginView({ from }: { from: string }) {
-  const { signIn, signInWithGoogle, user, configured, googleEnabled } =
-    useAuth();
+  const { signIn, signInWithGoogle, user, configured } = useAuth();
+  const { google: googleEnabled } = useEnabledProviders();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Already signed in (e.g. hit /login directly with a live session)
   useEffect(() => {
     if (user) router.replace(from);
   }, [user, from, router]);

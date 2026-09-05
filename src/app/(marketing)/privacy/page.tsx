@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
+import { SUPPORT_EMAIL } from "@/config/site";
 import { LegalDoc, LegalTodo } from "../legal-doc";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
   description:
-    "What onelystop collects, why, who it is shared with, and how to get it deleted.",
+    "What onelystop collects, why, who it is shared with, and how to get it corrected or deleted, under the Digital Personal Data Protection Act, 2023.",
 };
 
-const UPDATED = "29 August 2026";
+const UPDATED = "5 September 2026";
 
 const SECTIONS = [
   ["who", "Who we are"],
   ["collect", "What we collect"],
-  ["why", "Why we can use it"],
+  ["why", "Why we use it"],
   ["answers", "Your answers and AI marking"],
   ["sharing", "Who else sees it"],
-  ["age", "Under-18s"],
+  ["age", "Age"],
   ["keep", "How long we keep it"],
   ["rights", "Your rights"],
-  ["contact", "Contact"],
+  ["contact", "Grievances and contact"],
 ];
 
 export default function Page() {
@@ -26,7 +27,7 @@ export default function Page() {
     <LegalDoc
       eyebrow="Legal"
       title="Privacy policy"
-      intro="What we collect when you use onelystop, why we collect it, who else sees it, and how to get it back or deleted. Written to be read, not survived."
+      intro="What we collect when you use onelystop, why we collect it, who else sees it, and how to get it corrected or deleted. Written to be read, not survived."
       meta={[
         `Last updated ${UPDATED}`,
         "Applies to onelystop and all its features",
@@ -38,13 +39,20 @@ export default function Page() {
           <span>Who we are</span>
         </h2>
         <p>
-          onelystop is a revision platform for GCSE and A-Level students in the
-          UK. For UK GDPR purposes we are the data controller for the
-          information described here.
+          onelystop is a practice platform for people preparing for Indian bank
+          recruitment exams: IBPS PO, IBPS Clerk, SBI PO, SBI Clerk and RBI
+          Grade B. Under the Digital Personal Data Protection Act, 2023 we are
+          the data fiduciary for the information described here. We decide what
+          is collected and why, and we answer for it.
+        </p>
+        <p>
+          onelystop is not affiliated with, endorsed by, or connected to IBPS,
+          SBI, RBI or any other recruiting body. Nothing you do here reaches
+          them.
         </p>
         <LegalTodo>
-          <strong>Before launch:</strong> registered company name, company
-          number, registered address, and ICO registration number.
+          <strong>Before launch:</strong> registered entity name, CIN and
+          registered office address.
         </LegalTodo>
       </section>
 
@@ -58,28 +66,34 @@ export default function Page() {
           <li>
             <strong>Account details.</strong> Your email address, a password
             (stored hashed, never in plain text), and the name you choose to
-            display.
+            display. If you sign in with Google, the name and email Google
+            shares with us.
           </li>
           <li>
-            <strong>Study setup.</strong> Your exam board, subjects and exam
-            dates, so questions and revision schedules match the paper you are
-            actually sitting.
+            <strong>Exam setup.</strong> Your target exam, attempt year, and
+            your coaching institute if you give one, so mocks, cutoffs and the
+            current-affairs feed match the exam you are actually sitting.
           </li>
           <li>
-            <strong>Your work.</strong> Answers you type or photograph,
-            including handwriting images uploaded for marking.
+            <strong>Your work.</strong> Answers in mocks and drills, descriptive
+            answers you submit for marking, private notes, doubts you post to
+            the community, and questions you ask Ask Onely.
+          </li>
+          <li>
+            <strong>Payment references.</strong> Your plan, and the Razorpay
+            subscription and payment ids that tie a charge to your account.
+            Card, UPI and net-banking details go to Razorpay directly; we never
+            see or store them.
           </li>
         </ul>
 
         <h3>Information we generate</h3>
         <ul>
           <li>
-            Marks, bands and the marking-point breakdown produced when your
-            answer is assessed.
+            Scores and sectional bands from your mocks and drills, and the
+            marking of your descriptive answers.
           </li>
-          <li>
-            Your working grade, practice history and spaced-repetition schedule.
-          </li>
+          <li>Your attempt map, progress and flashcard schedule.</li>
         </ul>
 
         <h3>Information collected automatically</h3>
@@ -97,28 +111,36 @@ export default function Page() {
 
       <section id="why">
         <h2>
-          <span>Why we can use it</span>
+          <span>Why we use it</span>
         </h2>
-        <p>Under UK GDPR we need a lawful basis for each use. Ours are:</p>
+        <p>
+          The DPDP Act lets us process your data with your consent, and for a
+          few uses it allows without asking. Ours are:
+        </p>
         <ul>
           <li>
-            <strong>Performing our contract with you.</strong> Running your
-            account, marking your answers, tracking your grade.
+            <strong>Consent.</strong> When you create an account you consent to
+            us processing your data for the service you asked for: running your
+            account, marking your answers, tracking your progress. You withdraw
+            that consent by closing your account.
           </li>
           <li>
-            <strong>Legitimate interests.</strong> Keeping the service secure,
-            preventing abuse, fixing faults. This never extends to profiling you
-            for advertising.
+            <strong>Product emails.</strong> Only if you opt in. Opting out
+            never costs you access.
           </li>
           <li>
-            <strong>Consent.</strong> For anything optional, such as product
-            emails. You can withdraw it at any time without losing access.
+            <strong>Security and fraud prevention.</strong> Keeping the service
+            up, keeping accounts safe, stopping abuse.
           </li>
           <li>
-            <strong>Legal obligation.</strong> Where we have to keep records,
-            for example for tax.
+            <strong>Legal obligations.</strong> Records we have to keep, for
+            example tax records for payments.
           </li>
         </ul>
+        <p>
+          None of this extends to profiling you for advertising. We do not do
+          that.
+        </p>
       </section>
 
       <section id="answers">
@@ -126,30 +148,46 @@ export default function Page() {
           <span>Your answers and AI marking</span>
         </h2>
         <p>
-          Marking works by sending your answer, and the mark scheme it is
-          assessed against, to a large language model. This is the part people
-          most want a straight answer about, so:
+          Descriptive marking works by sending your answer, and the rubric it is
+          marked against, to a large language model. Ask Onely works the same
+          way with the passage and your question. This is the part people most
+          want a straight answer about, so:
         </p>
         <ul>
           <li>
             <strong>Your answers are not used to train any model.</strong> Not
-            ours, not a third party&rsquo;s. We send them to be marked and we
-            get a result back.
+            ours, not a provider&rsquo;s. We send them to be marked and we get a
+            result back.
           </li>
           <li>
-            <strong>They are not published or shown to other users.</strong>{" "}
-            Your work is visible to you, and to staff only where you have asked
-            us to review a mark.
+            <strong>Marks are practice feedback.</strong> Scores, bands and
+            cutoffs come from a model reading a rubric. They have no standing
+            with IBPS, SBI, RBI or any recruiting body, and they do not predict
+            your result. The cutoffs shown are indicative, taken from published
+            cutoffs of earlier years.
           </li>
           <li>
-            <strong>You can delete them.</strong> Deleting your account removes
+            <strong>The questions are ours.</strong> Mocks are modelled on each
+            exam&rsquo;s published pattern, not copies of actual papers.
+            Current-affairs questions are written from public reporting and name
+            their source.
+          </li>
+          <li>
+            <strong>Private work stays private.</strong> Mock answers,
+            descriptive answers, notes and Ask Onely questions are visible to
+            you, and to staff only where you have asked us to review a mark.
+            Doubts you post to the community are different: other signed-in
+            members see them under your display name.
+          </li>
+          <li>
+            <strong>You can delete them.</strong> Closing your account removes
             your answers and marks.
           </li>
         </ul>
         <LegalTodo>
-          <strong>Before launch:</strong> confirm the zero-retention and
-          no-training terms of the specific model providers used. The
-          commitments above depend on them.
+          <strong>Before launch:</strong> confirm the no-training and
+          zero-retention terms of each model provider. The commitments above
+          depend on them.
         </LegalTodo>
       </section>
 
@@ -163,52 +201,56 @@ export default function Page() {
         </p>
         <ul>
           <li>
-            <strong>Hosting and database.</strong> To store your account and
-            your work.
+            <strong>Vercel.</strong> Hosts and runs the site. Sees the technical
+            data any web server sees.
           </li>
           <li>
-            <strong>AI model providers.</strong> To mark answers and generate
-            practice material.
+            <strong>Supabase.</strong> Holds the database and handles sign-in,
+            including Google sign-in. Stores your account and your work.
           </li>
           <li>
-            <strong>Payment processing.</strong> For paid plans. We never see or
-            store your full card number.
+            <strong>Razorpay.</strong> Takes payment. Processes your card, UPI
+            or net-banking details directly; we receive only the subscription
+            and payment ids.
+          </li>
+          <li>
+            <strong>Google Gemini.</strong> Generates current-affairs questions
+            from public news reporting. It never receives user data.
+          </li>
+          <li>
+            <strong>OpenRouter.</strong> Routes Ask Onely questions and
+            descriptive answers to a large language model. It sees the text you
+            submit, and nothing else about you.
           </li>
         </ul>
         <p>
-          Some providers process data outside the UK. Where they do, transfers
-          rely on UK adequacy regulations or International Data Transfer
-          Agreements.
+          Some of these providers store or process data outside India. The DPDP
+          Act permits that, except to countries the Central Government restricts
+          by notification, and we will not transfer your data to any such
+          country.
         </p>
         <LegalTodo>
-          <strong>Before launch:</strong> name each provider, what it processes,
-          and where.
+          <strong>Before launch:</strong> where each provider stores data
+          (regions).
         </LegalTodo>
       </section>
 
       <section id="age">
         <h2>
-          <span>Under-18s</span>
+          <span>Age</span>
         </h2>
         <p>
-          onelystop is built for people sitting GCSEs and A-Levels, so most of
-          our users are under 18 and many are under 16.
+          You must be 18 or over to use onelystop. The exams themselves require
+          candidates to be at least 20, so this should rarely come up, but it is
+          a hard line.
         </p>
         <p>
-          In the UK a child can consent to online services from age 13. Below
-          that we need consent from someone with parental responsibility. We
-          design to the ICO&rsquo;s Age Appropriate Design Code: no advertising,
-          no behavioural profiling, no nudges to share more than necessary, and
-          privacy settings that default to the protective option.
+          The DPDP Act requires verifiable parental consent before a
+          child&rsquo;s data can be processed. We do not collect it, so anyone
+          under 18 must not create an account. If we find that a child has, we
+          delete the account and its data. If you are a parent or guardian and
+          believe your child has an account, tell us and we will act on it.
         </p>
-        <p>
-          If you are a parent or guardian and want to see, correct or delete
-          your child&rsquo;s data, contact us and we will act on it.
-        </p>
-        <LegalTodo>
-          <strong>Before launch:</strong> set the minimum age, and decide how
-          parental consent is obtained and verified below it.
-        </LegalTodo>
       </section>
 
       <section id="keep">
@@ -217,16 +259,22 @@ export default function Page() {
         </h2>
         <ul>
           <li>
-            <strong>While your account is open.</strong> Your answers, marks and
-            schedule, so your history stays useful.
+            <strong>While your account is open.</strong> Your answers, scores,
+            notes and schedule, so your history stays useful.
           </li>
           <li>
-            <strong>After you delete your account.</strong> Your work is
-            deleted. Backups are overwritten on their normal cycle.
+            <strong>After your account is closed.</strong> Your work is deleted,
+            including doubts you posted to the community. Backups are
+            overwritten on their normal cycle.
           </li>
           <li>
             <strong>Records we must keep.</strong> Payment records, for as long
             as tax law requires.
+          </li>
+          <li>
+            <strong>Closing your account.</strong> Go to Settings &rarr; Close
+            account. Your work is deleted immediately; payment records stay with
+            Razorpay for as long as tax law requires.
           </li>
         </ul>
       </section>
@@ -235,36 +283,46 @@ export default function Page() {
         <h2>
           <span>Your rights</span>
         </h2>
-        <p>You can ask us to:</p>
+        <p>Under the DPDP Act you can ask us to:</p>
         <ul>
-          <li>give you a copy of your data, in a portable file;</li>
-          <li>correct anything wrong;</li>
-          <li>delete your data;</li>
-          <li>restrict or object to how we use it;</li>
-          <li>withdraw consent you previously gave.</li>
+          <li>
+            give you a summary of the personal data we hold about you and how we
+            have used it;
+          </li>
+          <li>correct, complete or update anything wrong or missing;</li>
+          <li>erase your data, unless a law requires us to keep it;</li>
+          <li>hear and resolve a grievance about how we have handled it;</li>
+          <li>
+            act on the instructions of a person you nominate to exercise these
+            rights if you die or are unable to.
+          </li>
         </ul>
         <p>
-          We will respond within one month. If you think we have handled your
-          data badly you can complain to the Information Commissioner&rsquo;s
-          Office at{" "}
-          <a href="https://ico.org.uk" rel="noreferrer">
-            ico.org.uk
-          </a>
-          . We would rather you told us first.
+          Write to us at <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>{" "}
+          from the email address on your account, so we know it is you. We will
+          respond within 30 days. If we have not put it right, you can complain
+          to the Data Protection Board of India. We would rather you told us
+          first.
         </p>
       </section>
 
       <section id="contact">
         <h2>
-          <span>Contact</span>
+          <span>Grievances and contact</span>
         </h2>
         <p>
           Questions about any of this, or a request about your data, come to us
-          directly.
+          directly at <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+        </p>
+        <p>
+          Under the Information Technology (Intermediary Guidelines and Digital
+          Media Ethics Code) Rules, 2021 we have a Grievance Officer. Complaints
+          are acknowledged within 24 hours and resolved within 15 days of
+          receipt.
         </p>
         <LegalTodo>
-          <strong>Before launch:</strong> a monitored privacy contact address,
-          and a postal address for formal requests.
+          <strong>Before launch:</strong> the Grievance Officer&rsquo;s name,
+          email and postal address.
         </LegalTodo>
       </section>
     </LegalDoc>

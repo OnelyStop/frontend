@@ -1,12 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-/* Page furniture.
-
-   Every screen opens the same way: a large light headline on the left, the
-   paragraph and any controls on the right. Panel labels are sentence case at
-   body size — nothing in this app shouts in tracked-out capitals. */
-
 export function PageHeader({
   title,
   sub,

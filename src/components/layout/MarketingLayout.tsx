@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Brand, ButtonLink } from "@/design-system";
+import { SUPPORT_EMAIL } from "@/config/site";
+import { EXAMS } from "@/data/navigation";
 
 const NAV = [
   { href: "#features", label: "Features" },
@@ -12,28 +14,23 @@ const FOOTER_COLS = [
     items: [
       { href: "#features", label: "Features" },
       { href: "#pricing", label: "Pricing" },
-      { href: "/signup", label: "Question bank" },
+      { href: "/signup", label: "Knowledge base" },
     ],
   },
   {
-    title: "Boards",
-    items: ["OCR", "AQA", "Edexcel", "CIE", "WJEC"].map((label) => ({
-      label,
-      href: null,
-    })),
+    title: "Exams",
+    items: EXAMS.map((label) => ({ label, href: null })),
   },
   {
-    title: "Revise",
-    items: ["Past papers", "PYQ mixes", "AI exams", "Memory"].map((label) => ({
-      label,
-      href: null,
-    })),
+    title: "Practise",
+    items: ["Mocks", "Drills", "Current affairs", "Descriptive"].map(
+      (label) => ({ label, href: null }),
+    ),
   },
   {
     title: "Company",
     items: [
-      { label: "About", href: null },
-      { label: "Contact", href: null },
+      { href: `mailto:${SUPPORT_EMAIL}`, label: "Contact" },
       { href: "/privacy", label: "Privacy" },
       { href: "/terms", label: "Terms" },
     ],
@@ -47,7 +44,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
         href="/signup"
         className="border-line bg-panel text-ink-2 hover:text-ink flex items-center justify-center gap-1 border-b px-5 py-2.5 text-center text-[14px] transition-colors"
       >
-        Every past paper we can legally host is free, forever
+        Two full mocks a month are free, forever
         <span aria-hidden>&nbsp;→</span>
       </Link>
 
@@ -88,7 +85,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                 onelystop
               </div>
               <p className="mt-2 text-[14px] leading-relaxed text-white/50">
-                Your one stop from first mock to A*.
+                Your one stop from first mock to final list.
               </p>
             </div>
 
@@ -125,13 +122,11 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
               © onelystop {new Date().getFullYear()} · Made for people sitting
               these papers.
             </p>
-            {/* Not boilerplate: this is what makes naming real specification
-                codes safe. */}
+            {/* Not boilerplate: this is what makes naming real exams safe. */}
             <p className="mt-3 max-w-[68ch]">
               onelystop is not affiliated with, endorsed by, or connected to
-              OCR, AQA, Pearson Edexcel or Cambridge International.
-              Specification codes are used to identify the syllabus a question
-              belongs to.
+              IBPS, SBI, RBI or any other recruiting body. Exam names identify
+              the paper a mock is modelled on.
             </p>
           </div>
         </div>

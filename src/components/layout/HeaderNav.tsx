@@ -6,9 +6,6 @@ import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { NAV_GROUPS, type NavGroup } from "@/data/navigation";
 
-/* Header navigation. The app has no sidebar, so this and ⌘K are the only ways
-   round it — every screen has to be reachable from here without typing. */
-
 export function HeaderNav({ groups }: { groups: NavGroup[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState<string | null>(null);

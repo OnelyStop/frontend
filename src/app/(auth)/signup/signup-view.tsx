@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Loader2, MailCheck } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
+import { useEnabledProviders } from "@/features/auth/hooks/useEnabledProviders";
 import { AuthShell } from "@/features/auth/components/AuthShell";
 import {
   AuthDivider,
@@ -18,8 +19,8 @@ import { useRouter } from "next/navigation";
 const MIN_PASSWORD_LENGTH = 8;
 
 export function SignupView() {
-  const { signUp, signInWithGoogle, user, configured, googleEnabled } =
-    useAuth();
+  const { signUp, signInWithGoogle, user, configured } = useAuth();
+  const { google: googleEnabled } = useEnabledProviders();
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -66,8 +67,8 @@ export function SignupView() {
             className="text-brand mx-auto mb-3.5"
           />
           <p className="text-ink-2 text-[14px]">
-            The link expires in 24 hours. Check your spam folder if it hasn't
-            arrived in a couple of minutes.
+            The link is single-use and expires soon. Check your spam folder if
+            it hasn&rsquo;t arrived in a couple of minutes.
           </p>
         </div>
       </AuthShell>
@@ -76,8 +77,8 @@ export function SignupView() {
 
   return (
     <AuthShell
-      title="Start revising free"
-      subtitle="No card needed. Your first marked answer is on us."
+      title="Start practising free"
+      subtitle="No card needed. Two full mocks a month, daily current affairs and the whole knowledge base."
       footer={
         <>
           Already have an account?{" "}
@@ -146,6 +147,17 @@ export function SignupView() {
           {busy ? <Loader2 size={16} className="animate-spin" /> : null}
           {busy ? "Creating account…" : "Create free account"}
         </Button>
+        <p className="text-ink-3 mt-4 text-center text-[12.5px]">
+          By creating an account you agree to the{" "}
+          <Link href="/terms" className="text-ink-2 underline">
+            terms
+          </Link>{" "}
+          and{" "}
+          <Link href="/privacy" className="text-ink-2 underline">
+            privacy policy
+          </Link>
+          .
+        </p>
       </form>
     </AuthShell>
   );

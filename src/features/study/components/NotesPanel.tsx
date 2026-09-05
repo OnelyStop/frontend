@@ -67,7 +67,7 @@ export function NotesPanel({
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch(`/api/study/topics/${topicId}/notes`, {
+      const res = await fetch(`/api/v1/study/topics/${topicId}/notes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -92,7 +92,7 @@ export function NotesPanel({
   };
 
   const removeNote = async (id: string) => {
-    const res = await fetch(`/api/study/notes/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/v1/study/notes/${id}`, { method: "DELETE" });
     if (res.ok || res.status === 404)
       onChange(notes.filter((n) => n.id !== id));
   };
@@ -102,7 +102,7 @@ export function NotesPanel({
     patch: { bodyMarkdown?: string; color?: NoteColor },
     expectedUpdatedAt: string,
   ): Promise<StudyNote | null> => {
-    const res = await fetch(`/api/study/notes/${id}`, {
+    const res = await fetch(`/api/v1/study/notes/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...patch, expectedUpdatedAt }),
@@ -121,7 +121,7 @@ export function NotesPanel({
     >
       <aside
         aria-label="Notes"
-        className="pop-in border-line bg-canvas shadow-pop relative flex max-h-[85vh] w-[460px] max-w-full flex-col overflow-hidden rounded-[24px] border"
+        className="pop-in border-line bg-canvas shadow-pop relative flex max-h-[85vh] w-115 max-w-full flex-col overflow-hidden rounded-[24px] border"
       >
         <header className="border-line flex h-14 shrink-0 items-center gap-2 border-b px-5">
           <span className="text-[14px]">Notes</span>

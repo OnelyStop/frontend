@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { safeInternalPath } from "@/features/auth/redirect";
 import { LoginView } from "./login-view";
 
 export const metadata: Metadata = { title: "Sign in" };
@@ -12,5 +13,5 @@ export default async function Page({
   searchParams: Promise<{ from?: string }>;
 }) {
   const { from } = await searchParams;
-  return <LoginView from={from ?? "/home"} />;
+  return <LoginView from={safeInternalPath(from)} />;
 }

@@ -1,6 +1,6 @@
-import { gte } from "drizzle-orm";
-import { getDb } from "@/lib/gazette/db";
-import { articles } from "@/lib/gazette/db/schema";
+import { and, gte, lt, ne } from "drizzle-orm";
+import { db as defaultDb, type Db } from "@/db";
+import { articles } from "@/db/schema";
 import { activeProfile } from "@/lib/gazette/config/profile";
 import { contentHash } from "@/lib/gazette/dedup/contentHash";
 import {
@@ -11,44 +11,54 @@ import { fetchNewsData } from "@/lib/gazette/sources/newsdata";
 import { fetchRssFeeds } from "@/lib/gazette/sources/rss";
 import type { RawArticle } from "@/lib/gazette/types";
 
+const RETENTION_DAYS = 90;
+
 export type IngestSummary = {
   fetched: number;
   new: number;
   duplicate: number;
   conflict: number;
+  pruned: number;
 };
 
 export type IngestDeps = {
+  db: Db;
   fetchNews: typeof fetchNewsData;
   fetchRss: typeof fetchRssFeeds;
 };
 
 const defaultDeps: IngestDeps = {
+  db: defaultDb,
   fetchNews: fetchNewsData,
   fetchRss: fetchRssFeeds,
 };
 
-/**
- * One ingest pass: pull every source, dedupe (stages 1 + 3), and store each
- * article as `new` or `duplicate`. Idempotent — the `content_hash` unique index
- * plus `onConflictDoNothing` means a double-fired cron can't double-insert.
- * `deps` is injectable so tests never hit the network.
- */
+// Everything but `used` rows, which a question still points back at.
+async function pruneArticles(db: Db, now: Date): Promise<number> {
+  const cutoff = new Date(now.getTime() - RETENTION_DAYS * 86_400_000);
+  const rows = await db
+    .delete(articles)
+    .where(and(ne(articles.status, "used"), lt(articles.publishedAt, cutoff)))
+    .returning({ id: articles.articleId });
+  return rows.length;
+}
+
+// Idempotent: the content_hash unique index plus onConflictDoNothing means a
+// double-fired cron cannot double-insert. `deps` keeps tests off the network.
 export async function runIngest(
-  deps: IngestDeps = defaultDeps,
+  overrides: Partial<IngestDeps> = {},
+  now = new Date(),
 ): Promise<IngestSummary> {
-  const db = await getDb();
-  const [newsdata, rss] = await Promise.all([
-    deps.fetchNews(),
-    deps.fetchRss(),
-  ]);
+  const { db, fetchNews, fetchRss } = { ...defaultDeps, ...overrides };
+
+  const [newsdata, rss] = await Promise.all([fetchNews(), fetchRss()]);
   const candidates: RawArticle[] = [...newsdata, ...rss]
     .filter((a) => a.title && a.url)
     .sort((a, b) => a.publishedAt.getTime() - b.publishedAt.getTime())
     .slice(-activeProfile.maxArticlesPerIngest);
 
   const since = new Date(
-    Date.now() - (activeProfile.recentWindowDays + 1) * 86_400_000,
+    now.getTime() - (activeProfile.recentWindowDays + 1) * 86_400_000,
   );
   const recentRows = await db
     .select({
@@ -68,6 +78,7 @@ export async function runIngest(
     new: 0,
     duplicate: 0,
     conflict: 0,
+    pruned: 0,
   };
 
   for (const c of candidates) {
@@ -101,5 +112,6 @@ export async function runIngest(
     }
   }
 
+  summary.pruned = await pruneArticles(db, now);
   return summary;
 }

@@ -36,6 +36,41 @@
       "when": 1788362857603,
       "tag": "0004_brief_captain_britain",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1788506900757,
+      "tag": "0005_profile_fields",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1788585150750,
+      "tag": "0006_community",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1788588544434,
+      "tag": "0007_drop_tutor",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1788614613302,
+      "tag": "0008_drop_minhash",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1788618743585,
+      "tag": "0009_topics_slug_unique",
+      "breakpoints": true
     }
   ]
 }

@@ -1,197 +1,60 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useApp } from "@/context/AppContext";
+import { useState } from "react";
 import { Button, Empty, PageHeader, Segmented } from "@/design-system";
-import { POST_QUOTA, type PlanTier } from "@/features/community/quota";
 import { SECTIONS, SECTION_SHORT, type Subject } from "@/data/navigation";
+import {
+  useDoubts,
+  usePostDoubt,
+  useToggleStuck,
+} from "@/features/community/hooks";
+import type { Doubt, Sort } from "@/features/community/types";
 
-/* Doubts, not a forum. Every doubt is pinned to a section and a topic, and the
-   only reaction is "stuck here too" — so the page sorts by how many people are
-   blocked on the same thing rather than by who wrote the wittiest reply. */
+const RELATIVE = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
-type Doubt = {
-  id: string;
-  section: Subject;
-  topic: string;
-  title: string;
-  body: string;
-  author: string;
-  ago: string;
-  stuck: number;
-  answers: number;
-  solved: boolean;
-};
-
-const DOUBTS: Doubt[] = [
-  {
-    id: "d1",
-    section: "Quantitative Aptitude",
-    topic: "Caselet DI",
-    title: "Caselet DI is eating 4 minutes before I even know if it's doable",
-    body: "In SBI PO prelims the caselet has no table — you build it from the paragraph. By the time I've drawn the grid, a third of my quant time is gone. Is there a tell in the first two lines that says leave it?",
-    author: "Rohit K",
-    ago: "2h",
-    stuck: 214,
-    answers: 11,
-    solved: true,
-  },
-  {
-    id: "d2",
-    section: "Reasoning Ability",
-    topic: "Puzzles & Seating",
-    title: "Floor + box puzzle: when do you abandon a case you've half-built?",
-    body: "I get two cases, commit to case 1, and 6 minutes later it dies. Everyone says 'eliminate early' but nobody says on what.",
-    author: "Sneha M",
-    ago: "5h",
-    stuck: 186,
-    answers: 8,
-    solved: false,
-  },
-  {
-    id: "d3",
-    section: "English Language",
-    topic: "Error Spotting",
-    title: "Subject–verb agreement with 'one of the' — IBPS keeps trapping me",
-    body: '"One of the students who was/were present". I picked was. Wrong. Which noun does the relative clause actually attach to?',
-    author: "Arjun P",
-    ago: "8h",
-    stuck: 143,
-    answers: 14,
-    solved: true,
-  },
-  {
-    id: "d4",
-    section: "General Awareness",
-    topic: "Banking Awareness",
-    title: "SLR vs CRR — what actually changes for a bank's lending?",
-    body: "I can recite the numbers. In the mock they asked what happens to credit creation when SLR is cut and I froze.",
-    author: "Divya R",
-    ago: "1d",
-    stuck: 121,
-    answers: 6,
-    solved: false,
-  },
-  {
-    id: "d5",
-    section: "Quantitative Aptitude",
-    topic: "Quadratic Comparison",
-    title: "Is there a case where you genuinely cannot compare x and y?",
-    body: "Roots overlap: x = {2, 5}, y = {3, 4}. Answer key says 'no relation'. Fine. But how fast can you see that without solving both fully?",
-    author: "Kabir S",
-    ago: "1d",
-    stuck: 98,
-    answers: 9,
-    solved: true,
-  },
-  {
-    id: "d6",
-    section: "Computer Aptitude",
-    topic: "Networking",
-    title: "For IBPS Clerk, how deep does the OSI layer stuff actually go?",
-    body: "Past papers only ever seem to ask layer names and one protocol each. Am I over-preparing this?",
-    author: "Meera J",
-    ago: "2d",
-    stuck: 44,
-    answers: 4,
-    solved: true,
-  },
-];
-
-const PLAN: PlanTier = "free";
-const USED = 2;
+function ago(iso: string): string {
+  const seconds = (Date.now() - new Date(iso).getTime()) / 1000;
+  const [unit, size]: [Intl.RelativeTimeFormatUnit, number] =
+    seconds < 3600
+      ? ["minute", 60]
+      : seconds < 86_400
+        ? ["hour", 3600]
+        : ["day", 86_400];
+  return RELATIVE.format(-Math.floor(seconds / size), unit);
+}
 
 export function CommunityView() {
-  const { profile } = useApp();
   const [section, setSection] = useState<Subject | "All">("All");
-  const [sort, setSort] = useState<"stuck" | "new">("stuck");
-  const [stuckOn, setStuckOn] = useState<Set<string>>(new Set());
-  const [draft, setDraft] = useState(false);
+  const [sort, setSort] = useState<Sort>("stuck");
+  const [drafting, setDrafting] = useState(false);
 
-  const quota = POST_QUOTA[PLAN];
-  const left = quota - USED;
+  const filters = { section: section === "All" ? null : section, sort };
+  const feed = useDoubts(filters);
+  const toggleStuck = useToggleStuck(filters);
+  const post = usePostDoubt(filters);
 
-  const list = useMemo(() => {
-    const rows = DOUBTS.filter(
-      (d) => section === "All" || d.section === section,
-    );
-    return sort === "stuck"
-      ? [...rows].sort((a, b) => b.stuck - a.stuck)
-      : rows;
-  }, [section, sort]);
-
-  const toggleStuck = (id: string) =>
-    setStuckOn((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
+  const doubts = feed.data?.pages.flatMap((p) => p.doubts) ?? [];
 
   return (
     <div>
       <PageHeader
         title="Community"
-        sub="Doubts pinned to a section and a topic, ranked by how many people are blocked on the same thing. Not a feed."
+        sub="Doubts ranked by how many people are stuck on the same thing."
         actions={
-          <>
-            {/* The quota is a thing you spend, so it is drawn, not stated. */}
-            <span className="mr-1 flex items-center gap-2">
-              <span className="flex gap-1" aria-hidden>
-                {Array.from({ length: quota }, (_, i) => (
-                  <span
-                    key={i}
-                    className={`rounded-pill h-4 w-1.5 ${i < left ? "bg-brand" : "bg-line"}`}
-                  />
-                ))}
-              </span>
-              <span className="tnum text-ink-3 text-[13px]">
-                {left} of {quota} left
-              </span>
-            </span>
-            <Button onClick={() => setDraft((v) => !v)} disabled={left === 0}>
-              Ask a doubt
-            </Button>
-          </>
+          <Button onClick={() => setDrafting((v) => !v)}>Ask a doubt</Button>
         }
       />
 
       <div className="max-w-4xl">
-        {draft ? (
-          <form
-            className="card mb-6 p-5"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setDraft(false);
-            }}
-          >
-            <p className="text-ink-3 text-[13px]">
-              Posting as {profile.name}. A doubt has to name its section and
-              topic — that is what makes it findable by the next person stuck
-              there.
-            </p>
-            <input
-              autoFocus
-              placeholder="What exactly are you stuck on?"
-              className="border-line placeholder:text-ink-4 focus:border-brand mt-3 w-full border-b pb-2 text-[15px] outline-none"
-            />
-            <textarea
-              rows={3}
-              placeholder="What have you already tried? Which mock or paper was it in?"
-              className="placeholder:text-ink-4 mt-3 w-full resize-none text-[14px] leading-relaxed outline-none"
-            />
-            <div className="border-line mt-4 flex items-center gap-3 border-t pt-4">
-              <select className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none">
-                {SECTIONS.map((s) => (
-                  <option key={s}>{SECTION_SHORT[s]}</option>
-                ))}
-              </select>
-              <span className="flex-1" />
-              <Button variant="ghost" onClick={() => setDraft(false)}>
-                Cancel
-              </Button>
-              <Button type="submit">Post · uses 1 of {left}</Button>
-            </div>
-          </form>
+        {drafting ? (
+          <DoubtForm
+            pending={post.isPending}
+            error={post.error?.message ?? null}
+            onCancel={() => setDrafting(false)}
+            onSubmit={(input) =>
+              post.mutate(input, { onSuccess: () => setDrafting(false) })
+            }
+          />
         ) : null}
 
         <div className="mb-2 flex flex-wrap items-center gap-4">
@@ -211,73 +74,44 @@ export function CommunityView() {
           </button>
         </div>
 
-        {list.length === 0 ? (
+        {feed.isPending ? (
+          <div className="text-ink-3 py-8 text-[13.5px]">Loading doubts…</div>
+        ) : feed.error ? (
+          <Empty
+            title="Could not load doubts"
+            sub="Check your connection and try again."
+          />
+        ) : doubts.length === 0 ? (
           <Empty
             title="Nothing open in this section"
             sub="Either everyone has it cold, or nobody has sat it yet. Ask the first doubt."
           />
         ) : (
-          <ul className="grid gap-3">
-            {list.map((d) => {
-              const mine = stuckOn.has(d.id);
-              return (
-                <li
+          <>
+            <ul className="grid gap-3">
+              {doubts.map((d) => (
+                <DoubtCard
                   key={d.id}
-                  className="card hover:bg-brand-soft/40 flex gap-4 p-5 transition-colors duration-200"
-                >
-                  {/* Stuck count, not upvotes: it measures a blind spot, so it
-                      reads as a number of people, not a score. */}
-                  <button
-                    type="button"
-                    onClick={() => toggleStuck(d.id)}
-                    aria-pressed={mine}
-                    className={`rounded-ctl h-fit w-14 shrink-0 border py-2 text-center transition-colors ${
-                      mine
-                        ? "border-brand bg-brand-soft text-brand"
-                        : "border-line bg-canvas text-ink-3 hover:border-line-2 hover:text-ink"
-                    }`}
-                  >
-                    <span className="tnum block text-[15px]">
-                      {d.stuck + (mine ? 1 : 0)}
-                    </span>
-                    <span className="block text-[10px] leading-tight">
-                      stuck
-                    </span>
-                  </button>
+                  doubt={d}
+                  onToggle={() =>
+                    toggleStuck.mutate({ id: d.id, stuck: !d.stuckByMe })
+                  }
+                />
+              ))}
+            </ul>
 
-                  <div className="min-w-0 flex-1">
-                    <div className="text-ink-3 flex items-center gap-2 text-[13px]">
-                      <span className="text-ink-2 font-medium">
-                        {SECTION_SHORT[d.section]}
-                      </span>
-                      <span aria-hidden>·</span>
-                      <span>{d.topic}</span>
-                      {d.solved ? (
-                        <span className="rounded-pill bg-ok-soft text-ok px-2.5 py-0.5 text-[13px]">
-                          answered
-                        </span>
-                      ) : null}
-                    </div>
-                    <h3 className="mt-1 text-[15px] leading-snug font-medium">
-                      {d.title}
-                    </h3>
-                    <p className="text-ink-3 mt-1 max-w-[70ch] text-[13px] leading-relaxed">
-                      {d.body}
-                    </p>
-                    <div className="text-ink-3 mt-2 flex items-center gap-3 text-[13px]">
-                      <span>{d.author}</span>
-                      <span aria-hidden>·</span>
-                      <span>{d.ago} ago</span>
-                      <span aria-hidden>·</span>
-                      <button type="button" className="hover:text-ink">
-                        {d.answers} answers
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+            {feed.hasNextPage ? (
+              <div className="mt-5 flex justify-center">
+                <Button
+                  variant="ghost"
+                  onClick={() => feed.fetchNextPage()}
+                  disabled={feed.isFetchingNextPage}
+                >
+                  {feed.isFetchingNextPage ? "Loading…" : "Load more"}
+                </Button>
+              </div>
+            ) : null}
+          </>
         )}
 
         <p className="text-ink-3 mt-8 max-w-[62ch] text-[13px] leading-relaxed">
@@ -286,5 +120,146 @@ export function CommunityView() {
         </p>
       </div>
     </div>
+  );
+}
+
+function DoubtCard({
+  doubt,
+  onToggle,
+}: {
+  doubt: Doubt;
+  onToggle: () => void;
+}) {
+  return (
+    <li className="card hover:bg-brand-soft/40 flex gap-4 p-5 transition-colors duration-200">
+      {/* Stuck count, not upvotes: it measures a blind spot, so it reads as a
+          number of people, not a score. */}
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={doubt.stuckByMe}
+        className={`rounded-ctl h-fit w-14 shrink-0 border py-2 text-center transition-colors ${
+          doubt.stuckByMe
+            ? "border-brand bg-brand-soft text-brand"
+            : "border-line bg-canvas text-ink-3 hover:border-line-2 hover:text-ink"
+        }`}
+      >
+        <span className="tnum block text-[15px]">{doubt.stuckCount}</span>
+        <span className="block text-[10px] leading-tight">stuck</span>
+      </button>
+
+      <div className="min-w-0 flex-1">
+        <div className="text-ink-3 flex items-center gap-2 text-[13px]">
+          <span className="text-ink-2 font-medium">
+            {SECTION_SHORT[doubt.section]}
+          </span>
+          <span aria-hidden>·</span>
+          <span>{doubt.topic}</span>
+        </div>
+        <h3 className="mt-1 text-[15px] leading-snug font-medium">
+          {doubt.title}
+        </h3>
+        <p className="text-ink-3 mt-1 max-w-[70ch] text-[13px] leading-relaxed">
+          {doubt.body}
+        </p>
+        <div className="text-ink-3 mt-2 flex items-center gap-3 text-[13px]">
+          <span>{doubt.author}</span>
+          <span aria-hidden>·</span>
+          <span>{ago(doubt.createdAt)}</span>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+function DoubtForm({
+  pending,
+  error,
+  onCancel,
+  onSubmit,
+}: {
+  pending: boolean;
+  error: string | null;
+  onCancel: () => void;
+  onSubmit: (input: {
+    section: Subject;
+    topic: string;
+    title: string;
+    body: string;
+  }) => void;
+}) {
+  const [section, setSection] = useState<Subject>(SECTIONS[0]);
+  const [topic, setTopic] = useState("");
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  return (
+    <form
+      className="card mb-6 p-5"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit({ section, topic, title, body });
+      }}
+    >
+      <p className="text-ink-3 text-[13px]">
+        A doubt has to name its section and topic — that is what makes it
+        findable by the next person stuck there.
+      </p>
+      <input
+        autoFocus
+        required
+        minLength={10}
+        maxLength={160}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="What exactly are you stuck on?"
+        className="border-line placeholder:text-ink-4 focus:border-brand mt-3 w-full border-b pb-2 text-[15px] outline-none"
+      />
+      <textarea
+        rows={3}
+        required
+        minLength={20}
+        maxLength={4000}
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        placeholder="What have you already tried? Which mock or paper was it in?"
+        className="placeholder:text-ink-4 mt-3 w-full resize-none text-[14px] leading-relaxed outline-none"
+      />
+      {error ? (
+        <p className="text-bad mt-2 text-[13px]">
+          {error === "quota_exceeded"
+            ? "You have used this month's posts."
+            : "Could not post. Check the title and body lengths."}
+        </p>
+      ) : null}
+      <div className="border-line mt-4 flex items-center gap-3 border-t pt-4">
+        <select
+          value={section}
+          onChange={(e) => setSection(e.target.value as Subject)}
+          className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none"
+        >
+          {SECTIONS.map((s) => (
+            <option key={s} value={s}>
+              {SECTION_SHORT[s]}
+            </option>
+          ))}
+        </select>
+        <input
+          required
+          maxLength={80}
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          placeholder="Topic, e.g. Caselet DI"
+          className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none"
+        />
+        <span className="flex-1" />
+        <Button variant="ghost" type="button" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button type="submit" disabled={pending}>
+          {pending ? "Posting…" : "Post"}
+        </Button>
+      </div>
+    </form>
   );
 }

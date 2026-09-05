@@ -22,11 +22,11 @@ export function Cta() {
         />
         <div className="relative z-1 text-center">
           <h2 className="mx-auto max-w-[16em] text-[30px] leading-tight tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
-            Mark your first answer.
+            Sit your first mock.
           </h2>
           <p className="text-ink-2 mx-auto mt-5 max-w-[46ch] text-[18px] leading-relaxed">
-            Free to start, no card. Every past paper we can legally host is
-            included.
+            Free to start, no card. Two full mocks a month under real sectional
+            timing.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <ButtonLink href="/signup" size="lg">

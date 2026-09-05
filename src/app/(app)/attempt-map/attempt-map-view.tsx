@@ -13,15 +13,9 @@ import {
   type Subject,
 } from "@/data/navigation";
 
-/* The attempt map.
-   Negative marking makes "what do I skip" the real skill in a banking exam, and
-   nothing on the market answers it. Every topic is plotted by accuracy against
-   speed, and the quadrant it lands in IS the advice.
-
-   The number underneath the whole screen is marks per minute: expected marks
-   after negative marking, divided by the time the topic costs. A 95-second
-   puzzle at 66% earns less per minute than a 22-second simplification at 92%,
-   and that — not accuracy alone — is the order you should attempt a paper in. */
+// Everything here ranks by marks per minute: expected marks after negative
+// marking, divided by the time the topic costs. A 95-second puzzle at 66% earns
+// less per minute than a 22-second simplification at 92%.
 
 type Topic = {
   id: string;
@@ -257,7 +251,6 @@ function zoneOf(t: Topic): Zone {
   return "skip";
 }
 
-/* Expected marks per attempt under negative marking. */
 function expected(t: Topic) {
   return t.acc - (1 - t.acc) * NEGATIVE_MARK;
 }
@@ -512,8 +505,7 @@ export function AttemptMapView() {
                   const z = zoneOf(t);
                   const isOpen = open?.id === t.id;
                   const isFocus = focus?.id === t.id;
-                  // Bubble size carries volume: a big slow bubble is a bigger
-                  // problem than a small one.
+                  // Bubble size is volume: a big slow bubble is a bigger problem.
                   const r = Math.round(14 + (t.qs / 420) * 16);
                   return (
                     <button

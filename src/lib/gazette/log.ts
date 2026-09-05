@@ -1,11 +1,8 @@
 type Level = "debug" | "info" | "warn" | "error";
 type Fields = Record<string, unknown>;
 
-/**
- * One JSON line per event. Generate-path logs always carry `runId` + `articleId`
- * so a single article's journey greps end to end. In prod, ship stdout to a log
- * service and you can follow one failed run without adding anything else.
- */
+// One JSON line per event. Generate-path logs always carry runId + articleId
+// so one article's journey greps end to end.
 const SILENT = process.env.NODE_ENV === "test" && !process.env.LOG_IN_TESTS;
 
 export function log(level: Level, msg: string, fields: Fields = {}): void {
@@ -21,11 +18,7 @@ export function log(level: Level, msg: string, fields: Fields = {}): void {
   else process.stdout.write(`${line}\n`);
 }
 
-/**
- * Error-tracking seam. No-op until SENTRY_DSN is set and the Sentry SDK is
- * wired here — recommended for prod, deliberately not installed yet. Until
- * then it just makes the error one structured line.
- */
+// Error-tracking seam: a no-op until SENTRY_DSN is set and the SDK is wired.
 export function captureError(err: unknown, ctx: Fields = {}): void {
   const e = err as Error;
   log("error", e?.message ?? "unknown error", {

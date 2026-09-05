@@ -1,6 +1,3 @@
-/* Domain: Indian banking exams (IBPS / SBI PO & Clerk, RBI Grade B).
-   Sections replace subjects; the paper replaces the exam board. */
-
 export type ExamBoard =
   "IBPS PO" | "IBPS Clerk" | "SBI PO" | "SBI Clerk" | "RBI Grade B";
 
@@ -11,21 +8,23 @@ export type Subject =
   | "General Awareness"
   | "Computer Aptitude";
 
-export const SECTIONS: Subject[] = [
+// `as const` so z.enum() infers the literal union rather than string[], which
+// is what lets the request validator's output satisfy the column type.
+export const SECTIONS = [
   "Quantitative Aptitude",
   "Reasoning Ability",
   "English Language",
   "General Awareness",
   "Computer Aptitude",
-];
+] as const satisfies readonly Subject[];
 
-export const EXAMS: ExamBoard[] = [
+export const EXAMS = [
   "IBPS PO",
   "IBPS Clerk",
   "SBI PO",
   "SBI Clerk",
   "RBI Grade B",
-];
+] as const satisfies readonly ExamBoard[];
 
 export const SECTION_KEY: Record<Subject, string> = {
   "Quantitative Aptitude": "quant",
@@ -52,7 +51,6 @@ export type NavItem = {
   label: string;
   path: string;
   icon: string;
-  /** One line under the label in the header menu — what the screen is for. */
   hint: string;
   badge?: "NEW" | "BETA";
   dynamicLabel?: boolean;
@@ -74,7 +72,7 @@ export const NAV_GROUPS: NavGroup[] = [
         label: "Knowledge base",
         path: "/study",
         icon: "book",
-        hint: "Subjects, chapters and topics — read, take private notes, ask the tutor",
+        hint: "Subjects, chapters and topics — read, take private notes, ask Onely about any passage",
         badge: "BETA",
       },
     ],

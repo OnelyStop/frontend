@@ -1,49 +1,60 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  useApp,
-  type UserProfile,
-  type UserSettings,
-} from "@/context/AppContext";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
 import { EXAMS, SECTIONS, SECTION_SHORT } from "@/data/navigation";
+import type { Profile, ProfileUpdate } from "@/features/profile/types";
+import { CloseAccountCard } from "./close-account-card";
 
-const PREFS: [keyof UserSettings, string, string][] = [
-  [
-    "emailDigest",
-    "Daily digest",
-    "One mail at 7am: what is due and which section is under cutoff",
-  ],
-  [
-    "weeklyReport",
-    "Weekly report",
-    "Sunday recap of accuracy, pace and marks lost to negative marking",
-  ],
-  [
-    "practiceReminders",
-    "Practice reminders",
-    "A nudge when the streak is about to break",
-  ],
-  [
-    "soundEffects",
-    "Sound cues",
-    "Soft ticks in timed drills and exam conditions",
-  ],
-  ["reduceMotion", "Reduce motion", "Minimise animation across the app"],
-];
+type Draft = {
+  displayName: string;
+  school: string;
+  targetYear: string;
+  bio: string;
+  examBoard: (typeof EXAMS)[number];
+  defaultSection: (typeof SECTIONS)[number];
+};
+
+function toDraft(profile: Profile | null): Draft {
+  return {
+    displayName: profile?.displayName ?? "",
+    school: profile?.school ?? "",
+    targetYear: profile?.targetYear ? String(profile.targetYear) : "",
+    bio: profile?.bio ?? "",
+    examBoard: profile?.examBoard ?? EXAMS[0],
+    defaultSection: profile?.defaultSection ?? SECTIONS[0],
+  };
+}
+
+// An empty box means "no value", not the empty string: the column is nullable
+// and a blank school should clear it rather than store "".
+const orNull = (v: string) => (v.trim() === "" ? null : v.trim());
+
+function toPatch(d: Draft): ProfileUpdate {
+  return {
+    displayName: orNull(d.displayName),
+    school: orNull(d.school),
+    bio: orNull(d.bio),
+    targetYear: d.targetYear.trim() === "" ? null : Number(d.targetYear),
+    examBoard: d.examBoard,
+    defaultSection: d.defaultSection,
+  };
+}
 
 function Field({
   label,
   id,
   value,
   onChange,
+  inputMode,
 }: {
   label: string;
   id: string;
   value: string;
   onChange: (v: string) => void;
+  inputMode?: "numeric";
 }) {
   return (
     <label htmlFor={id} className="block">
@@ -51,6 +62,7 @@ function Field({
       <input
         id={id}
         value={value}
+        inputMode={inputMode}
         onChange={(e) => onChange(e.target.value)}
         className="rounded-ctl border-line bg-canvas focus:border-brand mt-1 h-10 w-full border px-3 text-[14px] transition-colors outline-none"
       />
@@ -58,42 +70,67 @@ function Field({
   );
 }
 
-export function SettingsView() {
-  const {
-    profile,
-    setProfile,
-    settings,
-    setSettings,
-    subject,
-    setSubject,
-    board,
-    setBoard,
-  } = useApp();
+export function SettingsView({ profile }: { profile: Profile | null }) {
+  const router = useRouter();
+  const [draft, setDraft] = useState<Draft>(() => toDraft(profile));
+  const [state, setState] = useState<"idle" | "saving" | "saved" | "error">(
+    "idle",
+  );
+  const [message, setMessage] = useState<string | null>(null);
 
-  const [draft, setDraft] = useState<UserProfile>(profile);
-  const [prefs, setPrefs] = useState<UserSettings>(settings);
-  const [saved, setSaved] = useState(false);
+  const set = <K extends keyof Draft>(key: K, value: Draft[K]) =>
+    setDraft((d) => ({ ...d, [key]: value }));
 
-  const save = () => {
-    setProfile(draft);
-    setSettings(prefs);
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 2000);
+  const save = async () => {
+    setState("saving");
+    setMessage(null);
+    try {
+      const res = await fetch("/api/v1/profile", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(toPatch(draft)),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        setMessage(
+          body?.error === "invalid_body"
+            ? "Check the target year — it has to be a year between 2000 and 2100."
+            : "Could not save. Try again.",
+        );
+        setState("error");
+        return;
+      }
+      setState("saved");
+      // The header and every page read the profile on the server, so they only
+      // pick up the new exam board once the route re-renders.
+      router.refresh();
+      window.setTimeout(() => setState("idle"), 2000);
+    } catch {
+      setMessage("Could not reach the server.");
+      setState("error");
+    }
   };
 
   return (
     <div>
       <PageHeader
         title="Settings"
-        sub="Your details, the exam everything is calibrated to, and what we email you."
+        sub="Your details and the exam everything is calibrated to."
         actions={
           <>
-            {saved ? (
+            {state === "saved" ? (
               <span className="text-ok mr-1 text-[13px] font-medium">
                 Saved
               </span>
             ) : null}
-            <Button onClick={save}>Save changes</Button>
+            {state === "error" && message ? (
+              <span className="text-bad mr-1 max-w-[36ch] text-[13px]">
+                {message}
+              </span>
+            ) : null}
+            <Button onClick={save} disabled={state === "saving"}>
+              {state === "saving" ? "Saving…" : "Save changes"}
+            </Button>
           </>
         }
       />
@@ -102,28 +139,23 @@ export function SettingsView() {
         <SectionTitle>Your details</SectionTitle>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field
-            id="name"
+            id="displayName"
             label="Full name"
-            value={draft.name}
-            onChange={(v) => setDraft({ ...draft, name: v })}
-          />
-          <Field
-            id="email"
-            label="Email"
-            value={draft.email}
-            onChange={(v) => setDraft({ ...draft, email: v })}
+            value={draft.displayName}
+            onChange={(v) => set("displayName", v)}
           />
           <Field
             id="school"
             label="Coaching / college"
             value={draft.school}
-            onChange={(v) => setDraft({ ...draft, school: v })}
+            onChange={(v) => set("school", v)}
           />
           <Field
-            id="examYear"
+            id="targetYear"
             label="Target year"
-            value={draft.examYear}
-            onChange={(v) => setDraft({ ...draft, examYear: v })}
+            inputMode="numeric"
+            value={draft.targetYear}
+            onChange={(v) => set("targetYear", v)}
           />
         </div>
         <label htmlFor="bio" className="mt-4 block">
@@ -132,7 +164,7 @@ export function SettingsView() {
             id="bio"
             rows={3}
             value={draft.bio}
-            onChange={(e) => setDraft({ ...draft, bio: e.target.value })}
+            onChange={(e) => set("bio", e.target.value)}
             className="rounded-ctl border-line bg-canvas focus:border-brand mt-1 w-full resize-none border px-3 py-2 text-[14px] leading-relaxed transition-colors outline-none"
           />
         </label>
@@ -148,9 +180,9 @@ export function SettingsView() {
             <button
               key={b}
               type="button"
-              onClick={() => setBoard(b)}
+              onClick={() => set("examBoard", b)}
               className={`rounded-pill h-10 border px-4 text-[13px] font-medium transition-colors ${
-                board === b
+                draft.examBoard === b
                   ? "border-ink bg-ink text-white"
                   : "border-line bg-canvas hover:border-line-2"
               }`}
@@ -167,9 +199,9 @@ export function SettingsView() {
               <button
                 key={s}
                 type="button"
-                onClick={() => setSubject(s)}
+                onClick={() => set("defaultSection", s)}
                 className={`rounded-pill h-10 border px-4 text-[13px] font-medium transition-colors ${
-                  subject === s
+                  draft.defaultSection === s
                     ? "border-ink bg-ink text-white"
                     : "border-line bg-canvas hover:border-line-2"
                 }`}
@@ -181,35 +213,6 @@ export function SettingsView() {
         </div>
       </Card>
 
-      <Card className="mt-5" pad={false}>
-        <div className="px-6 pt-6 pb-2">
-          <SectionTitle>Notifications</SectionTitle>
-        </div>
-        <div className="divide-line divide-y">
-          {PREFS.map(([key, title, hint]) => (
-            <label
-              key={key}
-              className="hover:bg-brand-soft/40 flex cursor-pointer items-start gap-3 px-6 py-4 transition-colors"
-            >
-              <input
-                type="checkbox"
-                checked={prefs[key]}
-                onChange={(e) =>
-                  setPrefs({ ...prefs, [key]: e.target.checked })
-                }
-                className="mt-0.5 size-4 accent-[#4f46e5]"
-              />
-              <span>
-                <span className="block text-[14px] font-medium">{title}</span>
-                <span className="text-ink-3 mt-0.5 block text-[13px] leading-relaxed">
-                  {hint}
-                </span>
-              </span>
-            </label>
-          ))}
-        </div>
-      </Card>
-
       <div className="mt-6 flex items-center gap-5">
         <Link href="/profile" className="text-ink-3 hover:text-ink text-[13px]">
           View profile
@@ -218,6 +221,8 @@ export function SettingsView() {
           Manage plan
         </Link>
       </div>
+
+      <CloseAccountCard />
     </div>
   );
 }

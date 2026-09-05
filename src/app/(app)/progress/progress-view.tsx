@@ -4,10 +4,6 @@ import { Card, PageHeader, SectionTitle } from "@/design-system";
 import { useApp } from "@/context/AppContext";
 import { NEGATIVE_MARK, SECTIONS, SECTION_SHORT } from "@/data/navigation";
 
-/* Progress. Speed and accuracy are the two numbers that decide a banking
-   result, so they are the two the page is built on — plus the marks negative
-   marking has actually taken off you, which nobody shows. */
-
 const SECT = [
   { s: SECTIONS[0], attempted: 412, correct: 271, sec: 52 },
   { s: SECTIONS[1], attempted: 380, correct: 268, sec: 61 },
@@ -74,8 +70,6 @@ export function ProgressView() {
                       {r.sec}s
                     </span>
                   </div>
-                  {/* One weight for volume; colour is spent on the pace verdict
-                      beside it, which is the number that decides the paper. */}
                   <div className="rounded-pill bg-line h-1.5 overflow-hidden">
                     <div
                       className="rounded-pill bg-ink h-full"

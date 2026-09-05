@@ -2,8 +2,7 @@
 
 import type { NoteColor, StudyNote } from "../types";
 
-/* One source of truth for the four note colours — the composer swatches, the
-   chips under a block, and the dot on a saved card all read from here. */
+// The one source for the four note colours; swatches, chips and cards all read here.
 export const NOTE_SWATCH: Record<NoteColor, string> = {
   yellow: "#facc15",
   blue: "#60a5fa",
@@ -13,8 +12,7 @@ export const NOTE_SWATCH: Record<NoteColor, string> = {
 
 export const NOTE_COLORS = Object.keys(NOTE_SWATCH) as NoteColor[];
 
-/* A stable small tilt per note, so a row of chips looks pinned by hand rather
-   than printed. Deterministic in id so it never shifts between renders. */
+// Tilt is derived from the id so it never shifts between renders.
 function tiltOf(id: string): number {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
@@ -26,8 +24,6 @@ function firstLine(md: string): string {
   return line.length > 80 ? `${line.slice(0, 79)}…` : line || "Empty note";
 }
 
-/* The affordance that replaces the old "Add a note" text link. A folded sticky
-   note with a +, resting with a slow nudge and peeling its corner on hover. */
 export function AddNoteButton({ onClick }: { onClick: () => void }) {
   return (
     <button
@@ -35,12 +31,12 @@ export function AddNoteButton({ onClick }: { onClick: () => void }) {
       onClick={onClick}
       aria-label="Add a note here"
       title="Add a note here"
-      className="group text-ink-4 hover:text-brand hover:bg-brand-soft/50 grid size-7 place-items-center rounded-[8px] transition-colors"
+      className="group text-ink-4 hover:text-brand hover:bg-brand-soft/50 grid size-7 place-items-center rounded-lg transition-colors"
     >
       <svg
         viewBox="0 0 20 20"
         fill="none"
-        className="size-[18px] motion-safe:animate-[note-nudge_2.8s_ease-in-out_infinite] motion-safe:group-hover:[animation:none]"
+        className="size-4.5 motion-safe:animate-[note-nudge_2.8s_ease-in-out_infinite] motion-safe:group-hover:animate-none"
       >
         <path
           d="M3 3h14v9l-5 5H3z"
@@ -53,11 +49,10 @@ export function AddNoteButton({ onClick }: { onClick: () => void }) {
           strokeWidth="1.4"
           strokeLinejoin="round"
         />
-        {/* folded corner — lifts on hover */}
         <path
           d="M17 12l-5 5v-5z"
           fill="currentColor"
-          className="origin-[12px_12px] transition-transform duration-200 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]"
+          className="origin-[12px_12px] transition-transform duration-200 group-hover:translate-x-px group-hover:-translate-y-px"
         />
         <path
           d="M10 6.5v5M7.5 9h5"
@@ -72,8 +67,6 @@ export function AddNoteButton({ onClick }: { onClick: () => void }) {
   );
 }
 
-/* The saved notes for one block, shown as pinned chips beside the block so they
-   are visible at a glance. Clicking one opens it in the note modal. */
 export function BlockNoteChips({
   notes,
   onOpen,
@@ -91,13 +84,12 @@ export function BlockNoteChips({
             onClick={() => onOpen(n.id)}
             title={firstLine(n.bodyMarkdown)}
             aria-label={`Open note: ${firstLine(n.bodyMarkdown)}`}
-            className="group shadow-pop relative block size-5 rounded-[4px] transition-transform duration-150 hover:-translate-y-0.5 hover:rotate-0"
+            className="group shadow-pop relative block size-5 rounded-sm transition-transform duration-150 hover:-translate-y-0.5 hover:rotate-0"
             style={{
               background: NOTE_SWATCH[n.color],
               transform: `rotate(${tiltOf(n.id)}deg)`,
             }}
           >
-            {/* folded corner */}
             <span
               aria-hidden
               className="absolute right-0 bottom-0 border-[5px] border-transparent border-r-white/45 border-b-white/45"

@@ -48,7 +48,6 @@ type AppContextValue = {
   workingGrade: Band;
   nextGrade: Band | null;
   railPosition: number;
-  examDaysLeft: number | null;
   profile: UserProfile;
   setProfile: (p: UserProfile) => void;
   settings: UserSettings;
@@ -70,15 +69,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [subject, setSubject] = useState<Subject>("Quantitative Aptitude");
   const [board, setBoard] = useState<ExamBoard>("IBPS PO");
   const [profile, setProfile] = useState<UserProfile>({
-    name: "Aarav Mehta",
-    email: "alex@onelystop.app",
-    school: "Self-study",
-    examYear: "2026",
-    bio: "Targeting IBPS PO 2026. Weakest on English; strongest on Computer Aptitude.",
+    name: "",
+    email: "",
+    school: "",
+    examYear: "",
+    bio: "",
   });
 
-  // Seed identity from the signed-in account; the rest of the profile stays
-  // local until there's a profiles table to read from
+  // Display only — nothing is authorised from user_metadata.
   useEffect(() => {
     if (!user) return;
     setProfile((prev) => ({
@@ -94,18 +92,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     soundEffects: false,
     reduceMotion: false,
   });
-
-  // Not computed in render: prerender happens at build time, so a day-boundary
-  // drift against the client would be a hydration mismatch.
-  const [examDaysLeft, setExamDaysLeft] = useState<number | null>(null);
-
-  useEffect(() => {
-    // A-level exam season opens mid-May of the student's exam year
-    const examDate = new Date(Number(profile.examYear), 4, 11);
-    setExamDaysLeft(
-      Math.max(0, Math.ceil((examDate.getTime() - Date.now()) / 86_400_000)),
-    );
-  }, [profile.examYear]);
 
   const value = useMemo(() => {
     const masteryValues = Object.values(FEATURE_MASTERY);
@@ -127,14 +113,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
       workingGrade: band,
       nextGrade: next,
       railPosition: railPositionFromMastery(overallMastery),
-      examDaysLeft,
       profile,
       setProfile,
       settings,
       setSettings,
       initials: getInitials(profile.name),
     };
-  }, [subject, board, profile, settings, examDaysLeft]);
+  }, [subject, board, profile, settings]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

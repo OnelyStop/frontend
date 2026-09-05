@@ -1,16 +1,7 @@
 import type { ReactNode } from "react";
 
-/* A deliberately small Markdown renderer that never touches innerHTML.
- *
- * Study content is trusted (it passes scripts/study-validate.mjs, which rejects
- * raw HTML), but rendering it as real React nodes rather than a parsed HTML
- * string means a validator gap can never become script execution. It also keeps
- * the dependency count where STANDARDS.md wants it.
- *
- * Supported: ATX headings, paragraphs, `-`/`*`/`1.` lists, fenced code, block
- * quotes, `|` tables, `---` rules; inline **bold**, *italic*, `code`, and
- * [text](http(s)/mailto only). Anything else renders as literal text.
- */
+// Renders to React nodes, never innerHTML: study content is validated, but a
+// validator gap must not become script execution.
 
 type Inline =
   | { t: "text"; v: string }
@@ -122,7 +113,6 @@ export function parseMarkdown(src: string): MdNode[] {
       continue;
     }
 
-    // Table: a header row followed by a |---|---| separator.
     if (
       line.includes("|") &&
       i + 1 < lines.length &&
@@ -168,7 +158,6 @@ export function parseMarkdown(src: string): MdNode[] {
       continue;
     }
 
-    // Paragraph: consecutive non-blank lines that are not another block.
     const buf: string[] = [];
     while (i < lines.length && lines[i].trim() !== "") {
       if (
@@ -182,9 +171,8 @@ export function parseMarkdown(src: string): MdNode[] {
     nodes.push({ kind: "paragraph", text: parseInline(buf.join(" ")) });
   }
 
-  // Authors space list items with a blank line for readability, which the loop
-  // above splits into separate lists — merge adjacent lists of the same kind so
-  // an ordered list keeps counting instead of restarting at 1.
+  // Authors blank-line between list items, which splits one list into many;
+  // merge them so an ordered list keeps counting instead of restarting at 1.
   const merged: MdNode[] = [];
   for (const node of nodes) {
     const prev = merged[merged.length - 1];
@@ -200,37 +188,6 @@ export function parseMarkdown(src: string): MdNode[] {
   }
   return merged;
 }
-
-/** Flatten to plain text — used to build the tutor context and to search. */
-export function markdownToText(src: string): string {
-  const flat = (nodes: Inline[]): string =>
-    nodes
-      .map((n) => (n.t === "text" || n.t === "code" ? n.v : flat(n.v)))
-      .join("");
-  return parseMarkdown(src)
-    .map((node) => {
-      switch (node.kind) {
-        case "heading":
-        case "paragraph":
-        case "blockquote":
-          return flat(node.text);
-        case "list":
-          return node.items.map((it) => `- ${flat(it)}`).join("\n");
-        case "code":
-          return node.text;
-        case "table":
-          return [node.header, ...node.rows]
-            .map((r) => r.map(flat).join(" | "))
-            .join("\n");
-        case "hr":
-          return "";
-      }
-    })
-    .join("\n\n")
-    .trim();
-}
-
-// --- rendering -----------------------------------------------------------
 
 function Inlines({ nodes }: { nodes: Inline[] }): ReactNode {
   return nodes.map((n, i) => {

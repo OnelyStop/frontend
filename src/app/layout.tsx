@@ -3,10 +3,11 @@ import { instrument, jakarta } from "./fonts";
 import { AppProvider } from "@/context/AppContext";
 import { AuthProvider } from "@/features/auth/AuthContext";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
+import { SITE_URL } from "@/config/site";
 import "@/design-system/styles/theme.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://onelystop.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "onelystop — clear every sectional cutoff",
     template: "%s · onelystop",

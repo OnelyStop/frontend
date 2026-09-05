@@ -6,11 +6,8 @@ import { useCompanion } from "./CompanionContext";
 
 const MIN_LENGTH = 8;
 
-/**
- * Watches for text selections inside any element marked `data-companion` and
- * floats an "Ask Onely" button beside them. Selection is read on mouseup and
- * keyup rather than selectionchange, which fires per-character while dragging.
- */
+// Read on mouseup and keyup, not selectionchange, which fires per character
+// while dragging.
 export function SelectionAsk() {
   const { openWith } = useCompanion();
   const [anchor, setAnchor] = useState<{ x: number; y: number } | null>(null);
@@ -39,20 +36,26 @@ export function SelectionAsk() {
       });
     };
 
-    const clear = (e: MouseEvent) => {
+    const clear = (e: Event) => {
       // Let the button's own click land before the selection collapses.
       if ((e.target as Element | null)?.closest(".ask-onely")) return;
       setAnchor(null);
     };
+    const hide = () => setAnchor(null);
 
     document.addEventListener("mouseup", read);
+    document.addEventListener("touchend", read);
     document.addEventListener("keyup", read);
     document.addEventListener("mousedown", clear);
-    window.addEventListener("scroll", () => setAnchor(null), true);
+    document.addEventListener("touchstart", clear);
+    window.addEventListener("scroll", hide, true);
     return () => {
       document.removeEventListener("mouseup", read);
+      document.removeEventListener("touchend", read);
       document.removeEventListener("keyup", read);
       document.removeEventListener("mousedown", clear);
+      document.removeEventListener("touchstart", clear);
+      window.removeEventListener("scroll", hide, true);
     };
   }, []);
 
@@ -61,7 +64,7 @@ export function SelectionAsk() {
   return (
     <button
       type="button"
-      className="rounded-pill bg-ink shadow-pop fixed z-90 flex -translate-x-1/2 -translate-y-full items-center gap-1.5 px-3 py-1.5 text-[12.5px] font-medium text-white"
+      className="ask-onely rounded-pill bg-ink shadow-pop fixed z-90 flex -translate-x-1/2 -translate-y-full items-center gap-1.5 px-3 py-1.5 text-[12.5px] font-medium text-white"
       style={{ left: anchor.x, top: anchor.y }}
       onClick={() => {
         openWith(textRef.current);

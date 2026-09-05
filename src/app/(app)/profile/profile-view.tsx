@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useApp } from "@/context/AppContext";
 import { Card, PageHeader, SectionTitle } from "@/design-system";
 import { SECTION_KEY, SECTION_SHORT, SECTIONS } from "@/data/navigation";
+import type { Profile } from "@/features/profile/types";
 
-/* A profile here is a record card, not a social page: what you have sat, what
-   cleared, and where the marks went. */
-
+// Sittings and sectional bests derive from attempt rows, which land with the
+// question bank. Hardcoded until then.
 const SITTINGS = [
   {
     paper: "IBPS PO Prelims · Mock 14",
@@ -37,8 +37,9 @@ const SITTINGS = [
 
 const SECTION_BEST = [72, 68, 54, 81, 88];
 
-export function ProfileView() {
-  const { profile, board, streak, points, initials } = useApp();
+export function ProfileView({ profile }: { profile: Profile | null }) {
+  const { streak, points, initials } = useApp();
+  const board = profile?.examBoard ?? "IBPS PO";
 
   return (
     <>
@@ -62,14 +63,21 @@ export function ProfileView() {
         >
           {initials}
         </span>
-        <div className="min-w-[200px] flex-1">
-          <p className="text-[20px]">{profile.name}</p>
-          <p className="text-ink-3 mt-0.5 text-[14px]">{profile.email}</p>
+        <div className="min-w-50 flex-1">
+          <p className="text-[20px]">
+            {profile?.displayName ?? "Your profile"}
+          </p>
+          <p className="text-ink-3 mt-0.5 text-[14px]">{board}</p>
           <p className="text-ink-3 text-[14px]">
-            {profile.school} · Target {profile.examYear}
+            {[
+              profile?.school,
+              profile?.targetYear && `Target ${profile.targetYear}`,
+            ]
+              .filter(Boolean)
+              .join(" · ") || "Add your details in settings"}
           </p>
         </div>
-        {profile.bio ? (
+        {profile?.bio ? (
           <p className="border-line text-ink-2 max-w-[46ch] border-l pl-5 text-[14px] leading-relaxed">
             {profile.bio}
           </p>
