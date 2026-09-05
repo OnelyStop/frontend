@@ -1,11 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { AiError, type Turn } from "@/lib/openrouter-client/openrouter-types";
 import { openrouter } from "@/lib/openrouter-client/openrouter";
-import {
-  COMPANION_SYSTEM,
-  companionUserPrompt,
-} from "@/features/companion/system-prompt";
-import { createClient } from "@/lib/supabase-server";
+import { COMPANION_SYSTEM, companionUserPrompt } from "@/lib/prompts/companion";
+import { currentUserId } from "@/lib/auth.server";
+import { rateLimit } from "@/lib/rate-limit";
 
 // Caps double as cost control: the endpoint spends real money per call, so
 // nothing client-supplied is passed through unbounded.
@@ -13,20 +11,15 @@ const MAX_SELECTION = 4000;
 const MAX_QUESTION = 1000;
 const MAX_HISTORY_TURNS = 12;
 
-const AUTH_DISABLED =
-  process.env.AUTH_DISABLED === "true" && process.env.NODE_ENV !== "production";
-
 export async function POST(request: NextRequest) {
   // The proxy only guards page routes, so the API authenticates itself.
-  if (!AUTH_DISABLED) {
-    const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-    }
-  }
+  const userId = await currentUserId();
+  if (!userId)
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+
+  const limit = rateLimit(`companion:${userId}`, 15, 60_000);
+  if (!limit.ok)
+    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
 
   let body: unknown;
   try {
@@ -81,7 +74,10 @@ export async function POST(request: NextRequest) {
             : error.kind === "bad_request"
               ? 400
               : 502;
-      return NextResponse.json({ error: error.kind }, { status });
+      // A bad provider key must not read as the user's expired session.
+      const code =
+        error.kind === "unauthorized" ? "not_configured" : error.kind;
+      return NextResponse.json({ error: code }, { status });
     }
     return NextResponse.json({ error: "upstream" }, { status: 502 });
   }
