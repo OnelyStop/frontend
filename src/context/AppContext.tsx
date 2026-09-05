@@ -77,8 +77,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     bio: "Targeting IBPS PO 2026. Weakest on English; strongest on Computer Aptitude.",
   });
 
-  // Seed identity from the signed-in account; the rest of the profile stays
-  // local until there's a profiles table to read from
   useEffect(() => {
     if (!user) return;
     setProfile((prev) => ({
@@ -100,7 +98,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [examDaysLeft, setExamDaysLeft] = useState<number | null>(null);
 
   useEffect(() => {
-    // A-level exam season opens mid-May of the student's exam year
     const examDate = new Date(Number(profile.examYear), 4, 11);
     setExamDaysLeft(
       Math.max(0, Math.ceil((examDate.getTime() - Date.now()) / 86_400_000)),
