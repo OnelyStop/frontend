@@ -1,18 +1,11 @@
-// No `server-only` guard here, deliberately: the plan seeding script imports
-// this, and that guard rejects any importer outside a Server Component. The
-// `node:crypto` import already makes this unbundleable for the browser, and the
-// secrets it reads are non-NEXT_PUBLIC, so a client import fails twice over.
+// No `server-only` guard: the plan seeding script imports this, and that guard
+// rejects any importer outside a Server Component.
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 const API = "https://api.razorpay.com/v1";
 
-/**
- * Razorpay credentials, read at call time rather than module load.
- *
- * Reading them at import would crash any route that merely shares a bundle with
- * this file when the vars are absent — the same failure that once took the
- * whole site down over a missing Supabase key.
- */
+// Read at call time, not module load: reading at import crashes every route
+// that merely shares a bundle with this file when the vars are absent.
 function credentials() {
   const keyId = process.env.RAZORPAY_KEY_ID;
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
@@ -36,15 +29,12 @@ async function call<T>(
       "Content-Type": "application/json",
     },
     body: init?.body ? JSON.stringify(init.body) : undefined,
-    // Never cached: these are money operations, and a cached "create" is a
-    // charge that silently did not happen.
+    // A cached "create" is a charge that silently did not happen.
     cache: "no-store",
   });
 
   const text = await res.text();
   if (!res.ok) {
-    // Razorpay puts the useful part in error.description; the raw body is kept
-    // for the cases where it does not.
     let detail = text;
     try {
       detail = JSON.parse(text)?.error?.description ?? text;
@@ -90,7 +80,7 @@ export function createPlan(input: {
       interval: input.interval,
       item: {
         name: input.name,
-        // Razorpay takes minor units, same as we store. No conversion here on
+        // Razorpay takes minor units, same as we store. No conversion on
         // purpose: a multiply is where a rounding bug would enter.
         amount: input.amountMinor,
         currency: input.currency,
@@ -110,9 +100,8 @@ export function createSubscription(input: {
     body: {
       plan_id: input.planId,
       total_count: input.totalCount,
-      // Razorpay emails the customer about mandates and upcoming debits. The
-      // pre-debit notice is required in India, so leaving this to them is one
-      // less compliance surface we own.
+      // The pre-debit notice is required in India; letting Razorpay send it is
+      // one less compliance surface we own.
       customer_notify: 1,
       notes: input.notes,
     },
@@ -123,19 +112,33 @@ export function fetchSubscription(id: string): Promise<RazorpaySubscription> {
   return call<RazorpaySubscription>(`/subscriptions/${id}`);
 }
 
+// At the cycle end, not now: the customer keeps what they paid for and no
+// pro-rata refund arithmetic enters the codebase.
+export function cancelSubscription(id: string): Promise<RazorpaySubscription> {
+  return call<RazorpaySubscription>(`/subscriptions/${id}/cancel`, {
+    method: "POST",
+    body: { cancel_at_cycle_end: 1 },
+  });
+}
+
+export type RazorpayPayment = {
+  id: string;
+  amount: number;
+  currency: string;
+  status: string;
+  method?: string | null;
+  created_at: number;
+};
+
 function matches(expected: string, actual: string): boolean {
   const a = Buffer.from(expected, "utf8");
   const b = Buffer.from(actual, "utf8");
-  // timingSafeEqual throws on a length mismatch, which would itself leak length
-  // through an exception, so the lengths are compared first and in constant
-  // time terms that difference does not matter — a wrong length is wrong.
+  // timingSafeEqual throws on a length mismatch, so lengths are compared first.
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
 /**
- * Verify the signature Checkout hands back after a subscription authorisation.
- *
- * The order of the two ids is NOT the same as for one-off orders:
+ * The id order is NOT the same as for one-off orders:
  *
  *     orders:        hmac(order_id + "|" + payment_id)
  *     subscriptions: hmac(payment_id + "|" + subscription_id)
@@ -154,13 +157,9 @@ export function verifySubscriptionSignature(input: {
   return matches(expected, input.signature);
 }
 
-/**
- * Verify a webhook against the RAW request body.
- *
- * It must be the bytes as received. Parsing to JSON and re-stringifying changes
- * key order and whitespace, and the hash then never matches — which looks
- * exactly like an attack in the logs.
- */
+// rawBody must be the bytes as received. Parsing to JSON and re-stringifying
+// changes key order and whitespace, and the hash then never matches — which
+// looks exactly like an attack in the logs.
 export function verifyWebhookSignature(
   rawBody: string,
   signature: string,

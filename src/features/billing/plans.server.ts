@@ -1,34 +1,16 @@
 import "server-only";
-
+import { unstable_cache } from "next/cache";
 import { and, eq } from "drizzle-orm";
-
 import { db } from "@/db";
 import { paymentPlans } from "@/db/schema";
-import type { Currency } from "./currency";
+import type { Currency } from "./money";
+import type { BillingInterval, PlanKey, PlanPrice } from "./types";
 
-export type BillingInterval = "monthly" | "yearly";
-export type PlanKey = "pro" | "school";
+export type PricedPlan = PlanPrice & { id: number; razorpayPlanId: string };
 
-export type PricedPlan = {
-  id: number;
-  plan: PlanKey;
-  interval: BillingInterval;
-  currency: Currency;
-  razorpayPlanId: string;
-  amountMinor: number;
-};
-
-/**
- * The price of one plan, read from the database.
- *
- * This is the only place an amount comes from. A checkout route that accepted
- * an amount from its caller would sell Pro for one paisa, and `features/pricing/
- * plans.ts` cannot stand in for it: that file ships to the browser, so anything
- * it says is a display value, not a price.
- *
- * `server-only` at the top of this file makes importing it from a client
- * component a build error rather than a leak.
- */
+// The only place an amount comes from. A checkout route that took an amount
+// from its caller would sell Pro for one paisa, and the pricing copy file
+// cannot stand in — it ships to the browser, so it holds display values.
 export async function findPlan(
   plan: PlanKey,
   interval: BillingInterval,
@@ -59,16 +41,9 @@ export async function findPlan(
     : null;
 }
 
-/**
- * Every active plan in one currency, for rendering a pricing page.
- *
- * Returns prices, never Razorpay plan ids — a plan id in the page source is an
- * invitation to open a checkout for a plan the caller chose rather than one we
- * priced.
- */
-export async function listPlans(
-  currency: Currency,
-): Promise<Omit<PricedPlan, "razorpayPlanId">[]> {
+// Returns prices, never Razorpay plan ids — a plan id in the page source lets
+// the caller open a checkout for a plan they chose rather than one we priced.
+async function queryPlans(currency: Currency): Promise<PlanPrice[]> {
   const rows = await db
     .select()
     .from(paymentPlans)
@@ -76,11 +51,16 @@ export async function listPlans(
       and(eq(paymentPlans.currency, currency), eq(paymentPlans.active, true)),
     );
 
-  return rows.map(({ id, plan, interval, amountMinor }) => ({
-    id,
+  return rows.map(({ plan, interval, amountMinor }) => ({
     plan,
     interval,
     currency,
     amountMinor,
   }));
 }
+
+// Prices change by seeding a new plan row, which is rare; the landing page
+// renders these to every visitor.
+export const listPlans = unstable_cache(queryPlans, ["billing", "plans"], {
+  revalidate: 3600,
+});
