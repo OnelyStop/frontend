@@ -1,10 +1,14 @@
 import "server-only";
 import { and, count, eq, gte, isNotNull, max, sql } from "drizzle-orm";
+import { NEGATIVE_MARK } from "@/data/navigation";
 import { db } from "@/db";
 import { attemptAnswers, attempts, bankQuestions } from "@/db/schema";
-import { isCorrect } from "./scoring";
+import { isCorrect, round2 } from "./scoring";
 
 const WINDOW_DAYS = 30;
+
+// Accuracy on one or two questions is noise, and /attempt-map turns it into a verdict.
+const MIN_TOPIC_ATTEMPTS = 3;
 
 export type SectionProgress = {
   section: string;
@@ -19,6 +23,17 @@ export type ProfileStats = {
   bestScore: number | null;
   /** ISO, the most recent submitted attempt of any mode. */
   lastSatAt: string | null;
+};
+
+export type TopicMapRow = {
+  topic: string;
+  section: string;
+  attempted: number;
+  correct: number;
+  /** Percent, 0-100, against attempted — a blank is never counted here. */
+  accuracy: number;
+  avgSec: number;
+  marksLost: number;
 };
 
 export type Progress = {
@@ -118,6 +133,97 @@ export async function getProgress(
       .sort((x, y) => y.attempted - x.attempted),
     week,
   };
+}
+
+/**
+ * One row per topic over the same 30-day window as `getProgress`, graded the
+ * same way — from `bank_questions.answer`, never from anything a client sent.
+ *
+ * Topics under `MIN_TOPIC_ATTEMPTS` are dropped rather than shown at 0% or
+ * 100%: /attempt-map reads a row as "bank this" or "skip this", and a verdict
+ * off one question is worse than no verdict at all.
+ */
+export async function getTopicMap(
+  userId: string,
+  now = new Date(),
+): Promise<TopicMapRow[]> {
+  const since = new Date(now.getTime() - WINDOW_DAYS * 86_400_000);
+
+  const rows = await db
+    .select({
+      topic: bankQuestions.topic,
+      section: bankQuestions.section,
+      answer: bankQuestions.answer,
+      chosen: attemptAnswers.chosen,
+      timeMs: attemptAnswers.timeMs,
+    })
+    .from(attemptAnswers)
+    .innerJoin(attempts, eq(attempts.id, attemptAnswers.attemptId))
+    .innerJoin(bankQuestions, eq(bankQuestions.qId, attemptAnswers.qId))
+    .where(
+      and(
+        eq(attempts.userId, userId),
+        isNotNull(attempts.submittedAt),
+        gte(attempts.startedAt, since),
+        isNotNull(bankQuestions.answer),
+        isNotNull(bankQuestions.topic),
+        sql`${attemptAnswers.chosen} is not null`,
+      ),
+    );
+
+  // isNotNull guarantees both at runtime but does not narrow the select type.
+  const graded = rows.filter(
+    (r): r is typeof r & { answer: string; topic: string } =>
+      r.answer !== null && r.topic !== null,
+  );
+  if (graded.length === 0) return [];
+
+  type Bucket = {
+    topic: string;
+    section: string;
+    attempted: number;
+    correct: number;
+    ms: number;
+    timed: number;
+  };
+  const byTopic = new Map<string, Bucket>();
+
+  for (const r of graded) {
+    const section = r.section ?? "Unsectioned";
+    // The same topic name can appear under two sections, so the key carries both.
+    const key = `${section}::${r.topic}`;
+    const b = byTopic.get(key) ?? {
+      topic: r.topic,
+      section,
+      attempted: 0,
+      correct: 0,
+      ms: 0,
+      timed: 0,
+    };
+    b.attempted += 1;
+    if (isCorrect(r.chosen, r.answer)) b.correct += 1;
+    if (r.timeMs !== null) {
+      b.ms += r.timeMs;
+      b.timed += 1;
+    }
+    byTopic.set(key, b);
+  }
+
+  return [...byTopic.values()]
+    .filter((b) => b.attempted >= MIN_TOPIC_ATTEMPTS)
+    .map((b) => ({
+      topic: b.topic,
+      section: b.section,
+      attempted: b.attempted,
+      correct: b.correct,
+      accuracy: round2((b.correct / b.attempted) * 100),
+      // Averaged over the timed answers only, so untimed rows don't read as instant.
+      avgSec: b.timed > 0 ? Math.round(b.ms / b.timed / 1000) : 0,
+      marksLost: round2((b.attempted - b.correct) * NEGATIVE_MARK),
+    }))
+    .sort(
+      (x, y) => y.attempted - x.attempted || x.topic.localeCompare(y.topic),
+    );
 }
 
 // One aggregate row per mode — "bank" and "mix" both count as drills.
