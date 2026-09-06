@@ -30,15 +30,23 @@ const MIGRATIONS = join(import.meta.dirname, "..", "..", "..", "migrations");
 
 async function freshDb() {
   const client = new PGlite();
-  await client.exec(
-    "create role anon nologin; create role authenticated nologin;",
-  );
+  await client.exec(`
+    create role anon nologin;
+    create role authenticated nologin;
+    create role service_role nologin;
+    create schema auth;
+    create table auth.users (
+      id uuid primary key,
+      email text unique,
+      raw_user_meta_data jsonb not null default '{}'::jsonb
+    );
+    create function auth.uid() returns uuid language sql stable as 'select null::uuid';
+  `);
   const files = readdirSync(MIGRATIONS)
     .filter((f) => /^\d+_.*\.sql$/.test(f))
     .sort();
   for (const f of files) {
     const text = readFileSync(join(MIGRATIONS, f), "utf8");
-    if (!/"articles"/.test(text)) continue;
     for (const stmt of text.split("--> statement-breakpoint")) {
       if (stmt.trim()) await client.exec(stmt);
     }

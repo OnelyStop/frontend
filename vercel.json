@@ -4,6 +4,7 @@
   "regions": ["bom1"],
   "crons": [
     { "path": "/api/v1/internal/ingest", "schedule": "30 12 * * *" },
-    { "path": "/api/v1/internal/generate", "schedule": "30 13 * * *" }
+    { "path": "/api/v1/internal/generate", "schedule": "30 13 * * *" },
+    { "path": "/api/v1/internal/billing-reconcile", "schedule": "0 2 * * *" }
   ]
 }

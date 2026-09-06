@@ -1,5 +1,5 @@
 import { createHmac, randomUUID } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { PGlite } from "@electric-sql/pglite";
 import { eq } from "drizzle-orm";
@@ -9,10 +9,8 @@ import * as schema from "@/db/schema";
 import { getEntitlement } from "./entitlements.server";
 import { handleWebhook } from "./webhook.server";
 
-// Every billing migration, in order, or the tested schema drifts from the real one.
-const MIGRATIONS = ["0001_billing.sql", "0010_pro_plus_tier.sql"].map((name) =>
-  join(import.meta.dirname, "..", "..", "migrations", name),
-);
+// Every migration in order — a named subset silently misses the next one added.
+const MIGRATIONS = join(import.meta.dirname, "..", "..", "migrations");
 const SECRET = "whsec_test_only";
 const USER = randomUUID();
 const T0 = new Date("2026-09-01T00:00:00Z");
@@ -27,13 +25,19 @@ async function freshDb() {
     create role authenticated nologin;
     create role service_role nologin;
     create schema auth;
-    create table auth.users (id uuid primary key);
+    create table auth.users (
+      id uuid primary key,
+      email text unique,
+      raw_user_meta_data jsonb not null default '{}'::jsonb
+    );
     create function auth.uid() returns uuid language sql stable as 'select null::uuid';
   `);
-  for (const path of MIGRATIONS) {
-    for (const stmt of readFileSync(path, "utf8").split(
-      "--> statement-breakpoint",
-    )) {
+  const files = readdirSync(MIGRATIONS)
+    .filter((f) => /^\d+_.*\.sql$/.test(f))
+    .sort();
+  for (const f of files) {
+    const text = readFileSync(join(MIGRATIONS, f), "utf8");
+    for (const stmt of text.split("--> statement-breakpoint")) {
       if (stmt.trim()) await client.exec(stmt);
     }
   }

@@ -136,9 +136,12 @@ export const attempts = pgTable(
       .defaultNow(),
     submittedAt: timestamp("submitted_at", { withTimezone: true }),
     score: numeric("score", { precision: 6, scale: 2 }),
+    // Chosen by the server when the attempt starts; grading never leaves this set.
+    servedQIds: text("served_q_ids").array(),
   },
   (t) => [
     index("attempts_user_id_idx").on(t.userId),
+    index("attempts_user_started_idx").on(t.userId, t.startedAt.desc()),
 
     // Read-only to PostgREST: a client that could write here could set its own `score`.
     pgPolicy("signed-in users can read their own attempts", {
