@@ -1,20 +1,4 @@
-/**
- * Create the Razorpay plan objects and record them in `payment_plans`.
- *
- *     bun run scripts/seed-billing-plans.ts          # what it would do
- *     bun run scripts/seed-billing-plans.ts --apply  # actually create them
- *
- * Razorpay fixes the currency on the plan itself, so one product sold in two
- * currencies is two plan objects. Four rows here: pro × {monthly, yearly} ×
- * {INR, USD}.
- *
- * Run once per environment. Razorpay plans cannot be edited — changing a price
- * means a new plan, and existing subscribers stay on the old one, which is the
- * behaviour you want and the reason the id is stored rather than the price
- * alone.
- *
- * Eight rows: {pro, pro_plus} × {monthly, yearly} × {INR, USD}.
- */
+/** Run once per environment: Razorpay plans cannot be edited, so a price change means a new plan id and existing subscribers stay on the old one. */
 import { config } from "dotenv";
 import { sql } from "drizzle-orm";
 

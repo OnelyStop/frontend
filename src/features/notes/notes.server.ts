@@ -7,12 +7,7 @@ import { db } from "@/db";
 import { notes } from "@/db/schema";
 import type { NoteDetail, NoteSummary } from "./types";
 
-/**
- * Every non-draft note, grouped by section/topic — the exact shape
- * `NotesView` filters and renders. "draft" is hidden so a note mid-authoring
- * can be imported without showing up half-written; every note today is
- * "verified".
- */
+/** Drafts are excluded so a note mid-authoring can be imported without showing up half-written. */
 export async function listNotes(): Promise<NoteSummary[]> {
   const rows = await db
     .select({
@@ -39,11 +34,7 @@ export async function listNotes(): Promise<NoteSummary[]> {
   return rows;
 }
 
-/**
- * One note's full content. Wrapped in React's cache() because a detail page
- * calls this once for generateMetadata and once for the page body — cache()
- * dedupes both into a single query per request rather than two.
- */
+/** cache() because a detail page calls this from both generateMetadata and the page body, which would otherwise be two queries. */
 export const getNote = cache(
   async (noteId: string): Promise<NoteDetail | null> => {
     const [row] = await db

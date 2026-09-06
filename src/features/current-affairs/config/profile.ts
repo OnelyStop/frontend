@@ -19,11 +19,7 @@ export type ExamProfile = {
   generationModel: string;
   /** Salient-facts dedup compares against this many days. */
   recentWindowDays: number;
-  /**
-   * Stage A, applied only to NewsData — RSS feeds are the regulators' own
-   * announcements. Hard-drops only on a negative term with no positive term;
-   * the model gate in generation is the real filter.
-   */
+  /** NewsData only; drops on a negative term with no positive — the model gate in generation is the real filter. */
   relevanceLexicon: { positive: string[]; negative: string[] };
   topics: string[];
 };

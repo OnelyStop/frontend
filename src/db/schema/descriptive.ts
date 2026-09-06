@@ -12,12 +12,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { authenticatedRole } from "drizzle-orm/supabase";
 
-/**
- * One row per marked descriptive answer. A marking costs real money and the
- * learner's monthly allowance is spent on it, so it is kept rather than
- * recomputed — and the draft with it, since feedback quoting a script the
- * learner can no longer see is unusable.
- */
+/** A marking costs real money and spends the learner's allowance, so it is stored with its draft rather than recomputed. */
 export const descriptiveMarkings = pgTable(
   "descriptive_markings",
   {

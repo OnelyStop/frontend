@@ -1,81 +1,69 @@
 # Migrations
 
 Managed by [Drizzle](https://orm.drizzle.team). The schema lives in
-[`src/db/schema.ts`](../db/schema.ts) — edit that, not the SQL.
+[`src/db/schema/`](../db/schema/) — edit those files, not the SQL.
 
 ```
 src/migrations/
-  0000_rbac.sql       the whole role setup, one file
-  meta/               Drizzle's state — never edit by hand
-  rollback/           hand-written down migrations
+  0000_schema.sql                 types, tables, indexes, RLS and policies
+  0001_functions_and_grants.sql   everything drizzle cannot emit
+  meta/                           Drizzle's state — never edit by hand
+  rollback/                       hand-written down migrations
 ```
+
+## What drizzle cannot emit
+
+`db:generate` reads `src/db/schema/` and writes tables, indexes, `ENABLE ROW
+LEVEL SECURITY` and policies. It never writes:
+
+- **GRANT or REVOKE.** Postgres checks grants before RLS, so a policy without a
+  grant returns zero rows — which reads as "this user has no data", not as a
+  denial. Supabase also grants `ALL` on every new public table to `anon` and
+  `authenticated` by default, so a migration that says nothing is not neutral.
+- **Foreign keys into `auth.users`.** That schema is not in the drizzle model.
+  Without them, deleting a user leaves their rows behind and closing an account
+  stops erasing anything.
+- **Functions and triggers** — `is_admin`, `authorize`, `handle_new_user`,
+  `touch_updated_at`.
+
+All of it lives in `0001`. **Regenerating drops it silently**: `db:generate`
+rewrites the SQL from the schema alone, so check `git diff` before committing
+and keep the hand-written file.
 
 ## Everyday flow
 
 ```bash
-# 1. edit src/db/schema.ts
+# 1. edit src/db/schema/*.ts
 bun run db:generate    # writes the SQL for you
 bun run db:migrate     # applies pending migrations
 ```
 
-`db:generate` needs no database. `db:migrate` does.
+Add the new file to `rollback/` by hand in the same commit. `db:migrate` uses
+`DIRECT_URL` when set — the pooler cannot run DDL.
 
-## Environment
+## Privileges
 
-Two connection strings, from Supabase → Settings → Database:
+Nothing in this app reaches Postgres as `anon` or `authenticated` except two
+RBAC lookups through supabase-js; everything else runs as the `DATABASE_URL`
+role. So the only grants are `SELECT` on `user_roles` and `role_permissions`,
+plus `EXECUTE` on the two authorization functions.
 
-| Var            | Port | Used by            | Why                                                         |
-| -------------- | ---- | ------------------ | ----------------------------------------------------------- |
-| `DATABASE_URL` | 6543 | the app at runtime | Transaction pooler — serverless exhausts direct connections |
-| `DIRECT_URL`   | 5432 | `drizzle-kit`      | The pooler rejects some DDL                                 |
+RLS is still enabled on every table, as a backstop rather than as the check.
+`policy-grants.test.ts` holds that line: it fails on any grant to `anon`, any
+grant to `authenticated` outside those two tables, and any write grant at all.
 
-`postgres.js` is configured with `prepare: false`, which the transaction pooler
-requires.
+## Rollbacks
 
-## What Drizzle can't generate
+Hand-written, one per forward migration, and not run by anything automatically.
+A rollback that destroys data says `DESTRUCTIVE` at the top and what is lost;
+the test enforces that marker on any file containing a drop or delete.
 
-Anything in `0001_*` was written by hand via `drizzle-kit generate --custom`:
+They are a recovery aid, not a plan. For a migration that ships broken against
+real data, the plan is a Supabase point-in-time restore.
 
-- the plpgsql `custom_access_token_hook`
-- `authorize()` — `security definer` with a pinned `search_path`
-- grants and revokes to `supabase_auth_admin`
-- the foreign key into `auth.users` (Supabase-managed schema)
-- seed rows
-
-Keep writing those as custom migrations so they stay in the same pipeline.
-
-## No dashboard steps
-
-Migration 0002 removed the Custom Access Token Hook. The role is read straight
-from `user_roles` — by RLS inside Postgres (a local index lookup), and by the
-app on admin screens only. Nothing to enable in the dashboard.
-
-Grant a role with SQL:
+After running one, delete its row or drizzle still counts the migration as
+applied:
 
 ```sql
-insert into public.user_roles (user_id, role)
-select id, 'admin' from auth.users where email = 'someone@example.com'
-on conflict (user_id, role) do nothing;
+delete from drizzle.__drizzle_migrations where hash like '%0001_functions_and_grants%';
 ```
-
-## Rolling back
-
-Drizzle is **forward-only** — it generates no down migrations. `rollback/` is
-hand-maintained. Read the header of the file before running it; some need a
-dashboard change first, and you must also delete the matching rows from
-`drizzle.__drizzle_migrations` or Drizzle will still consider them applied.
-
-## Supabase URL configuration
-
-Auth cookies are per-origin, so every origin you sign in from must be listed at
-**Authentication → URL Configuration → Redirect URLs**:
-
-```
-http://localhost:3000/auth/callback     # local dev
-https://<your-domain>/auth/callback     # production
-```
-
-Miss one and sign-in appears to work but no cookie is written for that origin —
-the server then sees no session, and every protected route redirects to /login.
-That looks exactly like a broken permission check, so verify the session before
-touching grants or RLS.

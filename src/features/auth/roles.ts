@@ -1,4 +1,6 @@
+import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
+import { captureError } from "@/lib/observability.server";
 import { createClient } from "@/lib/supabase-server";
 
 export type AppRole = "admin" | "editor";
@@ -28,7 +30,10 @@ export async function getRole(): Promise<AppRole | null> {
   // getUser validates against the auth server; getSession would trust a cookie
   const {
     data: { user },
+    error: authError,
   } = await supabase.auth.getUser();
+  if (authError && !isAuthSessionMissingError(authError))
+    captureError(authError, { at: "getRole" });
   if (!user) return null;
 
   const { data, error } = await supabase
@@ -37,6 +42,8 @@ export async function getRole(): Promise<AppRole | null> {
     .eq("user_id", user.id)
     .maybeSingle();
 
+  // Failing closed is right, but silently it looks like the admin lost their role.
+  if (error) captureError(error, { at: "getRole.user_roles", userId: user.id });
   if (error || !data) return null;
   const role = data.role as string;
   return role === "admin" || role === "editor" ? role : null;

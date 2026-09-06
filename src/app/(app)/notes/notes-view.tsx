@@ -20,9 +20,6 @@ import {
 } from "@/data/navigation";
 import type { NoteSummary } from "@/features/notes/types";
 
-/* Notes. In this market notes are formulae, shortcuts and tricks — so they are
-   filed by section and searchable, not a board of coloured squares. */
-
 export function NotesView({ notes }: { notes: NoteSummary[] }) {
   const [section, setSection] = useState<Subject | "All">("All");
   const [q, setQ] = useState("");

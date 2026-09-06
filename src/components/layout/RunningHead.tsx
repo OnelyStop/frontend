@@ -82,9 +82,7 @@ function pretty(seg: string): string {
 
 export type Crumb = { href: string; label: string };
 
-/** The stack the running head prints and Esc walks back up. A deep-link param
-    is a level of its own, so `?spec=3.1.2` → Index → cover sheet is three real
-    URLs and the back button agrees with Esc. */
+/** The stack Esc walks back up; a deep-link param is a level of its own, so the back button agrees with Esc. */
 export function crumbTrail(
   pathname: string,
   spec: string | null,

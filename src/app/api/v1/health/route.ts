@@ -27,7 +27,9 @@ export async function GET() {
     ? (Date.now() - new Date(lastRunAt).getTime()) / 3_600_000
     : null;
 
-  const stale = staleHours === null || staleHours > STALE_HOURS;
+  // Never run is not stale: on a fresh deploy that would page before the first cron.
+  const neverRun = lastRunAt === null;
+  const stale = staleHours !== null && staleHours > STALE_HOURS;
   const twoConsecutiveZeroPublished =
     lastTwo.length === 2 &&
     lastTwo.every((r) => r.status === "done" && r.published === 0);
@@ -39,7 +41,7 @@ export async function GET() {
       lastRunAt,
       staleHours: staleHours === null ? null : Math.round(staleHours * 10) / 10,
       lastPublished: last?.published ?? null,
-      reasons: { stale, twoConsecutiveZeroPublished },
+      reasons: { neverRun, stale, twoConsecutiveZeroPublished },
     },
     ok ? 200 : 503,
   );

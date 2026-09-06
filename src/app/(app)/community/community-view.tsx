@@ -132,8 +132,6 @@ function DoubtCard({
 }) {
   return (
     <li className="card hover:bg-brand-soft/40 flex gap-4 p-5 transition-colors duration-200">
-      {/* Stuck count, not upvotes: it measures a blind spot, so it reads as a
-          number of people, not a score. */}
       <button
         type="button"
         onClick={onToggle}

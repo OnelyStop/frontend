@@ -1,9 +1,4 @@
-/**
- * The descriptive paper's tasks, shared by the client and the marking route.
- * The client uses `checks` for an instant, free format read while the learner
- * types; the server sends `brief`, `marks` and the word band to the model. The
- * two must describe the same task, so they come from one place.
- */
+/** The client's `checks` and the `brief` the marking route sends the model must describe the same task, so both come from here. */
 
 export type FormatCheck = {
   label: string;

@@ -1,6 +1,8 @@
 import "server-only";
+import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { cache } from "react";
 import { AUTH_DISABLED } from "@/config/auth";
+import { captureError } from "@/lib/observability.server";
 import { createClient } from "@/lib/supabase-server";
 
 // No user id from the request body; cache() dedupes the lookup across page and DAL.
@@ -16,7 +18,11 @@ export const currentUserId = cache(async (): Promise<string | null> => {
   const supabase = await createClient();
   const {
     data: { user },
+    error,
   } = await supabase.auth.getUser();
+  // An Auth outage also answers user: null, so every route would 401 without a trace.
+  if (error && !isAuthSessionMissingError(error))
+    captureError(error, { at: "currentUserId" });
   return user?.id ?? null;
 });
 
@@ -25,6 +31,9 @@ export const currentUser = cache(async (): Promise<CurrentUser | null> => {
   const supabase = await createClient();
   const {
     data: { user },
+    error,
   } = await supabase.auth.getUser();
+  if (error && !isAuthSessionMissingError(error))
+    captureError(error, { at: "currentUser" });
   return user ? { id: user.id, email: user.email ?? null } : null;
 });

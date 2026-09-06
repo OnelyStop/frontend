@@ -210,8 +210,7 @@ export function Mosaic() {
           </p>
         </header>
 
-        {/* The gaps are the borders: no cell carries one, so junctions never
-            double-seam and the grid reads as a single object. */}
+        {/* The gaps are the borders — no cell carries one, so seams never double. */}
         <div className="bg-line-2 rounded-ctl grid gap-px overflow-hidden p-px md:grid-cols-4 lg:grid-cols-8">
           {TILES.map((tile) => (
             <article
@@ -244,8 +243,7 @@ export function Mosaic() {
                       className="-rotate-45 transition-transform group-hover:rotate-0"
                     />
                   </span>
-                  {/* A pseudo-element covers the tile, so the whole card is the
-                      link without nesting an interactive element inside one. */}
+                  {/* A pseudo-element makes the whole tile the link, unnested. */}
                   <Link
                     href={tile.href}
                     className="static before:absolute before:inset-0 before:z-0 before:cursor-pointer before:content-['']"

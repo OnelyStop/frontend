@@ -14,10 +14,27 @@ describe("feed cursor", () => {
   const id = "3f2504e0-4f89-11d3-9a0c-0305e82c3301";
 
   it("round-trips a value and an id", () => {
-    expect(decodeCursor(encodeCursor({ value: "42", id }))).toEqual({
+    expect(decodeCursor(encodeCursor({ value: "42", id }), "stuck")).toEqual({
       value: "42",
       id,
     });
+  });
+
+  // The keyset casts value to integer or timestamptz, so a bad one is a 500 any user can loop on.
+  it("drops a value that would not survive the cast it is heading for", () => {
+    expect(decodeCursor(encodeCursor({ value: "abc", id }), "stuck")).toBe(
+      null,
+    );
+    expect(decodeCursor(encodeCursor({ value: "NaN", id }), "stuck")).toBe(
+      null,
+    );
+    expect(decodeCursor(encodeCursor({ value: "42", id }), "new")).toBe(null);
+    expect(decodeCursor(encodeCursor({ value: "not-a-date", id }))).toBe(null);
+  });
+
+  it("does not take an integer cursor for the timestamp sort, or the reverse", () => {
+    const ts = "2026-09-05T04:30:00.000Z";
+    expect(decodeCursor(encodeCursor({ value: ts, id }), "stuck")).toBe(null);
   });
 
   it("round-trips a timestamp, which contains no separator", () => {
@@ -64,9 +81,7 @@ describe("doubtCreate", () => {
     expect(doubtCreate.safeParse(valid).success).toBe(true);
   });
 
-  /* The lengths mirror the check constraints on the table. If they drift, the
-     insert fails in Postgres instead of at the validator, which surfaces to the
-     user as a 500 rather than a 400. */
+  // The lengths mirror the table's check constraints; a drift turns a 400 into a 500 from Postgres.
   it("rejects a title shorter than the check constraint allows", () => {
     expect(
       doubtCreate.safeParse({ ...valid, title: "too short" }).success,

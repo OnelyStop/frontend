@@ -1,5 +1,4 @@
-/** Shapes shared between the server query modules and the client views —
- * plain data, no `server-only`, so a client view can import the type. */
+/** Deliberately free of `server-only`, so a client view can import these. */
 
 export type NoteFormula = {
   name: string;
@@ -28,12 +27,9 @@ export type NoteSource = {
   accessed: string;
 };
 
-/** The list-view shape — enough to render a card, nothing that isn't shown
- * until a note is opened. */
 export type NoteSummary = {
   noteId: string;
-  /** One of the question bank's own section labels (Quantitative, Reasoning,
-   * English, GA, Computer) — see SECTION_FROM_DB in data/navigation.ts. */
+  /** A question-bank section label, not a full subject name — see SECTION_FROM_DB in data/navigation.ts. */
   section: string;
   topic: string;
   subtopic: string | null;

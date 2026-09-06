@@ -19,8 +19,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           className="bg-canvas min-h-screen"
           style={{ ["--subj" as string]: SUBJECT_INK[subject] }}
         >
-          {/* The head reads a deep-link param as a crumb, so it needs the
-              search params — which need a boundary to prerender past. */}
+          {/* RunningHead reads search params; that needs a boundary. */}
           <Suspense fallback={<div className="border-line h-16 border-b" />}>
             <RunningHead />
           </Suspense>
@@ -33,10 +32,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <span className="bg-line absolute inset-y-0 right-8 w-px" />
           </div>
 
-          {/* No z-index here on purpose. A stacking context would trap any
-              full-screen overlay a page renders — exam conditions has to cover
-              the header, and z-50 inside z-10 never can. Painting order puts
-              this above the rules regardless, since it comes after them. */}
+          {/* No z-index: a stacking context traps full-screen overlays. */}
           <main className="relative mx-auto w-full max-w-[1200px] px-8 pt-14 pb-32 lg:px-16">
             {children}
           </main>

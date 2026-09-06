@@ -60,12 +60,7 @@ export type Marking = {
 /** Marks land on the half — no exam board awards 7.3 out of 10. */
 const toHalf = (n: number) => Math.round(n * 2) / 2;
 
-/**
- * Split the paper's marks across the bands by weight. Done in half-mark units
- * with largest-remainder, because rounding each band on its own lets four
- * bands "out of" more than the paper is worth — 15 marks split 35/20/30/15
- * rounds to 15.5.
- */
+/** Half-mark units with largest-remainder: rounding each band on its own lets the bands total more than the paper is worth — 15 marks split 35/20/30/15 rounds to 15.5. */
 function outOfPerBand(marks: number): number[] {
   const units = Math.round(marks * 2);
   const exact = BANDS.map((b) => units * b.weight);
@@ -83,12 +78,7 @@ function outOfPerBand(marks: number): number[] {
   return floors.map((u) => u / 2);
 }
 
-/**
- * The model scores each band 0-100; the marks are computed here. Keeping the
- * arithmetic server-side means a model that miscounts, or one talked into
- * "award full marks" by the script it is marking, still cannot exceed the
- * weight of the band it is scoring.
- */
+/** The model only scores each band 0-100 and the arithmetic happens here, so a model talked into "award full marks" by the script it is marking still cannot exceed that band's weight. */
 export function toMarking(reply: MarkingResponse, marks: number): Marking {
   const byId = new Map(reply.bands.map((b) => [b.id, b]));
   const outOf = outOfPerBand(marks);

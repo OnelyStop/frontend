@@ -10,6 +10,7 @@ import {
 import { fetchNewsData } from "@/features/current-affairs/sources/newsdata";
 import { fetchRssFeeds } from "@/features/current-affairs/sources/rss";
 import type { RawArticle } from "@/features/current-affairs/types";
+import { captureError } from "@/lib/observability.server";
 
 const RETENTION_DAYS = 90;
 
@@ -50,8 +51,20 @@ export async function runIngest(
 ): Promise<IngestSummary> {
   const { db, fetchNews, fetchRss } = { ...defaultDeps, ...overrides };
 
-  const [newsdata, rss] = await Promise.all([fetchNews(), fetchRss()]);
-  const candidates: RawArticle[] = [...newsdata, ...rss]
+  // allSettled, not all: a NewsData rate limit must not discard the RSS that worked.
+  const [newsdata, rss] = await Promise.allSettled([fetchNews(), fetchRss()]);
+  if (newsdata.status === "rejected")
+    captureError(newsdata.reason, { at: "runIngest.newsdata" });
+  if (rss.status === "rejected")
+    captureError(rss.reason, { at: "runIngest.rss" });
+  if (newsdata.status === "rejected" && rss.status === "rejected")
+    throw new Error("every article source failed");
+
+  const fetched = [
+    ...(newsdata.status === "fulfilled" ? newsdata.value : []),
+    ...(rss.status === "fulfilled" ? rss.value : []),
+  ];
+  const candidates: RawArticle[] = fetched
     .filter((a) => a.title && a.url)
     .sort((a, b) => a.publishedAt.getTime() - b.publishedAt.getTime())
     .slice(-activeProfile.maxArticlesPerIngest);

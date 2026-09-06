@@ -12,12 +12,7 @@ import type { Mock } from "./types";
 const TARGET_PCT =
   CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 
-/**
- * Every canonical paper with enough answerable questions to sit as a mock,
- * most recent year first, with the caller's best score for each — the exact
- * shape `MocksView` renders. `qs` counts only questions carrying an `answer`,
- * so it always matches the exam `listPaperQuestions` actually serves.
- */
+/** `qs` counts only questions carrying an `answer`, so it matches the exam `listPaperQuestions` actually serves. */
 export async function listMockPapers(): Promise<Mock[]> {
   const rows = await db
     .select({
@@ -75,10 +70,7 @@ export async function listMockPapers(): Promise<Mock[]> {
   });
 }
 
-/** The signed-in user's highest score on each paper, from every submitted
- * `paper`-mode attempt — a mock you retook shows your best sitting, not your
- * most recent one, matching how `profile-view.tsx` already reads "Best
- * sectional score" elsewhere in the app. Empty (not an error) when signed out. */
+/** A retaken mock reports the best sitting, not the most recent one; empty rather than an error when signed out. */
 async function bestScoreByPaper(
   paperIds: string[],
 ): Promise<Map<string, number>> {

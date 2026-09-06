@@ -24,21 +24,27 @@ import { runIngest } from "./ingest";
 
 const MIGRATIONS = join(import.meta.dirname, "..", "..", "..", "migrations");
 
-/* Real tables from the real migration files, in PGlite, so what these tests
-   exercise is the orchestration — statuses, counters, deadline, retention —
-   and not a hand-rolled imitation of the query builder. */
+// The real migration files in PGlite, so these exercise the orchestration and not an imitation of the query builder.
 
 async function freshDb() {
   const client = new PGlite();
-  await client.exec(
-    "create role anon nologin; create role authenticated nologin;",
-  );
+  await client.exec(`
+    create role anon nologin;
+    create role authenticated nologin;
+    create role service_role nologin;
+    create schema auth;
+    create table auth.users (
+      id uuid primary key,
+      email text unique,
+      raw_user_meta_data jsonb not null default '{}'::jsonb
+    );
+    create function auth.uid() returns uuid language sql stable as 'select null::uuid';
+  `);
   const files = readdirSync(MIGRATIONS)
     .filter((f) => /^\d+_.*\.sql$/.test(f))
     .sort();
   for (const f of files) {
     const text = readFileSync(join(MIGRATIONS, f), "utf8");
-    if (!/"articles"/.test(text)) continue;
     for (const stmt of text.split("--> statement-breakpoint")) {
       if (stmt.trim()) await client.exec(stmt);
     }

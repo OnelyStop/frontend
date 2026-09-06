@@ -5,13 +5,7 @@ import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 import { INDICATOR_OUT, INDICATOR_SPRING, SURFACE } from "../lib/motion";
 
-/* The MCQ option row — one control, shared by mocks and drills. Border and
-   fill are a plain colour tween (effects never overshoot); the A/B/C/D badge
-   stays visible at all times (it's a label, not a check mark) but pops with
-   a spring on selection — a transform, so it's the one thing allowed to
-   overshoot. whileTap (not the `.press` CSS utility) because it cancels
-   cleanly on a drag-off, which matters when mis-taps are routine on a
-   100-question paper. */
+/* whileTap rather than the `.press` CSS utility: it cancels cleanly on a drag-off, and mis-taps are routine on a 100-question paper. */
 
 export function OptionRow({
   label,

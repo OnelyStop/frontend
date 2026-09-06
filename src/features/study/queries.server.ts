@@ -23,7 +23,6 @@ const {
   contentBlockSources,
   flashcards,
   userNotes,
-  studyProgress,
 } = schema;
 
 type Preview = { preview?: boolean };
@@ -414,46 +413,6 @@ export async function deleteNote(
     .where(and(eq(userNotes.id, noteId), eq(userNotes.userId, userId)))
     .returning({ id: userNotes.id });
   return deleted.length > 0;
-}
-
-export async function upsertProgress(
-  userId: string,
-  topicId: string,
-  progressPercent: number,
-): Promise<
-  | { progressPercent: number; completedAt: string | null }
-  | { error: "topic_not_found" }
-> {
-  // A UUID-shaped ref naming no topic would hit the FK and surface as a 500.
-  const topic = await db.query.topics.findFirst({
-    where: eq(topics.id, topicId),
-    columns: { id: true },
-  });
-  if (!topic) return { error: "topic_not_found" };
-
-  const pct = Math.max(0, Math.min(100, Math.round(progressPercent)));
-  const [row] = await db
-    .insert(studyProgress)
-    .values({
-      userId,
-      topicId,
-      progressPercent: pct,
-      completedAt: pct >= 100 ? new Date() : null,
-      lastOpenedAt: new Date(),
-    })
-    .onConflictDoUpdate({
-      target: [studyProgress.userId, studyProgress.topicId],
-      set: {
-        progressPercent: pct,
-        lastOpenedAt: new Date(),
-        completedAt: pct >= 100 ? new Date() : null,
-      },
-    })
-    .returning();
-  return {
-    progressPercent: row.progressPercent,
-    completedAt: row.completedAt?.toISOString() ?? null,
-  };
 }
 
 export async function topicIdFromSlug(

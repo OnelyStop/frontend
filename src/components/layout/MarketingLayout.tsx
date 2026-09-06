@@ -48,12 +48,9 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
         <span aria-hidden>&nbsp;→</span>
       </Link>
 
-      {/* Opaque, not translucent: the page has dark sections, and any
-          transparency turns the bar a muddy grey as they scroll under it. */}
+      {/* Opaque: dark sections scrolling under a translucent bar go muddy. */}
       <header className="border-line bg-canvas sticky top-0 z-50 flex h-14 items-center gap-10 border-b px-5 sm:px-8 lg:px-16">
         <Brand href="/" />
-        {/* Dim-the-siblings: hovering the row hushes every link, then restores
-            the one under the cursor. */}
         <nav className="group flex flex-1 gap-6">
           {NAV.map((l) => (
             <a

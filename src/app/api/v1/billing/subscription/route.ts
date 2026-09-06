@@ -8,6 +8,7 @@ import { createSubscription } from "@/features/billing/razorpay.server";
 import { subscriptionCreate } from "@/features/billing/types";
 import { currentUserId } from "@/lib/auth.server";
 import { log } from "@/lib/log";
+import { captureError } from "@/lib/observability.server";
 import { rateLimit } from "@/lib/rate-limit";
 
 const fail = (error: string, status: number) =>
@@ -54,12 +55,22 @@ export async function POST(request: Request) {
     return fail("payment_provider", 502);
   }
 
-  await db.insert(subscriptions).values({
-    userId,
-    razorpaySubscriptionId: created.id,
-    planId: plan.id,
-    status: "created",
-  });
+  // The mandate already exists at Razorpay; without a local row /verify calls it not_found and the user retries into a second one.
+  try {
+    await db.insert(subscriptions).values({
+      userId,
+      razorpaySubscriptionId: created.id,
+      planId: plan.id,
+      status: "created",
+    });
+  } catch (err) {
+    captureError(err, {
+      at: "billing.subscription.orphaned",
+      userId,
+      subscription: created.id,
+    });
+    return fail("subscription_not_recorded", 502);
+  }
   log.info("billing.subscription.created", {
     userId,
     subscription: created.id,

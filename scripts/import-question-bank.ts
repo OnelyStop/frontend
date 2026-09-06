@@ -1,18 +1,4 @@
-/**
- * Import classified question-bank JSON into Postgres.
- *
- *     bun run scripts/import-question-bank.ts            # counts only
- *     bun run scripts/import-question-bank.ts --apply     # actually write
- *
- * Source: $QUESTION_BANK_DATA_DIR (default ../question-bank/data), a sibling
- * checkout of OnelyStop/question-bank after `pipeline/2-classify/
- * run_classify.py` has run — see that repo's PR for the batch/paper counts
- * this should match.
- *
- * Idempotent via onConflictDoUpdate, not onConflictDoNothing like
- * seed-billing-plans.ts: re-running after a fresh classify (and later, once
- * step 4 fills in answers) must overwrite existing rows, not skip them.
- */
+/** onConflictDoUpdate, not onConflictDoNothing: re-running after a fresh classify has to overwrite existing rows, not skip them. */
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { config } from "dotenv";
@@ -73,11 +59,7 @@ function loadPaper(path: string): RawPaper | null {
   return data as RawPaper;
 }
 
-/**
- * Within an exam_key, the paper with the most active questions is canonical.
- * Ties break on the lowest paper_id, so the result is deterministic across
- * reruns rather than depending on file read order.
- */
+/** Ties break on the lowest paper_id so the winner is stable across reruns rather than following file read order. */
 function computeCanonical(
   loaded: { paper: RawPaper; activeCount: number }[],
 ): Set<string> {

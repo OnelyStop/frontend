@@ -1,5 +1,4 @@
-/** Shapes shared between the server query modules and the client views —
- * plain data, no `server-only`, so a client view can import the type. */
+/** Deliberately free of `server-only`, so a client view can import these. */
 
 export type Mock = {
   id: string;
@@ -15,8 +14,7 @@ export type Mock = {
 
 export type DrillQuestion = {
   qId: string;
-  /** One of the question bank's own section labels — see SECTION_DB in
-   * data/navigation.ts for the mapping from a Subject's full name. */
+  /** A question-bank section label, not a full subject name — see SECTION_DB in data/navigation.ts. */
   section: string;
   topic: string | null;
   stem: string;

@@ -1,9 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { parseMarkdown } from "./markdown";
 
-/* The renderer builds React nodes and never an HTML string, so raw markup can't
-   execute by construction. These check that markup is carried as literal text
-   and that unsafe link targets are dropped. */
+// The renderer builds React nodes and never an HTML string, so raw markup cannot execute by construction.
 
 describe("parseMarkdown", () => {
   const SAFE_KINDS = [

@@ -1,9 +1,4 @@
-/**
- * Pure scoring math — no DB, no `server-only`. Kept separate from
- * attempts.server.ts so the negative-marking, accuracy, and rollup logic is
- * unit-testable without a database, and so a client component could import
- * it for a live running-score readout without pulling in `db`.
- */
+/** No DB and deliberately no `server-only`, so a client component can import this for a live running score. */
 
 export type GradedAnswer = {
   qId: string;
@@ -26,10 +21,7 @@ export type ScoreTotals = {
   accuracy: number;
 };
 
-/** `chosen === null` is a blank, not a wrong answer — it costs nothing under
- * negative marking. Comparison is case-insensitive: `bank_questions.answer`
- * and `attempt_answers.chosen` are both single option-key characters, but
- * nothing upstream guarantees the same case. */
+/** Case-insensitive because nothing upstream guarantees `bank_questions.answer` and `attempt_answers.chosen` share a case. */
 export function isCorrect(chosen: string | null, correct: string): boolean {
   return chosen !== null && chosen.toLowerCase() === correct.toLowerCase();
 }
@@ -195,9 +187,6 @@ export function scoreByTopic(answers: GradedAnswer[]): Map<
   return out;
 }
 
-/** Cumulative score after each answered question, in the order given — the
- * shape the "score over elapsed time" chart plots. Blanks don't move the
- * line; they still advance `elapsedSec`. */
 export function scoreTimeline(
   answers: GradedAnswer[],
 ): { index: number; elapsedSec: number; cumulativeScore: number }[] {

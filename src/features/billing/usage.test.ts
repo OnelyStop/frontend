@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
@@ -8,22 +8,15 @@ import * as schema from "@/db/schema";
 import { PLAN_LIMITS } from "./limits";
 import { aiCallsThisMonth, checkQuota, recordAiCall } from "./usage.server";
 
-// Billing carries the entitlement, 0011 the attempts a cap counts, 0012 ai_usage.
-const MIGRATIONS = [
-  "0001_billing.sql",
-  "0010_pro_plus_tier.sql",
-  "0011_question_bank.sql",
-  "0012_ai_usage.sql",
-].map((name) => join(import.meta.dirname, "..", "..", "migrations", name));
+// Every migration in order — a named subset silently misses the next one added.
+const MIGRATIONS = join(import.meta.dirname, "..", "..", "migrations");
 
 const USER = randomUUID();
 
 // 11:30 IST on 15 September: mid-day and mid-month, so neither window is on a boundary.
 const NOW = new Date("2026-09-15T06:00:00Z");
 
-/* The real migrations in PGlite, with the Supabase auth surface they reference
-   stubbed. What is under test is the enforcement: which attempts a cap counts,
-   which window it counts them in, and what a paid plan lifts. */
+/* The real migrations in PGlite, with the Supabase auth surface they reference stubbed. */
 async function freshDb() {
   const client = new PGlite();
   await client.exec(`
@@ -31,13 +24,19 @@ async function freshDb() {
     create role authenticated nologin;
     create role service_role nologin;
     create schema auth;
-    create table auth.users (id uuid primary key);
+    create table auth.users (
+      id uuid primary key,
+      email text unique,
+      raw_user_meta_data jsonb not null default '{}'::jsonb
+    );
     create function auth.uid() returns uuid language sql stable as 'select null::uuid';
   `);
-  for (const path of MIGRATIONS) {
-    for (const stmt of readFileSync(path, "utf8").split(
-      "--> statement-breakpoint",
-    )) {
+  const files = readdirSync(MIGRATIONS)
+    .filter((f) => /^\d+_.*\.sql$/.test(f))
+    .sort();
+  for (const f of files) {
+    const text = readFileSync(join(MIGRATIONS, f), "utf8");
+    for (const stmt of text.split("--> statement-breakpoint")) {
       if (stmt.trim()) await client.exec(stmt);
     }
   }

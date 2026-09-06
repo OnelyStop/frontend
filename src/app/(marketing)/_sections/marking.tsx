@@ -129,8 +129,6 @@ export function MarkingScene() {
           </p>
         </header>
 
-        {/* One object with a fold, not two cards: the seam between the script
-            and the scheme is a perforation, never a gap. */}
         <div className="bg-canvas border-line overflow-hidden rounded-[20px] border">
           <div className="relative isolate px-6 pt-8 pb-12 sm:px-10">
             <div className="script-grain pointer-events-none absolute inset-0 -z-1 opacity-[0.035]" />
@@ -161,17 +159,12 @@ export function MarkingScene() {
               </p>
             </div>
 
-            {/* Clause and margin note are siblings of one grid, so each note
-                stays level with its line however the text reflows. The red rule
-                is the margin a real script has — furniture, so every mark on the
-                page is still the accent. */}
             <div className="lg:after:bg-bad/30 relative mt-8 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_260px] lg:pl-14 lg:after:absolute lg:after:inset-y-0 lg:after:right-65 lg:after:w-px lg:after:content-[''] xl:grid-cols-[minmax(0,1fr)_300px] xl:after:right-75">
               {SCRIPT.map((line, i) => (
                 <ScriptLine key={i} clause={line} />
               ))}
 
-              {/* An overdrawn ring: the overshoot past its own start is what
-                  reads as hand-drawn. */}
+              {/* Overshooting the start is what reads as hand-drawn. */}
               <div className="relative col-start-1 mt-8 flex items-baseline gap-2 justify-self-start px-5 py-2 lg:col-start-2 lg:ml-5">
                 <svg
                   className="marking-ink text-brand absolute -inset-x-2 -inset-y-1 h-auto w-auto overflow-visible"
@@ -308,8 +301,7 @@ function ScriptLine({ clause }: { clause: Clause }) {
 
   return (
     <>
-      {/* Marks are drawn, not filled — the script has to stay readable as
-          writing. skip-ink is off: a pen does not lift for a descender. */}
+      {/* skip-ink is off: a pen does not lift for a descender. */}
       <p
         className="script-rule col-start-1 min-h-14 self-stretch text-[15px] leading-7"
         data-mp={clause.mp}

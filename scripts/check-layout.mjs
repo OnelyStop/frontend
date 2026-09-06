@@ -1,11 +1,5 @@
 #!/usr/bin/env node
-/**
- * Reject files that sit outside the folder that owns them. This repo has
- * already had an invented `src/infrastructure/` duplicating `src/lib/`.
- *
- * Checked against what a commit would contain — tracked plus untracked
- * non-ignored — so a new file in the wrong place fails before it lands.
- */
+/** Rejects files outside the folder that owns them; this repo has already had an invented `src/infrastructure/` duplicating `src/lib/`. */
 
 import { execFileSync } from "node:child_process";
 
@@ -46,11 +40,7 @@ const ROOT_ALLOWED = new Set([
   "vitest.config.mts",
 ]);
 
-/**
- * Each src/ subtree, and the extensions it may hold. The split that matters is
- * React versus not: a .tsx under lib/ or db/ means a component has been dropped
- * into a layer that is supposed to be callable from anywhere.
- */
+/** A .tsx under lib/ or db/ means a component was dropped into a layer that is supposed to be callable from anywhere. */
 const SRC_DIRS = {
   app: [".ts", ".tsx", ".css", ".svg", ".ico"],
   components: [".ts", ".tsx", ".css"],

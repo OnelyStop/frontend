@@ -5,6 +5,7 @@ import { subscriptions } from "@/db/schema";
 import { applySubscription } from "@/features/billing/entitlements.server";
 import { cancelSubscription } from "@/features/billing/razorpay.server";
 import { log } from "@/lib/log";
+import { captureError } from "@/lib/observability.server";
 import { deleteAccount } from "./mutations.server";
 
 type SubscriptionStatus = (typeof subscriptions.$inferSelect)["status"];
@@ -18,7 +19,8 @@ const CHARGEABLE: SubscriptionStatus[] = [
 ];
 
 export type CloseOutcome =
-  { ok: true; deleted: boolean } | { ok: false; reason: "billing_unavailable" };
+  | { ok: true; deleted: boolean }
+  | { ok: false; reason: "billing_unavailable" | "delete_failed" };
 
 // Cancels before it deletes and stops if it cannot: a charged ghost account is worse.
 export async function closeAccount(userId: string): Promise<CloseOutcome> {
@@ -49,7 +51,13 @@ export async function closeAccount(userId: string): Promise<CloseOutcome> {
     await applySubscription(db, cancelled, { observedAt: new Date() });
   }
 
-  const { deleted } = await deleteAccount(db, userId);
-  log.info("account.closed", { userId, deleted, cancelled: live.length });
-  return { ok: true, deleted };
+  // The subscriptions above are already cancelled, so a bare throw here leaves the user paying nothing and still signed up.
+  try {
+    const { deleted } = await deleteAccount(db, userId);
+    log.info("account.closed", { userId, deleted, cancelled: live.length });
+    return { ok: true, deleted };
+  } catch (err) {
+    captureError(err, { at: "account.close_delete_failed", userId });
+    return { ok: false, reason: "delete_failed" };
+  }
 }

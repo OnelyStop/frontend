@@ -15,11 +15,7 @@ const Y_TICKS = [0, 25, 50, 75, 100];
 // Past this threshold a centered tooltip clips the plot's overflow-hidden edge — anchor to the dot's edge instead.
 const EDGE_PCT = 20;
 
-/** One dot per topic touched in this attempt. Colour still isn't section
- * identity (see marks-waterfall's comment) — every dot is either ok or bad
- * by accuracy, and only the "skip in the exam" quadrant wash plus the topic
- * label carry meaning, matching the emphasis form: one thing to notice, not
- * eight hues to decode. */
+/** A dot's colour is ok/bad by accuracy, never section identity — same CVD constraint as marks-waterfall. */
 export function TopicScatter({ scorecard }: { scorecard: Scorecard }) {
   const [hover, setHover] = useState<string | null>(null);
   const topics = scorecard.topics.filter((t) => t.attempted > 0);
@@ -30,12 +26,7 @@ export function TopicScatter({ scorecard }: { scorecard: Scorecard }) {
         Accuracy vs pace, by topic
       </SectionTitle>
       <div className="mt-5 flex gap-2">
-        {/* Absolutely positioned at the same y(v) the gridlines use, inside a
-            container the same 280px height as the plot — flex-distributing
-            these instead (the previous approach) can't line up with PAD's
-            symmetric top/bottom coordinate padding, since CSS percentage
-            padding resolves against the container's width, never its own
-            height. */}
+        {/* Positioned at the gridlines' own y(v): flex-distributing these can't match PAD, since percentage padding resolves against width, never height. */}
         <div className="text-ink-4 relative h-[280px] w-9 text-right text-[11px]">
           {Y_TICKS.map((v) => (
             <span

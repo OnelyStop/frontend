@@ -1,9 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-/* Data display. Colour here is functional: green means earned, red means it
-   costs you, amber means partial. Nothing is coloured for decoration. */
-
 export type Tone = "neutral" | "ok" | "warn" | "bad" | "brand";
 
 const TONE: Record<Tone, string> = {
@@ -77,8 +74,7 @@ export function Meter({
   );
 }
 
-/* A score is only ever read against its target, never against a maximum — so
-   the track carries a notch, and the fill turns red only when it misses. */
+/* A score reads against its target, never a maximum: the notch is the target and the fill turns red only when it misses. */
 export function TargetBar({
   value,
   target,
@@ -144,8 +140,7 @@ export function Kbd({ children }: { children: ReactNode }) {
   );
 }
 
-/* Tables sit inside a Card with pad={false}: header on a hairline, rows on
-   hairlines, no zebra fill. */
+/* Expects a Card with pad={false} around it; it draws its own hairlines. */
 export function Table({
   head,
   children,

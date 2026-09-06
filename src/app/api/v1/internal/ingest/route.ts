@@ -5,8 +5,6 @@ import { runIngest } from "@/features/current-affairs/pipeline/ingest";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
-// Same region as the database and the Indian news sources.
-export const preferredRegion = "bom1";
 
 export async function POST(request: Request) {
   if (!isAuthorizedCron(request)) return json({ error: "unauthorized" }, 401);

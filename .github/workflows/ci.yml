@@ -121,8 +121,13 @@ jobs:
           # under it. No --depth here — a shallow fetch into a full clone
           # writes .git/shallow and breaks the three-dot diffs that follow.
           git fetch --no-tags origin '${{ github.event.pull_request.base.ref }}'
-          taken="$(git ls-tree FETCH_HEAD src/migrations/ --name-only \
+          on_base="$(git ls-tree FETCH_HEAD src/migrations/ --name-only \
                     | grep -E '/[0-9]+_.*\.sql$' | xargs -r -n1 basename)"
+          # A number is only taken if its file survives: collapsing the history to a
+          # new baseline deletes the old files and reuses their numbers on purpose.
+          deleted="$(git diff --name-only --diff-filter=D FETCH_HEAD...HEAD -- 'src/migrations/*.sql' \
+                    | grep -v '^src/migrations/rollback/' | xargs -r -n1 basename)"
+          taken="$(comm -23 <(printf '%s\n' "$on_base" | sort) <(printf '%s\n' "$deleted" | sort))"
           fail=0
           # The pathspec also matches rollback/, whose files share these names.
           for f in $(git diff --name-only --diff-filter=A FETCH_HEAD...HEAD -- 'src/migrations/*.sql'); do

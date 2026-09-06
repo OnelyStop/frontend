@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Badge, Button } from "@/design-system";
 import { blockMeta } from "../blocks";
@@ -71,10 +71,7 @@ export function Reader({
   const [notes, setNotes] = useState<StudyNote[]>(initialNotes);
   const [cardsOpen, setCardsOpen] = useState(false);
   const [sourcesOpen, setSourcesOpen] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [completed, setCompleted] = useState(false);
   const articleRef = useRef<HTMLElement>(null);
-  const savedPctRef = useRef(0);
 
   const blockTitles = useMemo(
     () => Object.fromEntries(outline.blocks.map((b) => [b.stableKey, b.title])),
@@ -90,47 +87,6 @@ export function Reader({
     }
     return m;
   }, [notes]);
-
-  const postProgress = useCallback(
-    (pct: number) => {
-      const rounded = Math.round(pct);
-      if (rounded <= savedPctRef.current) return;
-      savedPctRef.current = rounded;
-      void fetch(`/api/v1/study/topics/${outline.id}/progress`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ progressPercent: rounded }),
-      }).catch(() => {});
-    },
-    [outline.id],
-  );
-
-  // Scroll-driven reading progress, throttled and only ever increasing.
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        const el = articleRef.current;
-        if (!el) return;
-        const top = el.offsetTop;
-        const seen = window.scrollY + window.innerHeight - top;
-        const pct = Math.max(0, Math.min(100, (seen / el.offsetHeight) * 100));
-        setProgress(pct);
-        if (pct > 25) postProgress(Math.min(pct, completed ? 100 : 95));
-      });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [postProgress, completed]);
-
-  const markComplete = () => {
-    setCompleted(true);
-    savedPctRef.current = 0;
-    postProgress(100);
-  };
 
   const noteOn = (blockKey: string) => {
     setSelectedBlockKey(blockKey);
@@ -337,13 +293,6 @@ export function Reader({
           ) : (
             <span />
           )}
-          <Button
-            size="sm"
-            variant={completed || progress >= 99 ? "secondary" : "primary"}
-            onClick={markComplete}
-          >
-            {completed ? "Marked complete" : "Mark complete"}
-          </Button>
           {nextHref ? (
             <Link
               href={nextHref}
