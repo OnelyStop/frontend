@@ -34,18 +34,13 @@ calls; `features/` is one product area. OpenRouter is in `lib/` because it is
 provider plumbing any feature may call. Razorpay is in `features/billing/` because
 only billing does. When unsure, ask how many features will import it.
 
-The current-affairs pipeline sat in `src/lib/gazette/` for months — 27 files,
-one product area, in the layer meant for shared plumbing — while
-`src/features/current-affairs/` held the read side. The tell was an import:
-`billing-reconcile` reaching into `lib/gazette/` for `isAuthorizedCron`,
-because the two genuinely shared helpers were buried in a feature. **A feature
-in `lib/` announces itself when a second feature has to import from it.** The
-cron guard is now `lib/cron.ts`, the JSON reply is in `lib/api.ts`, and the
-pipeline is in the feature it belongs to.
+**A feature hiding in `lib/` announces itself when a second feature imports
+from it.** The current-affairs pipeline sat in `src/lib/gazette/` — 27 files,
+one product area — until `billing-reconcile` had to reach into it for
+`isAuthorizedCron`. That helper is now `lib/cron.ts` and the pipeline is in
+`features/current-affairs/`.
 
 Dependencies point one way: `features/` may import `lib/`, never the reverse.
-`lib/prompts/current-affairs.ts` used to import the exam profile out of the
-pipeline; it takes the topic list as an argument instead.
 
 **Never invent a folder.** This repo already had an `src/infrastructure/`
 duplicating `src/lib/`, caught only by a human reading the tree.

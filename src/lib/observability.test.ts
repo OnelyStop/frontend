@@ -36,8 +36,7 @@ describe("captureError", () => {
     expect(captureException).toHaveBeenCalledTimes(1);
   });
 
-  // A rejected promise carries whatever it was rejected with; Sentry needs an
-  // Error to have anything to group on.
+  // Sentry needs an Error to group on; a rejection can carry anything.
   it("wraps a thrown non-Error", () => {
     captureError("just a string", { route: "/x" });
 

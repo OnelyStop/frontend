@@ -37,8 +37,7 @@ const modelsAsked = () => calls.map((c) => JSON.parse(c.body as string).model);
 beforeEach(() => {
   calls = [];
   vi.stubEnv("OPENROUTER_API_KEY", "test-key");
-  // The logging cases below read these lines back, so opt out of the
-  // test-silence rule in lib/log.
+  // The logging cases below read these lines back.
   vi.stubEnv("LOG_IN_TESTS", "1");
   vi.spyOn(console, "log").mockImplementation(() => {});
   vi.spyOn(console, "warn").mockImplementation(() => {});

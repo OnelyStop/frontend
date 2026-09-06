@@ -2,9 +2,7 @@ import "server-only";
 import { z } from "zod";
 import type { ArticleRow } from "@/db/schema";
 
-// Topics arrive from the caller rather than an import: a prompt is shared
-// infrastructure, and reaching into a feature for its exam profile would point
-// the dependency the wrong way.
+// Topics come from the caller: lib must not import from features.
 export const currentAffairsSystem = (
   topics: string[],
 ) => `You prepare current-affairs multiple-choice questions for Indian banking-recruitment exams (IBPS, SBI, RBI Grade B and similar).

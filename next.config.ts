@@ -8,8 +8,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-// Source maps upload only when SENTRY_AUTH_TOKEN, org and project are all set,
-// so a local or CI build without them is unaffected.
+// Source maps upload only when the token, org and project are all set.
 export default withSentryConfig(nextConfig, {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
