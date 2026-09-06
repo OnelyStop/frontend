@@ -22,13 +22,7 @@ import { db } from "../src/db";
 import { paymentPlans } from "../src/db/schema";
 import { createPlan } from "../src/features/billing/razorpay.server";
 
-// Amounts are MINOR units: paise for INR, cents for USD.
-//
-// The INR figures are placeholders and must be set deliberately before this is
-// run against a live account. One hard constraint: RBI requires the customer to
-// authenticate every auto-debit over ₹15,000, so a yearly INR plan priced above
-// 1_500_000 paise stops renewing silently and starts interrupting the customer
-// once a year.
+// Minor units: paise/cents. RBI re-auth over ₹15,000 stops a yearly INR plan renewing.
 const PLANS = [
   {
     plan: "pro",
@@ -99,10 +93,7 @@ async function main() {
         razorpayPlanId: created.id,
         amountMinor: p.amountMinor,
       })
-      // Re-running must not create a second live plan for the same slot. The
-      // index is partial, so Postgres needs the predicate too -- without it
-      // Postgres cannot infer which index this conflicts on and the insert
-      // fails outright instead of being skipped.
+      // The index is partial, so Postgres needs the predicate to infer the target.
       .onConflictDoNothing({
         target: [
           paymentPlans.plan,

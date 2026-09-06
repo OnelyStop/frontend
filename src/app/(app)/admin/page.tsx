@@ -9,8 +9,7 @@ export const metadata: Metadata = { title: "Admin" };
 
 type Check = { label: string; ok: boolean; detail: string };
 
-// Walks the RBAC chain end to end so a half-finished setup is obvious rather
-// than showing up later as a mysterious permission denial.
+// Walks the RBAC chain end to end so a half-finished setup is obvious now.
 async function runChecks(): Promise<Check[]> {
   const supabase = await createClient();
   const checks: Check[] = [];

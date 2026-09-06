@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-// Panels are hairline on white, no shadow. Only things that float (menus,
-// palettes) lift.
+// Panels are hairline, no shadow; only things that float (menus, palettes) lift.
 
 export function Card({
   children,
@@ -34,8 +33,7 @@ export function DarkPanel({
   );
 }
 
-// The container draws the top and left edge; each cell draws its own bottom
-// and right, so any column count works without per-breakpoint rules.
+// Container draws top and left, cells their own bottom and right — any column count.
 
 const COLS: Record<number, string> = {
   1: "grid-cols-1",

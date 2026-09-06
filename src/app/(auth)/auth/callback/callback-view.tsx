@@ -16,10 +16,7 @@ import { useRouter } from "next/navigation";
 
 const EXPIRED_CODES = ["otp_expired"];
 
-// A cancelled Google consent arrives as error=access_denied with no
-// error_code, whereas an expired link always carries error_code=otp_expired —
-// so bare access_denied means the user backed out and there is no link to
-// resend.
+// Bare access_denied (no error_code) means the user backed out — nothing to resend.
 const DENIED_CODES = ["access_denied", "provider_email_needs_verification"];
 
 export function CallbackView() {
@@ -32,8 +29,7 @@ export function CallbackView() {
   const [urlError, setUrlError] = useState<AuthUrlError | null>(null);
   const [hadCode, setHadCode] = useState(false);
 
-  // Fragments never reach the server, so reading during render would make SSR
-  // and hydration disagree.
+  // Fragments never reach the server, so reading during render breaks hydration.
   useEffect(() => {
     setUrlError(getAuthErrorFromUrl());
     setHadCode(hasPendingCodeExchange());
@@ -43,8 +39,7 @@ export function CallbackView() {
     if (user) router.replace("/home");
   }, [user, router]);
 
-  // `loading` covers the PKCE exchange — getSession waits for it — so once it
-  // clears with no user the link really did fail.
+  // `loading` covers the PKCE exchange, so once it clears with no user the link failed.
   if (!urlError && (loading || user)) {
     return (
       <AuthShell

@@ -24,8 +24,7 @@ import {
 
 const CONCURRENCY = 2;
 
-// RSS snippets are often headline-only. Below this the article page is fetched;
-// still too thin after that and it is skipped rather than spend an LLM call.
+// Below this the page is fetched; still thin and it is skipped, not sent to an LLM.
 const THIN_SNIPPET_CHARS = 320;
 const MIN_SOURCE_CHARS = 160;
 const MAX_SOURCE_CHARS = 6000;
@@ -42,8 +41,7 @@ const defaultDeps: GenerateDeps = {
   fetchBody: fetchArticleBody,
 };
 
-// `error` is transient: the article stays `new` so the next run picks it up.
-// Every other kind is terminal and the status is already written.
+// `error` is transient — the article stays `new`; every other kind is terminal.
 export type ArticleOutcome =
   | { kind: "published" }
   | { kind: "skipped"; reason: string }
@@ -83,8 +81,7 @@ async function incrRun(
     .where(eq(generateRuns.runId, runId));
 }
 
-// Each run takes the newest articles; anything older than the dedup window
-// was passed over for good and would otherwise sit as `new` forever.
+// Older than the dedup window was passed over for good, and would sit `new` forever.
 async function expireStale(db: Db, now: Date): Promise<number> {
   const cutoff = new Date(
     now.getTime() - activeProfile.recentWindowDays * 86_400_000,
@@ -113,8 +110,7 @@ function selectNewArticles(db: Db, day?: string) {
     .limit(activeProfile.maxQuestionsPerGenerate);
 }
 
-// Re-reads the article first so a retry after the DB write is a no-op. `deps`
-// is injectable so tests can keep the LLM and outbound HTTP out of the suite.
+// Re-reads the article first, so a retry after the DB write is a no-op.
 export async function processArticle(
   articleId: string,
   opts: {

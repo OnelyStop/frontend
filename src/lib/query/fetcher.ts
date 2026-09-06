@@ -8,8 +8,7 @@ export class ApiError extends Error {
   }
 }
 
-// React Query treats a resolved promise as success, so a non-2xx has to throw
-// or every error renders as empty data.
+// React Query treats a resolved promise as success, so a non-2xx must throw.
 export async function apiFetch<T>(url: string, init?: RequestInit): Promise<T> {
   const res = await fetch(url, {
     ...init,

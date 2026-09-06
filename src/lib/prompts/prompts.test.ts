@@ -17,8 +17,7 @@ const article = {
   scope: "national",
 } as ArticleRow;
 
-// A fixture, not the live exam profile: a prompt is shared infrastructure, and
-// looping over the real list would assert nothing at all if it were empty.
+// A fixture: looping over the real list would assert nothing if it were empty.
 const TOPICS = ["Banking & Finance", "Economy", "International"];
 const system = currentAffairsSystem(TOPICS);
 

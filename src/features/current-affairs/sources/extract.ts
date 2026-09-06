@@ -42,15 +42,13 @@ function stripTags(html: string): string {
     .trim();
 }
 
-// Not a DOM parser — good enough for news and the mostly-<p> PIB/RBI press
-// releases. Capped so a huge page cannot blow up the prompt.
+// Not a DOM parser; capped so a huge page cannot blow up the prompt.
 export function htmlToText(html: string): string {
   let s = html
     .replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/<!\[CDATA\[/g, " ")
     .replace(/\]\]>/g, " ")
-    // NB: not <form> — ASP.NET WebForms sites (PIB, RBI, many govt pages) wrap
-    // the entire body in one <form>, so stripping it would delete everything.
+    // Not <form>: ASP.NET govt pages wrap the whole body in one, and it would all go.
     .replace(
       /<(script|style|noscript|svg|head|nav|header|footer|aside|figure|iframe)\b[\s\S]*?<\/\1>/gi,
       " ",
@@ -93,8 +91,7 @@ function looksBlocked(text: string): boolean {
   return text.length < 600 && BLOCK_PAGE.test(text);
 }
 
-// Falls back to htmlToText when Readability decides the page is not
-// article-shaped — short press releases and unusual govt templates.
+// Falls back when Readability decides a short press release is not article-shaped.
 export function extractMainText(html: string): string {
   try {
     const { document } = parseHTML(html);
@@ -113,8 +110,7 @@ export function extractMainText(html: string): string {
   return looksBlocked(fallback) ? "" : fallback;
 }
 
-// PIB frequently serves Hindi (Devanagari). We generate English MCQs, so that
-// source text is skipped rather than fed to the model.
+// PIB frequently serves Hindi; we generate English MCQs, so it is skipped.
 export function isMostlyEnglish(text: string): boolean {
   const letters = text.match(/\p{L}/gu)?.length ?? 0;
   if (letters < 20) return true; // too short to judge — let the length gate decide
@@ -122,9 +118,7 @@ export function isMostlyEnglish(text: string): boolean {
   return latin / letters >= 0.6;
 }
 
-// Feed items are third-party input, so a URL that resolves inside the network
-// is never fetched from the server. DNS rebinding is out of scope for a daily
-// cron; a private IP behind a public hostname would need a custom resolver.
+// Feed URLs are third-party: one resolving inside the network is never fetched.
 export function isPublicHttpUrl(raw: string): boolean {
   let u: URL;
   try {
@@ -158,8 +152,7 @@ export function isPublicHttpUrl(raw: string): boolean {
 
 const MAX_REDIRECTS = 3;
 
-// Returns "" on any failure — paywall, bot block, timeout, non-HTML. Redirects
-// are followed by hand so each hop gets the same origin check as the first URL.
+// Redirects are followed by hand so each hop gets the same origin check.
 export async function fetchArticleBody(url: string): Promise<string> {
   let target = url;
   try {

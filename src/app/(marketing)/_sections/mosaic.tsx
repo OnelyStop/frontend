@@ -11,8 +11,7 @@ type Tile = {
   mock?: "band" | "papers" | "sources" | "chips" | "queue" | "due" | "posts";
 };
 
-// Hand-placed and deliberately non-uniform — the non-uniformity is the cure
-// for the four-up grid this replaces.
+// Hand-placed: the non-uniformity is the cure for the four-up grid it replaces.
 const TILES: Tile[] = [
   {
     title: "Mocks",

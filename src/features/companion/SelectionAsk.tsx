@@ -6,8 +6,7 @@ import { useCompanion } from "./CompanionContext";
 
 const MIN_LENGTH = 8;
 
-// Read on mouseup and keyup, not selectionchange, which fires per character
-// while dragging.
+// Not selectionchange, which fires per character while dragging.
 export function SelectionAsk() {
   const { openWith } = useCompanion();
   const [anchor, setAnchor] = useState<{ x: number; y: number } | null>(null);

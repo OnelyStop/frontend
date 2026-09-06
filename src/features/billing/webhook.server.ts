@@ -60,8 +60,7 @@ export type WebhookInput = {
   eventId: string | null;
 };
 
-// The only thing that grants access. One transaction: the event row is the
-// idempotency key, so a redelivery conflicts on insert and changes nothing.
+// One transaction: the event row is the idempotency key, so a redelivery is a no-op.
 export async function handleWebhook(
   db: Db,
   input: WebhookInput,

@@ -3,9 +3,7 @@
 import { useEffect } from "react";
 import * as Sentry from "@sentry/nextjs";
 
-// Replaces the root layout, so it has no fonts, no theme.css and no design
-// system — every style here has to be inline, and the palette follows the OS
-// rather than the app's theme toggle.
+// Replaces the root layout, so there is no theme.css: every style here is inline.
 const SHELL: React.CSSProperties = {
   minHeight: "100dvh",
   margin: 0,

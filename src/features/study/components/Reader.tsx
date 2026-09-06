@@ -30,8 +30,7 @@ const TONE_ACCENT: Record<string, string> = {
 
 type Panel = "notes" | null;
 
-// Deterministic across server and browser — toLocaleDateString() formats in the
-// runtime's locale/timezone and mismatches on hydration (docs/rendering.md).
+// toLocaleDateString() formats per runtime locale and mismatches on hydration.
 const MONTHS = [
   "Jan",
   "Feb",

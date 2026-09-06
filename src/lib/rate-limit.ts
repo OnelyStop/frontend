@@ -1,6 +1,4 @@
-// Per-process: on serverless the real ceiling is (limit x instances). Enough to
-// blunt a runaway client, which is all it guards; a durable limit would be a
-// Redis or Postgres counter.
+// Per-process: on serverless the real ceiling is (limit x instances).
 
 const buckets = new Map<string, number[]>();
 

@@ -1,5 +1,4 @@
-// Spaces LLM call starts so a run never exceeds the key's requests-per-minute.
-// Clock and sleep are injectable so the tests need no timers.
+// Spaces LLM calls so a run never exceeds the key's requests-per-minute.
 export type Pacer = {
   next: () => Promise<void>;
   delay: (ms: number) => void;
@@ -16,8 +15,7 @@ export function createPacer(
   let nextStartAt = 0;
 
   return {
-    // The slot is reserved before sleeping, so two concurrent callers cannot
-    // both compute the same start time.
+    // The slot is reserved before sleeping, so two callers cannot share a start.
     async next() {
       const start = Math.max(nextStartAt, now());
       nextStartAt = start + interval;
@@ -30,8 +28,7 @@ export function createPacer(
   };
 }
 
-// "retryDelay: 30s", "Retry-After: 5000", "Please retry in 12.3s" — the shapes
-// a provider's 429 takes. A bare number is milliseconds.
+// The shapes a provider's 429 takes; a bare number is milliseconds.
 const RETRY_DELAY =
   /retry(?:_?delay|[\s-]?(?:after|in))[^0-9]*([0-9]+(?:\.[0-9]+)?)\s*(m?s)?/i;
 

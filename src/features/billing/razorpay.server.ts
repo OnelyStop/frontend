@@ -1,11 +1,9 @@
-// No `server-only` guard: the plan seeding script imports this, and that guard
-// rejects any importer outside a Server Component.
+// No `server-only`: the seeding script imports this from outside a Server Component.
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 const API = "https://api.razorpay.com/v1";
 
-// Read at call time, not module load: reading at import crashes every route
-// that merely shares a bundle with this file when the vars are absent.
+// Read at call time: at import this crashes every route sharing the bundle.
 function credentials() {
   const keyId = process.env.RAZORPAY_KEY_ID;
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
@@ -80,8 +78,7 @@ export function createPlan(input: {
       interval: input.interval,
       item: {
         name: input.name,
-        // Razorpay takes minor units, same as we store. No conversion on
-        // purpose: a multiply is where a rounding bug would enter.
+        // Razorpay takes minor units, same as we store — no conversion on purpose.
         amount: input.amountMinor,
         currency: input.currency,
         description: input.description,
@@ -100,8 +97,7 @@ export function createSubscription(input: {
     body: {
       plan_id: input.planId,
       total_count: input.totalCount,
-      // The pre-debit notice is required in India; letting Razorpay send it is
-      // one less compliance surface we own.
+      // The pre-debit notice is required in India; Razorpay sending it is one less surface.
       customer_notify: 1,
       notes: input.notes,
     },
@@ -112,9 +108,7 @@ export function fetchSubscription(id: string): Promise<RazorpaySubscription> {
   return call<RazorpaySubscription>(`/subscriptions/${id}`);
 }
 
-// At the cycle end by default: the customer keeps what they paid for and no
-// pro-rata refund arithmetic enters the codebase. Closing an account is the
-// one caller that cannot wait for the cycle.
+// At the cycle end by default: no pro-rata refund arithmetic enters the codebase.
 export function cancelSubscription(
   id: string,
   { atCycleEnd = true }: { atCycleEnd?: boolean } = {},
@@ -161,9 +155,7 @@ export function verifySubscriptionSignature(input: {
   return matches(expected, input.signature);
 }
 
-// rawBody must be the bytes as received. Parsing to JSON and re-stringifying
-// changes key order and whitespace, and the hash then never matches — which
-// looks exactly like an attack in the logs.
+// rawBody must be the bytes as received: re-stringified JSON never matches the hash.
 export function verifyWebhookSignature(
   rawBody: string,
   signature: string,

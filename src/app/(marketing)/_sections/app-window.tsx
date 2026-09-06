@@ -50,8 +50,7 @@ const SECTION_DOT: Record<string, string> = {
   English: "bg-[#e0a33a]",
 };
 
-// Greys are local to the illustration on purpose: it is a picture of an app,
-// not app chrome, so it must not track the design system's surfaces.
+// Local greys on purpose: a picture of an app must not track the design system.
 const RAIL = "bg-[#fbfbfa]";
 const LINE = "border-[rgb(10_10_11/0.08)]";
 const SOFT = "text-[#5f5f68]";

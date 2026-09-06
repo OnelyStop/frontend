@@ -2,8 +2,7 @@ type Fields = Record<string, string | number | boolean | null | undefined>;
 
 type Level = "debug" | "info" | "warn" | "error";
 
-// The pipeline tests emit a line per article; LOG_IN_TESTS turns them back on
-// when a failure needs them. Read per call so a test can stub it.
+// LOG_IN_TESTS turns test logging back on; read per call so a test can stub it.
 const silent = () =>
   process.env.NODE_ENV === "test" && !process.env.LOG_IN_TESTS;
 

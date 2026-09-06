@@ -19,8 +19,7 @@ export const appPermission = pgEnum("app_permission", [
   "users.read",
 ]);
 
-// Roles are stored here rather than in user_metadata, which the user can write
-// to and could use to make themselves an admin.
+// Not user_metadata: the user can write to that and make themselves an admin.
 export const userRoles = pgTable(
   "user_roles",
   {
@@ -33,8 +32,7 @@ export const userRoles = pgTable(
   (t) => [
     unique("user_roles_user_id_role_key").on(t.userId, t.role),
 
-    // Paired with a SELECT grant in the migration — Postgres checks grants
-    // before RLS, so the policy is inert without it.
+    // Postgres checks grants before RLS, so this is inert without the migration's GRANT.
     pgPolicy("signed-in users can read their own role", {
       for: "select",
       to: authenticatedRole,

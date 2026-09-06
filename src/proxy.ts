@@ -39,15 +39,12 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  // getUser revalidates against the auth server; getSession only reads the
-  // cookie, which a client could have forged
+  // getUser revalidates; getSession only reads a cookie a client could have forged.
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // A redirect built from scratch would drop the cookies a token refresh just
-  // wrote onto `response`, and the next request would present a refresh token
-  // that has already been rotated.
+  // A fresh redirect drops the refreshed cookies, and the next token is already rotated.
   const redirect = (to: URL) => {
     const redirected = NextResponse.redirect(to);
     response.cookies.getAll().forEach((c) => redirected.cookies.set(c));
@@ -62,9 +59,7 @@ export async function proxy(request: NextRequest) {
     return redirect(login);
   }
 
-  // Not the security boundary — server actions never pass through the proxy.
-  // Every admin page and action re-checks via requireRole(), and RLS enforces
-  // it at the database.
+  // Not the security boundary: server actions never pass through the proxy.
   if (pathname.startsWith("/admin")) {
     const { data: row } = await supabase
       .from("user_roles")
@@ -80,8 +75,7 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Only the root and the sign-in pages — deeper marketing pages stay
-  // readable while signed in.
+  // Only these — deeper marketing pages stay readable while signed in.
   if (user && ["/", "/login", "/signup"].includes(pathname)) {
     const from = request.nextUrl.searchParams.get("from");
     return redirect(new URL(safeInternalPath(from), request.url));
@@ -90,8 +84,7 @@ export async function proxy(request: NextRequest) {
   return response;
 }
 
-// API routes authenticate themselves and the metadata files need no session,
-// so neither pays for the auth round-trip.
+// API routes authenticate themselves, so neither pays for the auth round-trip.
 export const config = {
   matcher: [
     "/((?!api/|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",

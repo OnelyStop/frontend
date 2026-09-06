@@ -52,8 +52,7 @@ describe("RLS policies", () => {
     expect(grants(text).size).toBeGreaterThan(6);
   });
 
-  // Postgres checks GRANTs before RLS: a policy without one never runs, and the
-  // policy still looks correct in review.
+  // Postgres checks GRANTs before RLS: a policy without one never runs.
   it("each has a matching grant, or it never runs", () => {
     const held = grants(text);
     const missing = policies(text)
@@ -70,8 +69,7 @@ describe("RLS policies", () => {
   });
 });
 
-// A table without RLS is readable by anyone holding the anon key, which is
-// public by design. Nothing errors; the data is simply available.
+// Without RLS the table is readable by anyone holding the anon key, silently.
 describe("row level security", () => {
   const text = sql();
 
@@ -97,8 +95,7 @@ describe("row level security", () => {
   });
 });
 
-// Drizzle is forward-only, so every rollback is hand-written. A missing one is
-// found mid-incident.
+// Drizzle is forward-only: a hand-written rollback that is missing is found mid-incident.
 describe("rollbacks", () => {
   it("exist for every migration", () => {
     const forward = readdirSync(MIGRATIONS)
@@ -111,9 +108,7 @@ describe("rollbacks", () => {
   });
 });
 
-// Git conflicts on identical paths, so two branches can each claim 0003 under
-// different names and merge cleanly. Drizzle keys the journal on idx, so the
-// order they then apply in depends on how the merge happened to land.
+// Two branches can each claim 0003 under different names and still merge cleanly.
 describe("migration numbering", () => {
   const forward = () =>
     readdirSync(MIGRATIONS)

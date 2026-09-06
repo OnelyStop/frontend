@@ -1,8 +1,6 @@
 import { z } from "zod";
 
-// Validated lazily on first access, not at import: `next build` loads every
-// route module to collect its config, and a build box has no secrets. Fail
-// fast, but at request/CLI time — not build time.
+// Lazy, not at import: `next build` loads every route module and has no secrets.
 const schema = z.object({
   NEWSDATA_API_KEY: z.string().min(1, "NEWSDATA_API_KEY is required"),
   GEMINI_API_KEY: z.string().min(1, "GEMINI_API_KEY is required"),

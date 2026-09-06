@@ -95,4 +95,19 @@ else
   printf '  ok    every TODO carries a ticket\n'
 fi
 
+# A comment needing a paragraph is usually a name or a test that needs writing.
+offenders=$(git ls-files -z 'src/*.ts' 'src/*.tsx' 'scripts/*.ts' 'scripts/*.mjs' \
+  | xargs -0 awk 'FNR==1{prev=0}
+      /^[[:space:]]*\/\//{ if (prev) print FILENAME":"FNR": "$0; prev=1; next }
+      {prev=0}')
+
+if [ -n "$offenders" ]; then
+  echo "$offenders"
+  echo "::error::a comment running over one line — say it in one, or delete it"
+  printf '  FAIL  comments are one line\n' >&2
+  failed=1
+else
+  printf '  ok    comments are one line\n'
+fi
+
 exit "$failed"

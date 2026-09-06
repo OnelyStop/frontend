@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
-// Renders to React nodes, never innerHTML: study content is validated, but a
-// validator gap must not become script execution.
+// React nodes, never innerHTML: a validator gap must not become script execution.
 
 type Inline =
   | { t: "text"; v: string }
@@ -171,8 +170,7 @@ export function parseMarkdown(src: string): MdNode[] {
     nodes.push({ kind: "paragraph", text: parseInline(buf.join(" ")) });
   }
 
-  // Authors blank-line between list items, which splits one list into many;
-  // merge them so an ordered list keeps counting instead of restarting at 1.
+  // Authors blank-line between items; merge so an ordered list keeps counting.
   const merged: MdNode[] = [];
   for (const node of nodes) {
     const prev = merged[merged.length - 1];

@@ -28,8 +28,7 @@ const asStatus = (raw: string): SubscriptionStatus =>
     ? (raw as SubscriptionStatus)
     : "pending";
 
-// Only these carry a paid `current_end`. Before the first charge, and after a
-// failed one, Razorpay still reports a period — one nobody has paid for.
+// Only these carry a paid `current_end`; Razorpay reports a period regardless.
 const GRANTS = new Set<SubscriptionStatus>(["active", "completed"]);
 
 const toDate = (unix: number | null | undefined) =>
@@ -82,10 +81,7 @@ export async function getBillingStatus(
 
 export type ApplyOutcome = "updated" | "stale" | "unknown";
 
-// The one place subscription state becomes access. Idempotent, and ordered:
-// an observation older than what is stored is dropped, so a late `authenticated`
-// cannot overwrite a live `active`; and access_until only ever moves forward,
-// so no event can take back a period that was paid for.
+// Ordered and idempotent: a stale observation is dropped, and access_until only moves forward.
 export async function applySubscription(
   db: Db,
   sub: RazorpaySubscription,

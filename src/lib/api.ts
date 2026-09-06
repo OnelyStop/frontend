@@ -18,8 +18,7 @@ export async function requireUser(): Promise<
 export const jsonError = (error: string, status: number) =>
   NextResponse.json({ error }, { status });
 
-// A plain Response, not NextResponse: the cron routes need no-store on every
-// reply and nothing else Next adds.
+// A plain Response: the cron routes need no-store and nothing else Next adds.
 export const json = (body: unknown, status = 200): Response =>
   new Response(JSON.stringify(body), {
     status,
