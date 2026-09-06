@@ -1,6 +1,12 @@
+import {
+  PLAN_LIMITS,
+  type PlanLimits,
+  type PlanTier,
+} from "@/features/billing/limits";
+
 // Display copy only. Prices come from payment_plans on the server.
 
-export type PlanId = "free" | "pro" | "school";
+export type PlanId = PlanTier | "school";
 
 export type PlanCopy = {
   id: PlanId;
@@ -10,17 +16,27 @@ export type PlanCopy = {
   featured?: boolean;
 };
 
+// Generated from the limits table, so the page cannot promise an unenforced number.
+const per = (n: number | null, noun: string, period: string) =>
+  n === null ? `Unlimited ${noun}` : `${n} ${noun} ${period}`;
+
+const paidBullets = (l: PlanLimits): string[] => [
+  per(l.mocksPerMonth, "full mocks", "a month"),
+  per(l.drillsPerDay, "drills", "a day"),
+  per(l.descriptiveMarkingsPerMonth, "descriptive markings", "a month"),
+  per(l.askOnelyPerMonth, "Ask Onely questions", "a month"),
+  per(l.communityDoubtsPerMonth, "community doubts", "a month"),
+];
+
 export const PLAN_COPY: PlanCopy[] = [
   {
     id: "free",
     name: "Free",
-    tagline: "Everything you need to start sitting papers",
+    tagline: "Enough to sit real papers and find your weak section",
     features: [
-      "Knowledge base: every subject, chapter and topic",
-      "Private notes and flashcards",
-      "Daily current affairs, last 7 days",
-      "Two full mocks a month under sectional timing",
-      "5 community doubts a month",
+      "Knowledge base, private notes and flashcards",
+      ...paidBullets(PLAN_LIMITS.free),
+      `Current affairs, last ${PLAN_LIMITS.free.currentAffairsDays} days`,
     ],
   },
   {
@@ -29,12 +45,32 @@ export const PLAN_COPY: PlanCopy[] = [
     tagline: "Unlimited practice, calibrated to your exam",
     featured: true,
     features: [
-      "Unlimited mocks and drills",
-      "Unlimited descriptive marking",
-      "Full current-affairs archive",
+      ...paidBullets(PLAN_LIMITS.pro),
       "Attempt map and progress across every sitting",
-      "Ask Onely on any passage",
-      "15 community doubts a month",
+      "Full current-affairs archive",
+    ],
+  },
+  {
+    id: "pro_plus",
+    name: "Pro+",
+    tagline: "For the descriptive papers and the last mile",
+    features: [
+      "Everything in Pro",
+      per(
+        PLAN_LIMITS.pro_plus.descriptiveMarkingsPerMonth,
+        "descriptive markings",
+        "a month",
+      ),
+      per(
+        PLAN_LIMITS.pro_plus.askOnelyPerMonth,
+        "Ask Onely questions",
+        "a month",
+      ),
+      per(
+        PLAN_LIMITS.pro_plus.communityDoubtsPerMonth,
+        "community doubts",
+        "a month",
+      ),
     ],
   },
   {
@@ -42,7 +78,7 @@ export const PLAN_COPY: PlanCopy[] = [
     name: "Institute",
     tagline: "For coaching centres and colleges",
     features: [
-      "Pro for every student in the batch",
+      "Pro+ for every student in the batch",
       "One invoice, paid by the institute",
       "Priced per student per year",
     ],

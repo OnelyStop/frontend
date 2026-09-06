@@ -10,7 +10,11 @@ export const openrouterConfig = {
   referer: str("OPENROUTER_REFERER", "https://onelystop.com"),
   title: str("OPENROUTER_TITLE", "OnelyStop"),
 
-  model: str("AI_MODEL", "anthropic/claude-sonnet-4.5"),
+  // Never the -contributor tier: it trains on what we send, and we promise not.
+  model: str("AI_MODEL", "meta/muse-spark-1.3"),
+
+  // High volume, lower stakes: five index points over DeepSeek for one paisa.
+  cheapModel: str("AI_CHEAP_MODEL", "z-ai/glm-5.3-flash"),
   fallbackModel: str("AI_MODEL_FALLBACK", "openai/gpt-4o"),
 
   temperature: num("AI_TEMPERATURE", 0.7, 0, 2),

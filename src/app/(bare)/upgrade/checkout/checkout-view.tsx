@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle2, Loader2, Lock } from "lucide-react";
 import { Brand, Button, Card, SectionTitle } from "@/design-system";
 import { formatAmount } from "@/features/billing/money";
-import type { BillingInterval, PlanPrice } from "@/features/billing/types";
+import type {
+  BillingInterval,
+  PaidPlan,
+  PlanPrice,
+} from "@/features/billing/types";
 
 // Checkout.js is Razorpay's hosted form: card details go to them, never here.
 const CHECKOUT_JS = "https://checkout.razorpay.com/v1/checkout.js";
@@ -76,11 +80,13 @@ function Done({ title, body }: { title: string; body: string }) {
 }
 
 export function CheckoutView({
+  plan,
   interval,
   prices,
   entitled,
   billingEnabled,
 }: {
+  plan: PaidPlan;
   interval: BillingInterval;
   prices: PlanPrice[];
   entitled: boolean;
@@ -90,8 +96,9 @@ export function CheckoutView({
   const [step, setStep] = useState<Step>("idle");
   const [message, setMessage] = useState<string | null>(null);
 
-  const price = prices.find((p) => p.plan === "pro" && p.interval === interval);
-  const other = prices.find((p) => p.plan === "pro" && p.interval !== interval);
+  const planName = plan === "pro_plus" ? "Pro+" : "Pro";
+  const price = prices.find((p) => p.plan === plan && p.interval === interval);
+  const other = prices.find((p) => p.plan === plan && p.interval !== interval);
 
   if (entitled)
     return (
@@ -159,7 +166,7 @@ export function CheckoutView({
     const res = await fetch("/api/v1/billing/subscription", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ interval }),
+      body: JSON.stringify({ plan, interval }),
     });
     if (!res.ok) {
       const { error } = (await res.json().catch(() => ({}))) as {
@@ -185,7 +192,7 @@ export function CheckoutView({
       key: keyId,
       subscription_id: subscriptionId,
       name: "onelystop",
-      description: `Pro · ${interval}`,
+      description: `${planName} · ${interval}`,
       handler: (cb) => void verify(cb),
       modal: { ondismiss: () => setStep("idle") },
       theme: { color: "#111111" },
