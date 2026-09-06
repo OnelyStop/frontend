@@ -42,8 +42,6 @@ type AppContextValue = {
   setSubject: (s: Subject) => void;
   setBoard: (b: ExamBoard) => void;
   markerLabel: string;
-  streak: number;
-  points: number;
   mastery: Record<string, number>;
   overallMastery: number;
   workingGrade: Band;
@@ -107,8 +105,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSubject,
       setBoard,
       markerLabel: getMarkerLabel(board),
-      streak: 12,
-      points: 1840,
       mastery: FEATURE_MASTERY,
       overallMastery,
       workingGrade: band,

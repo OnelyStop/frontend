@@ -1,5 +1,5 @@
 import "server-only";
-import { and, eq, gte, isNotNull, sql } from "drizzle-orm";
+import { and, count, eq, gte, isNotNull, max, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { attemptAnswers, attempts, bankQuestions } from "@/db/schema";
 import { isCorrect } from "./scoring";
@@ -11,6 +11,14 @@ export type SectionProgress = {
   attempted: number;
   correct: number;
   avgSec: number;
+};
+
+export type ProfileStats = {
+  mocksSat: number;
+  drillsSat: number;
+  bestScore: number | null;
+  /** ISO, the most recent submitted attempt of any mode. */
+  lastSatAt: string | null;
 };
 
 export type Progress = {
@@ -109,5 +117,44 @@ export async function getProgress(
       }))
       .sort((x, y) => y.attempted - x.attempted),
     week,
+  };
+}
+
+// One aggregate row per mode — "bank" and "mix" both count as drills.
+export async function getProfileStats(userId: string): Promise<ProfileStats> {
+  const rows = await db
+    .select({
+      mode: attempts.mode,
+      sat: count(),
+      bestScore: max(attempts.score),
+      lastSatAt: max(attempts.submittedAt),
+    })
+    .from(attempts)
+    .where(and(eq(attempts.userId, userId), isNotNull(attempts.submittedAt)))
+    .groupBy(attempts.mode);
+
+  let mocksSat = 0;
+  let drillsSat = 0;
+  let bestScore: number | null = null;
+  let lastSatAt: Date | null = null;
+
+  for (const r of rows) {
+    if (r.mode === "paper") {
+      mocksSat = r.sat;
+      // score is numeric, so the driver hands it back as a string.
+      if (r.bestScore !== null) bestScore = Number(r.bestScore);
+    } else {
+      drillsSat += r.sat;
+    }
+    if (r.lastSatAt && (lastSatAt === null || r.lastSatAt > lastSatAt)) {
+      lastSatAt = r.lastSatAt;
+    }
+  }
+
+  return {
+    mocksSat,
+    drillsSat,
+    bestScore,
+    lastSatAt: lastSatAt?.toISOString() ?? null,
   };
 }
