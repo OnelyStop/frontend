@@ -42,6 +42,11 @@ export type SectionResult = {
   skipped: number;
   marksEarned: number;
   marksLost: number;
+  /** Earned minus lost — what a sectional cutoff is compared against. */
+  net: number;
+  /** Indicative, on the same basis as the paper's. Null off a real paper. */
+  cutoff: number | null;
+  cleared: boolean;
 };
 
 export type TopicResult = {

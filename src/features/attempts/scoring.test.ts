@@ -82,6 +82,35 @@ describe("scoreTotals", () => {
   });
 });
 
+describe("net per section", () => {
+  // Quant carried, English blank: the shape that used to read as "cleared".
+  const answers = [
+    ...Array.from({ length: 6 }, (_, i) =>
+      a({ qId: `q${i}`, section: "Quantitative", chosen: "a", correct: "a" }),
+    ),
+    ...Array.from({ length: 2 }, (_, i) =>
+      a({ qId: `w${i}`, section: "Quantitative", chosen: "b", correct: "a" }),
+    ),
+    ...Array.from({ length: 8 }, (_, i) =>
+      a({ qId: `e${i}`, section: "English", chosen: null }),
+    ),
+  ];
+
+  it("takes the penalty off each section's net", () => {
+    const s = scoreBySection(answers);
+    expect(s.get("Quantitative")!.marksEarned).toBe(6);
+    expect(s.get("Quantitative")!.marksLost).toBe(0.5);
+    expect(s.get("Quantitative")!.net).toBe(5.5);
+    expect(s.get("English")!.net).toBe(0);
+  });
+
+  it("counts every question in a section, attempted or not", () => {
+    const s = scoreBySection(answers);
+    expect(s.get("Quantitative")!.questions).toBe(8);
+    expect(s.get("English")!.skipped).toBe(8);
+  });
+});
+
 describe("scoreBySection", () => {
   it("keeps every section that appears, even one with only blanks", () => {
     const bySection = scoreBySection([

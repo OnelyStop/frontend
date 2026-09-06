@@ -20,6 +20,7 @@ import {
   scoreByTopic,
   scoreTimeline,
   scoreTotals,
+  round2,
 } from "./scoring";
 import type { Scorecard, ScoredQuestion, TopicTheory } from "./types";
 
@@ -203,10 +204,17 @@ export async function getScorecard(
     totalQuestions: graded.length,
     ...totals,
     cutoff,
-    sections: [...bySection.entries()].map(([section, s]) => ({
-      section,
-      ...s,
-    })),
+    sections: [...bySection.entries()].map(([section, s]) => {
+      // IBPS and SBI clear section by section, so each carries its own cutoff.
+      const sectionCutoff =
+        cutoff === null ? null : round2(s.questions * AT_CUTOFF_PCT);
+      return {
+        section,
+        ...s,
+        cutoff: sectionCutoff,
+        cleared: sectionCutoff === null || s.net >= sectionCutoff,
+      };
+    }),
     topics: topicResults,
     theory,
     timeline,

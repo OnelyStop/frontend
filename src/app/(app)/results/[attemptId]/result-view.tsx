@@ -17,8 +17,12 @@ import { TopicTheorySection } from "@/features/attempts/components/topic-theory"
 import type { Scorecard } from "@/features/attempts/types";
 
 export function ResultView({ scorecard }: { scorecard: Scorecard }) {
+  // The total is not the exam: a paper is cleared only if every section is.
+  const missed = scorecard.sections.filter((s) => !s.cleared);
   const cleared =
-    scorecard.cutoff !== null && scorecard.score >= scorecard.cutoff;
+    scorecard.cutoff !== null &&
+    scorecard.score >= scorecard.cutoff &&
+    missed.length === 0;
   const marksPerMin =
     scorecard.durationSec && scorecard.durationSec > 0
       ? (scorecard.score / (scorecard.durationSec / 60)).toFixed(2)
@@ -46,11 +50,13 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
           </span>
         </p>
         <p className="mt-3 text-[15px]">
-          {scorecard.cutoff !== null
-            ? cleared
-              ? `Cleared the cutoff by ${(scorecard.score - scorecard.cutoff).toFixed(2)} marks.`
-              : `${(scorecard.cutoff - scorecard.score).toFixed(2)} marks short of the cutoff.`
-            : `${scorecard.correct} correct out of ${scorecard.attempted} attempted.`}
+          {scorecard.cutoff === null
+            ? `${scorecard.correct} correct out of ${scorecard.attempted} attempted.`
+            : cleared
+              ? `Cleared every section, and the overall cutoff by ${(scorecard.score - scorecard.cutoff).toFixed(2)} marks.`
+              : missed.length > 0
+                ? `Short in ${missed.map((s) => s.section).join(", ")} — the total does not carry a section.`
+                : `${(scorecard.cutoff - scorecard.score).toFixed(2)} marks short of the overall cutoff.`}
         </p>
       </DarkPanel>
 

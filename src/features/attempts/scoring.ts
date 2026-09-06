@@ -79,6 +79,8 @@ export function scoreBySection(answers: GradedAnswer[]): Map<
     skipped: number;
     marksEarned: number;
     marksLost: number;
+    net: number;
+    questions: number;
   }
 > {
   const bySection = new Map<string, GradedAnswer[]>();
@@ -97,6 +99,8 @@ export function scoreBySection(answers: GradedAnswer[]): Map<
       skipped: number;
       marksEarned: number;
       marksLost: number;
+      net: number;
+      questions: number;
     }
   >();
   for (const [section, list] of bySection) {
@@ -123,6 +127,9 @@ export function scoreBySection(answers: GradedAnswer[]): Map<
       skipped,
       marksEarned: round2(marksEarned),
       marksLost: round2(marksLost),
+      // What the section is actually worth — a cutoff is compared against this.
+      net: round2(marksEarned - marksLost),
+      questions: list.length,
     });
   }
   return out;
@@ -209,6 +216,6 @@ export function scoreTimeline(
   });
 }
 
-function round2(n: number): number {
+export function round2(n: number): number {
   return Math.round(n * 100) / 100;
 }
