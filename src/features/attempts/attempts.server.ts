@@ -33,23 +33,7 @@ const REVISE_TOPIC_COUNT = 3;
 const TRICKS_SHOWN = 2;
 const MISTAKES_SHOWN = 2;
 
-/**
- * Everything a finished attempt's results screen renders — the score, the
- * section/topic rollups the charts draw from, the worst topics with theory to
- * revise them, and every question with its correct answer, explanation, and
- * a link to the topic's theory note.
- *
- * This is the only place `isCorrect` and `score` are computed from a stored
- * answer — a client that posted its own "isCorrect" would just be trusted to
- * have graded itself honestly, so grading happens once, here, from the
- * `chosen` key and `bank_questions.answer`, never from anything the client
- * already labelled.
- *
- * Returns null if the attempt doesn't exist, isn't submitted yet, or belongs
- * to someone else — RLS would also block the query, but failing this check
- * first means "not yours" and "doesn't exist" read identically, the correct
- * behaviour for a URL a user could otherwise probe.
- */
+/** Null covers missing, unsubmitted and someone else's alike, so `/results/<id>` cannot be probed for which attempts exist. */
 export async function getScorecard(
   attemptId: number,
 ): Promise<Scorecard | null> {
@@ -222,27 +206,7 @@ export async function getScorecard(
   };
 }
 
-/** Full theory for every topic touched in this attempt, keyed on topic
- * alone — not `(section, topic)`. A question's own `section` comes from the
- * same upstream classifier that assigns `topic`, and the two don't always
- * agree: a real, if narrow, slice of questions carry a topic that's
- * correctly named but filed under the wrong section (e.g. a handful of
- * GA-tagged questions whose topic is actually `Approximation`, a
- * Quantitative topic). Requiring an exact section match on top of the topic
- * match meant every one of those lost its theory link even though the note
- * for that exact topic exists. Safe to drop: verified topic names are
- * globally unique across every section in the imported notes corpus.
- *
- * A topic can have several notes (one per subtopic — Arithmetic alone has
- * 16). A question carries only a topic, never a subtopic, so this can't
- * know which one actually applies — rather than silently guessing (the
- * previous behaviour: always the first by `subtopicOrder`, so every
- * Arithmetic question linked to Percentage regardless of what it was really
- * about), every subtopic is returned and the scorecard shows them as
- * choices. The "primary" note — general (`subtopic IS NULL`) when one
- * exists, else the lowest `subtopicOrder` — supplies the summary/tricks/
- * mistakes shown inline; that choice only affects which theory previews
- * without a click, not which subtopics are offered. */
+/** Keyed on topic alone, not `(section, topic)`: the classifier files some correctly-named topics under the wrong section, and topic names are globally unique in the notes corpus. */
 async function topicTheoryLookup(
   topics: string[],
 ): Promise<Map<string, TopicTheory & { primaryNoteId: string }>> {

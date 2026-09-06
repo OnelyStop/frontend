@@ -356,7 +356,7 @@ CREATE TABLE "attempts" (
 	"started_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"submitted_at" timestamp with time zone,
 	"score" numeric(6, 2),
-	"served_q_ids" text[]
+	"served_q_ids" text[] DEFAULT '{}' NOT NULL
 );
 --> statement-breakpoint
 ALTER TABLE "attempts" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint

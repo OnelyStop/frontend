@@ -1,11 +1,6 @@
 import "server-only";
 
-/**
- * The four bands an IBPS/SBI descriptive answer is actually marked on. The
- * model scores each 0-100 and never does the arithmetic: the server turns a
- * band score into marks with the weights below, so a model that cannot add
- * cannot hand out marks it did not mean to.
- */
+/** The model only scores each band 0-100; the server applies these weights, so a model that cannot add cannot hand out marks. */
 export const BANDS = [
   {
     id: "content",

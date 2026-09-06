@@ -8,6 +8,9 @@ import { AiError } from "@/lib/openrouter-client/openrouter-types";
 import { captureError } from "@/lib/observability.server";
 import { rateLimit } from "@/lib/rate-limit";
 
+// Above the client's 120s total budget: a platform kill lands after we are billed but before recordAiCall.
+export const maxDuration = 180;
+
 // Cost control: the endpoint spends real money, so nothing client-supplied is unbounded.
 const MAX_ANSWER = 8000;
 const MIN_WORDS = 20;

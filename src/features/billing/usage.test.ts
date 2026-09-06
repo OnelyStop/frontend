@@ -16,9 +16,7 @@ const USER = randomUUID();
 // 11:30 IST on 15 September: mid-day and mid-month, so neither window is on a boundary.
 const NOW = new Date("2026-09-15T06:00:00Z");
 
-/* The real migrations in PGlite, with the Supabase auth surface they reference
-   stubbed. What is under test is the enforcement: which attempts a cap counts,
-   which window it counts them in, and what a paid plan lifts. */
+/* The real migrations in PGlite, with the Supabase auth surface they reference stubbed. */
 async function freshDb() {
   const client = new PGlite();
   await client.exec(`

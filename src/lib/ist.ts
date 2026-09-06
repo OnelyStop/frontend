@@ -1,10 +1,4 @@
-/**
- * The one definition of "what day is it" in this product. Every cutoff, exam
- * day, quota window and current-affairs edition is IST, and a UTC-derived day
- * is wrong for five and a half hours out of every twenty-four — which in
- * practice means wrong for the late-evening study session this app is built
- * around.
- */
+/** Every cutoff, quota window and edition is IST, and a UTC-derived day is wrong for five and a half hours out of every twenty-four. */
 
 const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
 

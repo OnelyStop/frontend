@@ -1,15 +1,4 @@
-/**
- * Pure rules shared by the import script and its test — no `server-only`,
- * since a vitest file imports this too and vitest doesn't run inside Next's
- * server boundary.
- *
- * `contentHash` and `isActive` are direct ports of
- * `pipeline/6-generate/generate.py`'s `content_key`/`_norm` and
- * `filter_pool` in OnelyStop/question-bank — reused, not reinvented, so a
- * question's identity and browsability agree with what the pipeline's own
- * mock generator already decides. See `import-rules.test.ts` for a golden
- * hash checked directly against the Python function.
- */
+/** Ports of `pipeline/6-generate/generate.py` in OnelyStop/question-bank, so a question's identity and browsability agree with the pipeline's. */
 
 import { createHash } from "node:crypto";
 
@@ -53,14 +42,7 @@ function norm(s: string | null | undefined): string {
   return (s ?? "").normalize("NFKC").replace(/\s+/g, " ").trim().toLowerCase();
 }
 
-/**
- * The exact-hash key `pipeline/6-generate/generate.py::content_key` computes
- * until question-bank's own step 3 (dedupe) writes a real `content_hash`.
- * Falls through to `q.content_hash` unchanged if that ever appears.
- *
- * Verified against the real Python output for
- * `ibps_clerk_2020_prelims_f1a8daa3::q001` — see the golden-hash test.
- */
+/** Stands in for `content_key` until question-bank's dedupe step writes a real `content_hash`, which then wins unchanged. */
 export function contentHash(q: RawQuestion): string {
   if (q.content_hash) return q.content_hash;
 
@@ -73,16 +55,7 @@ export function contentHash(q: RawQuestion): string {
   return createHash("sha256").update(blob, "utf-8").digest("hex").slice(0, 16);
 }
 
-/**
- * The drop rules inside `filter_pool` (generate.py) that decide whether a
- * question is answerable at all, independent of any exam/blueprint filter.
- *
- * Deliberately NOT ported: `require_answer`, the bank/role/year blueprint
- * filters, the `seen`-dedup, and the "no section and no topic" drop. Those
- * are mock-generation policy — an unlabelled question is still browsable in
- * the question bank, so importing it as active is correct even though
- * `generate.py` itself would skip it when assembling a specific mock.
- */
+/** Answerability only: `filter_pool`'s blueprint, answer and dedupe drops are mock-generation policy, and an unlabelled question is still browsable here. */
 export function isActive(q: RawQuestion): boolean {
   if (q.is_active === false) return false;
   if (!(q.stem ?? "").trim()) return false;
@@ -114,12 +87,7 @@ export type DirectionRow = {
   body: string;
 };
 
-/**
- * One row per distinct (paper_id, direction_id) in this paper — the first
- * non-empty `direction_text` for an id wins. Warns rather than silently
- * picking a winner when two questions under the same pair disagree; that's a
- * real extractor-integrity signal, not something to paper over here.
- */
+/** Two questions disagreeing on the same direction text is an extractor-integrity signal, so it warns rather than silently picking a winner. */
 export function directionsOf(paper: RawPaper): DirectionRow[] {
   const byId = new Map<string, string>();
   for (const q of paper.questions) {

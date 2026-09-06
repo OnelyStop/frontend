@@ -10,10 +10,7 @@ import { EXAMS, SECTIONS } from "@/data/navigation";
 import { deleteAccount } from "./mutations.server";
 import { accountClose, profileUpdate } from "./types";
 
-/* The request validator builds its enums from the navigation constants so the
-   client bundle stays free of drizzle. That leaves two lists to drift apart,
-   and a drift is invisible until a save fails at the database rather than the
-   validator — so assert they are the same list. */
+// The validator builds its enums from navigation, not drizzle, so the two lists can drift apart unwatched.
 describe("profile enums track the database", () => {
   it("exam boards match", () => {
     expect([...profiles.examBoard.enumValues]).toEqual([...EXAMS]);
@@ -67,10 +64,7 @@ describe("accountClose", () => {
 
 const MIGRATIONS = join(import.meta.dirname, "..", "..", "migrations");
 
-/* Every migration, in order, in PGlite, with the Supabase auth surface they
-   reference stubbed to the columns they touch. Closing an account is nothing
-   but the cascades those migrations declare, so a hand-built subset would
-   test the subset and not the promise. */
+// Closing an account is only the cascades the migrations declare, so run every migration, not a hand-built subset.
 async function freshDb() {
   const client = new PGlite();
   await client.exec(`
@@ -127,7 +121,7 @@ describe("deleteAccount", () => {
       userId,
       email,
     ]);
-    // The 0002 signup trigger makes the profile; this covers a DB where it has not.
+    // The signup trigger makes the profile; this covers a DB where it has not.
     await db
       .insert(schema.profiles)
       .values({ id: userId })

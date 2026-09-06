@@ -1,16 +1,10 @@
-/** Shapes shared between the server query modules and the client views —
- * plain data, no `server-only`, so a client view can import the type. */
-
 export type AttemptMode = "bank" | "mix" | "paper";
 
-/** One answered (or skipped) question inside a finished attempt, joined
- * against its own correct answer and — when the topic maps to one — its
- * theory note. `chosen === null` means left blank, not wrong. */
+/** One question inside a finished attempt; `chosen === null` is a blank, not a wrong answer. */
 export type ScoredQuestion = {
   qId: string;
   qNum: number | null;
-  /** One of the question bank's own section labels (Quantitative, Reasoning,
-   * English, GA, Computer) — see SECTION_FROM_DB in data/navigation.ts. */
+  /** A question-bank section label — see SECTION_FROM_DB in data/navigation.ts. */
   section: string;
   topic: string | null;
   stem: string;
@@ -23,14 +17,8 @@ export type ScoredQuestion = {
   timeMs: number | null;
   marks: number;
   negativeMarks: number;
-  /** The topic's theory note, when `(section, topic)` maps to one — see
-   * attempts.server.ts's `getScorecard` for the join. Null for the ~13% of
-   * questions with no topic classification. */
   noteId: string | null;
   noteTitle: string | null;
-  /** The topic's one-sentence summary, shown inline in the per-question
-   * theory block so the reader gets real value before deciding to navigate
-   * away to the full note. */
   noteSummary: string | null;
 };
 
@@ -44,8 +32,7 @@ export type SectionResult = {
   marksLost: number;
   /** Earned minus lost — what the sectional target is compared against. */
   net: number;
-  /** 55% of the section's questions, on the same basis as the paper's target.
-   * Null off a real paper. */
+  /** 55% of the section's questions, on the same basis as the paper's target; null off a real paper. */
   target: number | null;
   cleared: boolean;
 };
@@ -57,16 +44,10 @@ export type TopicResult = {
   correct: number;
   accuracy: number;
   avgTimeSec: number;
-  /** Marks given up to wrong answers on this topic, plus the negative-marking
-   * penalty on them — what "Revise these topics" ranks by. */
+  /** Marks forgone on wrong answers on this topic plus their negative-marking penalty. */
   marksLost: number;
 };
 
-/** Everything the "Revise these topics" section needs for one topic — a
- * summary and two theory blocks that are cheap to render (see attempts.server.ts's
- * measured content-size notes), plus every subtopic under it so the reader
- * can pick the one that actually matches the question, rather than the
- * scorecard silently guessing one. */
 export type TopicTheory = {
   topic: string;
   topicTitle: string;
@@ -77,8 +58,6 @@ export type TopicTheory = {
   subtopics: { noteId: string; title: string }[];
 };
 
-/** A point on the cumulative-score-over-time chart — one per answered
- * question, in the order it was answered. */
 export type TimelinePoint = {
   index: number;
   elapsedSec: number;
@@ -99,22 +78,17 @@ export type Scorecard = {
   skipped: number;
   score: number;
   maxScore: number;
-  /** 55% of the paper's questions — our practice benchmark, never a board's
-   * published cutoff. Null off a real paper: a `bank` or `mix` drill has none. */
+  /** 55% of the paper's questions — our practice benchmark, never a board's published cutoff. */
   target: number | null;
   accuracy: number;
   sections: SectionResult[];
   topics: TopicResult[];
-  /** Worst topics by marks lost, with theory to revise them — empty for a
-   * perfect score, and for a topic with no note (~13% of questions have no
-   * topic classification at all). */
   theory: TopicTheory[];
   timeline: TimelinePoint[];
   questions: ScoredQuestion[];
 };
 
-/** What the client posts on submit — never a score, never `isCorrect`.
- * Grading happens once, server-side, in attempts.server.ts. */
+/** What the client posts on submit — never a score, never `isCorrect`. */
 export type SubmittedAnswer = {
   qId: string;
   chosen: string | null;

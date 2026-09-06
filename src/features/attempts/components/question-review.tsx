@@ -24,12 +24,7 @@ type Filter = (typeof FILTERS)[number];
 // Twice the drills' 45s/question target, independent of section — a question worth flagging regardless of the answer.
 const SLOW_MS = 90_000;
 
-/** Every reviewed question, filterable, expanding to the full stem, your
- * pick against the correct one via the same `OptionRow` mocks/drills use,
- * the explanation when one exists, and a link to the topic's theory note —
- * the always-available half (100% topic coverage) that carries the ~35% of
- * questions with no explanation text yet. This table is also this
- * dashboard's required table-view twin for every chart above it. */
+/** The table-view twin every chart above it needs, so the scorecard is readable without reading a chart. */
 export function QuestionReview({ questions }: { questions: ScoredQuestion[] }) {
   const [filter, setFilter] = useState<Filter>("All");
   const [openId, setOpenId] = useState<string | null>(null);
@@ -155,18 +150,13 @@ function QuestionRow({
                           onSelect={() => {}}
                         >
                           {o.text}
-                          {/* The indigo highlight alone used to be the only
-                              signal that this is the right answer — colour is
-                              never the only signal, per this app's own rule. */}
+                          {/* A label, because the highlight's colour must never be the only signal. */}
                           {isRight ? (
                             <span className="text-ok ml-2 text-[12px] font-medium">
                               Correct answer
                             </span>
                           ) : null}
                         </OptionRow>
-                        {/* Always acknowledges the user's own pick, right or
-                            wrong — previously only rendered on a wrong pick,
-                            so a correct answer got no confirmation at all. */}
                         {isChosen ? (
                           <Badge
                             tone={isRight ? "ok" : "bad"}

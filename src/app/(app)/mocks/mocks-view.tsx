@@ -21,17 +21,12 @@ import { startMockAttempt, submitAttempt } from "@/features/attempts/actions";
 import type { Mock } from "@/features/question-bank/types";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
-/* Mocks. Sectional timing is the thing banking aspirants actually train for —
-   each section locks when its clock runs out, and you cannot go back. */
-
 const STAGES = ["All", "Prelims", "Mains"] as const;
 
 type Recorded = { chosen: string | null; timeMs: number };
 type SectionGroup = { subject: Subject; qs: DrillQuestion[] };
 
-/** Only the sections the paper actually has answerable questions in — a
- * paper thin on Computer Aptitude in the answered subset shouldn't force a
- * zero-question section onto the exam. */
+/** Only sections with answerable questions — a zero-question section must not land on the exam. */
 function groupBySection(questions: DrillQuestion[]): SectionGroup[] {
   return SECTIONS.map((subject) => ({
     subject,
@@ -237,9 +232,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
         <div className="flex min-h-0 flex-1">
           <div className="flex-1 overflow-y-auto px-8 py-12" data-lenis-prevent>
             <div className="mx-auto max-w-[680px]">
-              {/* min-h so mode="wait" doesn't collapse the column to 0 in the
-                  gap between the outgoing question unmounting and the next
-                  one mounting. */}
+              {/* min-h so mode="wait" doesn't collapse the column to 0 between the outgoing and incoming question. */}
               <div className="relative min-h-[380px]">
                 <AnimatePresence mode="wait" custom={dir}>
                   <motion.div

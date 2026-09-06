@@ -22,9 +22,7 @@ const article = {
 const TOPICS = ["Banking & Finance", "Economy", "International"];
 const system = currentAffairsSystem(TOPICS);
 
-/* Every prompt that carries third-party text has to do two things: delimit
-   that text, and tell the model it is content rather than instruction. A
-   rewording that drops either is the regression these pin. */
+/* A prompt carrying third-party text must delimit it and mark it as content, not instruction; a rewording that drops either is the regression. */
 describe("untrusted text is framed as data", () => {
   it("companion", () => {
     expect(COMPANION_SYSTEM).toMatch(/not as a command/);

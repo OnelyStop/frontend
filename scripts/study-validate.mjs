@@ -1,18 +1,5 @@
 #!/usr/bin/env node
-/**
- * Deterministic validation gate for content/*.topic.json.
- *
- * Runs the automated checks in docs/study-module-spec.md §13: JSON Schema,
- * unique slugs/keys, sorted positions, sourced factual blocks, allowlisted
- * sources, no banned domains, flashcards grounded in real blocks, recomputed
- * quantitative answers, no raw HTML, no fabricated exam-provenance claims.
- *
- * Exit non-zero on any error. Warnings print but pass unless --strict.
- *
- *   node scripts/study-validate.mjs [--dir content/quantitative-aptitude] [--strict]
- *
- * The pure functions are exported for src/features/study/*.test.ts.
- */
+/** Implements the automated checks specified in docs/study-module-spec.md §13. */
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative, dirname } from "node:path";
@@ -187,10 +174,7 @@ export function evalArithmetic(expr) {
   return value;
 }
 
-/**
- * Validate one parsed topic object.
- * @returns {{ errors: string[], warnings: string[] }}
- */
+/** @returns {{ errors: string[], warnings: string[] }} */
 export function validateTopic(topic, ctx = {}) {
   const {
     schema,

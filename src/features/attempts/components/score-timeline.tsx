@@ -4,11 +4,6 @@ import { useState } from "react";
 import { Card, SectionTitle } from "@/design-system";
 import type { Scorecard } from "../types";
 
-/** Cumulative score across the attempt, in question order. A single series
- * needs no legend — the title already names it — so this is the one chart
- * here that draws an actual line rather than divs, an inline `<svg
- * viewBox>` scaled to the container, which is the honest form for "trend
- * over time" per the form heuristic. 2px stroke, solid hairline gridlines. */
 export function ScoreTimeline({ scorecard }: { scorecard: Scorecard }) {
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const points = scorecard.timeline;
@@ -47,8 +42,7 @@ export function ScoreTimeline({ scorecard }: { scorecard: Scorecard }) {
           style={{ height: H }}
           onMouseLeave={() => setHoverIdx(null)}
         >
-          {/* Zero line and one gridline above/below — solid hairlines, never
-              dashed (dashing reads as a projection, not a grid). */}
+          {/* Hairlines are never dashed here: dashing reads as a projection, not a grid. */}
           <line
             x1={PAD}
             x2={W - PAD}
@@ -83,10 +77,7 @@ export function ScoreTimeline({ scorecard }: { scorecard: Scorecard }) {
             strokeLinejoin="round"
           />
 
-          {/* Wide invisible hit targets — a 2px line is far too thin to
-              hover precisely, per the interaction spec's ≥24px minimum.
-              Nearest-point partitioning (boundaries computed above), so
-              coverage is gapless regardless of how many points there are. */}
+          {/* Invisible hit targets partitioned to the nearest point: a 2px line is far too thin to hover precisely. */}
           {points.map((p, i) => (
             <rect
               key={p.index}

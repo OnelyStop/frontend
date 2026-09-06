@@ -37,8 +37,7 @@ export default function Error({
           </ButtonLink>
         </div>
 
-        {/* Next replaces a Server Component's message with this hash in
-            production, and it is what matches the entry in our logs. */}
+        {/* In production this digest is all that matches our log entry. */}
         {error.digest ? (
           <p className="text-ink-3 mt-8 text-[12.5px]">
             Reference <span className="tnum">{error.digest}</span>

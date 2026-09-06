@@ -96,8 +96,11 @@ else
 fi
 
 # A comment needing a paragraph is usually a name or a test that needs writing.
+# Both forms: consecutive // lines, and a /* */ block spanning more than one.
 offenders=$(git ls-files -z 'src/*.ts' 'src/*.tsx' 'scripts/*.ts' 'scripts/*.mjs' \
-  | xargs -0 awk 'FNR==1{prev=0}
+  | xargs -0 awk 'FNR==1{prev=0; inb=0}
+      inb{ if (/\*\//) { inb=0; print FILENAME":"start": block comment spans "FNR-start+1" lines" } next }
+      /^[[:space:]]*[{]?\/\*/{ if (!/\*\//) { inb=1; start=FNR } prev=0; next }
       /^[[:space:]]*\/\//{ if (prev) print FILENAME":"FNR": "$0; prev=1; next }
       {prev=0}')
 

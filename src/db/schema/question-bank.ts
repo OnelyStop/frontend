@@ -136,8 +136,11 @@ export const attempts = pgTable(
       .defaultNow(),
     submittedAt: timestamp("submitted_at", { withTimezone: true }),
     score: numeric("score", { precision: 6, scale: 2 }),
-    // Chosen by the server when the attempt starts; grading never leaves this set.
-    servedQIds: text("served_q_ids").array(),
+    // Chosen by the server at start; grading never leaves it, so empty grades nothing.
+    servedQIds: text("served_q_ids")
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
   },
   (t) => [
     index("attempts_user_id_idx").on(t.userId),

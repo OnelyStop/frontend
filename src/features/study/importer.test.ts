@@ -1,9 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { sourceHashOf, titleCaseFromSlug } from "../../../scripts/study-import";
 
-/* The importer is idempotent because a content version carries a hash of its
-   content. These pin what that hash does and does not depend on, so a re-import
-   of an unchanged file stays a no-op and an edited file is detected. */
+// The importer is idempotent because a content version carries a hash; these pin what that hash depends on.
 
 const topic = () => ({
   subjectSlug: "quantitative-aptitude",

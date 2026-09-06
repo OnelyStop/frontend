@@ -1,20 +1,5 @@
 #!/usr/bin/env bun
-/**
- * Idempotent importer: content/*.topic.json  ->  Postgres.
- *
- *   bun scripts/study-import.ts                 # every topic under content/
- *   bun scripts/study-import.ts --dir content/english
- *   bun scripts/study-import.ts --file content/english/grammar/tenses.topic.json
- *   bun scripts/study-import.ts --allow-invalid # skip the validation gate
- *
- * Idempotency: subjects/chapters/topics upsert on their natural key. Block and
- * flashcard rows are keyed by (content version, stable key); a content version
- * carries a source_hash, so re-running an unchanged file is a no-op and an
- * edited file at the same contentVersion is replaced in place. Bump
- * contentVersion in the JSON to keep the previous version's rows.
- *
- * Connects with STUDY_DATABASE_URL, falling back to DATABASE_URL.
- */
+/** An edited file at the same contentVersion replaces its rows in place; bump contentVersion in the JSON to keep the previous version's rows. */
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { createHash } from "node:crypto";

@@ -1,13 +1,7 @@
 import { Card, SectionTitle } from "@/design-system";
 import type { Scorecard } from "../types";
 
-/** Where the marks actually went — same framing as home-view's "Where the
- * marks go" panel, applied to one finished attempt instead of a running week.
- * Colour never carries section identity here (the app's quant/reasoning
- * tokens fail CVD separation — see DESIGN.md follow-up); it means only
- * earned / lost / unclaimed, each also carrying its own label so the
- * ok↔bad pair (CVD ΔE 7.2, legal only with secondary encoding) is never the
- * sole signal. */
+/** Colour means earned / lost / unclaimed and never section identity: the section tokens fail CVD separation, so every bar carries a label too. */
 export function MarksWaterfall({ scorecard }: { scorecard: Scorecard }) {
   // Per-question marks/negativeMarks, not an assumed-uniform value — wrong and blank are separate bars (wrong also pays the penalty).
   let foregoneWrong = 0;

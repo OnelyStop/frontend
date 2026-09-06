@@ -40,13 +40,15 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
   const [qStart, setQStart] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sat, setSat] = useState<DrillQuestion[]>([]);
   const startReqIdRef = useRef(0);
 
   const mins = Math.round((len * 45) / 60);
-  // "Weak topics"/"Speed"/"Mixed" don't change the pool yet — nothing writes user_topic_stats until scoring lands.
-  const set = pool
-    .filter((q) => q.section === SECTION_DB[section])
-    .slice(0, len);
+  const pick = (from: DrillQuestion[]) =>
+    from.filter((q) => q.section === SECTION_DB[section]).slice(0, len);
+
+  // Before the drill starts this previews the page's pool; once running it is the set the server recorded.
+  const set = running ? sat : pick(pool);
   const q = set[qIdx];
 
   async function start() {
@@ -57,13 +59,18 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
     setAttemptId(null);
     setError(null);
     setQStart(Date.now());
-    setRunning(true);
-    // Grading needs a row to attach answers to; if this fails, the drill still runs locally, just unscored.
+    // The server picks the questions and records them; grading accepts no others.
     const res = await startAttempt("bank", null);
     // A later start() call before this resolved should win, not this stale response.
     if (startReqIdRef.current !== reqId) return;
-    if ("attemptId" in res) setAttemptId(res.attemptId);
-    else setError(res.error);
+    if (!("attemptId" in res)) {
+      setError(res.error);
+      return;
+    }
+    setAttemptId(res.attemptId);
+    setSat(pick(res.questions));
+    setQStart(Date.now());
+    setRunning(true);
   }
 
   // Folds the pick into a local `merged` value (not `answers`, stale until next render) that both branches act on.
@@ -132,8 +139,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
             <span className="tnum text-ink-3 text-[13px]">11s / 45s</span>
           </div>
 
-          {/* min-h so mode="wait" doesn't collapse the card to 0 in the gap
-              between the outgoing question unmounting and the next mounting. */}
+          {/* min-h so mode="wait" doesn't collapse the card to 0 between the outgoing and incoming question. */}
           <div className="relative min-h-[280px]">
             <AnimatePresence mode="wait" custom={1}>
               <motion.div

@@ -2,21 +2,7 @@ import { ButtonLink, Card, SectionTitle } from "@/design-system";
 import { SECTION_FROM_DB, SECTION_KEY } from "@/data/navigation";
 import type { TopicTheory } from "../types";
 
-/**
- * The worst topics by marks lost, each with real theory to revise — the most
- * prominent thing between the score and the question-by-question detail,
- * since linking a wrong answer back to the theory that explains it is this
- * product's differentiator ("theory is way too subtle here, redesign is
- * needed coz this is a focal point").
- *
- * Reuses the app's own inline-theory language (Reader.tsx's 2px coloured
- * left-rule blocks, study/blocks.ts's "Shortcut"/"Common mistake" labels)
- * rather than inventing a new visual vocabulary for this one screen.
- *
- * Every subtopic under a topic is offered as a chip rather than the card
- * silently picking one — a question only carries a topic (Arithmetic alone
- * has 16 subtopics), so the reader is the one who knows which applied.
- */
+/** Every subtopic is offered as a chip rather than the card picking one: a question carries only a topic, so the reader is the one who knows which subtopic applied. */
 export function TopicTheorySection({ theory }: { theory: TopicTheory[] }) {
   if (theory.length === 0) return null;
 

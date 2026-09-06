@@ -1,12 +1,6 @@
--- Reverses 0001_functions_and_grants.sql. Drizzle is forward-only, so this is hand-maintained.
+-- DESTRUCTIVE: without the auth.users keys, closing an account stops erasing data.
 -- Afterwards: delete from drizzle.__drizzle_migrations where hash like '%0001_functions_and_grants%';
---
--- DESTRUCTIVE: dropping the auth.users foreign keys leaves rows behind when a
--- user is deleted, and closing an account then stops erasing their data.
---
--- The wide grants are deliberately not restored. They were the defect: a signed
--- in user could POST straight to PostgREST and skip the plan quota. If some
--- future change genuinely needs PostgREST on a table, grant that one table.
+-- The wide grants are not restored on purpose; they were the defect.
 
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;--> statement-breakpoint
 DROP TRIGGER IF EXISTS profiles_touch_updated_at ON public.profiles;--> statement-breakpoint

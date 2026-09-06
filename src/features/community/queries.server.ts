@@ -13,7 +13,7 @@ import { decodeCursor, encodeCursor } from "./cursor";
 
 export async function listDoubts(query: DoubtQuery): Promise<DoubtPage> {
   const userId = await currentUserId();
-  const cursor = query.cursor ? decodeCursor(query.cursor) : null;
+  const cursor = query.cursor ? decodeCursor(query.cursor, query.sort) : null;
   const byStuck = query.sort === "stuck";
 
   // Keyset, not OFFSET: this feed reorders, and OFFSET would skip and repeat rows.

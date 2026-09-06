@@ -1,16 +1,5 @@
 #!/usr/bin/env node
-/**
- * Marks reviewed topics as published: sets contentStatus to "published" and
- * every flashcard's status to "approved" in the *.topic.json files, so the
- * next `study:import` serves them to learners rather than only in preview.
- *
- *   node scripts/study-publish.mjs                     # whole corpus
- *   node scripts/study-publish.mjs --dir content/english
- *   node scripts/study-publish.mjs --unpublish         # revert to draft
- *
- * This is the human-review gate from the spec: a person runs it once content
- * has been approved. It edits the Git-managed source, then re-run the importer.
- */
+/** Edits the Git-managed *.topic.json source in place; nothing reaches learners until the importer is re-run. */
 
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, relative, dirname } from "node:path";

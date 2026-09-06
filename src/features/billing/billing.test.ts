@@ -15,9 +15,7 @@ const SECRET = "whsec_test_only";
 const USER = randomUUID();
 const T0 = new Date("2026-09-01T00:00:00Z");
 
-/* The real billing migration in PGlite, with the Supabase auth surface it
-   references stubbed. What is under test is the state machine: what grants,
-   what cannot un-grant, and what a redelivery does. */
+/* The real migrations in PGlite, with the Supabase auth surface they reference stubbed. */
 async function freshDb() {
   const client = new PGlite();
   await client.exec(`

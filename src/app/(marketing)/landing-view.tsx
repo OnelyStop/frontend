@@ -120,8 +120,6 @@ export function LandingView({
           </p>
         </div>
 
-        {/* The one colour moment on the page: a soft field the product sits on.
-            Three blurred radials, so no single hue reads as a brand colour. */}
         <div className="relative isolate mx-auto mt-[clamp(32px,4.5vw,64px)] max-w-300">
           <div
             aria-hidden

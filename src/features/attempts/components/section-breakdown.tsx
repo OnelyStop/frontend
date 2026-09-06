@@ -1,11 +1,7 @@
 import { Card, SectionTitle } from "@/design-system";
 import type { Scorecard } from "../types";
 
-/** Correct / wrong / skipped per section, stacked. Section identity is
- * carried by the row label, never by colour — the app's own quant/reasoning
- * tokens are ΔE 0.9 apart under protanopia (validated, not eyeballed; see
- * plan). Every segment ≥10% wide carries its own count so nothing depends on
- * a legend alone. */
+/** Section identity is carried by the row label, never by colour: the quant/reasoning tokens are ΔE 0.9 apart under protanopia. */
 export function SectionBreakdown({ scorecard }: { scorecard: Scorecard }) {
   return (
     <Card>
@@ -68,8 +64,7 @@ function Segment({
       className={`flex items-center justify-center text-[11px] font-medium ${bg} ${text}`}
       style={{ width: `${pct}%` }}
     >
-      {/* Only render the count inside the segment when it fits with padding
-          — otherwise it would clip, which the mark spec forbids. */}
+      {/* The count only fits with its padding past ~10% of the row; narrower, it clips. */}
       {pct >= 10 ? value : null}
     </div>
   );

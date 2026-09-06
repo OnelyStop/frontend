@@ -1,5 +1,5 @@
 {
-  "id": "a0e23bb8-98d8-4055-bdb2-9537e7e791d9",
+  "id": "43ee77ba-a080-4158-a7a3-1d2e262a870c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -2906,7 +2906,8 @@
           "name": "served_q_ids",
           "type": "text[]",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "'{}'"
         }
       },
       "indexes": {

@@ -1,9 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-/* Note routes scope on the server-resolved user id and never trust one from the
-   request body. These call the real handlers with the data layer and auth
-   stubbed, and assert the wiring: 401 when signed out, and the authenticated id
-   — not a body field — is what reaches the query. */
+// Asserts the wiring: note routes scope on the server-resolved user id, never one carried in the request body.
 
 const {
   currentUserId,

@@ -135,14 +135,7 @@ function matches(expected: string, actual: string): boolean {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
-/**
- * The id order is NOT the same as for one-off orders:
- *
- *     orders:        hmac(order_id + "|" + payment_id)
- *     subscriptions: hmac(payment_id + "|" + subscription_id)
- *
- * Reversed, this fails as "invalid signature" and reads like a key problem.
- */
+/** Subscriptions hash `payment_id|subscription_id`, the reverse of one-off orders; reversed it fails as "invalid signature" and reads like a bad key. */
 export function verifySubscriptionSignature(input: {
   paymentId: string;
   subscriptionId: string;

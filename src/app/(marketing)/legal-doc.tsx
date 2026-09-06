@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
-/* Section numbers and the contents rail are CSS counters, so the numbering can
-   never drift out of step with the sections themselves. */
+// Section numbers and the contents rail are CSS counters, so numbering cannot drift from the sections.
 const CONTENT = [
   "[counter-reset:sec] max-w-[68ch]",
   "[&_section]:pt-[clamp(36px,4vw,56px)] [&_section:first-child]:pt-0",

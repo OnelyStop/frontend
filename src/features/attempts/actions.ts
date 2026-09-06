@@ -1,6 +1,6 @@
 "use server";
 
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, eq, inArray, isNull, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/db";
@@ -12,20 +12,24 @@ import {
 } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
 import { checkQuota } from "@/features/billing/usage.server";
-import { listPaperQuestions } from "@/features/question-bank/questions.server";
+import {
+  listDrillPool,
+  listPaperQuestions,
+} from "@/features/question-bank/questions.server";
 import type { DrillQuestion } from "@/features/question-bank/types";
 import { type GradedAnswer, isCorrect, scoreTotals } from "./scoring";
 import type { AttemptMode, SubmittedAnswer } from "./types";
 
 const GENERIC_ERROR = { error: "Something went wrong. Try again." } as const;
+const ALREADY_SUBMITTED = "Attempt already submitted.";
 
-/** Opens an attempt so answers have somewhere to attach as the user goes,
- * rather than only existing once everything is typed and a submit succeeds —
- * a mid-paper crash still leaves a startedAt on record. */
+/** The server picks the questions and records them on the row; `submitAttempt` never grades outside that set. */
 export async function startAttempt(
   mode: AttemptMode,
   paperId: string | null,
-): Promise<{ attemptId: number } | { error: string }> {
+): Promise<
+  { attemptId: number; questions: DrillQuestion[] } | { error: string }
+> {
   try {
     const userId = await currentUserId();
     if (!userId) return { error: "Sign in to start an attempt." };
@@ -44,22 +48,28 @@ export async function startAttempt(
           : `That is ${quota.used} of ${quota.limit} drills today. Upgrade for unlimited practice.`,
       };
 
+    if (isMock && !paperId) return { error: "Pick a paper to sit." };
+    const questions = paperId
+      ? await listPaperQuestions(paperId)
+      : await listDrillPool();
+    if (questions.length === 0)
+      return { error: "There are no answerable questions to sit right now." };
+
     const [row] = await db
       .insert(attempts)
-      .values({ userId, mode, paperId })
+      .values({
+        userId,
+        mode,
+        paperId,
+        servedQIds: questions.map((q) => q.qId),
+      })
       .returning({ id: attempts.id });
-    return { attemptId: row!.id };
+    return { attemptId: row!.id, questions };
   } catch {
     return GENERIC_ERROR;
   }
 }
 
-/**
- * Starts a paper attempt and hands back its questions in one round trip —
- * `/mocks` doesn't fetch every paper's questions up front (most sittings
- * never happen), so the click that starts one is also the moment it needs
- * them. Combines what would otherwise be a read call plus `startAttempt`.
- */
 export async function startMockAttempt(
   paperId: string,
 ): Promise<
@@ -81,7 +91,12 @@ export async function startMockAttempt(
 
     const [row] = await db
       .insert(attempts)
-      .values({ userId, mode: "paper", paperId })
+      .values({
+        userId,
+        mode: "paper",
+        paperId,
+        servedQIds: questions.map((q) => q.qId),
+      })
       .returning({ id: attempts.id });
     return { attemptId: row!.id, questions };
   } catch {
@@ -89,24 +104,7 @@ export async function startMockAttempt(
   }
 }
 
-/**
- * Grades a finished attempt and persists it — the only place this happens.
- * The client posts what was chosen and how long it took; `isCorrect` and the
- * score are computed here from `bank_questions.answer`, never accepted from
- * the caller, so a tampered client request can misreport a pick but cannot
- * grade its own paper.
- *
- * Two things a tampered request could still try, both closed here: posting
- * the same `qId` twice (deduped before grading — otherwise it both
- * double-counts the mark and trips `attempt_answers`' unique constraint,
- * which throws mid-insert and leaves the attempt permanently unsubmittable,
- * since every retry resends the same duplicate), and posting a `qId` from a
- * paper other than the one this attempt was started against (filtered out
- * by requiring `bank_questions.paper_id` to match `attempts.paper_id` when
- * the attempt has one — a `bank`/`mix` drill has no fixed paper to check
- * against, which is an accepted, lower-stakes gap: a drill has no target to
- * fake, only the user's own practice stats to mislead).
- */
+/** Grades from `bank_questions.answer`, never from the caller: a tampered request can misreport a pick but cannot grade its own paper. */
 export async function submitAttempt(
   attemptId: number,
   submitted: SubmittedAnswer[],
@@ -116,19 +114,29 @@ export async function submitAttempt(
     if (!userId) return { error: "Sign in to submit an attempt." };
     if (submitted.length === 0) return { error: "No questions to submit." };
 
-    const answers = [...new Map(submitted.map((a) => [a.qId, a])).values()];
-
     const [attempt] = await db
       .select({
         id: attempts.id,
         paperId: attempts.paperId,
         submittedAt: attempts.submittedAt,
+        servedQIds: attempts.servedQIds,
       })
       .from(attempts)
       .where(and(eq(attempts.id, attemptId), eq(attempts.userId, userId)))
       .limit(1);
     if (!attempt) return { error: "Attempt not found." };
-    if (attempt.submittedAt) return { error: "Attempt already submitted." };
+    if (attempt.submittedAt) return { error: ALREADY_SUBMITTED };
+
+    if (submitted.length > attempt.servedQIds.length)
+      return { error: "That is more answers than this attempt was served." };
+
+    // Grading only inside the served set: a drill has no paper to filter on, so an unfiltered qId list would read the whole answer key back off /results.
+    const served = new Set(attempt.servedQIds);
+    const answers = [
+      ...new Map(submitted.map((a) => [a.qId, a])).values(),
+    ].filter((a) => served.has(a.qId));
+    if (answers.length === 0)
+      return { error: "None of these questions were served for this attempt." };
 
     const qIds = answers.map((a) => a.qId);
     const questions = await db
@@ -172,7 +180,21 @@ export async function submitAttempt(
 
     const totals = scoreTotals(graded);
 
-    await db.transaction(async (tx) => {
+    // Claiming the row before inserting answers is what makes a double submit safe: the loser's UPDATE matches nothing instead of tripping `attempt_answers`' unique constraint mid-transaction.
+    const claimed = await db.transaction(async (tx) => {
+      const [row] = await tx
+        .update(attempts)
+        .set({ score: totals.score.toString(), submittedAt: new Date() })
+        .where(
+          and(
+            eq(attempts.id, attemptId),
+            eq(attempts.userId, userId),
+            isNull(attempts.submittedAt),
+          ),
+        )
+        .returning({ id: attempts.id });
+      if (!row) return false;
+
       await tx.insert(attemptAnswers).values(
         graded.map((g) => ({
           attemptId,
@@ -183,13 +205,10 @@ export async function submitAttempt(
         })),
       );
 
-      await tx
-        .update(attempts)
-        .set({ score: totals.score.toString(), submittedAt: new Date() })
-        .where(and(eq(attempts.id, attemptId), eq(attempts.userId, userId)));
-
       await upsertTopicStats(tx, userId, graded);
+      return true;
     });
+    if (!claimed) return { error: ALREADY_SUBMITTED };
 
     revalidatePath("/mocks");
     revalidatePath("/drills");
@@ -200,13 +219,7 @@ export async function submitAttempt(
   }
 }
 
-/** One row per (user, topic), `attempted`/`correct` incremented rather than
- * overwritten — schema.ts's own comment on `userTopicStats` names this exact
- * statement shape. Blanks don't touch `topic_stats` at all: a topic you chose
- * not to risk isn't a data point about your accuracy on it. Takes the same
- * transaction handle `submitAttempt` uses, so a failure partway through
- * rolls back the whole submission instead of leaving some topics updated and
- * others not. */
+/** One statement for every topic, not one per topic: a full paper touches 20-30, and serial round trips hold the row lock `submitAttempt` just took for all of them. */
 async function upsertTopicStats(
   tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
   userId: string,
@@ -222,17 +235,24 @@ async function upsertTopicStats(
   }
   if (byTopic.size === 0) return;
 
-  for (const [topic, { attempted, correct }] of byTopic) {
-    await tx
-      .insert(userTopicStats)
-      .values({ userId, topic, attempted, correct, lastSeenAt: new Date() })
-      .onConflictDoUpdate({
-        target: [userTopicStats.userId, userTopicStats.topic],
-        set: {
-          attempted: sql`${userTopicStats.attempted} + ${attempted}`,
-          correct: sql`${userTopicStats.correct} + ${correct}`,
-          lastSeenAt: new Date(),
-        },
-      });
-  }
+  const lastSeenAt = new Date();
+  await tx
+    .insert(userTopicStats)
+    .values(
+      [...byTopic].map(([topic, { attempted, correct }]) => ({
+        userId,
+        topic,
+        attempted,
+        correct,
+        lastSeenAt,
+      })),
+    )
+    .onConflictDoUpdate({
+      target: [userTopicStats.userId, userTopicStats.topic],
+      set: {
+        attempted: sql`${userTopicStats.attempted} + excluded.attempted`,
+        correct: sql`${userTopicStats.correct} + excluded.correct`,
+        lastSeenAt: sql`excluded.last_seen_at`,
+      },
+    });
 }

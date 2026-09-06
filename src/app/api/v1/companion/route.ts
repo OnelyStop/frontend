@@ -8,6 +8,9 @@ import { db } from "@/db";
 import { checkQuota, recordAiCall } from "@/features/billing/usage.server";
 import { rateLimit } from "@/lib/rate-limit";
 
+// Above the client's 120s total budget: a platform kill lands after we are billed but before recordAiCall.
+export const maxDuration = 180;
+
 // Cost control: the endpoint spends real money, so nothing client-supplied is unbounded.
 const MAX_SELECTION = 4000;
 const MAX_QUESTION = 1000;

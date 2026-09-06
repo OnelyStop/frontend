@@ -1,19 +1,4 @@
-/**
- * Import the hand-authored notes knowledge base into Postgres.
- *
- *     bun run scripts/import-notes.ts            # counts only
- *     bun run scripts/import-notes.ts --apply     # actually write
- *
- * Source: $NOTES_DATA_DIR (default ../bank_exam/notes), a sibling checkout of the bank_exam
- * repo. v2 layout: one file per TOPIC at {Section}/{Topic}.json, with a nested `subtopics[]`
- * array — this script flattens each subtopic into its own DB row (one row per subtopic, same
- * granularity the /notes list and /notes/[noteId] detail page render), already validated by
- * bank_exam's own validate_notes.py (taxonomy consistency, no tier-3 sources, no duplicate
- * subtopics). This script trusts that gate and does not re-check it.
- *
- * Idempotent via onConflictDoUpdate, same reasoning as import-question-bank.ts: re-running
- * after an edited note must overwrite the existing row, not skip it.
- */
+/** Flattens each subtopic of a topic file into its own row, trusting bank_exam's validate_notes.py for taxonomy rather than re-checking it here. */
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { config } from "dotenv";

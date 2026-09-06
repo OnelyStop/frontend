@@ -24,9 +24,7 @@ import { runIngest } from "./ingest";
 
 const MIGRATIONS = join(import.meta.dirname, "..", "..", "..", "migrations");
 
-/* Real tables from the real migration files, in PGlite, so what these tests
-   exercise is the orchestration — statuses, counters, deadline, retention —
-   and not a hand-rolled imitation of the query builder. */
+// The real migration files in PGlite, so these exercise the orchestration and not an imitation of the query builder.
 
 async function freshDb() {
   const client = new PGlite();

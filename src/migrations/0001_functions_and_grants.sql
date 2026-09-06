@@ -1,5 +1,4 @@
--- Everything drizzle cannot emit: auth is a schema it does not model, and
--- privileges are not in its model at all.
+-- Everything drizzle cannot emit, and so drops on every regeneration.
 
 ALTER TABLE "profiles" ADD CONSTRAINT "profiles_id_fkey"
   FOREIGN KEY ("id") REFERENCES auth.users(id) ON DELETE CASCADE;--> statement-breakpoint
@@ -103,9 +102,7 @@ INSERT INTO public.user_roles (user_id, role)
 SELECT id, 'admin' FROM auth.users WHERE email = 'onelystop@gmail.com'
 ON CONFLICT (user_id, role) DO NOTHING;--> statement-breakpoint
 
--- Nothing reaches Postgres as anon or authenticated except the two lookups
--- below; everything else runs as the DATABASE_URL role. Supabase grants ALL on
--- every new public table to both, so this has to be taken back explicitly.
+-- Supabase grants ALL on every new public table to both roles by default.
 REVOKE ALL ON ALL TABLES IN SCHEMA public FROM anon;--> statement-breakpoint
 REVOKE ALL ON ALL TABLES IN SCHEMA public FROM authenticated;--> statement-breakpoint
 REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM anon;--> statement-breakpoint

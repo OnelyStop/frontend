@@ -1,13 +1,5 @@
 #!/usr/bin/env node
-/**
- * Fails on a high or critical advisory in the dependency tree; reports the
- * rest.
- *
- * The threshold is deliberate. The tree carries a moderate dev-only advisory
- * today, and a gate that is red the day it lands gets bypassed rather than
- * fixed — after which it catches nothing. High and above is what should stop a
- * merge; the rest is printed so it is still seen.
- */
+/** Only high and critical block: the tree carries a moderate dev-only advisory today, and a gate that is red on arrival gets bypassed rather than fixed. */
 
 import { execFileSync } from "node:child_process";
 

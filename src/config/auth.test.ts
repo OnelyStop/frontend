@@ -1,9 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-/* AUTH_DISABLED is the one flag that turns off every check in the product:
-   the proxy waves requests through, currentUserId invents a user, and study
-   authorization returns true. It is read once at import, so each case needs a
-   fresh module. */
+/* AUTH_DISABLED is read once at import, so each case needs a fresh module. */
 async function load(env: Record<string, string> = {}) {
   vi.resetModules();
   for (const [k, v] of Object.entries(env)) vi.stubEnv(k, v);

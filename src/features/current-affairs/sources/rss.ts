@@ -1,6 +1,7 @@
 import Parser from "rss-parser";
 import { activeProfile } from "@/features/current-affairs/config/profile";
 import type { RawArticle } from "@/features/current-affairs/types";
+import { log } from "@/lib/log";
 
 // SEBI drops requests without a browser-ish User-Agent, and is slow.
 const parser = new Parser({
@@ -55,9 +56,10 @@ export async function fetchRssFeeds(): Promise<RawArticle[]> {
   results.forEach((r, i) => {
     if (r.status === "fulfilled") out.push(...r.value);
     else
-      console.warn(
-        `[rss] ${activeProfile.rssFeeds[i].source} failed: ${r.reason}`,
-      );
+      log.warn("rss.feed_failed", {
+        source: activeProfile.rssFeeds[i]!.source,
+        error: String(r.reason),
+      });
   });
   return out;
 }

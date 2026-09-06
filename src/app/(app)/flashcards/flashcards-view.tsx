@@ -10,8 +10,6 @@ type Deck = {
   id: string;
   name: string;
   blurb: string;
-  /* Current affairs decays and is dated; a formula is not. Only decks that go
-     stale print a date on the card. */
   dated: boolean;
   cards: Item[];
 };

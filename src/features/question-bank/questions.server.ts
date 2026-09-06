@@ -9,12 +9,7 @@ import type { DrillQuestion } from "./types";
 
 const SECTIONS_DB = Object.values(SECTION_DB);
 
-/**
- * A random pool of active questions per section, for the drills view to
- * filter and slice client-side. Five small per-section queries beat one
- * window-function query — at ~15k rows `order by random()` is milliseconds,
- * and the page caches the result (see drills/page.tsx's `revalidate`).
- */
+/** Five small per-section queries beat one window function here: at ~15k rows `order by random()` is milliseconds, and the page caches the result. */
 export async function listDrillPool(perSection = 40): Promise<DrillQuestion[]> {
   const bySections = await Promise.all(
     SECTIONS_DB.map((section) =>
@@ -60,12 +55,7 @@ export async function listDrillPool(perSection = 40): Promise<DrillQuestion[]> {
   }));
 }
 
-/**
- * A paper's answerable questions, in `q_num` order — the exact shape a live
- * mock exam serves. Unanswerable questions are excluded here (not filtered
- * client-side) so `MocksView`'s question count and `qs`/section splits from
- * `listMockPapers()` describe the same set the exam actually runs.
- */
+/** Unanswerable questions are dropped here, not client-side, so the counts from `listMockPapers()` describe the set the exam actually runs. */
 export async function listPaperQuestions(
   paperId: string,
 ): Promise<DrillQuestion[]> {

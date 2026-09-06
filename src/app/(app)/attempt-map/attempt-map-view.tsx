@@ -22,8 +22,6 @@ import {
 } from "@/data/navigation";
 import type { TopicMapRow } from "@/features/attempts/progress.server";
 
-/* The only two lines on this page. Every verdict, colour and ranking below
-   comes from a topic's position against these — nothing else is asserted. */
 const PACE = 45;
 const ACC_LINE = 70;
 
@@ -180,8 +178,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
     };
   }, [shown]);
 
-  /* The x axis stretches to the slowest topic instead of clamping at a fixed
-     ceiling — a clamp would stack every slow topic on the same edge pixel. */
+  // The x axis stretches to the slowest topic; a fixed ceiling would stack every slow topic on one edge pixel.
   const axisMax = Math.max(
     AXIS_MIN,
     Math.ceil(stats.slowest / AXIS_STEP) * AXIS_STEP,
@@ -332,8 +329,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                   />
                 ))}
 
-                {/* The two corners that carry an instruction get a wash; the
-                    other two are neutral so the eye goes to these first. */}
+                {/* Only the two corners that carry an instruction get a wash, so the eye goes there first. */}
                 <span
                   className="bg-ok/[0.06] absolute top-0 left-0"
                   style={{ width: `${pacePct}%`, height: `${100 - ACC_LINE}%` }}
@@ -655,8 +651,6 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
         </div>
       </div>
 
-      {/* Every topic as a table, because the plot answers "where" and the table
-          answers "in what order". */}
       <Card className="mt-4" pad={false}>
         <div className="px-8 pt-8 pb-2">
           <SectionTitle aside={`sorted by ${SORT_LABEL[sort].toLowerCase()}`}>

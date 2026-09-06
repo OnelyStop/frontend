@@ -160,14 +160,7 @@ export async function getProgress(
   };
 }
 
-/**
- * One row per topic over the same 30-day window as `getProgress`, graded the
- * same way — from `bank_questions.answer`, never from anything a client sent.
- *
- * Topics under `MIN_TOPIC_ATTEMPTS` are dropped rather than shown at 0% or
- * 100%: /attempt-map reads a row as "bank this" or "skip this", and a verdict
- * off one question is worse than no verdict at all.
- */
+/** Topics under `MIN_TOPIC_ATTEMPTS` are dropped rather than shown at 0% or 100%: /attempt-map reads a row as "bank this" or "skip this", and a verdict off one question is worse than none. */
 export async function getTopicMap(
   db: Db,
   userId: string,

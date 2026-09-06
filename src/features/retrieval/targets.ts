@@ -17,9 +17,7 @@ export type Target = {
   resting?: boolean;
 };
 
-/* Codes are section.topic — 1 Quant, 2 Reasoning, 3 English, 4 GA, 5 Computer.
-   The wash is authored, not simulated: it has to mean the same thing here as
-   it does on the attempt map. */
+// Codes are section.topic — 1 Quant, 2 Reasoning, 3 English, 4 GA, 5 Computer.
 const TOPICS: Array<[string, string, number, number, Wash]> = [
   ["1.1", "Simplification & Approximation", 240, 22, "secure"],
   ["1.2", "Number Series", 180, 38, "mid"],

@@ -1,24 +1,14 @@
 import type { Transition, Variants } from "motion/react";
 
-/* Motion constants shared by the mock and drill runners. One spring, one
-   surface transition, one pair of directional variants — so the two screens
-   can't quietly drift onto different numbers. EASE_SWIFT/EASE_DECELERATE/
-   EASE_ACCELERATE and SURFACE's 150ms mirror the CSS tokens in
-   design-system/styles/theme.css; keep those in sync by hand. INDICATOR_OUT
-   and questionVariants.exit's 100ms are JS-only — nothing in CSS transitions
-   at that speed, so there's no token to mirror. */
+/* The eases and SURFACE's 150ms mirror the CSS tokens in design-system/styles/theme.css; keep them in sync by hand. */
 
 export const EASE_SWIFT: Transition["ease"] = [0.2, 0, 0, 1];
 export const EASE_DECELERATE: Transition["ease"] = [0, 0, 0, 1];
 export const EASE_ACCELERATE: Transition["ease"] = [0.3, 0, 1, 1];
 
-/* Colour/opacity — "effects" in M3 terms. These never overshoot, so it's a
-   plain eased tween, not a spring. */
 export const SURFACE: Transition = { duration: 0.15, ease: EASE_SWIFT };
 
-/* The selected-option badge is the one thing allowed to spring — a "spatial"
-   property (scale), not a colour. Deselect falls back to a plain 100ms
-   ease-out below; the asymmetry (spring in, quick fade out) is deliberate. */
+/* The asymmetry is deliberate: the badge springs in on selection and fades out flat on deselect. */
 export const INDICATOR_SPRING: Transition = {
   type: "spring",
   stiffness: 700,
@@ -27,10 +17,7 @@ export const INDICATOR_SPRING: Transition = {
 };
 export const INDICATOR_OUT: Transition = { duration: 0.1, ease: "easeOut" };
 
-/* Shared-axis question transition. `dir` (1 = forward, -1 = back) is passed
-   as AnimatePresence's `custom`, so enter/exit read it via the variant
-   function and slide the correct way. Out is quick + accelerating (getting
-   out of the way); in is a touch slower + decelerating (arriving). */
+/* `dir` (1 = forward, -1 = back) arrives as AnimatePresence's `custom`, which is why these variants are functions. */
 export const questionVariants: Variants = {
   enter: (dir: 1 | -1) => ({ opacity: 0, x: dir * 24 }),
   center: {

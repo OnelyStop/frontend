@@ -1,8 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
+import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 import { AUTH_DISABLED } from "@/config/auth";
 import { PROTECTED_PREFIXES } from "@/config/routes";
 import { safeInternalPath } from "@/features/auth/redirect";
+import { captureError } from "@/lib/observability.server";
 
 export async function proxy(request: NextRequest) {
   if (AUTH_DISABLED) return NextResponse.next({ request });
@@ -42,7 +44,12 @@ export async function proxy(request: NextRequest) {
   // getUser revalidates; getSession only reads a cookie a client could have forged.
   const {
     data: { user },
+    error: authError,
   } = await supabase.auth.getUser();
+
+  // An Auth outage also answers user: null, so without this a 5xx reads as "signed out".
+  if (authError && !isAuthSessionMissingError(authError))
+    captureError(authError, { at: "proxy.getUser", pathname });
 
   // A fresh redirect drops the refreshed cookies, and the next token is already rotated.
   const redirect = (to: URL) => {

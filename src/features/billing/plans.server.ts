@@ -64,15 +64,7 @@ const cachedPlans = unstable_cache(queryPlans, ["billing", "plans"], {
   revalidate: 3600,
 });
 
-/**
- * Display prices only — `findPlan` is what a charge is computed from, and it
- * has no fallback on purpose.
- *
- * An empty list renders as "—" rather than a price, which is the right outcome
- * for the public landing page: it is the front door and must not 500 because
- * the database blinked or because nothing has been seeded yet. The catch sits
- * outside the cache so a transient failure is not held for the full hour.
- */
+/** Display prices only, so an empty list is safe here — a charge is computed from `findPlan`, which has no fallback on purpose. */
 export async function listPlans(currency: Currency): Promise<PlanPrice[]> {
   try {
     return await cachedPlans(currency);
