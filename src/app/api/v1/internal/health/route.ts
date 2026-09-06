@@ -1,7 +1,7 @@
 import { desc, isNotNull } from "drizzle-orm";
 import { db } from "@/db";
 import { generateRuns } from "@/db/schema";
-import { json } from "@/lib/gazette/http";
+import { json } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
 

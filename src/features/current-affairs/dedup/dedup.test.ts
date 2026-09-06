@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { RawArticle } from "@/lib/gazette/types";
+import type { RawArticle } from "@/features/current-affairs/types";
 import { contentHash } from "./contentHash";
 import { Deduplicator } from "./deduplicator";
 import { normalizeText } from "./normalize";

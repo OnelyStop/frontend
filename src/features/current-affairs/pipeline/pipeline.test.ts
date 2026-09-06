@@ -15,7 +15,10 @@ import {
 } from "vitest";
 import * as schema from "@/db/schema";
 import type { ArticleRow } from "@/db/schema";
-import type { GeneratedQuestion, RawArticle } from "@/lib/gazette/types";
+import type {
+  GeneratedQuestion,
+  RawArticle,
+} from "@/features/current-affairs/types";
 import { runGenerate } from "./generate";
 import { runIngest } from "./ingest";
 

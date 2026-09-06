@@ -3,7 +3,7 @@ import { unstable_cache } from "next/cache";
 import { desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { currentAffairsQuestions } from "@/db/schema";
-import { todayIst } from "@/lib/gazette/day";
+import { todayIst } from "@/features/current-affairs/day";
 import type { CurrentAffairsQuestion, OptionKey } from "./types";
 
 const LIMIT = 50;

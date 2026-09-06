@@ -3,8 +3,8 @@ import { db } from "@/db";
 import { subscriptions } from "@/db/schema";
 import { applySubscription } from "@/features/billing/entitlements.server";
 import { fetchSubscription } from "@/features/billing/razorpay.server";
-import { isAuthorizedCron } from "@/lib/gazette/auth";
-import { json } from "@/lib/gazette/http";
+import { isAuthorizedCron } from "@/lib/cron";
+import { json } from "@/lib/api";
 import { log } from "@/lib/log";
 
 export const dynamic = "force-dynamic";

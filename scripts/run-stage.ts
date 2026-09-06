@@ -2,8 +2,8 @@
 //   bun run pipeline ingest
 //   bun run pipeline generate [--day=YYYY-MM-DD]
 // Bun auto-loads .env.local, so env.ts sees the keys.
-import { runGenerate } from "@/lib/gazette/pipeline/generate";
-import { runIngest } from "@/lib/gazette/pipeline/ingest";
+import { runGenerate } from "@/features/current-affairs/pipeline/generate";
+import { runIngest } from "@/features/current-affairs/pipeline/ingest";
 
 const [stage, ...rest] = process.argv.slice(2);
 const day = rest.find((a) => a.startsWith("--day="))?.slice("--day=".length);
