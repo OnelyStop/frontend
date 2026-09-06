@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useApp } from "@/context/AppContext";
 import {
@@ -17,6 +18,7 @@ import {
   SECTION_LABEL,
   type Subject,
 } from "@/data/navigation";
+import { startAttempt, submitAttempt } from "@/features/attempts/actions";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
 /* Drills. Defaults are the feature: land, press Start, you are practising.
@@ -25,7 +27,10 @@ import type { DrillQuestion } from "@/features/question-bank/types";
 const LENGTHS = [10, 20, 30] as const;
 const MODES = ["Weak topics", "Speed", "Mixed"] as const;
 
+type Recorded = { chosen: string | null; timeMs: number };
+
 export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
+  const router = useRouter();
   const { board } = useApp();
   const [section, setSection] = useState<Subject>(SECTIONS[2]);
   const [len, setLen] = useState<(typeof LENGTHS)[number]>(20);
@@ -33,6 +38,12 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
   const [running, setRunning] = useState(false);
   const [qIdx, setQIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
+  const [attemptId, setAttemptId] = useState<number | null>(null);
+  const [answers, setAnswers] = useState<Record<string, Recorded>>({});
+  const [qStart, setQStart] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const startReqIdRef = useRef(0);
 
   const mins = Math.round((len * 45) / 60);
   // "Weak topics"/"Speed"/"Mixed" don't change the pool yet — none of them
@@ -43,9 +54,68 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
     .slice(0, len);
   const q = set[qIdx];
 
-  function advance() {
-    setQIdx((i) => Math.min(set.length - 1, i + 1));
+  async function start() {
+    const reqId = ++startReqIdRef.current;
+    setQIdx(0);
     setPicked(null);
+    setAnswers({});
+    setAttemptId(null);
+    setError(null);
+    setQStart(Date.now());
+    setRunning(true);
+    // Grading needs a row to attach answers to. If this fails (signed out,
+    // offline), the drill still runs locally — finishing just can't be
+    // scored or saved, the same experience this page always had.
+    const res = await startAttempt("bank", null);
+    // Ending this drill and starting another before this resolved would
+    // otherwise let this stale response overwrite the new session's id.
+    if (startReqIdRef.current !== reqId) return;
+    if ("attemptId" in res) setAttemptId(res.attemptId);
+    else setError(res.error);
+  }
+
+  // Folds the current pick into the answers map and either steps to the next
+  // question or, on the last one, submits everything gathered so far. A
+  // local `merged` value (not the `answers` state, which won't have this
+  // update applied until the next render) is what both branches act on.
+  function recordAndProceed(action: "advance" | "finish") {
+    if (!q) return;
+    const merged: Record<string, Recorded> = {
+      ...answers,
+      [q.qId]: {
+        chosen: picked !== null ? (q.options[picked]?.key ?? null) : null,
+        timeMs: Date.now() - qStart,
+      },
+    };
+    setAnswers(merged);
+    if (action === "advance") {
+      setQIdx((i) => Math.min(set.length - 1, i + 1));
+      setPicked(null);
+      setQStart(Date.now());
+    } else {
+      void finish(merged);
+    }
+  }
+
+  async function finish(merged: Record<string, Recorded>) {
+    if (attemptId === null) {
+      setRunning(false);
+      return;
+    }
+    setSubmitting(true);
+    setError(null);
+    const submitted = set.map((sq) => ({
+      qId: sq.qId,
+      chosen: merged[sq.qId]?.chosen ?? null,
+      timeMs: merged[sq.qId]?.timeMs ?? null,
+    }));
+    const res = await submitAttempt(attemptId, submitted);
+    if ("ok" in res) {
+      router.push(`/results/${res.attemptId}`);
+      return;
+    }
+    setSubmitting(false);
+    setError(res.error);
   }
 
   if (running && q) {
@@ -55,7 +125,11 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
           title={`${SECTION_LABEL[section]} drill`}
           sub={`Question ${qIdx + 1} of ${set.length} · ${mode.toLowerCase()}`}
           actions={
-            <Button variant="secondary" onClick={() => setRunning(false)}>
+            <Button
+              variant="secondary"
+              disabled={submitting}
+              onClick={() => setRunning(false)}
+            >
               End drill
             </Button>
           }
@@ -107,11 +181,24 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
           </div>
 
           <div className="border-line mt-6 flex items-center gap-3 border-t pt-5">
-            {/* No `answer` exists on any question yet (pipeline step 4 hasn't
-                run), so this can only advance, not mark right or wrong. */}
-            <Button disabled={picked === null} onClick={advance}>
-              Submit answer
-            </Button>
+            {qIdx < set.length - 1 ? (
+              <Button
+                disabled={picked === null}
+                onClick={() => recordAndProceed("advance")}
+              >
+                Submit answer
+              </Button>
+            ) : (
+              <Button
+                disabled={picked === null || submitting}
+                onClick={() => recordAndProceed("finish")}
+              >
+                {submitting ? "Scoring…" : "Finish drill"}
+              </Button>
+            )}
+            {error ? (
+              <span className="text-bad text-[13px]">{error}</span>
+            ) : null}
           </div>
         </Card>
       </div>
@@ -124,14 +211,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
         title={`${len} questions · ${SECTION_LABEL[section]} · ${mins} min`}
         sub={`Already aimed at the topics costing you marks in ${board}. Change anything, or just start.`}
         actions={
-          <Button
-            disabled={set.length === 0}
-            onClick={() => {
-              setQIdx(0);
-              setPicked(null);
-              setRunning(true);
-            }}
-          >
+          <Button disabled={set.length === 0} onClick={() => void start()}>
             Start drill
           </Button>
         }

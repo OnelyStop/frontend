@@ -1,10 +1,11 @@
 import "server-only";
 
-import { and, count, desc, eq, inArray } from "drizzle-orm";
+import { and, count, desc, eq, inArray, isNotNull } from "drizzle-orm";
 
-import { CUTOFF_LADDER } from "@/data/navigation";
+import { CUTOFF_LADDER, SECTION_DB } from "@/data/navigation";
 import { db } from "@/db";
-import { bankQuestions, papers } from "@/db/schema";
+import { attempts, bankQuestions, papers } from "@/db/schema";
+import { currentUserId } from "@/features/study/auth.server";
 import type { Mock } from "./types";
 
 // A recall's own bank/role/year won't necessarily match its cutoff exactly,
@@ -17,9 +18,10 @@ const AT_CUTOFF_PCT =
   CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 
 /**
- * Every canonical paper with enough active questions to sit as a mock, most
- * recent year first — the exact shape `MocksView` renders (`score` is always
- * null here; nothing writes an attempt yet).
+ * Every canonical paper with enough answerable questions to sit as a mock,
+ * most recent year first, with the caller's best score for each — the exact
+ * shape `MocksView` renders. `qs` counts only questions carrying an `answer`,
+ * so it always matches the exam `listPaperQuestions` actually serves.
  */
 export async function listMockPapers(): Promise<Mock[]> {
   const rows = await db
@@ -38,6 +40,8 @@ export async function listMockPapers(): Promise<Mock[]> {
       and(
         eq(bankQuestions.paperId, papers.paperId),
         eq(bankQuestions.isActive, true),
+        isNotNull(bankQuestions.answer),
+        inArray(bankQuestions.section, Object.values(SECTION_DB)),
       ),
     )
     .where(
@@ -57,23 +61,55 @@ export async function listMockPapers(): Promise<Mock[]> {
     )
     .orderBy(desc(papers.year), papers.bank, papers.role);
 
-  return (
-    rows
-      // A handful of active questions is not a mock paper.
-      .filter((r) => r.qs >= 20)
-      .map((r) => {
-        const stage = r.examType as Mock["stage"];
-        const mins = r.durationMin ?? (stage === "Mains" ? 180 : 60);
-        return {
-          id: r.paperId,
-          name: `${r.bank ?? "Unknown"} ${r.role ?? ""}`.trim(),
-          year: r.year ?? 0,
-          stage,
-          qs: r.qs,
-          mins,
-          score: null,
-          cutoff: Math.round(r.qs * AT_CUTOFF_PCT),
-        };
-      })
-  );
+  const canonical = rows.filter((r) => r.qs >= 20);
+  const bestScores = await bestScoreByPaper(canonical.map((r) => r.paperId));
+
+  return canonical.map((r) => {
+    const stage = r.examType as Mock["stage"];
+    const mins = r.durationMin ?? (stage === "Mains" ? 180 : 60);
+    return {
+      id: r.paperId,
+      name: `${r.bank ?? "Unknown"} ${r.role ?? ""}`.trim(),
+      year: r.year ?? 0,
+      stage,
+      qs: r.qs,
+      mins,
+      score: bestScores.get(r.paperId) ?? null,
+      cutoff: Math.round(r.qs * AT_CUTOFF_PCT),
+    };
+  });
+}
+
+/** The signed-in user's highest score on each paper, from every submitted
+ * `paper`-mode attempt — a mock you retook shows your best sitting, not your
+ * most recent one, matching how `profile-view.tsx` already reads "Best
+ * sectional score" elsewhere in the app. Empty (not an error) when signed out. */
+async function bestScoreByPaper(
+  paperIds: string[],
+): Promise<Map<string, number>> {
+  const out = new Map<string, number>();
+  if (paperIds.length === 0) return out;
+
+  const userId = await currentUserId();
+  if (!userId) return out;
+
+  const rows = await db
+    .select({ paperId: attempts.paperId, score: attempts.score })
+    .from(attempts)
+    .where(
+      and(
+        eq(attempts.userId, userId),
+        eq(attempts.mode, "paper"),
+        inArray(attempts.paperId, paperIds),
+        isNotNull(attempts.submittedAt),
+      ),
+    );
+
+  for (const r of rows) {
+    if (!r.paperId || r.score === null) continue;
+    const score = Number(r.score);
+    const best = out.get(r.paperId);
+    if (best === undefined || score > best) out.set(r.paperId, score);
+  }
+  return out;
 }

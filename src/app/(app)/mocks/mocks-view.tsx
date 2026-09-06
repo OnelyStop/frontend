@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useApp } from "@/context/AppContext";
 import {
@@ -10,35 +11,90 @@ import {
   Segmented,
   questionVariants,
 } from "@/design-system";
-import { SECTIONS, SECTION_LABEL } from "@/data/navigation";
+import {
+  SECTIONS,
+  SECTION_DB,
+  SECTION_LABEL,
+  type Subject,
+} from "@/data/navigation";
+import { startMockAttempt, submitAttempt } from "@/features/attempts/actions";
 import type { Mock } from "@/features/question-bank/types";
+import type { DrillQuestion } from "@/features/question-bank/types";
 
 /* Mocks. Sectional timing is the thing banking aspirants actually train for —
    each section locks when its clock runs out, and you cannot go back. */
 
 const STAGES = ["All", "Prelims", "Mains"] as const;
 
+type Recorded = { chosen: string | null; timeMs: number };
+type SectionGroup = { subject: Subject; qs: DrillQuestion[] };
+
+/** Only the sections the paper actually has answerable questions in — a
+ * paper thin on Computer Aptitude in the answered subset shouldn't force a
+ * zero-question section onto the exam. */
+function groupBySection(questions: DrillQuestion[]): SectionGroup[] {
+  return SECTIONS.map((subject) => ({
+    subject,
+    qs: questions.filter((q) => q.section === SECTION_DB[subject]),
+  })).filter((g) => g.qs.length > 0);
+}
+
 export function MocksView({ mocks }: { mocks: Mock[] }) {
+  const router = useRouter();
   const { board } = useApp();
   const [stage, setStage] = useState<(typeof STAGES)[number]>("All");
   const [live, setLive] = useState<Mock | null>(null);
+  const [starting, setStarting] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [questions, setQuestions] = useState<DrillQuestion[]>([]);
+  const [attemptId, setAttemptId] = useState<number | null>(null);
+  // Deadline, not a decrementing counter — a counter drifts under any
+  // main-thread block (the Escape confirm() dialog below, tab backgrounding),
+  // silently handing back "free" time. Recomputing from a fixed end time
+  // self-corrects on every tick instead of compounding.
+  const [sectionEndsAt, setSectionEndsAt] = useState(0);
   const [left, setLeft] = useState(0);
   const [secIdx, setSecIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
-  const [picked, setPicked] = useState<Record<number, number>>({});
+  const [picked, setPicked] = useState<number | null>(null);
+  const [answers, setAnswers] = useState<Record<string, Recorded>>({});
+  const [qStart, setQStart] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+  const startReqIdRef = useRef(0);
 
   const shown = mocks.filter((m) => stage === "All" || m.stage === stage);
+  const sections = groupBySection(questions);
+  const section = sections[secIdx];
+  const q = section?.qs[qIdx];
 
   useEffect(() => {
     if (!live) return;
-    const t = setInterval(() => setLeft((s) => Math.max(0, s - 1)), 1000);
+    const t = setInterval(() => {
+      setLeft(Math.max(0, Math.round((sectionEndsAt - Date.now()) / 1000)));
+    }, 1000);
     return () => clearInterval(t);
-  }, [live]);
+  }, [live, sectionEndsAt]);
+
+  // The clock hitting 0 has to actually lock the section — the header/footer
+  // copy on this screen promises exactly that, and nothing enforced it
+  // before. React bails a state update that sets the same value again, so
+  // `left` going 0 -> 0 on every later tick doesn't re-run this a second
+  // time; it fires exactly once per section, right when the count reaches 0.
+  useEffect(() => {
+    if (!live || left > 0) return;
+    void submitSectionOrFinish();
+    // submitSectionOrFinish is intentionally not a dependency — see above.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [left, live]);
 
   useEffect(() => {
     if (!live) return;
     const onKey = (e: KeyboardEvent) => {
+      // Can't abandon while a submit is actually in flight — otherwise a
+      // stale submit response can navigate to /results after the user was
+      // told "your attempt is lost" and already left.
+      if (submitting) return;
       if (
         e.key === "Escape" &&
         confirm("Leave the mock? Your attempt is lost.")
@@ -47,18 +103,116 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [live]);
+  }, [live, submitting]);
+
+  // Whenever the visible question changes, resync the local pick from
+  // anything already recorded for it (so Previous / the palette show what
+  // you chose, not a blank), and restart that question's own stopwatch.
+  useEffect(() => {
+    if (!q) return;
+    const rec = answers[q.qId];
+    const idx = rec?.chosen
+      ? q.options.findIndex((o) => o.key === rec.chosen)
+      : -1;
+    setPicked(idx >= 0 ? idx : null);
+    setQStart(Date.now());
+    // Deliberately keyed on q.qId only: `answers`/`q` change together with
+    // it, and re-running this on every `answers` update would reset the
+    // per-question timer on every keystroke of `record()`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q?.qId]);
+
+  function sectionDurationSec(groupCount: number): number {
+    return Math.round((live?.mins ?? 0) / Math.max(1, groupCount)) * 60;
+  }
+
+  async function handleStart(m: Mock) {
+    const reqId = ++startReqIdRef.current;
+    setStarting(m.id);
+    setError(null);
+    const res = await startMockAttempt(m.id);
+    // A second Start click (this or another card) fired while this request
+    // was in flight — let the later one win instead of this stale response
+    // overwriting its state.
+    if (startReqIdRef.current !== reqId) return;
+    setStarting(null);
+    if (!("attemptId" in res)) {
+      setError(res.error);
+      return;
+    }
+
+    const groups = groupBySection(res.questions);
+    const durationSec = Math.round(m.mins / Math.max(1, groups.length)) * 60;
+    setQuestions(res.questions);
+    setAttemptId(res.attemptId);
+    setAnswers({});
+    setSecIdx(0);
+    setQIdx(0);
+    setSectionEndsAt(Date.now() + durationSec * 1000);
+    setLeft(durationSec);
+    setLive(m);
+  }
+
+  function record(): Record<string, Recorded> {
+    if (!q) return answers;
+    const merged = {
+      ...answers,
+      [q.qId]: {
+        chosen: picked !== null ? (q.options[picked]?.key ?? null) : null,
+        timeMs: Date.now() - qStart,
+      },
+    };
+    setAnswers(merged);
+    return merged;
+  }
+
+  function goTo(nextSecIdx: number, nextQIdx: number, direction: 1 | -1) {
+    record();
+    setDir(direction);
+    setSecIdx(nextSecIdx);
+    setQIdx(nextQIdx);
+  }
+
+  async function submitSectionOrFinish() {
+    const merged = record();
+    if (secIdx < sections.length - 1) {
+      const durationSec = sectionDurationSec(sections.length);
+      setDir(1);
+      setSecIdx(secIdx + 1);
+      setQIdx(0);
+      setSectionEndsAt(Date.now() + durationSec * 1000);
+      setLeft(durationSec);
+      return;
+    }
+    if (attemptId === null) {
+      setLive(null);
+      return;
+    }
+    setSubmitting(true);
+    setError(null);
+    const submitted = questions.map((qq) => ({
+      qId: qq.qId,
+      chosen: merged[qq.qId]?.chosen ?? null,
+      timeMs: merged[qq.qId]?.timeMs ?? null,
+    }));
+    const res = await submitAttempt(attemptId, submitted);
+    if ("ok" in res) {
+      router.push(`/results/${res.attemptId}`);
+      return;
+    }
+    setSubmitting(false);
+    setError(res.error);
+  }
 
   // Exam conditions: the app gets out of the way entirely. The question
   // palette on the right is the thing every Indian aspirant already knows from
   // the real IBPS interface — without it the screen reads as an empty void.
-  if (live) {
-    const secMins = Math.round(live.mins / SECTIONS.length);
+  if (live && q && section) {
     const mm = String(Math.floor(left / 60)).padStart(2, "0");
     const ss = String(left % 60).padStart(2, "0");
     const low = left < 60;
-    const perSection = Math.round(live.qs / SECTIONS.length);
-    const answered = Object.keys(picked).length;
+    const answered = section.qs.filter((sq) => answers[sq.qId]?.chosen).length;
+    const onLastOfSection = qIdx === section.qs.length - 1;
 
     return (
       <div className="bg-canvas text-ink fixed inset-0 z-100 flex flex-col">
@@ -71,9 +225,9 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           {/* Sections are locked in order, so they read as a track you are
               moving along, not as tabs you can pick from. */}
           <span className="hidden items-center gap-1.5 lg:flex">
-            {SECTIONS.map((s, i) => (
+            {sections.map((s, i) => (
               <span
-                key={s}
+                key={s.subject}
                 className={`rounded-pill px-2.5 py-1 text-[12.5px] transition-colors duration-150 ease-[var(--ease-swift)] ${
                   i === secIdx
                     ? "bg-ink text-white"
@@ -82,7 +236,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                       : "text-ink-3"
                 }`}
               >
-                {SECTION_LABEL[s]}
+                {SECTION_LABEL[s.subject]}
               </span>
             ))}
           </span>
@@ -90,7 +244,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           <span className="flex-1" />
 
           <span className="text-ink-3 text-[13px]">
-            section {secIdx + 1} of {SECTIONS.length}
+            section {secIdx + 1} of {sections.length}
           </span>
           <span
             className={`tnum rounded-pill px-3 py-1 text-[24px] tracking-[-0.02em] transition-colors duration-150 ease-[var(--ease-swift)] ${
@@ -102,7 +256,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
         </header>
 
         <div className="flex min-h-0 flex-1">
-          <div className="flex-1 overflow-y-auto px-8 py-12">
+          <div className="flex-1 overflow-y-auto px-8 py-12" data-lenis-prevent>
             <div className="mx-auto max-w-[680px]">
               {/* min-h so mode="wait" doesn't collapse the column to 0 in the
                   gap between the outgoing question unmounting and the next
@@ -110,7 +264,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
               <div className="relative min-h-[380px]">
                 <AnimatePresence mode="wait" custom={dir}>
                   <motion.div
-                    key={`${secIdx}-${qIdx}`}
+                    key={q.qId}
                     custom={dir}
                     variants={questionVariants}
                     initial="enter"
@@ -118,23 +272,25 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                     exit="exit"
                   >
                     <p className="tnum text-ink-3 text-[13px]">
-                      Question {qIdx + 1} of {perSection} ·{" "}
-                      {SECTION_LABEL[SECTIONS[secIdx]]}
+                      Question {qIdx + 1} of {section.qs.length} ·{" "}
+                      {SECTION_LABEL[section.subject]}
                     </p>
-                    <p className="mt-4 text-[21px] leading-relaxed">
-                      A sum of ₹12,000 amounts to ₹15,120 in 2 years at simple
-                      interest. What is the rate of interest per annum?
-                    </p>
+                    {q.direction ? (
+                      <p className="bg-canvas text-ink-2 ring-line mt-4 rounded-[14px] p-5 text-[16px] leading-relaxed ring-1">
+                        {q.direction}
+                      </p>
+                    ) : null}
+                    <p className="mt-4 text-[21px] leading-relaxed">{q.stem}</p>
 
                     <div className="mt-8 grid gap-2.5">
-                      {["11%", "12%", "13%", "14%"].map((o, i) => (
+                      {q.options.map((o, i) => (
                         <OptionRow
-                          key={o}
-                          label={String.fromCharCode(65 + i)}
-                          selected={picked[qIdx] === i}
-                          onSelect={() => setPicked({ ...picked, [qIdx]: i })}
+                          key={o.key}
+                          label={o.key.toUpperCase()}
+                          selected={picked === i}
+                          onSelect={() => setPicked(i)}
                         >
-                          {o}
+                          {o.text}
                         </OptionRow>
                       ))}
                     </div>
@@ -145,10 +301,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
               <div className="mt-8 flex items-center gap-3">
                 <Button
                   variant="secondary"
-                  onClick={() => {
-                    setDir(-1);
-                    setQIdx((n) => Math.max(0, n - 1));
-                  }}
+                  onClick={() => goTo(secIdx, Math.max(0, qIdx - 1), -1)}
                   disabled={qIdx === 0}
                 >
                   Previous
@@ -156,21 +309,31 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                 <Button
                   variant="ghost"
                   onClick={() => {
-                    const next = { ...picked };
-                    delete next[qIdx];
-                    setPicked(next);
+                    setPicked(null);
+                    setAnswers((prev) => ({
+                      ...prev,
+                      [q.qId]: { chosen: null, timeMs: Date.now() - qStart },
+                    }));
                   }}
                 >
                   Clear
                 </Button>
                 <span className="flex-1" />
                 <Button
-                  onClick={() => {
-                    setDir(1);
-                    setQIdx((n) => Math.min(perSection - 1, n + 1));
-                  }}
+                  disabled={submitting}
+                  onClick={() =>
+                    onLastOfSection
+                      ? void submitSectionOrFinish()
+                      : goTo(secIdx, qIdx + 1, 1)
+                  }
                 >
-                  Save &amp; next
+                  {submitting
+                    ? "Scoring…"
+                    : onLastOfSection
+                      ? secIdx < sections.length - 1
+                        ? "Submit section and continue"
+                        : "Finish paper"
+                      : "Save & next"}
                 </Button>
               </div>
             </div>
@@ -180,20 +343,22 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
             <div className="border-line border-b px-6 py-4">
               <p className="text-[14px]">Question palette</p>
               <p className="tnum text-ink-3 mt-1 text-[13px]">
-                {answered} answered · {perSection - answered} left
+                {answered} answered · {section.qs.length - answered} left
               </p>
             </div>
-            <div className="grid flex-1 auto-rows-min grid-cols-6 gap-2 overflow-y-auto p-6">
-              {Array.from({ length: perSection }, (_, i) => {
-                const done = picked[i] !== undefined;
+            <div
+              className="grid flex-1 auto-rows-min grid-cols-6 gap-2 overflow-y-auto p-6"
+              data-lenis-prevent
+            >
+              {section.qs.map((sq, i) => {
+                const done =
+                  Boolean(answers[sq.qId]?.chosen) ||
+                  (i === qIdx && picked !== null);
                 const here = i === qIdx;
                 return (
                   <button
-                    key={i}
-                    onClick={() => {
-                      setDir(i > qIdx ? 1 : -1);
-                      setQIdx(i);
-                    }}
+                    key={sq.qId}
+                    onClick={() => goTo(secIdx, i, i > qIdx ? 1 : -1)}
                     className={`tnum grid size-8 place-items-center rounded-md text-[12.5px] transition-colors duration-150 ease-[var(--ease-swift)] ${
                       here
                         ? "bg-ink text-white"
@@ -211,23 +376,20 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
         </div>
 
         <footer className="border-line flex items-center gap-3 border-t px-8 py-4">
-          <span className="text-ink-3 text-[13px]">Esc to leave</span>
+          <span className="text-ink-3 text-[13px]">
+            {error ?? "Esc to leave"}
+          </span>
           <span className="flex-1" />
           <Button
             variant="secondary"
-            onClick={() => {
-              if (secIdx < SECTIONS.length - 1) {
-                setDir(1);
-                setSecIdx(secIdx + 1);
-                setLeft(secMins * 60);
-                setQIdx(0);
-                setPicked({});
-              } else setLive(null);
-            }}
+            disabled={submitting}
+            onClick={() => void submitSectionOrFinish()}
           >
-            {secIdx < SECTIONS.length - 1
-              ? "Submit section and continue"
-              : "Finish paper"}
+            {submitting
+              ? "Scoring…"
+              : secIdx < sections.length - 1
+                ? "Submit section and continue"
+                : "Finish paper"}
           </Button>
         </footer>
       </div>
@@ -243,6 +405,8 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           <Segmented value={stage} options={STAGES} onChange={setStage} />
         }
       />
+
+      {error ? <p className="text-bad mb-4 text-[13px]">{error}</p> : null}
 
       <div className="border-line grid grid-cols-1 border-t border-l lg:grid-cols-2">
         {shown.map((m) => {
@@ -305,16 +469,15 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                 />
               </div>
               <button
-                className="rounded-pill bg-ink hover:bg-ink/90 h-10 shrink-0 px-5 text-[14px] font-medium text-white transition-colors"
-                onClick={() => {
-                  setLive(m);
-                  setSecIdx(0);
-                  setQIdx(0);
-                  setPicked({});
-                  setLeft(Math.round(m.mins / SECTIONS.length) * 60);
-                }}
+                disabled={starting !== null}
+                className="rounded-pill bg-ink hover:bg-ink/90 h-10 shrink-0 px-5 text-[14px] font-medium text-white transition-colors disabled:opacity-50"
+                onClick={() => void handleStart(m)}
               >
-                {m.score !== null ? "Retake" : "Start"}
+                {starting === m.id
+                  ? "Loading…"
+                  : m.score !== null
+                    ? "Retake"
+                    : "Start"}
               </button>
             </div>
           );
