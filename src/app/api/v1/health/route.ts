@@ -7,8 +7,7 @@ export const dynamic = "force-dynamic";
 
 const STALE_HOURS = 48;
 
-// For an external uptime monitor: a failed pipeline is otherwise invisible —
-// questions just stop. Returns 503 so the monitor alerts on status alone.
+// Unauthenticated, and so not under /internal/: a monitor cannot hold a secret.
 export async function GET() {
   const [last] = await db
     .select()
