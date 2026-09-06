@@ -9,6 +9,11 @@ const STALE_HOURS = 48;
 
 // For an external uptime monitor: a failed pipeline is otherwise invisible —
 // questions just stop. Returns 503 so the monitor alerts on status alone.
+//
+// Deliberately unauthenticated, and deliberately not under /internal/: a
+// monitor cannot hold a secret, and every other route under that prefix
+// requires CRON_SECRET. One public route among them reads as an oversight and
+// invites the next one to be added without a check.
 export async function GET() {
   const [last] = await db
     .select()
