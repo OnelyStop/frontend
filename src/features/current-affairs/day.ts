@@ -11,9 +11,12 @@ export function todayIst(): string {
   return istDayKey(new Date());
 }
 
-// The oldest day a plan may open, inclusive. `days` of 7 means today plus six.
-export function oldestDayAllowed(today: string, days: number): string {
+export function dayBack(today: string, n: number): string {
   const d = new Date(`${today}T00:00:00Z`);
-  d.setUTCDate(d.getUTCDate() - (days - 1));
+  d.setUTCDate(d.getUTCDate() - n);
   return d.toISOString().slice(0, 10);
 }
+
+// The oldest day a plan may open, inclusive. `days` of 7 means today plus six.
+export const oldestDayAllowed = (today: string, days: number): string =>
+  dayBack(today, days - 1);
