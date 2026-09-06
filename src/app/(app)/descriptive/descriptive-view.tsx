@@ -3,127 +3,54 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
-
-type Task = {
-  id: string;
-  kind: "Letter" | "Essay";
-  title: string;
-  brief: string;
-  min: number;
-  max: number;
-  marks: number;
-  checks: { label: string; hint: string; test: (t: string) => boolean }[];
-};
-
-const has = (t: string, ...words: string[]) =>
-  words.some((w) => t.toLowerCase().includes(w));
-
-const paras = (t: string) =>
-  t
-    .split(/\n\s*\n/)
-    .map((p) => p.trim())
-    .filter(Boolean);
-
-const TASKS: Task[] = [
-  {
-    id: "letter",
-    kind: "Letter",
-    title: "Formal letter to a branch manager",
-    brief:
-      "Write a letter to the manager of your bank branch complaining that an ATM cash withdrawal was debited from your account but the cash was not dispensed. Include the date, amount and ATM location, and state the resolution you expect.",
-    min: 120,
-    max: 150,
-    marks: 10,
-    checks: [
-      {
-        label: "Salutation",
-        hint: "Formal letters open with Sir / Madam — never Hi or Dear friend.",
-        test: (t) => has(t, "sir", "madam"),
-      },
-      {
-        label: "Subject line",
-        hint: "One line naming the issue. Examiners look for it before they read.",
-        test: (t) => has(t, "subject:", "sub:", "subject -"),
-      },
-      {
-        label: "Specifics given",
-        hint: "A complaint without a date, amount or account reference is unmarkable.",
-        test: (t) => /\d/.test(t) && has(t, "atm", "account", "transaction"),
-      },
-      {
-        label: "Action requested",
-        hint: "Say what you want done — reversal, credit, investigation.",
-        test: (t) =>
-          has(t, "request", "kindly", "refund", "reversal", "credit"),
-      },
-      {
-        label: "Formal closing",
-        hint: "Yours faithfully / sincerely, then your name.",
-        test: (t) => has(t, "yours faithfully", "yours sincerely", "regards"),
-      },
-    ],
-  },
-  {
-    id: "essay",
-    kind: "Essay",
-    title: "Essay — digital lending in India",
-    brief:
-      "Digital lending apps have widened credit access but also driven predatory recovery practices. Discuss, and suggest what the RBI's role should be.",
-    min: 200,
-    max: 250,
-    marks: 15,
-    checks: [
-      {
-        label: "Opens with a position",
-        hint: "The first paragraph should say what you will argue, not define the topic.",
-        test: (t) =>
-          paras(t).length > 0 && paras(t)[0].split(/\s+/).length >= 25,
-      },
-      {
-        label: "Three or more paragraphs",
-        hint: "Intro, body, conclusion. A wall of text loses organisation marks.",
-        test: (t) => paras(t).length >= 3,
-      },
-      {
-        label: "Both sides argued",
-        hint: "'Discuss' means the counter-view must appear, not just your own.",
-        test: (t) =>
-          has(t, "however", "on the other hand", "although", "whereas"),
-      },
-      {
-        label: "Concrete evidence",
-        hint: "A number, a scheme, a regulator, a year — something checkable.",
-        test: (t) =>
-          /\d/.test(t) && has(t, "rbi", "guideline", "act", "committee"),
-      },
-      {
-        label: "Conclusion proposes",
-        hint: "End with what should happen, not a summary of what you said.",
-        test: (t) => has(t, "should", "must", "recommend", "way forward"),
-      },
-    ],
-  },
-];
+import type { Marking, SavedMarking } from "@/features/descriptive/marking";
+import { TASKS, wordCount } from "@/features/descriptive/tasks";
 
 const TOTAL_S = 30 * 60;
+const MIN_WORDS = 20;
+
+const ERRORS: Record<string, string> = {
+  quota_exceeded:
+    "You have used every marking on your plan this month. Upgrade, or come back next month — your drafts stay here.",
+  rate_limited: "Too many markings in a row. Give it a minute.",
+  not_configured: "Marking is unavailable right now. Nothing was counted.",
+  answer_too_short: `Write at least ${MIN_WORDS} words before asking for a marking.`,
+};
 
 function fmt(s: number) {
   const m = Math.floor(s / 60);
   return `${String(m).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 }
 
-export function DescriptiveView() {
+export function DescriptiveView({
+  history,
+  used,
+  limit,
+}: {
+  history: SavedMarking[];
+  used: number;
+  limit: number | null;
+}) {
   const { board } = useApp();
   const [idx, setIdx] = useState(0);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
-  const [marked, setMarked] = useState<Record<string, boolean>>({});
+  const [markings, setMarkings] = useState<Record<string, Marking>>(() =>
+    // The newest marking per task, so a reload does not lose what a marking cost.
+    history.reduce<Record<string, Marking>>(
+      (acc, m) => (m.taskId in acc ? acc : { ...acc, [m.taskId]: m.marking }),
+      {},
+    ),
+  );
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [spent, setSpent] = useState(used);
   const [left, setLeft] = useState(TOTAL_S);
   const [running, setRunning] = useState(false);
   const areaRef = useRef<HTMLTextAreaElement>(null);
 
-  const task = TASKS[idx];
+  const task = TASKS[idx]!;
   const draft = drafts[task.id] ?? "";
-  const isMarked = !!marked[task.id];
+  const marking = markings[task.id];
 
   useEffect(() => {
     if (!running || left <= 0) return;
@@ -134,10 +61,7 @@ export function DescriptiveView() {
     return () => window.clearInterval(t);
   }, [running, left]);
 
-  const words = useMemo(
-    () => draft.trim().split(/\s+/).filter(Boolean).length,
-    [draft],
-  );
+  const words = useMemo(() => wordCount(draft), [draft]);
 
   const passed = useMemo(
     () => task.checks.map((c) => c.test(draft)),
@@ -158,20 +82,40 @@ export function DescriptiveView() {
               ? "over"
               : "long";
 
-  const score = useMemo(() => {
-    const structural = passed.filter(Boolean).length / task.checks.length;
-    const length =
-      lengthBand === "in"
-        ? 1
-        : lengthBand === "over" || lengthBand === "near"
-          ? 0.7
-          : 0.3;
-    return Math.round(task.marks * (structural * 0.7 + length * 0.3) * 2) / 2;
-  }, [passed, lengthBand, task]);
+  const outOfMarkings = limit !== null && spent >= limit;
 
   const start = () => {
     setRunning(true);
     areaRef.current?.focus();
+  };
+
+  const mark = async () => {
+    setPending(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/v1/descriptive", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ taskId: task.id, answer: draft }),
+      });
+      const data = (await res.json()) as {
+        marking?: Marking;
+        error?: string;
+      };
+      if (!res.ok || !data.marking) {
+        setError(
+          ERRORS[data.error ?? ""] ??
+            "The marking did not come back. Nothing was counted against your allowance.",
+        );
+        return;
+      }
+      setMarkings((m) => ({ ...m, [task.id]: data.marking as Marking }));
+      setSpent((n) => n + 1);
+    } catch {
+      setError("Could not reach the marker. Check your connection.");
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -230,10 +174,9 @@ export function DescriptiveView() {
           <textarea
             ref={areaRef}
             value={draft}
-            onChange={(e) => {
-              setDrafts({ ...drafts, [task.id]: e.target.value });
-              if (isMarked) setMarked({ ...marked, [task.id]: false });
-            }}
+            onChange={(e) =>
+              setDrafts({ ...drafts, [task.id]: e.target.value })
+            }
             placeholder={
               task.kind === "Letter"
                 ? "Sir / Madam,\n\nSubject: …"
@@ -283,33 +226,28 @@ export function DescriptiveView() {
             </span>
 
             <Button
-              disabled={words < 20}
-              onClick={() => setMarked({ ...marked, [task.id]: true })}
+              disabled={words < MIN_WORDS || pending || outOfMarkings}
+              onClick={mark}
             >
-              Mark this
+              {pending ? "Marking…" : "Get it marked"}
             </Button>
           </div>
 
-          {isMarked ? (
-            <div className="bg-canvas ring-line mt-5 rounded-[14px] p-5 ring-1">
-              <div className="flex items-baseline gap-3">
-                <span className="tnum text-2xl">
-                  {score}
-                  <span className="text-ink-3">/{task.marks}</span>
-                </span>
-                <span className="text-ink-3 text-[13px]">
-                  {passed.filter(Boolean).length} of {task.checks.length}{" "}
-                  requirements met · length{" "}
-                  {lengthBand === "in" ? "in band" : lengthBand}
-                </span>
-              </div>
-              <p className="text-ink-2 mt-3 max-w-[70ch] text-[14px] leading-relaxed">
-                {passed.every(Boolean) && lengthBand === "in"
-                  ? "Format and length are both clean. What separates this from full marks now is the quality of the argument — read it back and cut every sentence that repeats the one before."
-                  : `Fix the unticked items on the right first. Format marks are the cheapest ${task.marks} marks in the paper and they are lost silently.`}
-              </p>
-            </div>
+          <p className="text-ink-3 mt-3 text-[13px]">
+            {outOfMarkings
+              ? "No markings left this month."
+              : limit === null
+                ? `${spent} marked this month · unlimited on your plan`
+                : `${spent} of ${limit} markings used this month`}
+          </p>
+
+          {error ? (
+            <p className="bg-bad-soft text-bad mt-4 rounded-[12px] px-4 py-3 text-[13.5px] leading-relaxed">
+              {error}
+            </p>
           ) : null}
+
+          {marking ? <MarkingCard marking={marking} /> : null}
         </Card>
 
         <Card className="h-fit">
@@ -354,12 +292,88 @@ export function DescriptiveView() {
           </ul>
 
           <p className="border-line text-ink-3 mt-6 border-t pt-4 text-[13px] leading-relaxed">
-            The checklist tests your actual draft — it is not a rubric you read.
-            Nothing here is graded on style; it is the format and length that
-            candidates lose marks on without ever being told.
+            This list updates as you type and costs nothing. It only checks
+            format — the marks come from the examiner, who reads what you
+            actually argued.
           </p>
         </Card>
       </div>
+    </div>
+  );
+}
+
+function MarkingCard({ marking }: { marking: Marking }) {
+  return (
+    <div className="bg-canvas ring-line mt-5 rounded-[14px] p-5 ring-1">
+      <div className="flex items-baseline gap-3">
+        <span className="tnum text-2xl">
+          {marking.total}
+          <span className="text-ink-3">/{marking.outOf}</span>
+        </span>
+        <span className="text-ink-3 text-[13px]">examiner marking</span>
+      </div>
+
+      <p className="text-ink-2 mt-3 max-w-[70ch] text-[14px] leading-relaxed">
+        {marking.verdict}
+      </p>
+
+      <dl className="border-line mt-5 grid gap-3 border-t pt-4">
+        {marking.bands.map((b) => (
+          <div key={b.id} className="grid gap-1.5">
+            <div className="flex items-baseline gap-3">
+              <span className="text-[14px]">{b.label}</span>
+              <span className="flex-1" />
+              <span className="tnum text-[14px]">
+                {b.awarded}
+                <span className="text-ink-3">/{b.outOf}</span>
+              </span>
+            </div>
+            <div className="rounded-pill bg-line h-1.5 overflow-hidden">
+              <div
+                className="rounded-pill bg-ink h-full"
+                style={{ width: `${b.score}%` }}
+              />
+            </div>
+            <p className="text-ink-3 text-[13px] leading-relaxed">
+              {b.comment}
+            </p>
+          </div>
+        ))}
+      </dl>
+
+      {marking.strengths.length > 0 ? (
+        <div className="border-line mt-5 border-t pt-4">
+          <p className="text-ink-2 text-[13px] font-medium">Keep doing</p>
+          <ul className="text-ink-3 mt-2 grid gap-1.5 text-[13px] leading-relaxed">
+            {marking.strengths.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {marking.fixes.length > 0 ? (
+        <div className="border-line mt-5 border-t pt-4">
+          <p className="text-ink-2 text-[13px] font-medium">Fix these first</p>
+          <ul className="mt-3 grid gap-4">
+            {marking.fixes.map((f, i) => (
+              <li key={i} className="grid gap-1.5">
+                {f.quote ? (
+                  <q className="text-ink-3 border-line border-l-2 pl-3 text-[13px] leading-relaxed italic">
+                    {f.quote}
+                  </q>
+                ) : null}
+                <p className="text-ink-2 text-[13px] leading-relaxed">
+                  {f.problem}
+                </p>
+                <p className="text-ok text-[13px] leading-relaxed">
+                  {f.rewrite}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </div>
   );
 }

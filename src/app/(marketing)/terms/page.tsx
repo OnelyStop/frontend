@@ -5,7 +5,7 @@ import { LegalDoc, LegalTodo } from "../legal-doc";
 export const metadata: Metadata = {
   title: "Terms of service",
   description:
-    "The agreement between you and onelystop: who can use it, what the marking is and is not, how Pro billing and the cutoff promise work, and who to write to when something is wrong.",
+    "The agreement between you and onelystop: who can use it, what the marking is and is not, how Pro billing and the target promise work, and who to write to when something is wrong.",
 };
 
 const UPDATED = "5 September 2026";
@@ -114,15 +114,16 @@ export default function Page() {
           </li>
           <li>
             <strong>It is not an official result.</strong> Scores, sectional
-            bands and cutoffs shown on onelystop are practice feedback. They
+            bands and targets shown on onelystop are practice feedback. They
             carry no standing with IBPS, SBI, RBI or any other recruiting body,
             and they do not predict your result.
           </li>
           <li>
-            <strong>Cutoffs are indicative.</strong> The cutoffs we show are
-            taken from the published cutoffs of earlier years. The next
-            exam&rsquo;s cutoff is set after it is held, by the body that holds
-            it, and can differ from every earlier year.
+            <strong>The target is ours, not the board&rsquo;s.</strong> The
+            number a paper is scored against on onelystop is 55% of that
+            paper&rsquo;s questions. It is a practice benchmark we set. The real
+            cutoff for an exam is fixed after it is held, by the body that holds
+            it, and can sit well above or below ours.
           </li>
           <li>
             <strong>It can be wrong.</strong> If a mark looks wrong, tell us and
@@ -235,9 +236,10 @@ export default function Page() {
             already paid for.
           </li>
           <li>
-            <strong>The cutoff promise.</strong> Sit at least eight full mocks
+            <strong>The target promise.</strong> Sit at least eight full mocks
             on Pro in three months. If your weakest section has not crossed its
-            sectional cutoff, we refund the three months in full.
+            55% sectional target on any of them, we refund the three months in
+            full.
           </li>
           <li>
             <strong>Other refunds.</strong> A duplicate charge, or a period in

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button, Empty, PageHeader, Segmented } from "@/design-system";
-import { SECTIONS, SECTION_SHORT, type Subject } from "@/data/navigation";
+import { SECTIONS, SECTION_LABEL, type Subject } from "@/data/navigation";
 import {
   useDoubts,
   usePostDoubt,
@@ -62,7 +62,7 @@ export function CommunityView() {
             value={section}
             options={["All", ...SECTIONS] as const}
             onChange={setSection}
-            labels={{ ...SECTION_SHORT, All: "All" }}
+            labels={{ ...SECTION_LABEL, All: "All" }}
           />
           <span className="flex-1" />
           <button
@@ -151,7 +151,7 @@ function DoubtCard({
       <div className="min-w-0 flex-1">
         <div className="text-ink-3 flex items-center gap-2 text-[13px]">
           <span className="text-ink-2 font-medium">
-            {SECTION_SHORT[doubt.section]}
+            {SECTION_LABEL[doubt.section]}
           </span>
           <span aria-hidden>·</span>
           <span>{doubt.topic}</span>
@@ -240,7 +240,7 @@ function DoubtForm({
         >
           {SECTIONS.map((s) => (
             <option key={s} value={s}>
-              {SECTION_SHORT[s]}
+              {SECTION_LABEL[s]}
             </option>
           ))}
         </select>

@@ -4,3 +4,5 @@ export * from "./profiles";
 export * from "./study";
 export * from "./gazette";
 export * from "./community";
+export * from "./question-bank";
+export * from "./descriptive";

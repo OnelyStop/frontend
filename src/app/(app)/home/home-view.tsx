@@ -1,109 +1,95 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ButtonLink,
+  Card,
+  DarkPanel,
+  Empty,
+  PageHeader,
+  SectionTitle,
+} from "@/design-system";
 import { useApp } from "@/context/AppContext";
-import { Card, PageHeader, SectionTitle } from "@/design-system";
-import { SECTION_SHORT, SECTIONS } from "@/data/navigation";
+import {
+  NEGATIVE_MARK,
+  SECTION_FROM_DB,
+  SECTION_LABEL,
+} from "@/data/navigation";
+import type { Progress } from "@/features/attempts/progress.server";
 
-const SECTION_STATE = [
-  { s: SECTIONS[0], score: 62, cutoff: 55, trend: +4 },
-  { s: SECTIONS[1], score: 71, cutoff: 58, trend: +2 },
-  { s: SECTIONS[2], score: 49, cutoff: 52, trend: -3 },
-  { s: SECTIONS[3], score: 58, cutoff: 50, trend: +7 },
-  { s: SECTIONS[4], score: 80, cutoff: 45, trend: 0 },
-];
+// The bank stores one-word sections; anything outside that vocabulary shows as stored.
+function sectionLabel(section: string) {
+  return SECTION_LABEL[SECTION_FROM_DB[section]] ?? section;
+}
 
-const PLAN = [
-  {
-    n: 1,
-    kind: "Drill",
-    title: "Cloze Test",
-    meta: "12 questions · 14 min",
-    why: "English is the only section under cutoff, and cloze is where the marks go.",
-    href: "/drills",
-  },
-  {
-    n: 2,
-    kind: "Revise",
-    title: "Current Affairs",
-    meta: "30 cards · 9 min",
-    why: "Yesterday's set is due. GA moved +7 this week by doing exactly this.",
-    href: "/flashcards",
-  },
-  {
-    n: 3,
-    kind: "Mock",
-    title: "IBPS PO Prelims 2023",
-    meta: "Full paper · 1 hr",
-    why: "No full timed paper in 11 days. Sectional timing needs the practice.",
-    href: "/mocks",
-  },
-];
+export function HomeView({ progress }: { progress: Progress }) {
+  const { board, profile } = useApp();
+  const { attempted, correct, wrong, avgSec, sections } = progress;
 
-const DAYS_LEFT = 43;
+  const greeting = profile.name
+    ? `Good evening, ${profile.name.split(" ")[0]}`
+    : "Good evening";
 
-export function HomeView() {
-  const { board, profile, streak } = useApp();
-  const weakest = SECTION_STATE.reduce((a, b) =>
-    a.score - a.cutoff < b.score - b.cutoff ? a : b,
+  if (attempted === 0) {
+    return (
+      <>
+        <PageHeader
+          title={greeting}
+          sub={`Nothing has been graded yet, so there is nothing here to read. Everything on this page comes from your own submitted attempts on ${board}.`}
+        />
+        <Card pad={false}>
+          <Empty
+            title="No attempts yet"
+            sub="Sit a mock or a drill and this page fills in with your accuracy, your pace and the marks negative marking takes back."
+            action={<ButtonLink href="/mocks">Start a mock</ButtonLink>}
+          />
+        </Card>
+      </>
+    );
+  }
+
+  const acc = Math.round((correct / attempted) * 100);
+  const lost = wrong * NEGATIVE_MARK;
+  const weakest = sections.reduce((a, b) =>
+    a.correct / a.attempted <= b.correct / b.attempted ? a : b,
   );
-  const cleared = SECTION_STATE.filter((r) => r.score >= r.cutoff).length;
+  const weakestAcc = Math.round((weakest.correct / weakest.attempted) * 100);
 
   return (
     <>
       <PageHeader
-        title={
-          profile.name
-            ? `Good evening, ${profile.name.split(" ")[0]}`
-            : "Good evening"
-        }
-        sub={`${SECTION_SHORT[weakest.s]} is ${weakest.cutoff - weakest.score} marks under its sectional cutoff — the only section that is. Everything below is ordered around fixing that.`}
+        title={greeting}
+        sub={`${board} · last 30 days. ${sectionLabel(weakest.section)} is your weakest section at ${weakestAcc}% — everything below is measured from attempts you have submitted.`}
       />
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
         <Card>
-          <SectionTitle
-            aside={`${cleared} of ${SECTION_STATE.length} clearing`}
-          >
-            Sectional readiness
+          <SectionTitle aside="accuracy · seconds per question">
+            By section
           </SectionTitle>
 
           <div className="grid gap-5">
-            {SECTION_STATE.map((r) => {
-              const safe = r.score >= r.cutoff;
+            {sections.map((r) => {
+              const a = Math.round((r.correct / r.attempted) * 100);
+              const fast = r.avgSec !== null && r.avgSec <= 45;
               return (
-                <div key={r.s} className="grid gap-2">
+                <div key={r.section} className="grid gap-2">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[14.5px]">{SECTION_SHORT[r.s]}</span>
-                    <span className="flex-1" />
-                    <span
-                      className={`tnum text-[14.5px] ${safe ? "" : "text-bad"}`}
-                    >
-                      {r.score}
+                    <span className="text-[14.5px]">
+                      {sectionLabel(r.section)}
                     </span>
+                    <span className="flex-1" />
+                    <span className="tnum text-[14.5px]">{a}%</span>
                     <span
-                      className={`tnum w-8 text-right text-[13px] ${
-                        r.trend > 0
-                          ? "text-ok"
-                          : r.trend < 0
-                            ? "text-bad"
-                            : "text-ink-4"
-                      }`}
+                      className={`tnum w-10 text-right text-[13px] ${r.avgSec === null ? "text-ink-4" : fast ? "text-ok" : "text-bad"}`}
                     >
-                      {r.trend > 0 ? `+${r.trend}` : r.trend || "—"}
+                      {r.avgSec === null ? "—" : `${r.avgSec}s`}
                     </span>
                   </div>
 
-                  <div className="rounded-pill bg-line relative h-1.5">
+                  <div className="rounded-pill bg-line h-1.5 overflow-hidden">
                     <div
-                      className={`rounded-pill h-full ${safe ? "bg-ink" : "bg-bad"}`}
-                      style={{ width: `${r.score}%` }}
-                    />
-                    <span
-                      className="bg-ink-3 absolute -top-1 h-[14px] w-px"
-                      style={{ left: `${r.cutoff}%` }}
-                      aria-hidden
+                      className="rounded-pill bg-ink h-full"
+                      style={{ width: `${a}%` }}
                     />
                   </div>
                 </div>
@@ -112,82 +98,50 @@ export function HomeView() {
           </div>
 
           <p className="border-line text-ink-3 mt-7 border-t pt-5 text-[13px] leading-relaxed">
-            The notch on each track is the sectional cutoff for {board}.
-            Clearing every section matters more than a high total — one miss
-            ends the attempt regardless of the rest.
+            This is accuracy on what you attempted, not a sectional score. A
+            section you barely touched will read confidently on very few
+            questions.
           </p>
         </Card>
 
         <div className="grid content-start gap-4">
-          <div className="rounded-card bg-ink p-8 text-white">
-            <p className="text-[14px] text-white/50">{board} Prelims</p>
+          <DarkPanel>
+            <p className="text-[14px] text-white/50">{board} · last 30 days</p>
             <p className="tnum mt-4 text-[52px] leading-none tracking-[-0.04em]">
-              {DAYS_LEFT}
+              {acc}%
             </p>
-            <p className="mt-2 text-[14px] text-white/60">days to go</p>
+            <p className="mt-2 text-[14px] text-white/60">accuracy</p>
             <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-5 text-[14px]">
-              <span className="text-white/60">Current streak</span>
-              <span className="tnum">{streak} days</span>
+              <span className="text-white/60">Questions graded</span>
+              <span className="tnum">{attempted}</span>
             </div>
-          </div>
+          </DarkPanel>
 
           <Card>
             <SectionTitle>Where the marks go</SectionTitle>
             <div className="grid gap-4">
-              {[
-                ["Negative marking", "−4.75", "text-bad"],
-                ["Left blank", "9 questions", ""],
-                ["Average pace", "43s", "text-ok"],
-              ].map(([label, value, tone]) => (
-                <div
-                  key={label}
-                  className="flex items-baseline justify-between"
+              <div className="flex items-baseline justify-between">
+                <span className="text-ink-2 text-[14px]">
+                  Marks lost to negatives
+                </span>
+                <span className="tnum text-bad text-[15px]">
+                  −{lost.toFixed(2)}
+                </span>
+              </div>
+              <div className="flex items-baseline justify-between">
+                <span className="text-ink-2 text-[14px]">Wrong answers</span>
+                <span className="tnum text-[15px]">{wrong}</span>
+              </div>
+              <div className="flex items-baseline justify-between">
+                <span className="text-ink-2 text-[14px]">Average pace</span>
+                <span
+                  className={`tnum text-[15px] ${avgSec !== null && avgSec <= 45 ? "text-ok" : ""}`}
                 >
-                  <span className="text-ink-2 text-[14px]">{label}</span>
-                  <span className={`tnum text-[15px] ${tone}`}>{value}</span>
-                </div>
-              ))}
+                  {avgSec === null ? "—" : `${avgSec}s`}
+                </span>
+              </div>
             </div>
           </Card>
-        </div>
-      </div>
-
-      <div className="mt-16">
-        <SectionTitle aside="83 min">Your next hour</SectionTitle>
-
-        <div className="border-line grid grid-cols-1 border-t border-l md:grid-cols-3">
-          {PLAN.map((p) => (
-            <Link
-              key={p.n}
-              href={p.href}
-              className="group border-line hover:bg-brand-soft/40 relative flex flex-col border-r border-b p-7 transition-colors duration-200"
-            >
-              <div className="flex items-center gap-3">
-                <span className="tnum text-ink-4 text-[13px]">
-                  {String(p.n).padStart(2, "0")}
-                </span>
-                <span className="text-ink-3 text-[13px]">{p.kind}</span>
-                <span className="flex-1" />
-                <ArrowUpRight
-                  size={16}
-                  className="text-ink-4 group-hover:text-ink transition-colors"
-                />
-              </div>
-
-              <p className="mt-8 text-[19px] leading-snug tracking-[-0.02em]">
-                {p.title}
-              </p>
-              <p className="tnum text-ink-3 mt-1.5 text-[13px]">{p.meta}</p>
-              <p className="text-ink-2 mt-5 text-[14px] leading-[1.55]">
-                {p.why}
-              </p>
-
-              <span
-                aria-hidden
-                className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
-              />
-            </Link>
-          ))}
         </div>
       </div>
     </>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button, Card, PageHeader } from "@/design-system";
+import type { CurrentAffairsQuestion } from "@/features/current-affairs/types";
 
 type Item = { q: string; a: string; date?: string };
 
@@ -15,30 +16,48 @@ type Deck = {
   cards: Item[];
 };
 
-const DECKS: Deck[] = [
-  {
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+// Formatted by hand because toLocaleDateString follows the runtime locale, which differs across the hydration boundary.
+function shortDate(day: string): string {
+  const [, month, date] = day.split("-");
+  return `${Number(date)} ${MONTHS[Number(month) - 1]}`;
+}
+
+function currentAffairsDeck(
+  questions: CurrentAffairsQuestion[],
+  days: number,
+): Deck {
+  return {
     id: "ca",
     name: "Current affairs",
-    blurb: "The last 60 days — the window GA actually asks from",
+    blurb: questions.length
+      ? `The last ${days} days — the window GA actually asks from`
+      : "Nothing yet — the evening run fills this deck",
     dated: true,
-    cards: [
-      {
-        q: "What is the current repo rate set by the RBI?",
-        a: "6.50% — held at the February 2026 MPC meeting, the seventh consecutive pause.",
-        date: "12 Aug",
-      },
-      {
-        q: "Who is the current Governor of the Reserve Bank of India?",
-        a: "Sanjay Malhotra, appointed December 2024 as the 26th Governor.",
-        date: "12 Aug",
-      },
-      {
-        q: "What is India's current account deficit projection for FY26?",
-        a: "Around 1% of GDP, per the RBI's latest projection.",
-        date: "15 Aug",
-      },
-    ],
-  },
+    cards: questions.map((q) => ({
+      q: q.questionText,
+      a: `${q.options[q.answer]} — ${q.explanation}`,
+      date: shortDate(q.day),
+    })),
+  };
+}
+
+// Everything below is still fixture: the question bank behind these decks has not been imported.
+const DECKS: Deck[] = [
   {
     id: "banking",
     name: "Banking awareness",
@@ -132,10 +151,21 @@ const GRADES = [
   { key: ";", label: "Easy" },
 ];
 
-export function FlashcardsView() {
+export function FlashcardsView({
+  currentAffairs,
+  currentAffairsDays,
+}: {
+  currentAffairs: CurrentAffairsQuestion[];
+  currentAffairsDays: number;
+}) {
   const [deck, setDeck] = useState<Deck | null>(null);
   const [i, setI] = useState(0);
   const [shown, setShown] = useState(false);
+
+  const decks = useMemo(
+    () => [currentAffairsDeck(currentAffairs, currentAffairsDays), ...DECKS],
+    [currentAffairs, currentAffairsDays],
+  );
 
   const done = deck ? i >= deck.cards.length : false;
   const card = deck && !done ? deck.cards[i] : null;
@@ -169,34 +199,42 @@ export function FlashcardsView() {
   };
 
   if (!deck) {
-    const total = DECKS.reduce((n, d) => n + d.cards.length, 0);
+    const total = decks.reduce((n, d) => n + d.cards.length, 0);
     return (
       <div>
         <PageHeader
           title="Flashcards"
-          sub={`${total} cards due across five decks. Reveal with Space and grade with j / k / l / ; — whatever you miss comes back sooner.`}
+          sub={`${total} cards due across ${decks.length} decks. Reveal with Space and grade with j / k / l / ; — whatever you miss comes back sooner.`}
         />
 
         <div className="border-line grid grid-cols-1 border-t border-l md:grid-cols-2 xl:grid-cols-3">
-          {DECKS.map((d) => (
-            <button
-              key={d.id}
-              onClick={() => open(d)}
-              className="border-line hover:bg-brand-soft/40 relative flex flex-col items-start border-r border-b p-7 text-left transition-colors duration-200"
-            >
-              <p className="text-[19px] tracking-[-0.02em]">{d.name}</p>
-              <p className="text-ink-2 mt-2 max-w-[34ch] text-[14px] leading-[1.55]">
-                {d.blurb}
-              </p>
-              <span className="tnum text-ink-3 mt-8 text-[13px]">
-                {d.cards.length} due{d.dated ? " · dated" : ""}
-              </span>
-              <span
-                aria-hidden
-                className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
-              />
-            </button>
-          ))}
+          {decks.map((d) => {
+            const empty = d.cards.length === 0;
+            return (
+              <button
+                key={d.id}
+                onClick={() => open(d)}
+                disabled={empty}
+                className={`border-line relative flex flex-col items-start border-r border-b p-7 text-left transition-colors duration-200 ${
+                  empty ? "cursor-default opacity-55" : "hover:bg-brand-soft/40"
+                }`}
+              >
+                <p className="text-[19px] tracking-[-0.02em]">{d.name}</p>
+                <p className="text-ink-2 mt-2 max-w-[34ch] text-[14px] leading-[1.55]">
+                  {d.blurb}
+                </p>
+                <span className="tnum text-ink-3 mt-8 text-[13px]">
+                  {empty
+                    ? "Nothing yet"
+                    : `${d.cards.length} due${d.dated ? " · dated" : ""}`}
+                </span>
+                <span
+                  aria-hidden
+                  className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
+                />
+              </button>
+            );
+          })}
         </div>
       </div>
     );

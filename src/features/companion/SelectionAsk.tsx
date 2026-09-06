@@ -63,7 +63,7 @@ export function SelectionAsk() {
   return (
     <button
       type="button"
-      className="ask-onely rounded-pill bg-ink shadow-pop fixed z-90 flex -translate-x-1/2 -translate-y-full items-center gap-1.5 px-3 py-1.5 text-[12.5px] font-medium text-white"
+      className="ask-onely press rounded-pill bg-ink shadow-pop fixed z-90 flex -translate-x-1/2 -translate-y-full items-center gap-1.5 px-3 py-1.5 text-[12.5px] font-medium text-white"
       style={{ left: anchor.x, top: anchor.y }}
       onClick={() => {
         openWith(textRef.current);

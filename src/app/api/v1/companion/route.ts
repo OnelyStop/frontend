@@ -4,6 +4,8 @@ import { openrouter } from "@/lib/openrouter-client/openrouter";
 import { openrouterConfig } from "@/config/openrouter";
 import { COMPANION_SYSTEM, companionUserPrompt } from "@/lib/prompts/companion";
 import { currentUserId } from "@/lib/auth.server";
+import { db } from "@/db";
+import { checkQuota, recordAiCall } from "@/features/billing/usage.server";
 import { rateLimit } from "@/lib/rate-limit";
 
 // Cost control: the endpoint spends real money, so nothing client-supplied is unbounded.
@@ -54,6 +56,13 @@ export async function POST(request: NextRequest) {
         .map((t) => ({ role: t.role, content: t.content.slice(0, 4000) }))
     : [];
 
+  const quota = await checkQuota(db, userId, "askOnelyPerMonth");
+  if (!quota.ok)
+    return NextResponse.json(
+      { error: "quota_exceeded", used: quota.used, limit: quota.limit },
+      { status: 429 },
+    );
+
   try {
     const answer = await openrouter.ask({
       model: openrouterConfig.cheapModel,
@@ -64,6 +73,7 @@ export async function POST(request: NextRequest) {
         question.slice(0, MAX_QUESTION),
       ),
     });
+    await recordAiCall(db, userId, "ask_onely");
     return NextResponse.json({ text: answer.text });
   } catch (error) {
     if (error instanceof AiError) {

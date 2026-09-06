@@ -9,7 +9,6 @@ import {
   ButtonLink,
   Card,
   Checkbox,
-  CutoffBar,
   DarkPanel,
   Divider,
   Dropdown,
@@ -29,6 +28,7 @@ import {
   Select,
   Stat,
   Table,
+  TargetBar,
   Td,
   Textarea,
   Th,
@@ -184,12 +184,12 @@ export function DesignView() {
             </div>
 
             <p className="text-ink-3 mt-8 mb-3 text-[13px]">
-              CutoffBar — read against the notch, not a maximum
+              TargetBar — read against the notch, not a maximum
             </p>
             <div className="grid gap-4">
-              <CutoffBar value={68} cutoff={58} />
-              <CutoffBar value={54} cutoff={56} />
-              <CutoffBar value={null} cutoff={62} />
+              <TargetBar value={68} target={58} />
+              <TargetBar value={54} target={56} />
+              <TargetBar value={null} target={62} />
             </div>
 
             <p className="text-ink-3 mt-8 mb-3 text-[13px]">Meter</p>
@@ -266,7 +266,7 @@ export function DesignView() {
             <Field label="Full name" htmlFor="ds-name">
               <Input id="ds-name" defaultValue="Aarav Mehta" />
             </Field>
-            <Field label="Exam" htmlFor="ds-exam" hint="Sets every cutoff">
+            <Field label="Exam" htmlFor="ds-exam" hint="Sets every target">
               <Select id="ds-exam" defaultValue="IBPS PO">
                 <option>IBPS PO</option>
                 <option>SBI PO</option>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
-import { EXAMS, SECTIONS, SECTION_SHORT } from "@/data/navigation";
+import { EXAMS, SECTIONS, SECTION_LABEL } from "@/data/navigation";
 import type { Profile, ProfileUpdate } from "@/features/profile/types";
 import { CloseAccountCard } from "./close-account-card";
 
@@ -171,7 +171,7 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
       <Card className="mt-5">
         <SectionTitle>Exam you are preparing for</SectionTitle>
         <p className="text-ink-3 -mt-2 mb-4 text-[13px]">
-          Sets the cutoffs, sectional timing and paper pattern used everywhere.
+          Sets the targets, sectional timing and paper pattern used everywhere.
         </p>
         <div className="flex flex-wrap gap-2">
           {EXAMS.map((b) => (
@@ -204,7 +204,7 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
                     : "border-line bg-canvas hover:border-line-2"
                 }`}
               >
-                {SECTION_SHORT[s]}
+                {SECTION_LABEL[s]}
               </button>
             ))}
           </div>

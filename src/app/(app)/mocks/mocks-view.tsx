@@ -1,106 +1,90 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
 import { useApp } from "@/context/AppContext";
-import { PageHeader, Segmented } from "@/design-system";
-import { SECTIONS, SECTION_SHORT } from "@/data/navigation";
+import {
+  Button,
+  OptionRow,
+  PageHeader,
+  Segmented,
+  questionVariants,
+} from "@/design-system";
+import {
+  SECTIONS,
+  SECTION_DB,
+  SECTION_LABEL,
+  type Subject,
+} from "@/data/navigation";
+import { startMockAttempt, submitAttempt } from "@/features/attempts/actions";
+import type { Mock } from "@/features/question-bank/types";
+import type { DrillQuestion } from "@/features/question-bank/types";
 
-type Mock = {
-  id: string;
-  name: string;
-  year: number;
-  stage: "Prelims" | "Mains";
-  qs: number;
-  mins: number;
-  score: number | null;
-  cutoff: number;
-};
-
-const MOCKS: Mock[] = [
-  {
-    id: "m1",
-    name: "IBPS PO",
-    year: 2024,
-    stage: "Prelims",
-    qs: 100,
-    mins: 60,
-    score: 68,
-    cutoff: 58,
-  },
-  {
-    id: "m2",
-    name: "IBPS PO",
-    year: 2023,
-    stage: "Prelims",
-    qs: 100,
-    mins: 60,
-    score: 54,
-    cutoff: 56,
-  },
-  {
-    id: "m3",
-    name: "SBI PO",
-    year: 2024,
-    stage: "Prelims",
-    qs: 100,
-    mins: 60,
-    score: null,
-    cutoff: 62,
-  },
-  {
-    id: "m4",
-    name: "SBI PO",
-    year: 2023,
-    stage: "Mains",
-    qs: 155,
-    mins: 180,
-    score: null,
-    cutoff: 74,
-  },
-  {
-    id: "m5",
-    name: "IBPS Clerk",
-    year: 2024,
-    stage: "Prelims",
-    qs: 100,
-    mins: 60,
-    score: 79,
-    cutoff: 60,
-  },
-  {
-    id: "m6",
-    name: "RBI Grade B",
-    year: 2024,
-    stage: "Prelims",
-    qs: 200,
-    mins: 120,
-    score: null,
-    cutoff: 88,
-  },
-];
+/* Mocks. Sectional timing is the thing banking aspirants actually train for —
+   each section locks when its clock runs out, and you cannot go back. */
 
 const STAGES = ["All", "Prelims", "Mains"] as const;
 
-export function MocksView() {
+type Recorded = { chosen: string | null; timeMs: number };
+type SectionGroup = { subject: Subject; qs: DrillQuestion[] };
+
+/** Only the sections the paper actually has answerable questions in — a
+ * paper thin on Computer Aptitude in the answered subset shouldn't force a
+ * zero-question section onto the exam. */
+function groupBySection(questions: DrillQuestion[]): SectionGroup[] {
+  return SECTIONS.map((subject) => ({
+    subject,
+    qs: questions.filter((q) => q.section === SECTION_DB[subject]),
+  })).filter((g) => g.qs.length > 0);
+}
+
+export function MocksView({ mocks }: { mocks: Mock[] }) {
+  const router = useRouter();
   const { board } = useApp();
   const [stage, setStage] = useState<(typeof STAGES)[number]>("All");
   const [live, setLive] = useState<Mock | null>(null);
+  const [starting, setStarting] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [questions, setQuestions] = useState<DrillQuestion[]>([]);
+  const [attemptId, setAttemptId] = useState<number | null>(null);
+  // Deadline, not a decrementing counter — a counter drifts under any main-thread block and hands back "free" time.
+  const [sectionEndsAt, setSectionEndsAt] = useState(0);
   const [left, setLeft] = useState(0);
   const [secIdx, setSecIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);
-  const [picked, setPicked] = useState<Record<number, number>>({});
+  const [dir, setDir] = useState<1 | -1>(1);
+  const [picked, setPicked] = useState<number | null>(null);
+  const [answers, setAnswers] = useState<Record<string, Recorded>>({});
+  const [qStart, setQStart] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+  const startReqIdRef = useRef(0);
 
-  const shown = MOCKS.filter((m) => stage === "All" || m.stage === stage);
+  const shown = mocks.filter((m) => stage === "All" || m.stage === stage);
+  const sections = groupBySection(questions);
+  const section = sections[secIdx];
+  const q = section?.qs[qIdx];
 
   useEffect(() => {
     if (!live) return;
-    const t = setInterval(() => setLeft((s) => Math.max(0, s - 1)), 1000);
+    const t = setInterval(() => {
+      setLeft(Math.max(0, Math.round((sectionEndsAt - Date.now()) / 1000)));
+    }, 1000);
     return () => clearInterval(t);
-  }, [live]);
+  }, [live, sectionEndsAt]);
+
+  // The clock hitting 0 locks the section; React bails a same-value update so this fires exactly once at 0.
+  useEffect(() => {
+    if (!live || left > 0) return;
+    void submitSectionOrFinish();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- submitSectionOrFinish deliberately isn't a dependency
+  }, [left, live]);
 
   useEffect(() => {
     if (!live) return;
     const onKey = (e: KeyboardEvent) => {
+      // Can't abandon mid-submit — a stale response could navigate to /results after the user already left.
+      if (submitting) return;
       if (
         e.key === "Escape" &&
         confirm("Leave the mock? Your attempt is lost.")
@@ -109,50 +93,141 @@ export function MocksView() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [live]);
+  }, [live, submitting]);
 
-  // Mirrors the real IBPS interface; without the palette the screen reads as a void.
-  if (live) {
-    const secMins = Math.round(live.mins / SECTIONS.length);
+  // Resyncs the local pick from any recorded answer and restarts the stopwatch whenever the question changes.
+  useEffect(() => {
+    if (!q) return;
+    const rec = answers[q.qId];
+    const idx = rec?.chosen
+      ? q.options.findIndex((o) => o.key === rec.chosen)
+      : -1;
+    setPicked(idx >= 0 ? idx : null);
+    setQStart(Date.now());
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on q.qId only; `answers` would reset the timer on every keystroke
+  }, [q?.qId]);
+
+  function sectionDurationSec(groupCount: number): number {
+    return Math.round((live?.mins ?? 0) / Math.max(1, groupCount)) * 60;
+  }
+
+  async function handleStart(m: Mock) {
+    const reqId = ++startReqIdRef.current;
+    setStarting(m.id);
+    setError(null);
+    const res = await startMockAttempt(m.id);
+    // A later Start click fired while this request was in flight — let it win over this stale response.
+    if (startReqIdRef.current !== reqId) return;
+    setStarting(null);
+    if (!("attemptId" in res)) {
+      setError(res.error);
+      return;
+    }
+
+    const groups = groupBySection(res.questions);
+    const durationSec = Math.round(m.mins / Math.max(1, groups.length)) * 60;
+    setQuestions(res.questions);
+    setAttemptId(res.attemptId);
+    setAnswers({});
+    setSecIdx(0);
+    setQIdx(0);
+    setSectionEndsAt(Date.now() + durationSec * 1000);
+    setLeft(durationSec);
+    setLive(m);
+  }
+
+  function record(): Record<string, Recorded> {
+    if (!q) return answers;
+    const merged = {
+      ...answers,
+      [q.qId]: {
+        chosen: picked !== null ? (q.options[picked]?.key ?? null) : null,
+        timeMs: Date.now() - qStart,
+      },
+    };
+    setAnswers(merged);
+    return merged;
+  }
+
+  function goTo(nextSecIdx: number, nextQIdx: number, direction: 1 | -1) {
+    record();
+    setDir(direction);
+    setSecIdx(nextSecIdx);
+    setQIdx(nextQIdx);
+  }
+
+  async function submitSectionOrFinish() {
+    const merged = record();
+    if (secIdx < sections.length - 1) {
+      const durationSec = sectionDurationSec(sections.length);
+      setDir(1);
+      setSecIdx(secIdx + 1);
+      setQIdx(0);
+      setSectionEndsAt(Date.now() + durationSec * 1000);
+      setLeft(durationSec);
+      return;
+    }
+    if (attemptId === null) {
+      setLive(null);
+      return;
+    }
+    setSubmitting(true);
+    setError(null);
+    const submitted = questions.map((qq) => ({
+      qId: qq.qId,
+      chosen: merged[qq.qId]?.chosen ?? null,
+      timeMs: merged[qq.qId]?.timeMs ?? null,
+    }));
+    const res = await submitAttempt(attemptId, submitted);
+    if ("ok" in res) {
+      router.push(`/results/${res.attemptId}`);
+      return;
+    }
+    setSubmitting(false);
+    setError(res.error);
+  }
+
+  // Exam conditions: the palette mirrors the real IBPS interface every aspirant already knows.
+  if (live && q && section) {
     const mm = String(Math.floor(left / 60)).padStart(2, "0");
     const ss = String(left % 60).padStart(2, "0");
     const low = left < 60;
-    const perSection = Math.round(live.qs / SECTIONS.length);
-    const answered = Object.keys(picked).length;
+    const answered = section.qs.filter((sq) => answers[sq.qId]?.chosen).length;
+    const onLastOfSection = qIdx === section.qs.length - 1;
 
     return (
-      <div className="fixed inset-0 z-100 flex flex-col bg-[#0b0b0c] text-white">
-        <header className="flex items-center gap-6 border-b border-white/10 px-8 py-4">
+      <div className="bg-canvas text-ink fixed inset-0 z-100 flex flex-col">
+        <header className="border-line flex items-center gap-6 border-b px-8 py-4">
           <span className="text-[15px]">
             {live.name} {live.year}
-            <span className="ml-2 text-white/40">{live.stage}</span>
+            <span className="text-ink-3 ml-2">{live.stage}</span>
           </span>
 
           <span className="hidden items-center gap-1.5 lg:flex">
-            {SECTIONS.map((s, i) => (
+            {sections.map((s, i) => (
               <span
-                key={s}
-                className={`rounded-pill px-2.5 py-1 text-[12.5px] ${
+                key={s.subject}
+                className={`rounded-pill px-2.5 py-1 text-[12.5px] transition-colors duration-150 ease-[var(--ease-swift)] ${
                   i === secIdx
-                    ? "bg-white text-[#0b0b0c]"
+                    ? "bg-ink text-white"
                     : i < secIdx
-                      ? "text-white/30 line-through"
-                      : "text-white/40"
+                      ? "text-ink-4 line-through"
+                      : "text-ink-3"
                 }`}
               >
-                {SECTION_SHORT[s]}
+                {SECTION_LABEL[s.subject]}
               </span>
             ))}
           </span>
 
           <span className="flex-1" />
 
-          <span className="text-[13px] text-white/40">
-            section {secIdx + 1} of {SECTIONS.length}
+          <span className="text-ink-3 text-[13px]">
+            section {secIdx + 1} of {sections.length}
           </span>
           <span
-            className={`tnum rounded-pill px-3 py-1 text-[24px] tracking-[-0.02em] ${
-              low ? "bg-bad/15 text-bad" : ""
+            className={`tnum rounded-pill px-3 py-1 text-[24px] tracking-[-0.02em] transition-colors duration-150 ease-[var(--ease-swift)] ${
+              low ? "bg-bad/15 text-bad" : "text-ink"
             }`}
           >
             {mm}:{ss}
@@ -160,95 +235,115 @@ export function MocksView() {
         </header>
 
         <div className="flex min-h-0 flex-1">
-          <div className="flex-1 overflow-y-auto px-8 py-12">
+          <div className="flex-1 overflow-y-auto px-8 py-12" data-lenis-prevent>
             <div className="mx-auto max-w-[680px]">
-              <p className="tnum text-[13px] text-white/40">
-                Question {qIdx + 1} of {perSection} ·{" "}
-                {SECTION_SHORT[SECTIONS[secIdx]]}
-              </p>
-              <p className="mt-4 text-[21px] leading-relaxed">
-                A sum of ₹12,000 amounts to ₹15,120 in 2 years at simple
-                interest. What is the rate of interest per annum?
-              </p>
+              {/* min-h so mode="wait" doesn't collapse the column to 0 in the
+                  gap between the outgoing question unmounting and the next
+                  one mounting. */}
+              <div className="relative min-h-[380px]">
+                <AnimatePresence mode="wait" custom={dir}>
+                  <motion.div
+                    key={q.qId}
+                    custom={dir}
+                    variants={questionVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                  >
+                    <p className="tnum text-ink-3 text-[13px]">
+                      Question {qIdx + 1} of {section.qs.length} ·{" "}
+                      {SECTION_LABEL[section.subject]}
+                    </p>
+                    {q.direction ? (
+                      <p className="bg-canvas text-ink-2 ring-line mt-4 rounded-[14px] p-5 text-[16px] leading-relaxed ring-1">
+                        {q.direction}
+                      </p>
+                    ) : null}
+                    <p className="mt-4 text-[21px] leading-relaxed">{q.stem}</p>
 
-              <div className="mt-8 grid gap-2.5">
-                {["11%", "12%", "13%", "14%"].map((o, i) => {
-                  const on = picked[qIdx] === i;
-                  return (
-                    <button
-                      key={o}
-                      onClick={() => setPicked({ ...picked, [qIdx]: i })}
-                      className={`flex items-center gap-3.5 rounded-[14px] border px-4 py-3.5 text-left text-[16px] transition-colors ${
-                        on
-                          ? "border-white bg-white/10"
-                          : "border-white/15 hover:border-white/35 hover:bg-white/5"
-                      }`}
-                    >
-                      <span
-                        className={`grid size-7 shrink-0 place-items-center rounded-full text-[13px] ${
-                          on ? "bg-white text-[#0b0b0c]" : "bg-white/10"
-                        }`}
-                      >
-                        {String.fromCharCode(65 + i)}
-                      </span>
-                      {o}
-                    </button>
-                  );
-                })}
+                    <div className="mt-8 grid gap-2.5">
+                      {q.options.map((o, i) => (
+                        <OptionRow
+                          key={o.key}
+                          label={o.key.toUpperCase()}
+                          selected={picked === i}
+                          onSelect={() => setPicked(i)}
+                        >
+                          {o.text}
+                        </OptionRow>
+                      ))}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
               <div className="mt-8 flex items-center gap-3">
-                <button
-                  onClick={() => setQIdx((n) => Math.max(0, n - 1))}
+                <Button
+                  variant="secondary"
+                  onClick={() => goTo(secIdx, Math.max(0, qIdx - 1), -1)}
                   disabled={qIdx === 0}
-                  className="rounded-pill h-10 border border-white/20 px-5 text-[14px] transition-colors hover:bg-white/5 disabled:opacity-30"
                 >
                   Previous
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="ghost"
                   onClick={() => {
-                    const next = { ...picked };
-                    delete next[qIdx];
-                    setPicked(next);
+                    setPicked(null);
+                    setAnswers((prev) => ({
+                      ...prev,
+                      [q.qId]: { chosen: null, timeMs: Date.now() - qStart },
+                    }));
                   }}
-                  className="rounded-pill h-10 px-4 text-[14px] text-white/50 transition-colors hover:text-white"
                 >
                   Clear
-                </button>
+                </Button>
                 <span className="flex-1" />
-                <button
+                <Button
+                  disabled={submitting}
                   onClick={() =>
-                    setQIdx((n) => Math.min(perSection - 1, n + 1))
+                    onLastOfSection
+                      ? void submitSectionOrFinish()
+                      : goTo(secIdx, qIdx + 1, 1)
                   }
-                  className="rounded-pill h-10 bg-white px-5 text-[14px] text-[#0b0b0c] transition-opacity hover:opacity-90"
                 >
-                  Save &amp; next
-                </button>
+                  {submitting
+                    ? "Scoring…"
+                    : onLastOfSection
+                      ? secIdx < sections.length - 1
+                        ? "Submit section and continue"
+                        : "Finish paper"
+                      : "Save & next"}
+                </Button>
               </div>
             </div>
           </div>
 
-          <aside className="hidden w-[268px] shrink-0 flex-col border-l border-white/10 xl:flex">
-            <div className="border-b border-white/10 px-6 py-4">
+          <aside className="border-line hidden w-[268px] shrink-0 flex-col border-l xl:flex">
+            <div className="border-line border-b px-6 py-4">
               <p className="text-[14px]">Question palette</p>
-              <p className="tnum mt-1 text-[13px] text-white/40">
-                {answered} answered · {perSection - answered} left
+              <p className="tnum text-ink-3 mt-1 text-[13px]">
+                {answered} answered · {section.qs.length - answered} left
               </p>
             </div>
-            <div className="grid flex-1 auto-rows-min grid-cols-6 gap-2 overflow-y-auto p-6">
-              {Array.from({ length: perSection }, (_, i) => {
-                const done = picked[i] !== undefined;
+            <div
+              className="grid flex-1 auto-rows-min grid-cols-6 gap-2 overflow-y-auto p-6"
+              data-lenis-prevent
+            >
+              {section.qs.map((sq, i) => {
+                const done =
+                  Boolean(answers[sq.qId]?.chosen) ||
+                  (i === qIdx && picked !== null);
                 const here = i === qIdx;
                 return (
                   <button
-                    key={i}
-                    onClick={() => setQIdx(i)}
-                    className={`tnum grid size-8 place-items-center rounded-md text-[12.5px] transition-colors ${
+                    key={sq.qId}
+                    onClick={() => goTo(secIdx, i, i > qIdx ? 1 : -1)}
+                    className={`tnum grid size-8 place-items-center rounded-md text-[12.5px] transition-colors duration-150 ease-[var(--ease-swift)] ${
                       here
-                        ? "bg-white text-[#0b0b0c]"
+                        ? "bg-ink text-white"
                         : done
-                          ? "bg-white/25 text-white"
-                          : "bg-white/[0.06] text-white/45 hover:bg-white/15"
+                          ? "bg-brand-soft text-brand"
+                          : "bg-panel text-ink-3 hover:bg-line-2"
                     }`}
                   >
                     {i + 1}
@@ -259,24 +354,22 @@ export function MocksView() {
           </aside>
         </div>
 
-        <footer className="flex items-center gap-3 border-t border-white/10 px-8 py-4">
-          <span className="text-[13px] text-white/40">Esc to leave</span>
+        <footer className="border-line flex items-center gap-3 border-t px-8 py-4">
+          <span className="text-ink-3 text-[13px]">
+            {error ?? "Esc to leave"}
+          </span>
           <span className="flex-1" />
-          <button
-            className="rounded-pill h-10 border border-white/20 px-5 text-[14px] transition-colors hover:bg-white/5"
-            onClick={() => {
-              if (secIdx < SECTIONS.length - 1) {
-                setSecIdx(secIdx + 1);
-                setLeft(secMins * 60);
-                setQIdx(0);
-                setPicked({});
-              } else setLive(null);
-            }}
+          <Button
+            variant="secondary"
+            disabled={submitting}
+            onClick={() => void submitSectionOrFinish()}
           >
-            {secIdx < SECTIONS.length - 1
-              ? "Submit section and continue"
-              : "Finish paper"}
-          </button>
+            {submitting
+              ? "Scoring…"
+              : secIdx < sections.length - 1
+                ? "Submit section and continue"
+                : "Finish paper"}
+          </Button>
         </footer>
       </div>
     );
@@ -286,16 +379,18 @@ export function MocksView() {
     <div data-companion>
       <PageHeader
         title="Mocks"
-        sub={`Full ${board} papers under real sectional timing. Each section locks when its clock ends — same as the hall.`}
+        sub={`Full ${board} papers under real sectional timing. Each section locks when its clock ends — same as the hall. Each paper's target is 55% of its questions — our benchmark, not the board's published cutoff.`}
         actions={
           <Segmented value={stage} options={STAGES} onChange={setStage} />
         }
       />
 
+      {error ? <p className="text-bad mb-4 text-[13px]">{error}</p> : null}
+
       <div className="border-line grid grid-cols-1 border-t border-l lg:grid-cols-2">
         {shown.map((m) => {
-          const cleared = m.score !== null && m.score >= m.cutoff;
-          const scale = Math.max(m.cutoff, m.score ?? 0) * 1.3;
+          const cleared = m.score !== null && m.score >= m.target;
+          const scale = Math.max(m.target, m.score ?? 0) * 1.3;
           return (
             <div
               key={m.id}
@@ -327,7 +422,7 @@ export function MocksView() {
                       : cleared
                         ? "cleared"
                         : "missed"}{" "}
-                    · cutoff {m.cutoff}
+                    · 55% target {m.target}
                   </span>
                 </div>
 
@@ -340,7 +435,7 @@ export function MocksView() {
                   ) : null}
                   <span
                     className="bg-ink-3 absolute -top-1 h-[14px] w-px"
-                    style={{ left: `${(m.cutoff / scale) * 100}%` }}
+                    style={{ left: `${(m.target / scale) * 100}%` }}
                     aria-hidden
                   />
                 </div>
@@ -351,16 +446,15 @@ export function MocksView() {
                 />
               </div>
               <button
-                className="rounded-pill bg-ink hover:bg-ink/90 h-10 shrink-0 px-5 text-[14px] font-medium text-white transition-colors"
-                onClick={() => {
-                  setLive(m);
-                  setSecIdx(0);
-                  setQIdx(0);
-                  setPicked({});
-                  setLeft(Math.round(m.mins / SECTIONS.length) * 60);
-                }}
+                disabled={starting !== null}
+                className="rounded-pill bg-ink hover:bg-ink/90 h-10 shrink-0 px-5 text-[14px] font-medium text-white transition-colors disabled:opacity-50"
+                onClick={() => void handleStart(m)}
               >
-                {m.score !== null ? "Retake" : "Start"}
+                {starting === m.id
+                  ? "Loading…"
+                  : m.score !== null
+                    ? "Retake"
+                    : "Start"}
               </button>
             </div>
           );

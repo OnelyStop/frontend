@@ -8,6 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { MotionConfig } from "motion/react";
 import { useAuth } from "@/features/auth/AuthContext";
 import {
   FEATURE_MASTERY,
@@ -41,8 +42,6 @@ type AppContextValue = {
   setSubject: (s: Subject) => void;
   setBoard: (b: ExamBoard) => void;
   markerLabel: string;
-  streak: number;
-  points: number;
   mastery: Record<string, number>;
   overallMastery: number;
   workingGrade: Band;
@@ -106,8 +105,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSubject,
       setBoard,
       markerLabel: getMarkerLabel(board),
-      streak: 12,
-      points: 1840,
       mastery: FEATURE_MASTERY,
       overallMastery,
       workingGrade: band,
@@ -121,7 +118,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
   }, [subject, board, profile, settings]);
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  // Mirrors the Settings toggle onto <html> so the CSS `.press` utility (which can't read React context) respects it.
+  useEffect(() => {
+    document.documentElement.toggleAttribute(
+      "data-reduce-motion",
+      settings.reduceMotion,
+    );
+  }, [settings.reduceMotion]);
+
+  return (
+    <AppContext.Provider value={value}>
+      <MotionConfig reducedMotion={settings.reduceMotion ? "always" : "user"}>
+        {children}
+      </MotionConfig>
+    </AppContext.Provider>
+  );
 }
 
 export function useApp() {

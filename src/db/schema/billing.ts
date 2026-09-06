@@ -2,12 +2,14 @@ import { sql } from "drizzle-orm";
 import {
   bigint,
   boolean,
+  date,
   index,
   integer,
   jsonb,
   pgEnum,
   pgPolicy,
   pgTable,
+  primaryKey,
   text,
   timestamp,
   unique,
@@ -181,6 +183,27 @@ export const entitlements = pgTable(
     unique("entitlements_user_id_key").on(t.userId),
 
     pgPolicy("signed-in users can read their own entitlement", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+  ],
+).enableRLS();
+
+// One row per user, feature and IST day: a monthly cap sums, a daily cap reads one.
+export const aiUsage = pgTable(
+  "ai_usage",
+  {
+    userId: uuid("user_id").notNull(),
+    feature: text("feature").notNull(),
+    day: date("day").notNull(),
+    calls: integer("calls").notNull().default(0),
+  },
+  (t) => [
+    primaryKey({ columns: [t.userId, t.feature, t.day] }),
+    index("ai_usage_user_day_idx").on(t.userId, t.day),
+
+    pgPolicy("signed-in users can read their own usage", {
       for: "select",
       to: authenticatedRole,
       using: sql`(select auth.uid()) = ${t.userId}`,
