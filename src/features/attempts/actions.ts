@@ -130,10 +130,7 @@ export async function submitAttempt(
       );
     const byId = new Map(questions.map((q) => [q.qId, q]));
 
-    // A question with no answer key shouldn't have been served, and (per the
-    // paper filter above) neither should one from a different paper — skip
-    // rather than fail the whole submission if one slipped through, the same
-    // as if it were never answered.
+    // A question with no answer key or from a different paper shouldn't have been served — skip it, not fail the batch.
     const graded: GradedAnswer[] = [];
     for (const a of answers) {
       const q = byId.get(a.qId);

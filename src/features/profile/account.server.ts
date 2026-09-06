@@ -9,9 +9,7 @@ import { deleteAccount } from "./mutations.server";
 
 type SubscriptionStatus = (typeof subscriptions.$inferSelect)["status"];
 
-// The states in which Razorpay still holds a mandate it can charge. `created`
-// has no mandate yet, the terminal states never charge again, and one already
-// winding down at the cycle end has no charge left either.
+// The states in which Razorpay still holds a mandate it can charge.
 const CHARGEABLE: SubscriptionStatus[] = [
   "authenticated",
   "active",
@@ -22,8 +20,7 @@ const CHARGEABLE: SubscriptionStatus[] = [
 export type CloseOutcome =
   { ok: true; deleted: boolean } | { ok: false; reason: "billing_unavailable" };
 
-// Cancels before it deletes, and stops if it cannot: a deleted account that
-// keeps being charged is worse than asking the user to try again.
+// Cancels before it deletes and stops if it cannot: a charged ghost account is worse.
 export async function closeAccount(userId: string): Promise<CloseOutcome> {
   const live = await db
     .select({ razorpaySubscriptionId: subscriptions.razorpaySubscriptionId })

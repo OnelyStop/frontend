@@ -8,12 +8,7 @@ import { attempts, bankQuestions, papers } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
 import type { Mock } from "./types";
 
-// A recall's own bank/role/year won't necessarily match its cutoff exactly,
-// and no per-paper cutoff is anywhere in the source data (the spec doc lists
-// it as "Need"). Rather than invent a number, this reuses the app's own
-// definition of "at cutoff" from CUTOFF_LADDER (55% — data/navigation.ts) as
-// a placeholder scaled to the paper's question count. Replace with a real
-// per-paper cutoff once papers.total_marks/cutoff data exists.
+// No per-paper cutoff exists in the source data — CUTOFF_LADDER's "at cutoff" pct is a placeholder scaled to question count.
 const AT_CUTOFF_PCT =
   CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 

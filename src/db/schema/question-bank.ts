@@ -21,10 +21,7 @@ import { anonRole, authenticatedRole } from "drizzle-orm/supabase";
 
 export const attemptMode = pgEnum("attempt_mode", ["bank", "mix", "paper"]);
 
-// paper_id is the source data's own natural key (stable, externally given),
-// so it's the primary key here too -- a surrogate bigint would need every
-// question row to carry a resolve-the-id lookup pass during import for no
-// benefit, since nothing joins on anything but this id anyway.
+// paper_id is the source data's own stable natural key, so it's the primary key here too.
 export const papers = pgTable(
   "papers",
   {
@@ -35,15 +32,11 @@ export const papers = pgTable(
     year: integer("year"),
     shift: text("shift"),
     memoryBased: boolean("memory_based").notNull().default(false),
-    // [bank, role, examType, year, shift].map(v => v ?? "unknown").join("|"),
-    // lowercased -- groups every recall of the same real exam sitting
-    // together so `isCanonical` has something to pick a winner within.
+    // Lowercased [bank, role, examType, year, shift].join("|") — groups every recall of the same sitting.
     examKey: text("exam_key").notNull(),
-    // The one paper of its examKey that mocks/past-papers should offer;
-    // computed at import time from active-question count, not stored intent.
+    // The one paper of its examKey that mocks/past-papers should offer, computed at import time.
     isCanonical: boolean("is_canonical").notNull().default(true),
-    // Not in the source JSON -- "Need" per the app's own spec doc. Left null
-    // rather than invented; a mock falls back to a duration heuristic.
+    // Not in the source JSON; left null rather than invented — a mock falls back to a duration heuristic.
     durationMin: integer("duration_min"),
     totalMarks: integer("total_marks"),
     sectionTiming: jsonb("section_timing"),
@@ -62,11 +55,7 @@ export const papers = pgTable(
   ],
 ).enableRLS();
 
-// direction_id (d001..d030) is only unique *within* a paper -- it's reused
-// across every paper in the corpus. The primary key is the pair, and every
-// join anywhere in this schema (see questions' foreign key below) goes
-// through both columns together. Joining on direction_id alone silently
-// merges unrelated passages from different papers into one.
+// direction_id (d001..d030) is only unique *within* a paper, so the primary key is the pair — see bankQuestions' FK.
 export const directions = pgTable(
   "directions",
   {
@@ -87,8 +76,7 @@ export const directions = pgTable(
   ],
 ).enableRLS();
 
-// Named bank_questions, not questions -- the Gazette engine's current-affairs
-// table already claims that name (src/db/schema/gazette.ts).
+// Named bank_questions, not questions — the Gazette engine's current-affairs table already claims that name.
 export const bankQuestions = pgTable(
   "bank_questions",
   {
@@ -98,12 +86,9 @@ export const bankQuestions = pgTable(
       .references(() => papers.paperId, { onDelete: "cascade" }),
     qNum: integer("q_num").notNull(),
     stem: text("stem").notNull(),
-    // Keyed a-e, not an array -- `answer` stores the matching key, so a
-    // 4-option paper and a 5-option paper need no branching anywhere reading
-    // this column.
+    // Keyed a-e, not an array — `answer` stores the matching key, so 4- and 5-option papers need no branching.
     options: jsonb("options").$type<Record<string, string>>().notNull(),
-    // Null on every row today -- pipeline step 4 (answer) has never run. The
-    // column exists so nothing here needs a migration when it does.
+    // Null on every row today — pipeline step 4 (answer) has never run; the column exists for when it does.
     answer: char("answer", { length: 1 }),
     explanation: text("explanation"),
     section: text("section"),
@@ -114,11 +99,7 @@ export const bankQuestions = pgTable(
     negativeMarks: numeric("negative_marks", { precision: 4, scale: 2 })
       .notNull()
       .default("0.25"),
-    // Computed at import time (pipeline/6-generate/generate.py::content_key,
-    // ported in import-rules.ts) until question-bank's own step 3 (dedupe)
-    // writes a real one. Indexed, not unique -- a unique constraint would
-    // silently drop the second copy of a genuinely repeated question, and a
-    // mock has to render every q_num of its paper regardless.
+    // Computed at import time (generate.py::content_key, ported in import-rules.ts); indexed, not unique.
     contentHash: text("content_hash").notNull(),
     isActive: boolean("is_active").notNull().default(true),
   },
@@ -131,8 +112,7 @@ export const bankQuestions = pgTable(
     index("bank_questions_section_topic_idx").on(t.section, t.topic),
     index("bank_questions_content_hash_idx").on(t.contentHash),
 
-    // Nullable on directionId, so the ~29% of standalone questions (no
-    // passage) skip this check entirely rather than needing a sentinel row.
+    // Nullable on directionId, so the ~29% of standalone questions skip this check without a sentinel row.
     foreignKey({
       columns: [t.paperId, t.directionId],
       foreignColumns: [directions.paperId, directions.directionId],
@@ -203,8 +183,7 @@ export const attemptAnswers = pgTable(
     unique("attempt_answers_attempt_id_q_id_key").on(t.attemptId, t.qId),
     index("attempt_answers_attempt_id_idx").on(t.attemptId),
 
-    // Ownership isn't a column here -- it's read off the parent attempt, so
-    // there is exactly one place that decides whose row this is.
+    // Ownership isn't a column here — it's read off the parent attempt, the one place that decides whose row this is.
     pgPolicy("signed-in users can read their own attempt answers", {
       for: "select",
       to: authenticatedRole,
@@ -218,9 +197,7 @@ export const attemptAnswers = pgTable(
   ],
 ).enableRLS();
 
-// Natural key, not a surrogate one -- the eventual upsert
-// ("attempted += 1, correct += correct?1:0") is one statement against one
-// row per (user, topic) rather than a select-then-branch.
+// Natural key, not a surrogate one — the upsert is one statement against one row per (user, topic).
 export const userTopicStats = pgTable(
   "user_topic_stats",
   {
@@ -232,9 +209,7 @@ export const userTopicStats = pgTable(
   },
   (t) => [
     primaryKey({ columns: [t.userId, t.topic] }),
-    // No stored `accuracy` column despite the spec listing one --
-    // correct::numeric / nullif(attempted, 0) in the query is exact and
-    // cannot drift from the two counters it's computed from.
+    // No stored `accuracy` — correct::numeric / nullif(attempted, 0) in the query can't drift from its counters.
 
     pgPolicy("signed-in users can read their own topic stats", {
       for: "select",
@@ -255,30 +230,16 @@ export const userTopicStats = pgTable(
   ],
 ).enableRLS();
 
-// Notes (knowledge base), imported from bank_exam/notes's hand-authored JSON
-// (import-notes.ts), never written by hand. One row per (section, topic,
-// subtopic) -- the source repo's own validate_notes.py already enforces that
-// uniqueness before anything here ever sees a file, so the unique constraint
-// below is a second, cheap guarantee, not the primary one -- Postgres treats
-// NULL subtopic as distinct from itself, so it would not actually catch two
-// general notes for the same topic colliding; the source's own check is what
-// really prevents that. section/topic use the same one-word vocabulary as
-// questions.section/topic (topic_taxonomy.json) -- see SECTION_DB in
-// data/navigation.ts for the mapping from a Subject's full name, same join
-// key as the question bank.
+// Notes (knowledge base) imported from bank_exam/notes's JSON, never written by hand — one row per (section, topic, subtopic).
 export const notes = pgTable(
   "notes",
   {
-    // The source's own natural key ("Section::Topic::subtopic_key"), stable
-    // across re-imports -- same reasoning as papers.paperId above.
+    // The source's own natural key ("Section::Topic::subtopic_key"), stable across re-imports.
     noteId: text("note_id").primaryKey(),
     section: text("section").notNull(),
     topic: text("topic").notNull(),
     subtopic: text("subtopic"),
-    // Curriculum order, imported one-way from bank_exam's topic_taxonomy.json (topicOrder) and
-    // each topic file's own subtopics[] array (subtopicOrder) — not user-editable, see
-    // scripts/import-notes.ts. Lets the notes list group by topic and sort subtopics in
-    // build-up order instead of alphabetically.
+    // Curriculum order imported one-way from bank_exam's topic_taxonomy.json and each topic's subtopics[] array.
     topicTitle: text("topic_title").notNull(),
     topicOrder: integer("topic_order").notNull(),
     subtopicOrder: integer("subtopic_order").notNull(),
@@ -312,9 +273,7 @@ export const notes = pgTable(
       .$type<{ problem: string; steps: string[]; answer: string }[]>()
       .notNull()
       .default([]),
-    // Points at questions.qId, not a real FK -- notes and questions import
-    // from two separate repos on two separate schedules, and a dangling
-    // reference here should never block a notes import.
+    // Points at bankQuestions.qId, not a real FK — notes and questions import on two separate schedules.
     relatedQuestionIds: jsonb("related_question_ids")
       .$type<string[]>()
       .notNull()
@@ -334,9 +293,7 @@ export const notes = pgTable(
       .default([]),
     confirmations: integer("confirmations"),
     tags: jsonb("tags").$type<string[]>().notNull().default([]),
-    // draft | reviewed | verified -- see notes/SCHEMA.md in bank_exam. Every
-    // note today is "verified"; listNotes() hides "draft" so an in-progress
-    // note can be imported without showing up half-written.
+    // draft | reviewed | verified — every note today is "verified"; listNotes() hides "draft".
     status: text("status").notNull(),
     isActive: boolean("is_active").notNull().default(true),
   },

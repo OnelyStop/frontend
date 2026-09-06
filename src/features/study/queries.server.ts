@@ -357,13 +357,10 @@ export async function createNote(
       textAfter: input.textAfter ?? null,
       bodyMarkdown: input.bodyMarkdown,
       color: input.color ?? "yellow",
-      // Private, always. Public sharing is a later phase (spec §8); the client
-      // cannot opt a note into visibility here.
+      // Private always: the client cannot opt a note into visibility (spec §8).
       visibility: "private",
       moderation: "not_required",
-      // Set explicitly (JS millisecond precision) rather than leaving it to the
-      // column default, so the value the client gets back round-trips exactly
-      // as the optimistic-concurrency token on the first edit.
+      // Millisecond precision, so the concurrency token round-trips on the first edit.
       updatedAt: new Date(),
     })
     .returning();
@@ -384,9 +381,7 @@ export async function updateNote(
 
   const where = [eq(userNotes.id, noteId), eq(userNotes.userId, userId)];
   if (patch.expectedUpdatedAt) {
-    // Compare at millisecond precision: the token round-trips through an ISO
-    // string, so a raw equality against the column's microsecond timestamp
-    // would reject every legitimate first edit.
+    // Millisecond precision: an ISO round-trip loses the column's microseconds.
     const token = new Date(patch.expectedUpdatedAt);
     if (Number.isNaN(token.getTime())) return { error: "conflict" };
     where.push(
@@ -429,8 +424,7 @@ export async function upsertProgress(
   | { progressPercent: number; completedAt: string | null }
   | { error: "topic_not_found" }
 > {
-  // A UUID-shaped ref that names no topic would otherwise reach the
-  // topic_id foreign key and surface as a 500; check first, like createNote.
+  // A UUID-shaped ref naming no topic would hit the FK and surface as a 500.
   const topic = await db.query.topics.findFirst({
     where: eq(topics.id, topicId),
     columns: { id: true },

@@ -8,8 +8,7 @@ export type Subject =
   | "General Awareness"
   | "Computer Aptitude";
 
-// `as const` so z.enum() infers the literal union rather than string[], which
-// is what lets the request validator's output satisfy the column type.
+// `as const` so z.enum() infers the literal union the column type needs.
 export const SECTIONS = [
   "Quantitative Aptitude",
   "Reasoning Ability",

@@ -6,8 +6,7 @@ import { Card, PageHeader, SectionTitle } from "@/design-system";
 import { SECTION_KEY, SECTION_LABEL, SECTIONS } from "@/data/navigation";
 import type { Profile } from "@/features/profile/types";
 
-// Sittings and sectional bests derive from attempt rows, which land with the
-// question bank. Hardcoded until then.
+// Hardcoded until attempt rows land with the question bank.
 const SITTINGS = [
   {
     paper: "IBPS PO Prelims · Mock 14",

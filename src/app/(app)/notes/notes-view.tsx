@@ -50,9 +50,7 @@ export function NotesView({ notes }: { notes: NoteSummary[] }) {
     });
   }, [notes, section, q]);
 
-  // `shown` already arrives pre-sorted by topicOrder/subtopicOrder from listNotes(), so this
-  // only needs to (a) stable-sort by canonical section index for the "All" tab, and (b)
-  // bucket consecutive same-topic rows in one pass — no re-sort of subtopics needed.
+  // `shown` is pre-sorted by topicOrder/subtopicOrder — this only stable-sorts by section, then buckets by topic.
   const grouped = useMemo(() => {
     const bySection = [...shown].sort(
       (a, b) =>

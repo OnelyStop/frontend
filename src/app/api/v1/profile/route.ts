@@ -38,9 +38,7 @@ export async function PATCH(request: Request) {
   return NextResponse.json({ profile });
 }
 
-// On 200 the session cookie names a user that no longer exists; the client
-// signs out rather than this handler, so the browser client's own state goes
-// with it.
+// On 200 the cookie names a deleted user; the client signs out to clear its state.
 export async function DELETE(request: Request) {
   const user = await currentUser();
   if (!user) return unauthorized();

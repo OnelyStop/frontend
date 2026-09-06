@@ -50,8 +50,7 @@ const SECTION_DOT: Record<string, string> = {
   English: "bg-[#e0a33a]",
 };
 
-// Greys are local to the illustration on purpose: it is a picture of an app,
-// not app chrome, so it must not track the design system's surfaces.
+// Local greys on purpose: a picture of an app must not track the design system.
 const RAIL = "bg-[#fbfbfa]";
 const LINE = "border-[rgb(10_10_11/0.08)]";
 const SOFT = "text-[#5f5f68]";
@@ -71,20 +70,20 @@ export function AppWindow() {
     >
       <div
         className={cn(
-          "flex h-[38px] items-center gap-[7px] border-b px-3.5",
+          "flex h-9.5 items-center gap-1.75 border-b px-3.5",
           RAIL,
           LINE,
         )}
       >
-        <span className="rounded-pill size-[11px] bg-[#ff5f57]" />
-        <span className="rounded-pill size-[11px] bg-[#febc2e]" />
-        <span className="rounded-pill size-[11px] bg-[#28c840]" />
+        <span className="rounded-pill size-2.75 bg-[#ff5f57]" />
+        <span className="rounded-pill size-2.75 bg-[#febc2e]" />
+        <span className="rounded-pill size-2.75 bg-[#28c840]" />
         <span className={cn("mx-auto text-[11px]", MUTE)}>
           Attempt map · Mock 14 · IBPS PO Prelims
         </span>
       </div>
 
-      <div className="grid min-h-[460px] lg:grid-cols-[168px_minmax(0,1fr)] xl:grid-cols-[192px_minmax(0,1fr)_232px]">
+      <div className="grid min-h-115 lg:grid-cols-[168px_minmax(0,1fr)] xl:grid-cols-[192px_minmax(0,1fr)_232px]">
         <aside
           className={cn(
             "hidden content-start gap-px border-r px-2.5 py-3 lg:grid",
@@ -93,7 +92,7 @@ export function AppWindow() {
           )}
         >
           <div className="flex items-center gap-2 px-2 pt-1 pb-3 text-[12px] font-semibold">
-            <span className="size-[18px] rounded-[5px] bg-[#16161a]" />
+            <span className="size-4.5 rounded-[5px] bg-[#16161a]" />
             Aarav · IBPS PO 2026
           </div>
           {NAV_MAIN.map(([label, count], i) => (
@@ -143,7 +142,7 @@ export function AppWindow() {
           <div className="flex items-baseline gap-2.5">
             <span
               className={cn(
-                "rounded-pill shrink-0 bg-[#ececea] px-[7px] py-0.5 text-[10px] font-semibold",
+                "rounded-pill shrink-0 bg-[#ececea] px-1.75 py-0.5 text-[10px] font-semibold",
                 SOFT,
               )}
             >
@@ -206,7 +205,7 @@ export function AppWindow() {
           className={cn("hidden border-l px-4 py-4.5 xl:block", RAIL, LINE)}
         >
           <p className={cn("mb-2 text-[11px]", MUTE)}>This mock</p>
-          <div className="flex items-baseline gap-[5px]">
+          <div className="flex items-baseline gap-1.25">
             <span className="text-brand text-[34px] leading-none font-semibold tracking-[-0.03em]">
               43.0
             </span>

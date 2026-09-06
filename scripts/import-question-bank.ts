@@ -33,9 +33,7 @@ import {
 
 const DATA_DIR = process.env.QUESTION_BANK_DATA_DIR ?? "../question-bank/data";
 
-// Reports and metadata living next to the papers, not papers themselves --
-// mirrors pipeline/lib/corpus.py's SKIP_JSON, plus load_paper's own
-// paper_id+questions presence check as the real gate below.
+// Reports and metadata living next to the papers, not papers themselves -- mirrors pipeline/lib/corpus.py's SKIP_JSON.
 const SKIP_FILES = new Set([
   "index.json",
   "gap_report.json",
@@ -104,8 +102,7 @@ function computeCanonical(
   return canonical;
 }
 
-// postgres.js's bound-parameter cap (65,535) divided generously across
-// `questions`' 15 columns.
+// postgres.js's bound-parameter cap (65,535) divided generously across `questions`' 15 columns.
 const CHUNK = 500;
 function chunk<T>(rows: T[], size: number): T[][] {
   const out: T[][] = [];
@@ -232,12 +229,7 @@ async function main() {
       const resolvedDirectionIds = new Set(dirRows.map((d) => d.directionId));
 
       const qRows = paper.questions.map((q) => {
-        // A question can carry a direction_id with no direction_text anywhere
-        // in the paper (a real, rare extraction gap — confirmed: 1 of 15,399
-        // questions in the current bank). questions' FK into directions is on
-        // the (paper_id, direction_id) pair, so importing that id unresolved
-        // would violate it. Treat the question as standalone instead of
-        // failing the whole paper's import over one missing passage.
+        // A rare extraction gap (1 of 15,399) leaves a direction_id with no matching direction_text — import as standalone rather than fail the FK.
         let directionId = q.direction_id ?? null;
         if (directionId && !resolvedDirectionIds.has(directionId)) {
           console.warn(

@@ -33,9 +33,7 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-// Both must be in the Supabase project's redirect allow-list; a URL that is
-// not listed silently falls back to Site URL and the flow lands on the wrong
-// page.
+// Both must be in Supabase's redirect allow-list, or it silently uses Site URL.
 const at = (path: string) =>
   typeof window !== "undefined" ? `${window.location.origin}${path}` : "";
 const AUTH_CALLBACK_URL = at("/auth/callback");
@@ -84,8 +82,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           },
         });
         if (error) return { error: error.message };
-        // Supabase returns a user without a session when email confirmation
-        // is on, which is the default for new projects
+        // Supabase returns a user with no session when email confirmation is on.
         return { error: null, needsConfirmation: !data.session };
       },
 

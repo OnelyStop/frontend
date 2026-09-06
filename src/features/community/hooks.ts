@@ -45,8 +45,7 @@ export function useToggleStuck(filters: Filters) {
       ),
 
     onMutate: async ({ id, stuck }) => {
-      // Without this an in-flight refetch can land after the optimistic write
-      // and put the old count back.
+      // An in-flight refetch would land after the optimistic write and undo it.
       await qc.cancelQueries({ queryKey: key });
       const previous = qc.getQueryData<Feed>(key);
 
@@ -77,8 +76,7 @@ export function useToggleStuck(filters: Filters) {
       if (ctx?.previous) qc.setQueryData(key, ctx.previous);
     },
 
-    // Not invalidated on success: the feed is ordered by stuck count, so a
-    // refetch would reshuffle the list under the cursor the user just clicked.
+    // Not invalidated: a refetch would reshuffle the feed under the user's cursor.
   });
 }
 

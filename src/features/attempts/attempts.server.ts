@@ -26,12 +26,9 @@ import type { Scorecard, ScoredQuestion, TopicTheory } from "./types";
 const AT_CUTOFF_PCT =
   CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 
-// How many topics "Revise these topics" leads with. Each card carries a
-// summary plus two theory blocks (~150-300 words measured against the real
-// corpus) — three is already a lot of reading right after finishing a paper.
+// How many topics "Revise these topics" leads with — each card is already ~150-300 words of reading.
 const REVISE_TOPIC_COUNT = 3;
-// Each block shows a couple of entries, not the note's whole list — tricks
-// run 3-7 per note in practice, common mistakes 2-4.
+// A couple of entries per block, not the note's whole list (tricks run 3-7 per note, mistakes 2-4).
 const TRICKS_SHOWN = 2;
 const MISTAKES_SHOWN = 2;
 
@@ -100,10 +97,7 @@ export async function getScorecard(
     .orderBy(attemptAnswers.id);
   if (rows.length === 0) return null;
 
-  // A row with no `answer` shouldn't reach an attempt at all (the sets this
-  // feature builds only ever pull answerable questions), but a paper answered
-  // before a re-import removed one is a real, if rare, case — skip rather
-  // than crash on a null `answer`.
+  // A null `answer` shouldn't reach an attempt, but a re-import removing one after the fact is a real, rare case.
   const answerable = rows.filter(
     (r): r is typeof r & { answer: string } => r.answer !== null,
   );
@@ -167,12 +161,7 @@ export async function getScorecard(
     if (paper) {
       paperName =
         `${paper.bank ?? "Unknown"} ${paper.role ?? ""} ${paper.year ?? ""}`.trim();
-      // Question-count basis, matching papers.server.ts's Mock.cutoff — the
-      // number the user already saw on the /mocks list before starting.
-      // Scaling against maxScore (sum of marks) instead would only agree
-      // with it when every question is worth exactly 1 mark, and silently
-      // diverge — "cleared" on one screen, "missed" on the other — the
-      // moment a paper mixes question values.
+      // Question-count basis, matching papers.server.ts's Mock.cutoff — scaling by maxScore would diverge on mixed-mark papers.
       cutoff = Math.round(graded.length * AT_CUTOFF_PCT);
     }
   }
@@ -195,9 +184,7 @@ export async function getScorecard(
     marksLost: t.marksLost,
   }));
 
-  // Worst topics by marks actually lost, capped, and only ones with theory to
-  // show — a topic with no note (~13% of questions have no classification at
-  // all) has nothing to revise, so it's silently absent rather than a broken card.
+  // Worst topics by marks lost, capped — a topic with no note (~13% have none) is silently absent, never a broken card.
   const theory: TopicTheory[] = topicResults
     .filter((t) => t.marksLost > 0)
     .sort((a, b) => b.marksLost - a.marksLost)

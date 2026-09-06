@@ -3,8 +3,7 @@ import type { Currency } from "./money";
 
 export const DEFAULT_CURRENCY: Currency = "INR";
 
-// An allowlist rather than a suffix test: `Host` arrives from the request, so a
-// caller naming any host could otherwise pick the cheaper of the two prices.
+// An allowlist, not a suffix test: `Host` arrives from the request.
 const HOSTS: Record<string, Currency> = {
   "onelystop.in": "INR",
   "www.onelystop.in": "INR",
@@ -18,8 +17,7 @@ export function currencyForHost(host: string | null | undefined): Currency {
   return HOSTS[name] ?? DEFAULT_CURRENCY;
 }
 
-// SITE_CURRENCY must never become NEXT_PUBLIC_: a currency the client can read
-// is a currency someone will try to send back.
+// Never NEXT_PUBLIC_: a currency the client can read is one it will send back.
 export async function requestCurrency(): Promise<Currency> {
   const pinned = process.env.SITE_CURRENCY;
   if (pinned === "INR" || pinned === "USD") return pinned;

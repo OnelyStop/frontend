@@ -19,8 +19,7 @@ const bad = (status: number) => new Response("no", { status });
 
 let calls: RequestInit[];
 
-// A fresh Response per call: a body reads once, and sharing one across retries
-// fails in a way real fetch never would.
+// A fresh Response per call: a body reads once, and a shared one fails oddly.
 function stubFetch(make: (call: number) => Response) {
   let n = 0;
   const f = vi.fn(async (_u: RequestInfo | URL, init?: RequestInit) => {
@@ -37,6 +36,8 @@ const modelsAsked = () => calls.map((c) => JSON.parse(c.body as string).model);
 beforeEach(() => {
   calls = [];
   vi.stubEnv("OPENROUTER_API_KEY", "test-key");
+  // The logging cases read these lines back, so opt out of lib/log's test silence.
+  vi.stubEnv("LOG_IN_TESTS", "1");
   vi.spyOn(console, "log").mockImplementation(() => {});
   vi.spyOn(console, "warn").mockImplementation(() => {});
   vi.spyOn(console, "error").mockImplementation(() => {});
@@ -183,8 +184,7 @@ describe("failure handling", () => {
     expect(f).toHaveBeenCalledTimes(2);
   });
 
-  // 408 was classified as bad_request and failed instantly, despite being
-  // listed as retryable.
+  // 408 was classified as bad_request and failed instantly despite being retryable.
   it("retries a 408 rather than failing instantly", async () => {
     const f = stubFetch((n) => (n === 1 ? bad(408) : ok()));
     const r = await openrouter.ask({ prompt: "hi" });
@@ -208,8 +208,7 @@ describe("failure handling", () => {
 });
 
 describe("fallback", () => {
-  // AI_MODEL_FALLBACK was dead config: nothing read it unless the caller also
-  // passed fallbackModel.
+  // AI_MODEL_FALLBACK was dead config unless the caller also passed fallbackModel.
   it("uses the configured fallback without being asked", async () => {
     stubFetch((n) => (n <= config.maxAttempts ? bad(503) : ok()));
     await openrouter.ask({ prompt: "hi" });
@@ -268,8 +267,7 @@ describe("logging", () => {
     expect(typeof entry.ms).toBe("number");
   });
 
-  // An operations log, not a transcript. A student's question and the tutor's
-  // reply have no reason to sit in Vercel's log view.
+  // An operations log, not a transcript: no student question belongs in Vercel's logs.
   it("never writes the prompt, the history or the answer", async () => {
     stubFetch(() => ok());
     await openrouter.ask({
@@ -330,8 +328,7 @@ describe("per-feature instances", () => {
     expect(sent().max_tokens).toBe(config.maxTokens);
   });
 
-  // The whole reason this is a class: two features configured differently, at
-  // the same time, without either seeing the other's settings.
+  // Why this is a class: two features configured differently at the same time.
   it("keeps two features' settings apart", async () => {
     stubFetch(() => ok());
     const tutor = new OpenRouterClient({
@@ -397,8 +394,7 @@ describe("retry-after", () => {
     const client = new OpenRouterClient({ maxAttempts: 2 });
     const started = Date.now();
     await client.ask({ prompt: "hi" });
-    // Our own backoff for attempt 1 tops out at 250ms, so this can only pass
-    // if the header won.
+    // Our backoff for attempt 1 tops out at 250ms, so this passes only if the header won.
     expect(Date.now() - started).toBeGreaterThanOrEqual(350);
   });
 
@@ -415,8 +411,7 @@ describe("retry-after", () => {
 });
 
 describe("an unexpected throw", () => {
-  // A malformed body makes response.json() throw a SyntaxError, which is not an
-  // AiError. It must not be retried, and the log must keep its message.
+  // A SyntaxError from response.json() is not an AiError: no retry, keep the message.
   it("is not retried, and is logged with its detail rather than kind: undefined", async () => {
     const f = stubFetch(() => new Response("not json at all", { status: 200 }));
     await expect(openrouter.ask({ prompt: "hi" })).rejects.toBeInstanceOf(
@@ -456,8 +451,7 @@ const logged = () =>
   ].map(([l]) => JSON.parse(l as string));
 
 describe("the total deadline is a real ceiling", () => {
-  // A 60s Retry-After against a 200ms budget previously slept the full 60s:
-  // the sleep was never clamped, so the deadline bounded nothing.
+  // An unclamped Retry-After slept the full 60s and the deadline bounded nothing.
   it("does not sleep past the deadline on a large Retry-After", async () => {
     stubFetch((n) => (n === 1 ? badWith(429, { "retry-after": "2" }) : ok()));
     const client = new OpenRouterClient({
@@ -465,14 +459,12 @@ describe("the total deadline is a real ceiling", () => {
       maxAttempts: 2,
     });
     const started = Date.now();
-    // Whether the second attempt fits inside the remaining budget is a race, so
-    // the outcome is not the assertion -- the elapsed time is.
+    // The second attempt fitting the budget is a race; the elapsed time is the assertion.
     await client.ask({ prompt: "hi" }).catch(() => undefined);
     expect(Date.now() - started).toBeLessThan(1_000);
   });
 
-  // Entering the fallback with no time left throws a synthetic "deadline
-  // exceeded" that replaced the real reason the primary failed.
+  // A fallback entered with no time left replaced the primary's real failure.
   it("keeps the real failure instead of a synthetic timeout", async () => {
     slow(200, () => bad(429));
     const client = new OpenRouterClient({
@@ -489,8 +481,7 @@ describe("the total deadline is a real ceiling", () => {
 });
 
 describe("cost reporting", () => {
-  // OpenRouter sends cost on every response. An absent one silently reads as a
-  // free call, and a spend cap built on it would be counting zeroes.
+  // An absent cost reads as a free call, and a spend cap would count zeroes.
   it("says so when the provider reports no cost", async () => {
     stubFetch(() => ok({ usage: { prompt_tokens: 10, completion_tokens: 4 } }));
     const answer = await openrouter.ask({ prompt: "hi" });

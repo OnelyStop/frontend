@@ -5,8 +5,7 @@ import { COMPANION_SYSTEM, companionUserPrompt } from "@/lib/prompts/companion";
 import { currentUserId } from "@/lib/auth.server";
 import { rateLimit } from "@/lib/rate-limit";
 
-// Caps double as cost control: the endpoint spends real money per call, so
-// nothing client-supplied is passed through unbounded.
+// Cost control: the endpoint spends real money, so nothing client-supplied is unbounded.
 const MAX_SELECTION = 4000;
 const MAX_QUESTION = 1000;
 const MAX_HISTORY_TURNS = 12;

@@ -17,8 +17,7 @@ export async function createClient() {
               cookieStore.set(name, value, options),
             );
           } catch {
-            // Server components can't set cookies; proxy.ts refreshes the
-            // session instead, so this is safe to swallow
+            // Server components can't set cookies; proxy.ts refreshes the session.
           }
         },
       },

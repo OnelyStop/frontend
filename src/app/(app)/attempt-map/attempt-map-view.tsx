@@ -13,9 +13,7 @@ import {
   type Subject,
 } from "@/data/navigation";
 
-// Everything here ranks by marks per minute: expected marks after negative
-// marking, divided by the time the topic costs. A 95-second puzzle at 66% earns
-// less per minute than a 22-second simplification at 92%.
+// Ranks by marks per minute: expected marks after negatives, over time spent.
 
 type Topic = {
   id: string;
@@ -26,8 +24,7 @@ type Topic = {
   sec: number; // average seconds per question
 };
 
-// Prelims pace is ~45s a question. Slower than this and a topic costs more
-// than it returns, however accurate you are.
+// Slower than the ~45s prelims pace and a topic costs more than it returns.
 const PACE = 45;
 const ACC_LINE = 0.7;
 const MAX_SEC = 110;

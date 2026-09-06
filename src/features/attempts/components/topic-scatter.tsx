@@ -4,10 +4,7 @@ import { useState } from "react";
 import { Card, SectionTitle } from "@/design-system";
 import type { Scorecard } from "../types";
 
-// Same coordinate mappers as /attempt-map (attempt-map-view.tsx), reused
-// deliberately — this chart is meant to feed the same mental model, not a
-// new one, so a topic plotted here should land where the reader already
-// expects it to from the main attempt map.
+// Same coordinate mappers as /attempt-map, reused deliberately so a topic lands where the reader already expects it.
 const PAD = 7;
 const MAX_SEC = 90;
 const x = (sec: number) => PAD + Math.min(1, sec / MAX_SEC) * (100 - PAD * 2);
@@ -15,9 +12,7 @@ const y = (acc: number) => PAD + (acc / 100) * (100 - PAD * 2);
 const X_TICKS = [0, 30, 60, 90];
 const Y_TICKS = [0, 25, 50, 75, 100];
 
-// A tooltip centered on its dot clips against the plot's own overflow-hidden
-// edge once the dot is close enough to the left/right boundary — anchor to
-// the dot's own edge instead of centering, past this threshold.
+// Past this threshold a centered tooltip clips the plot's overflow-hidden edge — anchor to the dot's edge instead.
 const EDGE_PCT = 20;
 
 /** One dot per topic touched in this attempt. Colour still isn't section

@@ -48,11 +48,7 @@ export type RawPaper = {
 
 const MIN_OPTIONS = 4;
 
-// NFKC settles composed/decomposed variants (the superscript "2" against a
-// plain "2") before whitespace collapses and casing folds — same order as
-// Python's `unicodedata.normalize("NFKC", s)` in `_norm`. Digits are never
-// touched: 37% of near-duplicate pairs in this corpus differ only in their
-// numbers, so anything fuzzier on digits merges two different questions.
+// NFKC settles composed/decomposed variants before whitespace/casing fold; digits are never touched — 37% of near-duplicates differ only there.
 function norm(s: string | null | undefined): string {
   return (s ?? "").normalize("NFKC").replace(/\s+/g, " ").trim().toLowerCase();
 }

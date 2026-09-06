@@ -43,9 +43,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
   const startReqIdRef = useRef(0);
 
   const mins = Math.round((len * 45) / 60);
-  // "Weak topics"/"Speed"/"Mixed" don't change the pool yet — none of them
-  // have attempt data to aim at (see attempts/user_topic_stats in
-  // src/db/schema.ts: created, but nothing writes them until scoring lands).
+  // "Weak topics"/"Speed"/"Mixed" don't change the pool yet — nothing writes user_topic_stats until scoring lands.
   const set = pool
     .filter((q) => q.section === SECTION_DB[section])
     .slice(0, len);
@@ -60,21 +58,15 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
     setError(null);
     setQStart(Date.now());
     setRunning(true);
-    // Grading needs a row to attach answers to. If this fails (signed out,
-    // offline), the drill still runs locally — finishing just can't be
-    // scored or saved, the same experience this page always had.
+    // Grading needs a row to attach answers to; if this fails, the drill still runs locally, just unscored.
     const res = await startAttempt("bank", null);
-    // Ending this drill and starting another before this resolved would
-    // otherwise let this stale response overwrite the new session's id.
+    // A later start() call before this resolved should win, not this stale response.
     if (startReqIdRef.current !== reqId) return;
     if ("attemptId" in res) setAttemptId(res.attemptId);
     else setError(res.error);
   }
 
-  // Folds the current pick into the answers map and either steps to the next
-  // question or, on the last one, submits everything gathered so far. A
-  // local `merged` value (not the `answers` state, which won't have this
-  // update applied until the next render) is what both branches act on.
+  // Folds the pick into a local `merged` value (not `answers`, stale until next render) that both branches act on.
   function recordAndProceed(action: "advance" | "finish") {
     if (!q) return;
     const merged: Record<string, Recorded> = {

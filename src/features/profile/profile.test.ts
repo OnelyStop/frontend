@@ -127,8 +127,7 @@ describe("deleteAccount", () => {
       userId,
       email,
     ]);
-    // The signup trigger from 0002 makes the profile; the upsert covers a
-    // database where it has not fired.
+    // The 0002 signup trigger makes the profile; this covers a DB where it has not.
     await db
       .insert(schema.profiles)
       .values({ id: userId })

@@ -15,9 +15,7 @@ const fuse = new Fuse(TARGETS, {
 
 const byId = new Map(TARGETS.map((t) => [t.id, t]));
 
-// Fuse scores one string at a time, so "p1 2023" would miss a haystack written
-// "2023 p1". Searching per token and summing makes word order irrelevant while
-// keeping the typo tolerance, which is the half students actually need.
+// Fuse scores whole strings, so "p1 2023" misses "2023 p1"; search per token instead.
 function searchToken(token: string): Map<string, number> {
   const out = new Map<string, number>();
 

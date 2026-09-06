@@ -18,8 +18,7 @@ import { rateLimit } from "@/lib/rate-limit";
 const fail = (error: string, status: number) =>
   NextResponse.json({ error }, { status });
 
-// The browser's claim grants nothing. A good signature earns one read of
-// Razorpay's own record, applied through the same guarded path as the webhook.
+// The browser's claim grants nothing; a good signature earns one read of Razorpay.
 export async function POST(request: Request) {
   const userId = await currentUserId();
   if (!userId) return fail("unauthorized", 401);

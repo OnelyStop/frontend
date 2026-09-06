@@ -107,6 +107,18 @@ default PKCE callback:
 with `type` set to `recovery`, `magiclink` or `invite` in the other templates.
 `/auth/callback` stays for Google sign-in.
 
+## Monitoring
+
+Both of these are off until someone turns them on.
+
+`NEXT_PUBLIC_SENTRY_DSN` enables error reporting; without it the SDK sends
+nothing. `SENTRY_ORG`, `SENTRY_PROJECT` and `SENTRY_AUTH_TOKEN` add source maps.
+
+`GET /api/v1/health` returns 503 when the current-affairs generator has not
+finished a run in 48 hours, or when the last two runs published nothing. It is
+unauthenticated because a monitor cannot hold a secret. Point one at it on a
+5-minute interval and alert on the status code — nothing polls it today.
+
 ## Feature routes
 
 | Route                                  | Feature                                              |

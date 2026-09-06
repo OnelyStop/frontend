@@ -3,7 +3,7 @@ import { unstable_cache } from "next/cache";
 import { desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { currentAffairsQuestions } from "@/db/schema";
-import { todayIst } from "@/lib/gazette/day";
+import { todayIst } from "@/features/current-affairs/day";
 import type { CurrentAffairsQuestion, OptionKey } from "./types";
 
 const LIMIT = 50;
@@ -27,8 +27,7 @@ async function query(day: string): Promise<CurrentAffairsQuestion[]> {
   }));
 }
 
-// A day's set only changes while the evening run is writing it, so today is
-// re-read every five minutes and any earlier day once a day.
+// A day's set only changes during the evening run, hence the two cache lives.
 const cachedToday = unstable_cache(query, ["current-affairs", "today"], {
   revalidate: 300,
 });

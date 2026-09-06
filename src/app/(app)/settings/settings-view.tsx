@@ -28,8 +28,7 @@ function toDraft(profile: Profile | null): Draft {
   };
 }
 
-// An empty box means "no value", not the empty string: the column is nullable
-// and a blank school should clear it rather than store "".
+// The column is nullable: a blank box should clear it, not store "".
 const orNull = (v: string) => (v.trim() === "" ? null : v.trim());
 
 function toPatch(d: Draft): ProfileUpdate {
@@ -101,8 +100,7 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
         return;
       }
       setState("saved");
-      // The header and every page read the profile on the server, so they only
-      // pick up the new exam board once the route re-renders.
+      // The profile is read on the server, so the change shows only after a re-render.
       router.refresh();
       window.setTimeout(() => setState("idle"), 2000);
     } catch {

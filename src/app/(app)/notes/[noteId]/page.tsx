@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import { getNote } from "@/features/notes/notes.server";
 import { NoteDetailView } from "./note-detail-view";
 
-// Same reasoning as mocks/page.tsx — force-dynamic defers the query to
-// request time so a build never depends on live schema/migration state.
+// Same reasoning as mocks/page.tsx — force-dynamic defers the query to request time.
 export const dynamic = "force-dynamic";
 
 type Params = { params: Promise<{ noteId: string }> };

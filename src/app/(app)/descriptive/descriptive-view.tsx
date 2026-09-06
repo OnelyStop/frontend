@@ -144,8 +144,7 @@ export function DescriptiveView() {
     [draft, task],
   );
 
-  // Length is scored as a band, not a hard cut: examiners tolerate a small
-  // overshoot far better than a short answer.
+  // A band, not a hard cut: examiners tolerate overshoot better than a short answer.
   const lengthBand =
     words === 0
       ? "empty"

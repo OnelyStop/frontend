@@ -7,8 +7,7 @@ import { useApp } from "@/context/AppContext";
 
 const SCROLL_DURATION = 1.4;
 
-// Exponential ease-out: moves immediately on input, then settles. A linear or
-// symmetric curve at this duration is what reads as floaty.
+// Exponential ease-out: a linear curve at this duration is what reads as floaty.
 const SCROLL_EASING = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
 // Renders nothing — keeps the root layout a server component.

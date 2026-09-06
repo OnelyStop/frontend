@@ -16,8 +16,7 @@ export async function listDoubts(query: DoubtQuery): Promise<DoubtPage> {
   const cursor = query.cursor ? decodeCursor(query.cursor) : null;
   const byStuck = query.sort === "stuck";
 
-  // Keyset, not OFFSET: with a feed that reorders as people mark themselves
-  // stuck, OFFSET skips and repeats rows between pages.
+  // Keyset, not OFFSET: this feed reorders, and OFFSET would skip and repeat rows.
   const keyset = byStuck
     ? sql`(${doubts.stuckCount}, ${doubts.id}) < (${Number(cursor?.value)}, ${cursor?.id}::uuid)`
     : sql`(${doubts.createdAt}, ${doubts.id}) < (${cursor?.value}::timestamptz, ${cursor?.id}::uuid)`;

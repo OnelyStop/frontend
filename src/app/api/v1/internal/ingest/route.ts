@@ -1,7 +1,7 @@
-import { isAuthorizedCron } from "@/lib/gazette/auth";
-import { json } from "@/lib/gazette/http";
-import { captureError } from "@/lib/gazette/log";
-import { runIngest } from "@/lib/gazette/pipeline/ingest";
+import { isAuthorizedCron } from "@/lib/cron";
+import { json } from "@/lib/api";
+import { captureError } from "@/lib/observability.server";
+import { runIngest } from "@/features/current-affairs/pipeline/ingest";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;

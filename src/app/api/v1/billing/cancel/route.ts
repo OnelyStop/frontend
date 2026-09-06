@@ -38,8 +38,7 @@ export async function POST() {
 
   try {
     const sub = await cancelSubscription(row.razorpaySubscriptionId);
-    // Razorpay keeps the mandate `active` until the cycle ends; the local
-    // timestamp is what tells the UI it is winding down.
+    // Razorpay keeps the mandate `active` to the cycle end; this timestamp is the cue.
     await db
       .update(subscriptions)
       .set({ cancelledAt: new Date() })

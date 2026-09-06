@@ -27,11 +27,7 @@ export function ScoreTimeline({ scorecard }: { scorecard: Scorecard }) {
   const finalScore = points[points.length - 1]!.cumulativeScore;
   const hovered = hoverIdx !== null ? points[hoverIdx] : null;
 
-  // Each point's hit target spans to the midpoint with its neighbors (edge
-  // points extend to the chart boundary) rather than a fixed W/N width at
-  // its own position — a fixed width only tiles the chart with no gaps when
-  // N is large; for N<=12 (any normal drill length) it leaves dead zones
-  // between points with no hover response at all.
+  // Hit targets span to each neighbor's midpoint, not a fixed W/N width — a fixed width leaves dead zones for N<=12.
   const boundaries = [
     PAD,
     ...points.slice(1).map((_, i) => (xOf(i) + xOf(i + 1)) / 2),

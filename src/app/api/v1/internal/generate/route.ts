@@ -1,8 +1,8 @@
-import { isAuthorizedCron } from "@/lib/gazette/auth";
-import { DAY_RE } from "@/lib/gazette/day";
-import { json } from "@/lib/gazette/http";
-import { captureError } from "@/lib/gazette/log";
-import { runGenerate } from "@/lib/gazette/pipeline/generate";
+import { isAuthorizedCron } from "@/lib/cron";
+import { DAY_RE } from "@/features/current-affairs/day";
+import { json } from "@/lib/api";
+import { captureError } from "@/lib/observability.server";
+import { runGenerate } from "@/features/current-affairs/pipeline/generate";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;

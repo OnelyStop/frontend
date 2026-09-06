@@ -21,8 +21,7 @@ const PERMISSIONS: Record<AppRole, AppPermission[]> = {
   editor: ["questions.create", "questions.update"],
 };
 
-// Reads user_roles directly rather than a JWT claim, so there is no auth hook
-// to configure. RLS resolves the role inside Postgres regardless.
+// Reads user_roles directly, not a JWT claim, so there is no auth hook to configure.
 export async function getRole(): Promise<AppRole | null> {
   const supabase = await createClient();
 
@@ -48,8 +47,7 @@ export async function hasPermission(p: AppPermission): Promise<boolean> {
   return role ? PERMISSIONS[role].includes(p) : false;
 }
 
-// Call at the top of every admin page and server action: a server action never
-// passes through the proxy, and RLS is what actually protects the data.
+// Call in every admin page and server action: a server action skips the proxy.
 export async function requireRole(role: AppRole) {
   const actual = await getRole();
   if (actual !== role) redirect("/home");

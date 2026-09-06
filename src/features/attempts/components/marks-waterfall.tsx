@@ -9,14 +9,7 @@ import type { Scorecard } from "../types";
  * ok↔bad pair (CVD ΔE 7.2, legal only with secondary encoding) is never the
  * sole signal. */
 export function MarksWaterfall({ scorecard }: { scorecard: Scorecard }) {
-  // Computed straight from each question's own marks/negativeMarks, not an
-  // assumed-uniform value — a mixed-marks paper (a real possibility; marks
-  // isn't constrained to 1 in the schema) would otherwise mis-attribute the
-  // remainder. "Wrong" and "blank" are kept as two separate bars: a wrong
-  // answer forfeits its own mark AND pays the negative-marking penalty,
-  // while a blank only forfeits its mark — collapsing them into one
-  // "left on the table" bar mislabelled 20 wrong answers as 20 blanks in
-  // testing.
+  // Per-question marks/negativeMarks, not an assumed-uniform value — wrong and blank are separate bars (wrong also pays the penalty).
   let foregoneWrong = 0;
   let lostToNegative = 0;
   let foregoneBlank = 0;
@@ -37,9 +30,7 @@ export function MarksWaterfall({ scorecard }: { scorecard: Scorecard }) {
     {
       label: "You scored",
       value: scorecard.score,
-      // Negative marking can genuinely push this below zero (scoring.ts
-      // deliberately never clamps it) — a solid green bar for a negative
-      // outcome reads as "good" regardless of the sign in the number beside it.
+      // A negative score (scoring.ts never clamps it) must not render as a solid green "good" bar.
       tone: scorecard.score >= 0 ? ("ok" as const) : ("bad" as const),
     },
     {

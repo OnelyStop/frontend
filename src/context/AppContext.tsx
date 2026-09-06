@@ -122,9 +122,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
   }, [subject, board, profile, settings]);
 
-  // Mirror the Settings toggle onto <html> so the CSS `.press` utility (which
-  // can't read React context) also respects it. `motion`'s own
-  // reducedMotion="user" already covers the OS-level preference on its own.
+  // Mirrors the Settings toggle onto <html> so the CSS `.press` utility (which can't read React context) respects it.
   useEffect(() => {
     document.documentElement.toggleAttribute(
       "data-reduce-motion",

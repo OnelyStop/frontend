@@ -21,10 +21,7 @@ import type { ScoredQuestion } from "../types";
 const FILTERS = ["All", "Wrong", "Skipped", "Slow"] as const;
 type Filter = (typeof FILTERS)[number];
 
-// A question past this pace is "slow" for this review, independent of
-// section — the app's own drills target 45s/question (drills-view.tsx), so
-// twice that is a question worth flagging regardless of whether it was
-// answered right.
+// Twice the drills' 45s/question target, independent of section — a question worth flagging regardless of the answer.
 const SLOW_MS = 90_000;
 
 /** Every reviewed question, filterable, expanding to the full stem, your

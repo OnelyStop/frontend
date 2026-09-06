@@ -28,9 +28,7 @@ export async function listDrillPool(perSection = 40): Promise<DrillQuestion[]> {
           direction: directions.body,
         })
         .from(bankQuestions)
-        // Both columns, always — direction_id is only unique within a paper
-        // (see schema.ts's comment on `directions`), so joining on
-        // direction_id alone would attach the wrong passage to a question.
+        // Both columns, always — direction_id alone is only unique within a paper and would attach the wrong passage.
         .leftJoin(
           directions,
           and(
@@ -93,12 +91,7 @@ export async function listPaperQuestions(
         eq(bankQuestions.paperId, paperId),
         eq(bankQuestions.isActive, true),
         isNotNull(bankQuestions.answer),
-        // Matches listDrillPool's implicit behavior (it only ever queries
-        // these 5 values) — a row with a null/unrecognized section would
-        // otherwise be invisible in every mocks section group (groupBySection
-        // filters on the same 5 values) while still being sent to
-        // submitAttempt and graded as a blank, making a perfect score on
-        // that paper structurally impossible with no visible reason why.
+        // Matches listDrillPool's 5-value filter — otherwise a null/unrecognized section is invisible in the group but still graded as blank.
         inArray(bankQuestions.section, SECTIONS_DB),
       ),
     )

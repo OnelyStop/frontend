@@ -234,10 +234,7 @@ async function main() {
     }));
   });
 
-  // Chunked (not one big insert): v2 subtopics carry far more content (multi-paragraph
-  // concept, several worked examples) than v1's, and one oversized insert previously wedged
-  // the local pglite-socket dev database outright — small batches show steady progress and
-  // stay well clear of whatever limit that was.
+  // Chunked, not one big insert — v2's richer subtopics previously wedged the dev database in one oversized write.
   const CHUNK = 5;
   let written = 0;
   for (let i = 0; i < rows.length; i += CHUNK) {
@@ -277,9 +274,7 @@ async function main() {
 
   console.log(`\n  wrote  ${written} notes`);
 
-  // Full one-way sync: a subtopic renamed/consolidated/removed in source (e.g. a topic that
-  // used to have named subtopics later merged into a single "_topic" note) leaves its old row
-  // behind forever otherwise — onConflictDoUpdate only touches noteIds still present in `rows`.
+  // Full one-way sync — onConflictDoUpdate alone leaves a renamed/removed subtopic's old row behind forever.
   const currentIds = rows.map((r) => r.noteId);
   const removed = await db
     .delete(notes)

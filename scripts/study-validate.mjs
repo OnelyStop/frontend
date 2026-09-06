@@ -20,9 +20,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-// --- tiny JSON Schema subset ------------------------------------------------
-// Handles only what schemas/study-topic.schema.json uses. Not a general
-// implementation; a green run here means "matches our schema", nothing wider.
+// Handles only what study-topic.schema.json uses — a green run means nothing wider.
 
 function resolveRef(root, ref) {
   if (!ref.startsWith("#/")) throw new Error(`unsupported $ref ${ref}`);
@@ -127,9 +125,7 @@ export function schemaErrors(schema, value, root = schema, path = "") {
 
 // --- domain gates ---------------------------------------------------------
 
-// Blocks that assert facts and therefore need an allowlisted, non-scope-only
-// source. exam_tip / warning / shortcut / summary / practice / objectives are
-// author-created guidance (spec §4.5, §16) and do not.
+// Blocks that assert facts need an allowlisted source; guidance (spec §4.5) does not.
 const FACTUAL_BLOCK_TYPES = new Set([
   "introduction",
   "concept",
@@ -309,10 +305,7 @@ export function validateTopic(topic, ctx = {}) {
         );
     }
     if (FACTUAL_BLOCK_TYPES.has(b.type)) {
-      // Exam-guidance topics describe exam structure and rules, for which the
-      // only allowlisted sources are the official SBI/IBPS pages, marked
-      // scope_only (spec §5.2: "cross-check phases, named sections and general
-      // rules"). For every other subject a scope_only source is not enough.
+      // Only exam-guidance may rest on a scope_only source — the official pages (§5.2).
       const scopeOnlyOk = topic.subjectSlug === "exam-guidance";
       const usable = ids.filter(
         (id) =>
@@ -326,8 +319,7 @@ export function validateTopic(topic, ctx = {}) {
         );
     }
 
-    // Quantitative worked examples MUST carry recomputable answers; any block
-    // in any subject that declares expectedAnswers gets them recomputed.
+    // Any block declaring expectedAnswers gets them recomputed, in any subject.
     {
       const answers = Array.isArray(b.expectedAnswers) ? b.expectedAnswers : [];
       if (

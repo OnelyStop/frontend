@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { fetchEnabledProviders } from "@/lib/supabase";
 
-// Asked from the sign-in pages only: Google can be switched on in the
-// dashboard without a redeploy, and every other page skips the request.
+// Google can be switched on in the dashboard without a redeploy, hence the fetch.
 export function useEnabledProviders() {
   const [google, setGoogle] = useState(false);
 

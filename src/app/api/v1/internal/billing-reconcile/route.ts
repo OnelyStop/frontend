@@ -3,8 +3,8 @@ import { db } from "@/db";
 import { subscriptions } from "@/db/schema";
 import { applySubscription } from "@/features/billing/entitlements.server";
 import { fetchSubscription } from "@/features/billing/razorpay.server";
-import { isAuthorizedCron } from "@/lib/gazette/auth";
-import { json } from "@/lib/gazette/http";
+import { isAuthorizedCron } from "@/lib/cron";
+import { json } from "@/lib/api";
 import { log } from "@/lib/log";
 
 export const dynamic = "force-dynamic";
@@ -13,9 +13,7 @@ export const maxDuration = 120;
 const STALE_MS = 15 * 60_000;
 const BATCH = 50;
 
-// Sweeps what the status route's per-user reconcile cannot reach: customers
-// who paid and never came back, and renewals whose webhook was lost. Schedule
-// hourly on a Pro plan; Hobby's two-cron limit is already spent on the news.
+// Sweeps what the per-user reconcile cannot reach: paid customers who never came back.
 export async function GET(request: Request) {
   if (!isAuthorizedCron(request)) return json({ error: "unauthorized" }, 401);
 

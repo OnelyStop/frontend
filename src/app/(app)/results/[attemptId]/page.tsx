@@ -5,8 +5,7 @@ import { ResultView } from "./result-view";
 
 export const metadata: Metadata = { title: "Result" };
 
-// Same reasoning as mocks/page.tsx — force-dynamic defers the query to
-// request time so a build never depends on live schema/migration state.
+// Same reasoning as mocks/page.tsx — force-dynamic defers the query to request time.
 export const dynamic = "force-dynamic";
 
 type Params = { params: Promise<{ attemptId: string }> };

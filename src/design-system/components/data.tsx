@@ -105,7 +105,7 @@ export function CutoffBar({
         />
       ) : null}
       <span
-        className="bg-ink-3 absolute -top-1 h-[14px] w-px"
+        className="bg-ink-3 absolute -top-1 h-3.5 w-px"
         style={{ left: pct(cutoff) }}
         aria-hidden
       />

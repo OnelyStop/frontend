@@ -38,9 +38,7 @@ export default async function Page({ params }: { params: Params }) {
   const outline = await getTopicOutline(topicSlug, { preview });
   if (!outline) notFound();
 
-  // The slug alone names the topic; the path above it is presentation, so a
-  // stale or hand-typed one lands on the canonical URL rather than a wrong
-  // breadcrumb.
+  // The slug alone names the topic, so a stale path redirects to the canonical URL.
   if (
     outline.subject.slug !== subjectSlug ||
     outline.chapter.slug !== chapterSlug

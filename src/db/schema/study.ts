@@ -19,9 +19,7 @@ import {
 import { authenticatedRole } from "drizzle-orm/supabase";
 import { contentReadable } from "./shared";
 
-// scripts/study-import.ts loads content as the database owner, bypassing RLS.
-// Routes filter by the authenticated user id themselves; the policies here are
-// the backstop, not the check.
+// Routes filter by user id themselves; these policies are the backstop, not the check.
 
 export const contentStatus = pgEnum("content_status", [
   "draft",
@@ -119,8 +117,7 @@ export const topics = pgTable(
   (t) => [
     unique("topics_chapter_id_slug_key").on(t.chapterId, t.slug),
     index("topics_chapter_id_idx").on(t.chapterId),
-    // The reader resolves a topic by slug alone; the subject and chapter in
-    // the URL are presentation.
+    // The reader resolves a topic by slug alone; the rest of the URL is presentation.
     uniqueIndex("topics_slug_key").on(t.slug),
     check(
       "topics_difficulty_check",
@@ -351,8 +348,7 @@ export const studyProgress = pgTable(
   ],
 ).enableRLS();
 
-// Unpopulated for now; present so a later PDF/image feature is a migration,
-// not a redesign.
+// Unpopulated; present so a later PDF/image feature is a migration, not a redesign.
 export const contentAssets = pgTable(
   "content_assets",
   {

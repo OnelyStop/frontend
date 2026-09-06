@@ -49,8 +49,7 @@ function worthAnotherTry(error: unknown): error is AiError {
   );
 }
 
-// An unexpected throw is a bug in our code, not a provider failure. Logging it
-// as `kind: undefined` would lose the only description of what actually broke.
+// Logging an unexpected throw as `kind: undefined` loses the only description.
 function failureFields(error: unknown) {
   return error instanceof AiError
     ? { kind: error.kind, status: error.status }
@@ -83,9 +82,7 @@ function readAnswer(body: unknown, asked: string, status: number): Answer {
     throw new AiError("upstream", status, "no content");
 
   const usage = payload.usage ?? {};
-  // OpenRouter reports cost on every response, so an absent one means the shape
-  // changed or something stripped it. Left silent it reads as a free call, and
-  // any spend cap built on it would be counting zeroes.
+  // An absent cost reads as a free call, and a spend cap on it would count zeroes.
   if (typeof usage.cost !== "number") {
     log.warn("openrouter.cost_missing", { model: payload.model ?? asked });
   }
@@ -101,8 +98,7 @@ function readAnswer(body: unknown, asked: string, status: number): Answer {
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Jittered, so a hundred requests failing together do not all retry in lockstep
-// and hit the provider as one wave.
+// Jittered, so requests failing together do not retry as one wave.
 const backoff = (attempt: number) => {
   const base = 2 ** (attempt - 1) * 250;
   return base / 2 + Math.random() * (base / 2);
@@ -122,9 +118,7 @@ export class OpenRouterClient {
     let lastError: unknown;
 
     for (const model of settings.models) {
-      // Stop rather than enter a model with no time left: that attempt can only
-      // fail on the deadline, and its synthetic error would replace the real
-      // reason the previous model failed.
+      // A model entered with no time left would replace the real failure with a timeout.
       if (Date.now() >= deadline) break;
 
       try {
@@ -204,8 +198,7 @@ export class OpenRouterClient {
           status: error.status,
         });
         if (attempt === settings.maxAttempts) break;
-        // The provider's own Retry-After beats our guess when it sent one, but
-        // clamped: an unclamped sleep runs past the one thing bounding the call.
+        // Retry-After beats our guess, but clamped — unclamped it runs past the deadline.
         const asked = error.retryAfterMs ?? backoff(attempt);
         await wait(Math.min(asked, deadline - Date.now()));
       }

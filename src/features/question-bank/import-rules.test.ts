@@ -9,10 +9,7 @@ import {
 } from "./import-rules";
 
 describe("contentHash", () => {
-  // Cross-checked against the real Python function this ports -- run:
-  //   python -c "import sys,json;sys.path.insert(0,'pipeline/6-generate');import generate;p=json.load(open('data/batch1/1.json'));print(generate.content_key(p['questions'][0]))"
-  // on OnelyStop/question-bank's classified data. If this drifts, the port
-  // has drifted from generate.py, not the other way round.
+  // Cross-checked against generate.py's content_key on real classified data; if this drifts, the port has drifted, not the source.
   it("matches generate.py's content_key for a real question", () => {
     const q: RawQuestion = {
       q_id: "ibps_clerk_2020_prelims_f1a8daa3::q001",
@@ -48,8 +45,7 @@ describe("contentHash", () => {
     expect(contentHash(a)).toBe(contentHash(b));
   });
 
-  // The whole reason exact-match is used instead of fuzzy dedup: two
-  // questions that agree on every word but a number are different questions.
+  // The whole reason exact-match is used instead of fuzzy dedup — two questions differing only in a number are different.
   it("treats questions differing only in numbers as different", () => {
     const base: RawQuestion = {
       q_id: "x::q1",
@@ -122,8 +118,7 @@ describe("isActive", () => {
     expect(isActive({ ...base, is_active: false })).toBe(false);
   });
 
-  // Deliberately not ported from filter_pool: an unlabelled question is still
-  // browsable in the question bank, unlike in a specific generated mock.
+  // Deliberately not ported from filter_pool — an unlabelled question is still browsable, unlike in a generated mock.
   it("does not require section or topic to be active", () => {
     expect(isActive({ ...base, section: null, topic: null })).toBe(true);
   });

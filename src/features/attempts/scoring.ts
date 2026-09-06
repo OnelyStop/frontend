@@ -62,12 +62,10 @@ export function scoreTotals(answers: GradedAnswer[]): ScoreTotals {
     correct,
     wrong,
     skipped,
-    // Score can go negative (enough wrong answers under negative marking);
-    // never clamp it to 0 — that's the honest number IBPS/SBI would report.
+    // Score can go negative under negative marking; never clamp it to 0 — that's the honest number IBPS/SBI reports.
     score: round2(score),
     maxScore: round2(maxScore),
-    // Accuracy is against *attempted*, not the full paper — a blank isn't a
-    // miss, it's a choice not to risk the mark.
+    // Accuracy is against *attempted*, not the full paper — a blank is a choice not to risk the mark, not a miss.
     accuracy: attempted > 0 ? round2((correct / attempted) * 100) : 0,
   };
 }
@@ -173,10 +171,7 @@ export function scoreByTopic(answers: GradedAnswer[]): Map<
               1000,
           )
         : 0;
-    // What "Revise these topics" ranks by: the mark given up on each wrong
-    // answer, plus the negative-marking penalty on top of it — not just a
-    // wrong-answer count, so a topic with fewer but higher-value misses can
-    // still outrank one with more low-value ones.
+    // What "Revise these topics" ranks by — mark plus penalty per wrong answer, so high-value misses outrank low-value ones.
     const marksLost = round2(
       attemptedList
         .filter((a) => !isCorrect(a.chosen, a.correct))

@@ -48,10 +48,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
   const [error, setError] = useState<string | null>(null);
   const [questions, setQuestions] = useState<DrillQuestion[]>([]);
   const [attemptId, setAttemptId] = useState<number | null>(null);
-  // Deadline, not a decrementing counter — a counter drifts under any
-  // main-thread block (the Escape confirm() dialog below, tab backgrounding),
-  // silently handing back "free" time. Recomputing from a fixed end time
-  // self-corrects on every tick instead of compounding.
+  // Deadline, not a decrementing counter — a counter drifts under any main-thread block and hands back "free" time.
   const [sectionEndsAt, setSectionEndsAt] = useState(0);
   const [left, setLeft] = useState(0);
   const [secIdx, setSecIdx] = useState(0);
@@ -76,24 +73,17 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
     return () => clearInterval(t);
   }, [live, sectionEndsAt]);
 
-  // The clock hitting 0 has to actually lock the section — the header/footer
-  // copy on this screen promises exactly that, and nothing enforced it
-  // before. React bails a state update that sets the same value again, so
-  // `left` going 0 -> 0 on every later tick doesn't re-run this a second
-  // time; it fires exactly once per section, right when the count reaches 0.
+  // The clock hitting 0 locks the section; React bails a same-value update so this fires exactly once at 0.
   useEffect(() => {
     if (!live || left > 0) return;
     void submitSectionOrFinish();
-    // submitSectionOrFinish is intentionally not a dependency — see above.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- submitSectionOrFinish deliberately isn't a dependency
   }, [left, live]);
 
   useEffect(() => {
     if (!live) return;
     const onKey = (e: KeyboardEvent) => {
-      // Can't abandon while a submit is actually in flight — otherwise a
-      // stale submit response can navigate to /results after the user was
-      // told "your attempt is lost" and already left.
+      // Can't abandon mid-submit — a stale response could navigate to /results after the user already left.
       if (submitting) return;
       if (
         e.key === "Escape" &&
@@ -105,9 +95,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [live, submitting]);
 
-  // Whenever the visible question changes, resync the local pick from
-  // anything already recorded for it (so Previous / the palette show what
-  // you chose, not a blank), and restart that question's own stopwatch.
+  // Resyncs the local pick from any recorded answer and restarts the stopwatch whenever the question changes.
   useEffect(() => {
     if (!q) return;
     const rec = answers[q.qId];
@@ -116,10 +104,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
       : -1;
     setPicked(idx >= 0 ? idx : null);
     setQStart(Date.now());
-    // Deliberately keyed on q.qId only: `answers`/`q` change together with
-    // it, and re-running this on every `answers` update would reset the
-    // per-question timer on every keystroke of `record()`.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on q.qId only; `answers` would reset the timer on every keystroke
   }, [q?.qId]);
 
   function sectionDurationSec(groupCount: number): number {
@@ -131,9 +116,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
     setStarting(m.id);
     setError(null);
     const res = await startMockAttempt(m.id);
-    // A second Start click (this or another card) fired while this request
-    // was in flight — let the later one win instead of this stale response
-    // overwriting its state.
+    // A later Start click fired while this request was in flight — let it win over this stale response.
     if (startReqIdRef.current !== reqId) return;
     setStarting(null);
     if (!("attemptId" in res)) {
@@ -204,9 +187,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
     setError(res.error);
   }
 
-  // Exam conditions: the app gets out of the way entirely. The question
-  // palette on the right is the thing every Indian aspirant already knows from
-  // the real IBPS interface — without it the screen reads as an empty void.
+  // Exam conditions: the palette mirrors the real IBPS interface every aspirant already knows.
   if (live && q && section) {
     const mm = String(Math.floor(left / 60)).padStart(2, "0");
     const ss = String(left % 60).padStart(2, "0");
