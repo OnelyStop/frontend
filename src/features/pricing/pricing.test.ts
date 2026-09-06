@@ -95,9 +95,9 @@ describe("what a user costs us", () => {
 
   // The ceiling, in paise a month, if someone uses every call they are owed.
   it("prices each tier's ceiling", () => {
-    expect(worstCaseMonthlyCostPaise("free")).toBe(292); // ₹2.92
-    expect(worstCaseMonthlyCostPaise("pro")).toBe(3_030); // ₹30.30
-    expect(worstCaseMonthlyCostPaise("pro_plus")).toBe(9_880); // ₹98.80
+    expect(worstCaseMonthlyCostPaise("free")).toBe(112); // ₹1.12
+    expect(worstCaseMonthlyCostPaise("pro")).toBe(1_380); // ₹13.80
+    expect(worstCaseMonthlyCostPaise("pro_plus")).toBe(4_080); // ₹40.80
   });
 
   // Raising a limit unchecked is how a plan starts losing money.

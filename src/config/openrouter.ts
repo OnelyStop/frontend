@@ -10,8 +10,11 @@ export const openrouterConfig = {
   referer: str("OPENROUTER_REFERER", "https://onelystop.com"),
   title: str("OPENROUTER_TITLE", "OnelyStop"),
 
-  // Pinned to a dated build: -latest would change a marking model under us.
-  model: str("AI_MODEL", "deepseek/deepseek-v4-flash-0731"),
+  // Marking is what people pay for, so it gets the accurate model.
+  model: str("AI_MODEL", "google/gemini-3.8-flash"),
+
+  // Explaining a passage does not need the same tier, and is asked far more often.
+  cheapModel: str("AI_CHEAP_MODEL", "deepseek/deepseek-v4-flash-0731"),
   fallbackModel: str("AI_MODEL_FALLBACK", "openai/gpt-4o"),
 
   temperature: num("AI_TEMPERATURE", 0.7, 0, 2),

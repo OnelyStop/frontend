@@ -1,9 +1,9 @@
 import { PLAN_LIMITS, type PlanTier } from "./limits";
 
-// Paise per call on DeepSeek V4 Flash, priced at its peak rate.
+// Paise per call: marking on Gemini 3.8 Flash, Ask Onely on DeepSeek V4 Flash.
 export const COST_PER_CALL_PAISE = {
-  descriptiveMarking: 11,
-  askOnely: 9,
+  descriptiveMarking: 26,
+  askOnely: 2,
 } as const;
 
 // A month of one user using every call they are owed. Real use is far below it.

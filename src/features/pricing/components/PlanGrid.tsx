@@ -163,8 +163,7 @@ export function PlanGrid({
               pad={false}
               className={cn(
                 "relative flex flex-col p-6",
-                // The featured plan is raised by a ring, not a shadow -- the
-                // design system reserves shadows for things that float.
+                // A ring, not a shadow: the design system reserves shadows for floating things.
                 plan.featured && "ring-brand ring-1",
               )}
             >
