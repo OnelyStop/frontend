@@ -5,7 +5,7 @@ import { and, count, desc, eq, inArray, isNotNull } from "drizzle-orm";
 import { CUTOFF_LADDER, SECTION_DB } from "@/data/navigation";
 import { db } from "@/db";
 import { attempts, bankQuestions, papers } from "@/db/schema";
-import { currentUserId } from "@/features/study/auth.server";
+import { currentUserId } from "@/lib/auth.server";
 import type { Mock } from "./types";
 
 // A recall's own bank/role/year won't necessarily match its cutoff exactly,

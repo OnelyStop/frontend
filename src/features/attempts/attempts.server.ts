@@ -12,7 +12,7 @@ import {
   notes,
   papers,
 } from "@/db/schema";
-import { currentUserId } from "@/features/study/auth.server";
+import { currentUserId } from "@/lib/auth.server";
 import {
   type GradedAnswer,
   isCorrect,

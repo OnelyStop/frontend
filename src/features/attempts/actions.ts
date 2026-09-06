@@ -10,7 +10,7 @@ import {
   bankQuestions,
   userTopicStats,
 } from "@/db/schema";
-import { currentUserId } from "@/features/study/auth.server";
+import { currentUserId } from "@/lib/auth.server";
 import { listPaperQuestions } from "@/features/question-bank/questions.server";
 import type { DrillQuestion } from "@/features/question-bank/types";
 import { type GradedAnswer, isCorrect, scoreTotals } from "./scoring";
