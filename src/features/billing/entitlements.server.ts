@@ -46,7 +46,8 @@ export async function getEntitlement(
     .limit(1);
   const active = !!row && row.accessUntil > now;
   return {
-    plan: active ? "pro" : "free",
+    // Expired collapses to free; `school` is sold per seat at the Pro+ ceiling.
+    plan: !active ? "free" : row.plan === "pro" ? "pro" : "pro_plus",
     active,
     accessUntil: row?.accessUntil.toISOString() ?? null,
   };
@@ -135,11 +136,19 @@ export async function applySubscription(
   }
 
   if (GRANTS.has(status) && currentPeriodEnd) {
+    // The tier belongs to the plan row, never to the event.
+    const [purchased] = await db
+      .select({ plan: paymentPlans.plan })
+      .from(paymentPlans)
+      .where(eq(paymentPlans.id, row.planId))
+      .limit(1);
+    if (!purchased) return "unknown";
+
     await db
       .insert(entitlements)
       .values({
         userId: row.userId,
-        plan: "pro",
+        plan: purchased.plan,
         accessUntil: currentPeriodEnd,
         status,
         subscriptionId: row.id,
@@ -148,7 +157,9 @@ export async function applySubscription(
       .onConflictDoUpdate({
         target: entitlements.userId,
         set: {
+          // Access only moves forward; the tier follows the newest subscription.
           accessUntil: sql`greatest(${entitlements.accessUntil}, excluded.access_until)`,
+          plan: purchased.plan,
           status,
           subscriptionId: row.id,
           updatedAt: opts.observedAt,

@@ -12,6 +12,8 @@
  * means a new plan, and existing subscribers stay on the old one, which is the
  * behaviour you want and the reason the id is stored rather than the price
  * alone.
+ *
+ * Eight rows: {pro, pro_plus} × {monthly, yearly} × {INR, USD}.
  */
 import { config } from "dotenv";
 import { sql } from "drizzle-orm";
@@ -29,29 +31,65 @@ const PLANS = [
     interval: "monthly",
     currency: "INR",
     period: "monthly",
-    amountMinor: 49_900,
+    amountMinor: 25_000,
+    listAmountMinor: 55_000,
   },
   {
     plan: "pro",
     interval: "yearly",
     currency: "INR",
     period: "yearly",
-    amountMinor: 499_900,
+    amountMinor: 250_000,
+    listAmountMinor: 550_000,
   },
-  // USD mirrors the current pricing page: $7.99/mo, $59/yr.
+  {
+    plan: "pro_plus",
+    interval: "monthly",
+    currency: "INR",
+    period: "monthly",
+    amountMinor: 40_000,
+    listAmountMinor: 100_000,
+  },
+  {
+    plan: "pro_plus",
+    interval: "yearly",
+    currency: "INR",
+    period: "yearly",
+    amountMinor: 400_000,
+    listAmountMinor: 1_000_000,
+  },
+  // USD holds the same ratios, for onelystop.com.
   {
     plan: "pro",
     interval: "monthly",
     currency: "USD",
     period: "monthly",
-    amountMinor: 799,
+    amountMinor: 500,
+    listAmountMinor: 1_100,
   },
   {
     plan: "pro",
     interval: "yearly",
     currency: "USD",
     period: "yearly",
-    amountMinor: 5_900,
+    amountMinor: 5_000,
+    listAmountMinor: 11_000,
+  },
+  {
+    plan: "pro_plus",
+    interval: "monthly",
+    currency: "USD",
+    period: "monthly",
+    amountMinor: 800,
+    listAmountMinor: 2_000,
+  },
+  {
+    plan: "pro_plus",
+    interval: "yearly",
+    currency: "USD",
+    period: "yearly",
+    amountMinor: 8_000,
+    listAmountMinor: 20_000,
   },
 ] as const;
 
@@ -92,6 +130,7 @@ async function main() {
         currency: p.currency,
         razorpayPlanId: created.id,
         amountMinor: p.amountMinor,
+        listAmountMinor: p.listAmountMinor,
       })
       // The index is partial, so Postgres needs the predicate to infer the target.
       .onConflictDoNothing({

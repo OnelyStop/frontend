@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { AiError, type Turn } from "@/lib/openrouter-client/openrouter-types";
 import { openrouter } from "@/lib/openrouter-client/openrouter";
+import { openrouterConfig } from "@/config/openrouter";
 import { COMPANION_SYSTEM, companionUserPrompt } from "@/lib/prompts/companion";
 import { currentUserId } from "@/lib/auth.server";
 import { rateLimit } from "@/lib/rate-limit";
@@ -55,6 +56,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const answer = await openrouter.ask({
+      model: openrouterConfig.cheapModel,
       system: COMPANION_SYSTEM,
       history: turns,
       prompt: companionUserPrompt(
