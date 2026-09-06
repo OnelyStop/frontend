@@ -1,6 +1,7 @@
 {
   "framework": "nextjs",
   "buildCommand": "bun run build",
+  "regions": ["bom1"],
   "crons": [
     { "path": "/api/v1/internal/ingest", "schedule": "30 12 * * *" },
     { "path": "/api/v1/internal/generate", "schedule": "30 13 * * *" }

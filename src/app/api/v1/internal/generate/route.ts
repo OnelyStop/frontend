@@ -6,8 +6,6 @@ import { runGenerate } from "@/features/current-affairs/pipeline/generate";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
-// Same region as the database and the Indian news sources.
-export const preferredRegion = "bom1";
 
 const DEADLINE_MS = 240_000;
 

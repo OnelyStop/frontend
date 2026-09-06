@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { paymentPlans } from "@/db/schema";
+import { captureError } from "@/lib/observability.server";
 import type { Currency } from "./money";
 import type { BillingInterval, PlanKey, PlanPrice } from "./types";
 
@@ -59,6 +60,24 @@ async function queryPlans(currency: Currency): Promise<PlanPrice[]> {
 }
 
 // Prices change only by seeding a new row, and every visitor renders these.
-export const listPlans = unstable_cache(queryPlans, ["billing", "plans"], {
+const cachedPlans = unstable_cache(queryPlans, ["billing", "plans"], {
   revalidate: 3600,
 });
+
+/**
+ * Display prices only — `findPlan` is what a charge is computed from, and it
+ * has no fallback on purpose.
+ *
+ * An empty list renders as "—" rather than a price, which is the right outcome
+ * for the public landing page: it is the front door and must not 500 because
+ * the database blinked or because nothing has been seeded yet. The catch sits
+ * outside the cache so a transient failure is not held for the full hour.
+ */
+export async function listPlans(currency: Currency): Promise<PlanPrice[]> {
+  try {
+    return await cachedPlans(currency);
+  } catch (error) {
+    captureError(error, { at: "listPlans", currency });
+    return [];
+  }
+}
