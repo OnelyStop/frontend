@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_CURRENCY, currencyForHost, formatAmount } from "./currency";
+import { DEFAULT_CURRENCY, currencyForHost } from "./currency";
+import { formatAmount } from "./money";
 
 describe("currency from host", () => {
   it("maps each domain to the currency it sells in", () => {
@@ -48,7 +49,7 @@ describe("formatAmount", () => {
     expect(formatAmount(799, "USD")).toBe("$7.99");
     expect(formatAmount(5_900, "USD")).toBe("$59");
     expect(formatAmount(49_900, "INR")).toBe("₹499");
-    expect(formatAmount(499_900, "INR")).toBe("₹4999");
+    expect(formatAmount(499_900, "INR")).toBe("₹4,999");
   });
 
   it("keeps two decimals only when there are any", () => {

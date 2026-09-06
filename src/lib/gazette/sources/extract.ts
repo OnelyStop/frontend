@@ -42,12 +42,8 @@ function stripTags(html: string): string {
     .trim();
 }
 
-/**
- * Crude readability: drop non-content regions, prefer an <article>/<main>
- * container, then collect block-level text. Good enough for news and
- * PIB/RBI press-release pages (which are mostly <p> tags); not a full DOM
- * parser. Capped so a huge page can't blow up the prompt.
- */
+// Not a DOM parser — good enough for news and the mostly-<p> PIB/RBI press
+// releases. Capped so a huge page cannot blow up the prompt.
 export function htmlToText(html: string): string {
   let s = html
     .replace(/<!--[\s\S]*?-->/g, " ")
@@ -89,9 +85,7 @@ function tidy(text: string): string {
     .trim();
 }
 
-// Bot-wall / challenge / error interstitials some publishers serve with HTTP
-// 200. Better to fall back to the RSS/NewsData snippet than feed this to the
-// model.
+// Bot walls and challenge pages that some publishers serve with HTTP 200.
 const BLOCK_PAGE =
   /(enable javascript and cookies|checking your browser|verify you are (a )?human|are you a robot|access denied|request unsuccessful|attention required|cloudflare|please try again in a few minutes|too many requests)/i;
 
@@ -99,14 +93,8 @@ function looksBlocked(text: string): boolean {
   return text.length < 600 && BLOCK_PAGE.test(text);
 }
 
-/**
- * Main-content extraction: strip the nav bar, ad slots, byline furniture,
- * social-share buttons, "Also Read" boxes, related-article lists and footer,
- * and return just the article body. Uses Mozilla Readability (Firefox Reader
- * View's engine) over a linkedom DOM; falls back to the regex `htmlToText`
- * when Readability decides the page isn't article-shaped (short press
- * releases, unusual govt templates).
- */
+// Falls back to htmlToText when Readability decides the page is not
+// article-shaped — short press releases and unusual govt templates.
 export function extractMainText(html: string): string {
   try {
     const { document } = parseHTML(html);
@@ -125,11 +113,8 @@ export function extractMainText(html: string): string {
   return looksBlocked(fallback) ? "" : fallback;
 }
 
-/**
- * Roughly: is this text mostly written in the Latin alphabet? PIB's feed and
- * pages frequently serve Hindi (Devanagari); we generate English MCQs, so
- * non-English source text is skipped rather than fed to the model.
- */
+// PIB frequently serves Hindi (Devanagari). We generate English MCQs, so that
+// source text is skipped rather than fed to the model.
 export function isMostlyEnglish(text: string): boolean {
   const letters = text.match(/\p{L}/gu)?.length ?? 0;
   if (letters < 20) return true; // too short to judge — let the length gate decide
@@ -137,24 +122,67 @@ export function isMostlyEnglish(text: string): boolean {
   return latin / letters >= 0.6;
 }
 
-/**
- * Fetch an article page and return its main text, or "" on any failure —
- * paywalls, bot blocks, timeouts, non-HTML. Called at generation time only
- * (once/day), so the extra GET per article is cheap.
- */
-export async function fetchArticleBody(url: string): Promise<string> {
+// Feed items are third-party input, so a URL that resolves inside the network
+// is never fetched from the server. DNS rebinding is out of scope for a daily
+// cron; a private IP behind a public hostname would need a custom resolver.
+export function isPublicHttpUrl(raw: string): boolean {
+  let u: URL;
   try {
-    const res = await fetch(url, {
-      headers: {
-        "User-Agent": BROWSER_UA,
-        Accept: "text/html,application/xhtml+xml",
-      },
-      redirect: "follow",
-      signal: AbortSignal.timeout(15_000),
-    });
-    if (!res.ok) return "";
-    if (!(res.headers.get("content-type") ?? "").includes("html")) return "";
-    return extractMainText(await res.text());
+    u = new URL(raw);
+  } catch {
+    return false;
+  }
+  if (u.protocol !== "http:" && u.protocol !== "https:") return false;
+  const host = u.hostname.toLowerCase();
+  if (
+    host === "localhost" ||
+    host.endsWith(".localhost") ||
+    host.endsWith(".local") ||
+    host.endsWith(".internal") ||
+    host.includes(":") // IPv6 literal
+  )
+    return false;
+  const v4 = host.match(/^(\d+)\.(\d+)\.\d+\.\d+$/);
+  if (!v4) return true;
+  const a = Number(v4[1]);
+  const b = Number(v4[2]);
+  return !(
+    a === 0 ||
+    a === 10 ||
+    a === 127 ||
+    (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 168)
+  );
+}
+
+const MAX_REDIRECTS = 3;
+
+// Returns "" on any failure — paywall, bot block, timeout, non-HTML. Redirects
+// are followed by hand so each hop gets the same origin check as the first URL.
+export async function fetchArticleBody(url: string): Promise<string> {
+  let target = url;
+  try {
+    for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+      if (!isPublicHttpUrl(target)) return "";
+      const res = await fetch(target, {
+        headers: {
+          "User-Agent": BROWSER_UA,
+          Accept: "text/html,application/xhtml+xml",
+        },
+        redirect: "manual",
+        signal: AbortSignal.timeout(15_000),
+      });
+      const location = res.headers.get("location");
+      if (res.status >= 300 && res.status < 400 && location) {
+        target = new URL(location, target).toString();
+        continue;
+      }
+      if (!res.ok) return "";
+      if (!(res.headers.get("content-type") ?? "").includes("html")) return "";
+      return extractMainText(await res.text());
+    }
+    return "";
   } catch {
     return "";
   }

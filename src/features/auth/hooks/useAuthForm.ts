@@ -4,8 +4,6 @@ import { useState, type FormEvent } from "react";
 
 type Result = { error: string | null };
 
-// Shared shape: disable in flight, surface the provider error, caller
-// decides what success means.
 export function useAuthForm(
   submit: () => Promise<Result & Record<string, unknown>>,
   onSuccess?: (result: Record<string, unknown>) => void,

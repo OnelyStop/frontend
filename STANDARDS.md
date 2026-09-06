@@ -11,10 +11,11 @@ named, because a rule nothing checks is a preference.
 
 ```
 src/app/            routes — Next.js owns these filenames
-src/features/       one product area: tutor, billing, auth
+src/features/       one product area: companion, billing, auth
 src/components/     React shared across features
 src/design-system/  the primitives — one entry point, see DESIGN.md
 src/lib/            shared infrastructure a feature calls
+src/lib/prompts/    every LLM prompt with its response schema, one file per use
 src/config/         values, no behaviour
 src/db/             schema and the client
 src/data/           static data
@@ -29,8 +30,8 @@ those layers must be callable from anywhere, so a component landing in one is
 drift a diff will not show.
 
 **The distinction that matters most:** `lib/` is infrastructure a feature
-calls; `features/` is one product area. OpenRouter is in `lib/` because tutor,
-marker and interview all use it. Razorpay is in `features/billing/` because
+calls; `features/` is one product area. OpenRouter is in `lib/` because it is
+provider plumbing any feature may call. Razorpay is in `features/billing/` because
 only billing does. When unsure, ask how many features will import it.
 
 **Never invent a folder.** This repo already had an `src/infrastructure/`

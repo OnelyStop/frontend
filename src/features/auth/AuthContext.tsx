@@ -9,11 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import type { Session, User } from "@supabase/supabase-js";
-import {
-  fetchEnabledProviders,
-  isSupabaseConfigured,
-  supabase,
-} from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 type AuthResult = { error: string | null; needsConfirmation?: boolean };
 
@@ -22,7 +18,6 @@ type AuthContextValue = {
   session: Session | null;
   loading: boolean;
   configured: boolean;
-  googleEnabled: boolean;
   signUp: (
     email: string,
     password: string,
@@ -31,18 +26,20 @@ type AuthContextValue = {
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signInWithGoogle: () => Promise<AuthResult>;
   resetPassword: (email: string) => Promise<AuthResult>;
+  updatePassword: (password: string) => Promise<AuthResult>;
   resendConfirmation: (email: string) => Promise<AuthResult>;
   signOut: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-// Every email/OAuth flow returns here; this exact URL must be in the
-// Supabase project's redirect allow-list or it falls back to Site URL
-export const AUTH_CALLBACK_URL =
-  typeof window !== "undefined"
-    ? `${window.location.origin}/auth/callback`
-    : "";
+// Both must be in the Supabase project's redirect allow-list; a URL that is
+// not listed silently falls back to Site URL and the flow lands on the wrong
+// page.
+const at = (path: string) =>
+  typeof window !== "undefined" ? `${window.location.origin}${path}` : "";
+const AUTH_CALLBACK_URL = at("/auth/callback");
+const AUTH_RESET_URL = at("/reset-password");
 
 const NOT_CONFIGURED: AuthResult = {
   error:
@@ -52,20 +49,6 @@ const NOT_CONFIGURED: AuthResult = {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(isSupabaseConfigured);
-  const [googleEnabled, setGoogleEnabled] = useState(false);
-
-  // Ask the project which providers are on, so the OAuth button appears only
-  // once Google is enabled in the dashboard — no redeploy needed
-  useEffect(() => {
-    if (!isSupabaseConfigured) return;
-    let active = true;
-    fetchEnabledProviders().then((providers) => {
-      if (active) setGoogleEnabled(providers.google);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
 
   useEffect(() => {
     if (!supabase) return;
@@ -89,7 +72,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       session,
       loading,
       configured: isSupabaseConfigured,
-      googleEnabled,
 
       signUp: async (email, password, fullName) => {
         if (!supabase) return NOT_CONFIGURED;
@@ -128,8 +110,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       resetPassword: async (email) => {
         if (!supabase) return NOT_CONFIGURED;
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: AUTH_CALLBACK_URL,
+          redirectTo: AUTH_RESET_URL,
         });
+        return { error: error?.message ?? null };
+      },
+
+      updatePassword: async (password) => {
+        if (!supabase) return NOT_CONFIGURED;
+        const { error } = await supabase.auth.updateUser({ password });
         return { error: error?.message ?? null };
       },
 
@@ -147,7 +135,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await supabase?.auth.signOut();
       },
     }),
-    [session, loading, googleEnabled],
+    [session, loading],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

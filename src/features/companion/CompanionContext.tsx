@@ -13,7 +13,6 @@ export type CompanionMessage = { role: "user" | "assistant"; content: string };
 
 type CompanionState = {
   open: boolean;
-  /** The passage the current conversation is anchored to. */
   selection: string | null;
   messages: CompanionMessage[];
   busy: boolean;
@@ -26,7 +25,8 @@ type CompanionState = {
 const CompanionContext = createContext<CompanionState | null>(null);
 
 const ERRORS: Record<string, string> = {
-  unauthorized: "Ask Onely isn't configured on this instance yet.",
+  unauthorized: "Your session has expired. Sign in again to ask.",
+  not_configured: "Ask Onely isn't configured on this instance yet.",
   rate_limited: "Onely is busy right now — try again in a moment.",
 };
 
@@ -56,7 +56,7 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
       setBusy(true);
       setError(null);
       try {
-        const res = await fetch("/api/companion", {
+        const res = await fetch("/api/v1/companion", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

@@ -3,6 +3,7 @@ import { AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase-server";
 import { getRole } from "@/features/auth/roles";
 import { Badge, Card, PageHeader, SectionTitle } from "@/design-system";
+import { PipelinePanel } from "./pipeline-panel";
 
 export const metadata: Metadata = { title: "Admin" };
 
@@ -105,6 +106,8 @@ export default async function Page() {
           </div>
         )}
       </Card>
+
+      <PipelinePanel />
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {[

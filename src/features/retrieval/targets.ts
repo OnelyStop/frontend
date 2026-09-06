@@ -1,7 +1,3 @@
-/* What ⌘K can reach. Three kinds, one list: the topics you are examined on,
-   the mocks you can sit, and the verbs. Everything an aspirant would type at
-   11pm resolves to one of these. */
-
 export type Wash = "none" | "shaky" | "mid" | "secure" | "cool";
 
 export type Target = {
@@ -10,9 +6,7 @@ export type Target = {
   /** Hanging code in the slip's margin: a topic code, or the verb. */
   code: string;
   label: string;
-  /** Printed to the right of the label. */
   detail: string;
-  /** What Enter does. */
   does: string;
   /** Extra tokens nobody would see but everybody types. */
   keys: string;
@@ -20,7 +14,6 @@ export type Target = {
   /** Verbs that are not navigation. */
   run?: "signout" | "lamp";
   wash?: Wash;
-  /** Shown in the resting state, before a single key is pressed. */
   resting?: boolean;
 };
 
@@ -250,8 +243,7 @@ function topicTarget([
     detail: `${attempted} done · ${seconds}s`,
     does: "opens the topic on the attempt map",
     keys: `${title} ${code} topic practise questions`,
-    // A deep link into the map, not a route of its own: the topic is a state
-    // of that page and a real URL both.
+    // A deep link into the map: the topic is both page state and a real URL.
     href: `/attempt-map?spec=${code}`,
     wash,
   };

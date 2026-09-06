@@ -57,7 +57,7 @@ function failureFields(error: unknown) {
     : { kind: "unexpected", detail: String(error).slice(0, 200) };
 }
 
-/** Seconds, or an HTTP date. Ignored when absurd, so a bad header cannot hang us. */
+// Ignored when absurd, so a bad Retry-After header cannot hang us.
 function retryAfterMs(header: string | null): number | undefined {
   if (!header) return undefined;
   const seconds = Number(header);
@@ -108,10 +108,7 @@ const backoff = (attempt: number) => {
   return base / 2 + Math.random() * (base / 2);
 };
 
-/**
- * One instance per feature. Settings resolve call → instance → config, so a
- * feature states its defaults once and a call names only what differs.
- */
+// Settings resolve call → instance → config.
 export class OpenRouterClient {
   constructor(private readonly defaults: ClientDefaults = {}) {}
 
@@ -275,5 +272,4 @@ export class OpenRouterClient {
   }
 }
 
-/** The default client. A feature wanting different settings makes its own. */
 export const openrouter = new OpenRouterClient();

@@ -1,55 +1,68 @@
 import { and, desc, eq, gte, lt, sql } from "drizzle-orm";
-import { getDb } from "@/lib/gazette/db";
+import { db as defaultDb, type Db } from "@/db";
 import {
   articles,
+  currentAffairsQuestions,
   generateRuns,
-  questions,
   type GenerateRunRow,
   type RunCounter,
-} from "@/lib/gazette/db/schema";
+} from "@/db/schema";
 import { activeProfile } from "@/lib/gazette/config/profile";
-import { istDayKey } from "@/lib/gazette/dedup/deduplicator";
+import { istDayKey } from "@/lib/gazette/day";
 import { generateQuestion } from "@/lib/gazette/generate/generateQuestion";
 import { isGrounded } from "@/lib/gazette/grounding/check";
 import { log } from "@/lib/gazette/log";
+import {
+  createPacer,
+  retryDelayFromMessage,
+} from "@/lib/gazette/pipeline/pace";
 import { classifyRelevance } from "@/lib/gazette/relevance/prefilter";
 import {
   fetchArticleBody,
   isMostlyEnglish,
 } from "@/lib/gazette/sources/extract";
 
-// In the no-queue path (runGenerate) this bounds fan-out; the BullMQ worker
-// uses its own `concurrency` + a queue-global rate limiter instead.
 const CONCURRENCY = 2;
 
-// RSS snippets (PIB especially) are often headline-only. Fetch the article page
-// for anything below this and use snippet + body as the source. Still too thin
-// after the fetch → skip rather than spend a generation request.
+// RSS snippets are often headline-only. Below this the article page is fetched;
+// still too thin after that and it is skipped rather than spend an LLM call.
 const THIN_SNIPPET_CHARS = 320;
 const MIN_SOURCE_CHARS = 160;
 const MAX_SOURCE_CHARS = 6000;
 
 export type GenerateDeps = {
+  db: Db;
   generate: typeof generateQuestion;
   fetchBody: typeof fetchArticleBody;
 };
 
 const defaultDeps: GenerateDeps = {
+  db: defaultDb,
   generate: generateQuestion,
   fetchBody: fetchArticleBody,
 };
 
-/**
- * Outcome of processing one article.
- * - `error` is transient (LLM 5xx/timeout, fetch failure): the article is left
- *   `new`, so the queue job re-throws to retry and a plain re-run picks it up.
- * - everything else is terminal — the article's status is already updated.
- */
+// `error` is transient: the article stays `new` so the next run picks it up.
+// Every other kind is terminal and the status is already written.
 export type ArticleOutcome =
   | { kind: "published" }
   | { kind: "skipped"; reason: string }
   | { kind: "error"; message: string }
   | { kind: "noop" }; // wasn't `new` — already processed
+
+export type RunOptions = {
+  deps?: Partial<GenerateDeps>;
+  // Stop starting articles after this long; the rest stay `new` for next run.
+  deadlineMs?: number;
+  rpm?: number;
+  now?: () => number;
+  sleep?: (ms: number) => Promise<void>;
+};
+
+export type GenerateResult = GenerateRunRow & {
+  leftover: number;
+  expired: number;
+};
 
 // IST day string -> [startUtc, endUtc) covering that day.
 function istDayBounds(day: string): [Date, Date] {
@@ -58,21 +71,33 @@ function istDayBounds(day: string): [Date, Date] {
   return [start, end];
 }
 
-export async function incrRun(
+async function incrRun(
+  db: Db,
   runId: string,
   col: RunCounter,
   n = 1,
 ): Promise<void> {
-  const db = await getDb();
   await db
     .update(generateRuns)
     .set({ [col]: sql`${generateRuns[col]} + ${n}` })
     .where(eq(generateRuns.runId, runId));
 }
 
-/** Articles this run will process — status `new`, optionally one IST day, capped. */
-export async function selectNewArticles(day?: string) {
-  const db = await getDb();
+// Each run takes the newest articles; anything older than the dedup window
+// was passed over for good and would otherwise sit as `new` forever.
+async function expireStale(db: Db, now: Date): Promise<number> {
+  const cutoff = new Date(
+    now.getTime() - activeProfile.recentWindowDays * 86_400_000,
+  );
+  const rows = await db
+    .update(articles)
+    .set({ status: "skipped", skipReason: "expired" })
+    .where(and(eq(articles.status, "new"), lt(articles.publishedAt, cutoff)))
+    .returning({ id: articles.articleId });
+  return rows.length;
+}
+
+function selectNewArticles(db: Db, day?: string) {
   const where = day
     ? and(
         eq(articles.status, "new"),
@@ -88,20 +113,18 @@ export async function selectNewArticles(day?: string) {
     .limit(activeProfile.maxQuestionsPerGenerate);
 }
 
-/**
- * The per-article unit: prefilter → enrich → thin/English gate → one LLM call →
- * grounding → write. Re-reads the article first, so a retry after the DB write
- * is a no-op (belt to the `questions.article_id` unique index's braces).
- *
- * `deps` is injectable — tests pass fakes so the LLM and outbound HTTP never
- * run in the suite.
- */
+// Re-reads the article first so a retry after the DB write is a no-op. `deps`
+// is injectable so tests can keep the LLM and outbound HTTP out of the suite.
 export async function processArticle(
   articleId: string,
-  opts: { runId?: string; deps?: GenerateDeps } = {},
+  opts: {
+    runId?: string;
+    deps?: Partial<GenerateDeps>;
+    pace?: () => Promise<void>;
+  } = {},
 ): Promise<ArticleOutcome> {
-  const { runId, deps = defaultDeps } = opts;
-  const db = await getDb();
+  const { runId, pace } = opts;
+  const { db, generate, fetchBody } = { ...defaultDeps, ...opts.deps };
 
   const [article] = await db
     .select()
@@ -111,7 +134,7 @@ export async function processArticle(
   if (!article || article.status !== "new") return { kind: "noop" };
 
   const bump = (col: RunCounter) =>
-    runId ? incrRun(runId, col) : Promise.resolve();
+    runId ? incrRun(db, runId, col) : Promise.resolve();
   const skip = async (
     col: RunCounter,
     reason: string,
@@ -130,8 +153,14 @@ export async function processArticle(
   }
 
   let sourceText = article.summary.trim();
+
+  // A Hindi snippet will not become English by fetching the page.
+  if (!isMostlyEnglish(`${article.title} ${sourceText}`)) {
+    return skip("skippedNonEnglish", "non_english");
+  }
+
   if (sourceText.length < THIN_SNIPPET_CHARS) {
-    const body = await deps.fetchBody(article.url);
+    const body = await fetchBody(article.url);
     if (body) {
       await bump("bodiesFetched");
       sourceText = `${sourceText}\n\n${body}`.trim().slice(0, MAX_SOURCE_CHARS);
@@ -148,11 +177,13 @@ export async function processArticle(
     return skip("skippedNonEnglish", "non_english");
   }
 
+  // Paced here, after the free gates, so a skipped article costs no slot.
+  await pace?.();
+
   let draft;
   try {
-    draft = await deps.generate(article, sourceText);
+    draft = await generate(article, sourceText);
   } catch (err) {
-    // Transient — leave status `new`. The queue job re-throws so BullMQ retries.
     log("warn", "generation call failed", {
       runId,
       articleId,
@@ -171,7 +202,7 @@ export async function processArticle(
   }
 
   await db
-    .insert(questions)
+    .insert(currentAffairsQuestions)
     .values({
       articleId: article.articleId,
       extractedDay: istDayKey(article.publishedAt),
@@ -181,7 +212,7 @@ export async function processArticle(
       explanation: draft.explanation,
       topic: draft.topic,
     })
-    .onConflictDoNothing({ target: questions.articleId });
+    .onConflictDoNothing({ target: currentAffairsQuestions.articleId });
   await db
     .update(articles)
     .set({ status: "used" })
@@ -191,41 +222,61 @@ export async function processArticle(
   return { kind: "published" };
 }
 
-/**
- * Whole-batch run without a queue — used by `bun run pipeline generate` and the
- * integration tests. The BullMQ path fans the same `processArticle` calls out
- * as individual jobs instead.
- */
 export async function runGenerate(
   day?: string,
-  deps: GenerateDeps = defaultDeps,
-): Promise<GenerateRunRow> {
-  const db = await getDb();
-  const rows = await selectNewArticles(day);
+  opts: RunOptions = {},
+): Promise<GenerateResult> {
+  const deps = { ...defaultDeps, ...opts.deps };
+  const {
+    deadlineMs = Infinity,
+    rpm = activeProfile.llmMaxRpm,
+    now = Date.now,
+    sleep,
+  } = opts;
+  const { db } = deps;
+
+  const expired = await expireStale(db, new Date(now()));
+  const rows = await selectNewArticles(db, day);
 
   const [run] = await db
     .insert(generateRuns)
     .values({ day: day ?? null, planned: rows.length, status: "running" })
     .returning();
 
+  const pacer = createPacer(rpm, { now, sleep });
+  const started = now();
   let cursor = 0;
   await Promise.all(
     Array.from({ length: Math.min(CONCURRENCY, rows.length) }, async () => {
-      while (cursor < rows.length) {
+      while (cursor < rows.length && now() - started < deadlineMs) {
         const a = rows[cursor++];
         const out = await processArticle(a.articleId, {
           runId: run.runId,
           deps,
+          pace: pacer.next,
         });
-        if (out.kind === "error") await incrRun(run.runId, "errors");
+        if (out.kind === "error") {
+          await incrRun(db, run.runId, "errors");
+          const backoff = retryDelayFromMessage(out.message);
+          if (backoff) pacer.delay(Math.min(backoff, 60_000));
+        }
       }
     }),
   );
 
+  const leftover = rows.length - cursor;
   const [final] = await db
     .update(generateRuns)
     .set({ finishedAt: new Date(), status: "done" })
     .where(eq(generateRuns.runId, run.runId))
     .returning();
-  return final;
+
+  log("info", "generate run finished", {
+    runId: run.runId,
+    planned: rows.length,
+    published: final.published,
+    leftover,
+    expired,
+  });
+  return { ...final, leftover, expired };
 }

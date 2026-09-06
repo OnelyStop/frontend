@@ -222,8 +222,6 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
             <span className="text-ink-3 ml-2">{live.stage}</span>
           </span>
 
-          {/* Sections are locked in order, so they read as a track you are
-              moving along, not as tabs you can pick from. */}
           <span className="hidden items-center gap-1.5 lg:flex">
             {sections.map((s, i) => (
               <span
@@ -447,8 +445,6 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                   </span>
                 </div>
 
-                {/* Same notch as Today: the cutoff, not the maximum, is what
-                    the bar is read against. */}
                 <div className="rounded-pill bg-line relative mt-3 h-1.5">
                   {m.score !== null ? (
                     <div

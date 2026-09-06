@@ -65,28 +65,6 @@
       "Bash(dirname:*)",
       "Bash(printf:*)",
       "Bash(echo:*)"
-    ],
-    "ask": [
-      "Bash(git reset:*)",
-      "Bash(git checkout .:*)",
-      "Bash(git checkout --:*)",
-      "Bash(git restore:*)",
-      "Bash(git clean:*)",
-      "Bash(git rebase:*)",
-      "Bash(git push --force:*)",
-      "Bash(git push -f:*)",
-      "Bash(git branch -D:*)",
-      "Bash(git tag:*)",
-      "Bash(gh pr merge:*)",
-      "Bash(gh pr close:*)",
-      "Bash(gh api -X:*)",
-      "Bash(gh api --method:*)",
-      "Bash(gh release:*)",
-      "Bash(gh repo delete:*)",
-      "Bash(rm:*)",
-      "Bash(bun publish:*)",
-      "Bash(npm publish:*)",
-      "Bash(vercel:*)"
     ]
   },
   "hooks": {

@@ -1,13 +1,12 @@
 import { config } from "dotenv";
 import { defineConfig } from "drizzle-kit";
 
-// drizzle-kit runs outside Next, so it never sees .env.local unless we load it.
 config({ path: ".env.local" });
 
 const url = process.env.DIRECT_URL ?? process.env.DATABASE_URL;
 
 export default defineConfig({
-  schema: "./src/db/schema.ts",
+  schema: "./src/db/schema",
   out: "./src/migrations",
   dialect: "postgresql",
   // Migrations need session mode; the transaction pooler on :6543 rejects DDL.

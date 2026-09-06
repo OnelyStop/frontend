@@ -1,6 +1,5 @@
 export type Turn = { role: "user" | "assistant"; content: string };
 
-/** Set once per feature. A single call may override any of them. */
 export type ClientDefaults = {
   model?: string;
   fallbackModel?: string;

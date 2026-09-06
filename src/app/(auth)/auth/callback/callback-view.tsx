@@ -14,14 +14,13 @@ import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-// Fragments never reach the server, so reading during render would make SSR
-// and hydration disagree.
+const EXPIRED_CODES = ["otp_expired"];
 
-const EXPIRED_CODES = ["otp_expired", "access_denied"];
-
-// Google returns this when the user closes or declines the consent screen —
-// it isn't an expired link and shouldn't offer to resend one
-const DENIED_CODES = ["provider_email_needs_verification", "user_denied"];
+// A cancelled Google consent arrives as error=access_denied with no
+// error_code, whereas an expired link always carries error_code=otp_expired —
+// so bare access_denied means the user backed out and there is no link to
+// resend.
+const DENIED_CODES = ["access_denied", "provider_email_needs_verification"];
 
 export function CallbackView() {
   const { user, loading, resendConfirmation } = useAuth();
@@ -31,29 +30,22 @@ export function CallbackView() {
   const [resendError, setResendError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [urlError, setUrlError] = useState<AuthUrlError | null>(null);
-  const [settling, setSettling] = useState(true);
+  const [hadCode, setHadCode] = useState(false);
 
+  // Fragments never reach the server, so reading during render would make SSR
+  // and hydration disagree.
   useEffect(() => {
-    const found = getAuthErrorFromUrl();
-    if (found) {
-      setUrlError(found);
-      setSettling(false);
-      return;
-    }
-    // An OAuth round trip has to survive a network call to exchange the code,
-    // so give it materially longer than a hash that resolves locally
-    const timer = window.setTimeout(
-      () => setSettling(false),
-      hasPendingCodeExchange() ? 8000 : 2500,
-    );
-    return () => window.clearTimeout(timer);
+    setUrlError(getAuthErrorFromUrl());
+    setHadCode(hasPendingCodeExchange());
   }, []);
 
   useEffect(() => {
     if (user) router.replace("/home");
   }, [user, router]);
 
-  if (!urlError && (loading || settling)) {
+  // `loading` covers the PKCE exchange — getSession waits for it — so once it
+  // clears with no user the link really did fail.
+  if (!urlError && (loading || user)) {
     return (
       <AuthShell
         title="Confirming your account"
@@ -77,6 +69,7 @@ export function CallbackView() {
 
   const denied = urlError && DENIED_CODES.includes(urlError.code);
   const expired = urlError && !denied && EXPIRED_CODES.includes(urlError.code);
+  const openedElsewhere = !urlError && hadCode;
 
   // A cancelled OAuth consent has no link to resend — send them back to sign in
   if (denied) {
@@ -115,8 +108,8 @@ export function CallbackView() {
   if (resent) {
     return (
       <AuthShell
-        title="New link sent"
-        subtitle={`Check ${email} for a fresh confirmation link.`}
+        title="Check your email"
+        subtitle={`If ${email} still needs confirming, a fresh link is on its way.`}
         footer={
           <>
             Already confirmed? <Link href="/login">Sign in</Link>
@@ -143,8 +136,9 @@ export function CallbackView() {
       subtitle={
         expired
           ? "Confirmation links are single-use and time-limited. Enter your email and we'll send a fresh one."
-          : (urlError?.description ??
-            "Something went wrong verifying your link.")
+          : openedElsewhere
+            ? "This link only works in the browser the account was created from. Open it there, or enter your email below and we'll send a new one."
+            : "Something went wrong verifying your link. Enter your email and we'll send a fresh one."
       }
       footer={
         <>

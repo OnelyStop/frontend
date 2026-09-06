@@ -1,9 +1,7 @@
-// Stage 3 of dedup: genuine editorial paraphrase — two newsrooms describing the
-// same fact in unrelated words — can score near-zero lexical overlap. Comparing
-// the distinguishing *numbers and named entities* catches it. Rule (from the
-// spec): two same-day articles are the same event when they share >=2 salient
-// tokens with at least one of them a number. A shared entity alone is too weak
-// ("RBI" appears in many unrelated stories); "RBI" + "6.5%" together is not.
+// Stage 3 of dedup: editorial paraphrase can score near-zero lexical overlap,
+// so compare distinguishing numbers and named entities instead. Same-day
+// articles match on >=2 shared salient tokens, at least one a number — "RBI"
+// alone is too weak, "RBI" + "6.5%" is not.
 
 export type SalientTokens = { numbers: Set<string>; entities: Set<string> };
 
@@ -129,7 +127,6 @@ function extractEntities(text: string): Set<string> {
     if (!ENTITY_STOPWORDS.has(w)) out.add(w);
   }
 
-  // Canonicalize via the alias map.
   const canon = new Set<string>();
   for (const e of out) {
     canon.add(ALIASES[e] ?? e);

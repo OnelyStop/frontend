@@ -8,38 +8,38 @@ type Tile = {
   href?: string;
   col: string;
   row: string;
-  mock?: "grade" | "papers" | "codes" | "filters" | "queue" | "due" | "posts";
+  mock?: "band" | "papers" | "sources" | "chips" | "queue" | "due" | "posts";
 };
 
 // Hand-placed and deliberately non-uniform — the non-uniformity is the cure
 // for the four-up grid this replaces.
 const TILES: Tile[] = [
   {
-    title: "Question bank",
-    body: "Filter by spec point, not by chapter. Every question tagged to the line in your syllabus.",
+    title: "Mocks",
+    body: "Full papers under real sectional timing, with the key held back until you're done.",
     href: "/signup",
     col: "1 / span 2",
-    row: "1",
-    mock: "filters",
-  },
-  {
-    title: "Past papers",
-    body: "Whole papers, timed or untimed, with the mark scheme held back until you're done.",
-    href: "/signup",
-    col: "3 / span 2",
     row: "1",
     mock: "papers",
   },
   {
-    title: "Working grade",
-    body: "One number that moves when your marks move, per subject, per paper.",
-    col: "5 / span 4",
+    title: "Attempt map",
+    body: "Accuracy against pace, per topic. What to bank, what to try if there's time, what to skip.",
+    href: "#attempt-map",
+    col: "3 / span 2",
     row: "1",
-    mock: "grade",
+    mock: "chips",
   },
   {
-    title: "PYQ mixes",
-    body: "Past-year questions blended into fresh sets aimed at what you keep getting wrong.",
+    title: "Cutoff band",
+    body: "One reading per section that moves when your sittings move: below the cutoff, at it, safe, strong.",
+    col: "5 / span 4",
+    row: "1",
+    mock: "band",
+  },
+  {
+    title: "Drills",
+    body: "A short set aimed at the topics costing you marks, timed like the section it came from.",
     href: "/signup",
     col: "1 / span 2",
     row: "2",
@@ -47,25 +47,26 @@ const TILES: Tile[] = [
   },
   {
     title: "Community",
-    body: "Ask other students sitting the same paper. Five posts a month free, fifteen on Pro.",
+    body: "Doubts ranked by how many people are stuck there. Five posts a month free, fifteen on Pro.",
     col: "3 / span 2",
     row: "2",
     mock: "posts",
   },
   {
     title: "Flashcards",
-    body: "Dropped marking points come back on a schedule built around your exam date.",
-    href: "#memory",
+    body: "Current affairs, banking awareness and formulae, back on a schedule before the exam.",
+    href: "/signup",
     col: "5 / span 2",
     row: "2",
     mock: "due",
   },
   {
-    title: "Boards",
-    body: "OCR, AQA, Edexcel and CIE mark the same content differently. We mark it their way.",
+    title: "Current affairs",
+    body: "One grounded question per major story, from the day's news and RBI, PIB and SEBI.",
+    href: "/signup",
     col: "7 / span 2",
     row: "2",
-    mock: "codes",
+    mock: "sources",
   },
 ];
 
@@ -73,18 +74,20 @@ const MOCK = "mt-5";
 const ROW = "border-line flex items-baseline gap-2 border-b pb-2 text-[12.5px]";
 
 function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
-  if (kind === "grade") {
+  if (kind === "band") {
     return (
       <div className={`${MOCK} flex items-baseline gap-2`} aria-hidden>
-        {["D", "C", "B", "A", "A*"].map((g) => (
+        {["Below", "At cutoff", "Safe", "Strong"].map((band) => (
           <span
-            key={g}
+            key={band}
             className={cn(
-              "flex-1 border-t-2 py-1 text-center text-[14px] font-semibold",
-              g === "A" ? "border-brand text-brand" : "border-line text-ink-3",
+              "flex-1 border-t-2 py-1 text-center text-[13px] font-semibold",
+              band === "Safe"
+                ? "border-brand text-brand"
+                : "border-line text-ink-3",
             )}
           >
-            {g}
+            {band}
           </span>
         ))}
       </div>
@@ -94,9 +97,9 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
     return (
       <div className={`${MOCK} grid gap-2`} aria-hidden>
         {[
-          ["Priya", "How strict is AO3 on the 20-markers?"],
-          ["Sam", "Q4(b) 2023 mark scheme wording?"],
-          ["Leah", "Best order for Paper 2 revision?"],
+          ["Priya", "Attempt DI before puzzles, or after?"],
+          ["Rahul", "How is the 0.25 applied across sections?"],
+          ["Meera", "GA sources that actually match RBI Grade B?"],
         ].map(([who, q]) => (
           <div key={who} className={ROW}>
             <span className="text-ink-2 shrink-0 font-semibold">{who}</span>
@@ -109,33 +112,39 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
   if (kind === "papers") {
     return (
       <div className={`${MOCK} grid gap-2`} aria-hidden>
-        {["2024", "2023", "2022"].map((y) => (
-          <div key={y} className={`${ROW} justify-between gap-3`}>
-            <span className="tnum text-[15px] font-medium">{y}</span>
-            <span className="text-ink-3">Paper 1 · Paper 2</span>
+        {[
+          ["IBPS PO", "Prelims · 60 min"],
+          ["SBI Clerk", "Mains · 160 min"],
+          ["RBI Grade B", "Phase I · 120 min"],
+        ].map(([exam, paper]) => (
+          <div key={exam} className={`${ROW} justify-between gap-3`}>
+            <span className="text-[14px] font-medium">{exam}</span>
+            <span className="text-ink-3 tnum">{paper}</span>
           </div>
         ))}
       </div>
     );
   }
-  if (kind === "filters") {
+  if (kind === "chips") {
     return (
       <div className={`${MOCK} grid gap-2`} aria-hidden>
-        {["3.1.2 Enzymes", "3.1.4 Transport", "4.2 Gas exchange"].map(
-          (f, i) => (
-            <span
-              key={f}
-              className={cn(
-                "rounded-md border px-2.5 py-1.5 text-[12.5px]",
-                i === 1
-                  ? "border-brand bg-brand-soft text-brand"
-                  : "border-line text-ink-3",
-              )}
-            >
-              {f}
-            </span>
-          ),
-        )}
+        {[
+          "Simplification · bank",
+          "Floor puzzles · if time",
+          "DI sets · skip",
+        ].map((f, i) => (
+          <span
+            key={f}
+            className={cn(
+              "rounded-md border px-2.5 py-1.5 text-[12.5px]",
+              i === 2
+                ? "border-brand bg-brand-soft text-brand"
+                : "border-line text-ink-3",
+            )}
+          >
+            {f}
+          </span>
+        ))}
       </div>
     );
   }
@@ -143,9 +152,9 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
     return (
       <div className={`${MOCK} grid gap-2`} aria-hidden>
         {[
-          ["Q4(b)", "Gas exchange"],
-          ["Q7(c)", "Le Chatelier"],
-          ["Q2(a)", "Rate equations"],
+          ["Q3", "Simplification"],
+          ["Q7", "Floor-based puzzle"],
+          ["Q11", "Error spotting"],
         ].map(([q, t]) => (
           <div key={q} className={`${ROW} text-ink-3 gap-3`}>
             <span className="tnum text-ink-2 text-[13px] font-medium">{q}</span>
@@ -176,7 +185,7 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
   }
   return (
     <div className={`${MOCK} text-ink-3 grid gap-1`} aria-hidden>
-      {["OCR A H420", "AQA 7405", "Edexcel 9MA0", "CIE 9700"].map((c) => (
+      {["RBI", "PIB", "SEBI", "The day's news"].map((c) => (
         <span key={c} className="text-[12.5px]">
           {c}
         </span>
@@ -194,11 +203,11 @@ export function Mosaic() {
       <div className="mx-auto max-w-300">
         <header className="mb-[clamp(32px,4.5vw,64px)] grid items-start gap-x-[clamp(32px,6vw,96px)] gap-y-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <h2 className="max-w-[13em] text-[30px] tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
-            The whole of revision in one tab
+            The whole of preparation in one tab
           </h2>
           <p className="text-ink-2 text-[18px] leading-relaxed lg:text-[19px]">
-            The question bank, the past papers, the marker and the memory
-            schedule are one product, not four tabs and four logins.
+            Mocks, drills, current affairs, the marker and the community are one
+            product, not five apps and five logins.
           </p>
         </header>
 
@@ -210,7 +219,7 @@ export function Mosaic() {
               key={tile.title}
               className={cn(
                 "bg-canvas group relative flex flex-col gap-2 overflow-hidden p-5 transition-colors md:col-span-2",
-                "lg:[grid-column:var(--col)] lg:[grid-row:var(--row)]",
+                "lg:col-(--col) lg:row-(--row)",
                 tile.href && "hover:bg-panel",
               )}
               style={

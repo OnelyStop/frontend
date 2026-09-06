@@ -16,7 +16,6 @@ type NewsDataResponse = {
   status: string;
   results?: NewsDataArticle[];
   nextPage?: string | null;
-  // Error shape
   message?: string;
 };
 
@@ -57,9 +56,8 @@ function toRawArticles(
     if (a.duplicate) continue; // NewsData's own near-duplicate flag
     const publishedAt = a.pubDate ? new Date(a.pubDate) : new Date();
     if (Number.isNaN(publishedAt.getTime())) continue;
-    // `content` is "ONLY AVAILABLE IN PAID PLANS" on the free tier. `description`
-    // is HTML and often smuggles the full body in a <content:encoded> CDATA
-    // block — clean it the same way as a fetched page.
+    // `content` is paid-tier only; `description` is HTML that often carries the
+    // full body in a CDATA block, so clean it like a fetched page.
     out.push({
       source: "newsdata_io",
       title: a.title.trim(),
@@ -87,7 +85,6 @@ async function fetchScope(
   return collected;
 }
 
-/** India national + world headlines from NewsData.io. */
 export async function fetchNewsData(): Promise<RawArticle[]> {
   const [national, international] = await Promise.all([
     fetchScope(activeProfile.newsdata.national, "national"),

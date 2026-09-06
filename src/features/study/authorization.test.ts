@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-/* The spec is emphatic: note / progress / chat routes scope on the
+/* The spec is emphatic: note / progress routes scope on the
    server-resolved user id and never trust one from the request body (§11).
    These call the real route handlers with the data layer and auth stubbed, and
    assert the wiring: 401 when signed out, and the authenticated id — not a body
@@ -14,8 +14,6 @@ const {
   listNotes,
   topicIdFromSlug,
   upsertProgress,
-  listMessages,
-  answerInConversation,
 } = vi.hoisted(() => ({
   currentUserId: vi.fn<() => Promise<string | null>>(),
   createNote: vi.fn(),
@@ -24,11 +22,9 @@ const {
   listNotes: vi.fn(),
   topicIdFromSlug: vi.fn(),
   upsertProgress: vi.fn(),
-  listMessages: vi.fn(),
-  answerInConversation: vi.fn(),
 }));
 
-vi.mock("./auth.server", () => ({ currentUserId }));
+vi.mock("@/lib/auth.server", () => ({ currentUserId }));
 vi.mock("./queries.server", () => ({
   createNote,
   updateNote,
@@ -36,23 +32,20 @@ vi.mock("./queries.server", () => ({
   listNotes,
   topicIdFromSlug,
   upsertProgress,
-  listMessages,
 }));
-vi.mock("./tutor.server", () => ({ answerInConversation }));
-vi.mock("./rate-limit", () => ({
+vi.mock("@/lib/rate-limit", () => ({
   rateLimit: () => ({ ok: true, retryAfterMs: 0 }),
 }));
 
 import {
   POST as notesPost,
   GET as notesGet,
-} from "@/app/api/study/topics/[topicId]/notes/route";
+} from "@/app/api/v1/study/topics/[topicId]/notes/route";
 import {
   PATCH as notePatch,
   DELETE as noteDelete,
-} from "@/app/api/study/notes/[noteId]/route";
-import { POST as messagesPost } from "@/app/api/study/chat/conversations/[conversationId]/messages/route";
-import { POST as progressPost } from "@/app/api/study/topics/[topicId]/progress/route";
+} from "@/app/api/v1/study/notes/[noteId]/route";
+import { POST as progressPost } from "@/app/api/v1/study/topics/[topicId]/progress/route";
 
 const TOPIC = "11111111-1111-1111-1111-111111111111";
 const AUTH_USER = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
@@ -74,8 +67,6 @@ beforeEach(() => {
   deleteNote.mockResolvedValue(true);
   listNotes.mockResolvedValue([]);
   upsertProgress.mockResolvedValue({ progressPercent: 40, completedAt: null });
-  listMessages.mockResolvedValue([]);
-  answerInConversation.mockResolvedValue({ answer: "ok", citedBlockKeys: [] });
 });
 
 describe("notes: create", () => {
@@ -100,6 +91,16 @@ describe("notes: create", () => {
     expect(createNote.mock.calls[0][1]).toBe(TOPIC);
     // the route never forwards a visibility field — private is enforced in the query
     expect(createNote.mock.calls[0][2]).not.toHaveProperty("visibility");
+  });
+
+  // The colour column carries a CHECK; without this a bad value was a 500.
+  it("rejects an unknown colour before the data layer", async () => {
+    const res = await notesPost(
+      req({ bodyMarkdown: "x", color: "magenta" }),
+      params({ topicId: TOPIC }),
+    );
+    expect(res.status).toBe(400);
+    expect(createNote).not.toHaveBeenCalled();
   });
 });
 
@@ -166,28 +167,5 @@ describe("progress", () => {
       params({ topicId: "22222222-2222-2222-2222-222222222222" }),
     );
     expect(res.status).toBe(404);
-  });
-});
-
-describe("chat messages", () => {
-  it("401s when signed out", async () => {
-    currentUserId.mockResolvedValue(null);
-    const res = await messagesPost(
-      req({ question: "hi" }),
-      params({ conversationId: "c1" }),
-    );
-    expect(res.status).toBe(401);
-    expect(answerInConversation).not.toHaveBeenCalled();
-  });
-
-  it("passes the authenticated id and caps the question length", async () => {
-    const res = await messagesPost(
-      req({ question: "q".repeat(5000), userId: ATTACKER }),
-      params({ conversationId: "c1" }),
-    );
-    expect(res.status).toBe(200);
-    expect(answerInConversation.mock.calls[0][0]).toBe(AUTH_USER);
-    expect(answerInConversation.mock.calls[0][1]).toBe("c1");
-    expect(answerInConversation.mock.calls[0][2].question.length).toBe(1000);
   });
 });

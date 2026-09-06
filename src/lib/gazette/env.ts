@@ -8,9 +8,8 @@ const schema = z.object({
   GEMINI_API_KEY: z.string().min(1, "GEMINI_API_KEY is required"),
   CRON_SECRET: z.string().min(16, "CRON_SECRET must be at least 16 chars"),
   GENERATION_MODEL: z.string().min(1).default("gemini-flash-lite-latest"),
-  // Optional so `next build` and pure-function tests don't need Redis;
-  // enqueuePlan() and the worker throw a clear error when it's unset.
-  REDIS_URL: z.string().url().optional(),
+  // Free-tier Gemini keys allow ~15 requests a minute; paid keys thousands.
+  GENERATION_RPM: z.coerce.number().int().min(1).max(1000).default(12),
   SENTRY_DSN: z.string().url().optional(),
 });
 

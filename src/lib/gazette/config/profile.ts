@@ -5,43 +5,29 @@ type Scope = "national" | "international";
 
 export type ExamProfile = {
   id: string;
-  /** NewsData.io latest-news calls. Two calls: India national + world. */
   newsdata: {
     endpoint: string;
     national: Record<string, string>;
     international: Record<string, string>;
-    /** Hard cap on pagination pages per call — NewsData bills per credit. */
+    /** NewsData bills per credit, so pagination is capped. */
     maxPages: number;
   };
-  /** Official announcement feeds — the RBI/PIB/SEBI items exams actually test. */
   rssFeeds: { source: Source; url: string; scope: Scope }[];
-  /** Cap per ingest run and per generate run — bounds cost and blast radius. */
   maxArticlesPerIngest: number;
   maxQuestionsPerGenerate: number;
-  /**
-   * Max LLM calls per minute, enforced queue-global by the BullMQ worker's
-   * limiter. Set to the model's safe RPM (Gemini free-tier flash-lite is low;
-   * paid is thousands).
-   */
   llmMaxRpm: number;
-  /** Model for MCQ drafting. Overridable via GENERATION_MODEL. */
   generationModel: string;
-  /** Dedup lookback: salient-facts checks compare against this many days. */
+  /** Salient-facts dedup compares against this many days. */
   recentWindowDays: number;
   /**
-   * Free deterministic relevance pre-filter (stage A). Only applied to
-   * NewsData articles — RSS feeds are the regulators' own announcements.
-   * A candidate is hard-dropped only when it hits a negative term and no
-   * positive term; the model gate in generation is the real filter.
+   * Stage A, applied only to NewsData — RSS feeds are the regulators' own
+   * announcements. Hard-drops only on a negative term with no positive term;
+   * the model gate in generation is the real filter.
    */
   relevanceLexicon: { positive: string[]; negative: string[] };
-  /** Allowed `topic` values on a generated question (model picks one). */
   topics: string[];
 };
 
-// The banking-exam profile from the Gazette Engine spec. A second profile
-// (e.g. A-level general studies) would be added as another export here and
-// selected in the pipeline entrypoints — no pipeline code changes.
 export const BANKING_EXAM_PROFILE: ExamProfile = {
   id: "banking-exam-in",
   newsdata: {
@@ -54,12 +40,9 @@ export const BANKING_EXAM_PROFILE: ExamProfile = {
     international: { language: "en", category: "world" },
     maxPages: 2,
   },
-  // Feed URLs are best-effort and occasionally change — the ingest run treats a
-  // dead feed as empty rather than failing the whole pass.
-  //   - SEBI: www.sebi.gov.in firewalls non-India IPs; expect 0 items off an
-  //     overseas host.
-  //   - PIB: this feed's language is inconsistent (English or Hindi); Hindi
-  //     items are dropped at generation by the isMostlyEnglish gate.
+  // A dead feed is treated as empty rather than failing the pass. SEBI
+  // firewalls non-India IPs, so expect 0 items off an overseas host; PIB
+  // returns Hindi items, dropped later by the isMostlyEnglish gate.
   rssFeeds: [
     {
       source: "rbi_rss",
@@ -78,24 +61,20 @@ export const BANKING_EXAM_PROFILE: ExamProfile = {
     },
   ],
   maxArticlesPerIngest: 120,
-  // One Gemini request per candidate. gemini-3.x-flash free tier is only ~20
-  // req/day; gemini-flash-lite-latest's is far higher. Raise once billing is
-  // on the key. Thin articles are skipped before spending a request (see
-  // MIN_SOURCE_CHARS in pipeline/generate.ts).
+  // One Gemini request per candidate, sized for a free-tier daily cap.
   maxQuestionsPerGenerate: 40,
-  // Conservative — safe for paid Flash-Lite and won't instantly exhaust a
-  // free-tier daily cap. Bump on a paid key with headroom.
-  llmMaxRpm: 12,
-  // getter so importing this module doesn't read env at load time
+  get llmMaxRpm() {
+    return env.GENERATION_RPM;
+  },
+  // A getter so importing this module does not read env at load time.
   get generationModel() {
     return env.GENERATION_MODEL;
   },
   recentWindowDays: 3,
 
   relevanceLexicon: {
-    // Kept specific on purpose: a single generic word like "award" or "mission"
-    // shows up in horoscopes and film blurbs and would neutralise the negative
-    // signal. Prefer multi-word / unambiguous terms.
+    // Specific on purpose: a generic word like "award" shows up in horoscopes
+    // and film blurbs and would neutralise the negative signal.
     positive: [
       "rbi",
       "reserve bank",

@@ -1,11 +1,8 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-/* Surfaces.
-
-   A panel is white ground inside a hairline — no fill, no shadow. Only things
-   that genuinely float (menus, palettes) lift. One dark object per screen at
-   most, for the payoff. */
+// Panels are hairline on white, no shadow. Only things that float (menus,
+// palettes) lift.
 
 export function Card({
   children,
@@ -37,10 +34,8 @@ export function DarkPanel({
   );
 }
 
-/* Ruled ground — the signature layout. Cells divided by hairlines with a
-   marker on every intersection, rather than objects floating apart. The
-   container draws the top and left edge; each cell draws its own bottom and
-   right, so any column count works without per-breakpoint rules. */
+// The container draws the top and left edge; each cell draws its own bottom
+// and right, so any column count works without per-breakpoint rules.
 
 const COLS: Record<number, string> = {
   1: "grid-cols-1",
@@ -168,7 +163,6 @@ export function Popover({
   );
 }
 
-/** A row inside a Popover: what it is, and one line on what it does. */
 export function MenuRow({
   label,
   hint,

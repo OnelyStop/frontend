@@ -18,6 +18,20 @@ export function CompanionPanel() {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
   }, [messages, busy]);
 
+  // Esc closes the panel, not the running head walking up the URL.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      close();
+    };
+    window.addEventListener("keydown", onKey, { capture: true });
+    return () =>
+      window.removeEventListener("keydown", onKey, { capture: true });
+  }, [open, close]);
+
   if (!open) return null;
 
   const send = () => {
@@ -30,7 +44,7 @@ export function CompanionPanel() {
   return (
     <aside
       aria-label="Ask Onely"
-      className="border-line bg-canvas shadow-pop fixed inset-y-0 right-0 z-90 flex w-[380px] max-w-[92vw] flex-col border-l"
+      className="border-line bg-canvas shadow-pop fixed inset-y-0 right-0 z-90 flex w-95 max-w-[92vw] flex-col border-l"
     >
       <header className="border-line flex h-16 shrink-0 items-center gap-2 border-b px-5">
         <Sparkles size={15} strokeWidth={2} className="text-brand" />
@@ -59,15 +73,15 @@ export function CompanionPanel() {
       >
         {messages.length === 0 && !busy ? (
           <p className="text-ink-3 text-[13px] leading-relaxed">
-            Ask anything about the selected passage — what it means, why it
-            earns marks, or how the examiner reads it.
+            Ask anything about the selected passage — what it means, how the
+            exam tests it, or the shortcut for it.
           </p>
         ) : null}
 
         {messages.map((m, i) => (
           <div
             key={i}
-            className={`rounded-[14px] px-3.5 py-2.5 text-[14px] leading-relaxed ${
+            className={`rounded-[14px] px-3.5 py-2.5 text-[14px] leading-relaxed whitespace-pre-wrap ${
               m.role === "user"
                 ? "bg-brand ml-6 text-white"
                 : "bg-canvas text-ink-2 ring-line ring-1"

@@ -1,68 +1,50 @@
-export type BillingCycle = "monthly" | "annual";
+// Display copy only. Prices come from payment_plans on the server.
 
-export type Plan = {
-  id: "free" | "pro" | "school";
+export type PlanId = "free" | "pro" | "school";
+
+export type PlanCopy = {
+  id: PlanId;
   name: string;
   tagline: string;
-  monthly: number;
-  annual: number; // per month, billed yearly
-  cta: string;
-  featured?: boolean;
   features: string[];
+  featured?: boolean;
 };
 
-export const ANNUAL_TOTAL = 59;
-export const MONTHLY_PRICE = 7.99;
-
-export const PLANS: Plan[] = [
+export const PLAN_COPY: PlanCopy[] = [
   {
     id: "free",
     name: "Free",
-    tagline: "Get started with the essentials",
-    monthly: 0,
-    annual: 0,
-    cta: "Current plan",
+    tagline: "Everything you need to start sitting papers",
     features: [
-      "Question bank access",
-      "5 answer markings / week",
-      "1 PYQ mix per day",
-      "Flashcards from your dropped marks",
-      "Basic progress tracking",
-      "Sticky notes",
-      "5 community posts / month",
+      "Knowledge base: every subject, chapter and topic",
+      "Private notes and flashcards",
+      "Daily current affairs, last 7 days",
+      "Two full mocks a month under sectional timing",
+      "5 community doubts a month",
     ],
   },
   {
     id: "pro",
     name: "Pro",
-    tagline: "Everything unlimited, built for A*",
-    monthly: MONTHLY_PRICE,
-    annual: ANNUAL_TOTAL / 12,
-    cta: "Upgrade to Pro",
+    tagline: "Unlimited practice, calibrated to your exam",
     featured: true,
     features: [
-      "Unlimited answer & essay marking",
-      "Unlimited PYQ mixes",
-      "Ask Onely on any question or paper",
-      "Flashcard scheduling tied to your exam dates",
-      "Full progress insights",
-      "15 community posts / month",
-      "Priority marking queue",
+      "Unlimited mocks and drills",
+      "Unlimited descriptive marking",
+      "Full current-affairs archive",
+      "Attempt map and progress across every sitting",
+      "Ask Onely on any passage",
+      "15 community doubts a month",
     ],
   },
   {
     id: "school",
-    name: "School",
-    tagline: "For departments and sixth forms",
-    monthly: 3,
-    annual: 3,
-    cta: "Contact us",
+    name: "Institute",
+    tagline: "For coaching centres and colleges",
     features: [
-      "Everything in Pro, per student",
-      "Class dashboards & teacher analytics",
-      "Set assignments from the bank",
-      "Bulk seats with central billing",
-      "Priority support",
+      "Pro for every student in the batch",
+      "One invoice, paid by the institute",
+      "Priced per student per year",
     ],
   },
 ];

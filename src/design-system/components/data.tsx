@@ -36,7 +36,6 @@ export function Badge({
   );
 }
 
-/** Label, one large number, one line of context. Sits inside a LatticeCell. */
 export function Stat({
   label,
   value,
@@ -59,7 +58,6 @@ export function Stat({
   );
 }
 
-/** A plain proportion — one weight, no threshold. */
 export function Meter({
   value,
   className,

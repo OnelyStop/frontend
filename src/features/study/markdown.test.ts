@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { markdownToText, parseMarkdown } from "./markdown";
+import { parseMarkdown } from "./markdown";
 
 /* The renderer builds React nodes and never an HTML string, so raw markup can't
    execute by construction. These check that markup is carried as literal text
@@ -19,10 +19,13 @@ describe("parseMarkdown", () => {
   it("only ever emits inert block kinds, and carries markup as literal text", () => {
     const nodes = parseMarkdown("<script>alert(1)</script>\n\n<b>x</b>");
     expect(nodes.every((n) => SAFE_KINDS.includes(n.kind))).toBe(true);
-    // the angle-bracket text survives as literal paragraph text, never a tag
-    expect(markdownToText("<script>alert(1)</script>")).toContain(
-      "<script>alert(1)</script>",
-    );
+    const [first] = parseMarkdown("<script>alert(1)</script>");
+    expect(first.kind).toBe("paragraph");
+    if (first.kind === "paragraph") {
+      expect(first.text.map((t) => (t.t === "text" ? t.v : "")).join("")).toBe(
+        "<script>alert(1)</script>",
+      );
+    }
   });
 
   it("drops a javascript: link target to plain text", () => {
@@ -61,16 +64,5 @@ describe("parseMarkdown", () => {
   it("keeps fenced code verbatim", () => {
     const nodes = parseMarkdown("```\na < b && c > d\n```");
     expect(nodes[0]).toEqual({ kind: "code", text: "a < b && c > d" });
-  });
-});
-
-describe("markdownToText", () => {
-  it("flattens to plain prose for the tutor context", () => {
-    const text = markdownToText(
-      "# Heading\n\nSome **bold** and `code`.\n\n- a\n- b",
-    );
-    expect(text).toContain("Heading");
-    expect(text).toContain("Some bold and code.");
-    expect(text).toContain("- a");
   });
 });

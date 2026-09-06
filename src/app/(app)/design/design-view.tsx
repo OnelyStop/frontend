@@ -35,9 +35,6 @@ import {
   Tr,
 } from "@/design-system";
 
-/* The living style guide. Every component in the system renders here, so a
-   change to a primitive is visible in one place before it ships to a page. */
-
 const TOKENS: [string, string][] = [
   ["canvas", "var(--color-canvas)"],
   ["panel", "var(--color-panel)"],

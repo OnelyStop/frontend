@@ -10,84 +10,83 @@ type Clause = {
   gloss?: string;
 };
 
-// One sentence per ruled line, the way handwriting actually breaks. Each line
-// carries at most one decoration so the margin note beside it is unambiguous.
+// At most one decoration per line so its margin note is unambiguous.
 const SCRIPT: Clause[] = [
   {
-    hit: "Oxygen diffuses from the alveolus into the blood",
-    mp: "MP1",
-    quote: "diffuses … into the blood",
+    hit: "Subject: Request for premature closure of fixed deposit no. 4471",
+    mp: "R1",
+    quote: "premature closure of fixed deposit",
   },
   {
-    pre: "because ",
-    slip: "the concentration is higher",
-    post: " in the air sac.",
+    pre: "I am writing to ",
+    slip: "ask about my fixed deposit",
+    post: " held at your branch.",
     gloss:
-      "Close to MP5, but not it. A gradient that exists is not a gradient that is maintained.",
+      "Close to R2, but not it. A letter that asks about a deposit has not asked to close it.",
   },
   {
-    pre: "The wall of the alveolus is ",
-    hit: "only one cell thick",
-    post: ", so the oxygen has less far to travel.",
-    mp: "MP2",
-    quote: "only one cell thick",
-    gloss: "One mark, not two. The oblique offers alternative wordings.",
-  },
-  {
-    pre: "There are ",
-    hit: "millions of alveoli, so the surface area is huge",
+    pre: "The deposit of ",
+    hit: "₹2,00,000 was opened on 12 March 2025 for two years",
     post: ".",
-    mp: "MP3",
-    quote: "the surface area is huge",
+    mp: "R3",
+    quote: "₹2,00,000 … 12 March 2025 … two years",
+    gloss:
+      "One point, not three. The rubric wants all of amount, date and term.",
   },
   {
-    pre: "Each one is ",
-    hit: "wrapped in capillaries",
-    post: " carrying the oxygen away.",
-    mp: "MP4",
-    quote: "wrapped in capillaries",
-  },
-  {
-    slip: "This makes gas exchange efficient",
+    pre: "I need the funds now as ",
+    hit: "my father's surgery is scheduled for next month",
     post: ".",
-    gloss: "No mark. This restates the stem rather than explaining it.",
+    mp: "R4",
+    quote: "surgery is scheduled for next month",
+  },
+  {
+    pre: "Kindly ",
+    hit: "credit the proceeds to my savings account at the same branch",
+    post: ".",
+    mp: "R5",
+    quote: "credit the proceeds to my savings account",
+  },
+  {
+    slip: "I hope you will do the needful at the earliest",
+    post: ".",
+    gloss:
+      "No point. A stock phrase is not a close; R6 wants a name, an address and a date.",
   },
 ];
 
-// Our wording, in the register a real scheme uses: one credit point per line,
-// closed with a semicolon, worth (1), with the acceptance rule underneath.
 const SCHEME = [
   {
-    mp: "MP1",
-    text: "oxygen moves from the alveolus into the blood ;",
-    rule: ["ALLOW", "diffuses / passes into"],
+    mp: "R1",
+    text: "subject line names the request ;",
+    rule: ["ALLOW", "closure / withdrawal before maturity"],
     given: true,
   },
   {
-    mp: "MP2",
-    text: "wall (of alveolus) is one cell thick / short diffusion path ;",
-    given: true,
-  },
-  {
-    mp: "MP3",
-    text: "many alveoli give a large surface area ;",
-    given: true,
-  },
-  {
-    mp: "MP4",
-    text: "dense capillary network / good blood supply ;",
-    rule: ["IGNORE", "‘lots of blood’ unqualified"],
-    given: true,
-  },
-  {
-    mp: "MP5",
-    text: "ventilation and blood flow maintain the concentration gradient ;",
-    rule: ["DO NOT ACCEPT", "a gradient that is only stated to exist"],
+    mp: "R2",
+    text: "opening sentence states the purpose ;",
+    rule: ["DO NOT ACCEPT", "a purpose only implied by later lines"],
     given: false,
   },
   {
-    mp: "MP6",
-    text: "moist lining, so the gases dissolve before diffusing ;",
+    mp: "R3",
+    text: "deposit identified: amount, date and term ;",
+    given: true,
+  },
+  {
+    mp: "R4",
+    text: "reason for closing before maturity ;",
+    rule: ["IGNORE", "‘urgent need’ unqualified"],
+    given: true,
+  },
+  {
+    mp: "R5",
+    text: "instruction for the proceeds / account to credit ;",
+    given: true,
+  },
+  {
+    mp: "R6",
+    text: "formal close with name, address and date ;",
     given: false,
   },
 ];
@@ -124,8 +123,8 @@ export function MarkingScene() {
             Every mark, traced to the line that earned it
           </h2>
           <p className="text-ink-2 max-w-[38ch] text-[18px] leading-relaxed text-pretty lg:pt-1 lg:text-[19px]">
-            A real six-marker, marked. Everything in the margin is the
-            examiner&rsquo;s ink. Each tick names the marking point it came from
+            A descriptive letter, marked. Everything in the margin is the
+            marker&rsquo;s ink. Each tick names the rubric point it came from
             and points at the exact words that earned it.
           </p>
         </header>
@@ -138,7 +137,7 @@ export function MarkingScene() {
 
             <div className="border-line text-ink-3 flex items-baseline justify-between gap-4 border-b pb-4 text-[12.5px]">
               <span className="tabular-nums">
-                OCR A &middot; H420/01 &middot; Biology A
+                SBI PO Mains &middot; Descriptive &middot; Letter
               </span>
               <span
                 className="text-ink-2 text-[14px] font-semibold tabular-nums"
@@ -146,7 +145,7 @@ export function MarkingScene() {
               >
                 [6]
               </span>
-              <span className="sr-only">6 marks available</span>
+              <span className="sr-only">6 rubric points available</span>
             </div>
 
             <div className="mt-6 grid grid-cols-[40px_minmax(0,1fr)] items-baseline gap-3 sm:grid-cols-[56px_minmax(0,1fr)] sm:gap-4">
@@ -154,10 +153,11 @@ export function MarkingScene() {
                 className="text-ink-3 text-[14px] tabular-nums"
                 aria-hidden="true"
               >
-                4 (b)
+                Q 1
               </span>
               <p className="max-w-[44ch] text-[21px] leading-snug lg:text-[22px]">
-                Explain how the alveoli are adapted for efficient gas exchange.
+                Write a letter to your branch manager requesting premature
+                closure of a fixed deposit, giving the reason.
               </p>
             </div>
 
@@ -199,7 +199,7 @@ export function MarkingScene() {
                   of 6
                 </span>
                 <span className="sr-only">
-                  Total for question 4 (b): 4 out of 6.
+                  Total for the letter: 4 of 6 rubric points.
                 </span>
               </div>
             </div>
@@ -208,10 +208,10 @@ export function MarkingScene() {
           {/* The fold: a perforated rule, not a border. */}
           <div className="bg-panel relative px-6 py-10 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-[repeating-linear-gradient(to_right,var(--color-line-2)_0_6px,transparent_6px_13px)] before:content-[''] sm:px-10">
             <span className="text-ink-3 absolute top-0 left-6 text-[12.5px] sm:left-10">
-              Mark scheme, held back until you&rsquo;ve answered
+              Rubric, held back until you&rsquo;ve answered
             </span>
             <p className="text-ink-3 mt-6 text-[14px]">
-              Credit points for 4 (b), in our wording
+              Credit points for the letter, in our wording
             </p>
 
             <ol className="mt-4">
@@ -285,13 +285,13 @@ export function MarkingScene() {
                   ))}
                 </ol>
                 <p className="text-ink-3 mt-4 text-[12.5px]">
-                  One cell per marking point. Four filled, two left on the page.
+                  One cell per rubric point. Four filled, two left on the page.
                 </p>
               </div>
 
               <p className="text-ink-2 [&_strong]:text-ink max-w-[46ch] text-[14px] [&_strong]:font-semibold">
-                <strong>Four of six.</strong> Length was never the problem . MP5
-                and MP6 are simply not written down. The band is decided by the
+                <strong>Four of six.</strong> Length was never the problem. R2
+                and R6 are simply not written down. The band is decided by the
                 points you hit, not by how much you wrote.
               </p>
             </div>
@@ -302,8 +302,7 @@ export function MarkingScene() {
   );
 }
 
-// A clause and its margin note are siblings of the same grid, so the note stays
-// level with the line it annotates however the text reflows.
+// Clause and margin note are grid siblings so the note stays level on reflow.
 function ScriptLine({ clause }: { clause: Clause }) {
   const given = Boolean(clause.mp);
 

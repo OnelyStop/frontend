@@ -1,6 +1,30 @@
-/* Shared shapes for the study module (knowledge base). The API returns these;
-   the reader consumes them. Kept free of server imports so a client component
-   can import the types without pulling the database in. */
+import { z } from "zod";
+
+// Free of server imports so client components can import these without the database.
+
+export const NOTE_COLORS = ["yellow", "blue", "green", "pink"] as const;
+const MAX_NOTE = 10_000;
+
+export const noteCreate = z.object({
+  bodyMarkdown: z.string().trim().min(1).max(MAX_NOTE),
+  blockStableKey: z.string().max(200).nullish(),
+  contentVersion: z.number().int().positive().nullish(),
+  color: z.enum(NOTE_COLORS).optional(),
+});
+
+export const noteUpdate = z
+  .object({
+    bodyMarkdown: z.string().trim().min(1).max(MAX_NOTE).optional(),
+    color: z.enum(NOTE_COLORS).optional(),
+    expectedUpdatedAt: z.string().datetime().optional(),
+  })
+  .refine((v) => v.bodyMarkdown !== undefined || v.color !== undefined, {
+    message: "nothing_to_update",
+  });
+
+export const progressUpdate = z.object({
+  progressPercent: z.number().min(0).max(100),
+});
 
 export type BlockType =
   | "introduction"
@@ -19,7 +43,7 @@ export type BlockType =
 
 export type Difficulty = "beginner" | "intermediate" | "advanced";
 
-export type NoteColor = "yellow" | "blue" | "green" | "pink";
+export type NoteColor = (typeof NOTE_COLORS)[number];
 
 export type SubjectSummary = {
   slug: string;
@@ -99,12 +123,4 @@ export type StudyNote = {
   color: NoteColor;
   visibility: "private" | "unlisted" | "public";
   updatedAt: string;
-};
-
-export type ChatMessage = {
-  id: string;
-  role: "user" | "assistant";
-  body: string;
-  citedBlockKeys: string[];
-  createdAt: string;
 };

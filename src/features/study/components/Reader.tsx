@@ -2,14 +2,16 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
 import { Badge, Button } from "@/design-system";
 import { blockMeta } from "../blocks";
 import { Markdown } from "../markdown";
-import type { ChapterOutline, StudyNote, TopicOutline } from "../types";
+import type {
+  ChapterOutline,
+  Flashcard,
+  StudyNote,
+  TopicOutline,
+} from "../types";
 import { NotesPanel } from "./NotesPanel";
-import { TutorPanel } from "./TutorPanel";
-import { TutorFab } from "./TutorFab";
 import { AddNoteButton, BlockNoteChips } from "./StickyNote";
 import { FlashcardPlayer } from "./FlashcardPlayer";
 
@@ -26,7 +28,7 @@ const TONE_ACCENT: Record<string, string> = {
   ok: "border-ok",
 };
 
-type Panel = "notes" | "tutor" | null;
+type Panel = "notes" | null;
 
 // Deterministic across server and browser — toLocaleDateString() formats in the
 // runtime's locale/timezone and mismatches on hydration (docs/rendering.md).
@@ -55,14 +57,14 @@ export function Reader({
   outline,
   chapters,
   initialNotes,
-  signedIn,
+  flashcards,
 }: {
   subjectSlug: string;
   chapterSlug: string;
   outline: TopicOutline;
   chapters: ChapterOutline[];
   initialNotes: StudyNote[];
-  signedIn: boolean;
+  flashcards: Flashcard[];
 }) {
   const [panel, setPanel] = useState<Panel>(null);
   const [selectedBlockKey, setSelectedBlockKey] = useState<string | null>(null);
@@ -92,17 +94,16 @@ export function Reader({
 
   const postProgress = useCallback(
     (pct: number) => {
-      if (!signedIn) return;
       const rounded = Math.round(pct);
       if (rounded <= savedPctRef.current) return;
       savedPctRef.current = rounded;
-      void fetch(`/api/study/topics/${outline.id}/progress`, {
+      void fetch(`/api/v1/study/topics/${outline.id}/progress`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ progressPercent: rounded }),
       }).catch(() => {});
     },
-    [outline.id, signedIn],
+    [outline.id],
   );
 
   // Scroll-driven reading progress, throttled and only ever increasing.
@@ -130,11 +131,6 @@ export function Reader({
     setCompleted(true);
     savedPctRef.current = 0;
     postProgress(100);
-  };
-
-  const askAbout = (blockKey: string) => {
-    setSelectedBlockKey(blockKey);
-    setPanel("tutor");
   };
 
   const noteOn = (blockKey: string) => {
@@ -223,7 +219,6 @@ export function Reader({
             <Button
               size="sm"
               variant="secondary"
-              disabled={!signedIn}
               onClick={() => {
                 setSelectedBlockKey(null);
                 setFocusNoteId(null);
@@ -246,11 +241,6 @@ export function Reader({
             >
               Sources ({outline.sources.length})
             </Button>
-            {!signedIn ? (
-              <span className="text-ink-4 text-[12px]">
-                Sign in to take notes or ask the tutor
-              </span>
-            ) : null}
           </div>
 
           {sourcesOpen ? (
@@ -300,7 +290,7 @@ export function Reader({
           </ol>
         </nav>
 
-        <article ref={articleRef} className="space-y-10">
+        <article ref={articleRef} data-companion className="space-y-10">
           {outline.blocks.map((b) => {
             const meta = blockMeta(b.type);
             return (
@@ -321,28 +311,11 @@ export function Reader({
                 </h2>
                 <Markdown source={b.bodyMarkdown} />
                 <div className="mt-3 flex flex-wrap items-center gap-2">
-                  {signedIn ? (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => askAbout(b.stableKey)}
-                        aria-label="Ask the tutor about this section"
-                        title="Ask the tutor about this section"
-                        className="group text-ink-4 hover:text-brand hover:bg-brand-soft/50 grid size-7 place-items-center rounded-[8px] transition-colors"
-                      >
-                        <Sparkles
-                          size={15}
-                          strokeWidth={2}
-                          className="transition-transform duration-200 group-hover:rotate-12"
-                        />
-                      </button>
-                      <AddNoteButton onClick={() => noteOn(b.stableKey)} />
-                      <BlockNoteChips
-                        notes={notesByBlock.get(b.stableKey) ?? []}
-                        onOpen={(id) => openNote(b.stableKey, id)}
-                      />
-                    </>
-                  ) : null}
+                  <AddNoteButton onClick={() => noteOn(b.stableKey)} />
+                  <BlockNoteChips
+                    notes={notesByBlock.get(b.stableKey) ?? []}
+                    onOpen={(id) => openNote(b.stableKey, id)}
+                  />
                   {b.sourceKeys.length ? (
                     <span className="text-ink-4 ml-auto text-[12px]">
                       source: {b.sourceKeys.join(", ")}
@@ -398,28 +371,9 @@ export function Reader({
         />
       ) : null}
 
-      {panel === "tutor" ? (
-        <TutorPanel
-          topicSlug={outline.slug}
-          selectedBlockKey={selectedBlockKey}
-          blockTitles={blockTitles}
-          onClose={() => setPanel(null)}
-        />
-      ) : null}
-
-      {signedIn ? (
-        <TutorFab
-          onClick={() => {
-            setSelectedBlockKey(null);
-            setPanel("tutor");
-          }}
-          hidden={panel !== null || cardsOpen}
-        />
-      ) : null}
-
       {cardsOpen ? (
         <FlashcardPlayer
-          topicSlug={outline.slug}
+          cards={flashcards}
           onClose={() => setCardsOpen(false)}
         />
       ) : null}
