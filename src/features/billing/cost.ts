@@ -1,9 +1,9 @@
 import { PLAN_LIMITS, type PlanTier } from "./limits";
 
-// Paise per call: marking on Muse Spark 1.3, Ask Onely on DeepSeek V4 Flash.
+// Paise per call: marking on Muse Spark 1.3, Ask Onely on GLM-5.3-Flash.
 export const COST_PER_CALL_PAISE = {
   descriptiveMarking: 35,
-  askOnely: 2,
+  askOnely: 3,
 } as const;
 
 // A month of one user using every call they are owed. Real use is far below it.
