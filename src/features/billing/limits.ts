@@ -1,16 +1,14 @@
-// Every per-plan limit in the product, in one table. Client-safe: the pricing
-// grid renders these, and each route re-reads them server-side before allowing
-// the action — a number shown to the browser is display, never the check.
+// Every per-plan limit, in one table. Shown to the browser, checked on the server.
 
 export type PlanTier = "free" | "pro" | "pro_plus";
 
-// null means no cap. Only ever put null against something whose marginal cost
-// is a database read; anything that costs an LLM call per use carries a number.
+// null is no cap, and only ever belongs against a plain database read.
 export type PlanLimits = {
   mocksPerMonth: number | null;
   drillsPerDay: number | null;
   descriptiveMarkingsPerMonth: number | null;
-  askOnelyPerDay: number | null;
+  // Monthly, not daily: a daily cap is silently thirty times itself.
+  askOnelyPerMonth: number | null;
   communityDoubtsPerMonth: number | null;
   /** How far back the archive opens. null is the whole thing. */
   currentAffairsDays: number | null;
@@ -22,7 +20,7 @@ export const PLAN_LIMITS: Record<PlanTier, PlanLimits> = {
     mocksPerMonth: 2,
     drillsPerDay: 3,
     descriptiveMarkingsPerMonth: 2,
-    askOnelyPerDay: 5,
+    askOnelyPerMonth: 30,
     communityDoubtsPerMonth: 5,
     currentAffairsDays: 7,
     attemptMap: false,
@@ -31,19 +29,17 @@ export const PLAN_LIMITS: Record<PlanTier, PlanLimits> = {
     mocksPerMonth: null,
     drillsPerDay: null,
     descriptiveMarkingsPerMonth: 30,
-    askOnelyPerDay: 50,
+    askOnelyPerMonth: 300,
     communityDoubtsPerMonth: 15,
     currentAffairsDays: null,
     attemptMap: true,
   },
-  // Deliberately capped rather than unlimited. A marking is one LLM call at
-  // roughly ₹1.85, so 150 of them is ₹277 of a ₹400 plan; "unlimited" against
-  // a per-call cost loses money precisely on the heaviest users.
+  // Capped, not unlimited — a marking is a model call. Ceiling in cost.ts.
   pro_plus: {
     mocksPerMonth: null,
     drillsPerDay: null,
-    descriptiveMarkingsPerMonth: 150,
-    askOnelyPerDay: 200,
+    descriptiveMarkingsPerMonth: 80,
+    askOnelyPerMonth: 1_000,
     communityDoubtsPerMonth: 40,
     currentAffairsDays: null,
     attemptMap: true,

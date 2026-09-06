@@ -35,8 +35,7 @@ export async function POST(request: Request) {
     return fail("already_subscribed", 409);
 
   const currency = await requestCurrency();
-  // The body names a tier, never a price: the amount still comes from the row
-  // this finds, and zod has already limited the tier to one we sell.
+  // The body names a tier, never a price; the amount comes from the row.
   const plan = await findPlan(parsed.data.plan, parsed.data.interval, currency);
   if (!plan) return fail("plan_unavailable", 404);
 

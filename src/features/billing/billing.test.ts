@@ -9,8 +9,7 @@ import * as schema from "@/db/schema";
 import { getEntitlement } from "./entitlements.server";
 import { handleWebhook } from "./webhook.server";
 
-// Every migration that touches billing, in order. A new one has to be added
-// here or the schema under test quietly drifts from the real one.
+// Every billing migration, in order, or the tested schema drifts from the real one.
 const MIGRATIONS = ["0001_billing.sql", "0010_pro_plus_tier.sql"].map((name) =>
   join(import.meta.dirname, "..", "..", "migrations", name),
 );
@@ -167,9 +166,7 @@ describe("webhook grants", () => {
     expect((await entitlement("2026-10-06T00:00:00Z")).active).toBe(false);
   });
 
-  // The tier comes from the plan row the subscription points at. Granting a
-  // flat "pro" here would sell Pro+ and deliver Pro, which nothing else in the
-  // system would notice.
+  // A flat "pro" here would sell Pro+ and deliver Pro, silently.
   it("grants the tier that was actually bought", async () => {
     const [plus] = await db
       .insert(schema.paymentPlans)

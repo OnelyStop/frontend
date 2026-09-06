@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  MONTHLY_PRICE_PAISE,
+  worstCaseMonthlyCostPaise,
+} from "@/features/billing/cost";
+import {
   PLAN_LIMITS,
   limitsFor,
   withinLimit,
@@ -11,8 +15,7 @@ import { PLAN_COPY } from "./plans";
 const TIERS: PlanTier[] = ["free", "pro", "pro_plus"];
 
 describe("discountPercent", () => {
-  // The launch prices, pinned. A price edit that leaves the struck-through
-  // figure behind changes the badge, and this is what says so.
+  // Pinned: a price edit that leaves the list price behind moves the badge.
   it("quotes the advertised launch discounts", () => {
     expect(discountPercent(25_000, 55_000)).toBe(55); // Pro ₹250 from ₹550
     expect(discountPercent(40_000, 100_000)).toBe(60); // Pro+ ₹400 from ₹1,000
@@ -24,8 +27,7 @@ describe("discountPercent", () => {
     expect(discountPercent(25_000, null)).toBeNull();
   });
 
-  // A list price at or below the real one would otherwise render "0% off", or
-  // a negative, next to the price someone is about to pay.
+  // Otherwise "0% off", or a negative, next to a price someone is about to pay.
   it("shows nothing when the list price is not higher", () => {
     expect(discountPercent(25_000, 25_000)).toBeNull();
     expect(discountPercent(25_000, 20_000)).toBeNull();
@@ -51,7 +53,7 @@ describe("plan limits", () => {
       "mocksPerMonth",
       "drillsPerDay",
       "descriptiveMarkingsPerMonth",
-      "askOnelyPerDay",
+      "askOnelyPerMonth",
       "communityDoubtsPerMonth",
       "currentAffairsDays",
     ] as const;
@@ -66,12 +68,11 @@ describe("plan limits", () => {
     }
   });
 
-  // Each of these is one LLM call per use. Unlimited against a per-call cost
-  // loses money on exactly the users who use it most, so no tier may set null.
+  // One model call each, so no tier may leave them uncapped.
   it("caps everything that costs a model call, on every tier", () => {
     for (const tier of TIERS) {
       expect(PLAN_LIMITS[tier].descriptiveMarkingsPerMonth).not.toBeNull();
-      expect(PLAN_LIMITS[tier].askOnelyPerDay).not.toBeNull();
+      expect(PLAN_LIMITS[tier].askOnelyPerMonth).not.toBeNull();
     }
   });
 
@@ -88,6 +89,29 @@ describe("plan limits", () => {
   });
 });
 
+describe("what a user costs us", () => {
+  const pct = (tier: PlanTier) =>
+    (worstCaseMonthlyCostPaise(tier) / MONTHLY_PRICE_PAISE[tier]) * 100;
+
+  // The ceiling, in paise a month, if someone uses every call they are owed.
+  it("prices each tier's ceiling", () => {
+    expect(worstCaseMonthlyCostPaise("free")).toBe(298); // ₹2.98
+    expect(worstCaseMonthlyCostPaise("pro")).toBe(4_020); // ₹40.20
+    expect(worstCaseMonthlyCostPaise("pro_plus")).toBe(11_320); // ₹113.20
+  });
+
+  // Raising a limit unchecked is how a plan starts losing money.
+  it("keeps a maxed-out paid user well inside their subscription", () => {
+    expect(pct("pro")).toBeLessThan(40);
+    expect(pct("pro_plus")).toBeLessThan(40);
+  });
+
+  // Free has no revenue behind it, so its ceiling is an acquisition cost.
+  it("keeps a free user under ₹5 a month", () => {
+    expect(worstCaseMonthlyCostPaise("free")).toBeLessThan(500);
+  });
+});
+
 describe("pricing copy", () => {
   it("offers the three tiers plus Institute, with one featured", () => {
     expect(PLAN_COPY.map((p) => p.id)).toEqual([
@@ -99,8 +123,7 @@ describe("pricing copy", () => {
     expect(PLAN_COPY.filter((p) => p.featured)).toHaveLength(1);
   });
 
-  // The bullets are generated from PLAN_LIMITS, so a limit change rewrites the
-  // marketing copy. This pins that they are actually wired to it.
+  // Pins that the bullets really are generated from PLAN_LIMITS.
   it("states the limits the server enforces", () => {
     const pro = PLAN_COPY.find((p) => p.id === "pro")!;
     expect(pro.features).toContain("30 descriptive markings a month");

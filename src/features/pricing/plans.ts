@@ -16,9 +16,7 @@ export type PlanCopy = {
   featured?: boolean;
 };
 
-// Bullets are generated from the limits table rather than typed out beside it.
-// A pricing page that promises a number the server does not enforce is the
-// failure mode worth designing out.
+// Generated from the limits table, so the page cannot promise an unenforced number.
 const per = (n: number | null, noun: string, period: string) =>
   n === null ? `Unlimited ${noun}` : `${n} ${noun} ${period}`;
 
@@ -26,7 +24,7 @@ const paidBullets = (l: PlanLimits): string[] => [
   per(l.mocksPerMonth, "full mocks", "a month"),
   per(l.drillsPerDay, "drills", "a day"),
   per(l.descriptiveMarkingsPerMonth, "descriptive markings", "a month"),
-  per(l.askOnelyPerDay, "Ask Onely questions", "a day"),
+  per(l.askOnelyPerMonth, "Ask Onely questions", "a month"),
   per(l.communityDoubtsPerMonth, "community doubts", "a month"),
 ];
 
@@ -63,7 +61,11 @@ export const PLAN_COPY: PlanCopy[] = [
         "descriptive markings",
         "a month",
       ),
-      per(PLAN_LIMITS.pro_plus.askOnelyPerDay, "Ask Onely questions", "a day"),
+      per(
+        PLAN_LIMITS.pro_plus.askOnelyPerMonth,
+        "Ask Onely questions",
+        "a month",
+      ),
       per(
         PLAN_LIMITS.pro_plus.communityDoubtsPerMonth,
         "community doubts",

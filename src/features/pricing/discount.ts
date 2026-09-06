@@ -1,6 +1,4 @@
-// The badge is computed from the two prices, never written as a string beside
-// them: "55% off" typed by hand next to a price that later changes is a claim
-// the product cannot honour.
+// Computed from the two prices, so a hand-typed "55% off" cannot go stale.
 const MIN_SHOWN = 5;
 
 export function discountPercent(

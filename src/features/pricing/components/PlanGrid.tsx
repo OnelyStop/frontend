@@ -21,8 +21,7 @@ type Props = {
   prices: PlanPrice[];
   entitled?: boolean;
   billingEnabled?: boolean;
-  // The landing page already owns an <h2> for the pricing section, so plan
-  // names drop a level there to avoid outranking it.
+  // The landing page owns the section's <h2>, so plan names drop a level there.
   headingLevel?: 2 | 3;
 };
 
@@ -107,8 +106,7 @@ export function PlanGrid({
         )
       : 0;
 
-  // Yearly is quoted per month so the tiers compare like for like; the line
-  // underneath says what actually leaves the account.
+  // Yearly quoted per month so tiers compare; the line below says the real total.
   const perMonth = (minor: number) =>
     interval === "yearly" ? Math.round(minor / 12) : minor;
 

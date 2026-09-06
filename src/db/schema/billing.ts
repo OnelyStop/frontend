@@ -50,9 +50,7 @@ export const paymentPlans = pgTable(
     razorpayPlanId: text("razorpay_plan_id").notNull(),
     // Minor units, never a float: 7.99 * 100 is 798.9999… and that is a real charge.
     amountMinor: integer("amount_minor").notNull(),
-    // The struck-through price the discount is quoted against. Server-owned
-    // like the real one, so the badge cannot drift from what is charged.
-    // Null means the plan is not on offer and no badge is shown.
+    // Struck-through price; null means no offer and no badge.
     listAmountMinor: integer("list_amount_minor"),
     active: boolean("active").notNull().default(true),
     createdAt: timestamp("created_at", { withTimezone: true })
