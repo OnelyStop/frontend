@@ -43,8 +43,7 @@ async function pruneArticles(db: Db, now: Date): Promise<number> {
   return rows.length;
 }
 
-// Idempotent: the content_hash unique index plus onConflictDoNothing means a
-// double-fired cron cannot double-insert. `deps` keeps tests off the network.
+// The content_hash index plus onConflictDoNothing survives a double-fired cron.
 export async function runIngest(
   overrides: Partial<IngestDeps> = {},
   now = new Date(),

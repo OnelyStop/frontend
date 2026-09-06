@@ -1,8 +1,7 @@
 import { requireRole } from "@/features/auth/roles";
 import { QueryProvider } from "@/context/QueryProvider";
 
-// Re-checked here even though the proxy already redirected: the proxy can be
-// bypassed by anything that doesn't route through it.
+// Re-checked despite the proxy: anything not routed through it bypasses that.
 export default async function Layout({
   children,
 }: {

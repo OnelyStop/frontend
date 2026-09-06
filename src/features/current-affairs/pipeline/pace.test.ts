@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { createPacer, retryDelayFromMessage } from "./pace";
 
-// A clock that only moves when the pacer sleeps, so the assertions are about
-// the schedule the pacer computed, not about real time.
+// Moves only when the pacer sleeps, so assertions are about the schedule, not time.
 function fakeClock() {
   let t = 0;
   const sleeps: number[] = [];

@@ -42,8 +42,7 @@ export async function generateQuestion(
           responseJsonSchema: MCQ_RESPONSE_JSON_SCHEMA,
           maxOutputTokens: 1500,
           temperature: 0.3,
-          // Thinking is billed as output. An MCQ needs none, and this holds
-          // whichever model GENERATION_MODEL is pointed at.
+          // Thinking is billed as output, and an MCQ needs none.
           thinkingConfig: { thinkingBudget: 0 },
           abortSignal: AbortSignal.timeout(60_000),
         },

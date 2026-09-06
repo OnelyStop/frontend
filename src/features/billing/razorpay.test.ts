@@ -35,9 +35,7 @@ describe("subscription callback signature", () => {
     ).toBe(true);
   });
 
-  // The whole point of this file. One-off orders hash order_id|payment_id, and
-  // reusing that order here fails as "invalid signature", which reads like a
-  // wrong key rather than a wrong formula.
+  // One-off orders hash order_id|payment_id; reusing that order reads as a wrong key.
   it("rejects the order-style order, subscription_id|payment_id", () => {
     const signature = sign(KEY_SECRET, `${subscriptionId}|${paymentId}`);
     expect(
@@ -55,8 +53,7 @@ describe("subscription callback signature", () => {
     ).toBe(false);
   });
 
-  // timingSafeEqual throws when the buffers differ in length, so a short or
-  // empty signature has to be rejected rather than crash the route.
+  // timingSafeEqual throws on a length mismatch, which would crash the route.
   it("rejects a wrong-length signature without throwing", () => {
     for (const signature of ["", "abc", "0".repeat(63), "0".repeat(65)]) {
       expect(() =>
@@ -70,9 +67,7 @@ describe("subscription callback signature", () => {
 });
 
 describe("webhook signature", () => {
-  // Whitespace on purpose. Razorpay does not promise minified JSON, and a body
-  // that happens to round-trip byte-identically would make the test below prove
-  // nothing -- which is what the first version of it did.
+  // Whitespace on purpose: a body that round-trips byte-identically proves nothing.
   const rawBody = '{ "event": "subscription.charged", "payload": { "a": 1 } }';
 
   it("accepts a signature over the raw body", () => {
@@ -81,14 +76,10 @@ describe("webhook signature", () => {
     );
   });
 
-  // Parsing and re-serialising changes key order and whitespace, so the hash no
-  // longer matches. This is the reason the route must read request.text() and
-  // hash that, never JSON.stringify(await request.json()).
+  // Why the route must hash request.text(), never JSON.stringify(await json()).
   it("rejects a signature over re-serialised JSON", () => {
     const reserialised = JSON.stringify(JSON.parse(rawBody));
     const signature = sign(WEBHOOK_SECRET, rawBody);
-    // Guard the premise: if these were byte-identical the test would prove
-    // nothing.
     expect(reserialised).not.toBe(rawBody);
     expect(verifyWebhookSignature(reserialised, signature)).toBe(false);
   });

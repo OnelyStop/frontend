@@ -2,9 +2,7 @@ import "server-only";
 import { z } from "zod";
 import type { ArticleRow } from "@/db/schema";
 
-// Topics arrive from the caller rather than an import: a prompt is shared
-// infrastructure, and reaching into a feature for its exam profile would point
-// the dependency the wrong way.
+// Topics come from the caller: a prompt reaching into a feature inverts the dependency.
 export const currentAffairsSystem = (
   topics: string[],
 ) => `You prepare current-affairs multiple-choice questions for Indian banking-recruitment exams (IBPS, SBI, RBI Grade B and similar).
@@ -46,8 +44,7 @@ export function currentAffairsUserPrompt(
   ].join("\n");
 }
 
-// Gemini's supported JSON-schema subset. The question fields are NOT required —
-// when relevant=false the model omits them.
+// Gemini's schema subset; question fields are not required when relevant=false.
 export const MCQ_RESPONSE_JSON_SCHEMA = {
   type: "object",
   properties: {
@@ -72,8 +69,7 @@ export const MCQ_RESPONSE_JSON_SCHEMA = {
   additionalProperties: false,
 } as const;
 
-// Structured output isn't a hard guarantee — validate what comes back, and
-// require the MCQ fields only when the model says the item is relevant.
+// Structured output is not a guarantee, so validate what comes back.
 export const McqResponse = z
   .object({
     relevant: z.boolean(),

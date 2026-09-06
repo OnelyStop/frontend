@@ -23,8 +23,7 @@ export const billingInterval = pgEnum("billing_interval", [
 
 export const currencyCode = pgEnum("currency_code", ["INR", "USD"]);
 
-// Razorpay's own states, mirrored exactly: a mistranslation here is invisible
-// until a renewal silently stops granting access.
+// Mirrored exactly: a mistranslation silently stops granting access.
 export const subscriptionStatus = pgEnum("subscription_status", [
   "created",
   "authenticated",
@@ -38,8 +37,7 @@ export const subscriptionStatus = pgEnum("subscription_status", [
 
 export const planKey = pgEnum("plan_key", ["pro", "school"]);
 
-// The client sends neither amount nor currency: currency comes from the
-// request host, the amount from here — or a caller buys Pro for one paisa.
+// The client sends neither amount nor currency, or a caller buys Pro for one paisa.
 export const paymentPlans = pgTable(
   "payment_plans",
   {
@@ -50,8 +48,7 @@ export const paymentPlans = pgTable(
     interval: billingInterval("interval").notNull(),
     currency: currencyCode("currency").notNull(),
     razorpayPlanId: text("razorpay_plan_id").notNull(),
-    // Minor units. Never a float: 7.99 * 100 is 798.9999… in float64, and a
-    // rounding error here is a real charge.
+    // Minor units, never a float: 7.99 * 100 is 798.9999… and that is a real charge.
     amountMinor: integer("amount_minor").notNull(),
     active: boolean("active").notNull().default(true),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -59,15 +56,13 @@ export const paymentPlans = pgTable(
       .defaultNow(),
   },
   (t) => [
-    // Partial, not plain: Razorpay plans are immutable, so a price change
-    // retires one row and adds another. Many retired per slot, one live.
+    // Partial, not plain: Razorpay plans are immutable, so many retired per slot, one live.
     uniqueIndex("payment_plans_active_slot_key")
       .on(t.plan, t.interval, t.currency)
       .where(sql`${t.active}`),
     unique("payment_plans_razorpay_plan_id_key").on(t.razorpayPlanId),
 
-    // Public on purpose: the marketing page renders prices to signed-out
-    // visitors.
+    // Public on purpose: the marketing page renders prices to signed-out visitors.
     pgPolicy("anyone can read plan prices", {
       for: "select",
       to: [anonRole, authenticatedRole],
@@ -128,8 +123,7 @@ export const payments = pgTable(
       .defaultNow(),
   },
   (t) => [
-    // Razorpay can deliver the same payment on more than one event; this makes
-    // recording it twice impossible rather than merely unlikely.
+    // Razorpay can deliver one payment on several events; this makes a double impossible.
     unique("payments_razorpay_payment_id_key").on(t.razorpayPaymentId),
     index("payments_user_id_idx").on(t.userId),
     index("payments_subscription_id_idx").on(t.subscriptionId),
@@ -142,8 +136,7 @@ export const payments = pgTable(
   ],
 ).enableRLS();
 
-// The unique event id is the idempotency key: a redelivery must conflict here
-// and roll the transaction back rather than grant a second month.
+// The event id is the idempotency key: a redelivery conflicts here and rolls back.
 export const paymentEvents = pgTable(
   "payment_events",
   {
@@ -165,8 +158,7 @@ export const paymentEvents = pgTable(
   ],
 ).enableRLS();
 
-// Separate from `subscriptions` so access survives a provider change or a
-// support grant without a feature ever learning what Razorpay is.
+// Separate from `subscriptions` so access survives a provider change or a support grant.
 export const entitlements = pgTable(
   "entitlements",
   {
@@ -183,8 +175,7 @@ export const entitlements = pgTable(
       .defaultNow(),
   },
   (t) => [
-    // One row per user: renewals move access_until forward rather than adding
-    // another, so "which one wins" never arises.
+    // One row per user: renewals move access_until forward, never add another.
     unique("entitlements_user_id_key").on(t.userId),
 
     pgPolicy("signed-in users can read their own entitlement", {

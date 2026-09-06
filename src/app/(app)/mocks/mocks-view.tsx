@@ -111,8 +111,7 @@ export function MocksView() {
     return () => window.removeEventListener("keydown", onKey);
   }, [live]);
 
-  // The question palette mirrors the real IBPS interface every aspirant knows;
-  // without it the screen reads as an empty void.
+  // Mirrors the real IBPS interface; without the palette the screen reads as a void.
   if (live) {
     const secMins = Math.round(live.mins / SECTIONS.length);
     const mm = String(Math.floor(left / 60)).padStart(2, "0");

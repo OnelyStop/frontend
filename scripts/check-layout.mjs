@@ -26,12 +26,10 @@ const ROOT_ALLOWED = new Set([
   "README.md",
   "STANDARDS.md",
   "bun.lock",
-  // Git-managed authoring source for the study module, and its JSON Schemas.
-  // Content lives here, not in the bundle; the importer projects it into Postgres.
+  // Authoring source; the importer projects it into Postgres, not the bundle.
   "content",
   "schemas",
-  // Local-dev Postgres so migrations and the content importer have a real
-  // database without a network round trip. Production uses the managed one.
+  // Local-dev Postgres so migrations run without a network round trip.
   "docker",
   "docker-compose.yml",
   "docs",

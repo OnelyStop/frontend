@@ -32,8 +32,7 @@ export const subscriptionCreate = z.object({
   interval: z.enum(["monthly", "yearly"]),
 });
 
-// What Checkout hands back on success. Verified server-side before anything
-// is read from it.
+// What Checkout hands back; verified server-side before anything reads it.
 export const checkoutCallback = z.object({
   razorpay_payment_id: z.string().min(1),
   razorpay_subscription_id: z.string().min(1),

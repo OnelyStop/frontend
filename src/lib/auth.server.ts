@@ -3,11 +3,9 @@ import { cache } from "react";
 import { AUTH_DISABLED } from "@/config/auth";
 import { createClient } from "@/lib/supabase-server";
 
-// The request body never carries an authorising user id — everything resolves
-// the caller here. cache() dedupes it: a page and its DAL both ask.
+// No user id from the request body; cache() dedupes the lookup across page and DAL.
 
-// Matches the row docker/postgres/init.sql seeds, so local dev without a real
-// session still satisfies the auth.users foreign key on notes and progress.
+// Matches the row init.sql seeds, so local dev satisfies the auth.users FK.
 const DEV_USER_ID = "00000000-0000-0000-0000-000000000001";
 const DEV_USER = { id: DEV_USER_ID, email: "dev@onelystop.local" };
 

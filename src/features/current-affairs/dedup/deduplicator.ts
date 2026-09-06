@@ -25,9 +25,7 @@ export type RecentArticle = {
 
 type Indexed = { day: string; scope: ArticleScope; tokens: SalientTokens };
 
-// Stages 1 (content hash) and 3 (salient facts). Stage 2 (MinHash/LSH) is a
-// deliberate gap — add it when near-verbatim reposts sharing no salient
-// numbers start slipping through.
+// Stages 1 and 3; stage 2 (MinHash/LSH) is a deliberate gap, not an oversight.
 export class Deduplicator {
   private hashes = new Set<string>();
   private indexed: Indexed[] = [];

@@ -5,14 +5,12 @@ const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export const isSupabaseConfigured = Boolean(url && anonKey);
 
-// createBrowserClient writes the session to cookies rather than localStorage,
-// which is what lets proxy.ts and server components see it
+// The session goes to cookies, not localStorage, so proxy.ts and the server see it.
 export const supabase = isSupabaseConfigured
   ? createBrowserClient(url!, anonKey!)
   : null;
 
-// Snapshot before the client consumes these: magic links report errors in
-// the fragment, PKCE reports them in the query string.
+// Snapshot before the client consumes them: links error in the fragment, PKCE in the query.
 const initialHash =
   typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : "";
 const initialQuery =
@@ -39,8 +37,7 @@ export function getAuthErrorFromUrl(): AuthUrlError | null {
   return readError(initialHash) ?? readError(initialQuery);
 }
 
-// A PKCE code only verifies in the browser that requested it, so a code with
-// no session behind it means the link was opened somewhere else.
+// A PKCE code verifies only in the browser that requested it.
 export function hasPendingCodeExchange(): boolean {
   return new URLSearchParams(initialQuery).has("code");
 }

@@ -8,9 +8,7 @@ import type { BillingInterval, PlanKey, PlanPrice } from "./types";
 
 export type PricedPlan = PlanPrice & { id: number; razorpayPlanId: string };
 
-// The only place an amount comes from. A checkout route that took an amount
-// from its caller would sell Pro for one paisa, and the pricing copy file
-// cannot stand in — it ships to the browser, so it holds display values.
+// The only place an amount comes from; a caller-supplied one sells Pro for a paisa.
 export async function findPlan(
   plan: PlanKey,
   interval: BillingInterval,
@@ -41,8 +39,7 @@ export async function findPlan(
     : null;
 }
 
-// Returns prices, never Razorpay plan ids — a plan id in the page source lets
-// the caller open a checkout for a plan they chose rather than one we priced.
+// Prices, never plan ids: a plan id in the page source lets the caller pick it.
 async function queryPlans(currency: Currency): Promise<PlanPrice[]> {
   const rows = await db
     .select()
@@ -59,8 +56,7 @@ async function queryPlans(currency: Currency): Promise<PlanPrice[]> {
   }));
 }
 
-// Prices change by seeding a new plan row, which is rare; the landing page
-// renders these to every visitor.
+// Prices change only by seeding a new row, and every visitor renders these.
 export const listPlans = unstable_cache(queryPlans, ["billing", "plans"], {
   revalidate: 3600,
 });

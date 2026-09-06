@@ -6,8 +6,7 @@ import {
   type Subject,
 } from "@/data/navigation";
 
-// Client-safe: settings-view imports these, so nothing here may reach for
-// drizzle or `server-only`.
+// Client-safe: settings-view imports these, so no drizzle or `server-only` here.
 
 export const profileUpdate = z
   .object({

@@ -59,8 +59,7 @@ function toRawArticles(
     if (a.duplicate) continue; // NewsData's own near-duplicate flag
     const publishedAt = a.pubDate ? new Date(a.pubDate) : new Date();
     if (Number.isNaN(publishedAt.getTime())) continue;
-    // `content` is paid-tier only; `description` is HTML that often carries the
-    // full body in a CDATA block, so clean it like a fetched page.
+    // `content` is paid-tier only; `description` is HTML, so clean it like a page.
     out.push({
       source: "newsdata_io",
       title: a.title.trim(),

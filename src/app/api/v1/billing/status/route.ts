@@ -14,9 +14,7 @@ export const dynamic = "force-dynamic";
 
 const STALE_MS = 15 * 60_000;
 
-// A webhook that never arrived is the failure that costs a paying customer, so
-// a subscription still mid-flight after fifteen minutes is re-read from
-// Razorpay when its owner next asks.
+// A webhook that never arrived costs a paying customer: re-read after fifteen minutes.
 async function reconcileStale(userId: string) {
   const [stale] = await db
     .select({ id: subscriptions.razorpaySubscriptionId })

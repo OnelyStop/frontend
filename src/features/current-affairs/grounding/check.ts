@@ -25,9 +25,7 @@ const HONORIFICS = new Set([
   "sushri",
 ]);
 
-// The only quality gate, deterministic. The source is just title + snippet
-// (no full body on the free tier), so phrasing is matched leniently — but a
-// number cited in the explanation must appear in the source.
+// Lenient on phrasing — the source is title + snippet — but strict on numbers.
 export function isGrounded(q: DraftQuestion, source: Source): GroundingResult {
   const srcText = normalizeText(`${source.title} ${source.summary}`);
   if (!srcText) return { ok: false, reason: "empty source text" };

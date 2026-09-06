@@ -46,12 +46,10 @@ export const articles = pgTable(
     url: text("url").notNull(),
     publishedAt: timestamp("published_at", { withTimezone: true }).notNull(),
     scope: articleScope("scope").notNull(),
-    // sha256 of the normalized title+summary. Unique so a re-fetched wire copy
-    // cannot be inserted twice even if the dedup check races.
+    // sha256 of normalized title+summary; unique so a racing dedup cannot double-insert.
     contentHash: text("content_hash").notNull().unique(),
     status: articleStatus("status").notNull().default("new"),
-    // why a `skipped` article was skipped: thin_source | non_english |
-    // irrelevant:prefilter | irrelevant:model
+    // thin_source | non_english | irrelevant:prefilter | irrelevant:model
     skipReason: text("skip_reason"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
@@ -68,8 +66,7 @@ export const articles = pgTable(
   ],
 ).enableRLS();
 
-// No FK back to articles: by the time Generate runs the article's event is
-// already known-unique, and a question is either written or discarded.
+// No FK back to articles: by the time Generate runs the event is already known-unique.
 export const currentAffairsQuestions = pgTable(
   "questions",
   {

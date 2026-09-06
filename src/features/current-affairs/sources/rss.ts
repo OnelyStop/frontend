@@ -2,8 +2,7 @@ import Parser from "rss-parser";
 import { activeProfile } from "@/features/current-affairs/config/profile";
 import type { RawArticle } from "@/features/current-affairs/types";
 
-// SEBI drops requests without a browser-ish User-Agent and is slow — hence
-// the longer timeout.
+// SEBI drops requests without a browser-ish User-Agent, and is slow.
 const parser = new Parser({
   timeout: 30_000,
   headers: {

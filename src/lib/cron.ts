@@ -1,9 +1,6 @@
 import { timingSafeEqual } from "node:crypto";
 
-// `/internal/*` accepts `Authorization: Bearer <CRON_SECRET>`, which Vercel
-// Cron sends automatically. Reads process.env directly so the gate cannot
-// depend on DB / LLM keys being present. No secret configured → nothing is
-// authorized.
+// Reads process.env directly so the gate needs no other key; no secret, no access.
 export function isAuthorizedCron(req: Request): boolean {
   const secret = process.env.CRON_SECRET ?? "";
   if (secret.length < 16) {

@@ -7,8 +7,7 @@ export function register() {
   Sentry.init({
     dsn: SENTRY_DSN,
     tracesSampleRate: SENTRY_TRACES_SAMPLE_RATE,
-    // Headers, cookies and request bodies carry answers and email addresses.
-    // A user id reaches Sentry only where we attach one deliberately.
+    // Headers, cookies and bodies carry answers and email addresses.
     sendDefaultPii: false,
   });
 }

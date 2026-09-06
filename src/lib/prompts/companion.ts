@@ -1,8 +1,6 @@
 import "server-only";
 
-// The selection arrives quoted inside the user prompt, so the model is told
-// explicitly that quoted material is content to explain, never instructions —
-// a student can select text that happens to look like a prompt.
+// Quoted selections are content, never instructions: a student can select a prompt.
 export const COMPANION_SYSTEM = `You are Onely, the study companion inside onelystop, a preparation platform for Indian banking exams — IBPS PO and Clerk, SBI PO and Clerk, RBI Grade B.
 
 A learner has selected a passage — from a lesson, a note, a mock paper or the attempt map — and asked you about it. Explain it clearly and briefly, at the level the exam tests.

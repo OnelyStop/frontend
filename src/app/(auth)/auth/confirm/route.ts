@@ -3,12 +3,7 @@ import { NextResponse } from "next/server";
 import { safeInternalPath } from "@/features/auth/redirect";
 import { createClient } from "@/lib/supabase-server";
 
-// A PKCE code only verifies in the browser that requested it; a token hash
-// verifies anywhere, so the email templates link here and /auth/callback
-// stays for OAuth.
-//
-// EmailOtpType is widened with `string & {}`, so the type alone accepts any
-// value; the allow-list is what keeps an arbitrary `type` off verifyOtp.
+// Token hashes verify anywhere, unlike PKCE; the allow-list keeps stray types off verifyOtp.
 const EMAIL_LINK_TYPES = [
   "signup",
   "invite",

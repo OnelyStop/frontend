@@ -47,8 +47,7 @@ describe("log", () => {
     expect(console.error).not.toHaveBeenCalled();
   });
 
-  // An undefined field would serialise as a key with no value, which breaks
-  // grouping in any log tool that indexes on presence.
+  // A key with no value breaks grouping in any tool that indexes on presence.
   it("drops undefined fields rather than writing empty keys", () => {
     log.info("x", { present: 1, missing: undefined });
     expect(Object.keys(parsed()[0])).not.toContain("missing");

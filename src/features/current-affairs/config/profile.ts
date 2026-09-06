@@ -40,9 +40,7 @@ export const BANKING_EXAM_PROFILE: ExamProfile = {
     international: { language: "en", category: "world" },
     maxPages: 2,
   },
-  // A dead feed is treated as empty rather than failing the pass. SEBI
-  // firewalls non-India IPs, so expect 0 items off an overseas host; PIB
-  // returns Hindi items, dropped later by the isMostlyEnglish gate.
+  // A dead feed is empty, not fatal: SEBI firewalls non-India IPs, PIB returns Hindi.
   rssFeeds: [
     {
       source: "rbi_rss",
@@ -73,8 +71,7 @@ export const BANKING_EXAM_PROFILE: ExamProfile = {
   recentWindowDays: 3,
 
   relevanceLexicon: {
-    // Specific on purpose: a generic word like "award" shows up in horoscopes
-    // and film blurbs and would neutralise the negative signal.
+    // Specific on purpose: "award" alone shows up in horoscopes and film blurbs.
     positive: [
       "rbi",
       "reserve bank",

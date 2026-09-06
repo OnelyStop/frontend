@@ -23,8 +23,7 @@ export function FlashcardPlayer({
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        // Capture phase + stopImmediatePropagation so this closes the player
-        // rather than the running head walking a level up the URL.
+        // Capture phase, so Esc closes the player rather than the running head walking up.
         e.stopImmediatePropagation();
         e.preventDefault();
         onClose();

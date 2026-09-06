@@ -1,7 +1,4 @@
-// Stage 3 of dedup: editorial paraphrase can score near-zero lexical overlap,
-// so compare distinguishing numbers and named entities instead. Same-day
-// articles match on >=2 shared salient tokens, at least one a number — "RBI"
-// alone is too weak, "RBI" + "6.5%" is not.
+// Stage 3: paraphrase scores near-zero lexical overlap, so match on numbers and names.
 
 export type SalientTokens = { numbers: Set<string>; entities: Set<string> };
 

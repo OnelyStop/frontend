@@ -8,8 +8,7 @@ import type { DoubtCreate } from "./types";
 
 export type StuckResult = { stuckCount: number; stuckByMe: boolean };
 
-// The count column and the membership row have to move together, or the feed
-// ordering drifts away from the rows that actually back it.
+// Count column and membership row must move together or the feed ordering drifts.
 export async function setStuck(
   userId: string,
   doubtId: string,
@@ -29,8 +28,7 @@ export async function setStuck(
           )
           .returning({ doubtId: doubtStuck.doubtId });
 
-    // No row moved: either already marked or already cleared. Read the current
-    // count back so a double click still returns the truth.
+    // No row moved — already marked or cleared; read the count back regardless.
     if (changed.length === 0) {
       const [row] = await tx
         .select({ stuckCount: doubts.stuckCount })
@@ -59,8 +57,7 @@ export async function postDoubt(
   plan: PlanTier,
   input: DoubtCreate,
 ): Promise<PostOutcome> {
-  // The view shows a remaining count, but that is display only — the quota is
-  // decided here, against rows, where the client cannot reach it.
+  // The view's remaining count is display only; the quota is decided here.
   const limit = POST_QUOTA[plan];
   const used = await monthlyPostCount(userId);
   if (used >= limit)

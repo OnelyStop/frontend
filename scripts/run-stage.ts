@@ -1,7 +1,4 @@
-// Local pipeline runner — calls the stage functions directly, no HTTP.
-//   bun run pipeline ingest
-//   bun run pipeline generate [--day=YYYY-MM-DD]
-// Bun auto-loads .env.local, so env.ts sees the keys.
+// Calls the stage functions directly, no HTTP; bun auto-loads .env.local.
 import { runGenerate } from "@/features/current-affairs/pipeline/generate";
 import { runIngest } from "@/features/current-affairs/pipeline/ingest";
 
