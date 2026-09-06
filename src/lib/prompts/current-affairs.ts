@@ -50,9 +50,9 @@ export const MCQ_RESPONSE_JSON_SCHEMA = {
   properties: {
     relevant: { type: "boolean" },
     topic: { type: "string" },
-    question_text: { type: "string" },
+    question_text: { type: ["string", "null"] },
     options: {
-      type: "object",
+      type: ["object", "null"],
       properties: {
         A: { type: "string" },
         B: { type: "string" },
@@ -62,10 +62,18 @@ export const MCQ_RESPONSE_JSON_SCHEMA = {
       required: ["A", "B", "C", "D"],
       additionalProperties: false,
     },
-    answer: { type: "string", enum: ["A", "B", "C", "D"] },
-    explanation: { type: "string" },
+    answer: { type: ["string", "null"], enum: ["A", "B", "C", "D", null] },
+    explanation: { type: ["string", "null"] },
   },
-  required: ["relevant", "topic"],
+  // strict:true requires every property here, so the optional ones are nullable.
+  required: [
+    "relevant",
+    "topic",
+    "question_text",
+    "options",
+    "answer",
+    "explanation",
+  ],
   additionalProperties: false,
 } as const;
 
@@ -74,7 +82,7 @@ export const McqResponse = z
   .object({
     relevant: z.boolean(),
     topic: z.string(),
-    question_text: z.string().optional(),
+    question_text: z.string().nullish(),
     options: z
       .object({
         A: z.string().min(1),
@@ -82,9 +90,9 @@ export const McqResponse = z
         C: z.string().min(1),
         D: z.string().min(1),
       })
-      .optional(),
-    answer: z.enum(["A", "B", "C", "D"]).optional(),
-    explanation: z.string().optional(),
+      .nullish(),
+    answer: z.enum(["A", "B", "C", "D"]).nullish(),
+    explanation: z.string().nullish(),
   })
   .refine(
     (v) =>

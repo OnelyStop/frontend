@@ -19,6 +19,7 @@ type Settings = {
   timeoutMs: number;
   totalTimeoutMs: number;
   maxAttempts: number;
+  responseSchema?: { name: string; schema: object };
 };
 
 function messagesFor(input: AskInput): Message[] {
@@ -162,6 +163,7 @@ export class OpenRouterClient {
       timeoutMs: input.timeoutMs ?? d.timeoutMs ?? config.timeoutMs,
       totalTimeoutMs: d.totalTimeoutMs ?? config.totalTimeoutMs,
       maxAttempts: d.maxAttempts ?? config.maxAttempts,
+      responseSchema: input.responseSchema,
     };
   }
 
@@ -237,6 +239,13 @@ export class OpenRouterClient {
           messages,
           temperature: settings.temperature,
           max_tokens: settings.maxTokens,
+          // strict, or a model may return schema-shaped prose it invented.
+          ...(settings.responseSchema && {
+            response_format: {
+              type: "json_schema",
+              json_schema: { ...settings.responseSchema, strict: true },
+            },
+          }),
         }),
         signal: AbortSignal.timeout(timeoutMs),
         cache: "no-store",
