@@ -119,6 +119,24 @@ describe("shaping the request", () => {
     expect(sent().max_tokens).toBe(config.maxTokens);
   });
 
+  // Dropped, the current-affairs pipeline fails at JSON.parse instead.
+  it("asks for structured output only when given a schema", async () => {
+    stubFetch(() => ok());
+    await openrouter.ask({ prompt: "hi" });
+    expect(sent().response_format).toBeUndefined();
+
+    calls = [];
+    stubFetch(() => ok());
+    await openrouter.ask({
+      prompt: "hi",
+      responseSchema: { name: "mcq", schema: { type: "object" } },
+    });
+    expect(sent().response_format).toEqual({
+      type: "json_schema",
+      json_schema: { name: "mcq", schema: { type: "object" }, strict: true },
+    });
+  });
+
   it("keeps the key out of the body", async () => {
     const f = stubFetch(() => ok());
     await openrouter.ask({ prompt: "hi" });

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { ArticleRow } from "@/db/schema";
 import { COMPANION_SYSTEM, companionUserPrompt } from "./companion";
 import {
+  MCQ_RESPONSE_JSON_SCHEMA,
   McqResponse,
   currentAffairsSystem,
   currentAffairsUserPrompt,
@@ -62,10 +63,39 @@ describe("current affairs", () => {
   });
 });
 
+describe("MCQ_RESPONSE_JSON_SCHEMA", () => {
+  // A non-compliant schema is a 400 from gpt-4o that we never retry.
+  it("lists every property as required, so strict mode accepts it", () => {
+    const { properties, required } = MCQ_RESPONSE_JSON_SCHEMA;
+    expect([...required].sort()).toEqual(Object.keys(properties).sort());
+  });
+
+  it("makes every field a not-relevant reply omits nullable", () => {
+    const { properties: p } = MCQ_RESPONSE_JSON_SCHEMA;
+    for (const key of ["question_text", "options", "answer", "explanation"]) {
+      expect(p[key as keyof typeof p].type).toContain("null");
+    }
+  });
+});
+
 describe("McqResponse", () => {
   it("accepts an irrelevant verdict with nothing else", () => {
     expect(
       McqResponse.safeParse({ relevant: false, topic: "none" }).success,
+    ).toBe(true);
+  });
+
+  // What strict mode actually returns when the item is not relevant.
+  it("accepts an irrelevant verdict with the other fields sent as null", () => {
+    expect(
+      McqResponse.safeParse({
+        relevant: false,
+        topic: "none",
+        question_text: null,
+        options: null,
+        answer: null,
+        explanation: null,
+      }).success,
     ).toBe(true);
   });
 

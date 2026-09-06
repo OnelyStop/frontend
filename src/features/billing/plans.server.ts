@@ -35,6 +35,7 @@ export async function findPlan(
         currency: row.currency,
         razorpayPlanId: row.razorpayPlanId,
         amountMinor: row.amountMinor,
+        listAmountMinor: row.listAmountMinor,
       }
     : null;
 }
@@ -48,11 +49,12 @@ async function queryPlans(currency: Currency): Promise<PlanPrice[]> {
       and(eq(paymentPlans.currency, currency), eq(paymentPlans.active, true)),
     );
 
-  return rows.map(({ plan, interval, amountMinor }) => ({
+  return rows.map(({ plan, interval, amountMinor, listAmountMinor }) => ({
     plan,
     interval,
     currency,
     amountMinor,
+    listAmountMinor,
   }));
 }
 

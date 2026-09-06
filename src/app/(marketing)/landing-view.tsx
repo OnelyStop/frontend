@@ -250,8 +250,9 @@ export function LandingView({
           <p className="text-ink-2 mx-auto mt-5 max-w-[62ch] text-[18px] leading-relaxed lg:text-[19px]">
             Free covers the knowledge base, two full mocks a month, a week of
             current affairs and your private notes. No card, no expiry. Pro adds
-            unlimited mocks and drills, descriptive marking, the full
-            current-affairs archive and Ask Onely on any passage.
+            unlimited mocks and drills, the full current-affairs archive, the
+            attempt map and Ask Onely on any passage. Pro+ is for the
+            descriptive papers, where the marking is the point.
           </p>
           <PlanGrid
             variant="public"

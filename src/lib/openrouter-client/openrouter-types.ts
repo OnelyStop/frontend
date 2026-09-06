@@ -21,6 +21,8 @@ export type AskInput = {
   temperature?: number;
   maxTokens?: number;
   timeoutMs?: number;
+  /** JSON Schema the reply must satisfy. Only some models honour it. */
+  responseSchema?: { name: string; schema: object };
 };
 
 export type Answer = {

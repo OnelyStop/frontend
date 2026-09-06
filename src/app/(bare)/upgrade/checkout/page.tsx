@@ -12,12 +12,12 @@ export const metadata: Metadata = { title: "Checkout" };
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ interval?: string }>;
+  searchParams: Promise<{ interval?: string; plan?: string }>;
 }) {
   const userId = await currentUserId();
   if (!userId) redirect("/login?from=/upgrade/checkout");
 
-  const { interval } = await searchParams;
+  const { interval, plan } = await searchParams;
   const [prices, entitlement] = await Promise.all([
     listPlans(await requestCurrency()),
     getEntitlement(db, userId),
@@ -25,6 +25,7 @@ export default async function Page({
 
   return (
     <CheckoutView
+      plan={plan === "pro_plus" ? "pro_plus" : "pro"}
       interval={interval === "monthly" ? "monthly" : "yearly"}
       prices={prices}
       entitled={entitlement.active}
