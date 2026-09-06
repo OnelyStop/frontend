@@ -1,40 +1,62 @@
 "use client";
 
-import { Card, PageHeader, SectionTitle } from "@/design-system";
+import {
+  ButtonLink,
+  Card,
+  Empty,
+  PageHeader,
+  SectionTitle,
+} from "@/design-system";
 import { useApp } from "@/context/AppContext";
-import { NEGATIVE_MARK, SECTIONS, SECTION_LABEL } from "@/data/navigation";
+import {
+  NEGATIVE_MARK,
+  SECTION_FROM_DB,
+  SECTION_LABEL,
+} from "@/data/navigation";
+import type { Progress } from "@/features/attempts/progress.server";
 
-const SECT = [
-  { s: SECTIONS[0], attempted: 412, correct: 271, sec: 52 },
-  { s: SECTIONS[1], attempted: 380, correct: 268, sec: 61 },
-  { s: SECTIONS[2], attempted: 296, correct: 172, sec: 39 },
-  { s: SECTIONS[3], attempted: 340, correct: 214, sec: 17 },
-  { s: SECTIONS[4], attempted: 120, correct: 99, sec: 15 },
-];
-
-const WEEK = [42, 61, 0, 78, 55, 90, 34];
 const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
-export function ProgressView() {
+// The bank stores one-word sections; anything outside that vocabulary shows as stored.
+function sectionLabel(section: string) {
+  return SECTION_LABEL[SECTION_FROM_DB[section]] ?? section;
+}
+
+export function ProgressView({ progress }: { progress: Progress }) {
   const { board } = useApp();
-  const att = SECT.reduce((n, r) => n + r.attempted, 0);
-  const cor = SECT.reduce((n, r) => n + r.correct, 0);
-  const wrong = att - cor;
+  const { attempted, correct, wrong, avgSec, sections, week } = progress;
+
+  const sub = `${board} · last 30 days. Accuracy alone does not clear a cutoff — pace and the marks negative marking takes back decide the paper.`;
+
+  if (attempted === 0) {
+    return (
+      <>
+        <PageHeader title="Progress" sub={sub} />
+        <Card pad={false}>
+          <Empty
+            title="No sittings yet"
+            sub="This page reads the last 30 days of submitted attempts. Sit a mock or a drill and your accuracy, pace and section split appear here."
+            action={<ButtonLink href="/mocks">Start a mock</ButtonLink>}
+          />
+        </Card>
+      </>
+    );
+  }
+
   const lost = wrong * NEGATIVE_MARK;
-  const acc = Math.round((cor / att) * 100);
+  const acc = Math.round((correct / attempted) * 100);
+  const weekTotal = week.reduce((n, q) => n + q, 0);
+  const weekPeak = Math.max(1, ...week);
 
   return (
     <>
-      <PageHeader
-        title="Progress"
-        sub={`${board} · last 30 days. Accuracy alone does not clear a cutoff — pace and the marks negative marking takes back decide the paper.`}
-      />
+      <PageHeader title="Progress" sub={sub} />
 
       <div className="border-line mb-10 grid grid-cols-1 border-t border-l md:grid-cols-3">
         <Stat
           label="Accuracy"
           value={`${acc}%`}
-          note={`${cor} of ${att} attempted`}
+          note={`${correct} of ${attempted} attempted`}
         />
         <Stat
           label="Marks lost to negatives"
@@ -43,7 +65,7 @@ export function ProgressView() {
         />
         <Stat
           label="Average pace"
-          value="43s"
+          value={avgSec === null ? "—" : `${avgSec}s`}
           note="target is 45s a question"
         />
       </div>
@@ -55,19 +77,21 @@ export function ProgressView() {
           </SectionTitle>
 
           <div className="grid gap-5">
-            {SECT.map((r) => {
+            {sections.map((r) => {
               const a = Math.round((r.correct / r.attempted) * 100);
-              const fast = r.sec <= 45;
+              const fast = r.avgSec <= 45;
               return (
-                <div key={r.s} className="grid gap-2">
+                <div key={r.section} className="grid gap-2">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[14.5px]">{SECTION_LABEL[r.s]}</span>
+                    <span className="text-[14.5px]">
+                      {sectionLabel(r.section)}
+                    </span>
                     <span className="flex-1" />
                     <span className="tnum text-[14.5px]">{a}%</span>
                     <span
                       className={`tnum w-10 text-right text-[13px] ${fast ? "text-ok" : "text-bad"}`}
                     >
-                      {r.sec}s
+                      {r.avgSec}s
                     </span>
                   </div>
                   <div className="rounded-pill bg-line h-1.5 overflow-hidden">
@@ -83,20 +107,22 @@ export function ProgressView() {
 
           <p className="border-line text-ink-3 mt-7 border-t pt-5 text-[13px] leading-relaxed">
             A section can be accurate and still cost you the paper if it is
-            slow. Reasoning is your best accuracy and your worst pace.
+            slow.
           </p>
         </Card>
 
         <Card>
-          <SectionTitle aside="360 questions">This week</SectionTitle>
+          <SectionTitle aside={`${weekTotal} questions`}>
+            This week
+          </SectionTitle>
 
           <div className="flex h-40 gap-2">
-            {WEEK.map((q, i) => (
+            {week.map((q, i) => (
               <div key={i} className="flex flex-1 flex-col gap-2">
                 <div className="flex flex-1 items-end">
                   <div
                     className={`w-full rounded-t-sm transition-all ${q ? "bg-ink" : "bg-line"}`}
-                    style={{ height: `${Math.max(3, (q / 90) * 100)}%` }}
+                    style={{ height: `${Math.max(3, (q / weekPeak) * 100)}%` }}
                     title={`${q} questions`}
                   />
                 </div>
@@ -108,8 +134,7 @@ export function ProgressView() {
           </div>
 
           <p className="border-line text-ink-3 mt-6 border-t pt-5 text-[13px] leading-relaxed">
-            Wednesday is the only blank day. A broken streak costs more in
-            recall than a heavy Saturday gains.
+            A broken streak costs more in recall than a heavy day gains.
           </p>
         </Card>
       </div>
