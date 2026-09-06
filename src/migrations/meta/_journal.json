@@ -71,6 +71,13 @@
       "when": 1788618743585,
       "tag": "0009_topics_slug_unique",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1788684865515,
+      "tag": "0010_pro_plus_tier",
+      "breakpoints": true
     }
   ]
 }

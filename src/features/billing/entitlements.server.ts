@@ -46,7 +46,10 @@ export async function getEntitlement(
     .limit(1);
   const active = !!row && row.accessUntil > now;
   return {
-    plan: active ? "pro" : "free",
+    // An expired row grants nothing, so the tier collapses to free rather than
+    // whatever was last paid for. `school` is sold per seat and carries the
+    // Pro+ ceiling.
+    plan: !active ? "free" : row.plan === "pro" ? "pro" : "pro_plus",
     active,
     accessUntil: row?.accessUntil.toISOString() ?? null,
   };
@@ -135,11 +138,21 @@ export async function applySubscription(
   }
 
   if (GRANTS.has(status) && currentPeriodEnd) {
+    // Which tier was bought is a property of the plan row the subscription
+    // points at, never of this event — an upgrade is a new subscription on a
+    // different plan, and reading it here is what makes Pro+ grant Pro+.
+    const [purchased] = await db
+      .select({ plan: paymentPlans.plan })
+      .from(paymentPlans)
+      .where(eq(paymentPlans.id, row.planId))
+      .limit(1);
+    if (!purchased) return "unknown";
+
     await db
       .insert(entitlements)
       .values({
         userId: row.userId,
-        plan: "pro",
+        plan: purchased.plan,
         accessUntil: currentPeriodEnd,
         status,
         subscriptionId: row.id,
@@ -148,7 +161,10 @@ export async function applySubscription(
       .onConflictDoUpdate({
         target: entitlements.userId,
         set: {
+          // Access only ever moves forward, but the tier follows the newest
+          // subscription: an upgrade must take effect immediately.
           accessUntil: sql`greatest(${entitlements.accessUntil}, excluded.access_until)`,
+          plan: purchased.plan,
           status,
           subscriptionId: row.id,
           updatedAt: opts.observedAt,

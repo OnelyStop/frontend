@@ -3,7 +3,11 @@ import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { doubts, doubtStuck } from "@/db/schema";
 import { monthlyPostCount } from "./queries.server";
-import { POST_QUOTA, type PlanTier } from "./quota";
+import {
+  limitsFor,
+  withinLimit,
+  type PlanTier,
+} from "@/features/billing/limits";
 import type { DoubtCreate } from "./types";
 
 export type StuckResult = { stuckCount: number; stuckByMe: boolean };
@@ -50,7 +54,7 @@ export async function setStuck(
 
 export type PostOutcome =
   | { ok: true; doubtId: string }
-  | { ok: false; reason: "quota_exceeded"; used: number; limit: number };
+  | { ok: false; reason: "quota_exceeded"; used: number; limit: number | null };
 
 export async function postDoubt(
   userId: string,
@@ -58,9 +62,9 @@ export async function postDoubt(
   input: DoubtCreate,
 ): Promise<PostOutcome> {
   // The view's remaining count is display only; the quota is decided here.
-  const limit = POST_QUOTA[plan];
+  const limit = limitsFor(plan).communityDoubtsPerMonth;
   const used = await monthlyPostCount(userId);
-  if (used >= limit)
+  if (!withinLimit(limit, used))
     return { ok: false, reason: "quota_exceeded", used, limit };
 
   const [row] = await db

@@ -35,7 +35,9 @@ export async function POST(request: Request) {
     return fail("already_subscribed", 409);
 
   const currency = await requestCurrency();
-  const plan = await findPlan("pro", parsed.data.interval, currency);
+  // The body names a tier, never a price: the amount still comes from the row
+  // this finds, and zod has already limited the tier to one we sell.
+  const plan = await findPlan(parsed.data.plan, parsed.data.interval, currency);
   if (!plan) return fail("plan_unavailable", 404);
 
   let created;
@@ -62,7 +64,8 @@ export async function POST(request: Request) {
   log.info("billing.subscription.created", {
     userId,
     subscription: created.id,
-    plan: plan.id,
+    plan: plan.plan,
+    planRow: plan.id,
     currency,
   });
 
@@ -72,6 +75,7 @@ export async function POST(request: Request) {
     keyId: process.env.RAZORPAY_KEY_ID,
     amountMinor: plan.amountMinor,
     currency,
+    plan: plan.plan,
     interval: plan.interval,
   });
 }

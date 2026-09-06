@@ -9,12 +9,10 @@ import * as schema from "@/db/schema";
 import { getEntitlement } from "./entitlements.server";
 import { handleWebhook } from "./webhook.server";
 
-const MIGRATION = join(
-  import.meta.dirname,
-  "..",
-  "..",
-  "migrations",
-  "0001_billing.sql",
+// Every migration that touches billing, in order. A new one has to be added
+// here or the schema under test quietly drifts from the real one.
+const MIGRATIONS = ["0001_billing.sql", "0010_pro_plus_tier.sql"].map((name) =>
+  join(import.meta.dirname, "..", "..", "migrations", name),
 );
 const SECRET = "whsec_test_only";
 const USER = randomUUID();
@@ -33,10 +31,12 @@ async function freshDb() {
     create table auth.users (id uuid primary key);
     create function auth.uid() returns uuid language sql stable as 'select null::uuid';
   `);
-  for (const stmt of readFileSync(MIGRATION, "utf8").split(
-    "--> statement-breakpoint",
-  )) {
-    if (stmt.trim()) await client.exec(stmt);
+  for (const path of MIGRATIONS) {
+    for (const stmt of readFileSync(path, "utf8").split(
+      "--> statement-breakpoint",
+    )) {
+      if (stmt.trim()) await client.exec(stmt);
+    }
   }
   return { client, db: drizzle(client, { schema }) };
 }
@@ -165,6 +165,33 @@ describe("webhook grants", () => {
       accessUntil: "2026-10-05T00:00:00.000Z",
     });
     expect((await entitlement("2026-10-06T00:00:00Z")).active).toBe(false);
+  });
+
+  // The tier comes from the plan row the subscription points at. Granting a
+  // flat "pro" here would sell Pro+ and deliver Pro, which nothing else in the
+  // system would notice.
+  it("grants the tier that was actually bought", async () => {
+    const [plus] = await db
+      .insert(schema.paymentPlans)
+      .values({
+        plan: "pro_plus",
+        interval: "monthly",
+        currency: "INR",
+        razorpayPlanId: "plan_test_plus",
+        amountMinor: 40_000,
+        listAmountMinor: 100_000,
+      })
+      .returning({ id: schema.paymentPlans.id });
+    await db
+      .update(schema.subscriptions)
+      .set({ planId: plus.id })
+      .where(eq(schema.subscriptions.razorpaySubscriptionId, "sub_1"));
+
+    expect(
+      await deliver("evt_1", "subscription.activated", "2026-09-05T00:01:00Z"),
+    ).toBe("processed");
+
+    expect((await entitlement("2026-09-10T00:00:00Z")).plan).toBe("pro_plus");
   });
 
   it("a redelivery is a no-op: same event id, nothing changes", async () => {
