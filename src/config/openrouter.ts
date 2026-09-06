@@ -10,8 +10,8 @@ export const openrouterConfig = {
   referer: str("OPENROUTER_REFERER", "https://onelystop.com"),
   title: str("OPENROUTER_TITLE", "OnelyStop"),
 
-  // Marking is what people pay for, so it gets the accurate model.
-  model: str("AI_MODEL", "google/gemini-3.8-flash"),
+  // Never the -contributor tier: it trains on what we send, and we promise not.
+  model: str("AI_MODEL", "meta/muse-spark-1.3"),
 
   // Explaining a passage does not need the same tier, and is asked far more often.
   cheapModel: str("AI_CHEAP_MODEL", "deepseek/deepseek-v4-flash-0731"),

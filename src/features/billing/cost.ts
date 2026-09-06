@@ -1,8 +1,8 @@
 import { PLAN_LIMITS, type PlanTier } from "./limits";
 
-// Paise per call: marking on Gemini 3.8 Flash, Ask Onely on DeepSeek V4 Flash.
+// Paise per call: marking on Muse Spark 1.3, Ask Onely on DeepSeek V4 Flash.
 export const COST_PER_CALL_PAISE = {
-  descriptiveMarking: 26,
+  descriptiveMarking: 35,
   askOnely: 2,
 } as const;
 
