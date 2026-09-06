@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ShieldCheck } from "lucide-react";
 import { Badge, Button, Card, PageHeader, SectionTitle } from "@/design-system";
+import { SUPPORT_EMAIL } from "@/config/site";
+import { PLAN_LIMITS, PLAN_NAME } from "@/features/billing/limits";
 import type { BillingStatus, PlanPrice } from "@/features/billing/types";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
 
@@ -22,11 +24,12 @@ function ManagePlan({ status }: { status: BillingStatus }) {
     ? DATE.format(new Date(status.accessUntil))
     : null;
   const windingDown = !!sub?.cancelledAt;
+  const name = PLAN_NAME[status.plan];
 
   const cancel = async () => {
     if (
       !window.confirm(
-        "Cancel Pro? You keep access until the end of the paid period.",
+        `Cancel ${name}? You keep access until the end of the paid period.`,
       )
     )
       return;
@@ -54,8 +57,8 @@ function ManagePlan({ status }: { status: BillingStatus }) {
       </SectionTitle>
       <p className="text-ink-2 text-[14px] leading-relaxed">
         {windingDown
-          ? `Pro ends on ${until}. Everything stays unlocked until then.`
-          : `Pro, renewing on ${until}.`}
+          ? `${name} ends on ${until}. Everything stays unlocked until then.`
+          : `${name}, renewing on ${until}.`}
       </p>
       {!windingDown ? (
         <div className="mt-4">
@@ -86,8 +89,12 @@ export function UpgradeView({
   return (
     <>
       <PageHeader
-        title={status.active ? "You are on Pro." : "Sit every paper you need."}
-        sub="Unlimited mocks with real sectional timing, unlimited descriptive marking, and the full current-affairs archive — one plan, no per-paper credits."
+        title={
+          status.active
+            ? `You are on ${PLAN_NAME[status.plan]}.`
+            : "Sit every paper you need."
+        }
+        sub={`Unlimited mocks and drills with real sectional timing, the full current-affairs archive, and ${PLAN_LIMITS.pro.descriptiveMarkingsPerMonth} descriptive markings a month on Pro or ${PLAN_LIMITS.pro_plus.descriptiveMarkingsPerMonth} on Pro+. No per-paper credits.`}
       />
 
       {status.active ? <ManagePlan status={status} /> : null}
@@ -96,6 +103,7 @@ export function UpgradeView({
         variant="app"
         prices={prices}
         entitled={status.active}
+        currentPlan={status.plan}
         billingEnabled={billingEnabled}
       />
 
@@ -103,9 +111,14 @@ export function UpgradeView({
         <ShieldCheck size={18} strokeWidth={1.75} className="mt-0.5 shrink-0" />
         <p className="text-ink-2 max-w-[74ch] text-[13.5px] leading-relaxed">
           <strong className="text-ink font-semibold">Target promise.</strong>{" "}
-          Sit at least eight full mocks on Pro in three months. If your weakest
-          section has not crossed its 55% sectional target on any of them, we
-          refund the three months in full.
+          Sit at least eight full mocks on a paid plan in three months. If your
+          weakest section has not crossed its 55% sectional target on any of
+          them, we refund the three months in full. Nothing counts this for you:
+          claim it by writing to{" "}
+          <a href={`mailto:${SUPPORT_EMAIL}`} className="underline">
+            {SUPPORT_EMAIL}
+          </a>{" "}
+          and we check the condition against your sittings before refunding.
         </p>
       </div>
     </>

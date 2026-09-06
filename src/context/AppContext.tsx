@@ -11,14 +11,11 @@ import {
 import { MotionConfig } from "motion/react";
 import { useAuth } from "@/features/auth/AuthContext";
 import {
-  FEATURE_MASTERY,
   getMarkerLabel,
-  bandFromScore,
-  railPositionFromMastery,
   type ExamBoard,
-  type Band,
   type Subject,
 } from "@/data/navigation";
+import type { Profile } from "@/features/profile/types";
 
 export type UserProfile = {
   name: string;
@@ -29,10 +26,6 @@ export type UserProfile = {
 };
 
 export type UserSettings = {
-  emailDigest: boolean;
-  weeklyReport: boolean;
-  practiceReminders: boolean;
-  soundEffects: boolean;
   reduceMotion: boolean;
 };
 
@@ -42,11 +35,6 @@ type AppContextValue = {
   setSubject: (s: Subject) => void;
   setBoard: (b: ExamBoard) => void;
   markerLabel: string;
-  mastery: Record<string, number>;
-  overallMastery: number;
-  workingGrade: Band;
-  nextGrade: Band | null;
-  railPosition: number;
   profile: UserProfile;
   setProfile: (p: UserProfile) => void;
   settings: UserSettings;
@@ -74,6 +62,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     examYear: "",
     bio: "",
   });
+  const [settings, setSettings] = useState<UserSettings>({
+    reduceMotion: false,
+  });
 
   // Display only — nothing is authorised from user_metadata.
   useEffect(() => {
@@ -84,41 +75,47 @@ export function AppProvider({ children }: { children: ReactNode }) {
       email: user.email ?? prev.email,
     }));
   }, [user]);
-  const [settings, setSettings] = useState<UserSettings>({
-    emailDigest: true,
-    weeklyReport: true,
-    practiceReminders: true,
-    soundEffects: false,
-    reduceMotion: false,
-  });
 
-  const value = useMemo(() => {
-    const masteryValues = Object.values(FEATURE_MASTERY);
-    const overallMastery = Math.round(
-      masteryValues.reduce((sum, v) => sum + v, 0) / masteryValues.length,
-    );
-    const { band, next } = bandFromScore(overallMastery);
+  // The board Settings persists is what every surface reads, so the stored profile — not the "IBPS PO" default — has to win once it arrives.
+  useEffect(() => {
+    if (!user) return;
+    const ac = new AbortController();
+    fetch("/api/v1/profile", { signal: ac.signal })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((body: { profile?: Profile } | null) => {
+        const stored = body?.profile;
+        if (!stored) return;
+        setBoard(stored.examBoard);
+        setSubject(stored.defaultSection);
+        setProfile((prev) => ({
+          ...prev,
+          name: stored.displayName || prev.name,
+          school: stored.school ?? "",
+          examYear: stored.targetYear ? String(stored.targetYear) : "",
+          bio: stored.bio ?? "",
+        }));
+      })
+      .catch(() => undefined);
+    return () => ac.abort();
+  }, [user]);
 
-    return {
+  const value = useMemo(
+    () => ({
       subject,
       board,
       setSubject,
       setBoard,
       markerLabel: getMarkerLabel(board),
-      mastery: FEATURE_MASTERY,
-      overallMastery,
-      workingGrade: band,
-      nextGrade: next,
-      railPosition: railPositionFromMastery(overallMastery),
       profile,
       setProfile,
       settings,
       setSettings,
       initials: getInitials(profile.name),
-    };
-  }, [subject, board, profile, settings]);
+    }),
+    [subject, board, profile, settings],
+  );
 
-  // Mirrors the Settings toggle onto <html> so the CSS `.press` utility (which can't read React context) respects it.
+  // Mirrored onto <html> so the CSS `.press` utility, which cannot read React context, respects it.
   useEffect(() => {
     document.documentElement.toggleAttribute(
       "data-reduce-motion",

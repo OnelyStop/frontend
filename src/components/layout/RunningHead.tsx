@@ -9,7 +9,7 @@ import { TARGETS } from "@/features/retrieval/targets";
 import { ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { ACCOUNT_GROUP, HeaderNav, MAIN_GROUPS } from "./HeaderNav";
-import type { ExamBoard, Subject } from "@/data/navigation";
+import { EXAMS, type ExamBoard, type Subject } from "@/data/navigation";
 
 export const SUBJECT_INK: Record<Subject, string> = {
   "Quantitative Aptitude": "var(--color-quant)",
@@ -18,35 +18,6 @@ export const SUBJECT_INK: Record<Subject, string> = {
   "General Awareness": "var(--color-ga)",
   "Computer Aptitude": "var(--color-computer)",
 };
-
-type Entry = {
-  board: ExamBoard;
-  stages: string;
-  stage: string;
-  date: string;
-};
-
-/** The exams this aspirant has applied for, in the order they sit. ⌘1/⌘2/⌘3. */
-export const ENTERED: Entry[] = [
-  {
-    board: "IBPS PO",
-    stages: "Prelims & Mains",
-    stage: "Prelims",
-    date: "12 Oct",
-  },
-  {
-    board: "SBI PO",
-    stages: "Prelims & Mains",
-    stage: "Prelims",
-    date: "08 Nov",
-  },
-  {
-    board: "RBI Grade B",
-    stages: "Phase 1 & 2",
-    stage: "Phase 1",
-    date: "23 Nov",
-  },
-];
 
 const SECTION: Record<string, string> = {
   home: "Today",
@@ -132,19 +103,16 @@ export function RunningHead() {
   const spec = params.get("spec");
   const sit = params.get("sit");
   const parent = upOne(pathname, Boolean(spec || sit));
-  const entry =
-    ENTERED.find((e) => e.board === board) ??
-    ({ board, stages: "", stage: "Prelims", date: "" } as Entry);
 
-  const switchTo = (e: Entry) => {
-    setBoard(e.board);
+  const switchTo = (next: ExamBoard) => {
+    setBoard(next);
     setSwitching(false);
   };
 
   useEffect(() => {
     const onKey = (ev: KeyboardEvent) => {
-      if ((ev.metaKey || ev.ctrlKey) && /^[123]$/.test(ev.key)) {
-        const next = ENTERED[Number(ev.key) - 1];
+      if ((ev.metaKey || ev.ctrlKey) && /^[1-9]$/.test(ev.key)) {
+        const next = EXAMS[Number(ev.key) - 1];
         if (!next) return;
         ev.preventDefault();
         switchTo(next);
@@ -223,36 +191,30 @@ export function RunningHead() {
               aria-hidden
             />
             <span>{board}</span>
-            <span className="text-ink-3">{entry.stage}</span>
             <ChevronDown size={14} className="text-ink-4" />
           </button>
 
           {switching ? (
             <div
               role="menu"
-              aria-label="Exams you have applied for"
+              aria-label="Exams covered"
               className="border-line bg-canvas shadow-pop absolute top-11 left-0 z-50 w-72 overflow-hidden rounded-[18px] border p-1.5"
             >
               <p className="text-ink-3 px-2.5 pt-2 pb-1.5 text-[13px]">
-                You have applied for
+                Exams covered
               </p>
-              {ENTERED.map((e, i) => (
+              {EXAMS.map((e, i) => (
                 <button
-                  key={e.board}
+                  key={e}
                   type="button"
                   role="menuitemradio"
-                  aria-checked={e.board === board}
+                  aria-checked={e === board}
                   onClick={() => switchTo(e)}
                   className={`press rounded-ctl flex w-full items-center gap-2 px-2.5 py-2 text-left ${
-                    e.board === board ? "bg-brand-soft" : "hover:bg-brand-soft"
+                    e === board ? "bg-brand-soft" : "hover:bg-brand-soft"
                   }`}
                 >
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-[14px]">{e.board}</span>
-                    <span className="text-ink-3 block text-[13px]">
-                      {e.stages} · {e.date}
-                    </span>
-                  </span>
+                  <span className="min-w-0 flex-1 text-[14px]">{e}</span>
                   <kbd className="rounded-pill border-line text-ink-3 border px-2 py-0.5 text-[11px]">
                     ⌘{i + 1}
                   </kbd>

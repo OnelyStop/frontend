@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { SUPPORT_EMAIL } from "@/config/site";
+import { PLAN_LIMITS } from "@/features/billing/limits";
 import { LegalDoc, LegalTodo } from "../legal-doc";
 
 export const metadata: Metadata = {
   title: "Terms of service",
   description:
-    "The agreement between you and onelystop: who can use it, what the marking is and is not, how Pro billing and the target promise work, and who to write to when something is wrong.",
+    "The agreement between you and onelystop: who can use it, what the marking is and is not, how paid billing and the target promise work, and who to write to when something is wrong.",
 };
 
 const UPDATED = "5 September 2026";
@@ -126,8 +127,10 @@ export default function Page() {
             it, and can sit well above or below ours.
           </li>
           <li>
-            <strong>It can be wrong.</strong> If a mark looks wrong, tell us and
-            a person will look at it. That is how the marking improves.
+            <strong>It can be wrong.</strong> If a mark looks wrong, email{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> and a person
+            will look at it. There is no report button in the app yet, so email
+            is the route. That is how the marking improves.
           </li>
           <li>
             <strong>Do not rely on it alone.</strong> It is one input alongside
@@ -194,9 +197,10 @@ export default function Page() {
           onelystop is not affiliated with, endorsed by, or connected to IBPS,
           SBI, RBI or any other recruiting body. Their names are used only to
           say which exam a mock or drill is modelled on. Mocks follow each
-          exam&rsquo;s published pattern; they are not copies of actual papers.
-          Current-affairs questions are written from public reporting, and each
-          one names its source.
+          exam&rsquo;s published pattern. Past papers are memory-based recalls
+          of real sittings, reconstructed after the exam and labelled with the
+          sitting they recall; they are not the boards&rsquo; own papers.
+          Current-affairs questions are written from public reporting.
         </p>
 
         <h3>Our material</h3>
@@ -215,15 +219,33 @@ export default function Page() {
           <li>
             <strong>The free plan is not a trial.</strong> It does not expire
             and does not need a card. It includes the knowledge base, private
-            notes, the last seven days of current affairs, two full mocks a
-            month under sectional timing, and five community doubts a month.
+            notes, the last {PLAN_LIMITS.free.currentAffairsDays} days of
+            current affairs, {PLAN_LIMITS.free.mocksPerMonth} full mocks a month
+            under sectional timing, {PLAN_LIMITS.free.drillsPerDay} drills a
+            day, {PLAN_LIMITS.free.descriptiveMarkingsPerMonth} descriptive
+            markings a month, {PLAN_LIMITS.free.askOnelyPerMonth} Ask Onely
+            questions a month, and {PLAN_LIMITS.free.communityDoubtsPerMonth}{" "}
+            community doubts a month.
           </li>
           <li>
-            <strong>Pro renews automatically</strong> through Razorpay
-            Subscriptions, monthly or yearly as you chose, until you cancel. It
-            includes unlimited mocks and drills, unlimited descriptive marking,
-            the full current-affairs archive, the attempt map and progress, Ask
-            Onely on any passage, and fifteen community doubts a month.
+            <strong>Pro and Pro+ renew automatically</strong> through Razorpay
+            Subscriptions, monthly or yearly as you chose, until you cancel.
+            Both include unlimited mocks and drills, the full current-affairs
+            archive, and the attempt map and progress. The metered features are
+            capped, not unlimited: Pro gives{" "}
+            {PLAN_LIMITS.pro.descriptiveMarkingsPerMonth} descriptive markings,{" "}
+            {PLAN_LIMITS.pro.askOnelyPerMonth} Ask Onely questions and{" "}
+            {PLAN_LIMITS.pro.communityDoubtsPerMonth} community doubts a month;
+            Pro+ gives {PLAN_LIMITS.pro_plus.descriptiveMarkingsPerMonth},{" "}
+            {PLAN_LIMITS.pro_plus.askOnelyPerMonth} and{" "}
+            {PLAN_LIMITS.pro_plus.communityDoubtsPerMonth}. Past the cap the
+            feature stops until the month turns over.
+          </li>
+          <li>
+            <strong>Changing tier while a plan is running</strong> is done by
+            email. We do not accept a second subscription while one is active,
+            so write to <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>{" "}
+            and we move you.
           </li>
           <li>
             <strong>Prices are in Indian rupees.</strong> Razorpay handles your
@@ -232,14 +254,19 @@ export default function Page() {
           </li>
           <li>
             <strong>You can cancel at any time.</strong> Cancelling stops the
-            next renewal; you keep Pro until the end of the period you have
-            already paid for.
+            next renewal; you keep your plan until the end of the period you
+            have already paid for.
           </li>
           <li>
             <strong>The target promise.</strong> Sit at least eight full mocks
-            on Pro in three months. If your weakest section has not crossed its
-            55% sectional target on any of them, we refund the three months in
-            full.
+            on a paid plan in three months. If your weakest section has not
+            crossed its 55% sectional target on any of them, we refund the three
+            months in full. Nothing on the site counts this for you and there is
+            no refund button: claim it by writing to{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>. We check
+            the sittings and sectional scores on your account against the
+            condition, tell you what we found, and refund through Razorpay if it
+            holds.
           </li>
           <li>
             <strong>Other refunds.</strong> A duplicate charge, or a period in
@@ -271,12 +298,13 @@ export default function Page() {
           We aim to keep onelystop available but do not guarantee uninterrupted
           service. onelystop runs on providers under contract: Vercel hosts the
           site, Supabase holds the database and sign-in, Razorpay takes
-          payments, Google Gemini generates current-affairs questions from
-          public reporting, and OpenRouter carries Ask Onely questions and
-          descriptive answers to a language model. When one of them is down, the
-          part of onelystop that depends on it is down too. A period in which
-          the service was unavailable is refunded, as set out under Plans and
-          billing.
+          payments, NewsData.io supplies the news articles current-affairs
+          questions are written from, and OpenRouter carries every model call we
+          make — descriptive marking, Ask Onely and the daily current-affairs
+          generation — on to the model configured for it. When one of them is
+          down, the part of onelystop that depends on it is down too. A period
+          in which the service was unavailable is refunded, as set out under
+          Plans and billing.
         </p>
         <p>
           We may change features, and we may retire ones that are not working.
@@ -316,8 +344,9 @@ export default function Page() {
         </h2>
         <p>
           You can close your account at any time from Settings &rarr; Close
-          account. Closing it deletes your work immediately and cancels Pro;
-          payment records stay with Razorpay for as long as tax law requires.
+          account. Closing it deletes your work immediately and cancels your
+          plan; payment records stay with Razorpay for as long as tax law
+          requires.
         </p>
         <p>
           We may suspend or close an account that breaches these terms, and will

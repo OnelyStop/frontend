@@ -28,7 +28,7 @@ export default async function Page({
       plan={plan === "pro_plus" ? "pro_plus" : "pro"}
       interval={interval === "monthly" ? "monthly" : "yearly"}
       prices={prices}
-      entitled={entitlement.active}
+      held={entitlement.active ? entitlement.plan : null}
       billingEnabled={process.env.BILLING_ENABLED === "true"}
     />
   );
