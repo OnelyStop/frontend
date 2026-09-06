@@ -1,8 +1,9 @@
 import "server-only";
 import { and, count, eq, gte, isNotNull, max, sql } from "drizzle-orm";
 import { NEGATIVE_MARK } from "@/data/navigation";
-import { db } from "@/db";
+import type { Db } from "@/db";
 import { attemptAnswers, attempts, bankQuestions } from "@/db/schema";
+import { dayBack, istDayKey } from "@/lib/ist";
 import { isCorrect, round2 } from "./scoring";
 
 const WINDOW_DAYS = 30;
@@ -14,7 +15,14 @@ export type SectionProgress = {
   section: string;
   attempted: number;
   correct: number;
-  avgSec: number;
+  /** Averaged over answers that recorded a time; null when none did. */
+  avgSec: number | null;
+};
+
+export type DayCount = {
+  /** IST calendar date, `YYYY-MM-DD` — the view labels from this, never from its own clock. */
+  date: string;
+  count: number;
 };
 
 export type ProfileStats = {
@@ -32,6 +40,7 @@ export type TopicMapRow = {
   correct: number;
   /** Percent, 0-100, against attempted — a blank is never counted here. */
   accuracy: number;
+  /** Averaged over answers that recorded a time; 0 when none did, never a pace. */
   avgSec: number;
   marksLost: number;
 };
@@ -42,21 +51,23 @@ export type Progress = {
   wrong: number;
   avgSec: number | null;
   sections: SectionProgress[];
-  /** The last seven days, oldest first — today is the last entry. */
-  week: number[];
+  /** The last seven IST days, oldest first — today is the last entry. */
+  week: DayCount[];
 };
 
-const EMPTY: Progress = {
-  attempted: 0,
-  correct: 0,
-  wrong: 0,
-  avgSec: null,
-  sections: [],
-  week: [0, 0, 0, 0, 0, 0, 0],
+const WEEK_DAYS = 7;
+
+const emptyWeek = (now: Date): DayCount[] => {
+  const today = istDayKey(now);
+  return Array.from({ length: WEEK_DAYS }, (_, i) => ({
+    date: dayBack(today, WEEK_DAYS - 1 - i),
+    count: 0,
+  }));
 };
 
 // Graded from the stored key on read, never from anything the client sent.
 export async function getProgress(
+  db: Db,
   userId: string,
   now = new Date(),
 ): Promise<Progress> {
@@ -87,17 +98,31 @@ export async function getProgress(
   const graded = rows.filter(
     (r): r is typeof r & { answer: string } => r.answer !== null,
   );
-  if (graded.length === 0) return EMPTY;
 
-  const bySection = new Map<string, { a: number; c: number; ms: number }>();
-  const week = [0, 0, 0, 0, 0, 0, 0];
+  const week = emptyWeek(now);
+  const weekIndex = new Map(week.map((d, i) => [d.date, i]));
+  if (graded.length === 0) {
+    return {
+      attempted: 0,
+      correct: 0,
+      wrong: 0,
+      avgSec: null,
+      sections: [],
+      week,
+    };
+  }
+
+  const bySection = new Map<
+    string,
+    { a: number; c: number; ms: number; timed: number }
+  >();
   let correct = 0;
   let totalMs = 0;
   let timed = 0;
 
   for (const r of graded) {
     const key = r.section ?? "Unsectioned";
-    const s = bySection.get(key) ?? { a: 0, c: 0, ms: 0 };
+    const s = bySection.get(key) ?? { a: 0, c: 0, ms: 0, timed: 0 };
     s.a += 1;
     const right = isCorrect(r.chosen, r.answer);
     if (right) {
@@ -106,16 +131,15 @@ export async function getProgress(
     }
     if (r.timeMs !== null) {
       s.ms += r.timeMs;
+      s.timed += 1;
       totalMs += r.timeMs;
       timed += 1;
     }
     bySection.set(key, s);
 
-    // Days back from today, index 6 being today — never a weekday bucket.
-    const back = Math.floor(
-      (now.getTime() - r.startedAt.getTime()) / 86_400_000,
-    );
-    if (back >= 0 && back < 7) week[6 - back] += 1;
+    // Bucketed by IST calendar day so the bar always sits under its own date.
+    const i = weekIndex.get(istDayKey(r.startedAt));
+    if (i !== undefined) week[i]!.count += 1;
   }
 
   return {
@@ -128,7 +152,8 @@ export async function getProgress(
         section,
         attempted: s.a,
         correct: s.c,
-        avgSec: s.a > 0 ? Math.round(s.ms / s.a / 1000) : 0,
+        // Over timed answers only — dividing by every attempt reads an untimed one as instant.
+        avgSec: s.timed > 0 ? Math.round(s.ms / s.timed / 1000) : null,
       }))
       .sort((x, y) => y.attempted - x.attempted),
     week,
@@ -144,6 +169,7 @@ export async function getProgress(
  * off one question is worse than no verdict at all.
  */
 export async function getTopicMap(
+  db: Db,
   userId: string,
   now = new Date(),
 ): Promise<TopicMapRow[]> {
@@ -227,7 +253,10 @@ export async function getTopicMap(
 }
 
 // One aggregate row per mode — "bank" and "mix" both count as drills.
-export async function getProfileStats(userId: string): Promise<ProfileStats> {
+export async function getProfileStats(
+  db: Db,
+  userId: string,
+): Promise<ProfileStats> {
   const rows = await db
     .select({
       mode: attempts.mode,

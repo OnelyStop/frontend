@@ -2,6 +2,7 @@ import "server-only";
 import { and, count, eq, gte, sql, sum } from "drizzle-orm";
 import type { Db } from "@/db";
 import { aiUsage, attempts } from "@/db/schema";
+import { istDayKey, istMonthStartKey, startOfIstDay } from "@/lib/ist";
 import { getEntitlement } from "./entitlements.server";
 import { limitsFor, withinLimit, type PlanLimits } from "./limits";
 
@@ -10,15 +11,18 @@ export type AiFeature = "ask_onely" | "descriptive_marking";
 export type Denial = { ok: false; used: number; limit: number };
 export type Allowed = { ok: true; plan: ReturnType<typeof limitsFor> };
 
-// IST, because every cutoff and every exam day in this product is IST.
-const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
+export type QuotaKey = keyof Pick<
+  PlanLimits,
+  | "mocksPerMonth"
+  | "drillsPerDay"
+  | "askOnelyPerMonth"
+  | "descriptiveMarkingsPerMonth"
+>;
 
-const istDay = (at: Date) =>
-  new Date(at.getTime() + IST_OFFSET_MS).toISOString().slice(0, 10);
-
-const istMonthStart = (at: Date) => {
-  const d = new Date(at.getTime() + IST_OFFSET_MS);
-  return `${d.toISOString().slice(0, 7)}-01`;
+// The AI features are metered in ai_usage; the attempt modes are counted from attempts.
+const AI_FEATURE: Partial<Record<QuotaKey, AiFeature>> = {
+  askOnelyPerMonth: "ask_onely",
+  descriptiveMarkingsPerMonth: "descriptive_marking",
 };
 
 // Attempts on a full paper are mocks; bank and mix sets are drills.
@@ -45,30 +49,34 @@ async function attemptsSince(
   return row?.n ?? 0;
 }
 
-const startOfIstDay = (at: Date) => new Date(`${istDay(at)}T00:00:00+05:30`);
-const startOfIstMonth = (at: Date) =>
-  new Date(`${istMonthStart(at)}T00:00:00+05:30`);
-
 // The one place a plan limit turns into an answer, and always server-side.
 export async function checkQuota(
   db: Db,
   userId: string,
-  what: keyof Pick<
-    PlanLimits,
-    "mocksPerMonth" | "drillsPerDay" | "askOnelyPerMonth"
-  >,
+  what: QuotaKey,
   now = new Date(),
 ): Promise<Allowed | Denial> {
   const { plan } = await getEntitlement(db, userId, now);
   const limits = limitsFor(plan);
   const limit = limits[what];
 
+  const feature = AI_FEATURE[what];
   let used = 0;
-  if (what === "mocksPerMonth")
-    used = await attemptsSince(db, userId, startOfIstMonth(now), true);
-  else if (what === "drillsPerDay")
-    used = await attemptsSince(db, userId, startOfIstDay(now), false);
-  else used = await aiCallsThisMonth(db, userId, "ask_onely", now);
+  if (feature) used = await aiCallsThisMonth(db, userId, feature, now);
+  else if (what === "mocksPerMonth")
+    used = await attemptsSince(
+      db,
+      userId,
+      startOfIstDay(istMonthStartKey(now)),
+      true,
+    );
+  else
+    used = await attemptsSince(
+      db,
+      userId,
+      startOfIstDay(istDayKey(now)),
+      false,
+    );
 
   if (!withinLimit(limit, used))
     return { ok: false, used, limit: limit as number };
@@ -88,7 +96,7 @@ export async function aiCallsThisMonth(
       and(
         eq(aiUsage.userId, userId),
         eq(aiUsage.feature, feature),
-        gte(aiUsage.day, istMonthStart(now)),
+        gte(aiUsage.day, istMonthStartKey(now)),
       ),
     );
   return Number(row?.n ?? 0);
@@ -103,7 +111,7 @@ export async function recordAiCall(
 ): Promise<void> {
   await db
     .insert(aiUsage)
-    .values({ userId, feature, day: istDay(now), calls: 1 })
+    .values({ userId, feature, day: istDayKey(now), calls: 1 })
     .onConflictDoUpdate({
       target: [aiUsage.userId, aiUsage.feature, aiUsage.day],
       set: { calls: sql`${aiUsage.calls} + 1` },

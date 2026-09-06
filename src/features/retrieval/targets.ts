@@ -170,7 +170,7 @@ const VERBS: Target[] = [
     label: "Your record card",
     detail: "sittings and best sections",
     does: "opens what you have sat and what cleared",
-    keys: "profile record card me account sittings scores streak points",
+    keys: "profile record card me account sittings scores best mocks drills",
     href: "/profile",
     resting: true,
   },

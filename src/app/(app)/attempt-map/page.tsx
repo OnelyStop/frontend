@@ -16,5 +16,5 @@ export default async function Page() {
   const { plan } = await getEntitlement(db, userId);
   if (!limitsFor(plan).attemptMap) redirect("/upgrade?from=attempt-map");
 
-  return <AttemptMapView topics={await getTopicMap(userId)} />;
+  return <AttemptMapView topics={await getTopicMap(db, userId)} />;
 }

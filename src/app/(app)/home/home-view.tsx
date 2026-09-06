@@ -70,7 +70,7 @@ export function HomeView({ progress }: { progress: Progress }) {
           <div className="grid gap-5">
             {sections.map((r) => {
               const a = Math.round((r.correct / r.attempted) * 100);
-              const fast = r.avgSec <= 45;
+              const fast = r.avgSec !== null && r.avgSec <= 45;
               return (
                 <div key={r.section} className="grid gap-2">
                   <div className="flex items-baseline gap-3">
@@ -80,9 +80,9 @@ export function HomeView({ progress }: { progress: Progress }) {
                     <span className="flex-1" />
                     <span className="tnum text-[14.5px]">{a}%</span>
                     <span
-                      className={`tnum w-10 text-right text-[13px] ${fast ? "text-ok" : "text-bad"}`}
+                      className={`tnum w-10 text-right text-[13px] ${r.avgSec === null ? "text-ink-4" : fast ? "text-ok" : "text-bad"}`}
                     >
-                      {r.avgSec}s
+                      {r.avgSec === null ? "—" : `${r.avgSec}s`}
                     </span>
                   </div>
 

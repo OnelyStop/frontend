@@ -18,14 +18,9 @@ import type { Progress } from "@/features/attempts/progress.server";
 // The bars are the last seven days ending today, not Monday to Sunday.
 const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
 
-const lastSevenDayLabels = (today = new Date()): string[] =>
-  Array.from(
-    { length: 7 },
-    (_, i) =>
-      DAY_INITIALS[
-        new Date(today.getTime() - (6 - i) * 86_400_000).getDay()
-      ] as string,
-  );
+// Labelled from the date the server bucketed by, so a bar can never sit under another day's letter.
+const dayInitial = (date: string) =>
+  DAY_INITIALS[new Date(`${date}T00:00:00Z`).getUTCDay()] as string;
 
 // The bank stores one-word sections; anything outside that vocabulary shows as stored.
 function sectionLabel(section: string) {
@@ -33,7 +28,6 @@ function sectionLabel(section: string) {
 }
 
 export function ProgressView({ progress }: { progress: Progress }) {
-  const labels = lastSevenDayLabels();
   const { board } = useApp();
   const { attempted, correct, wrong, avgSec, sections, week } = progress;
 
@@ -56,8 +50,8 @@ export function ProgressView({ progress }: { progress: Progress }) {
 
   const lost = wrong * NEGATIVE_MARK;
   const acc = Math.round((correct / attempted) * 100);
-  const weekTotal = week.reduce((n, q) => n + q, 0);
-  const weekPeak = Math.max(1, ...week);
+  const weekTotal = week.reduce((n, d) => n + d.count, 0);
+  const weekPeak = Math.max(1, ...week.map((d) => d.count));
 
   return (
     <>
@@ -90,7 +84,7 @@ export function ProgressView({ progress }: { progress: Progress }) {
           <div className="grid gap-5">
             {sections.map((r) => {
               const a = Math.round((r.correct / r.attempted) * 100);
-              const fast = r.avgSec <= 45;
+              const fast = r.avgSec !== null && r.avgSec <= 45;
               return (
                 <div key={r.section} className="grid gap-2">
                   <div className="flex items-baseline gap-3">
@@ -100,9 +94,9 @@ export function ProgressView({ progress }: { progress: Progress }) {
                     <span className="flex-1" />
                     <span className="tnum text-[14.5px]">{a}%</span>
                     <span
-                      className={`tnum w-10 text-right text-[13px] ${fast ? "text-ok" : "text-bad"}`}
+                      className={`tnum w-10 text-right text-[13px] ${r.avgSec === null ? "text-ink-4" : fast ? "text-ok" : "text-bad"}`}
                     >
-                      {r.avgSec}s
+                      {r.avgSec === null ? "—" : `${r.avgSec}s`}
                     </span>
                   </div>
                   <div className="rounded-pill bg-line h-1.5 overflow-hidden">
@@ -128,17 +122,19 @@ export function ProgressView({ progress }: { progress: Progress }) {
           </SectionTitle>
 
           <div className="flex h-40 gap-2">
-            {week.map((q, i) => (
-              <div key={i} className="flex flex-1 flex-col gap-2">
+            {week.map((d) => (
+              <div key={d.date} className="flex flex-1 flex-col gap-2">
                 <div className="flex flex-1 items-end">
                   <div
-                    className={`w-full rounded-t-sm transition-all ${q ? "bg-ink" : "bg-line"}`}
-                    style={{ height: `${Math.max(3, (q / weekPeak) * 100)}%` }}
-                    title={`${q} questions`}
+                    className={`w-full rounded-t-sm transition-all ${d.count ? "bg-ink" : "bg-line"}`}
+                    style={{
+                      height: `${Math.max(3, (d.count / weekPeak) * 100)}%`,
+                    }}
+                    title={`${d.date} · ${d.count} questions`}
                   />
                 </div>
                 <span className="text-ink-4 text-center text-[12px]">
-                  {labels[i]}
+                  {dayInitial(d.date)}
                 </span>
               </div>
             ))}

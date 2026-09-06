@@ -101,7 +101,8 @@ const ZONES: Record<
 };
 
 function zoneOf(t: TopicMapRow): Zone {
-  const fast = t.avgSec <= PACE;
+  // An untimed topic reports 0s, which must not buy it a "fast" verdict.
+  const fast = t.avgSec > 0 && t.avgSec <= PACE;
   const accurate = t.accuracy >= ACC_LINE;
   if (fast && accurate) return "first";
   if (!fast && accurate) return "iftime";
@@ -532,7 +533,11 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                       `${Math.round(open.accuracy)}%`,
                       open.accuracy < ACC_LINE,
                     ],
-                    ["Your pace", `${open.avgSec}s`, open.avgSec > PACE],
+                    [
+                      "Your pace",
+                      open.avgSec === 0 ? "—" : `${open.avgSec}s`,
+                      open.avgSec > PACE,
+                    ],
                     [
                       "Marks lost to negatives",
                       `−${open.marksLost.toFixed(2)}`,
@@ -720,9 +725,9 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                       {Math.round(t.accuracy)}%
                     </td>
                     <td
-                      className={`tnum px-3 py-4 text-right text-[14px] ${t.avgSec > PACE ? "text-bad" : "text-ok"}`}
+                      className={`tnum px-3 py-4 text-right text-[14px] ${t.avgSec === 0 ? "text-ink-4" : t.avgSec > PACE ? "text-bad" : "text-ok"}`}
                     >
-                      {t.avgSec}s
+                      {t.avgSec === 0 ? "—" : `${t.avgSec}s`}
                     </td>
                     <td className="tnum px-3 py-4 text-right text-[14px]">
                       {t.avgSec > 0 ? rate(t).toFixed(2) : "—"}
