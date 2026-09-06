@@ -17,7 +17,7 @@ import {
   unique,
   uuid,
 } from "drizzle-orm/pg-core";
-import { anonRole, authenticatedRole } from "drizzle-orm/supabase";
+import { authenticatedRole } from "drizzle-orm/supabase";
 
 export const attemptMode = pgEnum("attempt_mode", ["bank", "mix", "paper"]);
 
@@ -47,9 +47,9 @@ export const papers = pgTable(
     index("papers_exam_key_idx").on(t.examKey),
     index("papers_filter_idx").on(t.bank, t.role, t.examType, t.year),
 
-    pgPolicy("anyone can read papers", {
+    pgPolicy("signed-in users can read papers", {
       for: "select",
-      to: [anonRole, authenticatedRole],
+      to: authenticatedRole,
       using: sql`true`,
     }),
   ],
@@ -68,9 +68,9 @@ export const directions = pgTable(
   (t) => [
     primaryKey({ columns: [t.paperId, t.directionId] }),
 
-    pgPolicy("anyone can read directions", {
+    pgPolicy("signed-in users can read directions", {
       for: "select",
-      to: [anonRole, authenticatedRole],
+      to: authenticatedRole,
       using: sql`true`,
     }),
   ],
@@ -118,11 +118,7 @@ export const bankQuestions = pgTable(
       foreignColumns: [directions.paperId, directions.directionId],
     }),
 
-    pgPolicy("anyone can read bank questions", {
-      for: "select",
-      to: [anonRole, authenticatedRole],
-      using: sql`true`,
-    }),
+    // No policy and no grant on purpose: `answer` is the key to a paper being sat, so PostgREST must return nothing.
   ],
 ).enableRLS();
 
@@ -144,21 +140,11 @@ export const attempts = pgTable(
   (t) => [
     index("attempts_user_id_idx").on(t.userId),
 
+    // Read-only to PostgREST: a client that could write here could set its own `score`.
     pgPolicy("signed-in users can read their own attempts", {
       for: "select",
       to: authenticatedRole,
       using: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-    pgPolicy("signed-in users can start their own attempts", {
-      for: "insert",
-      to: authenticatedRole,
-      withCheck: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-    pgPolicy("signed-in users can update their own attempts", {
-      for: "update",
-      to: authenticatedRole,
-      using: sql`(select auth.uid()) = ${t.userId}`,
-      withCheck: sql`(select auth.uid()) = ${t.userId}`,
     }),
   ],
 ).enableRLS();
@@ -189,11 +175,6 @@ export const attemptAnswers = pgTable(
       to: authenticatedRole,
       using: sql`exists (select 1 from attempts a where a.id = ${t.attemptId} and a.user_id = (select auth.uid()))`,
     }),
-    pgPolicy("signed-in users can write their own attempt answers", {
-      for: "insert",
-      to: authenticatedRole,
-      withCheck: sql`exists (select 1 from attempts a where a.id = ${t.attemptId} and a.user_id = (select auth.uid()))`,
-    }),
   ],
 ).enableRLS();
 
@@ -215,17 +196,6 @@ export const userTopicStats = pgTable(
       for: "select",
       to: authenticatedRole,
       using: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-    pgPolicy("signed-in users can write their own topic stats", {
-      for: "insert",
-      to: authenticatedRole,
-      withCheck: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-    pgPolicy("signed-in users can update their own topic stats", {
-      for: "update",
-      to: authenticatedRole,
-      using: sql`(select auth.uid()) = ${t.userId}`,
-      withCheck: sql`(select auth.uid()) = ${t.userId}`,
     }),
   ],
 ).enableRLS();
@@ -305,10 +275,6 @@ export const notes = pgTable(
     ),
     index("notes_section_topic_idx").on(t.section, t.topic),
 
-    pgPolicy("anyone can read notes", {
-      for: "select",
-      to: [anonRole, authenticatedRole],
-      using: sql`true`,
-    }),
+    // No policy and no grant on purpose: paid theory content, served only through the route handlers that gate it.
   ],
 ).enableRLS();

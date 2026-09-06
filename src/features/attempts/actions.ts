@@ -11,6 +11,7 @@ import {
   userTopicStats,
 } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
+import { checkQuota } from "@/features/billing/usage.server";
 import { listPaperQuestions } from "@/features/question-bank/questions.server";
 import type { DrillQuestion } from "@/features/question-bank/types";
 import { type GradedAnswer, isCorrect, scoreTotals } from "./scoring";
@@ -28,6 +29,20 @@ export async function startAttempt(
   try {
     const userId = await currentUserId();
     if (!userId) return { error: "Sign in to start an attempt." };
+
+    // `mode` is client-supplied, so it picks the cap — a paper is not a drill.
+    const isMock = mode === "paper";
+    const quota = await checkQuota(
+      db,
+      userId,
+      isMock ? "mocksPerMonth" : "drillsPerDay",
+    );
+    if (!quota.ok)
+      return {
+        error: isMock
+          ? `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`
+          : `That is ${quota.used} of ${quota.limit} drills today. Upgrade for unlimited practice.`,
+      };
 
     const [row] = await db
       .insert(attempts)
@@ -53,6 +68,12 @@ export async function startMockAttempt(
   try {
     const userId = await currentUserId();
     if (!userId) return { error: "Sign in to start a mock." };
+
+    const quota = await checkQuota(db, userId, "mocksPerMonth");
+    if (!quota.ok)
+      return {
+        error: `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`,
+      };
 
     const questions = await listPaperQuestions(paperId);
     if (questions.length === 0)

@@ -10,3 +10,10 @@ export function istDayKey(d: Date): string {
 export function todayIst(): string {
   return istDayKey(new Date());
 }
+
+// The oldest day a plan may open, inclusive. `days` of 7 means today plus six.
+export function oldestDayAllowed(today: string, days: number): string {
+  const d = new Date(`${today}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - (days - 1));
+  return d.toISOString().slice(0, 10);
+}

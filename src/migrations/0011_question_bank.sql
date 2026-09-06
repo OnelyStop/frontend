@@ -120,34 +120,18 @@ CREATE INDEX "notes_section_topic_idx" ON "notes" USING btree ("section","topic"
 CREATE INDEX "papers_exam_key_idx" ON "papers" USING btree ("exam_key");--> statement-breakpoint
 CREATE INDEX "papers_filter_idx" ON "papers" USING btree ("bank","role","exam_type","year");--> statement-breakpoint
 CREATE POLICY "signed-in users can read their own attempt answers" ON "attempt_answers" AS PERMISSIVE FOR SELECT TO "authenticated" USING (exists (select 1 from attempts a where a.id = "attempt_answers"."attempt_id" and a.user_id = (select auth.uid())));--> statement-breakpoint
-CREATE POLICY "signed-in users can write their own attempt answers" ON "attempt_answers" AS PERMISSIVE FOR INSERT TO "authenticated" WITH CHECK (exists (select 1 from attempts a where a.id = "attempt_answers"."attempt_id" and a.user_id = (select auth.uid())));--> statement-breakpoint
 CREATE POLICY "signed-in users can read their own attempts" ON "attempts" AS PERMISSIVE FOR SELECT TO "authenticated" USING ((select auth.uid()) = "attempts"."user_id");--> statement-breakpoint
-CREATE POLICY "signed-in users can start their own attempts" ON "attempts" AS PERMISSIVE FOR INSERT TO "authenticated" WITH CHECK ((select auth.uid()) = "attempts"."user_id");--> statement-breakpoint
-CREATE POLICY "signed-in users can update their own attempts" ON "attempts" AS PERMISSIVE FOR UPDATE TO "authenticated" USING ((select auth.uid()) = "attempts"."user_id") WITH CHECK ((select auth.uid()) = "attempts"."user_id");--> statement-breakpoint
-CREATE POLICY "anyone can read bank questions" ON "bank_questions" AS PERMISSIVE FOR SELECT TO "anon", "authenticated" USING (true);--> statement-breakpoint
-CREATE POLICY "anyone can read directions" ON "directions" AS PERMISSIVE FOR SELECT TO "anon", "authenticated" USING (true);--> statement-breakpoint
-CREATE POLICY "anyone can read notes" ON "notes" AS PERMISSIVE FOR SELECT TO "anon", "authenticated" USING (true);--> statement-breakpoint
-CREATE POLICY "anyone can read papers" ON "papers" AS PERMISSIVE FOR SELECT TO "anon", "authenticated" USING (true);--> statement-breakpoint
-CREATE POLICY "signed-in users can read their own topic stats" ON "user_topic_stats" AS PERMISSIVE FOR SELECT TO "authenticated" USING ((select auth.uid()) = "user_topic_stats"."user_id");--> statement-breakpoint
-CREATE POLICY "signed-in users can write their own topic stats" ON "user_topic_stats" AS PERMISSIVE FOR INSERT TO "authenticated" WITH CHECK ((select auth.uid()) = "user_topic_stats"."user_id");--> statement-breakpoint
-CREATE POLICY "signed-in users can update their own topic stats" ON "user_topic_stats" AS PERMISSIVE FOR UPDATE TO "authenticated" USING ((select auth.uid()) = "user_topic_stats"."user_id") WITH CHECK ((select auth.uid()) = "user_topic_stats"."user_id");
+CREATE POLICY "signed-in users can read directions" ON "directions" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
+CREATE POLICY "signed-in users can read papers" ON "papers" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
+CREATE POLICY "signed-in users can read their own topic stats" ON "user_topic_stats" AS PERMISSIVE FOR SELECT TO "authenticated" USING ((select auth.uid()) = "user_topic_stats"."user_id");
 --> statement-breakpoint
--- Postgres checks table GRANTs before RLS, so without these the SELECT/INSERT/
--- UPDATE policies above never run and every query silently returns zero rows
--- (a read) or a permission-denied error (a write) instead of the RLS-scoped
--- result the policy intends. One statement per table -- a comma-separated
--- table list does not parse as multiple grants to policy-grants.test.ts, or
--- to Postgres either.
-GRANT SELECT ON public.papers TO anon, authenticated;
+-- SELECT only and authenticated only, one statement per table: the app reads and writes these as the owner over DATABASE_URL, so any wider grant is PostgREST attack surface with no caller -- and bank_questions (it holds `answer`) and notes get none at all.
+GRANT SELECT ON public.papers TO authenticated;
 --> statement-breakpoint
-GRANT SELECT ON public.directions TO anon, authenticated;
+GRANT SELECT ON public.directions TO authenticated;
 --> statement-breakpoint
-GRANT SELECT ON public.bank_questions TO anon, authenticated;
+GRANT SELECT ON public.attempts TO authenticated;
 --> statement-breakpoint
-GRANT SELECT, INSERT, UPDATE ON public.attempts TO authenticated;
+GRANT SELECT ON public.attempt_answers TO authenticated;
 --> statement-breakpoint
-GRANT SELECT, INSERT ON public.attempt_answers TO authenticated;
---> statement-breakpoint
-GRANT SELECT, INSERT, UPDATE ON public.user_topic_stats TO authenticated;
---> statement-breakpoint
-GRANT SELECT ON public.notes TO anon, authenticated;
+GRANT SELECT ON public.user_topic_stats TO authenticated;
