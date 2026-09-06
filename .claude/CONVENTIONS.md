@@ -25,12 +25,18 @@ nowhere.
 
 ## One line of comment, at most
 
-Never two consecutive `//` lines. If a comment needs a paragraph, the thing it
-describes needs a better name or a test. `.env.example` carries no prose at
-all — just keys.
+One physical line, in every form: never two consecutive `//`, never a `/* */`
+or `{/* */}` block spanning two lines or more. If a comment needs a paragraph,
+the thing it describes needs a better name or a test. `.env.example` carries
+no prose at all — just keys.
 
-`scripts/check-source.sh` enforces this; it is not a style preference to
-negotiate with.
+`scripts/check-source.sh` enforces all three forms; it is not a style
+preference to negotiate with. The `//` half shipped first and the block forms
+went uncaught for months, which is where every long comment in this repo came
+from — 97 of them, found in one sweep once the guard could see them.
+
+A comment Prettier wrapped onto a second line is a comment that is too long,
+not one that needs reformatting. Shorten the prose.
 
 ## Edit files with the editor
 

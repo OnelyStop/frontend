@@ -2,6 +2,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 const API = "https://api.razorpay.com/v1";
+const TIMEOUT_MS = 15_000;
 
 // Read at call time: at import this crashes every route sharing the bundle.
 function credentials() {
@@ -29,6 +30,8 @@ async function call<T>(
     body: init?.body ? JSON.stringify(init.body) : undefined,
     // A cached "create" is a charge that silently did not happen.
     cache: "no-store",
+    // /billing/status calls fetchSubscription inside a user-facing GET, so a hung provider is a hung page.
+    signal: AbortSignal.timeout(TIMEOUT_MS),
   });
 
   const text = await res.text();
