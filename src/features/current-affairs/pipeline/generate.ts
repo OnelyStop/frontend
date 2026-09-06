@@ -7,20 +7,20 @@ import {
   type GenerateRunRow,
   type RunCounter,
 } from "@/db/schema";
-import { activeProfile } from "@/lib/gazette/config/profile";
-import { istDayKey } from "@/lib/gazette/day";
-import { generateQuestion } from "@/lib/gazette/generate/generateQuestion";
-import { isGrounded } from "@/lib/gazette/grounding/check";
-import { log } from "@/lib/gazette/log";
+import { activeProfile } from "@/features/current-affairs/config/profile";
+import { istDayKey } from "@/features/current-affairs/day";
+import { generateQuestion } from "@/features/current-affairs/generate/generateQuestion";
+import { isGrounded } from "@/features/current-affairs/grounding/check";
+import { log } from "@/lib/log";
 import {
   createPacer,
   retryDelayFromMessage,
-} from "@/lib/gazette/pipeline/pace";
-import { classifyRelevance } from "@/lib/gazette/relevance/prefilter";
+} from "@/features/current-affairs/pipeline/pace";
+import { classifyRelevance } from "@/features/current-affairs/relevance/prefilter";
 import {
   fetchArticleBody,
   isMostlyEnglish,
-} from "@/lib/gazette/sources/extract";
+} from "@/features/current-affairs/sources/extract";
 
 const CONCURRENCY = 2;
 
@@ -144,7 +144,7 @@ export async function processArticle(
       .set({ status: "skipped", skipReason: reason })
       .where(eq(articles.articleId, articleId));
     await bump(col);
-    log("info", "article skipped", { runId, articleId, reason });
+    log.info("gazette.article_skipped", { runId, articleId, reason });
     return { kind: "skipped", reason };
   };
 
@@ -184,7 +184,7 @@ export async function processArticle(
   try {
     draft = await generate(article, sourceText);
   } catch (err) {
-    log("warn", "generation call failed", {
+    log.warn("gazette.generation_failed", {
       runId,
       articleId,
       error: (err as Error).message,
@@ -218,7 +218,11 @@ export async function processArticle(
     .set({ status: "used" })
     .where(eq(articles.articleId, articleId));
   await bump("published");
-  log("info", "question published", { runId, articleId, topic: draft.topic });
+  log.info("gazette.question_published", {
+    runId,
+    articleId,
+    topic: draft.topic,
+  });
   return { kind: "published" };
 }
 
@@ -271,7 +275,7 @@ export async function runGenerate(
     .where(eq(generateRuns.runId, run.runId))
     .returning();
 
-  log("info", "generate run finished", {
+  log.info("gazette.run_finished", {
     runId: run.runId,
     planned: rows.length,
     published: final.published,

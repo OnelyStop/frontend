@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { listQuestionsForDay } from "@/features/current-affairs/queries.server";
 import { currentUserId } from "@/lib/auth.server";
-import { DAY_RE, todayIst } from "@/lib/gazette/day";
+import { DAY_RE, todayIst } from "@/features/current-affairs/day";
 import { CurrentAffairsView } from "./current-affairs-view";
 
 export const metadata: Metadata = { title: "Current affairs" };

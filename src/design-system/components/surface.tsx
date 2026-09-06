@@ -98,7 +98,7 @@ export function LatticeCell({
   const marker = (
     <span
       aria-hidden
-      className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
+      className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-1.25 rounded-full"
     />
   );
 

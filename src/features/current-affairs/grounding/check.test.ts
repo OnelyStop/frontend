@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { DraftQuestion } from "@/lib/gazette/types";
+import type { DraftQuestion } from "@/features/current-affairs/types";
 import { isGrounded } from "./check";
 
 const source = {
