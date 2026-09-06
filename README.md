@@ -109,26 +109,15 @@ with `type` set to `recovery`, `magiclink` or `invite` in the other templates.
 
 ## Monitoring
 
-Two things watch production, and both are inert until someone turns them on.
+Both of these are off until someone turns them on.
 
-**Errors.** Set `NEXT_PUBLIC_SENTRY_DSN` in the Vercel project. Without it the
-Sentry SDK initialises nothing and no event leaves the process, which is what
-local and CI runs want. Add `SENTRY_ORG`, `SENTRY_PROJECT` and
-`SENTRY_AUTH_TOKEN` as well if you want stack traces to name real files rather
-than the minified bundle.
+`NEXT_PUBLIC_SENTRY_DSN` enables error reporting; without it the SDK sends
+nothing. `SENTRY_ORG`, `SENTRY_PROJECT` and `SENTRY_AUTH_TOKEN` add source maps.
 
-**The pipeline.** `GET /api/v1/health` returns `503` when the current-affairs
-generator has not finished a run in 48 hours, or when the last two runs both
-published nothing. A failed pipeline is otherwise invisible — questions simply
-stop appearing, and nobody finds out until a user says so.
-
-It is unauthenticated on purpose: an uptime monitor cannot hold a secret. That
-is also why it does not live under `/api/v1/internal/`, where every route
-requires `CRON_SECRET`.
-
-Point any monitor at it on a 5-minute interval and alert on status code alone
-— UptimeRobot and Better Stack both do this on a free tier. Nothing polls it
-today.
+`GET /api/v1/health` returns 503 when the current-affairs generator has not
+finished a run in 48 hours, or when the last two runs published nothing. It is
+unauthenticated because a monitor cannot hold a secret. Point one at it on a
+5-minute interval and alert on the status code — nothing polls it today.
 
 ## Feature routes
 
