@@ -10,7 +10,8 @@ export const openrouterConfig = {
   referer: str("OPENROUTER_REFERER", "https://onelystop.com"),
   title: str("OPENROUTER_TITLE", "OnelyStop"),
 
-  model: str("AI_MODEL", "anthropic/claude-sonnet-4.5"),
+  // Pinned to a dated build: -latest would change a marking model under us.
+  model: str("AI_MODEL", "deepseek/deepseek-v4-flash-0731"),
   fallbackModel: str("AI_MODEL_FALLBACK", "openai/gpt-4o"),
 
   temperature: num("AI_TEMPERATURE", 0.7, 0, 2),

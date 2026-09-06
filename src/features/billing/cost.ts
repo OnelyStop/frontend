@@ -1,9 +1,9 @@
 import { PLAN_LIMITS, type PlanTier } from "./limits";
 
-// Paise per call: marking on Sonnet, Ask Onely on a flash-tier model.
+// Paise per call on DeepSeek V4 Flash, priced at its peak rate.
 export const COST_PER_CALL_PAISE = {
-  descriptiveMarking: 104,
-  askOnely: 3,
+  descriptiveMarking: 11,
+  askOnely: 9,
 } as const;
 
 // A month of one user using every call they are owed. Real use is far below it.

@@ -34,7 +34,7 @@ export const PLAN_LIMITS: Record<PlanTier, PlanLimits> = {
     currentAffairsDays: null,
     attemptMap: true,
   },
-  // Capped, not unlimited — a marking is a model call. Ceiling in cost.ts.
+  // Capped, not unlimited — every marking is a model call. Ceiling in cost.ts.
   pro_plus: {
     mocksPerMonth: null,
     drillsPerDay: null,
