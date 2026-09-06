@@ -3,10 +3,9 @@ import { z } from "zod";
 // Lazy, not at import: `next build` loads every route module and has no secrets.
 const schema = z.object({
   NEWSDATA_API_KEY: z.string().min(1, "NEWSDATA_API_KEY is required"),
-  GEMINI_API_KEY: z.string().min(1, "GEMINI_API_KEY is required"),
   CRON_SECRET: z.string().min(16, "CRON_SECRET must be at least 16 chars"),
-  GENERATION_MODEL: z.string().min(1).default("gemini-flash-lite-latest"),
-  // Free-tier Gemini keys allow ~15 requests a minute; paid keys thousands.
+  // Dated, never an alias: a daily pipeline must not change model unannounced.
+  GENERATION_MODEL: z.string().min(1).default("z-ai/glm-5.3"),
   GENERATION_RPM: z.coerce.number().int().min(1).max(1000).default(12),
   SENTRY_DSN: z.string().url().optional(),
 });
