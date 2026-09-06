@@ -1,7 +1,10 @@
-import { env } from "@/lib/gazette/env";
-import { activeProfile } from "@/lib/gazette/config/profile";
-import { htmlToText } from "@/lib/gazette/sources/extract";
-import type { RawArticle, ArticleScope } from "@/lib/gazette/types";
+import { env } from "@/features/current-affairs/env";
+import { activeProfile } from "@/features/current-affairs/config/profile";
+import { htmlToText } from "@/features/current-affairs/sources/extract";
+import type {
+  RawArticle,
+  ArticleScope,
+} from "@/features/current-affairs/types";
 
 type NewsDataArticle = {
   title?: string | null;

@@ -67,7 +67,12 @@ const SRC_DIRS = {
   migrations: [".sql", ".json", ".md"],
 };
 
-const SRC_FILES = new Set(["proxy.ts"]);
+// Next resolves these three by name at the root of src/; they cannot move.
+const SRC_FILES = new Set([
+  "proxy.ts",
+  "instrumentation.ts",
+  "instrumentation-client.ts",
+]);
 
 function committedFiles() {
   const run = (args) =>

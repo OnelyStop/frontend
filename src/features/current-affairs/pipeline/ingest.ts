@@ -1,15 +1,15 @@
 import { and, gte, lt, ne } from "drizzle-orm";
 import { db as defaultDb, type Db } from "@/db";
 import { articles } from "@/db/schema";
-import { activeProfile } from "@/lib/gazette/config/profile";
-import { contentHash } from "@/lib/gazette/dedup/contentHash";
+import { activeProfile } from "@/features/current-affairs/config/profile";
+import { contentHash } from "@/features/current-affairs/dedup/contentHash";
 import {
   Deduplicator,
   type RecentArticle,
-} from "@/lib/gazette/dedup/deduplicator";
-import { fetchNewsData } from "@/lib/gazette/sources/newsdata";
-import { fetchRssFeeds } from "@/lib/gazette/sources/rss";
-import type { RawArticle } from "@/lib/gazette/types";
+} from "@/features/current-affairs/dedup/deduplicator";
+import { fetchNewsData } from "@/features/current-affairs/sources/newsdata";
+import { fetchRssFeeds } from "@/features/current-affairs/sources/rss";
+import type { RawArticle } from "@/features/current-affairs/types";
 
 const RETENTION_DAYS = 90;
 

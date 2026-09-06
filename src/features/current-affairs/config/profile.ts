@@ -1,4 +1,4 @@
-import { env } from "@/lib/gazette/env";
+import { env } from "@/features/current-affairs/env";
 
 type Source = "newsdata_io" | "rbi_rss" | "pib_rss" | "sebi_rss";
 type Scope = "national" | "international";

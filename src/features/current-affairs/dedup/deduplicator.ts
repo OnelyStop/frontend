@@ -4,8 +4,11 @@ import {
   sameEvent,
   type SalientTokens,
 } from "./salientFacts";
-import { istDayKey } from "@/lib/gazette/day";
-import type { RawArticle, ArticleScope } from "@/lib/gazette/types";
+import { istDayKey } from "@/features/current-affairs/day";
+import type {
+  RawArticle,
+  ArticleScope,
+} from "@/features/current-affairs/types";
 
 export type DedupVerdict = {
   verdict: "new" | "duplicate";

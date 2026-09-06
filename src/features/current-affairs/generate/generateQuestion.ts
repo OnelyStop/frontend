@@ -1,13 +1,13 @@
 import { GoogleGenAI } from "@google/genai";
-import { env } from "@/lib/gazette/env";
-import { activeProfile } from "@/lib/gazette/config/profile";
+import { env } from "@/features/current-affairs/env";
+import { activeProfile } from "@/features/current-affairs/config/profile";
 import type { ArticleRow } from "@/db/schema";
-import type { GeneratedQuestion } from "@/lib/gazette/types";
-import { retryDelayFromMessage } from "@/lib/gazette/pipeline/pace";
+import type { GeneratedQuestion } from "@/features/current-affairs/types";
+import { retryDelayFromMessage } from "@/features/current-affairs/pipeline/pace";
 import {
-  CURRENT_AFFAIRS_SYSTEM,
   MCQ_RESPONSE_JSON_SCHEMA,
   McqResponse,
+  currentAffairsSystem,
   currentAffairsUserPrompt,
 } from "@/lib/prompts/current-affairs";
 
@@ -37,7 +37,7 @@ export async function generateQuestion(
         model: env.GENERATION_MODEL,
         contents: currentAffairsUserPrompt(article, sourceText),
         config: {
-          systemInstruction: CURRENT_AFFAIRS_SYSTEM,
+          systemInstruction: currentAffairsSystem(activeProfile.topics),
           responseMimeType: "application/json",
           responseJsonSchema: MCQ_RESPONSE_JSON_SCHEMA,
           maxOutputTokens: 1500,

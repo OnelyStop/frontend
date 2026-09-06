@@ -1,6 +1,6 @@
-import { normalizeText } from "@/lib/gazette/dedup/normalize";
-import { extractSalientTokens } from "@/lib/gazette/dedup/salientFacts";
-import type { DraftQuestion } from "@/lib/gazette/types";
+import { normalizeText } from "@/features/current-affairs/dedup/normalize";
+import { extractSalientTokens } from "@/features/current-affairs/dedup/salientFacts";
+import type { DraftQuestion } from "@/features/current-affairs/types";
 
 export type GroundingResult = { ok: boolean; reason: string };
 
