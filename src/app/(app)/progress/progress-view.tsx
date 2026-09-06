@@ -15,7 +15,17 @@ import {
 } from "@/data/navigation";
 import type { Progress } from "@/features/attempts/progress.server";
 
-const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
+// The bars are the last seven days ending today, not Monday to Sunday.
+const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
+
+const lastSevenDayLabels = (today = new Date()): string[] =>
+  Array.from(
+    { length: 7 },
+    (_, i) =>
+      DAY_INITIALS[
+        new Date(today.getTime() - (6 - i) * 86_400_000).getDay()
+      ] as string,
+  );
 
 // The bank stores one-word sections; anything outside that vocabulary shows as stored.
 function sectionLabel(section: string) {
@@ -23,6 +33,7 @@ function sectionLabel(section: string) {
 }
 
 export function ProgressView({ progress }: { progress: Progress }) {
+  const labels = lastSevenDayLabels();
   const { board } = useApp();
   const { attempted, correct, wrong, avgSec, sections, week } = progress;
 
@@ -127,7 +138,7 @@ export function ProgressView({ progress }: { progress: Progress }) {
                   />
                 </div>
                 <span className="text-ink-4 text-center text-[12px]">
-                  {DAYS[i]}
+                  {labels[i]}
                 </span>
               </div>
             ))}

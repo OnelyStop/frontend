@@ -19,7 +19,7 @@ export type Progress = {
   wrong: number;
   avgSec: number | null;
   sections: SectionProgress[];
-  /** Questions attempted per day, oldest first, one entry per day of the week. */
+  /** The last seven days, oldest first — today is the last entry. */
   week: number[];
 };
 
@@ -88,9 +88,11 @@ export async function getProgress(
     }
     bySection.set(key, s);
 
-    // Monday-first, matching the labels the view renders.
-    const day = (r.startedAt.getUTCDay() + 6) % 7;
-    week[day] += 1;
+    // Days back from today, index 6 being today — never a weekday bucket.
+    const back = Math.floor(
+      (now.getTime() - r.startedAt.getTime()) / 86_400_000,
+    );
+    if (back >= 0 && back < 7) week[6 - back] += 1;
   }
 
   return {
