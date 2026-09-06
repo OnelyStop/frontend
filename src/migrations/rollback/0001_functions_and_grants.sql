@@ -23,7 +23,6 @@ ALTER TABLE "user_topic_stats" DROP CONSTRAINT IF EXISTS "user_topic_stats_user_
 ALTER TABLE "attempts" DROP CONSTRAINT IF EXISTS "attempts_user_id_fkey";--> statement-breakpoint
 ALTER TABLE "doubt_stuck" DROP CONSTRAINT IF EXISTS "doubt_stuck_user_id_fkey";--> statement-breakpoint
 ALTER TABLE "doubts" DROP CONSTRAINT IF EXISTS "doubts_author_id_fkey";--> statement-breakpoint
-ALTER TABLE "study_progress" DROP CONSTRAINT IF EXISTS "study_progress_user_id_fkey";--> statement-breakpoint
 ALTER TABLE "user_notes" DROP CONSTRAINT IF EXISTS "user_notes_user_id_fkey";--> statement-breakpoint
 ALTER TABLE "descriptive_markings" DROP CONSTRAINT IF EXISTS "descriptive_markings_user_id_fkey";--> statement-breakpoint
 ALTER TABLE "ai_usage" DROP CONSTRAINT IF EXISTS "ai_usage_user_id_fkey";--> statement-breakpoint

@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-/* The spec is emphatic: note / progress routes scope on the
-   server-resolved user id and never trust one from the request body (§11).
-   These call the real route handlers with the data layer and auth stubbed, and
-   assert the wiring: 401 when signed out, and the authenticated id — not a body
-   field — is what reaches the query. */
+/* Note routes scope on the server-resolved user id and never trust one from the
+   request body. These call the real handlers with the data layer and auth
+   stubbed, and assert the wiring: 401 when signed out, and the authenticated id
+   — not a body field — is what reaches the query. */
 
 const {
   currentUserId,
@@ -13,7 +12,6 @@ const {
   deleteNote,
   listNotes,
   topicIdFromSlug,
-  upsertProgress,
 } = vi.hoisted(() => ({
   currentUserId: vi.fn<() => Promise<string | null>>(),
   createNote: vi.fn(),
@@ -21,7 +19,6 @@ const {
   deleteNote: vi.fn(),
   listNotes: vi.fn(),
   topicIdFromSlug: vi.fn(),
-  upsertProgress: vi.fn(),
 }));
 
 vi.mock("@/lib/auth.server", () => ({ currentUserId }));
@@ -31,7 +28,6 @@ vi.mock("./queries.server", () => ({
   deleteNote,
   listNotes,
   topicIdFromSlug,
-  upsertProgress,
 }));
 vi.mock("@/lib/rate-limit", () => ({
   rateLimit: () => ({ ok: true, retryAfterMs: 0 }),
@@ -45,7 +41,6 @@ import {
   PATCH as notePatch,
   DELETE as noteDelete,
 } from "@/app/api/v1/study/notes/[noteId]/route";
-import { POST as progressPost } from "@/app/api/v1/study/topics/[topicId]/progress/route";
 
 const TOPIC = "11111111-1111-1111-1111-111111111111";
 const AUTH_USER = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
@@ -66,7 +61,6 @@ beforeEach(() => {
   updateNote.mockResolvedValue({ id: "n1" });
   deleteNote.mockResolvedValue(true);
   listNotes.mockResolvedValue([]);
-  upsertProgress.mockResolvedValue({ progressPercent: 40, completedAt: null });
 });
 
 describe("notes: create", () => {
@@ -136,36 +130,5 @@ describe("notes: list / patch / delete", () => {
       params({ noteId: "n1" }),
     );
     expect(res.status).toBe(409);
-  });
-});
-
-describe("progress", () => {
-  it("401s when signed out and never touches the data layer", async () => {
-    currentUserId.mockResolvedValue(null);
-    const res = await progressPost(
-      req({ progressPercent: 50 }),
-      params({ topicId: TOPIC }),
-    );
-    expect(res.status).toBe(401);
-    expect(upsertProgress).not.toHaveBeenCalled();
-  });
-
-  it("scopes on the authenticated id, ignoring a userId in the body", async () => {
-    const res = await progressPost(
-      req({ progressPercent: 50, userId: ATTACKER }),
-      params({ topicId: TOPIC }),
-    );
-    expect(res.status).toBe(200);
-    expect(upsertProgress.mock.calls[0][0]).toBe(AUTH_USER);
-    expect(upsertProgress.mock.calls[0][1]).toBe(TOPIC);
-  });
-
-  it("404s for a UUID-shaped topic that does not exist, not a 500", async () => {
-    upsertProgress.mockResolvedValue({ error: "topic_not_found" });
-    const res = await progressPost(
-      req({ progressPercent: 50 }),
-      params({ topicId: "22222222-2222-2222-2222-222222222222" }),
-    );
-    expect(res.status).toBe(404);
   });
 });

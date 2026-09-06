@@ -17,8 +17,6 @@ ALTER TABLE "descriptive_markings" ADD CONSTRAINT "descriptive_markings_user_id_
   FOREIGN KEY ("user_id") REFERENCES auth.users(id) ON DELETE CASCADE;--> statement-breakpoint
 ALTER TABLE "user_notes" ADD CONSTRAINT "user_notes_user_id_fkey"
   FOREIGN KEY ("user_id") REFERENCES auth.users(id) ON DELETE CASCADE;--> statement-breakpoint
-ALTER TABLE "study_progress" ADD CONSTRAINT "study_progress_user_id_fkey"
-  FOREIGN KEY ("user_id") REFERENCES auth.users(id) ON DELETE CASCADE;--> statement-breakpoint
 ALTER TABLE "doubts" ADD CONSTRAINT "doubts_author_id_fkey"
   FOREIGN KEY ("author_id") REFERENCES auth.users(id) ON DELETE CASCADE;--> statement-breakpoint
 ALTER TABLE "doubt_stuck" ADD CONSTRAINT "doubt_stuck_user_id_fkey"

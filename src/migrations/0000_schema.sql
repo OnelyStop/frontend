@@ -212,23 +212,6 @@ CREATE TABLE "chapters" (
 );
 --> statement-breakpoint
 ALTER TABLE "chapters" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
-CREATE TABLE "content_assets" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"topic_id" uuid,
-	"object_key" text NOT NULL,
-	"bucket" text NOT NULL,
-	"mime_type" text NOT NULL,
-	"byte_size" bigint NOT NULL,
-	"sha256" text NOT NULL,
-	"alt_text" text,
-	"license" text,
-	"attribution" text,
-	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
-	CONSTRAINT "content_assets_object_key_unique" UNIQUE("object_key"),
-	CONSTRAINT "content_assets_byte_size_check" CHECK ("content_assets"."byte_size" >= 0)
-);
---> statement-breakpoint
-ALTER TABLE "content_assets" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
 CREATE TABLE "content_block_sources" (
 	"block_id" uuid NOT NULL,
 	"source_id" uuid NOT NULL,
@@ -299,17 +282,6 @@ CREATE TABLE "flashcards" (
 );
 --> statement-breakpoint
 ALTER TABLE "flashcards" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
-CREATE TABLE "study_progress" (
-	"user_id" uuid NOT NULL,
-	"topic_id" uuid NOT NULL,
-	"progress_percent" integer DEFAULT 0 NOT NULL,
-	"completed_at" timestamp with time zone,
-	"last_opened_at" timestamp with time zone DEFAULT now() NOT NULL,
-	CONSTRAINT "study_progress_user_id_topic_id_pk" PRIMARY KEY("user_id","topic_id"),
-	CONSTRAINT "study_progress_percent_check" CHECK ("study_progress"."progress_percent" between 0 and 100)
-);
---> statement-breakpoint
-ALTER TABLE "study_progress" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
 CREATE TABLE "subjects" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"slug" text NOT NULL,
@@ -476,13 +448,11 @@ ALTER TABLE "doubt_stuck" ADD CONSTRAINT "doubt_stuck_doubt_id_doubts_id_fk" FOR
 ALTER TABLE "doubt_stuck" ADD CONSTRAINT "doubt_stuck_user_id_profiles_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."profiles"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "doubts" ADD CONSTRAINT "doubts_author_id_profiles_id_fk" FOREIGN KEY ("author_id") REFERENCES "public"."profiles"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "chapters" ADD CONSTRAINT "chapters_subject_id_subjects_id_fk" FOREIGN KEY ("subject_id") REFERENCES "public"."subjects"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "content_assets" ADD CONSTRAINT "content_assets_topic_id_topics_id_fk" FOREIGN KEY ("topic_id") REFERENCES "public"."topics"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "content_block_sources" ADD CONSTRAINT "content_block_sources_block_id_content_blocks_id_fk" FOREIGN KEY ("block_id") REFERENCES "public"."content_blocks"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "content_block_sources" ADD CONSTRAINT "content_block_sources_source_id_content_sources_id_fk" FOREIGN KEY ("source_id") REFERENCES "public"."content_sources"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "content_blocks" ADD CONSTRAINT "content_blocks_content_version_id_content_versions_id_fk" FOREIGN KEY ("content_version_id") REFERENCES "public"."content_versions"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "content_versions" ADD CONSTRAINT "content_versions_topic_id_topics_id_fk" FOREIGN KEY ("topic_id") REFERENCES "public"."topics"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "flashcards" ADD CONSTRAINT "flashcards_topic_id_topics_id_fk" FOREIGN KEY ("topic_id") REFERENCES "public"."topics"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "study_progress" ADD CONSTRAINT "study_progress_topic_id_topics_id_fk" FOREIGN KEY ("topic_id") REFERENCES "public"."topics"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "topics" ADD CONSTRAINT "topics_chapter_id_chapters_id_fk" FOREIGN KEY ("chapter_id") REFERENCES "public"."chapters"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_notes" ADD CONSTRAINT "user_notes_topic_id_topics_id_fk" FOREIGN KEY ("topic_id") REFERENCES "public"."topics"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "attempt_answers" ADD CONSTRAINT "attempt_answers_attempt_id_attempts_id_fk" FOREIGN KEY ("attempt_id") REFERENCES "public"."attempts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
@@ -540,15 +510,11 @@ CREATE POLICY "signed-in users can read their own role" ON "user_roles" AS PERMI
 CREATE POLICY "signed-in users can read their own profile" ON "profiles" AS PERMISSIVE FOR SELECT TO "authenticated" USING ((select auth.uid()) = "profiles"."id");--> statement-breakpoint
 CREATE POLICY "signed-in users can update their own profile" ON "profiles" AS PERMISSIVE FOR UPDATE TO "authenticated" USING ((select auth.uid()) = "profiles"."id") WITH CHECK ((select auth.uid()) = "profiles"."id");--> statement-breakpoint
 CREATE POLICY "signed-in users can read chapters" ON "chapters" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
-CREATE POLICY "signed-in users can read content assets" ON "content_assets" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
 CREATE POLICY "signed-in users can read content block sources" ON "content_block_sources" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
 CREATE POLICY "signed-in users can read content blocks" ON "content_blocks" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
 CREATE POLICY "signed-in users can read content sources" ON "content_sources" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
 CREATE POLICY "signed-in users can read content versions" ON "content_versions" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
 CREATE POLICY "signed-in users can read flashcards" ON "flashcards" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
-CREATE POLICY "owners read their own progress" ON "study_progress" AS PERMISSIVE FOR SELECT TO "authenticated" USING ((select auth.uid()) = "study_progress"."user_id");--> statement-breakpoint
-CREATE POLICY "owners upsert their own progress" ON "study_progress" AS PERMISSIVE FOR INSERT TO "authenticated" WITH CHECK ((select auth.uid()) = "study_progress"."user_id");--> statement-breakpoint
-CREATE POLICY "owners update their own progress" ON "study_progress" AS PERMISSIVE FOR UPDATE TO "authenticated" USING ((select auth.uid()) = "study_progress"."user_id") WITH CHECK ((select auth.uid()) = "study_progress"."user_id");--> statement-breakpoint
 CREATE POLICY "signed-in users can read subjects" ON "subjects" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
 CREATE POLICY "signed-in users can read topics" ON "topics" AS PERMISSIVE FOR SELECT TO "authenticated" USING (true);--> statement-breakpoint
 CREATE POLICY "owners read their own notes" ON "user_notes" AS PERMISSIVE FOR SELECT TO "authenticated" USING ((select auth.uid()) = "user_notes"."user_id");--> statement-breakpoint

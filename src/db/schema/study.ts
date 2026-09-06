@@ -1,6 +1,5 @@
 import { sql } from "drizzle-orm";
 import {
-  bigint,
   boolean,
   check,
   index,
@@ -307,67 +306,5 @@ export const userNotes = pgTable(
       to: authenticatedRole,
       using: sql`(select auth.uid()) = ${t.userId}`,
     }),
-  ],
-).enableRLS();
-
-export const studyProgress = pgTable(
-  "study_progress",
-  {
-    userId: uuid("user_id").notNull(),
-    topicId: uuid("topic_id")
-      .notNull()
-      .references(() => topics.id, { onDelete: "cascade" }),
-    progressPercent: integer("progress_percent").notNull().default(0),
-    completedAt: timestamp("completed_at", { withTimezone: true }),
-    lastOpenedAt: timestamp("last_opened_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (t) => [
-    primaryKey({ columns: [t.userId, t.topicId] }),
-    check(
-      "study_progress_percent_check",
-      sql`${t.progressPercent} between 0 and 100`,
-    ),
-    pgPolicy("owners read their own progress", {
-      for: "select",
-      to: authenticatedRole,
-      using: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-    pgPolicy("owners upsert their own progress", {
-      for: "insert",
-      to: authenticatedRole,
-      withCheck: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-    pgPolicy("owners update their own progress", {
-      for: "update",
-      to: authenticatedRole,
-      using: sql`(select auth.uid()) = ${t.userId}`,
-      withCheck: sql`(select auth.uid()) = ${t.userId}`,
-    }),
-  ],
-).enableRLS();
-
-// Unpopulated; present so a later PDF/image feature is a migration, not a redesign.
-export const contentAssets = pgTable(
-  "content_assets",
-  {
-    id: uuid("id").primaryKey().defaultRandom(),
-    topicId: uuid("topic_id").references(() => topics.id),
-    objectKey: text("object_key").notNull().unique(),
-    bucket: text("bucket").notNull(),
-    mimeType: text("mime_type").notNull(),
-    byteSize: bigint("byte_size", { mode: "number" }).notNull(),
-    sha256: text("sha256").notNull(),
-    altText: text("alt_text"),
-    license: text("license"),
-    attribution: text("attribution"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (t) => [
-    check("content_assets_byte_size_check", sql`${t.byteSize} >= 0`),
-    contentReadable("signed-in users can read content assets"),
   ],
 ).enableRLS();
