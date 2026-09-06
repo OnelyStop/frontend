@@ -24,7 +24,7 @@ import {
 } from "./scoring";
 import type { Scorecard, ScoredQuestion, TopicTheory } from "./types";
 
-const AT_CUTOFF_PCT =
+const TARGET_PCT =
   CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 
 // How many topics "Revise these topics" leads with — each card is already ~150-300 words of reading.
@@ -152,7 +152,7 @@ export async function getScorecard(
   });
 
   let paperName: string | null = null;
-  let cutoff: number | null = null;
+  let target: number | null = null;
   if (attempt.paperId) {
     const [paper] = await db
       .select({ bank: papers.bank, role: papers.role, year: papers.year })
@@ -162,8 +162,8 @@ export async function getScorecard(
     if (paper) {
       paperName =
         `${paper.bank ?? "Unknown"} ${paper.role ?? ""} ${paper.year ?? ""}`.trim();
-      // Question-count basis, matching papers.server.ts's Mock.cutoff — scaling by maxScore would diverge on mixed-mark papers.
-      cutoff = Math.round(graded.length * AT_CUTOFF_PCT);
+      // Question-count basis, matching papers.server.ts's Mock.target — scaling by maxScore would diverge on mixed-mark papers.
+      target = Math.round(graded.length * TARGET_PCT);
     }
   }
 
@@ -203,16 +203,16 @@ export async function getScorecard(
     durationSec,
     totalQuestions: graded.length,
     ...totals,
-    cutoff,
+    target,
     sections: [...bySection.entries()].map(([section, s]) => {
-      // IBPS and SBI clear section by section, so each carries its own cutoff.
-      const sectionCutoff =
-        cutoff === null ? null : round2(s.questions * AT_CUTOFF_PCT);
+      // IBPS and SBI clear section by section, so each section gets its own target.
+      const sectionTarget =
+        target === null ? null : round2(s.questions * TARGET_PCT);
       return {
         section,
         ...s,
-        cutoff: sectionCutoff,
-        cleared: sectionCutoff === null || s.net >= sectionCutoff,
+        target: sectionTarget,
+        cleared: sectionTarget === null || s.net >= sectionTarget,
       };
     }),
     topics: topicResults,

@@ -102,10 +102,10 @@ export function UpgradeView({
       <div className="card mt-8 flex items-start gap-3 p-5">
         <ShieldCheck size={18} strokeWidth={1.75} className="mt-0.5 shrink-0" />
         <p className="text-ink-2 max-w-[74ch] text-[13.5px] leading-relaxed">
-          <strong className="text-ink font-semibold">Cutoff promise.</strong>{" "}
+          <strong className="text-ink font-semibold">Target promise.</strong>{" "}
           Sit at least eight full mocks on Pro in three months. If your weakest
-          section has not crossed its sectional cutoff, we refund the three
-          months in full.
+          section has not crossed its 55% sectional target on any of them, we
+          refund the three months in full.
         </p>
       </div>
     </>

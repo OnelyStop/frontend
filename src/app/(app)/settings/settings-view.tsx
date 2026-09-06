@@ -171,7 +171,7 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
       <Card className="mt-5">
         <SectionTitle>Exam you are preparing for</SectionTitle>
         <p className="text-ink-3 -mt-2 mb-4 text-[13px]">
-          Sets the cutoffs, sectional timing and paper pattern used everywhere.
+          Sets the targets, sectional timing and paper pattern used everywhere.
         </p>
         <div className="flex flex-wrap gap-2">
           {EXAMS.map((b) => (

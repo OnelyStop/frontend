@@ -379,7 +379,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
     <div data-companion>
       <PageHeader
         title="Mocks"
-        sub={`Full ${board} papers under real sectional timing. Each section locks when its clock ends — same as the hall.`}
+        sub={`Full ${board} papers under real sectional timing. Each section locks when its clock ends — same as the hall. Each paper's target is 55% of its questions — our benchmark, not the board's published cutoff.`}
         actions={
           <Segmented value={stage} options={STAGES} onChange={setStage} />
         }
@@ -389,8 +389,8 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
 
       <div className="border-line grid grid-cols-1 border-t border-l lg:grid-cols-2">
         {shown.map((m) => {
-          const cleared = m.score !== null && m.score >= m.cutoff;
-          const scale = Math.max(m.cutoff, m.score ?? 0) * 1.3;
+          const cleared = m.score !== null && m.score >= m.target;
+          const scale = Math.max(m.target, m.score ?? 0) * 1.3;
           return (
             <div
               key={m.id}
@@ -422,7 +422,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                       : cleared
                         ? "cleared"
                         : "missed"}{" "}
-                    · cutoff {m.cutoff}
+                    · 55% target {m.target}
                   </span>
                 </div>
 
@@ -435,7 +435,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                   ) : null}
                   <span
                     className="bg-ink-3 absolute -top-1 h-[14px] w-px"
-                    style={{ left: `${(m.cutoff / scale) * 100}%` }}
+                    style={{ left: `${(m.target / scale) * 100}%` }}
                     aria-hidden
                   />
                 </div>

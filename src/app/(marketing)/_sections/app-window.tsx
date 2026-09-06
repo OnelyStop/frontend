@@ -17,21 +17,21 @@ const SECTION_ROWS = [
     name: "Quant",
     detail: "22 attempted · 17 right · 5 wrong",
     net: "15.75",
-    cutoff: "14.50",
+    target: "14.50",
     clear: true,
   },
   {
     name: "Reasoning",
     detail: "28 attempted · 21 right · 7 wrong",
     net: "19.25",
-    cutoff: "18.25",
+    target: "18.25",
     clear: true,
   },
   {
     name: "English",
     detail: "18 attempted · 10 right · 8 wrong",
     net: "8.00",
-    cutoff: "9.75",
+    target: "9.75",
     clear: false,
   },
 ];
@@ -162,8 +162,8 @@ export function AppWindow() {
             )}
           >
             <p>
-              Cleared the overall cutoff at 43.0 against 40.5 and missed English
-              by 1.75. Eight wrong answers there cost 2.0 marks; skipped, the
+              Cleared the 55% target at 43.0 against 40.5 and missed English by
+              1.75. Eight wrong answers there cost 2.0 marks; skipped, the
               section clears.
             </p>
           </div>
@@ -189,7 +189,7 @@ export function AppWindow() {
                   {s.name}
                 </span>
                 <span className="truncate tabular-nums">
-                  {s.detail} · net {s.net} vs {s.cutoff}
+                  {s.detail} · net {s.net} vs {s.target}
                 </span>
                 <span
                   className={cn("text-right", s.clear ? "text-brand" : MUTE)}

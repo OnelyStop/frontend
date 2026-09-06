@@ -161,10 +161,11 @@ export default function Page() {
           </li>
           <li>
             <strong>Marks are practice feedback.</strong> Scores, bands and
-            cutoffs come from a model reading a rubric. They have no standing
+            targets come from a model reading a rubric. They have no standing
             with IBPS, SBI, RBI or any recruiting body, and they do not predict
-            your result. The cutoffs shown are indicative, taken from published
-            cutoffs of earlier years.
+            your result. The target shown against a paper is our own benchmark —
+            55% of that paper&rsquo;s questions — not the board&rsquo;s
+            published cutoff.
           </li>
           <li>
             <strong>The questions are ours.</strong> Mocks are modelled on each

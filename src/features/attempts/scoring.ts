@@ -127,7 +127,7 @@ export function scoreBySection(answers: GradedAnswer[]): Map<
       skipped,
       marksEarned: round2(marksEarned),
       marksLost: round2(marksLost),
-      // What the section is actually worth — a cutoff is compared against this.
+      // What the section is actually worth — the sectional target is compared against this.
       net: round2(marksEarned - marksLost),
       questions: list.length,
     });

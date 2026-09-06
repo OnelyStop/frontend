@@ -104,7 +104,7 @@ export async function startMockAttempt(
  * paper other than the one this attempt was started against (filtered out
  * by requiring `bank_questions.paper_id` to match `attempts.paper_id` when
  * the attempt has one — a `bank`/`mix` drill has no fixed paper to check
- * against, which is an accepted, lower-stakes gap: a drill has no cutoff to
+ * against, which is an accepted, lower-stakes gap: a drill has no target to
  * fake, only the user's own practice stats to mislead).
  */
 export async function submitAttempt(

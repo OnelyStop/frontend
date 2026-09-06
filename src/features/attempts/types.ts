@@ -42,10 +42,11 @@ export type SectionResult = {
   skipped: number;
   marksEarned: number;
   marksLost: number;
-  /** Earned minus lost — what a sectional cutoff is compared against. */
+  /** Earned minus lost — what the sectional target is compared against. */
   net: number;
-  /** Indicative, on the same basis as the paper's. Null off a real paper. */
-  cutoff: number | null;
+  /** 55% of the section's questions, on the same basis as the paper's target.
+   * Null off a real paper. */
+  target: number | null;
   cleared: boolean;
 };
 
@@ -98,9 +99,9 @@ export type Scorecard = {
   skipped: number;
   score: number;
   maxScore: number;
-  /** Null when the paper (or drill section) has no known cutoff — a `bank`
-   * or `mix` drill never does. */
-  cutoff: number | null;
+  /** 55% of the paper's questions — our practice benchmark, never a board's
+   * published cutoff. Null off a real paper: a `bank` or `mix` drill has none. */
+  target: number | null;
   accuracy: number;
   sections: SectionResult[];
   topics: TopicResult[];

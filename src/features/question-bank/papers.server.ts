@@ -8,8 +8,8 @@ import { attempts, bankQuestions, papers } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
 import type { Mock } from "./types";
 
-// No per-paper cutoff exists in the source data — CUTOFF_LADDER's "at cutoff" pct is a placeholder scaled to question count.
-const AT_CUTOFF_PCT =
+// The source data carries no published cutoff, so papers are scored against CUTOFF_LADDER's 55% band scaled to question count.
+const TARGET_PCT =
   CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 
 /**
@@ -70,7 +70,7 @@ export async function listMockPapers(): Promise<Mock[]> {
       qs: r.qs,
       mins,
       score: bestScores.get(r.paperId) ?? null,
-      cutoff: Math.round(r.qs * AT_CUTOFF_PCT),
+      target: Math.round(r.qs * TARGET_PCT),
     };
   });
 }

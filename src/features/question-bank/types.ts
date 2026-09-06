@@ -9,7 +9,8 @@ export type Mock = {
   qs: number;
   mins: number;
   score: number | null;
-  cutoff: number;
+  /** 55% of the question count — our practice benchmark, not a published cutoff. */
+  target: number;
 };
 
 export type DrillQuestion = {

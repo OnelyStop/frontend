@@ -77,22 +77,22 @@ export function Meter({
   );
 }
 
-/* A score is only ever read against its cutoff, never against a maximum — so
+/* A score is only ever read against its target, never against a maximum — so
    the track carries a notch, and the fill turns red only when it misses. */
-export function CutoffBar({
+export function TargetBar({
   value,
-  cutoff,
+  target,
   max,
   className,
 }: {
   value: number | null;
-  cutoff: number;
+  target: number;
   /** Defaults to a little past whichever of the two is larger. */
   max?: number;
   className?: string;
 }) {
-  const scale = max ?? Math.max(cutoff, value ?? 0) * 1.3;
-  const cleared = value !== null && value >= cutoff;
+  const scale = max ?? Math.max(target, value ?? 0) * 1.3;
+  const cleared = value !== null && value >= target;
   const pct = (n: number) =>
     `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
 
@@ -106,7 +106,7 @@ export function CutoffBar({
       ) : null}
       <span
         className="bg-ink-3 absolute -top-1 h-3.5 w-px"
-        style={{ left: pct(cutoff) }}
+        style={{ left: pct(target) }}
         aria-hidden
       />
     </div>

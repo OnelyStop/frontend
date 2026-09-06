@@ -1,12 +1,12 @@
 "use client";
 
 import {
-  CutoffBar,
   DarkPanel,
   Lattice,
   LatticeCell,
   PageHeader,
   Stat,
+  TargetBar,
 } from "@/design-system";
 import { MarksWaterfall } from "@/features/attempts/components/marks-waterfall";
 import { QuestionReview } from "@/features/attempts/components/question-review";
@@ -20,8 +20,8 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
   // The total is not the exam: a paper is cleared only if every section is.
   const missed = scorecard.sections.filter((s) => !s.cleared);
   const cleared =
-    scorecard.cutoff !== null &&
-    scorecard.score >= scorecard.cutoff &&
+    scorecard.target !== null &&
+    scorecard.score >= scorecard.target &&
     missed.length === 0;
   const marksPerMin =
     scorecard.durationSec && scorecard.durationSec > 0
@@ -50,26 +50,30 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
           </span>
         </p>
         <p className="mt-3 text-[15px]">
-          {scorecard.cutoff === null
+          {scorecard.target === null
             ? `${scorecard.correct} correct out of ${scorecard.attempted} attempted.`
             : cleared
-              ? `Cleared every section, and the overall cutoff by ${(scorecard.score - scorecard.cutoff).toFixed(2)} marks.`
+              ? `Cleared every section, and the overall target by ${(scorecard.score - scorecard.target).toFixed(2)} marks.`
               : missed.length > 0
                 ? `Short in ${missed.map((s) => s.section).join(", ")} — the total does not carry a section.`
-                : `${(scorecard.cutoff - scorecard.score).toFixed(2)} marks short of the overall cutoff.`}
+                : `${(scorecard.target - scorecard.score).toFixed(2)} marks short of the overall target.`}
         </p>
       </DarkPanel>
 
-      {scorecard.cutoff !== null ? (
+      {scorecard.target !== null ? (
         <div className="mb-6">
           <p className="text-ink-3 mb-2 text-[13px]">
-            Score against cutoff ({scorecard.cutoff})
+            Score against the 55% target ({scorecard.target})
           </p>
-          <CutoffBar
+          <TargetBar
             value={scorecard.score}
-            cutoff={scorecard.cutoff}
+            target={scorecard.target}
             max={scorecard.maxScore}
           />
+          <p className="text-ink-3 mt-2 text-[13px]">
+            The target is 55% of this paper&rsquo;s questions — our benchmark,
+            not the board&rsquo;s published cutoff.
+          </p>
         </div>
       ) : null}
 

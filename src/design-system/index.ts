@@ -35,11 +35,11 @@ export {
 export {
   Avatar,
   Badge,
-  CutoffBar,
   Kbd,
   Meter,
   Stat,
   Table,
+  TargetBar,
   Td,
   Th,
   Tr,
