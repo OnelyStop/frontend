@@ -2,114 +2,91 @@ import { cn } from "@/design-system";
 
 type Clause = {
   pre?: string;
-  hit?: string;
-  slip?: string;
+  flagged?: string;
   post?: string;
-  mp?: string;
-  quote?: string;
-  gloss?: string;
+  band?: string;
+  problem?: string;
+  rewrite?: string;
 };
 
-// At most one decoration per line so its margin note is unambiguous.
+// At most one flagged phrase per line so its margin note is unambiguous.
 const SCRIPT: Clause[] = [
   {
-    hit: "Subject: Request for premature closure of fixed deposit no. 4471",
-    mp: "R1",
-    quote: "premature closure of fixed deposit",
+    pre: "Subject: Cash not dispensed at ATM on 14 March 2026, account debited.",
   },
   {
-    pre: "I am writing to ",
-    slip: "ask about my fixed deposit",
-    post: " held at your branch.",
-    gloss:
-      "Close to R2, but not it. A letter that asks about a deposit has not asked to close it.",
+    pre: "I am writing to report that ₹10,000 was debited from my account but the machine did not dispense the cash.",
   },
   {
-    pre: "The deposit of ",
-    hit: "₹2,00,000 was opened on 12 March 2025 for two years",
+    pre: "The transaction took place at your Andheri East ATM ",
+    flagged: "at around 7 pm",
     post: ".",
-    mp: "R3",
-    quote: "₹2,00,000 … 12 March 2025 … two years",
-    gloss:
-      "One point, not three. The rubric wants all of amount, date and term.",
+    band: "MP1",
+    problem:
+      "A complaint with no transaction reference and no exact time cannot be traced.",
+    rewrite:
+      "at 7.12 pm, transaction reference 5540118, as printed on the slip",
   },
   {
-    pre: "I need the funds now as ",
-    hit: "my father's surgery is scheduled for next month",
+    flagged: "Kindly do the needful at the earliest",
     post: ".",
-    mp: "R4",
-    quote: "surgery is scheduled for next month",
+    band: "MP3",
+    problem:
+      "A stock phrase in place of the request the letter exists to make.",
+    rewrite:
+      "I request that ₹10,000 be reversed to my account within seven working days",
   },
   {
-    pre: "Kindly ",
-    hit: "credit the proceeds to my savings account at the same branch",
+    flagged: "Thanking you",
     post: ".",
-    mp: "R5",
-    quote: "credit the proceeds to my savings account",
-  },
-  {
-    slip: "I hope you will do the needful at the earliest",
-    post: ".",
-    gloss:
-      "No point. A stock phrase is not a close; R6 wants a name, an address and a date.",
+    band: "MP4",
+    problem: "There is no close. A formal letter is not finished here.",
+    rewrite:
+      "Yours faithfully, then your name, account number and today's date",
   },
 ];
 
-const SCHEME = [
+/* The four bands the marker actually scores, split 35/20/30/15 across a 10-mark letter exactly as the server does. */
+const BANDS = [
   {
-    mp: "R1",
-    text: "subject line names the request ;",
-    rule: ["ALLOW", "closure / withdrawal before maturity"],
-    given: true,
+    mp: "MP1",
+    label: "Content and relevance",
+    weight: "35%",
+    score: 72,
+    awarded: "2.5",
+    outOf: "3.5",
+    comment:
+      "The debit is stated plainly, but the reference and the exact time are missing.",
   },
   {
-    mp: "R2",
-    text: "opening sentence states the purpose ;",
-    rule: ["DO NOT ACCEPT", "a purpose only implied by later lines"],
-    given: false,
+    mp: "MP2",
+    label: "Organisation",
+    weight: "20%",
+    score: 65,
+    awarded: "1.5",
+    outOf: "2.0",
+    comment: "One block. Facts, then the request, then the close.",
   },
   {
-    mp: "R3",
-    text: "deposit identified: amount, date and term ;",
-    given: true,
+    mp: "MP3",
+    label: "Language and grammar",
+    weight: "30%",
+    score: 58,
+    awarded: "1.5",
+    outOf: "3.0",
+    comment:
+      "Stock phrasing stands in for the request in the line that matters most.",
   },
   {
-    mp: "R4",
-    text: "reason for closing before maturity ;",
-    rule: ["IGNORE", "‘urgent need’ unqualified"],
-    given: true,
-  },
-  {
-    mp: "R5",
-    text: "instruction for the proceeds / account to credit ;",
-    given: true,
-  },
-  {
-    mp: "R6",
-    text: "formal close with name, address and date ;",
-    given: false,
+    mp: "MP4",
+    label: "Format and length",
+    weight: "15%",
+    score: 80,
+    awarded: "1.0",
+    outOf: "1.5",
+    comment: "Subject line and salutation are there; the close is not.",
   },
 ];
-
-function Tick() {
-  return (
-    <svg
-      className="marking-ink text-brand row-start-1 mt-1.5 h-4 w-4.5 -rotate-3"
-      viewBox="0 0 20 18"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        pathLength={1}
-        d="M2 9.2 6.8 14.6 18 1.8"
-        stroke="currentColor"
-        strokeWidth={1.9}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export function MarkingScene() {
   return (
@@ -120,12 +97,12 @@ export function MarkingScene() {
       <div className="mx-auto max-w-300">
         <header className="mb-12 grid items-start gap-x-[clamp(32px,6vw,96px)] gap-y-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
           <h2 className="max-w-[13em] text-[30px] tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
-            Every mark, traced to the line that earned it
+            Four bands, weighted — and your own words quoted back
           </h2>
           <p className="text-ink-2 max-w-[38ch] text-[18px] leading-relaxed text-pretty lg:pt-1 lg:text-[19px]">
-            A descriptive letter, marked. Everything in the margin is the
-            marker&rsquo;s ink. Each tick names the rubric point it came from
-            and points at the exact words that earned it.
+            A descriptive letter, marked. The examiner scores content,
+            organisation, language and format; every fix in the margin quotes
+            the line it came from and gives you the replacement.
           </p>
         </header>
 
@@ -141,9 +118,9 @@ export function MarkingScene() {
                 className="text-ink-2 text-[14px] font-semibold tabular-nums"
                 aria-hidden="true"
               >
-                [6]
+                [10]
               </span>
-              <span className="sr-only">6 rubric points available</span>
+              <span className="sr-only">10 marks</span>
             </div>
 
             <div className="mt-6 grid grid-cols-[40px_minmax(0,1fr)] items-baseline gap-3 sm:grid-cols-[56px_minmax(0,1fr)] sm:gap-4">
@@ -154,8 +131,8 @@ export function MarkingScene() {
                 Q 1
               </span>
               <p className="max-w-[44ch] text-[21px] leading-snug lg:text-[22px]">
-                Write a letter to your branch manager requesting premature
-                closure of a fixed deposit, giving the reason.
+                Write to your branch manager about an ATM withdrawal that was
+                debited but never dispensed, and say what you expect done.
               </p>
             </div>
 
@@ -186,13 +163,13 @@ export function MarkingScene() {
                   className="text-brand text-[34px] leading-none font-semibold tracking-[-0.02em] tabular-nums"
                   aria-hidden="true"
                 >
-                  4
+                  6.5
                 </span>
                 <span className="text-ink-3 text-[14px]" aria-hidden="true">
-                  of 6
+                  of 10
                 </span>
                 <span className="sr-only">
-                  Total for the letter: 4 of 6 rubric points.
+                  Total for the letter: 6.5 of 10 marks.
                 </span>
               </div>
             </div>
@@ -201,91 +178,66 @@ export function MarkingScene() {
           {/* The fold: a perforated rule, not a border. */}
           <div className="bg-panel relative px-6 py-10 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-[repeating-linear-gradient(to_right,var(--color-line-2)_0_6px,transparent_6px_13px)] before:content-[''] sm:px-10">
             <span className="text-ink-3 absolute top-0 left-6 text-[12.5px] sm:left-10">
-              Rubric, held back until you&rsquo;ve answered
+              The band sheet, held back until you&rsquo;ve answered
             </span>
             <p className="text-ink-3 mt-6 text-[14px]">
-              Credit points for the letter, in our wording
+              Four bands, each worth a fixed share of the paper
             </p>
 
             <ol className="mt-4">
-              {SCHEME.map((point) => (
+              {BANDS.map((band) => (
                 <li
-                  key={point.mp}
-                  data-mp={point.mp}
-                  className="border-line grid grid-cols-[52px_minmax(0,1fr)] items-baseline gap-x-3 gap-y-1 border-t py-3 first:border-t-0 sm:grid-cols-[52px_minmax(0,1fr)_auto]"
+                  key={band.mp}
+                  data-mp={band.mp}
+                  className="border-line grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-1 border-t py-3 first:border-t-0"
                 >
-                  <span
-                    className={cn(
-                      "text-[12.5px] font-semibold tabular-nums",
-                      point.given ? "text-brand" : "text-ink-3",
-                    )}
-                  >
-                    {point.mp}
-                  </span>
-                  <span
-                    className={cn(
-                      "max-w-[62ch] text-[14px]",
-                      point.given || "text-ink-2",
-                    )}
-                  >
-                    {point.text}
-                  </span>
-                  <span className="text-ink-3 col-start-2 flex gap-4 text-[12.5px] tabular-nums sm:col-start-3">
-                    <span className="min-w-7">(1)</span>
-                    <span className={point.given ? "text-brand" : undefined}>
-                      {point.given ? "given" : "not given"}
+                  <span className="text-[14px] font-medium">{band.label}</span>
+                  <span className="text-ink-3 flex gap-4 text-[12.5px] tabular-nums">
+                    <span>{band.weight}</span>
+                    <span className="text-brand min-w-13 text-right">
+                      {band.awarded} / {band.outOf}
                     </span>
                   </span>
-                  {point.rule ? (
-                    <span className="text-ink-3 col-start-2 text-[12.5px]">
-                      <b className="text-ink-2 font-semibold">
-                        {point.rule[0]}
-                      </b>{" "}
-                      {point.rule[1]}
-                    </span>
-                  ) : null}
+                  <span className="text-ink-2 col-start-1 max-w-[62ch] text-[13px]">
+                    {band.comment}
+                  </span>
                 </li>
               ))}
             </ol>
 
             <div className="border-line-2 mt-8 grid items-start gap-8 border-t pt-6 sm:grid-cols-2 sm:items-end sm:gap-x-[clamp(24px,4vw,72px)]">
               <div>
-                <ol className="grid grid-cols-6 gap-1 sm:gap-2">
-                  {SCHEME.map((point) => (
+                <ol className="grid grid-cols-4 gap-2 sm:gap-3">
+                  {BANDS.map((band) => (
                     <li
-                      key={point.mp}
-                      data-mp={point.mp}
+                      key={band.mp}
+                      data-mp={band.mp}
                       className="grid justify-items-center gap-2"
                     >
                       <span
-                        className={cn(
-                          "h-2.5 w-full rounded-[3px]",
-                          point.given
-                            ? "bg-brand"
-                            : "bg-ink/8 shadow-[inset_0_0_0_1px_rgb(10_10_10/0.07)]",
-                        )}
+                        className="bg-ink/8 h-2.5 w-full overflow-hidden rounded-[3px] shadow-[inset_0_0_0_1px_rgb(10_10_10/0.07)]"
                         aria-hidden="true"
-                      />
-                      <span
-                        className={cn(
-                          "text-[12.5px] tabular-nums",
-                          point.given ? "text-ink-2" : "text-ink-3",
-                        )}
                       >
-                        {point.mp}
+                        <span
+                          className="bg-brand block h-full rounded-[3px]"
+                          style={{ width: `${band.score}%` }}
+                        />
+                      </span>
+                      <span className="text-ink-3 text-[12.5px] tabular-nums">
+                        {band.awarded}
                       </span>
                     </li>
                   ))}
                 </ol>
                 <p className="text-ink-3 mt-4 text-[12.5px]">
-                  One cell per rubric point. Four filled, two left on the page.
+                  One bar per band, filled to what the examiner scored it.
                 </p>
               </div>
 
               <p className="text-ink-2 [&_strong]:text-ink max-w-[46ch] text-[14px] [&_strong]:font-semibold">
-                <strong>Four of six.</strong> Length was never the problem. R2
-                and R6 are simply not written down. The band is decided by the
-                points you hit, not by how much you wrote.
+                <strong>Six and a half of ten.</strong> Length was never the
+                problem. The marks went on a reference that was never given and
+                a close that was never written.
               </p>
             </div>
           </div>
@@ -297,24 +249,19 @@ export function MarkingScene() {
 
 // Clause and margin note are grid siblings so the note stays level on reflow.
 function ScriptLine({ clause }: { clause: Clause }) {
-  const given = Boolean(clause.mp);
+  const flaggedFix = Boolean(clause.band);
 
   return (
     <>
       {/* skip-ink is off: a pen does not lift for a descender. */}
       <p
         className="script-rule col-start-1 min-h-14 self-stretch text-[15px] leading-7"
-        data-mp={clause.mp}
+        data-mp={clause.band}
       >
         {clause.pre}
-        {clause.hit ? (
-          <span className="decoration-brand underline decoration-[1.5px] underline-offset-4 [text-decoration-skip-ink:none]">
-            {clause.hit}
-          </span>
-        ) : null}
-        {clause.slip ? (
+        {clause.flagged ? (
           <span className="decoration-ink/40 underline decoration-wavy decoration-1 underline-offset-4">
-            {clause.slip}
+            {clause.flagged}
           </span>
         ) : null}
         {clause.post}
@@ -322,29 +269,21 @@ function ScriptLine({ clause }: { clause: Clause }) {
 
       <div
         className={cn(
-          "col-start-1 grid grid-cols-[20px_minmax(0,1fr)] gap-x-2 gap-y-1 self-start",
-          "ml-4 border-l-2 pl-4 lg:col-start-2 lg:mx-0 lg:my-0 lg:border-l-0 lg:pl-5",
+          "col-start-1 grid gap-y-1 self-start",
+          "ml-4 pl-4 lg:col-start-2 lg:mx-0 lg:my-0 lg:pl-5",
           "mt-3 mb-6 lg:mt-0 lg:mb-0",
-          given ? "border-brand/40" : "border-line-2",
+          flaggedFix && "border-line-2 border-l-2 lg:border-l-0",
         )}
-        data-mp={clause.mp}
+        data-mp={clause.band}
       >
-        {given ? (
+        {flaggedFix ? (
           <>
-            <Tick />
-            <span className="text-brand col-start-2 text-[12.5px] font-semibold tabular-nums">
-              {clause.mp}
-            </span>
-            <span className="text-ink-2 col-start-2 text-[14px]">
-              <span className="sr-only">given for </span>
-              &ldquo;{clause.quote}&rdquo;
+            <span className="text-ink-2 text-[13px]">{clause.problem}</span>
+            <span className="text-brand text-[14px]">
+              <span className="sr-only">write instead: </span>
+              {clause.rewrite}
             </span>
           </>
-        ) : null}
-        {clause.gloss ? (
-          <span className="text-ink-3 col-start-2 mt-1 text-[12.5px]">
-            {clause.gloss}
-          </span>
         ) : null}
       </div>
     </>

@@ -17,8 +17,9 @@ const CONTENT = [
   "[&_strong]:text-ink [&_strong]:font-semibold",
 ].join(" ");
 
-// Marks an unfinished clause; greppable by component name.
+// Marks an unfinished clause for the team; never rendered to users, because it publishes what the document is still missing.
 export function LegalTodo({ children }: { children: ReactNode }) {
+  if (process.env.NODE_ENV === "production") return null;
   return (
     <p className="border-brand bg-panel text-ink-2 mt-5 block border-l-2 px-5 py-4 text-[14px]">
       {children}

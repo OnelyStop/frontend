@@ -55,7 +55,7 @@ export const BANKING_EXAM_PROFILE: ExamProfile = {
     },
   ],
   maxArticlesPerIngest: 120,
-  // One Gemini request per candidate, sized for a free-tier daily cap.
+  // One model request per candidate, and the ceiling on what a run can spend.
   maxQuestionsPerGenerate: 40,
   get llmMaxRpm() {
     return env.GENERATION_RPM;

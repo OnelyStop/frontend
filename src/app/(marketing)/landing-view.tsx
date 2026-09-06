@@ -1,6 +1,8 @@
 import { ArrowUpRight } from "lucide-react";
 import { ButtonLink } from "@/design-system";
+import { SUPPORT_EMAIL } from "@/config/site";
 import { EXAMS } from "@/data/navigation";
+import { PLAN_LIMITS } from "@/features/billing/limits";
 import type { PlanPrice } from "@/features/billing/types";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
 import { AppWindow } from "./_sections/app-window";
@@ -40,7 +42,7 @@ const PLEDGE = [
   {
     no: "03",
     claim: "You can see why it gave every mark.",
-    rest: "Each one points at the rubric line it came from.",
+    rest: "Four weighted bands, each scored and commented on, with fixes that quote your own sentences back.",
   },
   {
     no: "04",
@@ -54,16 +56,11 @@ const PLEDGE = [
   },
   {
     no: "06",
-    claim: "If a mark looks wrong, tell us and it goes to a human.",
-    rest: "That's how the marking gets better.",
+    claim: `If a mark looks wrong, email ${SUPPORT_EMAIL} and a person reads it.`,
+    rest: "There is no report button in the app yet, so email is the route. That's how the marking gets better.",
   },
   {
     no: "07",
-    claim: "Every current-affairs question names its source.",
-    rest: "Written from the day's reporting and checked against it before you see it.",
-  },
-  {
-    no: "08",
     claim: "Negative marking is never hidden.",
     rest: "Every score shows what wrong answers took back, a quarter mark at a time.",
   },
@@ -158,7 +155,7 @@ export function LandingView({
               </h2>
             </div>
             <p className="text-ink-2 max-w-[42ch] text-[16px] leading-[1.55]">
-              Eight of them, numbered and dated. What the marking actually is,
+              Seven of them, numbered and dated. What the marking actually is,
               what it costs, what happens to your answers, and the one question
               we can&rsquo;t answer yet.
             </p>
@@ -246,11 +243,18 @@ export function LandingView({
             The free plan is not a trial
           </h2>
           <p className="text-ink-2 mx-auto mt-5 max-w-[62ch] text-[18px] leading-relaxed lg:text-[19px]">
-            Free covers the knowledge base, two full mocks a month, a week of
-            current affairs and your private notes. No card, no expiry. Pro adds
-            unlimited mocks and drills, the full current-affairs archive, the
-            attempt map and Ask Onely on any passage. Pro+ is for the
-            descriptive papers, where the marking is the point.
+            Free covers the knowledge base, your private notes, a week of
+            current affairs, {PLAN_LIMITS.free.mocksPerMonth} full mocks a
+            month, {PLAN_LIMITS.free.drillsPerDay} drills a day,{" "}
+            {PLAN_LIMITS.free.descriptiveMarkingsPerMonth} descriptive markings
+            a month and {PLAN_LIMITS.free.askOnelyPerMonth} Ask Onely questions
+            a month. No card, no expiry. Pro raises those caps rather than
+            introducing them: unlimited mocks and drills, the full
+            current-affairs archive, the attempt map,{" "}
+            {PLAN_LIMITS.pro.descriptiveMarkingsPerMonth} markings and{" "}
+            {PLAN_LIMITS.pro.askOnelyPerMonth} Ask Onely questions a month. Pro+
+            is for the descriptive papers, where the marking is the point:{" "}
+            {PLAN_LIMITS.pro_plus.descriptiveMarkingsPerMonth} markings a month.
           </p>
           <PlanGrid
             variant="public"

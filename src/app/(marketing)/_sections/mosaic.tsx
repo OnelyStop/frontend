@@ -8,7 +8,7 @@ type Tile = {
   href?: string;
   col: string;
   row: string;
-  mock?: "band" | "papers" | "sources" | "chips" | "queue" | "due" | "posts";
+  mock?: "band" | "papers" | "sources" | "chips" | "queue" | "recent" | "posts";
 };
 
 // Hand-placed: the non-uniformity is the cure for the four-up grid it replaces.
@@ -38,7 +38,7 @@ const TILES: Tile[] = [
   },
   {
     title: "Drills",
-    body: "A short set aimed at the topics costing you marks, timed like the section it came from.",
+    body: "A short set drawn at random from the bank, timed like the section it came from.",
     href: "/signup",
     col: "1 / span 2",
     row: "2",
@@ -53,11 +53,11 @@ const TILES: Tile[] = [
   },
   {
     title: "Flashcards",
-    body: "Current affairs, banking awareness and formulae, back on a schedule before the exam.",
+    body: "The last few weeks of current-affairs questions, dated, to reveal and review.",
     href: "/signup",
     col: "5 / span 2",
     row: "2",
-    mock: "due",
+    mock: "recent",
   },
   {
     title: "Current affairs",
@@ -164,19 +164,19 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
       </div>
     );
   }
-  if (kind === "due") {
+  if (kind === "recent") {
     return (
-      <div className={`${MOCK} flex gap-4`} aria-hidden>
-        {["Today", "Tue", "Fri", "In 2 wks"].map((d, i) => (
-          <div
-            key={d}
-            className="text-ink-3 grid justify-items-center gap-2 text-[12.5px]"
-          >
-            <i
-              className="bg-brand rounded-pill size-2.5"
-              style={{ opacity: 1 - i * 0.22 }}
-            />
-            <span>{d}</span>
+      <div className={`${MOCK} grid gap-2`} aria-hidden>
+        {[
+          ["14 Mar", "RBI's lending norms"],
+          ["13 Mar", "India–EFTA trade pact"],
+          ["12 Mar", "SEBI's T+0 settlement"],
+        ].map(([day, story]) => (
+          <div key={day} className={`${ROW} gap-3`}>
+            <span className="tnum text-ink-2 text-[13px] font-medium">
+              {day}
+            </span>
+            <span className="text-ink-3 truncate">{story}</span>
           </div>
         ))}
       </div>

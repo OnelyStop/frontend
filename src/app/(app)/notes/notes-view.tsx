@@ -92,7 +92,12 @@ export function NotesView({ notes }: { notes: NoteSummary[] }) {
         </span>
       </div>
 
-      {shown.length === 0 ? (
+      {notes.length === 0 ? (
+        <Empty
+          title="No notes yet"
+          sub="Notes are imported with the study content. Once a topic is published its formulae and traps appear here."
+        />
+      ) : shown.length === 0 ? (
         <Empty
           title="Nothing matches"
           sub="Try a different section, or clear the search."

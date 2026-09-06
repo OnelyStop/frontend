@@ -48,6 +48,13 @@ export const PLAN_LIMITS: Record<PlanTier, PlanLimits> = {
 
 export const limitsFor = (plan: PlanTier): PlanLimits => PLAN_LIMITS[plan];
 
+// One spelling of each tier, so no screen can call a Pro+ subscriber "Pro".
+export const PLAN_NAME: Record<PlanTier, string> = {
+  free: "Free",
+  pro: "Pro",
+  pro_plus: "Pro+",
+};
+
 // A null cap always passes. Callers pass the count already used this period.
 export function withinLimit(cap: number | null, used: number): boolean {
   return cap === null || used < cap;

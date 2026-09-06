@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { openrouterConfig } from "@/config/openrouter";
 import { SUPPORT_EMAIL } from "@/config/site";
 import { LegalDoc, LegalTodo } from "../legal-doc";
 
@@ -169,9 +170,10 @@ export default function Page() {
           </li>
           <li>
             <strong>The questions are ours.</strong> Mocks are modelled on each
-            exam&rsquo;s published pattern, not copies of actual papers.
-            Current-affairs questions are written from public reporting and name
-            their source.
+            exam&rsquo;s published pattern. Past papers are memory-based recalls
+            of real sittings, reconstructed after the exam, and are labelled
+            with the sitting they recall; they are not the boards&rsquo; own
+            papers. Current-affairs questions are written from public reporting.
           </li>
           <li>
             <strong>Private work stays private.</strong> Mock answers,
@@ -215,13 +217,20 @@ export default function Page() {
             and payment ids.
           </li>
           <li>
-            <strong>Google Gemini.</strong> Generates current-affairs questions
-            from public news reporting. It never receives user data.
+            <strong>OpenRouter.</strong> Carries every model call we make, and
+            routes it on to the model configured for that job: descriptive
+            answers to {openrouterConfig.model}, Ask Onely questions to{" "}
+            {openrouterConfig.cheapModel}, and, when the first model is
+            unavailable, {openrouterConfig.fallbackModel}. Current-affairs
+            questions are generated through OpenRouter too, on a model pinned
+            separately for that pipeline; that call carries news text, never
+            anything of yours. OpenRouter sees the text sent with a request, and
+            nothing else about you.
           </li>
           <li>
-            <strong>OpenRouter.</strong> Routes Ask Onely questions and
-            descriptive answers to a large language model. It sees the text you
-            submit, and nothing else about you.
+            <strong>NewsData.io.</strong> Supplies the news articles the
+            current-affairs questions are written from, alongside the public
+            RBI, PIB and SEBI feeds. It never receives user data.
           </li>
         </ul>
         <p>

@@ -44,7 +44,7 @@ export function currentAffairsUserPrompt(
   ].join("\n");
 }
 
-// Gemini's schema subset; question fields are not required when relevant=false.
+// Strict mode needs every property in `required`, so the optionals are nullable instead.
 export const MCQ_RESPONSE_JSON_SCHEMA = {
   type: "object",
   properties: {

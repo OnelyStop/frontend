@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useApp } from "@/context/AppContext";
@@ -22,7 +22,8 @@ import { startAttempt, submitAttempt } from "@/features/attempts/actions";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
 const LENGTHS = [10, 20, 30] as const;
-const MODES = ["Weak topics", "Speed", "Mixed"] as const;
+/* The pace the drill is budgeted at, and what the readout counts against. */
+const SECONDS_PER_Q = 45;
 
 type Recorded = { chosen: string | null; timeMs: number };
 
@@ -31,25 +32,36 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
   const { board } = useApp();
   const [section, setSection] = useState<Subject>(SECTIONS[2]);
   const [len, setLen] = useState<(typeof LENGTHS)[number]>(20);
-  const [mode, setMode] = useState<(typeof MODES)[number]>("Weak topics");
   const [running, setRunning] = useState(false);
   const [qIdx, setQIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [attemptId, setAttemptId] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Record<string, Recorded>>({});
   const [qStart, setQStart] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sat, setSat] = useState<DrillQuestion[]>([]);
   const startReqIdRef = useRef(0);
 
-  const mins = Math.round((len * 45) / 60);
+  const mins = Math.round((len * SECONDS_PER_Q) / 60);
   const pick = (from: DrillQuestion[]) =>
     from.filter((q) => q.section === SECTION_DB[section]).slice(0, len);
 
   // Before the drill starts this previews the page's pool; once running it is the set the server recorded.
   const set = running ? sat : pick(pool);
   const q = set[qIdx];
+
+  // Reads the same `qStart` that is submitted as timeMs, so the readout cannot drift from the recorded time.
+  useEffect(() => {
+    if (!running) return;
+    setElapsed(0);
+    const t = setInterval(
+      () => setElapsed(Math.floor((Date.now() - qStart) / 1000)),
+      500,
+    );
+    return () => clearInterval(t);
+  }, [running, qStart]);
 
   async function start() {
     const reqId = ++startReqIdRef.current;
@@ -119,7 +131,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
       <div>
         <PageHeader
           title={`${SECTION_LABEL[section]} drill`}
-          sub={`Question ${qIdx + 1} of ${set.length} · ${mode.toLowerCase()}`}
+          sub={`Question ${qIdx + 1} of ${set.length}`}
           actions={
             <Button
               variant="secondary"
@@ -134,9 +146,16 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
         <Card className="p-8">
           <div className="mb-6 flex items-center gap-3">
             <div className="rounded-pill bg-line h-1.5 flex-1 overflow-hidden">
-              <div className="rounded-pill bg-brand h-full w-1/4" />
+              <div
+                className="rounded-pill bg-brand h-full"
+                style={{
+                  width: `${Math.min(100, (elapsed / SECONDS_PER_Q) * 100)}%`,
+                }}
+              />
             </div>
-            <span className="tnum text-ink-3 text-[13px]">11s / 45s</span>
+            <span className="tnum text-ink-3 text-[13px]">
+              {elapsed}s / {SECONDS_PER_Q}s
+            </span>
           </div>
 
           {/* min-h so mode="wait" doesn't collapse the card to 0 between the outgoing and incoming question. */}
@@ -202,7 +221,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
     <div>
       <PageHeader
         title={`${len} questions · ${SECTION_LABEL[section]} · ${mins} min`}
-        sub={`Already aimed at the topics costing you marks in ${board}. Change anything, or just start.`}
+        sub={`A random set from the ${board} question bank. Change anything, or just start.`}
         actions={
           <Button disabled={set.length === 0} onClick={() => void start()}>
             Start drill
@@ -227,19 +246,12 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
               </Pick>
             ))}
           </Field>
-          <Field label="Aim">
-            {MODES.map((m) => (
-              <Pick key={m} on={mode === m} onClick={() => setMode(m)}>
-                {m}
-              </Pick>
-            ))}
-          </Field>
         </div>
 
         <p className="border-line text-ink-3 mt-6 border-t pt-4 text-[13px] leading-relaxed">
           {set.length === 0
             ? `No ${SECTION_LABEL[section]} questions in the pool right now.`
-            : "Weak topics pulls from the bottom-left of your attempt map. Speed keeps the accuracy you have and cuts the clock."}
+            : `Questions are drawn at random from the section — nothing here reads your attempt map yet. Budgeted at ${SECONDS_PER_Q} seconds each.`}
         </p>
       </Card>
     </div>

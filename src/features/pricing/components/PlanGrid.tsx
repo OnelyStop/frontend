@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Sparkles } from "lucide-react";
+import { Check } from "lucide-react";
 import {
   Badge,
   Button,
@@ -11,6 +11,7 @@ import {
   cn,
 } from "@/design-system";
 import { SUPPORT_EMAIL } from "@/config/site";
+import type { PlanTier } from "@/features/billing/limits";
 import { formatAmount } from "@/features/billing/money";
 import type { BillingInterval, PlanPrice } from "@/features/billing/types";
 import { discountPercent } from "@/features/pricing/discount";
@@ -20,6 +21,7 @@ type Props = {
   variant: "app" | "public";
   prices: PlanPrice[];
   entitled?: boolean;
+  currentPlan?: PlanTier;
   billingEnabled?: boolean;
   // The landing page owns the section's <h2>, so plan names drop a level there.
   headingLevel?: 2 | 3;
@@ -30,12 +32,14 @@ function PlanCta({
   interval,
   variant,
   entitled,
+  currentPlan,
   available,
 }: {
   plan: PlanCopy;
   interval: BillingInterval;
   variant: Props["variant"];
   entitled: boolean;
+  currentPlan: PlanTier;
   available: boolean;
 }) {
   if (plan.id === "free") {
@@ -58,11 +62,18 @@ function PlanCta({
     );
   }
 
-  if (entitled)
+  if (plan.id === currentPlan)
     return (
       <Button variant="secondary" block disabled>
         Current plan
       </Button>
+    );
+  // A second mandate is refused while one is active, so switching tiers is a support job, not a checkout.
+  if (entitled)
+    return (
+      <ButtonLink href={`mailto:${SUPPORT_EMAIL}`} variant="secondary" block>
+        Email us to switch
+      </ButtonLink>
     );
   if (!available)
     return (
@@ -86,6 +97,7 @@ export function PlanGrid({
   variant,
   prices,
   entitled = false,
+  currentPlan = "free",
   billingEnabled = true,
   headingLevel = 2,
 }: Props) {
@@ -167,13 +179,6 @@ export function PlanGrid({
                 plan.featured && "ring-brand ring-1",
               )}
             >
-              {plan.featured ? (
-                <span className="rounded-pill bg-brand absolute -top-3 left-6 inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold text-white">
-                  <Sparkles size={12} strokeWidth={2} />
-                  Most popular
-                </span>
-              ) : null}
-
               <PlanName className="text-[18px] font-semibold tracking-[-0.02em]">
                 {plan.name}
               </PlanName>
@@ -223,6 +228,7 @@ export function PlanGrid({
                   interval={interval}
                   variant={variant}
                   entitled={entitled}
+                  currentPlan={currentPlan}
                   available={billingEnabled && !!price}
                 />
               </div>

@@ -16,7 +16,6 @@ const ROOT_ALLOWED = new Set([
   "CLAUDE.md",
   "DESIGN.md",
   "LICENSE",
-  "migrations",
   "README.md",
   "STANDARDS.md",
   "bun.lock",

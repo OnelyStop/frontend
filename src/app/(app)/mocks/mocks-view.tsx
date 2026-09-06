@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { useApp } from "@/context/AppContext";
 import {
   Button,
+  ButtonLink,
+  Empty,
   OptionRow,
   PageHeader,
   Segmented,
@@ -380,79 +382,92 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
 
       {error ? <p className="text-bad mb-4 text-[13px]">{error}</p> : null}
 
-      <div className="border-line grid grid-cols-1 border-t border-l lg:grid-cols-2">
-        {shown.map((m) => {
-          const cleared = m.score !== null && m.score >= m.target;
-          const scale = Math.max(m.target, m.score ?? 0) * 1.3;
-          return (
-            <div
-              key={m.id}
-              className="border-line hover:bg-brand-soft/40 relative flex items-start gap-4 border-r border-b p-7 transition-colors duration-200"
-            >
-              <div className="min-w-0 flex-1">
-                <p className="text-[19px] tracking-[-0.02em]">
-                  {m.name} {m.year}
-                </p>
-                <p className="tnum text-ink-3 mt-1.5 text-[13px]">
-                  {m.stage} · {m.qs} questions · {m.mins} min
-                </p>
+      {mocks.length === 0 ? (
+        <Empty
+          title="No papers yet"
+          sub="Past papers are imported into the question bank before they appear here. Drills pull from the same bank in the meantime."
+          action={<ButtonLink href="/drills">Start a drill</ButtonLink>}
+        />
+      ) : shown.length === 0 ? (
+        <Empty
+          title={`No ${stage.toLowerCase()} papers`}
+          sub="Nothing has been imported at this stage yet. Switch the filter to All to see everything there is."
+        />
+      ) : (
+        <div className="border-line grid grid-cols-1 border-t border-l lg:grid-cols-2">
+          {shown.map((m) => {
+            const cleared = m.score !== null && m.score >= m.target;
+            const scale = Math.max(m.target, m.score ?? 0) * 1.3;
+            return (
+              <div
+                key={m.id}
+                className="border-line hover:bg-brand-soft/40 relative flex items-start gap-4 border-r border-b p-7 transition-colors duration-200"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="text-[19px] tracking-[-0.02em]">
+                    {m.name} {m.year}
+                  </p>
+                  <p className="tnum text-ink-3 mt-1.5 text-[13px]">
+                    {m.stage} · {m.qs} questions · {m.mins} min
+                  </p>
 
-                <div className="mt-7 flex items-baseline gap-2">
-                  <span
-                    className={`tnum text-[26px] leading-none tracking-[-0.03em] ${
-                      m.score === null
-                        ? "text-ink-4"
+                  <div className="mt-7 flex items-baseline gap-2">
+                    <span
+                      className={`tnum text-[26px] leading-none tracking-[-0.03em] ${
+                        m.score === null
+                          ? "text-ink-4"
+                          : cleared
+                            ? ""
+                            : "text-bad"
+                      }`}
+                    >
+                      {m.score ?? "—"}
+                    </span>
+                    <span className="text-ink-3 text-[13px]">
+                      {m.score === null
+                        ? "not attempted"
                         : cleared
-                          ? ""
-                          : "text-bad"
-                    }`}
-                  >
-                    {m.score ?? "—"}
-                  </span>
-                  <span className="text-ink-3 text-[13px]">
-                    {m.score === null
-                      ? "not attempted"
-                      : cleared
-                        ? "cleared"
-                        : "missed"}{" "}
-                    · 55% target {m.target}
-                  </span>
-                </div>
+                          ? "cleared"
+                          : "missed"}{" "}
+                      · 55% target {m.target}
+                    </span>
+                  </div>
 
-                <div className="rounded-pill bg-line relative mt-3 h-1.5">
-                  {m.score !== null ? (
-                    <div
-                      className={`rounded-pill h-full ${cleared ? "bg-ink" : "bg-bad"}`}
-                      style={{ width: `${(m.score / scale) * 100}%` }}
+                  <div className="rounded-pill bg-line relative mt-3 h-1.5">
+                    {m.score !== null ? (
+                      <div
+                        className={`rounded-pill h-full ${cleared ? "bg-ink" : "bg-bad"}`}
+                        style={{ width: `${(m.score / scale) * 100}%` }}
+                      />
+                    ) : null}
+                    <span
+                      className="bg-ink-3 absolute -top-1 h-[14px] w-px"
+                      style={{ left: `${(m.target / scale) * 100}%` }}
+                      aria-hidden
                     />
-                  ) : null}
+                  </div>
+
                   <span
-                    className="bg-ink-3 absolute -top-1 h-[14px] w-px"
-                    style={{ left: `${(m.target / scale) * 100}%` }}
                     aria-hidden
+                    className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
                   />
                 </div>
-
-                <span
-                  aria-hidden
-                  className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
-                />
+                <button
+                  disabled={starting !== null}
+                  className="rounded-pill bg-ink hover:bg-ink/90 h-10 shrink-0 px-5 text-[14px] font-medium text-white transition-colors disabled:opacity-50"
+                  onClick={() => void handleStart(m)}
+                >
+                  {starting === m.id
+                    ? "Loading…"
+                    : m.score !== null
+                      ? "Retake"
+                      : "Start"}
+                </button>
               </div>
-              <button
-                disabled={starting !== null}
-                className="rounded-pill bg-ink hover:bg-ink/90 h-10 shrink-0 px-5 text-[14px] font-medium text-white transition-colors disabled:opacity-50"
-                onClick={() => void handleStart(m)}
-              >
-                {starting === m.id
-                  ? "Loading…"
-                  : m.score !== null
-                    ? "Retake"
-                    : "Start"}
-              </button>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

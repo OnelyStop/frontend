@@ -6,6 +6,11 @@ import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle2, Loader2, Lock } from "lucide-react";
 import { Brand, Button, Card, SectionTitle } from "@/design-system";
+import {
+  PLAN_LIMITS,
+  PLAN_NAME,
+  type PlanTier,
+} from "@/features/billing/limits";
 import { formatAmount } from "@/features/billing/money";
 import type {
   BillingInterval,
@@ -83,42 +88,43 @@ export function CheckoutView({
   plan,
   interval,
   prices,
-  entitled,
+  held,
   billingEnabled,
 }: {
   plan: PaidPlan;
   interval: BillingInterval;
   prices: PlanPrice[];
-  entitled: boolean;
+  /** The plan the caller already holds, so the page can name it rather than say "a plan". */
+  held: PlanTier | null;
   billingEnabled: boolean;
 }) {
   const router = useRouter();
   const [step, setStep] = useState<Step>("idle");
   const [message, setMessage] = useState<string | null>(null);
 
-  const planName = plan === "pro_plus" ? "Pro+" : "Pro";
+  const planName = PLAN_NAME[plan];
   const price = prices.find((p) => p.plan === plan && p.interval === interval);
   const other = prices.find((p) => p.plan === plan && p.interval !== interval);
 
-  if (entitled)
+  if (held)
     return (
       <Done
-        title="You're already on Pro"
-        body="Everything is unlocked. Manage or cancel the plan from the upgrade page."
+        title={`You are already on ${PLAN_NAME[held]}`}
+        body="Manage or cancel it from the upgrade page. Changing tier while a plan is running is done by email, not here."
       />
     );
   if (step === "active")
     return (
       <Done
-        title="You're on Pro"
-        body="Unlimited mocks, marking and the full current-affairs archive are unlocked."
+        title={`You're on ${planName}`}
+        body={`Unlimited mocks and drills, ${PLAN_LIMITS[plan].descriptiveMarkingsPerMonth} descriptive markings a month and the full current-affairs archive are unlocked.`}
       />
     );
   if (step === "pending")
     return (
       <Done
         title="Payment received"
-        body="Razorpay is confirming it. Pro unlocks within a few minutes — you can keep going in the meantime."
+        body={`Razorpay is confirming it. ${planName} unlocks within a few minutes — you can keep going in the meantime.`}
       />
     );
 
@@ -225,7 +231,7 @@ export function CheckoutView({
       </button>
 
       <h1 className="mt-5 mb-8 text-[32px] tracking-[-0.03em]">
-        Upgrade to Pro
+        Upgrade to {planName}
       </h1>
 
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
@@ -265,14 +271,16 @@ export function CheckoutView({
           <SectionTitle>Order summary</SectionTitle>
           <div className="border-line flex items-start justify-between gap-4 border-b pb-4">
             <div>
-              <div className="text-[15px] font-medium">onelystop Pro</div>
+              <div className="text-[15px] font-medium">
+                onelystop {planName}
+              </div>
               <div className="text-ink-3 mt-0.5 text-[13.5px]">
                 {interval === "yearly" ? "Yearly" : "Monthly"} billing
               </div>
             </div>
             {other ? (
               <Link
-                href={`/upgrade/checkout?interval=${other.interval}`}
+                href={`/upgrade/checkout?plan=${plan}&interval=${other.interval}`}
                 className="text-ink-2 hover:text-ink shrink-0 text-[13.5px] underline underline-offset-2"
               >
                 Switch to {other.interval}

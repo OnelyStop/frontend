@@ -1,47 +1,37 @@
 import { cn } from "@/design-system";
 
-const NAV_MAIN = [
-  ["Today", ""],
-  ["Attempt map", ""],
-  ["Mocks", "14"],
-  ["Drills", "6"],
-];
-const NAV_RECALL = [
-  ["Current affairs", "7"],
-  ["Flashcards", "18"],
-  ["Notes", ""],
-];
+const NAV_MAIN = ["Today", "Attempt map", "Mocks", "Drills"];
+const NAV_RECALL = ["Current affairs", "Flashcards", "Notes"];
 
+/* A 35/35/30 Prelims paper. Every target here is 55% of that section's questions, which is what the scorer computes. */
 const SECTION_ROWS = [
   {
     name: "Quant",
-    detail: "22 attempted · 17 right · 5 wrong",
-    net: "15.75",
-    target: "14.50",
+    detail: "30 attempted · 25 right · 5 wrong",
+    net: "23.75",
+    target: "19.25",
     clear: true,
   },
   {
     name: "Reasoning",
-    detail: "28 attempted · 21 right · 7 wrong",
-    net: "19.25",
-    target: "18.25",
+    detail: "32 attempted · 26 right · 6 wrong",
+    net: "24.50",
+    target: "19.25",
     clear: true,
   },
   {
     name: "English",
-    detail: "18 attempted · 10 right · 8 wrong",
-    net: "8.00",
-    target: "9.75",
+    detail: "22 attempted · 14 right · 8 wrong",
+    net: "12.00",
+    target: "16.50",
     clear: false,
   },
 ];
 
 const ACTIVITY = [
-  ["Sat", "Mock 14 · IBPS PO Prelims", "43.0", true],
-  ["Sat", "Mock 13 · IBPS PO Prelims", "38.5", true],
-  ["Sat", "Drill · Floor puzzles", "8/10", true],
-  ["Queued", "Mock 15 · SBI Clerk Prelims", "—", false],
-  ["Queued", "Drill · Cloze test", "—", false],
+  ["IBPS PO Prelims 2024", "60.25"],
+  ["IBPS PO Prelims 2023", "54.50"],
+  ["Drill · Reasoning · 20 q", "13/20"],
 ];
 
 const SECTION_DOT: Record<string, string> = {
@@ -61,12 +51,11 @@ const SECTION = "mt-4.5 mb-2 text-[11px]";
 
 export function AppWindow() {
   return (
-    <div
+    <figure
       className={cn(
         "overflow-hidden rounded-t-[20px] bg-[#f7f8fa] text-[12px] leading-[1.45] text-[#16161a] select-none",
         "shadow-[0_40px_80px_-24px_rgb(10_10_11/0.28)]",
       )}
-      aria-hidden
     >
       <div
         className={cn(
@@ -75,15 +64,18 @@ export function AppWindow() {
           LINE,
         )}
       >
-        <span className="rounded-pill size-2.75 bg-[#ff5f57]" />
-        <span className="rounded-pill size-2.75 bg-[#febc2e]" />
-        <span className="rounded-pill size-2.75 bg-[#28c840]" />
-        <span className={cn("mx-auto text-[11px]", MUTE)}>
-          Attempt map · Mock 14 · IBPS PO Prelims
-        </span>
+        <span className="rounded-pill size-2.75 bg-[#ff5f57]" aria-hidden />
+        <span className="rounded-pill size-2.75 bg-[#febc2e]" aria-hidden />
+        <span className="rounded-pill size-2.75 bg-[#28c840]" aria-hidden />
+        <figcaption className={cn("mx-auto text-[11px]", MUTE)}>
+          Sample data — an illustration of the product, not a real account
+        </figcaption>
       </div>
 
-      <div className="grid min-h-115 lg:grid-cols-[168px_minmax(0,1fr)] xl:grid-cols-[192px_minmax(0,1fr)_232px]">
+      <div
+        aria-hidden
+        className="grid min-h-115 lg:grid-cols-[168px_minmax(0,1fr)] xl:grid-cols-[192px_minmax(0,1fr)_232px]"
+      >
         <aside
           className={cn(
             "hidden content-start gap-px border-r px-2.5 py-3 lg:grid",
@@ -95,38 +87,18 @@ export function AppWindow() {
             <span className="size-4.5 rounded-[5px] bg-[#16161a]" />
             Aarav · IBPS PO 2026
           </div>
-          {NAV_MAIN.map(([label, count], i) => (
+          {NAV_MAIN.map((label, i) => (
             <span
               key={label}
               className={cn(NAV, i === 1 ? "bg-[#ececea] font-semibold" : SOFT)}
             >
               {label}
-              {count ? (
-                <i
-                  className={cn(
-                    "ml-auto text-[11px] not-italic tabular-nums",
-                    MUTE,
-                  )}
-                >
-                  {count}
-                </i>
-              ) : null}
             </span>
           ))}
           <p className={cn(GROUP, MUTE)}>Recall</p>
-          {NAV_RECALL.map(([label, count]) => (
+          {NAV_RECALL.map((label) => (
             <span key={label} className={cn(NAV, SOFT)}>
               {label}
-              {count ? (
-                <i
-                  className={cn(
-                    "ml-auto text-[11px] not-italic tabular-nums",
-                    MUTE,
-                  )}
-                >
-                  {count}
-                </i>
-              ) : null}
             </span>
           ))}
           <p className={cn(GROUP, MUTE)}>Sections</p>
@@ -149,7 +121,7 @@ export function AppWindow() {
               60 min
             </span>
             <span className="text-[13px] font-semibold">
-              Mock 14 · IBPS PO Prelims · 100 questions
+              IBPS PO Prelims 2024 · 100 questions
             </span>
           </div>
 
@@ -162,9 +134,9 @@ export function AppWindow() {
             )}
           >
             <p>
-              Cleared the 55% target at 43.0 against 40.5 and missed English by
-              1.75. Eight wrong answers there cost 2.0 marks; skipped, the
-              section clears.
+              Cleared the 55% target at 60.25 against 55, and missed English by
+              4.50. Eight wrong answers there cost 2.00 marks, and eight
+              questions were left blank.
             </p>
           </div>
 
@@ -207,14 +179,14 @@ export function AppWindow() {
           <p className={cn("mb-2 text-[11px]", MUTE)}>This mock</p>
           <div className="flex items-baseline gap-1.25">
             <span className="text-brand text-[34px] leading-none font-semibold tracking-[-0.03em]">
-              43.0
+              60.25
             </span>
             <i className={cn("not-italic", MUTE)}>/ 100</i>
           </div>
           <div className="mt-3 grid gap-1.5">
             {[
-              ["Cutoff", "40.5"],
-              ["Negative", "−5.00"],
+              ["55% target", "55"],
+              ["Negative", "−4.75"],
               ["Time", "59m 40s"],
             ].map(([k, v]) => (
               <div
@@ -250,27 +222,17 @@ export function AppWindow() {
 
           <p className={cn(SECTION, MUTE)}>Recent</p>
           <div className="grid gap-2">
-            {ACTIVITY.map(([, q, mark, done]) => (
+            {ACTIVITY.map(([label, mark]) => (
               <div
-                key={q as string}
+                key={label}
                 className={cn(
                   "grid grid-cols-[6px_minmax(0,1fr)_auto] items-center gap-2",
                   SOFT,
                 )}
               >
-                <span
-                  className={cn(
-                    "rounded-pill size-1.5",
-                    done ? "bg-brand" : "bg-[rgb(10_10_11/0.16)]",
-                  )}
-                />
-                <span className="truncate text-[11px]">{q}</span>
-                <span
-                  className={cn(
-                    "text-[11px] font-semibold tabular-nums",
-                    done ? "text-[#16161a]" : MUTE,
-                  )}
-                >
+                <span className="bg-brand rounded-pill size-1.5" />
+                <span className="truncate text-[11px]">{label}</span>
+                <span className="text-[11px] font-semibold text-[#16161a] tabular-nums">
                   {mark}
                 </span>
               </div>
@@ -278,6 +240,6 @@ export function AppWindow() {
           </div>
         </aside>
       </div>
-    </div>
+    </figure>
   );
 }

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useRetrieval } from "./RetrievalContext";
 import { rank } from "./rank";
-import { RAG, RESTING, type Target } from "./targets";
+import { RESTING, type Target } from "./targets";
 
 export function RetrievalSlip() {
   const { open, setOpen } = useRetrieval();
@@ -153,14 +153,6 @@ export function RetrievalSlip() {
                 >
                   {t.label}
                 </span>
-                <span className="text-ink-3 shrink-0 truncate text-[12px]">
-                  {t.detail}
-                </span>
-                {t.wash && t.wash !== "none" ? (
-                  <span className="text-ink-4 shrink-0 text-[11px]" aria-hidden>
-                    {RAG[t.wash]}
-                  </span>
-                ) : null}
               </button>
             ))}
           </div>
