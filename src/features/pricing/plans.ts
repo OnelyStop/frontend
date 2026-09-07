@@ -6,7 +6,7 @@ import {
 
 // Display copy only. Prices come from payment_plans on the server.
 
-export type PlanId = PlanTier | "school";
+export type PlanId = PlanTier;
 
 export type PlanCopy = {
   id: PlanId;
@@ -71,16 +71,6 @@ export const PLAN_COPY: PlanCopy[] = [
         "community doubts",
         "a month",
       ),
-    ],
-  },
-  {
-    id: "school",
-    name: "Institute",
-    tagline: "For coaching centres and colleges",
-    features: [
-      "Pro+ for every student in the batch",
-      "One invoice, paid by the institute",
-      "Priced per student per year",
     ],
   },
 ];

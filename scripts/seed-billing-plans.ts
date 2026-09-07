@@ -8,7 +8,7 @@ import { db } from "../src/db";
 import { paymentPlans } from "../src/db/schema";
 import { createPlan } from "../src/features/billing/razorpay.server";
 
-// Minor units: paise/cents. RBI re-auth over ₹15,000 stops a yearly INR plan renewing.
+// Paise/cents, and yearly is twelve months less 10% — the toggle quotes that from these.
 const PLANS = [
   {
     plan: "pro",
@@ -23,8 +23,8 @@ const PLANS = [
     interval: "yearly",
     currency: "INR",
     period: "yearly",
-    amountMinor: 250_000,
-    listAmountMinor: 550_000,
+    amountMinor: 270_000,
+    listAmountMinor: 660_000,
   },
   {
     plan: "pro_plus",
@@ -39,8 +39,8 @@ const PLANS = [
     interval: "yearly",
     currency: "INR",
     period: "yearly",
-    amountMinor: 400_000,
-    listAmountMinor: 1_000_000,
+    amountMinor: 432_000,
+    listAmountMinor: 1_200_000,
   },
   // USD holds the same ratios, for onelystop.com.
   {
@@ -56,8 +56,8 @@ const PLANS = [
     interval: "yearly",
     currency: "USD",
     period: "yearly",
-    amountMinor: 5_000,
-    listAmountMinor: 11_000,
+    amountMinor: 5_400,
+    listAmountMinor: 13_200,
   },
   {
     plan: "pro_plus",
@@ -72,15 +72,24 @@ const PLANS = [
     interval: "yearly",
     currency: "USD",
     period: "yearly",
-    amountMinor: 8_000,
-    listAmountMinor: 20_000,
+    amountMinor: 8_640,
+    listAmountMinor: 24_000,
   },
 ] as const;
 
 const INR_AFA_LIMIT_MINOR = 1_500_000; // ₹15,000 in paise
 
+// Renders the price before Razorpay exists; checkout then fails loudly, not silently.
+const pendingId = (p: (typeof PLANS)[number]) =>
+  `pending_${p.plan}_${p.interval}_${p.currency}`.toLowerCase();
+
 async function main() {
   const apply = process.argv.includes("--apply");
+  const pricesOnly = process.argv.includes("--prices-only");
+
+  if (apply && pricesOnly) {
+    throw new Error("--apply and --prices-only do opposite things; pick one");
+  }
 
   for (const p of PLANS) {
     if (p.currency === "INR" && p.amountMinor > INR_AFA_LIMIT_MINOR) {
@@ -91,6 +100,30 @@ async function main() {
     }
 
     const name = `OnelyStop ${p.plan} (${p.interval}, ${p.currency})`;
+
+    if (pricesOnly) {
+      await db
+        .insert(paymentPlans)
+        .values({
+          plan: p.plan,
+          interval: p.interval,
+          currency: p.currency,
+          razorpayPlanId: pendingId(p),
+          amountMinor: p.amountMinor,
+          listAmountMinor: p.listAmountMinor,
+        })
+        .onConflictDoNothing({
+          target: [
+            paymentPlans.plan,
+            paymentPlans.interval,
+            paymentPlans.currency,
+          ],
+          where: sql`${paymentPlans.active}`,
+        });
+      console.log(`  priced   ${name}  ${p.amountMinor} ${p.currency}`);
+      continue;
+    }
+
     if (!apply) {
       console.log(
         `  would create  ${name}  amount=${p.amountMinor} ${p.currency}`,
@@ -117,20 +150,31 @@ async function main() {
         listAmountMinor: p.listAmountMinor,
       })
       // The index is partial, so Postgres needs the predicate to infer the target.
-      .onConflictDoNothing({
+      .onConflictDoUpdate({
         target: [
           paymentPlans.plan,
           paymentPlans.interval,
           paymentPlans.currency,
         ],
         where: sql`${paymentPlans.active}`,
+        // Only a pending row: a real id belongs to subscribers already on it.
+        set: {
+          razorpayPlanId: sql`case when ${paymentPlans.razorpayPlanId} like 'pending\\_%'
+            then excluded.razorpay_plan_id else ${paymentPlans.razorpayPlanId} end`,
+        },
       });
 
     console.log(`  created  ${name}  ${created.id}`);
   }
 
-  if (!apply)
-    console.log("\n  dry run — pass --apply to create these for real");
+  if (pricesOnly)
+    console.log(
+      "\n  prices only — checkout stays broken until --apply gives these real Razorpay ids",
+    );
+  else if (!apply)
+    console.log(
+      "\n  dry run — --apply creates them for real, --prices-only writes amounts without Razorpay",
+    );
 }
 
 main()
