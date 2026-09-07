@@ -1,13 +1,13 @@
 import { createBrowserClient } from "@supabase/ssr";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-export const isSupabaseConfigured = Boolean(url && anonKey);
+export const isSupabaseConfigured = Boolean(url && publishableKey);
 
 // The session goes to cookies, not localStorage, so proxy.ts and the server see it.
 export const supabase = isSupabaseConfigured
-  ? createBrowserClient(url!, anonKey!)
+  ? createBrowserClient(url!, publishableKey!)
   : null;
 
 // Snapshot before the client consumes them: links error in the fragment, PKCE in the query.
@@ -47,7 +47,7 @@ export async function fetchEnabledProviders(): Promise<{ google: boolean }> {
   if (!isSupabaseConfigured) return { google: false };
   try {
     const res = await fetch(`${url}/auth/v1/settings`, {
-      headers: { apikey: anonKey! },
+      headers: { apikey: publishableKey! },
     });
     if (!res.ok) return { google: false };
     const data = await res.json();

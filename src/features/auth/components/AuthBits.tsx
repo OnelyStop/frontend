@@ -57,7 +57,7 @@ export function SetupNotice() {
         </code>{" "}
         and{" "}
         <code className="bg-ink/6 rounded px-1 py-0.5 text-[12px]">
-          NEXT_PUBLIC_SUPABASE_ANON_KEY
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
         </code>{" "}
         to{" "}
         <code className="bg-ink/6 rounded px-1 py-0.5 text-[12px]">
