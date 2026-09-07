@@ -54,14 +54,6 @@ function PlanCta({
     );
   }
 
-  if (plan.id === "school") {
-    return (
-      <ButtonLink href={`mailto:${SUPPORT_EMAIL}`} variant="secondary" block>
-        Contact us
-      </ButtonLink>
-    );
-  }
-
   if (plan.id === currentPlan)
     return (
       <Button variant="secondary" block disabled>
@@ -125,7 +117,6 @@ export function PlanGrid({
   const headline = (plan: PlanCopy): string => {
     if (plan.id === "free")
       return formatAmount(0, priceFor(pro)?.currency ?? "INR");
-    if (plan.id === "school") return "Custom";
     const price = priceFor(plan);
     return price
       ? formatAmount(perMonth(price.amountMinor), price.currency)
@@ -134,7 +125,6 @@ export function PlanGrid({
 
   const priceLine = (plan: PlanCopy): string => {
     if (plan.id === "free") return "Free forever";
-    if (plan.id === "school") return "Per student, annual invoice";
     const price = priceFor(plan);
     if (!price) return "";
     return interval === "yearly"
@@ -188,9 +178,7 @@ export function PlanGrid({
                 <span className="tnum text-[30px] font-semibold tracking-[-0.03em]">
                   {headline(plan)}
                 </span>
-                {plan.id !== "school" ? (
-                  <span className="text-ink-3 text-[14px]">/ month</span>
-                ) : null}
+                <span className="text-ink-3 text-[14px]">/ month</span>
               </div>
 
               {off && price?.listAmountMinor ? (

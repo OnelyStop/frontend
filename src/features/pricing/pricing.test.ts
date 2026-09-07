@@ -19,8 +19,14 @@ describe("discountPercent", () => {
   it("quotes the advertised launch discounts", () => {
     expect(discountPercent(25_000, 55_000)).toBe(55); // Pro ₹250 from ₹550
     expect(discountPercent(40_000, 100_000)).toBe(60); // Pro+ ₹400 from ₹1,000
-    expect(discountPercent(250_000, 550_000)).toBe(55); // Pro, yearly
-    expect(discountPercent(400_000, 1_000_000)).toBe(60); // Pro+, yearly
+    expect(discountPercent(270_000, 660_000)).toBe(59); // Pro yearly, ₹2,700 from ₹6,600
+    expect(discountPercent(432_000, 1_200_000)).toBe(64); // Pro+ yearly, ₹4,320 from ₹12,000
+  });
+
+  // Yearly is twelve months less 10%, which is what the plan grid's toggle quotes.
+  it("prices a year at ten per cent under twelve months", () => {
+    expect(270_000).toBe(Math.round(25_000 * 12 * 0.9));
+    expect(432_000).toBe(Math.round(40_000 * 12 * 0.9));
   });
 
   it("shows nothing when there is no offer", () => {
@@ -113,13 +119,8 @@ describe("what a user costs us", () => {
 });
 
 describe("pricing copy", () => {
-  it("offers the three tiers plus Institute, with one featured", () => {
-    expect(PLAN_COPY.map((p) => p.id)).toEqual([
-      "free",
-      "pro",
-      "pro_plus",
-      "school",
-    ]);
+  it("offers the three tiers, with one featured", () => {
+    expect(PLAN_COPY.map((p) => p.id)).toEqual(["free", "pro", "pro_plus"]);
     expect(PLAN_COPY.filter((p) => p.featured)).toHaveLength(1);
   });
 

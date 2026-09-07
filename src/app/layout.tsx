@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+// Cookieless and unlinked to a person, so it needs no consent banner.
+import { Analytics } from "@vercel/analytics/next";
 import { instrument, jakarta } from "./fonts";
 import { AppProvider } from "@/context/AppContext";
 import { AuthProvider } from "@/features/auth/AuthContext";
@@ -37,6 +39,7 @@ export default function RootLayout({
             {children}
           </AppProvider>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );

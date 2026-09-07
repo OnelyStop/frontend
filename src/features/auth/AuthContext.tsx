@@ -36,12 +36,14 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 // Both must be in Supabase's redirect allow-list, or it silently uses Site URL.
 const at = (path: string) =>
   typeof window !== "undefined" ? `${window.location.origin}${path}` : "";
+
 const AUTH_CALLBACK_URL = at("/auth/callback");
-const AUTH_RESET_URL = at("/reset-password");
+
+// Comes back as {{ .RedirectTo }}, so a mail returns to the origin that sent it.
+const AUTH_CONFIRM_URL = at("/auth/confirm");
 
 const NOT_CONFIGURED: AuthResult = {
-  error:
-    "Authentication isn't configured yet — add your Supabase URL and anon key to .env.local.",
+  error: "Signing in is unavailable at the moment. Please try again shortly.",
 };
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -78,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           password,
           options: {
             data: { full_name: fullName },
-            emailRedirectTo: AUTH_CALLBACK_URL,
+            emailRedirectTo: AUTH_CONFIRM_URL,
           },
         });
         if (error) return { error: error.message };
@@ -107,7 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       resetPassword: async (email) => {
         if (!supabase) return NOT_CONFIGURED;
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: AUTH_RESET_URL,
+          redirectTo: AUTH_CONFIRM_URL,
         });
         return { error: error?.message ?? null };
       },
@@ -123,7 +125,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const { error } = await supabase.auth.resend({
           type: "signup",
           email,
-          options: { emailRedirectTo: AUTH_CALLBACK_URL },
+          options: { emailRedirectTo: AUTH_CONFIRM_URL },
         });
         return { error: error?.message ?? null };
       },

@@ -205,7 +205,10 @@ export default function Page() {
         <ul>
           <li>
             <strong>Vercel.</strong> Hosts and runs the site. Sees the technical
-            data any web server sees.
+            data any web server sees. Vercel Analytics also counts page views
+            for us: it sets no cookie, stores no identifier for you, and cannot
+            follow you to any other site. That is why there is no cookie banner
+            here — the only cookies we set are the ones that keep you signed in.
           </li>
           <li>
             <strong>Supabase.</strong> Holds the database and handles sign-in,

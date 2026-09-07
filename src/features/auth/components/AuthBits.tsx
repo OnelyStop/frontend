@@ -1,6 +1,7 @@
 "use client";
 
 import { AlertCircle, Settings2 } from "lucide-react";
+import { SUPPORT_EMAIL } from "@/config/site";
 import { Button } from "@/design-system";
 
 export function GoogleIcon() {
@@ -46,12 +47,33 @@ export function AuthError({ message }: { message: string }) {
   );
 }
 
+// A misconfigured deployment is ours to own, so only a developer sees the keys.
 export function SetupNotice() {
+  if (process.env.NODE_ENV === "production") {
+    return (
+      <div
+        className="rounded-ctl bg-warn-soft text-warn mt-4 flex items-start gap-2 px-3 py-2.5 text-[14px] leading-snug"
+        role="alert"
+      >
+        <AlertCircle size={15} strokeWidth={2} className="mt-0.5 shrink-0" />
+        <span>
+          Signing in is unavailable at the moment. This one is on us, not on
+          you, and nothing you have already saved is affected. Please try again
+          shortly — or write to{" "}
+          <a className="underline" href={`mailto:${SUPPORT_EMAIL}`}>
+            {SUPPORT_EMAIL}
+          </a>{" "}
+          if it is still failing.
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-ctl bg-warn-soft text-warn mt-4 flex items-start gap-2 px-3 py-2.5 text-[14px] leading-snug">
       <Settings2 size={15} strokeWidth={2} className="mt-0.5 shrink-0" />
       <span>
-        Supabase isn't connected yet. Create a project at supabase.com, then add{" "}
+        Supabase isn&rsquo;t connected. Add{" "}
         <code className="bg-ink/6 rounded px-1 py-0.5 text-[12px]">
           NEXT_PUBLIC_SUPABASE_URL
         </code>{" "}

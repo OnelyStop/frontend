@@ -38,8 +38,11 @@ bun run db:generate    # writes the SQL for you
 bun run db:migrate     # applies pending migrations
 ```
 
-Add the new file to `rollback/` by hand in the same commit. `db:migrate` uses
-`DIRECT_URL` when set — the pooler cannot run DDL.
+Add the new file to `rollback/` by hand in the same commit.
+
+DDL needs session mode, so `db:migrate` rewrites `DATABASE_URL`'s `:6543` to
+`:5432` on the same pooler host. `DIRECT_URL` overrides that and is only needed
+if your session endpoint is somewhere else.
 
 ## Privileges
 

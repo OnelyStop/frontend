@@ -66,8 +66,7 @@ export default function Page() {
         </h2>
         <p>
           onelystop is for aspirants preparing for IBPS PO, IBPS Clerk, SBI PO,
-          SBI Clerk and RBI Grade B, and for coaching institutes supporting them
-          on the Institute plan.
+          SBI Clerk and RBI Grade B.
         </p>
         <p>
           You must be 18 or over to create an account. The exams themselves
@@ -93,11 +92,6 @@ export default function Page() {
             One account per person. Accounts are not to be shared or resold, and
             a second account is not a way to reset a free quota, whether the two
             monthly mocks or the five community doubts. We close duplicates.
-          </li>
-          <li>
-            On the Institute plan each student gets their own account. The
-            institute is billed per student, and each student is bound by these
-            terms individually.
           </li>
         </ul>
       </section>
@@ -277,10 +271,6 @@ export default function Page() {
           <li>
             <strong>Price changes</strong> apply from your next renewal, and we
             will tell you before they take effect.
-          </li>
-          <li>
-            <strong>The Institute plan</strong> is arranged by contact, priced
-            per student per year, and billed on a single invoice.
           </li>
         </ul>
         <LegalTodo>
