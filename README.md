@@ -81,11 +81,14 @@ Required environment variables — note the `NEXT_PUBLIC_` prefix, not `VITE_`:
 
 ```
 NEXT_PUBLIC_SUPABASE_URL
-NEXT_PUBLIC_SUPABASE_ANON_KEY
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 ```
 
 These are inlined at build time, so **changing them requires a redeploy**.
-`DATABASE_URL` is only needed for migrations, not at runtime.
+
+`DATABASE_URL` is the transaction pooler and is what the app runs on.
+`DIRECT_URL` is the session pooler and is only read by `db:migrate` — the
+transaction pooler cannot run DDL.
 
 Supabase → Authentication → URL Configuration → Redirect URLs must include
 both of these, or sign-in silently writes no cookie and password resets land

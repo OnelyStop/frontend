@@ -53,8 +53,8 @@ guard "no secret is named NEXT_PUBLIC_" \
   . ':!.github/workflows/' ':!scripts/'
 
 if git grep -nIE 'NEXT_PUBLIC_[A-Z0-9_]*KEY' -- . ':!.github/workflows/' ':!scripts/' \
-     | grep -v 'NEXT_PUBLIC_SUPABASE_ANON_KEY'; then
-  echo "::error::a NEXT_PUBLIC_ key var that is not the anon key"
+     | grep -v 'NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY'; then
+  echo "::error::a NEXT_PUBLIC_ key var that is not the publishable key"
   printf '  FAIL  no stray NEXT_PUBLIC_ key\n' >&2
   failed=1
 else
