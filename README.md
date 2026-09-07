@@ -86,9 +86,13 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 
 These are inlined at build time, so **changing them requires a redeploy**.
 
-`DATABASE_URL` is the transaction pooler and is what the app runs on.
-`DIRECT_URL` is the session pooler and is only read by `db:migrate` — the
-transaction pooler cannot run DDL.
+`DATABASE_URL` is the transaction pooler (`:6543`) and is what the app runs on.
+It is the only connection string you need.
+
+`DIRECT_URL` is optional. DDL needs session mode, so `drizzle.config.ts` swaps
+`:6543` for `:5432` on the same pooler host and migrates over that. Set
+`DIRECT_URL` only if your session endpoint is not that host — the port swap is
+what makes it unnecessary in the normal case.
 
 Supabase → Authentication → URL Configuration → Redirect URLs must include
 both of these, or sign-in silently writes no cookie and password resets land

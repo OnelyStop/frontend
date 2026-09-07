@@ -2,6 +2,8 @@ import { resolve } from "node:path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
+  // jsxDev needs react/jsx-dev-runtime wired up; the production runtime renders the same.
+  esbuild: { jsx: "automatic", jsxDev: false },
   resolve: {
     // Mirrors the "@/*" -> "src/*" path in tsconfig.json. Vitest does not read
     // tsconfig paths on its own, and without this every "@/..." import fails to
