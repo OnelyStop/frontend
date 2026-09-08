@@ -26,8 +26,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <RunningHead />
             </Suspense>
 
-            <div className="relative flex-1 px-2.5 pb-2.5">
-              <div className="bg-stage relative min-h-full rounded-[24px] px-5 pt-9 pb-14 sm:px-7">
+            <div className="relative flex flex-1 flex-col px-2.5 pb-2.5">
+              <div className="bg-stage relative flex-1 rounded-[24px] px-5 pt-9 pb-14 sm:px-7">
                 <Bump />
                 <div className="grid gap-x-9 lg:grid-cols-[72px_minmax(0,1fr)]">
                   <CanvasRail />
