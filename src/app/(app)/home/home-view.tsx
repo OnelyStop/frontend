@@ -99,7 +99,7 @@ export function HomeView({ progress }: { progress: Progress }) {
         }
         aside={
           <>
-            <h2 className="mb-6 text-[24px] font-bold tracking-[-0.03em]">
+            <h2 className="mb-6 text-[20px] font-bold tracking-[-0.03em]">
               What to do next
             </h2>
 

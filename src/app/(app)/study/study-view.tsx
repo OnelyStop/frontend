@@ -41,7 +41,7 @@ export function StudyBrowseView({ subjects }: { subjects: SubjectSummary[] }) {
                 <CornerBadge tone="info">
                   <BookOpen size={20} />
                 </CornerBadge>
-                <h3 className="max-w-[14ch] text-[24px] leading-[1.16] font-bold tracking-[-0.03em]">
+                <h3 className="max-w-[14ch] text-[20px] leading-[1.16] font-bold tracking-[-0.03em]">
                   {s.name}
                 </h3>
                 <p className="text-ink-2 mt-3 max-w-[34ch] text-[14.5px] leading-[1.58]">

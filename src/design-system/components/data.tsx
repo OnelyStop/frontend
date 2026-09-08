@@ -27,14 +27,14 @@ export function Tile({
   return (
     <div
       className={cn(
-        "rounded-xl px-2 py-6 text-center",
+        "rounded-xl px-2 py-5 text-center",
         outline ? "border-line-2 border-2 border-dashed" : TONE[tone],
       )}
     >
-      <p className="tnum text-[40px] leading-none font-bold tracking-[-0.035em]">
+      <p className="tnum text-[30px] leading-none font-bold tracking-[-0.035em]">
         {value}
       </p>
-      <p className="text-ink-2 mt-2 text-[14px]">{label}</p>
+      <p className="text-ink-2 mt-1.5 text-[13px]">{label}</p>
     </div>
   );
 }

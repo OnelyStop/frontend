@@ -12,13 +12,13 @@ export function PageHeader({
 }) {
   return (
     <header className="mb-8 grid gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
-      <h1 className="max-w-[18ch] text-[36px] leading-[1.1] font-bold tracking-[-0.03em]">
+      <h1 className="max-w-[18ch] text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
         {title}
       </h1>
       {sub || actions ? (
         <div className="lg:pt-2">
           {sub ? (
-            <p className="text-ink-2 max-w-[48ch] text-[15px] leading-[1.58]">
+            <p className="text-ink-2 max-w-[52ch] text-[14px] leading-[1.6]">
               {sub}
             </p>
           ) : null}
@@ -80,18 +80,18 @@ export function Empty({
   tone?: keyof typeof EMPTY_TONE;
 }) {
   return (
-    <div className="grid justify-items-center gap-3 px-6 py-14 text-center">
+    <div className="grid justify-items-center gap-3 px-6 py-11 text-center">
       <span
         aria-hidden
         className={cn(
-          "mb-2 grid size-16 place-items-center rounded-full text-[26px]",
+          "mb-2 grid size-14 place-items-center rounded-full text-[22px]",
           EMPTY_TONE[tone],
         )}
       >
         {mark}
       </span>
-      <p className="text-[22px] font-bold tracking-[-0.02em]">{title}</p>
-      <p className="text-ink-2 max-w-[46ch] text-[14.5px] leading-relaxed">
+      <p className="text-[19px] font-bold tracking-[-0.02em]">{title}</p>
+      <p className="text-ink-2 max-w-[46ch] text-[13.5px] leading-relaxed">
         {sub}
       </p>
       {action ? <div className="mt-3">{action}</div> : null}

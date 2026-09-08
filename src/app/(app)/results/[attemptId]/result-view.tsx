@@ -36,7 +36,7 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
         <p className="text-ink-2 text-[13px]">
           {scorecard.mode === "paper" ? "This sitting" : "This drill"}
         </p>
-        <p className="tnum mt-2 text-[48px] leading-none tracking-[-0.03em]">
+        <p className="tnum mt-2 text-[34px] leading-none tracking-[-0.03em]">
           {scorecard.score.toFixed(2)}
           <span className="text-ink-3 ml-2 text-[20px]">
             / {scorecard.maxScore.toFixed(2)}

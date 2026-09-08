@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { CompanionPanel } from "@/features/companion/CompanionPanel";
 import { CompanionProvider } from "@/features/companion/CompanionContext";
 import { SelectionAsk } from "@/features/companion/SelectionAsk";
@@ -49,14 +49,18 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
 // Measured, not computed: the nav is a sibling, so nothing knows both boxes.
 function Bump() {
+  const ref = useRef<SVGSVGElement>(null);
   const [x, setX] = useState<number | null>(null);
 
   useEffect(() => {
     const read = () => {
       const el = document.querySelector<HTMLElement>("[data-nav-active]");
-      if (!el) return setX(null);
-      const r = el.getBoundingClientRect();
-      setX(r.left + r.width / 2);
+      const box = ref.current?.parentElement;
+      if (!el || !box) return setX(null);
+      const nav = el.getBoundingClientRect();
+      // Both boxes are viewport-relative; `left` is relative to the stage.
+      const stage = box.getBoundingClientRect();
+      setX(nav.left + nav.width / 2 - stage.left);
     };
     read();
     const observer = new MutationObserver(read);
@@ -68,18 +72,17 @@ function Bump() {
     };
   }, []);
 
-  if (x === null) return null;
-
   return (
     <svg
+      ref={ref}
       aria-hidden
-      viewBox="0 0 84 11"
-      preserveAspectRatio="none"
-      className="pointer-events-none absolute -top-2.5 hidden h-2.75 w-21 -translate-x-1/2 lg:block"
-      style={{ left: x }}
+      viewBox="0 0 56 13"
+      className="pointer-events-none absolute -top-3 hidden h-3.25 w-14 -translate-x-1/2 lg:block"
+      style={{ left: x ?? -999 }}
     >
+      {/* Straight flanks and a rounded apex — a peak, not a hill. */}
       <path
-        d="M0 11 C 14 11 20 0 42 0 C 64 0 70 11 84 11 Z"
+        d="M0 13 L18 3.4 Q28 -1 38 3.4 L56 13 Z"
         fill="var(--color-stage)"
       />
     </svg>

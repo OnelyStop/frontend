@@ -48,7 +48,7 @@ export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
 
         {topic.learningObjectives.length > 0 ? (
           <section className="mt-10">
-            <h2 className="text-[19px] tracking-[-0.02em]">
+            <h2 className="text-[16px] tracking-[-0.02em]">
               What you will be able to do
             </h2>
             <ul className="mt-3 max-w-[68ch] space-y-2">
@@ -66,7 +66,7 @@ export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
 
         {topic.sectionTitles.length > 0 ? (
           <section className="mt-10">
-            <h2 className="text-[19px] tracking-[-0.02em]">
+            <h2 className="text-[16px] tracking-[-0.02em]">
               What is inside this lesson
             </h2>
             <ol className="border-line mt-3 max-w-[68ch] border-t">

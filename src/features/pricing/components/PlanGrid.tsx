@@ -177,7 +177,7 @@ export function PlanGrid({
               <p className="text-ink-2 mt-0.5 text-[14px]">{plan.tagline}</p>
 
               <div className="mt-4 flex items-baseline gap-1.5">
-                <span className="tnum text-[30px] font-semibold tracking-[-0.03em]">
+                <span className="tnum text-[20px] font-semibold tracking-[-0.03em]">
                   {headline(plan)}
                 </span>
                 <span className="text-ink-3 text-[14px]">/ month</span>

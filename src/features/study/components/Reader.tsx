@@ -262,7 +262,7 @@ export function Reader({
                 <div className="mb-1.5 flex items-center gap-2">
                   <span className="text-ink-3 text-[13px]">{meta.label}</span>
                 </div>
-                <h2 className="mb-3 text-[19px] tracking-[-0.02em]">
+                <h2 className="mb-3 text-[16px] tracking-[-0.02em]">
                   {b.title}
                 </h2>
                 <Markdown source={b.bodyMarkdown} />

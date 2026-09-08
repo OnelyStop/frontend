@@ -45,11 +45,11 @@ export function CanvasTitle({
 }) {
   return (
     <header className={cn("mb-7", className)}>
-      <h1 className="text-[36px] leading-[1.1] font-bold tracking-[-0.03em]">
+      <h1 className="text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
         {children}
       </h1>
       {note ? (
-        <p className="text-ink-2 mt-2 max-w-[52ch] text-[15px] leading-[1.55]">
+        <p className="text-ink-2 mt-2 max-w-[54ch] text-[14px] leading-[1.6]">
           {note}
         </p>
       ) : null}
@@ -84,16 +84,16 @@ export function EventCard({
 
   return (
     <article
-      className={cn("shadow-card mb-4 rounded-xl p-6", TONE[tone], className)}
+      className={cn("shadow-card mb-3.5 rounded-xl p-5", TONE[tone], className)}
     >
       <div className="mb-3 flex items-center gap-2.5">
         {icon ? <span className="shrink-0">{icon}</span> : null}
-        <span className="text-[16px] font-bold">{kind}</span>
+        <span className="text-[15px] font-bold">{kind}</span>
         <span className="ml-auto text-[13px] font-semibold opacity-70">
           {when}
         </span>
       </div>
-      <div className="text-[14.5px] leading-[1.55] text-black/65">
+      <div className="text-[13.5px] leading-[1.55] text-black/65">
         {children}
       </div>
       {footer ? <div className="mt-4">{footer}</div> : null}

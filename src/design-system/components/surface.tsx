@@ -31,7 +31,7 @@ export function Card({
     <section
       className={cn(
         "card",
-        pad && "p-8",
+        pad && "p-6",
         CARD_TONE[tone],
         lift && "card-lift",
         className,

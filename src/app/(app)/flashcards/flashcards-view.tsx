@@ -110,7 +110,7 @@ export function FlashcardsView({
               <span className="tnum text-ink-4 text-[13px]">
                 {shortDate(card!.day)}
               </span>
-              <p className="mt-4 text-[24px] leading-snug tracking-[-0.02em]">
+              <p className="mt-4 text-[20px] leading-snug tracking-[-0.02em]">
                 {card!.questionText}
               </p>
               {shown ? (

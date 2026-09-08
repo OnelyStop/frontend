@@ -62,10 +62,10 @@ const TOKENS: [string, string][] = [
 const TYPE: [string, string, string][] = [
   [
     "Page title",
-    "text-[44px] font-bold leading-[1.05] tracking-[-0.03em]",
+    "text-[32px] font-bold leading-[1.05] tracking-[-0.03em]",
     "44 / 700",
   ],
-  ["Card title", "text-[30px] font-bold tracking-[-0.03em]", "30 / 700"],
+  ["Card title", "text-[20px] font-bold tracking-[-0.03em]", "30 / 700"],
   ["Panel label", "text-[16px] font-semibold", "16 / 600"],
   ["Body", "text-[15px] leading-[1.58] text-ink-2", "15 / 400"],
   ["Meta", "text-[13px] text-ink-3", "13 / 400"],

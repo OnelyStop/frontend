@@ -223,7 +223,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
             section {secIdx + 1} of {sections.length}
           </span>
           <span
-            className={`tnum rounded-pill px-3 py-1 text-[24px] tracking-[-0.02em] transition-colors duration-150 ease-[var(--ease-swift)] ${
+            className={`tnum rounded-pill px-3 py-1 text-[20px] tracking-[-0.02em] transition-colors duration-150 ease-[var(--ease-swift)] ${
               low ? "bg-bad/15 text-bad" : "text-ink"
             }`}
           >
@@ -404,7 +404,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                 className="card card-lift relative flex items-start gap-4 p-7"
               >
                 <div className="min-w-0 flex-1">
-                  <p className="text-[19px] tracking-[-0.02em]">
+                  <p className="text-[16px] tracking-[-0.02em]">
                     {m.name} {m.year}
                   </p>
                   <p className="tnum text-ink-3 mt-1.5 text-[13px]">
@@ -413,7 +413,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
 
                   <div className="mt-7 flex items-baseline gap-2">
                     <span
-                      className={`tnum text-[26px] leading-none tracking-[-0.03em] ${
+                      className={`tnum text-[21px] leading-none tracking-[-0.03em] ${
                         m.score === null
                           ? "text-ink-4"
                           : cleared

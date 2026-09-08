@@ -29,7 +29,7 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
         {SECTION_LABEL[subject]} · {note.topic.replaceAll("_", " ")}
         {note.subtopic ? ` · ${note.subtopic}` : ""}
       </span>
-      <h1 className="mt-2.5 max-w-[24ch] text-[38px] leading-[1.08] tracking-[-0.03em]">
+      <h1 className="mt-2.5 max-w-[24ch] text-[22px] leading-[1.08] tracking-[-0.03em]">
         {note.title}
       </h1>
       <p className="text-ink-2 mt-4 max-w-[52ch] text-[16px] leading-[1.55]">
