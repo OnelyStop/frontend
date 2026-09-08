@@ -21,11 +21,12 @@
   --color-line: rgb(10 10 10 / 0.07);
   --color-line-2: rgb(10 10 10 / 0.13);
 
-  /* Ink */
-  --color-ink: #16171b;
-  --color-ink-2: #767a83;
-  --color-ink-3: #a6aab2;
-  --color-ink-4: #c4c7cd;
+  /* Ink. These are #59's AA-contrast values; the canvas language wanted a
+     lighter ink-3 and lost, because that was taste against accessibility. */
+  --color-ink: #0a0a0a;
+  --color-ink-2: #67676d;
+  --color-ink-3: #73737d;
+  --color-ink-4: #b2b2b9;
 
   /* Actions are black. The accent is for data, not for chrome. */
   --color-brand: #7b3fa0;

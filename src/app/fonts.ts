@@ -9,9 +9,9 @@ export const poppins = Poppins({
   fallback: ["Arial", "Helvetica", "sans-serif"],
 });
 
+// No wdth axis: nothing sets font-stretch, and the second axis doubles the file.
 export const instrument = Instrument_Sans({
   subsets: ["latin"],
-  axes: ["wdth"],
   display: "swap",
   variable: "--font-instrument",
   fallback: ["Arial", "Helvetica", "sans-serif"],
