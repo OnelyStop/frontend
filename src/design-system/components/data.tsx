@@ -83,25 +83,6 @@ export function Stat({
   );
 }
 
-export function Meter({
-  value,
-  className,
-}: {
-  value: number;
-  className?: string;
-}) {
-  return (
-    <div
-      className={cn("rounded-pill bg-line h-1.5 overflow-hidden", className)}
-    >
-      <div
-        className="rounded-pill bg-ink h-full"
-        style={{ width: `${Math.max(0, Math.min(100, value))}%` }}
-      />
-    </div>
-  );
-}
-
 /* A score reads against its target, never a maximum: the notch is the target and the fill turns red only when it misses. */
 export function TargetBar({
   value,

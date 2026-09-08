@@ -73,13 +73,13 @@ function Bump() {
   return (
     <svg
       aria-hidden
-      viewBox="0 0 132 18"
+      viewBox="0 0 84 11"
       preserveAspectRatio="none"
-      className="pointer-events-none absolute -top-[17px] hidden h-[18px] w-33 -translate-x-1/2 lg:block"
+      className="pointer-events-none absolute -top-2.5 hidden h-2.75 w-21 -translate-x-1/2 lg:block"
       style={{ left: x }}
     >
       <path
-        d="M0 18 C 30 18 30 0 66 0 C 102 0 102 18 132 18 Z"
+        d="M0 11 C 14 11 20 0 42 0 C 64 0 70 11 84 11 Z"
         fill="var(--color-stage)"
       />
     </svg>

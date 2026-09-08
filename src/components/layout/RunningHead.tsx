@@ -235,7 +235,7 @@ export function RunningHead() {
         <button
           type="button"
           onClick={() => setRetrievalOpen(true)}
-          className="press rounded-pill border-on-frame-line text-on-frame-2 hover:border-on-frame-3 flex h-11 items-center gap-5 border pr-2 pl-4 text-[14px]"
+          className="press rounded-pill border-on-frame-line text-on-frame-2 hover:border-on-frame-3 flex h-10 items-center gap-3 border pr-1.5 pl-3.5 text-[13.5px]"
         >
           <span className="flex items-center gap-2">
             <Search size={14} />
@@ -265,7 +265,7 @@ export function RunningHead() {
 
         <Link
           href="/upgrade"
-          className={`rounded-pill text-frame h-11 items-center bg-white px-6 text-[14px] font-semibold transition-colors hover:bg-white/90 ${signedIn ? "hidden sm:flex" : "hidden"}`}
+          className={`rounded-pill text-frame h-10 items-center bg-white px-4.5 text-[13.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn ? "hidden sm:flex" : "hidden"}`}
         >
           Upgrade
         </Link>
@@ -280,13 +280,13 @@ export function RunningHead() {
             aria-expanded={account}
             aria-label="Account"
             onClick={() => setAccount((v) => !v)}
-            className="press rounded-pill hover:bg-frame-2 flex items-center gap-2.5 py-1.5 pr-2 pl-1.5"
+            className="press rounded-pill hover:bg-frame-2 flex items-center gap-2 py-1 pr-1.5 pl-1"
           >
             {/* Every account gets a mark: initials on a dark disc read as a placeholder. */}
-            <span className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-full">
+            <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-full">
               <AvatarMark avatar={avatar ?? "indigo"} />
             </span>
-            <span className="hidden text-left leading-tight xl:block">
+            <span className="hidden text-left leading-tight 2xl:block">
               <span className="text-on-frame block text-[14px] font-semibold">
                 {profile.name || "Your account"}
               </span>

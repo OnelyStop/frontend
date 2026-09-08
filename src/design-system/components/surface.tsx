@@ -42,20 +42,6 @@ export function Card({
   );
 }
 
-export function DarkPanel({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <section className={cn("rounded-card bg-ink p-8 text-white", className)}>
-      {children}
-    </section>
-  );
-}
-
 // Container draws top and left, cells their own bottom and right — any column count.
 
 const COLS: Record<number, string> = {

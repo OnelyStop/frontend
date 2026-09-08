@@ -9,7 +9,6 @@ import {
   ButtonLink,
   Card,
   Checkbox,
-  DarkPanel,
   Divider,
   Dropdown,
   type DropdownOption,
@@ -21,7 +20,6 @@ import {
   Lattice,
   LatticeCell,
   MenuRow,
-  Meter,
   PageHeader,
   SectionTitle,
   Segmented,
@@ -349,13 +347,13 @@ export function DesignView() {
             <Divider className="my-5" />
             <p className="text-ink-3 text-[13px]">Divider above.</p>
           </Card>
-          <DarkPanel>
-            <p className="text-[14px] text-white/50">DarkPanel</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-white/85">
-              One dark object per screen at most — the payoff, or the thing you
-              cannot miss.
+          <Card tone="info">
+            <p className="text-ink-2 text-[14px]">Tinted card</p>
+            <p className="mt-3 text-[15px] leading-relaxed">
+              A card fills with its own tint when the card is what carries the
+              state.
             </p>
-          </DarkPanel>
+          </Card>
         </div>
       </Section>
 
@@ -379,9 +377,6 @@ export function DesignView() {
               <TargetBar value={54} target={56} />
               <TargetBar value={null} target={62} />
             </div>
-
-            <p className="text-ink-3 mt-8 mb-3 text-[13px]">Meter</p>
-            <Meter value={71} />
           </div>
 
           <div>

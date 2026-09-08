@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  DarkPanel,
+  Card,
   Lattice,
   LatticeCell,
   PageHeader,
@@ -39,13 +39,13 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
         }`}
       />
 
-      <DarkPanel className="mb-6">
-        <p className="text-[13px] text-white/60">
+      <Card tone="info" className="mb-6">
+        <p className="text-ink-2 text-[13px]">
           {scorecard.mode === "paper" ? "This sitting" : "This drill"}
         </p>
         <p className="tnum mt-2 text-[48px] leading-none tracking-[-0.03em]">
           {scorecard.score.toFixed(2)}
-          <span className="ml-2 text-[20px] text-white/40">
+          <span className="text-ink-3 ml-2 text-[20px]">
             / {scorecard.maxScore.toFixed(2)}
           </span>
         </p>
@@ -58,7 +58,7 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
                 ? `Short in ${missed.map((s) => s.section).join(", ")} — the total does not carry a section.`
                 : `${(scorecard.target - scorecard.score).toFixed(2)} marks short of the overall target.`}
         </p>
-      </DarkPanel>
+      </Card>
 
       {scorecard.target !== null ? (
         <div className="mb-6">

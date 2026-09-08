@@ -1,6 +1,8 @@
 "use client";
 
-import { Empty, Lattice, LatticeCell, PageHeader } from "@/design-system";
+import Link from "next/link";
+import { BookOpen } from "lucide-react";
+import { CornerBadge, Empty, PageHeader, StatusPill } from "@/design-system";
 import type { SubjectSummary } from "@/features/study/types";
 
 const BLURB: Record<string, string> = {
@@ -32,20 +34,29 @@ export function StudyBrowseView({ subjects }: { subjects: SubjectSummary[] }) {
           sub="Content is imported from the study pipeline. Run the importer, or check back once the launch topics are published."
         />
       ) : (
-        <Lattice cols={3}>
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {subjects.map((s) => (
-            <LatticeCell key={s.slug} href={`/study/${s.slug}`}>
-              <p className="text-[19px] tracking-[-0.02em]">{s.name}</p>
-              <p className="text-ink-2 mt-2 max-w-[36ch] text-[14px] leading-[1.55]">
-                {s.description ?? BLURB[s.slug] ?? ""}
-              </p>
-              <span className="tnum text-ink-3 mt-8 block text-[13px]">
-                {s.topicCount} topic{s.topicCount === 1 ? "" : "s"} ·{" "}
-                {s.chapterCount} chapter{s.chapterCount === 1 ? "" : "s"}
-              </span>
-            </LatticeCell>
+            <Link key={s.slug} href={`/study/${s.slug}`} className="block">
+              <article className="card card-lift relative h-full p-8">
+                <CornerBadge tone="info">
+                  <BookOpen size={20} />
+                </CornerBadge>
+                <h3 className="max-w-[14ch] text-[24px] leading-[1.16] font-bold tracking-[-0.03em]">
+                  {s.name}
+                </h3>
+                <p className="text-ink-2 mt-3 max-w-[34ch] text-[14.5px] leading-[1.58]">
+                  {s.description ?? BLURB[s.slug] ?? ""}
+                </p>
+                <div className="mt-6">
+                  <StatusPill tone="soon">
+                    {s.topicCount} topic{s.topicCount === 1 ? "" : "s"} ·{" "}
+                    {s.chapterCount} chapter{s.chapterCount === 1 ? "" : "s"}
+                  </StatusPill>
+                </div>
+              </article>
+            </Link>
           ))}
-        </Lattice>
+        </div>
       )}
     </div>
   );

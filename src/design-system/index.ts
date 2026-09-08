@@ -16,7 +16,6 @@ export {
 
 export {
   Card,
-  DarkPanel,
   Lattice,
   LatticeCell,
   MenuRow,
@@ -55,7 +54,6 @@ export {
   Avatar,
   Badge,
   Kbd,
-  Meter,
   Stat,
   Table,
   TargetBar,
