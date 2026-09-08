@@ -99,7 +99,11 @@ export function CurrentAffairsView({
             const right = isLocked && choice === q.answer;
 
             return (
-              <Card key={q.id} className="p-7">
+              <Card
+                key={q.id}
+                tone={isLocked ? (right ? "ok" : "bad") : "plain"}
+                className="p-6"
+              >
                 <div className="flex items-center gap-3">
                   <span className="tnum text-ink-4 text-[13px]">Q{i + 1}</span>
                   {q.topic ? (

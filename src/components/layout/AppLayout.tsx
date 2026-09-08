@@ -76,12 +76,12 @@ function Bump() {
     <svg
       ref={ref}
       aria-hidden
-      viewBox="0 0 30 14"
-      className="pointer-events-none absolute -top-3.5 hidden h-3.5 w-7.5 -translate-x-1/2 lg:block"
+      viewBox="0 0 40 14"
+      className="pointer-events-none absolute -top-3.5 hidden h-3.5 w-10 -translate-x-1/2 lg:block"
       style={{ left: x ?? -999 }}
     >
       {/* Straight flanks and a rounded apex — a peak, not a hill. */}
-      <path d="M0 14 L11 3 Q15 -0.6 19 3 L30 14 Z" fill="var(--color-stage)" />
+      <path d="M0 14 L15 3 Q20 -0.6 25 3 L40 14 Z" fill="var(--color-stage)" />
     </svg>
   );
 }

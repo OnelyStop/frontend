@@ -401,7 +401,9 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
             return (
               <div
                 key={m.id}
-                className="card card-lift relative flex items-start gap-4 p-7"
+                className={`card card-lift relative flex items-start gap-4 p-6 ${
+                  m.score === null ? "" : cleared ? "bg-ok-soft" : "bg-bad-soft"
+                }`}
               >
                 <div className="min-w-0 flex-1">
                   <p className="text-[16px] tracking-[-0.02em]">

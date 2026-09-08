@@ -35,6 +35,7 @@ import {
   DockButton,
   DropSlot,
   EventCard,
+  NoteCard,
   PlanCard,
   Rationale,
   RoundAction,
@@ -238,6 +239,41 @@ export function DesignView() {
             placeholder="Search papers, topics and notes"
             hint="⌘K"
           />
+        </div>
+      </Section>
+
+      <Section
+        title="Note card"
+        note="Paper, tinted by the colour the note was written in"
+      >
+        <div className="grid max-w-3xl gap-5 sm:grid-cols-3">
+          <NoteCard
+            id="n1"
+            tint="yellow"
+            source="Quantitative Aptitude · Simplification"
+            quote="BODMAS applies left to right within a bracket"
+            when="12 Mar"
+          >
+            Always clear the bracket before the power. Cost me two marks in the
+            last sitting.
+          </NoteCard>
+          <NoteCard
+            id="n2"
+            tint="blue"
+            source="English · Error spotting"
+            when="9 Mar"
+          >
+            Subject–verb agreement with "one of the" takes the plural noun but a
+            singular verb.
+          </NoteCard>
+          <NoteCard
+            id="n3"
+            tint="pink"
+            source="Reasoning · Floor puzzles"
+            when="6 Mar"
+          >
+            Draw the grid before reading the third clue, never after.
+          </NoteCard>
         </div>
       </Section>
 

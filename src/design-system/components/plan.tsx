@@ -317,3 +317,61 @@ export function DockButton({
     </button>
   );
 }
+
+export type NoteTint = "yellow" | "blue" | "green" | "pink";
+
+// The paper a note is written on, not a card with a note inside it.
+const NOTE_PAPER: Record<NoteTint, string> = {
+  yellow: "bg-[#fdf3c8]",
+  blue: "bg-[#d9ecfb]",
+  green: "bg-[#d6f2dd]",
+  pink: "bg-[#fbdcec]",
+};
+
+/** Tilt is derived from the id so a note never shifts between renders. */
+function tiltOf(id: string): number {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  return ((h % 5) - 2) * 0.7;
+}
+
+export function NoteCard({
+  id,
+  tint = "yellow",
+  source,
+  quote,
+  when,
+  action,
+  children,
+}: {
+  id: string;
+  tint?: NoteTint;
+  source?: ReactNode;
+  /** The passage the note was written against. */
+  quote?: string | null;
+  when?: string;
+  action?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <article
+      style={{ rotate: `${tiltOf(id)}deg` }}
+      className={cn(
+        "shadow-card hover:shadow-lift relative h-full rounded-[14px] p-5 transition-shadow",
+        NOTE_PAPER[tint],
+      )}
+    >
+      {action}
+      {source ? <p className="text-[12px] text-black/45">{source}</p> : null}
+      {quote ? (
+        <p className="mt-2.5 line-clamp-2 border-l-2 border-black/20 pl-2.5 text-[12.5px] leading-relaxed text-black/55">
+          {quote}
+        </p>
+      ) : null}
+      <p className="mt-2.5 line-clamp-5 text-[13.5px] leading-relaxed text-black/80">
+        {children}
+      </p>
+      {when ? <p className="mt-3 text-[11.5px] text-black/40">{when}</p> : null}
+    </article>
+  );
+}

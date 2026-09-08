@@ -3,13 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import {
-  Empty,
-  Input,
-  PageHeader,
-  Segmented,
-  StatusPill,
-} from "@/design-system";
+import { Empty, Input, NoteCard, PageHeader, Segmented } from "@/design-system";
 import type { OwnNote } from "@/features/study/types";
 
 const DATE = new Intl.DateTimeFormat("en-IN", {
@@ -85,42 +79,27 @@ export function NotesView({ notes }: { notes: OwnNote[] }) {
               sub="No note mentions that. Try a shorter word, or clear the filter."
             />
           ) : (
-            <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {shown.map((n) => (
                 <li key={n.id}>
-                  <Link
-                    href={n.href}
-                    className="card card-lift group relative block h-full p-5"
-                  >
-                    <span
-                      aria-hidden
-                      className="bg-panel text-ink-3 group-hover:bg-brand-soft group-hover:text-brand absolute top-4 right-4 grid size-8 place-items-center rounded-full transition-colors"
+                  <Link href={n.href} className="group block h-full">
+                    <NoteCard
+                      id={n.id}
+                      tint={n.color}
+                      source={`${n.subjectName} · ${n.topicTitle}`}
+                      quote={n.selectedText}
+                      when={DATE.format(new Date(n.updatedAt))}
+                      action={
+                        <span
+                          aria-hidden
+                          className="absolute top-4 right-4 grid size-7 place-items-center rounded-full bg-black/5 text-black/40 transition-colors group-hover:bg-black/10 group-hover:text-black/70"
+                        >
+                          <ArrowUpRight size={15} strokeWidth={2} />
+                        </span>
+                      }
                     >
-                      <ArrowUpRight size={16} strokeWidth={2} />
-                    </span>
-
-                    <p className="text-ink-3 max-w-[26ch] text-[12.5px]">
-                      {n.subjectName}
-                    </p>
-                    <p className="mt-0.5 max-w-[24ch] text-[15px] font-semibold">
-                      {n.topicTitle}
-                    </p>
-
-                    {n.selectedText ? (
-                      <p className="border-brand text-ink-2 mt-3 line-clamp-2 border-l-2 pl-3 text-[13px] leading-relaxed">
-                        {n.selectedText}
-                      </p>
-                    ) : null}
-
-                    <p className="mt-3 line-clamp-4 text-[13.5px] leading-relaxed">
                       {n.bodyMarkdown}
-                    </p>
-
-                    <div className="mt-4">
-                      <StatusPill tone="neutral">
-                        {DATE.format(new Date(n.updatedAt))}
-                      </StatusPill>
-                    </div>
+                    </NoteCard>
                   </Link>
                 </li>
               ))}

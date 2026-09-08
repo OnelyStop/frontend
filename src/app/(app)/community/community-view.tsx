@@ -133,7 +133,11 @@ function DoubtCard({
   onToggle: () => void;
 }) {
   return (
-    <li className="card card-lift flex gap-4 p-6">
+    <li
+      className={`card card-lift flex gap-4 p-5 ${
+        doubt.stuckByMe ? "bg-brand-soft" : ""
+      }`}
+    >
       <button
         type="button"
         onClick={onToggle}

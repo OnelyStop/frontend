@@ -27,10 +27,12 @@ export {
   CornerPlus,
   Dock,
   DockButton,
+  NoteCard,
   PlanCard,
   RoundAction,
   SearchField,
   StatusPill,
+  type NoteTint,
   type PillTone,
 } from "./components/plan";
 
