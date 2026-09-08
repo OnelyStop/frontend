@@ -21,7 +21,10 @@ export {
   LatticeCell,
   MenuRow,
   Popover,
+  type CardTone,
 } from "./components/surface";
+
+export { Rationale } from "./components/rationale";
 
 export {
   Checkbox,
@@ -42,6 +45,7 @@ export {
   TargetBar,
   Td,
   Th,
+  Tile,
   Tr,
   type Tone,
 } from "./components/data";

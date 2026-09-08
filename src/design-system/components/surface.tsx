@@ -1,19 +1,42 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-// Panels are hairline, no shadow; only things that float (menus, palettes) lift.
+// `tone` fills the card when the card itself is what carries the state.
+
+export type CardTone = "plain" | "ok" | "warn" | "bad" | "info" | "active";
+
+const CARD_TONE: Record<CardTone, string> = {
+  plain: "",
+  ok: "bg-ok-soft",
+  warn: "bg-warn-soft",
+  bad: "bg-bad-soft",
+  info: "bg-info-soft",
+  active: "bg-active-soft",
+};
 
 export function Card({
   children,
   className,
   pad = true,
+  tone = "plain",
+  lift,
 }: {
   children: ReactNode;
   className?: string;
   pad?: boolean;
+  tone?: CardTone;
+  lift?: boolean;
 }) {
   return (
-    <section className={cn("card", pad && "p-8", className)}>
+    <section
+      className={cn(
+        "card",
+        pad && "p-8",
+        CARD_TONE[tone],
+        lift && "card-lift",
+        className,
+      )}
+    >
       {children}
     </section>
   );
@@ -56,7 +79,8 @@ export function Lattice({
   return (
     <As
       className={cn(
-        "border-line grid border-t border-l",
+        // Clipped so the cells' own rules stop at the rounded corner.
+        "border-line bg-canvas rounded-card shadow-card grid overflow-hidden border-t border-l",
         COLS[cols],
         className,
       )}

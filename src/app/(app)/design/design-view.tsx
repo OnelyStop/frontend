@@ -35,24 +35,31 @@ import {
   Tr,
 } from "@/design-system";
 
+// The tints, not the inks — the tint is the half that fills a surface.
 const TOKENS: [string, string][] = [
+  ["stage", "var(--color-stage)"],
   ["canvas", "var(--color-canvas)"],
-  ["panel", "var(--color-panel)"],
-  ["line", "var(--color-line)"],
+  ["frame", "var(--color-frame)"],
   ["ink", "var(--color-ink)"],
   ["ink-2", "var(--color-ink-2)"],
   ["ink-3", "var(--color-ink-3)"],
-  ["brand", "var(--color-brand)"],
-  ["ok", "var(--color-ok)"],
-  ["warn", "var(--color-warn)"],
-  ["bad", "var(--color-bad)"],
+  ["ok-soft", "var(--color-ok-soft)"],
+  ["warn-soft", "var(--color-warn-soft)"],
+  ["bad-soft", "var(--color-bad-soft)"],
+  ["info-soft", "var(--color-info-soft)"],
+  ["brand-soft", "var(--color-brand-soft)"],
+  ["active-soft", "var(--color-active-soft)"],
 ];
 
 const TYPE: [string, string, string][] = [
-  ["Page title", "text-[48px] leading-[1.05] tracking-[-0.03em]", "48 / 400"],
-  ["Card title", "text-[24px] tracking-[-0.02em]", "24 / 400"],
-  ["Panel label", "text-[16px] font-medium", "16 / 500"],
-  ["Body", "text-[15px] leading-[1.55] text-ink-2", "15 / 400"],
+  [
+    "Page title",
+    "text-[44px] font-bold leading-[1.05] tracking-[-0.03em]",
+    "44 / 700",
+  ],
+  ["Card title", "text-[30px] font-bold tracking-[-0.03em]", "30 / 700"],
+  ["Panel label", "text-[16px] font-semibold", "16 / 600"],
+  ["Body", "text-[15px] leading-[1.58] text-ink-2", "15 / 400"],
   ["Meta", "text-[13px] text-ink-3", "13 / 400"],
 ];
 
@@ -80,7 +87,7 @@ export function DesignView() {
       <Section title="Colour" note="Functional only — never decorative">
         <div className="flex flex-wrap gap-3">
           {TOKENS.map(([name, value]) => (
-            <div key={name} className="w-[112px]">
+            <div key={name} className="w-28">
               <div
                 className="rounded-ctl border-line h-16 border"
                 style={{ background: value }}
@@ -91,7 +98,10 @@ export function DesignView() {
         </div>
       </Section>
 
-      <Section title="Type" note="Headings are light; weight contrast is size">
+      <Section
+        title="Type"
+        note="Headings are heavy and tight; body stays light"
+      >
         <div className="grid gap-5">
           {TYPE.map(([name, cls, meta]) => (
             <div key={name} className="flex items-baseline gap-6">

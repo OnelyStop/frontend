@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-export type Tone = "neutral" | "ok" | "warn" | "bad" | "brand";
+export type Tone = "neutral" | "ok" | "warn" | "bad" | "info" | "brand";
 
 const TONE: Record<Tone, string> = {
-  neutral: "bg-line text-ink-2",
+  neutral: "bg-panel text-ink-2",
   ok: "bg-ok-soft text-ok",
   warn: "bg-warn-soft text-warn",
   bad: "bg-bad-soft text-bad",
+  info: "bg-info-soft text-info",
   brand: "bg-brand-soft text-brand",
 };
 
@@ -23,13 +24,40 @@ export function Badge({
   return (
     <span
       className={cn(
-        "rounded-pill inline-flex items-center px-2.5 py-1 text-[12.5px]",
+        "rounded-pill inline-flex items-center gap-1.5 px-4 py-2 text-[14px] font-semibold",
         TONE[tone],
         className,
       )}
     >
       {children}
     </span>
+  );
+}
+
+// `outline` is the not-yet state — no fill, because nothing has happened yet.
+export function Tile({
+  value,
+  label,
+  tone = "info",
+  outline,
+}: {
+  value: string;
+  label: string;
+  tone?: Tone;
+  outline?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "rounded-xl px-2 py-6 text-center",
+        outline ? "border-line-2 border-2 border-dashed" : TONE[tone],
+      )}
+    >
+      <p className="tnum text-[40px] leading-none font-bold tracking-[-0.035em]">
+        {value}
+      </p>
+      <p className="text-ink-2 mt-2 text-[14px]">{label}</p>
+    </div>
   );
 }
 
@@ -93,15 +121,15 @@ export function TargetBar({
     `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
 
   return (
-    <div className={cn("rounded-pill bg-line relative h-1.5", className)}>
+    <div className={cn("rounded-pill bg-track relative h-3", className)}>
       {value !== null ? (
         <div
-          className={cn("rounded-pill h-full", cleared ? "bg-ink" : "bg-bad")}
+          className={cn("rounded-pill h-full", cleared ? "bg-ok" : "bg-bad")}
           style={{ width: pct(value) }}
         />
       ) : null}
       <span
-        className="bg-ink-3 absolute -top-1 h-3.5 w-px"
+        className="bg-ink absolute -top-1.5 -bottom-1.5 w-0.5 rounded-full"
         style={{ left: pct(target) }}
         aria-hidden
       />

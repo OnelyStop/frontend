@@ -16,7 +16,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     <CompanionProvider>
       <RetrievalProvider>
         <div
-          className="bg-canvas min-h-screen"
+          className="bg-stage min-h-screen"
           style={{ ["--subj" as string]: SUBJECT_INK[subject] }}
         >
           {/* RunningHead reads search params; that needs a boundary. */}
