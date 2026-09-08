@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Privacy policy",
   description:
     "What onelystop collects, why, who it is shared with, and how to get it corrected or deleted, under the Digital Personal Data Protection Act, 2023.",
+  alternates: { canonical: "/privacy" },
 };
 
 const UPDATED = "5 September 2026";

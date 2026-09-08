@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { safeInternalPath } from "@/features/auth/redirect";
 import { LoginView } from "./login-view";
 
-export const metadata: Metadata = { title: "Sign in" };
+export const metadata: Metadata = {
+  title: "Sign in",
+  description:
+    "Sign in to onelystop to continue your mocks, drills and descriptive marking.",
+  alternates: { canonical: "/login" },
+};
 
 // useSearchParams would suspend the subtree, so only the fallback reached the HTML.
 export default async function Page({
