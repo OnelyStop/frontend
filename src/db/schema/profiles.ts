@@ -33,6 +33,8 @@ export const profiles = pgTable(
   {
     id: uuid("id").primaryKey(),
     displayName: text("display_name"),
+    // A preset key, not a URL; the render map is the allowlist.
+    avatar: text("avatar"),
     bio: text("bio"),
     country: char("country", { length: 2 }).notNull().default("IN"),
     school: text("school"),
@@ -46,6 +48,10 @@ export const profiles = pgTable(
       .defaultNow(),
   },
   (t) => [
+    check(
+      "profiles_avatar_len_check",
+      sql`${t.avatar} is null or char_length(${t.avatar}) <= 32`,
+    ),
     check(
       "profiles_target_year_check",
       sql`${t.targetYear} is null or ${t.targetYear} between 2000 and 2100`,

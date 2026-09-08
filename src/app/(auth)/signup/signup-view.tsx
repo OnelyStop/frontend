@@ -17,9 +17,20 @@ import {
   MIN_PASSWORD_LENGTH,
   passwordMeetsRules,
 } from "@/features/auth/password-rules";
+import { AvatarPicker } from "@/features/profile/components/AvatarPicker";
+import type { AvatarKey } from "@/features/profile/avatars";
 import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+const initialsOf = (name: string) =>
+  name
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]!.toUpperCase())
+    .join("") || "AM";
 
 export function SignupView() {
   const { signUp, signInWithGoogle, user, configured } = useAuth();
@@ -30,6 +41,7 @@ export function SignupView() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [rulesOpen, setRulesOpen] = useState(false);
+  const [avatar, setAvatar] = useState<AvatarKey | null>(null);
   const [sent, setSent] = useState(false);
 
   const rulesMet = passwordMeetsRules(password);
@@ -41,7 +53,7 @@ export function SignupView() {
   }, [user, router]);
 
   const { error, setError, busy, handleSubmit } = useAuthForm(
-    () => signUp(email, password, name),
+    () => signUp(email, password, name, avatar),
     (result) => {
       // Supabase withholds the session when email confirmation is required
       if (result.needsConfirmation) setSent(true);
@@ -119,6 +131,17 @@ export function SignupView() {
               required
             />
           </Field>
+          <div>
+            <p className="text-ink-2 text-[13px]">Avatar</p>
+            <p className="text-ink-3 mt-0.5 mb-2.5 text-[12.5px]">
+              Optional — without one you keep your initials.
+            </p>
+            <AvatarPicker
+              value={avatar}
+              onChange={setAvatar}
+              initials={initialsOf(name)}
+            />
+          </div>
           <Field label="Email" htmlFor="signup-email">
             <Input
               id="signup-email"

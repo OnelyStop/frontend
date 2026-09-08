@@ -16,6 +16,7 @@ import {
   type Subject,
 } from "@/data/navigation";
 import type { Profile } from "@/features/profile/types";
+import { isAvatarKey, type AvatarKey } from "@/features/profile/avatars";
 
 export type UserProfile = {
   name: string;
@@ -40,6 +41,7 @@ type AppContextValue = {
   settings: UserSettings;
   setSettings: (s: UserSettings) => void;
   initials: string;
+  avatar: AvatarKey | null;
 };
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -55,6 +57,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const [subject, setSubject] = useState<Subject>("Quantitative Aptitude");
   const [board, setBoard] = useState<ExamBoard>("IBPS PO");
+  const [avatar, setAvatar] = useState<AvatarKey | null>(null);
   const [profile, setProfile] = useState<UserProfile>({
     name: "",
     email: "",
@@ -86,6 +89,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const stored = body?.profile;
         if (!stored) return;
         setBoard(stored.examBoard);
+        setAvatar(isAvatarKey(stored.avatar) ? stored.avatar : null);
         setSubject(stored.defaultSection);
         setProfile((prev) => ({
           ...prev,
@@ -111,8 +115,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       settings,
       setSettings,
       initials: getInitials(profile.name),
+      avatar,
     }),
-    [subject, board, profile, settings],
+    [subject, board, profile, settings, avatar],
   );
 
   // Mirrored onto <html> so the CSS `.press` utility, which cannot read React context, respects it.

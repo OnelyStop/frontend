@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { AVATAR_KEYS, isAvatarKey } from "./avatars";
 import * as schema from "@/db/schema";
 import { profiles } from "@/db/schema";
 import { EXAMS, SECTIONS } from "@/data/navigation";
@@ -31,6 +32,17 @@ describe("profileUpdate", () => {
     expect(profileUpdate.safeParse({ targetYear: 1999 }).success).toBe(false);
     expect(profileUpdate.safeParse({ targetYear: 2101 }).success).toBe(false);
     expect(profileUpdate.safeParse({ targetYear: 2026 }).success).toBe(true);
+  });
+
+  it("accepts every avatar key, and null to clear it", () => {
+    for (const key of AVATAR_KEYS)
+      expect(profileUpdate.safeParse({ avatar: key }).success).toBe(true);
+    expect(profileUpdate.safeParse({ avatar: null }).success).toBe(true);
+  });
+
+  it("rejects an avatar key that is not in the catalogue", () => {
+    expect(profileUpdate.safeParse({ avatar: "gold" }).success).toBe(false);
+    expect(profileUpdate.safeParse({ avatar: "<script>" }).success).toBe(false);
   });
 
   it("rejects an exam board that is not in the enum", () => {
@@ -179,5 +191,16 @@ describe("deleteAccount", () => {
     const userId = await signUp("twice@example.com");
     await deleteAccount(db, userId);
     expect(await deleteAccount(db, userId)).toEqual({ deleted: false });
+  });
+});
+
+describe("isAvatarKey", () => {
+  it("passes only catalogue keys", () => {
+    expect(AVATAR_KEYS.every(isAvatarKey)).toBe(true);
+  });
+
+  it("rejects anything a user could have written into their metadata", () => {
+    for (const bad of ["", "gold", "INDIGO", "<img onerror=1>", null, 7, {}])
+      expect(isAvatarKey(bad)).toBe(false);
   });
 });

@@ -1,6 +1,6 @@
 {
-  "id": "bf64558d-a2bf-4fc0-a9b2-ca4af4e34123",
-  "prevId": "43ee77ba-a080-4158-a7a3-1d2e262a870c",
+  "id": "456d8d61-96ec-4655-98fb-52002417cdbb",
+  "prevId": "bf64558d-a2bf-4fc0-a9b2-ca4af4e34123",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -1548,6 +1548,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "avatar": {
+          "name": "avatar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "bio": {
           "name": "bio",
           "type": "text",
@@ -1623,6 +1629,10 @@
         }
       },
       "checkConstraints": {
+        "profiles_avatar_len_check": {
+          "name": "profiles_avatar_len_check",
+          "value": "\"profiles\".\"avatar\" is null or char_length(\"profiles\".\"avatar\") <= 32"
+        },
         "profiles_target_year_check": {
           "name": "profiles_target_year_check",
           "value": "\"profiles\".\"target_year\" is null or \"profiles\".\"target_year\" between 2000 and 2100"
