@@ -31,7 +31,7 @@ export function CanvasRail({ unread = 0 }: { unread?: number }) {
   return (
     <aside
       aria-label="Shortcuts"
-      className="sticky top-6 hidden h-fit flex-col items-center gap-2.5 lg:flex"
+      className="sticky top-6 hidden max-h-[calc(100svh-9rem)] min-h-[32rem] flex-col items-center gap-2.5 lg:flex"
     >
       {SHORTCUTS.map(({ href, label, icon: Icon }) => {
         const on = pathname === href || pathname.startsWith(`${href}/`);
@@ -54,7 +54,7 @@ export function CanvasRail({ unread = 0 }: { unread?: number }) {
         );
       })}
 
-      <div className="relative mt-4">
+      <div className="relative mt-auto">
         {unread > 0 ? (
           <span className="bg-ok-soft text-ok tnum absolute -top-1 -left-2 z-2 rounded-full px-1.5 py-0.5 text-[10.5px] font-bold">
             {unread > 99 ? "99+" : unread}

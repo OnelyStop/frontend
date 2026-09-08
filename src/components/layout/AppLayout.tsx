@@ -22,7 +22,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         >
           {/* Full bleed: the frame is the page, not a card floating on one. */}
           <div className="flex min-h-svh w-full flex-col">
-            <Suspense fallback={<div className="h-17" />}>
+            <Suspense fallback={<div className="h-21" />}>
               <RunningHead />
             </Suspense>
 
@@ -76,12 +76,15 @@ function Bump() {
     <svg
       ref={ref}
       aria-hidden
-      viewBox="0 0 40 14"
-      className="pointer-events-none absolute -top-3.5 hidden h-3.5 w-10 -translate-x-1/2 lg:block"
+      viewBox="0 0 64 12"
+      className="pointer-events-none absolute -top-3.5 hidden h-3 w-16 -translate-x-1/2 lg:block"
       style={{ left: x ?? -999 }}
     >
-      {/* Straight flanks and a rounded apex — a peak, not a hill. */}
-      <path d="M0 14 L15 3 Q20 -0.6 25 3 L40 14 Z" fill="var(--color-stage)" />
+      {/* Eased into the edge at both ends, so it grows out of the stage. */}
+      <path
+        d="M0 12 C 10 12 14 6 20 3.2 Q32 -2.4 44 3.2 C 50 6 54 12 64 12 Z"
+        fill="var(--color-stage)"
+      />
     </svg>
   );
 }
