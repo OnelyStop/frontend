@@ -34,7 +34,25 @@ export type Doubt = {
   stuckByMe: boolean;
 };
 
+export type Reply = {
+  id: string;
+  body: string;
+  author: string;
+  createdAt: string;
+};
+
+/** A doubt with its thread — what the discussion page renders. */
+export type DoubtThread = {
+  doubt: Doubt;
+  replies: Reply[];
+};
+
 export type DoubtPage = {
   doubts: Doubt[];
   nextCursor: string | null;
 };
+
+export const replyCreate = z.object({
+  body: z.string().trim().min(2).max(4000),
+});
+export type ReplyCreate = z.infer<typeof replyCreate>;

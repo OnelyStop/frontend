@@ -58,6 +58,43 @@ export const doubts = pgTable(
   ],
 ).enableRLS();
 
+export const doubtReplies = pgTable(
+  "doubt_replies",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    doubtId: uuid("doubt_id")
+      .notNull()
+      .references(() => doubts.id, { onDelete: "cascade" }),
+    authorId: uuid("author_id")
+      .notNull()
+      .references(() => profiles.id, { onDelete: "cascade" }),
+    body: text("body").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    check(
+      "doubt_replies_body_len_check",
+      sql`char_length(${t.body}) between 2 and 4000`,
+    ),
+    // Oldest first is the reading order, and id tie-breaks so paging is stable.
+    index("doubt_replies_thread_idx").on(t.doubtId, t.createdAt, t.id),
+    pgPolicy("signed-in users can read every reply", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`true`,
+    }),
+    pgPolicy("signed-in users can post their own replies", {
+      for: "insert",
+      to: authenticatedRole,
+      withCheck: sql`(select auth.uid()) = ${t.authorId}`,
+    }),
+  ],
+).enableRLS();
+
 export const doubtStuck = pgTable(
   "doubt_stuck",
   {

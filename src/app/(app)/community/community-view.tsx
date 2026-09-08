@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Button, Empty, PageHeader, Segmented } from "@/design-system";
 import { SECTIONS, SECTION_LABEL, type Subject } from "@/data/navigation";
 import {
@@ -146,7 +148,8 @@ function DoubtCard({
         <span className="block text-[10px] leading-tight">stuck</span>
       </button>
 
-      <div className="min-w-0 flex-1">
+      {/* The stuck button is its own control, so only the body opens the thread. */}
+      <Link href={`/community/${doubt.id}`} className="group min-w-0 flex-1">
         <div className="text-ink-3 flex items-center gap-2 text-[13px]">
           <span className="text-ink-2 font-medium">
             {SECTION_LABEL[doubt.section]}
@@ -154,10 +157,15 @@ function DoubtCard({
           <span aria-hidden>·</span>
           <span>{doubt.topic}</span>
         </div>
-        <h3 className="mt-1 text-[15px] leading-snug font-medium">
+        <h3 className="group-hover:text-brand mt-1 flex items-start gap-1.5 text-[15px] leading-snug font-semibold transition-colors">
           {doubt.title}
+          <ArrowUpRight
+            size={15}
+            strokeWidth={2}
+            className="text-ink-4 group-hover:text-brand mt-0.5 shrink-0"
+          />
         </h3>
-        <p className="text-ink-3 mt-1 max-w-[70ch] text-[13px] leading-relaxed">
+        <p className="text-ink-3 mt-1 line-clamp-2 max-w-[70ch] text-[13px] leading-relaxed">
           {doubt.body}
         </p>
         <div className="text-ink-3 mt-2 flex items-center gap-3 text-[13px]">
@@ -165,7 +173,7 @@ function DoubtCard({
           <span aria-hidden>·</span>
           <span>{ago(doubt.createdAt)}</span>
         </div>
-      </div>
+      </Link>
     </li>
   );
 }

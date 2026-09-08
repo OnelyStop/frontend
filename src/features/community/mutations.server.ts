@@ -1,7 +1,7 @@
 import "server-only";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { doubts, doubtStuck } from "@/db/schema";
+import { doubtReplies, doubts, doubtStuck } from "@/db/schema";
 import { monthlyPostCount } from "./queries.server";
 import {
   limitsFor,
@@ -73,4 +73,24 @@ export async function postDoubt(
     .returning({ id: doubts.id });
 
   return { ok: true, doubtId: row.id };
+}
+
+/** A reply is not metered: the quota is on starting a thread, not on helping in one. */
+export async function postReply(
+  userId: string,
+  doubtId: string,
+  body: string,
+): Promise<{ ok: true; replyId: string } | { ok: false }> {
+  const thread = await db.query.doubts.findFirst({
+    where: eq(doubts.id, doubtId),
+    columns: { id: true },
+  });
+  if (!thread) return { ok: false };
+
+  const [row] = await db
+    .insert(doubtReplies)
+    .values({ doubtId, authorId: userId, body })
+    .returning({ id: doubtReplies.id });
+
+  return { ok: true, replyId: row.id };
 }
