@@ -17,14 +17,11 @@ import {
   IconButton,
   Input,
   Kbd,
-  Lattice,
-  LatticeCell,
   MenuRow,
   PageHeader,
   SectionTitle,
   Segmented,
   Select,
-  Stat,
   Table,
   TargetBar,
   Td,
@@ -310,30 +307,6 @@ export function DesignView() {
           <Button size="md">Medium</Button>
           <Button size="lg">Large</Button>
         </div>
-      </Section>
-
-      <Section
-        title="Lattice"
-        note="The signature layout — ruled ground, not objects"
-      >
-        <Lattice cols={4}>
-          <LatticeCell>
-            <Stat
-              label="Marks per minute"
-              value="1.97"
-              note="1.26 if you attempt everything"
-            />
-          </LatticeCell>
-          <LatticeCell>
-            <Stat label="Bankable topics" value="9" note="fast and accurate" />
-          </LatticeCell>
-          <LatticeCell>
-            <Stat label="On your skip list" value="8" note="slow and wrong" />
-          </LatticeCell>
-          <LatticeCell onClick={() => undefined}>
-            <Stat label="Median pace" value="38s" note="clickable cell" />
-          </LatticeCell>
-        </Lattice>
       </Section>
 
       <Section title="Surfaces">

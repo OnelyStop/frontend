@@ -2,15 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import {
-  Badge,
-  Empty,
-  Input,
-  Lattice,
-  LatticeCell,
-  PageHeader,
-  Segmented,
-} from "@/design-system";
+import { Badge, Empty, Input, PageHeader, Segmented } from "@/design-system";
 import {
   SECTION_FROM_DB,
   SECTION_KEY,
@@ -129,40 +121,40 @@ export function NotesView({ notes }: { notes: NoteSummary[] }) {
                 className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
               >
                 <div className="overflow-hidden">
-                  <Lattice cols={3} as="ul">
+                  <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                     {g.items.map((n) => {
                       const subject = SECTION_FROM_DB[n.section];
                       return (
-                        <LatticeCell
-                          key={n.noteId}
-                          as="li"
-                          href={`/notes/${encodeURIComponent(n.noteId)}`}
-                          className="hover:shadow-pop transition-all duration-200 hover:z-10 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] active:shadow-none"
-                        >
-                          <span
-                            className="text-[13px]"
-                            style={{
-                              color: `var(--color-${SECTION_KEY[subject]})`,
-                            }}
+                        <li key={n.noteId}>
+                          <a
+                            href={`/notes/${encodeURIComponent(n.noteId)}`}
+                            className="card card-lift block h-full p-7"
                           >
-                            {SECTION_LABEL[subject]}
-                            {n.subtopic ? ` · ${n.subtopic}` : ""}
-                          </span>
-                          <h3 className="mt-2.5 text-[15.5px] leading-snug">
-                            {n.title}
-                          </h3>
-                          <p className="text-ink-2 mt-2 text-[14px] leading-relaxed">
-                            {n.summary}
-                          </p>
-                          {n.difficulty ? (
-                            <Badge tone="neutral" className="mt-3">
-                              {n.difficulty}
-                            </Badge>
-                          ) : null}
-                        </LatticeCell>
+                            <span
+                              className="text-[13px]"
+                              style={{
+                                color: `var(--color-${SECTION_KEY[subject]})`,
+                              }}
+                            >
+                              {SECTION_LABEL[subject]}
+                              {n.subtopic ? ` · ${n.subtopic}` : ""}
+                            </span>
+                            <h3 className="mt-2.5 text-[15.5px] leading-snug">
+                              {n.title}
+                            </h3>
+                            <p className="text-ink-2 mt-2 text-[14px] leading-relaxed">
+                              {n.summary}
+                            </p>
+                            {n.difficulty ? (
+                              <Badge tone="neutral" className="mt-3">
+                                {n.difficulty}
+                              </Badge>
+                            ) : null}
+                          </a>
+                        </li>
                       );
                     })}
-                  </Lattice>
+                  </ul>
                 </div>
               </div>
             </div>

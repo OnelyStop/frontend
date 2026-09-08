@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Card,
-  Lattice,
-  LatticeCell,
-  PageHeader,
-  Stat,
-  TargetBar,
-} from "@/design-system";
+import { Card, PageHeader, Tile, TargetBar } from "@/design-system";
 import { MarksWaterfall } from "@/features/attempts/components/marks-waterfall";
 import { QuestionReview } from "@/features/attempts/components/question-review";
 import { ScoreTimeline } from "@/features/attempts/components/score-timeline";
@@ -77,24 +70,20 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
         </div>
       ) : null}
 
-      <Lattice cols={4} className="mb-6">
-        <LatticeCell>
-          <Stat label="Score" value={scorecard.score.toFixed(2)} />
-        </LatticeCell>
-        <LatticeCell>
-          <Stat label="Accuracy" value={`${scorecard.accuracy.toFixed(0)}%`} />
-        </LatticeCell>
-        <LatticeCell>
-          <Stat
-            label="Attempted"
-            value={`${scorecard.attempted}/${scorecard.totalQuestions}`}
-            note={`${scorecard.skipped} left blank`}
-          />
-        </LatticeCell>
-        <LatticeCell>
-          <Stat label="Marks / min" value={marksPerMin} />
-        </LatticeCell>
-      </Lattice>
+      <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <Tile value={scorecard.score.toFixed(2)} label="Score" tone="info" />
+        <Tile
+          value={`${scorecard.accuracy.toFixed(0)}%`}
+          label="Accuracy"
+          tone={cleared ? "ok" : "bad"}
+        />
+        <Tile
+          value={`${scorecard.attempted}/${scorecard.totalQuestions}`}
+          label={`Attempted · ${scorecard.skipped} blank`}
+          outline
+        />
+        <Tile value={marksPerMin} label="Marks / min" tone="neutral" />
+      </div>
 
       <div className="mb-6 grid gap-4 lg:grid-cols-2">
         <MarksWaterfall scorecard={scorecard} />

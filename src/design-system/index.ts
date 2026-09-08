@@ -14,14 +14,7 @@ export {
   type ButtonVariant,
 } from "./components/button";
 
-export {
-  Card,
-  Lattice,
-  LatticeCell,
-  MenuRow,
-  Popover,
-  type CardTone,
-} from "./components/surface";
+export { Card, MenuRow, Popover, type CardTone } from "./components/surface";
 
 export { Rationale } from "./components/rationale";
 
@@ -54,7 +47,6 @@ export {
   Avatar,
   Badge,
   Kbd,
-  Stat,
   Table,
   TargetBar,
   Td,

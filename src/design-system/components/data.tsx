@@ -61,28 +61,6 @@ export function Tile({
   );
 }
 
-export function Stat({
-  label,
-  value,
-  note,
-}: {
-  label: string;
-  value: string;
-  note?: string;
-}) {
-  return (
-    <>
-      <p className="text-ink-2 text-[14px]">{label}</p>
-      <p className="tnum mt-3 text-[38px] leading-none tracking-[-0.03em]">
-        {value}
-      </p>
-      {note ? (
-        <p className="text-ink-3 mt-3 text-[13px] leading-relaxed">{note}</p>
-      ) : null}
-    </>
-  );
-}
-
 /* A score reads against its target, never a maximum: the notch is the target and the fill turns red only when it misses. */
 export function TargetBar({
   value,
