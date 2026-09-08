@@ -63,6 +63,13 @@
   --color-ga: #ea7317;
   --color-computer: #db2777;
 
+  /* Soft pairs, so a card can be filled by which section it belongs to. */
+  --color-quant-soft: #e2e0fb;
+  --color-reasoning-soft: #eedcfa;
+  --color-english-soft: #d5eff5;
+  --color-ga-soft: #fbe6d2;
+  --color-computer-soft: #fbdbe9;
+
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
   --radius-ctl: 16px;

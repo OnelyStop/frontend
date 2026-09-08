@@ -74,7 +74,7 @@ export function ThreadView({ thread }: { thread: DoubtThread }) {
 
       <CanvasTitle>{doubt.title}</CanvasTitle>
 
-      <Card className="mb-8">
+      <Card tone="brand" className="mb-8">
         <p className="text-[14.5px] leading-relaxed whitespace-pre-wrap">
           {doubt.body}
         </p>
@@ -101,7 +101,7 @@ export function ThreadView({ thread }: { thread: DoubtThread }) {
       ) : (
         <ul className="mb-8 grid gap-3">
           {replies.map((r) => (
-            <li key={r.id} className="card p-5">
+            <li key={r.id} className="card bg-info-soft p-5">
               <p className="text-[14.5px] leading-relaxed whitespace-pre-wrap">
                 {r.body}
               </p>

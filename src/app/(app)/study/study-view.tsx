@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
-import { CornerBadge, Empty, PageHeader, StatusPill } from "@/design-system";
+import {
+  CornerBadge,
+  Empty,
+  PageHeader,
+  StatusPill,
+  cn,
+  tintFor,
+} from "@/design-system";
 import type { SubjectSummary } from "@/features/study/types";
 
 const BLURB: Record<string, string> = {
@@ -37,8 +44,13 @@ export function StudyBrowseView({ subjects }: { subjects: SubjectSummary[] }) {
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {subjects.map((s) => (
             <Link key={s.slug} href={`/study/${s.slug}`} className="block">
-              <article className="card card-lift relative h-full p-8">
-                <CornerBadge tone="info">
+              <article
+                className={cn(
+                  "card card-lift relative h-full p-6",
+                  tintFor(s.slug),
+                )}
+              >
+                <CornerBadge tone="quiet">
                   <BookOpen size={20} />
                 </CornerBadge>
                 <h3 className="max-w-[14ch] text-[20px] leading-[1.16] font-bold tracking-[-0.03em]">

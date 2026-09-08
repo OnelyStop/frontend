@@ -16,6 +16,13 @@ const DIFFICULTY_TONE = {
   advanced: "bad",
 } as const;
 
+// The fill answers the question you are actually asking: is this one for me yet?
+const DIFFICULTY_FILL: Record<string, string> = {
+  beginner: "bg-ok-soft",
+  intermediate: "bg-warn-soft",
+  advanced: "bg-bad-soft",
+};
+
 export function SubjectView({
   subjectSlug,
   name,
@@ -69,7 +76,7 @@ export function SubjectView({
                     <Link
                       key={t.slug}
                       href={`/study/${subjectSlug}/${chapter.slug}/${t.slug}`}
-                      className="card card-lift flex h-full flex-col p-5"
+                      className={`card card-lift flex h-full flex-col p-5 ${DIFFICULTY_FILL[t.difficulty] ?? ""}`}
                     >
                       <p className="text-[15px] leading-snug font-semibold">
                         {t.title}

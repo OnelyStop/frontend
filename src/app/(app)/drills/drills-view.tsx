@@ -143,7 +143,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
           }
         />
 
-        <Card className="p-8">
+        <Card tone="brand" className="p-6">
           <div className="mb-6 flex items-center gap-3">
             <div className="rounded-pill bg-line h-1.5 flex-1 overflow-hidden">
               <div

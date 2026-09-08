@@ -3,7 +3,8 @@ import { cn } from "../lib/cn";
 
 // `tone` fills the card when the card itself is what carries the state.
 
-export type CardTone = "plain" | "ok" | "warn" | "bad" | "info" | "active";
+export type CardTone =
+  "plain" | "ok" | "warn" | "bad" | "info" | "brand" | "active";
 
 const CARD_TONE: Record<CardTone, string> = {
   plain: "",
@@ -11,6 +12,7 @@ const CARD_TONE: Record<CardTone, string> = {
   warn: "bg-warn-soft",
   bad: "bg-bad-soft",
   info: "bg-info-soft",
+  brand: "bg-brand-soft",
   active: "bg-active-soft",
 };
 

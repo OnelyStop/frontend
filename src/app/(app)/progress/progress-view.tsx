@@ -77,7 +77,7 @@ export function ProgressView({ progress }: { progress: Progress }) {
       </div>
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <Card>
+        <Card tone="info">
           <SectionTitle aside="accuracy · seconds per question">
             By section
           </SectionTitle>
@@ -117,7 +117,7 @@ export function ProgressView({ progress }: { progress: Progress }) {
           </p>
         </Card>
 
-        <Card>
+        <Card tone="info">
           <SectionTitle aside={`${weekTotal} questions`}>
             This week
           </SectionTitle>

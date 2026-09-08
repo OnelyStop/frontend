@@ -1,4 +1,5 @@
 export { cn } from "./lib/cn";
+export { SECTION_TINT, tintFor } from "./lib/tints";
 export * from "./lib/motion";
 
 export { Brand } from "./components/brand";

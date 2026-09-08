@@ -140,7 +140,7 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
         }
       />
 
-      <Card>
+      <Card tone="info">
         <SectionTitle>Your details</SectionTitle>
         <div className="border-line mb-5 border-b pb-5">
           <p className="text-ink-2 text-[13px]">Avatar</p>
@@ -186,7 +186,7 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
         </label>
       </Card>
 
-      <Card className="mt-5">
+      <Card tone="brand" className="mt-5">
         <SectionTitle>Exam you are preparing for</SectionTitle>
         <p className="text-ink-3 -mt-2 mb-4 text-[13px]">
           Sets the targets, sectional timing and paper pattern used everywhere.
