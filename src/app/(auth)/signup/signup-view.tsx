@@ -12,11 +12,14 @@ import {
   GoogleButton,
   SetupNotice,
 } from "@/features/auth/components/AuthBits";
+import { PasswordChecklist } from "@/features/auth/components/PasswordChecklist";
+import {
+  MIN_PASSWORD_LENGTH,
+  passwordMeetsRules,
+} from "@/features/auth/password-rules";
 import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-const MIN_PASSWORD_LENGTH = 8;
 
 export function SignupView() {
   const { signUp, signInWithGoogle, user, configured } = useAuth();
@@ -25,7 +28,13 @@ export function SignupView() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [rulesOpen, setRulesOpen] = useState(false);
   const [sent, setSent] = useState(false);
+
+  const rulesMet = passwordMeetsRules(password);
+  const mismatch = confirm.length > 0 && password !== confirm;
+  const canSubmit = rulesMet && confirm.length > 0 && !mismatch;
 
   useEffect(() => {
     if (user) router.replace("/home");
@@ -121,15 +130,41 @@ export function SignupView() {
               required
             />
           </Field>
-          <Field label="Password" htmlFor="signup-password">
+          <div>
+            <Field label="Password" htmlFor="signup-password">
+              <Input
+                id="signup-password"
+                type="password"
+                autoComplete="new-password"
+                placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onFocus={() => setRulesOpen(true)}
+                minLength={MIN_PASSWORD_LENGTH}
+                aria-describedby="password-rules"
+                required
+              />
+            </Field>
+            <div id="password-rules">
+              <PasswordChecklist
+                value={password}
+                open={rulesOpen || password.length > 0}
+              />
+            </div>
+          </div>
+          <Field
+            label="Confirm password"
+            htmlFor="signup-confirm"
+            error={mismatch ? "Both passwords must match." : undefined}
+          >
             <Input
-              id="signup-password"
+              id="signup-confirm"
               type="password"
               autoComplete="new-password"
-              placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              minLength={MIN_PASSWORD_LENGTH}
+              placeholder="Type it again"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              aria-invalid={mismatch || undefined}
               required
             />
           </Field>
@@ -142,7 +177,7 @@ export function SignupView() {
           size="lg"
           block
           className="mt-5"
-          disabled={busy || !configured}
+          disabled={busy || !configured || !canSubmit}
         >
           {busy ? <Loader2 size={16} className="animate-spin" /> : null}
           {busy ? "Creating account…" : "Create free account"}
