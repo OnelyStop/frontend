@@ -1,5 +1,6 @@
 import "server-only";
 
+import { cache } from "react";
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { AUTH_DISABLED } from "@/config/auth";
@@ -27,10 +28,11 @@ const {
 
 type Preview = { preview?: boolean };
 
-export async function canPreview(): Promise<boolean> {
+// cache(): the page and its generateMetadata both ask — one round-trip, not two.
+export const canPreview = cache(async (): Promise<boolean> => {
   if (AUTH_DISABLED) return true;
   return (await getRole()) !== null;
-}
+});
 
 const publishedFilter = (opts?: Preview) =>
   opts?.preview ? undefined : eq(topics.status, "published");
@@ -65,7 +67,7 @@ export async function listSubjects(opts?: Preview): Promise<SubjectSummary[]> {
   }));
 }
 
-export async function getSubjectChapters(
+export const getSubjectChapters = cache(async function getSubjectChapters(
   subjectSlug: string,
   opts?: Preview,
 ): Promise<{
@@ -130,14 +132,30 @@ export async function getSubjectChapters(
         })),
     })),
   };
-}
+});
 
 type TopicRow = typeof topics.$inferSelect;
 
 const isUuid = (s: string) =>
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s);
 
-async function resolveTopic(
+/** generateMetadata only needs the title — not the whole 7-query outline. */
+export const getTopicTitle = cache(
+  async (topicSlug: string): Promise<string> => {
+    const row = await db.query.topics.findFirst({
+      where: isUuid(topicSlug)
+        ? eq(topics.id, topicSlug)
+        : eq(topics.slug, topicSlug),
+      columns: { title: true, status: true },
+    });
+    if (!row) return "Topic";
+    // Don't leak a draft topic's title into <title> for a non-staff visitor.
+    if (row.status !== "published" && !(await canPreview())) return "Topic";
+    return row.title;
+  },
+);
+
+const resolveTopic = cache(async function resolveTopic(
   ref: string,
   opts?: Preview,
 ): Promise<TopicRow | null> {
@@ -147,37 +165,47 @@ async function resolveTopic(
   if (!row) return null;
   if (!opts?.preview && row.status !== "published") return null;
   return row;
-}
+});
 
-export async function getTopicOutline(
+export const getTopicOutline = cache(async function getTopicOutline(
   topicSlug: string,
   opts?: Preview,
 ): Promise<TopicOutline | null> {
   const topic = await resolveTopic(topicSlug, opts);
   if (!topic) return null;
 
-  const chapter = await db.query.chapters.findFirst({
-    where: eq(chapters.id, topic.chapterId),
-  });
-  if (!chapter) return null;
-  const subject = await db.query.subjects.findFirst({
-    where: eq(subjects.id, chapter.subjectId),
-  });
+  // Each query is a remote round-trip; run the ones that only need `topic` at once.
+  const [chapter, version, siblingRows] = await Promise.all([
+    db.query.chapters.findFirst({ where: eq(chapters.id, topic.chapterId) }),
+    db.query.contentVersions.findFirst({
+      where: and(
+        eq(contentVersions.topicId, topic.id),
+        eq(contentVersions.version, topic.currentVersion),
+      ),
+    }),
+    db
+      .select({
+        slug: topics.slug,
+        title: topics.title,
+        summary: topics.summary,
+        difficulty: topics.difficulty,
+        estimatedMinutes: topics.estimatedMinutes,
+      })
+      .from(topics)
+      .where(and(eq(topics.chapterId, topic.chapterId), publishedFilter(opts)))
+      .orderBy(asc(topics.position), asc(topics.slug)),
+  ]);
+  if (!chapter || !version) return null;
+
+  const [subject, blockRows] = await Promise.all([
+    db.query.subjects.findFirst({ where: eq(subjects.id, chapter.subjectId) }),
+    db
+      .select()
+      .from(contentBlocks)
+      .where(eq(contentBlocks.contentVersionId, version.id))
+      .orderBy(asc(contentBlocks.position)),
+  ]);
   if (!subject) return null;
-
-  const version = await db.query.contentVersions.findFirst({
-    where: and(
-      eq(contentVersions.topicId, topic.id),
-      eq(contentVersions.version, topic.currentVersion),
-    ),
-  });
-  if (!version) return null;
-
-  const blockRows = await db
-    .select()
-    .from(contentBlocks)
-    .where(eq(contentBlocks.contentVersionId, version.id))
-    .orderBy(asc(contentBlocks.position));
 
   const linkRows = blockRows.length
     ? await db
@@ -229,19 +257,8 @@ export async function getTopicOutline(
     sourceKeys: keysByBlock.get(b.id) ?? [],
   }));
 
-  const siblings = await db
-    .select({
-      slug: topics.slug,
-      title: topics.title,
-      summary: topics.summary,
-      difficulty: topics.difficulty,
-      estimatedMinutes: topics.estimatedMinutes,
-    })
-    .from(topics)
-    .where(and(eq(topics.chapterId, topic.chapterId), publishedFilter(opts)))
-    .orderBy(asc(topics.position), asc(topics.slug));
-  const idx = siblings.findIndex((s) => s.slug === topic.slug);
-  const asRef = (s: (typeof siblings)[number] | undefined) =>
+  const idx = siblingRows.findIndex((s) => s.slug === topic.slug);
+  const asRef = (s: (typeof siblingRows)[number] | undefined) =>
     s
       ? {
           slug: s.slug,
@@ -267,10 +284,10 @@ export async function getTopicOutline(
     chapter: { slug: chapter.slug, name: chapter.name },
     blocks,
     sources: [...sourceByUrl.values()],
-    prev: asRef(idx > 0 ? siblings[idx - 1] : undefined),
-    next: asRef(idx >= 0 ? siblings[idx + 1] : undefined),
+    prev: asRef(idx > 0 ? siblingRows[idx - 1] : undefined),
+    next: asRef(idx >= 0 ? siblingRows[idx + 1] : undefined),
   };
-}
+});
 
 export async function listFlashcards(
   topicSlug: string,

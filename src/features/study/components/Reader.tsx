@@ -11,6 +11,7 @@ import type {
   StudyNote,
   TopicOutline,
 } from "../types";
+import { CompanionFab } from "@/features/companion/CompanionFab";
 import { NotesPanel } from "./NotesPanel";
 import { AddNoteButton, BlockNoteChips } from "./StickyNote";
 import { FlashcardPlayer } from "./FlashcardPlayer";
@@ -325,6 +326,8 @@ export function Reader({
           onClose={() => setCardsOpen(false)}
         />
       ) : null}
+
+      <CompanionFab seed={`${outline.title} — ${outline.summary}`} />
     </div>
   );
 }

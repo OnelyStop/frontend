@@ -22,4 +22,6 @@ export const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-jakarta",
+  // Without a stated fallback the swap reflows against Times, not a sans.
+  fallback: ["Arial", "Helvetica", "sans-serif"],
 });

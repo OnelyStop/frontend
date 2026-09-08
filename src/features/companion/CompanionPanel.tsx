@@ -1,14 +1,35 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, X } from "lucide-react";
+import { Maximize2, Minimize2, Sparkles, X } from "lucide-react";
 import { useCompanion } from "./CompanionContext";
+
+const DOCK_KEY = "onely.companion.dock";
 
 export function CompanionPanel() {
   const { open, selection, messages, busy, error, ask, close } = useCompanion();
   const [draft, setDraft] = useState("");
+  // false = a floating card in the corner; true = docked full-height sidebar.
+  const [docked, setDocked] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      setDocked(localStorage.getItem(DOCK_KEY) === "1");
+    } catch {
+      /* private mode — default to the card */
+    }
+  }, []);
+
+  const setDock = (next: boolean) => {
+    setDocked(next);
+    try {
+      localStorage.setItem(DOCK_KEY, next ? "1" : "0");
+    } catch {
+      /* ignore */
+    }
+  };
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
@@ -44,12 +65,29 @@ export function CompanionPanel() {
   return (
     <aside
       aria-label="Ask Onely"
-      className="border-line bg-canvas shadow-pop fixed inset-y-0 right-0 z-90 flex w-95 max-w-[92vw] flex-col border-l"
+      className={`pop-in bg-canvas border-line shadow-pop ease-soft fixed right-0 bottom-0 z-90 flex w-95 max-w-[92vw] flex-col border transition-[height,right,bottom,border-radius,border-width] duration-300 ${
+        docked
+          ? "h-dvh rounded-none border-y-0 border-r-0"
+          : "right-4 bottom-4 h-[min(620px,calc(100dvh-2rem))] rounded-[22px]"
+      }`}
     >
-      <header className="border-line flex h-16 shrink-0 items-center gap-2 border-b px-5">
+      <header className="border-line flex h-14 shrink-0 items-center gap-2 border-b px-4">
         <Sparkles size={15} strokeWidth={2} className="text-brand" />
         <span className="text-[14px]">Ask Onely</span>
         <span className="flex-1" />
+        <button
+          type="button"
+          onClick={() => setDock(!docked)}
+          aria-label={docked ? "Float in the corner" : "Dock to the side"}
+          title={docked ? "Float in the corner" : "Dock to the side"}
+          className="press rounded-ctl text-ink-3 hover:bg-line hover:text-ink grid size-8 place-items-center"
+        >
+          {docked ? (
+            <Minimize2 size={15} strokeWidth={1.75} />
+          ) : (
+            <Maximize2 size={15} strokeWidth={1.75} />
+          )}
+        </button>
         <button
           type="button"
           onClick={close}
@@ -61,7 +99,7 @@ export function CompanionPanel() {
       </header>
 
       {selection ? (
-        <blockquote className="border-brand bg-brand-soft/50 text-ink-2 mx-5 mt-4 shrink-0 border-l-2 py-2 pr-2 pl-3 text-[13px] leading-relaxed">
+        <blockquote className="border-brand bg-brand-soft/50 text-ink-2 mx-4 mt-4 shrink-0 border-l-2 py-2 pr-2 pl-3 text-[13px] leading-relaxed">
           {selection}
         </blockquote>
       ) : null}
@@ -69,7 +107,7 @@ export function CompanionPanel() {
       <div
         ref={logRef}
         data-lenis-prevent
-        className="flex-1 space-y-3 overflow-y-auto p-5"
+        className="flex-1 space-y-3 overflow-y-auto p-4"
       >
         {messages.length === 0 && !busy ? (
           <p className="text-ink-3 text-[13px] leading-relaxed">

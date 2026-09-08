@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Terms of service",
   description:
     "The agreement between you and onelystop: who can use it, what the marking is and is not, how paid billing and the target promise work, and who to write to when something is wrong.",
+  alternates: { canonical: "/terms" },
 };
 
 const UPDATED = "5 September 2026";
