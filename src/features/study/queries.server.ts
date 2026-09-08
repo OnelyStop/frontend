@@ -1,7 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
-import { and, asc, eq, ilike, inArray, sql } from "drizzle-orm";
+import { and, asc, desc, eq, ilike, inArray, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { AUTH_DISABLED } from "@/config/auth";
 import { getRole } from "@/features/auth/roles";
@@ -11,6 +11,7 @@ import type {
   TopicPath,
   TopicPreview,
   ContentBlock,
+  OwnNote,
   Flashcard,
   StudyNote,
   SubjectSummary,
@@ -344,6 +345,40 @@ export async function listNotes(
     .where(and(eq(userNotes.userId, userId), eq(userNotes.topicId, topicId)))
     .orderBy(asc(userNotes.createdAt));
   return rows.map(toNote);
+}
+
+/** Every note a learner has written, newest first, with the topic it hangs off. */
+export async function listAllNotes(userId: string): Promise<OwnNote[]> {
+  const rows = await db
+    .select({
+      id: userNotes.id,
+      bodyMarkdown: userNotes.bodyMarkdown,
+      color: userNotes.color,
+      selectedText: userNotes.selectedText,
+      updatedAt: userNotes.updatedAt,
+      topicTitle: topics.title,
+      topicSlug: topics.slug,
+      chapterSlug: chapters.slug,
+      subjectSlug: subjects.slug,
+      subjectName: subjects.name,
+    })
+    .from(userNotes)
+    .innerJoin(topics, eq(topics.id, userNotes.topicId))
+    .innerJoin(chapters, eq(chapters.id, topics.chapterId))
+    .innerJoin(subjects, eq(subjects.id, chapters.subjectId))
+    .where(eq(userNotes.userId, userId))
+    .orderBy(desc(userNotes.updatedAt));
+
+  return rows.map((r) => ({
+    id: r.id,
+    bodyMarkdown: r.bodyMarkdown,
+    color: r.color as OwnNote["color"],
+    selectedText: r.selectedText,
+    updatedAt: r.updatedAt.toISOString(),
+    topicTitle: r.topicTitle,
+    subjectName: r.subjectName,
+    href: `/study/${r.subjectSlug}/${r.chapterSlug}/${r.topicSlug}`,
+  }));
 }
 
 export async function createNote(
