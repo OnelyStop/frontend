@@ -22,12 +22,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         >
           {/* Full bleed: the frame is the page, not a card floating on one. */}
           <div className="flex min-h-svh w-full flex-col">
-            <Suspense fallback={<div className="h-20" />}>
+            <Suspense fallback={<div className="h-17" />}>
               <RunningHead />
             </Suspense>
 
             <div className="relative flex flex-1 flex-col px-3 pb-3">
-              <div className="bg-stage relative flex-1 rounded-[26px] px-5 pt-9 pb-14 sm:px-8">
+              <div className="bg-stage relative flex-1 rounded-[26px] px-6 pt-11 pb-16 sm:px-10">
                 <Bump />
                 <div className="grid gap-x-9 lg:grid-cols-[64px_minmax(0,1fr)]">
                   <CanvasRail />
@@ -71,14 +71,17 @@ function Bump() {
   if (x === null) return null;
 
   return (
-    <div
+    <svg
       aria-hidden
-      className="pointer-events-none absolute top-0 hidden lg:block"
+      viewBox="0 0 132 18"
+      preserveAspectRatio="none"
+      className="pointer-events-none absolute -top-[17px] hidden h-[18px] w-33 -translate-x-1/2 lg:block"
       style={{ left: x }}
     >
-      <span className="bg-stage absolute -top-7 left-[-58px] h-8 w-29 rounded-t-[16px]" />
-      <span className="bg-frame absolute top-0 left-[-76px] size-[18px] rounded-bl-[18px]" />
-      <span className="bg-frame absolute top-0 left-[58px] size-[18px] rounded-br-[18px]" />
-    </div>
+      <path
+        d="M0 18 C 30 18 30 0 66 0 C 102 0 102 18 132 18 Z"
+        fill="var(--color-stage)"
+      />
+    </svg>
   );
 }

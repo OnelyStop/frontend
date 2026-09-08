@@ -90,7 +90,7 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
 }
 
 export function RunningHead() {
-  const { subject, board, setBoard, initials, avatar } = useApp();
+  const { subject, board, setBoard, avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
   // Neither state renders until auth resolves, so the header never flashes either way.
   const signedOut = !loading && !user;
@@ -173,7 +173,7 @@ export function RunningHead() {
 
   return (
     <header className="text-white">
-      <div className="flex h-20 items-center gap-5 px-6 sm:px-8">
+      <div className="flex h-17 items-center gap-5 px-6 sm:px-8">
         <Link
           href="/home"
           className="shrink-0 text-[22px] font-bold tracking-[-0.03em]"
@@ -280,9 +280,21 @@ export function RunningHead() {
             aria-expanded={account}
             aria-label="Account"
             onClick={() => setAccount((v) => !v)}
-            className="press border-on-frame-line hover:border-on-frame-3 grid size-11 place-items-center overflow-hidden rounded-full border text-[13px]"
+            className="press rounded-pill hover:bg-frame-2 flex items-center gap-2.5 py-1.5 pr-2 pl-1.5"
           >
-            {avatar ? <AvatarMark avatar={avatar} /> : initials}
+            {/* Every account gets a mark: initials on a dark disc read as a placeholder. */}
+            <span className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-full">
+              <AvatarMark avatar={avatar ?? "indigo"} />
+            </span>
+            <span className="hidden text-left leading-tight xl:block">
+              <span className="text-on-frame block text-[14px] font-semibold">
+                {profile.name || "Your account"}
+              </span>
+              <span className="text-on-frame-3 block text-[12px]">
+                {profile.email}
+              </span>
+            </span>
+            <ChevronDown size={16} className="text-on-frame-3 shrink-0" />
           </button>
 
           {account ? (

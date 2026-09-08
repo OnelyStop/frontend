@@ -145,14 +145,16 @@ export function PlanGrid({
             <>
               Yearly
               {savingPct > 0 ? (
-                <Badge tone="ok">Save {savingPct}%</Badge>
+                <span className="text-ok text-[12px] font-semibold">
+                  −{savingPct}%
+                </span>
               ) : null}
             </>
           ),
         }}
       />
 
-      <div className="mt-7 grid items-start gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-7 grid items-stretch gap-5 text-left sm:grid-cols-2 lg:grid-cols-3">
         {PLAN_COPY.map((plan) => {
           const price = priceFor(plan);
           const off = price

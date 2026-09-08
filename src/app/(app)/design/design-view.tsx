@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X } from "lucide-react";
+import { Check, Lock, MoreHorizontal, X } from "lucide-react";
 import {
   Avatar,
   Badge,
@@ -33,6 +33,20 @@ import {
   Textarea,
   Th,
   Tr,
+  ActiveCard,
+  AvatarStack,
+  CornerBadge,
+  CornerPlus,
+  Dock,
+  DockButton,
+  DropSlot,
+  EventCard,
+  PlanCard,
+  Rationale,
+  RoundAction,
+  SearchField,
+  StatusPill,
+  Tile,
 } from "@/design-system";
 
 // The tints, not the inks — the tint is the half that fills a surface.
@@ -115,6 +129,170 @@ export function DesignView() {
             </div>
           ))}
         </div>
+      </Section>
+
+      <Section
+        title="Plan card"
+        note="Title, state, and what you can do to it — the canvas is built from these"
+      >
+        <div className="grid gap-6 lg:grid-cols-2">
+          <PlanCard
+            title="Quantitative Aptitude"
+            meta={
+              <>
+                <span>
+                  Net <b className="text-ink font-semibold">23.75</b> vs 19.25
+                </span>
+                <span>
+                  Pace <b className="text-ink font-semibold">34s</b>
+                </span>
+              </>
+            }
+            plus={<CornerPlus label="Add a topic" />}
+            status={<StatusPill tone="done">Cleared 👏</StatusPill>}
+            actions={
+              <>
+                <RoundAction label="More">
+                  <MoreHorizontal size={18} />
+                </RoundAction>
+                <RoundAction label="Dismiss">
+                  <X size={18} />
+                </RoundAction>
+                <RoundAction label="Mark done" tone="dark">
+                  <Check size={18} />
+                </RoundAction>
+              </>
+            }
+          >
+            Simplification, number series and data interpretation under
+            sectional timing.
+          </PlanCard>
+
+          <PlanCard
+            title="General Awareness"
+            corner={
+              <CornerBadge>
+                <Lock size={20} />
+              </CornerBadge>
+            }
+            status={<StatusPill tone="soon">Upcoming ⏳</StatusPill>}
+          >
+            Banking awareness, RBI and SEBI updates, and the last six months of
+            current affairs.
+          </PlanCard>
+        </div>
+      </Section>
+
+      <Section
+        title="Active card"
+        note="At most one per screen, or being in progress stops meaning anything"
+      >
+        <ActiveCard
+          title="Reasoning Ability"
+          resumeLabel="Resume drill"
+          status={<StatusPill tone="live">🕐 Drilling 00:30</StatusPill>}
+          people={[
+            { id: "a", mark: "🧑🏻", tint: "#cfe3f7" },
+            { id: "b", mark: "👩🏽", tint: "#f7dcc4" },
+            { id: "c", mark: "🧑🏾", tint: "#f3c9d6" },
+          ]}
+          className="max-w-2xl"
+        >
+          Floor puzzles, seating arrangement and syllogism — the section that
+          eats the clock.
+        </ActiveCard>
+      </Section>
+
+      <Section title="Status pill" note="State, never an action">
+        <div className="flex flex-wrap items-center gap-3">
+          <StatusPill tone="done">Cleared 👏</StatusPill>
+          <StatusPill tone="miss">Missed by 4.50</StatusPill>
+          <StatusPill tone="locked">Locked 🔒</StatusPill>
+          <StatusPill tone="soon">Upcoming ⏳</StatusPill>
+          <StatusPill tone="live">🕐 Drilling 00:30</StatusPill>
+        </div>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <RoundAction label="More">
+            <MoreHorizontal size={18} />
+          </RoundAction>
+          <RoundAction label="Dismiss">
+            <X size={18} />
+          </RoundAction>
+          <RoundAction label="Confirm" tone="dark">
+            <Check size={18} />
+          </RoundAction>
+          <AvatarStack
+            people={[
+              { id: "a", mark: "🧑🏻", tint: "#cfe3f7" },
+              { id: "b", mark: "👩🏽", tint: "#f7dcc4" },
+            ]}
+          />
+        </div>
+      </Section>
+
+      <Section
+        title="Figures"
+        note="Tinted by meaning; the not-yet state has no fill"
+      >
+        <div className="grid max-w-2xl grid-cols-3 gap-4">
+          <Tile value="26" label="Papers" tone="info" />
+          <Tile value="2" label="Cleared" tone="ok" />
+          <Tile value="23" label="Upcoming" outline />
+        </div>
+        <div className="mt-6 max-w-md">
+          <SearchField
+            placeholder="Search papers, topics and notes"
+            hint="⌘K"
+          />
+        </div>
+      </Section>
+
+      <Section title="Event card" note="What is scheduled, and when">
+        <div className="grid max-w-md gap-0">
+          <EventCard kind="Mock" when="Tu, 25.03" tone="info">
+            IBPS PO Prelims 2024 under real sectional timing — 100 questions, 60
+            minutes.
+          </EventCard>
+          <EventCard kind="Drill" when="We, 26.03" tone="brand">
+            Twenty questions drawn from the reasoning bank.
+          </EventCard>
+          <EventCard kind="Marking" when="Th, 27.03" tone="warn">
+            Two descriptive answers submitted. Twenty-eight of thirty left.
+          </EventCard>
+          <DropSlot label="Drop a session here" />
+        </div>
+      </Section>
+
+      <Section
+        title="Onely"
+        note="Machine-written text never renders like a person's"
+      >
+        <Rationale quota="247 of 250 left" onReport={() => undefined}>
+          Eight wrong answers cost you 2.00 marks, and eight more were left
+          blank. Error spotting is where you lose most — 61% accuracy against
+          84% in comprehension.
+        </Rationale>
+      </Section>
+
+      <Section
+        title="Dock"
+        note="The floating toolbar; each button a tinted disc"
+      >
+        <Dock>
+          <DockButton label="Text" tint="#cfc2f7">
+            T
+          </DockButton>
+          <DockButton label="Highlight" tint="#bfe0f7">
+            A
+          </DockButton>
+          <DockButton label="Note" tint="#f7c2d4">
+            ✎
+          </DockButton>
+          <DockButton label="Ask Onely" tint="#dcc6f7">
+            ?
+          </DockButton>
+          <DockButton label="Add">+</DockButton>
+        </Dock>
       </Section>
 
       <Section title="Button" note="Every action is a pill">

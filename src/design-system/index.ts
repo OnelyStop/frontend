@@ -29,6 +29,20 @@ export { Rationale } from "./components/rationale";
 export { Canvas, CanvasTitle, DropSlot, EventCard } from "./components/canvas";
 
 export {
+  ActiveCard,
+  AvatarStack,
+  CornerBadge,
+  CornerPlus,
+  Dock,
+  DockButton,
+  PlanCard,
+  RoundAction,
+  SearchField,
+  StatusPill,
+  type PillTone,
+} from "./components/plan";
+
+export {
   Checkbox,
   Field,
   Input,
