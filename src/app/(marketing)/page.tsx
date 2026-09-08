@@ -3,6 +3,7 @@ import { requestCurrency } from "@/features/billing/currency";
 import { listPlans } from "@/features/billing/plans.server";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/config/site";
+import { FAQ } from "./faq";
 import { LandingView } from "./landing-view";
 
 const LANDING_TITLE =
@@ -38,9 +39,20 @@ export default async function Page() {
     },
   };
 
+  const faqPage = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+
   return (
     <>
       <JsonLd data={application} />
+      <JsonLd data={faqPage} />
       <LandingView
         prices={await listPlans(currency)}
         billingEnabled={process.env.BILLING_ENABLED === "true"}
