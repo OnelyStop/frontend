@@ -131,7 +131,7 @@ function DoubtCard({
   onToggle: () => void;
 }) {
   return (
-    <li className="card hover:bg-brand-soft/40 flex gap-4 p-5 transition-colors duration-200">
+    <li className="card card-lift flex gap-4 p-6">
       <button
         type="button"
         onClick={onToggle}
