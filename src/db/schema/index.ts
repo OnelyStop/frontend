@@ -6,3 +6,4 @@ export * from "./gazette";
 export * from "./community";
 export * from "./question-bank";
 export * from "./descriptive";
+export * from "./notifications";

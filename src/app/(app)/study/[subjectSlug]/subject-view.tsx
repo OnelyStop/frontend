@@ -63,26 +63,27 @@ export function SubjectView({
                 >
                   {chapter.name}
                 </SectionTitle>
-                <div className="grid gap-3">
+                {/* Three up: a full-width row per topic is a scroll, not a scan. */}
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                   {chapter.topics.map((t) => (
                     <Link
                       key={t.slug}
                       href={`/study/${subjectSlug}/${chapter.slug}/${t.slug}`}
-                      className="card card-lift flex items-start gap-4 p-6"
+                      className="card card-lift flex h-full flex-col p-5"
                     >
-                      <div className="min-w-0 flex-1">
-                        <p className="text-[15.5px]">{t.title}</p>
-                        <p className="text-ink-3 mt-1 max-w-[70ch] text-[13.5px] leading-relaxed">
-                          {t.summary}
-                        </p>
-                      </div>
-                      <div className="flex shrink-0 items-center gap-3">
+                      <p className="text-[15px] leading-snug font-semibold">
+                        {t.title}
+                      </p>
+                      <p className="text-ink-2 mt-2 line-clamp-3 text-[13px] leading-relaxed">
+                        {t.summary}
+                      </p>
+                      <div className="mt-auto flex items-center gap-2 pt-4">
                         <StatusPill tone={DIFFICULTY_TONE[t.difficulty]}>
                           {t.difficulty}
                         </StatusPill>
-                        <span className="tnum text-ink-4 text-[13px]">
+                        <StatusPill tone="neutral">
                           {t.estimatedMinutes} min
-                        </span>
+                        </StatusPill>
                       </div>
                     </Link>
                   ))}

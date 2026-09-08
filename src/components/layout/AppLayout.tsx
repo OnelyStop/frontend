@@ -10,7 +10,13 @@ import { useApp } from "@/context/AppContext";
 import { CanvasRail } from "./CanvasRail";
 import { RunningHead, SUBJECT_INK } from "./RunningHead";
 
-export function AppLayout({ children }: { children: React.ReactNode }) {
+export function AppLayout({
+  children,
+  unread = 0,
+}: {
+  children: React.ReactNode;
+  unread?: number;
+}) {
   const { subject } = useApp();
 
   return (
@@ -22,7 +28,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         >
           {/* Full bleed: the frame is the page, not a card floating on one. */}
           <div className="flex min-h-svh w-full flex-col">
-            <Suspense fallback={<div className="h-21" />}>
+            <Suspense fallback={<div className="h-19" />}>
               <RunningHead />
             </Suspense>
 
@@ -30,7 +36,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <div className="bg-stage relative flex-1 rounded-[26px] px-6 pt-11 pb-16 sm:px-10">
                 <Bump />
                 <div className="grid gap-x-9 lg:grid-cols-[64px_minmax(0,1fr)]">
-                  <CanvasRail />
+                  <CanvasRail unread={unread} />
                   {/* No z-index: a stacking context traps full-screen overlays. */}
                   <main className="relative min-w-0">{children}</main>
                 </div>
@@ -77,7 +83,7 @@ function Bump() {
       ref={ref}
       aria-hidden
       viewBox="0 0 64 12"
-      className="pointer-events-none absolute -top-3.5 hidden h-3 w-16 -translate-x-1/2 lg:block"
+      className="pointer-events-none absolute -top-2.75 hidden h-3 w-16 -translate-x-1/2 lg:block"
       style={{ left: x ?? -999 }}
     >
       {/* Eased into the edge at both ends, so it grows out of the stage. */}

@@ -8,6 +8,7 @@ import {
   withinLimit,
   type PlanTier,
 } from "@/features/billing/limits";
+import { notify } from "@/features/notifications/mutations.server";
 import type { DoubtCreate } from "./types";
 
 export type StuckResult = { stuckCount: number; stuckByMe: boolean };
@@ -83,7 +84,7 @@ export async function postReply(
 ): Promise<{ ok: true; replyId: string } | { ok: false }> {
   const thread = await db.query.doubts.findFirst({
     where: eq(doubts.id, doubtId),
-    columns: { id: true },
+    columns: { id: true, authorId: true, title: true },
   });
   if (!thread) return { ok: false };
 
@@ -91,6 +92,16 @@ export async function postReply(
     .insert(doubtReplies)
     .values({ doubtId, authorId: userId, body })
     .returning({ id: doubtReplies.id });
+
+  // The reply is already saved; a failed notification must not undo it.
+  await notify({
+    userId: thread.authorId,
+    actorId: userId,
+    kind: "doubt_reply",
+    title: "Someone answered your doubt",
+    body: thread.title,
+    href: `/community/${doubtId}`,
+  }).catch(() => undefined);
 
   return { ok: true, replyId: row.id };
 }
