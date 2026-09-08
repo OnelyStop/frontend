@@ -5,6 +5,7 @@ import { EXAMS } from "@/data/navigation";
 import { PLAN_LIMITS } from "@/features/billing/limits";
 import type { PlanPrice } from "@/features/billing/types";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
+import { FAQ } from "./faq";
 import { AppWindow } from "./_sections/app-window";
 import { Cta } from "./_sections/cta";
 import { MarkingScene } from "./_sections/marking";
@@ -262,6 +263,36 @@ export function LandingView({
             prices={prices}
             billingEnabled={billingEnabled}
           />
+        </div>
+      </section>
+
+      <section className={`${GUTTER} ${SECTION_Y} bg-panel/40`} id="faq">
+        <div className="mx-auto max-w-300">
+          <h2 className="max-w-[16ch] text-[26px] tracking-[-0.02em] text-balance md:text-[30px]">
+            Questions people ask before signing up
+          </h2>
+          <div className="border-line mt-8 border-t">
+            {FAQ.map((item) => (
+              <details
+                key={item.question}
+                name="faq"
+                className="border-line group border-b"
+              >
+                <summary className="flex cursor-pointer items-center justify-between gap-6 py-4 text-[16px] tracking-[-0.01em] md:text-[17px]">
+                  {item.question}
+                  <span
+                    aria-hidden
+                    className="text-ink-3 ease-soft shrink-0 transition-transform duration-200 group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="text-ink-2 max-w-[74ch] pb-5 text-[15px] leading-relaxed">
+                  {item.answer}
+                </p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 

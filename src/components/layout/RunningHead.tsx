@@ -90,7 +90,9 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
 
 export function RunningHead() {
   const { subject, board, setBoard, initials } = useApp();
-  const { signOut } = useAuth();
+  const { signOut, user, loading } = useAuth();
+  // Only once auth has resolved, so a signed-in header never flashes "Sign in".
+  const signedOut = !loading && !user;
   const { open: retrievalOpen, setOpen: setRetrievalOpen } = useRetrieval();
   const router = useRouter();
   const pathname = usePathname();
@@ -242,14 +244,34 @@ export function RunningHead() {
           </kbd>
         </button>
 
+        {signedOut ? (
+          <>
+            <Link
+              href="/login"
+              className="text-ink-2 hover:text-ink hidden h-10 items-center px-2 text-[14px] transition-colors sm:flex"
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/signup"
+              className="rounded-pill bg-ink hover:bg-ink/85 flex h-10 shrink-0 items-center px-5 text-[14px] text-white transition-colors"
+            >
+              Start free
+            </Link>
+          </>
+        ) : null}
+
         <Link
           href="/upgrade"
-          className="rounded-pill bg-ink hover:bg-ink/85 hidden h-10 items-center px-5 text-[14px] text-white transition-colors sm:flex"
+          className={`rounded-pill bg-ink hover:bg-ink/85 h-10 items-center px-5 text-[14px] text-white transition-colors ${signedOut ? "hidden" : "hidden sm:flex"}`}
         >
           Upgrade
         </Link>
 
-        <div className="relative shrink-0" ref={accountRef}>
+        <div
+          className={`relative shrink-0 ${signedOut ? "hidden" : ""}`}
+          ref={accountRef}
+        >
           <button
             type="button"
             aria-haspopup="menu"

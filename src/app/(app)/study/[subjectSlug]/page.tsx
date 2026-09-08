@@ -15,7 +15,15 @@ export async function generateMetadata({
   const data = await getSubjectChapters(subjectSlug, {
     preview: await canPreview(),
   });
-  return { title: data?.name ?? "Knowledge base" };
+  if (!data) return { title: "Knowledge base" };
+  const topics = data.chapters.reduce((n, c) => n + c.topics.length, 0);
+  return {
+    title: data.name,
+    description:
+      data.description ??
+      `${topics} ${data.name} topics for IBPS, SBI and RBI, arranged into ${data.chapters.length} chapters.`,
+    alternates: { canonical: `/study/${subjectSlug}` },
+  };
 }
 
 export default async function Page({

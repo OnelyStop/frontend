@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Reader } from "@/features/study/components/Reader";
+import { TopicPreviewView } from "@/features/study/components/TopicPreviewView";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { SITE_URL } from "@/config/site";
 import {
   canPreview,
   getSubjectChapters,
+  getTopicMeta,
   getTopicOutline,
-  getTopicTitle,
+  getTopicPreview,
   listFlashcards,
   listNotes,
 } from "@/features/study/queries.server";
@@ -22,14 +26,61 @@ export async function generateMetadata({
 }: {
   params: Params;
 }): Promise<Metadata> {
-  const { topicSlug } = await params;
-  return { title: await getTopicTitle(topicSlug) };
+  const { subjectSlug, chapterSlug, topicSlug } = await params;
+  const { title, summary } = await getTopicMeta(topicSlug);
+  const path = `/study/${subjectSlug}/${chapterSlug}/${topicSlug}`;
+  return {
+    title,
+    description: summary || undefined,
+    alternates: { canonical: path },
+    openGraph: { url: `${SITE_URL}${path}`, title, description: summary },
+  };
 }
 
 export default async function Page({ params }: { params: Params }) {
   const [userId, { subjectSlug, chapterSlug, topicSlug }, preview] =
     await Promise.all([currentUserId(), params, canPreview()]);
-  if (!userId) redirect("/login");
+
+  // Signed out gets the syllabus only: this branch never loads a block body.
+  if (!userId) {
+    const topic = await getTopicPreview(topicSlug);
+    if (!topic) notFound();
+    if (
+      topic.subject.slug !== subjectSlug ||
+      topic.chapter.slug !== chapterSlug
+    )
+      redirect(
+        `/study/${topic.subject.slug}/${topic.chapter.slug}/${topicSlug}`,
+      );
+
+    const breadcrumb = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { name: "Knowledge base", item: `${SITE_URL}/study` },
+        {
+          name: topic.subject.name,
+          item: `${SITE_URL}/study/${topic.subject.slug}`,
+        },
+        {
+          name: topic.title,
+          item: `${SITE_URL}/study/${subjectSlug}/${chapterSlug}/${topicSlug}`,
+        },
+      ].map((entry, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: entry.name,
+        item: entry.item,
+      })),
+    };
+
+    return (
+      <>
+        <JsonLd data={breadcrumb} />
+        <TopicPreviewView topic={topic} />
+      </>
+    );
+  }
 
   const outline = await getTopicOutline(topicSlug, { preview });
   if (!outline) notFound();

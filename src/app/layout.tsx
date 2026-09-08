@@ -77,6 +77,14 @@ const WEBSITE = {
   description: SITE_DESCRIPTION,
   inLanguage: "en-IN",
   publisher: { "@id": `${SITE_URL}/#organisation` },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default function RootLayout({

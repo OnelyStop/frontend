@@ -1,12 +1,15 @@
 import "server-only";
 
 import { cache } from "react";
-import { and, asc, eq, inArray, sql } from "drizzle-orm";
+import { and, asc, eq, ilike, inArray, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { AUTH_DISABLED } from "@/config/auth";
 import { getRole } from "@/features/auth/roles";
 import type {
   ChapterOutline,
+  SearchHit,
+  TopicPath,
+  TopicPreview,
   ContentBlock,
   Flashcard,
   StudyNote,
@@ -139,19 +142,20 @@ type TopicRow = typeof topics.$inferSelect;
 const isUuid = (s: string) =>
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s);
 
-/** generateMetadata only needs the title — not the whole 7-query outline. */
-export const getTopicTitle = cache(
-  async (topicSlug: string): Promise<string> => {
+/** generateMetadata only needs a title and a description, not the whole outline. */
+export const getTopicMeta = cache(
+  async (topicSlug: string): Promise<{ title: string; summary: string }> => {
+    const fallback = { title: "Topic", summary: "" };
     const row = await db.query.topics.findFirst({
       where: isUuid(topicSlug)
         ? eq(topics.id, topicSlug)
         : eq(topics.slug, topicSlug),
-      columns: { title: true, status: true },
+      columns: { title: true, summary: true, status: true },
     });
-    if (!row) return "Topic";
+    if (!row) return fallback;
     // Don't leak a draft topic's title into <title> for a non-staff visitor.
-    if (row.status !== "published" && !(await canPreview())) return "Topic";
-    return row.title;
+    if (row.status !== "published" && !(await canPreview())) return fallback;
+    return { title: row.title, summary: row.summary };
   },
 );
 
@@ -440,4 +444,126 @@ export async function topicIdFromSlug(
     columns: { id: true },
   });
   return row?.id ?? null;
+}
+
+/** Public-safe view of a topic: names and headings, never a block body. */
+export const getTopicPreview = cache(async function getTopicPreview(
+  topicSlug: string,
+): Promise<TopicPreview | null> {
+  const topic = await resolveTopic(topicSlug);
+  if (!topic) return null;
+
+  const [chapter, version, siblingRows] = await Promise.all([
+    db.query.chapters.findFirst({ where: eq(chapters.id, topic.chapterId) }),
+    db.query.contentVersions.findFirst({
+      where: and(
+        eq(contentVersions.topicId, topic.id),
+        eq(contentVersions.version, topic.currentVersion),
+      ),
+    }),
+    db
+      .select({ slug: topics.slug, title: topics.title })
+      .from(topics)
+      .where(and(eq(topics.chapterId, topic.chapterId), publishedFilter()))
+      .orderBy(asc(topics.position), asc(topics.slug)),
+  ]);
+  if (!chapter || !version) return null;
+
+  const [subject, headings] = await Promise.all([
+    db.query.subjects.findFirst({ where: eq(subjects.id, chapter.subjectId) }),
+    db
+      .select({ title: contentBlocks.title })
+      .from(contentBlocks)
+      .where(eq(contentBlocks.contentVersionId, version.id))
+      .orderBy(asc(contentBlocks.position)),
+  ]);
+  if (!subject) return null;
+
+  return {
+    slug: topic.slug,
+    title: topic.title,
+    summary: topic.summary,
+    difficulty: topic.difficulty as TopicPreview["difficulty"],
+    estimatedMinutes: topic.estimatedMinutes,
+    learningObjectives: topic.learningObjectives,
+    subject: { slug: subject.slug, name: subject.name },
+    chapter: { slug: chapter.slug, name: chapter.name },
+    sectionTitles: headings.map((h) => h.title),
+    siblings: siblingRows,
+  };
+});
+
+/** Every published topic's URL, for the sitemap. */
+export async function listTopicPaths(): Promise<TopicPath[]> {
+  return db
+    .select({
+      topicSlug: topics.slug,
+      chapterSlug: chapters.slug,
+      subjectSlug: subjects.slug,
+    })
+    .from(topics)
+    .innerJoin(chapters, eq(chapters.id, topics.chapterId))
+    .innerJoin(subjects, eq(subjects.id, chapters.subjectId))
+    .where(and(publishedFilter(), eq(subjects.isActive, true)))
+    .orderBy(asc(subjects.position), asc(chapters.position));
+}
+
+const SEARCH_LIMIT = 30;
+
+/** Titles and summaries only — a public search must not reach lesson text. */
+export async function searchPublic(query: string): Promise<SearchHit[]> {
+  const term = query.trim();
+  if (term.length < 2) return [];
+  const like = `%${term.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
+
+  const [subjectRows, topicRows] = await Promise.all([
+    db
+      .select({
+        slug: subjects.slug,
+        name: subjects.name,
+        description: subjects.description,
+      })
+      .from(subjects)
+      .where(and(eq(subjects.isActive, true), ilike(subjects.name, like)))
+      .limit(SEARCH_LIMIT),
+    db
+      .select({
+        slug: topics.slug,
+        title: topics.title,
+        summary: topics.summary,
+        chapterSlug: chapters.slug,
+        chapterName: chapters.name,
+        subjectSlug: subjects.slug,
+        subjectName: subjects.name,
+      })
+      .from(topics)
+      .innerJoin(chapters, eq(chapters.id, topics.chapterId))
+      .innerJoin(subjects, eq(subjects.id, chapters.subjectId))
+      .where(
+        and(
+          publishedFilter(),
+          eq(subjects.isActive, true),
+          sql`(${topics.title} ilike ${like} or ${topics.summary} ilike ${like})`,
+        ),
+      )
+      .orderBy(asc(topics.title))
+      .limit(SEARCH_LIMIT),
+  ]);
+
+  return [
+    ...subjectRows.map((s) => ({
+      kind: "subject" as const,
+      title: s.name,
+      context: "Subject",
+      summary: s.description,
+      href: `/study/${s.slug}`,
+    })),
+    ...topicRows.map((t) => ({
+      kind: "topic" as const,
+      title: t.title,
+      context: `${t.subjectName} · ${t.chapterName}`,
+      summary: t.summary,
+      href: `/study/${t.subjectSlug}/${t.chapterSlug}/${t.slug}`,
+    })),
+  ];
 }
