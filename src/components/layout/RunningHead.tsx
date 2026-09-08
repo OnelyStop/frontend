@@ -168,11 +168,11 @@ export function RunningHead() {
   useEffect(() => setAccount(false), [pathname]);
 
   return (
-    <header className="border-line bg-canvas/85 sticky top-0 z-30 border-b backdrop-blur-xl">
-      <div className="mx-auto flex h-[72px] max-w-[1600px] items-center gap-5 px-8 lg:px-16">
+    <header className="text-white">
+      <div className="flex h-24 items-center gap-5 px-6 sm:px-9">
         <Link
           href="/home"
-          className="shrink-0 text-[18px] font-semibold tracking-[-0.03em]"
+          className="shrink-0 text-[22px] font-bold tracking-[-0.03em]"
         >
           onelystop
         </Link>
@@ -183,7 +183,7 @@ export function RunningHead() {
             aria-haspopup="menu"
             aria-expanded={switching}
             onClick={() => setSwitching((v) => !v)}
-            className="press rounded-pill hover:text-ink flex h-9 items-center gap-2 pr-2.5 pl-2 text-[14px]"
+            className="press rounded-pill flex h-9 items-center gap-2 pr-2.5 pl-2 text-[14px] text-white/85 hover:text-white"
           >
             <span
               className="size-1.5 rounded-full"
@@ -191,7 +191,7 @@ export function RunningHead() {
               aria-hidden
             />
             <span>{board}</span>
-            <ChevronDown size={14} className="text-ink-4" />
+            <ChevronDown size={14} className="text-white/45" />
           </button>
 
           {switching ? (
@@ -231,20 +231,20 @@ export function RunningHead() {
         <button
           type="button"
           onClick={() => setRetrievalOpen(true)}
-          className="press rounded-pill border-line-2 text-ink-3 hover:border-ink/25 flex h-10 items-center gap-5 border pr-2 pl-4 text-[14px]"
+          className="press rounded-pill flex h-11 items-center gap-5 border border-white/20 pr-2 pl-4 text-[14px] text-white/55 hover:border-white/40"
         >
           <span className="flex items-center gap-2">
             <Search size={14} />
             Search
           </span>
-          <kbd className="rounded-pill border-line border px-2 py-0.5 text-[11px]">
+          <kbd className="rounded-pill border border-white/20 px-2 py-0.5 text-[11px]">
             ⌘K
           </kbd>
         </button>
 
         <Link
           href="/upgrade"
-          className="rounded-pill bg-ink hover:bg-ink/85 hidden h-10 items-center px-5 text-[14px] text-white transition-colors sm:flex"
+          className="rounded-pill text-frame hidden h-11 items-center bg-white px-6 text-[14px] font-semibold transition-colors hover:bg-white/90 sm:flex"
         >
           Upgrade
         </Link>
@@ -256,7 +256,7 @@ export function RunningHead() {
             aria-expanded={account}
             aria-label="Account"
             onClick={() => setAccount((v) => !v)}
-            className="press border-line-2 hover:border-ink/25 grid size-10 place-items-center rounded-full border text-[13px]"
+            className="press grid size-11 place-items-center rounded-full border border-white/25 text-[13px] hover:border-white/50"
           >
             {initials}
           </button>

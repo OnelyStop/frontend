@@ -47,14 +47,14 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
               aria-haspopup="menu"
               aria-expanded={isOpen}
               onClick={() => setOpen(isOpen ? null : g.id)}
-              className={`rounded-pill hover:text-ink flex h-9 items-center gap-1 px-3 text-[14px] transition-colors ${
-                live || isOpen ? "text-ink" : "text-ink-2"
+              className={`rounded-pill flex h-10 items-center gap-1.5 px-4 text-[14px] font-medium transition-colors hover:text-white ${
+                live || isOpen ? "bg-frame-2 text-white" : "text-white/50"
               }`}
             >
               {g.label}
               <ChevronDown
                 size={13}
-                className={`text-ink-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                className={`text-white/40 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
               />
             </button>
 

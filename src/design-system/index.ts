@@ -26,6 +26,8 @@ export {
 
 export { Rationale } from "./components/rationale";
 
+export { Canvas, CanvasTitle, DropSlot, EventCard } from "./components/canvas";
+
 export {
   Checkbox,
   Field,

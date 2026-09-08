@@ -7,6 +7,7 @@ import { SelectionAsk } from "@/features/companion/SelectionAsk";
 import { RetrievalProvider } from "@/features/retrieval/RetrievalContext";
 import { RetrievalSlip } from "@/features/retrieval/RetrievalSlip";
 import { useApp } from "@/context/AppContext";
+import { CanvasRail } from "./CanvasRail";
 import { RunningHead, SUBJECT_INK } from "./RunningHead";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
@@ -16,26 +17,24 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     <CompanionProvider>
       <RetrievalProvider>
         <div
-          className="bg-stage min-h-screen"
+          className="bg-sky min-h-screen px-4 py-6 sm:px-6 sm:py-8"
           style={{ ["--subj" as string]: SUBJECT_INK[subject] }}
         >
-          {/* RunningHead reads search params; that needs a boundary. */}
-          <Suspense fallback={<div className="border-line h-16 border-b" />}>
-            <RunningHead />
-          </Suspense>
+          {/* The frame is the black chrome; the stage is the ground cards sit on. */}
+          <div className="bg-frame mx-auto w-full max-w-[1560px] rounded-[36px] pb-4">
+            <Suspense fallback={<div className="h-24" />}>
+              <RunningHead />
+            </Suspense>
 
-          <div
-            aria-hidden
-            className="pointer-events-none fixed inset-y-0 left-1/2 z-0 hidden w-full max-w-[1200px] -translate-x-1/2 lg:block"
-          >
-            <span className="bg-line absolute inset-y-0 left-8 w-px" />
-            <span className="bg-line absolute inset-y-0 right-8 w-px" />
+            <div className="bg-stage rounded-[32px] px-5 pt-8 pb-16 sm:px-8">
+              <div className="grid gap-x-10 lg:grid-cols-[76px_minmax(0,1fr)]">
+                <CanvasRail />
+                {/* No z-index: a stacking context traps full-screen overlays. */}
+                <main className="relative min-w-0">{children}</main>
+              </div>
+            </div>
           </div>
 
-          {/* No z-index: a stacking context traps full-screen overlays. */}
-          <main className="relative mx-auto w-full max-w-[1200px] px-8 pt-14 pb-32 lg:px-16">
-            {children}
-          </main>
           <SelectionAsk />
           <CompanionPanel />
           <RetrievalSlip />
