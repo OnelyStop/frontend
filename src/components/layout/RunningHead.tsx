@@ -202,7 +202,7 @@ export function RunningHead() {
             <div
               role="menu"
               aria-label="Exams covered"
-              className="border-line bg-canvas shadow-pop absolute top-11 left-0 z-50 w-72 overflow-hidden rounded-[18px] border p-1.5"
+              className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-72 overflow-hidden rounded-[18px] border p-1.5"
             >
               <p className="text-ink-3 px-2.5 pt-2 pb-1.5 text-[13px]">
                 Exams covered
@@ -250,13 +250,13 @@ export function RunningHead() {
           <>
             <Link
               href="/login"
-              className="text-ink-2 hover:text-ink hidden h-10 items-center px-2 text-[14px] transition-colors sm:flex"
+              className="text-on-frame-2 hover:text-on-frame hidden h-11 items-center px-3 text-[14px] transition-colors sm:flex"
             >
               Sign in
             </Link>
             <Link
               href="/signup"
-              className="rounded-pill bg-ink hover:bg-ink/85 flex h-10 shrink-0 items-center px-5 text-[14px] text-white transition-colors"
+              className="rounded-pill text-frame flex h-11 shrink-0 items-center bg-white px-6 text-[14px] font-semibold transition-colors hover:bg-white/90"
             >
               Start free
             </Link>
@@ -289,7 +289,7 @@ export function RunningHead() {
             <div
               role="menu"
               aria-label="Account"
-              className="border-line bg-canvas shadow-pop absolute top-12 right-0 z-50 w-[300px] rounded-[18px] border p-1.5"
+              className="border-line bg-canvas text-ink shadow-pop absolute top-12 right-0 z-50 w-[300px] rounded-[18px] border p-1.5"
             >
               {ACCOUNT_GROUP.items.map((i) => (
                 <Link

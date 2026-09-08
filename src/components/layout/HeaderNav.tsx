@@ -68,6 +68,7 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
               aria-haspopup="menu"
               aria-expanded={isOpen}
               aria-label={g.label}
+              data-nav-active={live ? "" : undefined}
               onClick={() => setOpen(isOpen ? null : g.id)}
               className={`rounded-pill hover:text-on-frame flex h-10 items-center gap-2 text-[14px] font-medium transition-colors ${
                 on
@@ -91,7 +92,7 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
               <div
                 role="menu"
                 aria-label={g.label}
-                className="border-line bg-canvas shadow-pop absolute top-11 left-0 z-50 w-[320px] rounded-[18px] border p-1.5"
+                className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-[320px] rounded-[18px] border p-1.5"
               >
                 {g.items.map((i) => {
                   const on = pathname.startsWith(i.path);
