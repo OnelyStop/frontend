@@ -124,3 +124,32 @@ export type StudyNote = {
   visibility: "private" | "unlisted" | "public";
   updatedAt: string;
 };
+
+/** Everything a signed-out visitor may see: names, never lesson bodies. */
+export type TopicPreview = {
+  slug: string;
+  title: string;
+  summary: string;
+  difficulty: Difficulty;
+  estimatedMinutes: number;
+  learningObjectives: string[];
+  subject: { slug: string; name: string };
+  chapter: { slug: string; name: string };
+  /** Section headings only — never the markdown under them. */
+  sectionTitles: string[];
+  siblings: { slug: string; title: string }[];
+};
+
+export type TopicPath = {
+  subjectSlug: string;
+  chapterSlug: string;
+  topicSlug: string;
+};
+
+export type SearchHit = {
+  kind: "subject" | "topic";
+  title: string;
+  context: string | null;
+  summary: string | null;
+  href: string;
+};

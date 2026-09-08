@@ -5,7 +5,7 @@ export const PROTECTED_PREFIXES = [
   "/mocks",
   "/drills",
   "/descriptive",
-  "/study",
+  // /study is absent on purpose: public for search, and it gates its own bodies.
   "/progress",
   "/notes",
   "/flashcards",
