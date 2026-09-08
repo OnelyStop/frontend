@@ -173,7 +173,7 @@ export function RunningHead() {
 
   return (
     <header className="text-white">
-      <div className="flex h-24 items-center gap-5 px-6 sm:px-9">
+      <div className="flex h-20 items-center gap-5 px-6 sm:px-8">
         <Link
           href="/home"
           className="shrink-0 text-[22px] font-bold tracking-[-0.03em]"
