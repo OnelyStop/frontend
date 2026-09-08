@@ -5,6 +5,7 @@ import {
   canPreview,
   getSubjectChapters,
   getTopicOutline,
+  getTopicTitle,
   listFlashcards,
   listNotes,
 } from "@/features/study/queries.server";
@@ -22,18 +23,13 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const { topicSlug } = await params;
-  const outline = await getTopicOutline(topicSlug, {
-    preview: await canPreview(),
-  });
-  return { title: outline?.title ?? "Topic" };
+  return { title: await getTopicTitle(topicSlug) };
 }
 
 export default async function Page({ params }: { params: Params }) {
-  const userId = await currentUserId();
+  const [userId, { subjectSlug, chapterSlug, topicSlug }, preview] =
+    await Promise.all([currentUserId(), params, canPreview()]);
   if (!userId) redirect("/login");
-
-  const { subjectSlug, chapterSlug, topicSlug } = await params;
-  const preview = await canPreview();
 
   const outline = await getTopicOutline(topicSlug, { preview });
   if (!outline) notFound();
