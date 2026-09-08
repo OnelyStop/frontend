@@ -146,9 +146,12 @@ export const getTopicTitle = cache(
       where: isUuid(topicSlug)
         ? eq(topics.id, topicSlug)
         : eq(topics.slug, topicSlug),
-      columns: { title: true },
+      columns: { title: true, status: true },
     });
-    return row?.title ?? "Topic";
+    if (!row) return "Topic";
+    // Don't leak a draft topic's title into <title> for a non-staff visitor.
+    if (row.status !== "published" && !(await canPreview())) return "Topic";
+    return row.title;
   },
 );
 
