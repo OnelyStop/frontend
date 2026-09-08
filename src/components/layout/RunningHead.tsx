@@ -91,8 +91,9 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
 export function RunningHead() {
   const { subject, board, setBoard, initials } = useApp();
   const { signOut, user, loading } = useAuth();
-  // Only once auth has resolved, so a signed-in header never flashes "Sign in".
+  // Neither state renders until auth resolves, so the header never flashes either way.
   const signedOut = !loading && !user;
+  const signedIn = !loading && !!user;
   const { open: retrievalOpen, setOpen: setRetrievalOpen } = useRetrieval();
   const router = useRouter();
   const pathname = usePathname();
@@ -263,13 +264,13 @@ export function RunningHead() {
 
         <Link
           href="/upgrade"
-          className={`rounded-pill bg-ink hover:bg-ink/85 h-10 items-center px-5 text-[14px] text-white transition-colors ${signedOut ? "hidden" : "hidden sm:flex"}`}
+          className={`rounded-pill bg-ink hover:bg-ink/85 h-10 items-center px-5 text-[14px] text-white transition-colors ${signedIn ? "hidden sm:flex" : "hidden"}`}
         >
           Upgrade
         </Link>
 
         <div
-          className={`relative shrink-0 ${signedOut ? "hidden" : ""}`}
+          className={`relative shrink-0 ${signedIn ? "" : "hidden"}`}
           ref={accountRef}
         >
           <button

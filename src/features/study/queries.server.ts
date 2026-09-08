@@ -477,7 +477,8 @@ export const getTopicPreview = cache(async function getTopicPreview(
       .where(eq(contentBlocks.contentVersionId, version.id))
       .orderBy(asc(contentBlocks.position)),
   ]);
-  if (!subject) return null;
+  // isActive too: deactivating a subject must take its topic pages down with it.
+  if (!subject || !subject.isActive) return null;
 
   return {
     slug: topic.slug,
