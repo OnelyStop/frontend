@@ -17,17 +17,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     <CompanionProvider>
       <RetrievalProvider>
         <div
-          className="bg-sky min-h-screen p-2.5 sm:p-3"
+          className="bg-frame min-h-screen"
           style={{ ["--subj" as string]: SUBJECT_INK[subject] }}
         >
-          {/* The frame fills the viewport; the sky is a rim, not a margin. */}
-          <div className="bg-frame flex min-h-[calc(100svh-1.5rem)] w-full flex-col rounded-[28px]">
+          {/* Full bleed: the frame is the page, not a card floating on one. */}
+          <div className="flex min-h-svh w-full flex-col">
             <Suspense fallback={<div className="h-20" />}>
               <RunningHead />
             </Suspense>
 
-            <div className="relative flex flex-1 flex-col px-2.5 pb-2.5">
-              <div className="bg-stage relative flex-1 rounded-[24px] px-5 pt-9 pb-14 sm:px-7">
+            <div className="relative flex flex-1 flex-col">
+              <div className="bg-stage relative flex-1 rounded-t-[28px] px-5 pt-9 pb-14 sm:px-8">
                 <Bump />
                 <div className="grid gap-x-9 lg:grid-cols-[72px_minmax(0,1fr)]">
                   <CanvasRail />

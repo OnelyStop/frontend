@@ -187,7 +187,7 @@ export function RunningHead() {
             aria-haspopup="menu"
             aria-expanded={switching}
             onClick={() => setSwitching((v) => !v)}
-            className="press rounded-pill flex h-9 items-center gap-2 pr-2.5 pl-2 text-[14px] text-white/85 hover:text-white"
+            className="press rounded-pill text-on-frame-2 hover:text-on-frame flex h-9 items-center gap-2 pr-2.5 pl-2 text-[14px]"
           >
             <span
               className="size-1.5 rounded-full"
@@ -195,7 +195,7 @@ export function RunningHead() {
               aria-hidden
             />
             <span>{board}</span>
-            <ChevronDown size={14} className="text-white/45" />
+            <ChevronDown size={14} className="text-on-frame-3" />
           </button>
 
           {switching ? (
@@ -235,13 +235,13 @@ export function RunningHead() {
         <button
           type="button"
           onClick={() => setRetrievalOpen(true)}
-          className="press rounded-pill flex h-11 items-center gap-5 border border-white/20 pr-2 pl-4 text-[14px] text-white/55 hover:border-white/40"
+          className="press rounded-pill border-on-frame-line text-on-frame-2 hover:border-on-frame-3 flex h-11 items-center gap-5 border pr-2 pl-4 text-[14px]"
         >
           <span className="flex items-center gap-2">
             <Search size={14} />
             Search
           </span>
-          <kbd className="rounded-pill border border-white/20 px-2 py-0.5 text-[11px]">
+          <kbd className="rounded-pill border-on-frame-line border px-2 py-0.5 text-[11px]">
             ⌘K
           </kbd>
         </button>
@@ -280,7 +280,7 @@ export function RunningHead() {
             aria-expanded={account}
             aria-label="Account"
             onClick={() => setAccount((v) => !v)}
-            className="press grid size-11 place-items-center overflow-hidden rounded-full border border-white/25 text-[13px] hover:border-white/50"
+            className="press border-on-frame-line hover:border-on-frame-3 grid size-11 place-items-center overflow-hidden rounded-full border text-[13px]"
           >
             {avatar ? <AvatarMark avatar={avatar} /> : initials}
           </button>

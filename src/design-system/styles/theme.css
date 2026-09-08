@@ -15,6 +15,13 @@
   --color-frame: #131316;
   --color-frame-2: #26262c;
   --color-sky: #cfeef7;
+
+  /* Ink on the frame. Hard-coded white/40 in a class is not themeable, and it
+     was why every nav item read as the same flat white. */
+  --color-on-frame: #ffffff;
+  --color-on-frame-2: #9a9ca6;
+  --color-on-frame-3: #6b6d78;
+  --color-on-frame-line: #33343c;
   --color-panel: #f1f2f4;
   --color-inset: #ffffff;
   --color-track: #ecedf0;
