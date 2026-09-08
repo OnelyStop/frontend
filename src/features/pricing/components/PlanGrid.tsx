@@ -145,7 +145,7 @@ export function PlanGrid({
             <>
               Yearly
               {savingPct > 0 ? (
-                <span className="text-ok text-[12px] font-semibold">
+                <span className="text-ok-2 text-[12px] font-semibold">
                   −{savingPct}%
                 </span>
               ) : null}

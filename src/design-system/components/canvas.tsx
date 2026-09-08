@@ -84,7 +84,7 @@ export function EventCard({
 
   return (
     <article
-      className={cn("shadow-card mb-3.5 rounded-xl p-5", TONE[tone], className)}
+      className={cn("shadow-card mb-3 rounded-xl p-4", TONE[tone], className)}
     >
       <div className="mb-3 flex items-center gap-2.5">
         {icon ? <span className="shrink-0">{icon}</span> : null}

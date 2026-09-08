@@ -92,7 +92,7 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
               <div
                 role="menu"
                 aria-label={g.label}
-                className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-[320px] rounded-[18px] border p-1.5"
+                className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-72 rounded-[16px] border p-1.5"
               >
                 {g.items.map((i) => {
                   const on = pathname.startsWith(i.path);

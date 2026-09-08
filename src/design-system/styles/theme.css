@@ -43,6 +43,8 @@
   /* Meaning. Each pair is a tint you can fill a whole card with, and an ink
      that stays legible on it — the reason state reads at a glance. */
   --color-ok: #1b6b2d;
+  /* For an annotation on white; ok is tuned for legibility on ok-soft. */
+  --color-ok-2: #2e9d51;
   --color-ok-soft: #cbf3d5;
   --color-warn: #8a6410;
   --color-warn-soft: #fdefbe;

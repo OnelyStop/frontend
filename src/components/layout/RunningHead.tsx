@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useApp } from "@/context/AppContext";
+import { useModifierKey } from "@/lib/platform";
 import { useRetrieval } from "@/features/retrieval/RetrievalContext";
 import { TARGETS } from "@/features/retrieval/targets";
 import { ChevronDown, Search } from "lucide-react";
@@ -99,6 +100,7 @@ export function RunningHead() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
+  const mod = useModifierKey();
   const [switching, setSwitching] = useState(false);
   const [account, setAccount] = useState(false);
   const idRef = useRef<HTMLDivElement>(null);
@@ -202,7 +204,7 @@ export function RunningHead() {
             <div
               role="menu"
               aria-label="Exams covered"
-              className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-72 overflow-hidden rounded-[18px] border p-1.5"
+              className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-65 overflow-hidden rounded-[16px] border p-1.5"
             >
               <p className="text-ink-3 px-2.5 pt-2 pb-1.5 text-[13px]">
                 Exams covered
@@ -220,7 +222,8 @@ export function RunningHead() {
                 >
                   <span className="min-w-0 flex-1 text-[14px]">{e}</span>
                   <kbd className="rounded-pill border-line text-ink-3 border px-2 py-0.5 text-[11px]">
-                    ⌘{i + 1}
+                    {mod}
+                    {i + 1}
                   </kbd>
                 </button>
               ))}
@@ -242,7 +245,7 @@ export function RunningHead() {
             Search
           </span>
           <kbd className="rounded-pill border-on-frame-line border px-2 py-0.5 text-[11px]">
-            ⌘K
+            {mod}K
           </kbd>
         </button>
 
@@ -301,7 +304,7 @@ export function RunningHead() {
             <div
               role="menu"
               aria-label="Account"
-              className="border-line bg-canvas text-ink shadow-pop absolute top-12 right-0 z-50 w-[300px] rounded-[18px] border p-1.5"
+              className="border-line bg-canvas text-ink shadow-pop absolute top-12 right-0 z-50 w-68 rounded-[16px] border p-1.5"
             >
               {ACCOUNT_GROUP.items.map((i) => (
                 <Link

@@ -29,7 +29,7 @@ export function StatusPill({
   return (
     <span
       className={cn(
-        "rounded-pill inline-flex items-center gap-2 px-3.5 py-2 text-[13px] font-semibold whitespace-nowrap",
+        "rounded-pill inline-flex items-center gap-2 px-3 py-1.5 text-[12.5px] font-semibold whitespace-nowrap",
         PILL[tone],
         className,
       )}
@@ -63,7 +63,7 @@ export function RoundAction({
       aria-label={label}
       onClick={onClick}
       className={cn(
-        "press grid size-10 shrink-0 place-items-center rounded-full",
+        "press grid size-9 shrink-0 place-items-center rounded-full",
         TONE[tone],
       )}
     >
@@ -90,7 +90,7 @@ export function CornerBadge({
     <span
       aria-hidden
       className={cn(
-        "absolute top-5 right-5 grid size-11 place-items-center rounded-full",
+        "absolute top-4 right-4 grid size-10 place-items-center rounded-full",
         TONE[tone],
       )}
     >
@@ -166,14 +166,14 @@ export function PlanCard({
   className?: string;
 }) {
   return (
-    <article className={cn("card card-lift relative mb-6 p-6", className)}>
+    <article className={cn("card card-lift relative mb-5 p-5", className)}>
       {plus}
       {corner}
-      <h3 className="max-w-[15ch] text-[22px] leading-[1.18] font-bold tracking-[-0.03em]">
+      <h3 className="max-w-[16ch] text-[19px] leading-[1.2] font-bold tracking-[-0.025em]">
         {title}
       </h3>
       {children ? (
-        <p className="text-ink-2 mt-2.5 max-w-[34ch] text-[13.5px] leading-[1.6]">
+        <p className="text-ink-2 mt-2 max-w-[36ch] text-[13px] leading-[1.6]">
           {children}
         </p>
       ) : null}
@@ -214,7 +214,7 @@ export function ActiveCard({
   return (
     <article
       className={cn(
-        "bg-active-soft rounded-card shadow-lift relative mb-6 p-6 pr-32",
+        "bg-active-soft rounded-card shadow-lift relative mb-5 p-5 pr-28",
         className,
       )}
     >
@@ -222,18 +222,18 @@ export function ActiveCard({
         type="button"
         aria-label={resumeLabel}
         onClick={onResume}
-        className="press absolute top-1/2 right-7 grid size-20 -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_0_0_10px_rgb(255_255_255/0.42),0_0_0_22px_rgb(255_255_255/0.2)]"
+        className="press absolute top-1/2 right-6 grid size-16 -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_0_0_10px_rgb(255_255_255/0.42),0_0_0_22px_rgb(255_255_255/0.2)]"
       >
         <svg viewBox="0 0 24 24" className="ml-1 size-7 fill-current">
           <path d="M8 5v14l11-7z" />
         </svg>
       </button>
 
-      <h3 className="max-w-[14ch] text-[22px] leading-[1.18] font-bold tracking-[-0.03em]">
+      <h3 className="max-w-[15ch] text-[19px] leading-[1.2] font-bold tracking-[-0.025em]">
         {title}
       </h3>
       {children ? (
-        <p className="mt-2.5 max-w-[30ch] text-[13.5px] leading-[1.6] text-black/55">
+        <p className="mt-2 max-w-[32ch] text-[13px] leading-[1.6] text-black/55">
           {children}
         </p>
       ) : null}
