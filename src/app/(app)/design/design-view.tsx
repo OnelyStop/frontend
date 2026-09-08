@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Check, Lock, MoreHorizontal, X } from "lucide-react";
 import {
   Avatar,
-  Badge,
   Button,
   ButtonLink,
   Card,
@@ -90,7 +89,7 @@ export function DesignView() {
       <PageHeader
         title="Design system"
         sub="Every primitive in one place. Change a component here and the whole app follows — nothing on a page should reinvent these."
-        actions={<Badge tone="brand">v1</Badge>}
+        actions={<StatusPill tone="brand">v1</StatusPill>}
       />
 
       <Section title="Colour" note="Functional only — never decorative">
@@ -144,7 +143,7 @@ export function DesignView() {
               </>
             }
             plus={<CornerPlus label="Add a topic" />}
-            status={<StatusPill tone="done">Cleared 👏</StatusPill>}
+            status={<StatusPill tone="ok">Cleared 👏</StatusPill>}
             actions={
               <>
                 <RoundAction label="More">
@@ -200,9 +199,9 @@ export function DesignView() {
 
       <Section title="Status pill" note="State, never an action">
         <div className="flex flex-wrap items-center gap-3">
-          <StatusPill tone="done">Cleared 👏</StatusPill>
-          <StatusPill tone="miss">Missed by 4.50</StatusPill>
-          <StatusPill tone="locked">Locked 🔒</StatusPill>
+          <StatusPill tone="ok">Cleared 👏</StatusPill>
+          <StatusPill tone="bad">Missed by 4.50</StatusPill>
+          <StatusPill tone="warn">Locked 🔒</StatusPill>
           <StatusPill tone="soon">Upcoming ⏳</StatusPill>
           <StatusPill tone="live">🕐 Drilling 00:30</StatusPill>
         </div>
@@ -333,13 +332,13 @@ export function DesignView() {
       <Section title="Data">
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
-            <p className="text-ink-3 mb-3 text-[13px]">Badge</p>
+            <p className="text-ink-3 mb-3 text-[13px]">StatusPill</p>
             <div className="flex flex-wrap gap-2">
-              <Badge>Neutral</Badge>
-              <Badge tone="ok">Cleared</Badge>
-              <Badge tone="warn">Partial</Badge>
-              <Badge tone="bad">Missed</Badge>
-              <Badge tone="brand">Brand</Badge>
+              <StatusPill>Neutral</StatusPill>
+              <StatusPill tone="ok">Cleared</StatusPill>
+              <StatusPill tone="warn">Partial</StatusPill>
+              <StatusPill tone="bad">Missed</StatusPill>
+              <StatusPill tone="brand">Brand</StatusPill>
             </div>
 
             <p className="text-ink-3 mt-8 mb-3 text-[13px]">
@@ -391,7 +390,7 @@ export function DesignView() {
             <Tr onClick={() => undefined} active>
               <Td>Simplification</Td>
               <Td>
-                <Badge tone="ok">Attempt first</Badge>
+                <StatusPill tone="ok">Attempt first</StatusPill>
               </Td>
               <Td align="right" className="tnum">
                 92%
@@ -403,7 +402,7 @@ export function DesignView() {
             <Tr onClick={() => undefined}>
               <Td>Puzzles &amp; Seating</Td>
               <Td>
-                <Badge tone="bad">Skip in the exam</Badge>
+                <StatusPill tone="bad">Skip in the exam</StatusPill>
               </Td>
               <Td align="right" className="tnum">
                 66%

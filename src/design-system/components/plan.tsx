@@ -2,19 +2,23 @@ import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
 // The card family the canvas is built from, and the controls that sit on them.
-export type PillTone = "done" | "soon" | "live" | "miss" | "locked";
+export type PillTone =
+  "neutral" | "ok" | "warn" | "bad" | "info" | "brand" | "soon" | "live";
 
 const PILL: Record<PillTone, string> = {
-  done: "bg-ok-soft text-ok",
+  neutral: "bg-panel text-ink-2",
+  ok: "bg-ok-soft text-ok",
+  warn: "bg-warn-soft text-warn",
+  bad: "bg-bad-soft text-bad",
+  info: "bg-info-soft text-info",
+  brand: "bg-brand-soft text-brand",
   soon: "bg-canvas text-ink-2 shadow-[inset_0_0_0_1.5px_var(--color-line-2)]",
   live: "bg-canvas text-ink shadow-card",
-  miss: "bg-bad-soft text-bad",
-  locked: "bg-warn-soft text-warn",
 };
 
 /** State, not an action — a pill says where a thing stands. */
 export function StatusPill({
-  tone = "done",
+  tone = "neutral",
   children,
   className,
 }: {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, ChevronLeft, ChevronRight, X } from "lucide-react";
 import {
-  Badge,
+  StatusPill,
   Button,
   Card,
   Empty,
@@ -102,7 +102,9 @@ export function CurrentAffairsView({
               <Card key={q.id} className="p-7">
                 <div className="flex items-center gap-3">
                   <span className="tnum text-ink-4 text-[13px]">Q{i + 1}</span>
-                  {q.topic ? <Badge tone="brand">{q.topic}</Badge> : null}
+                  {q.topic ? (
+                    <StatusPill tone="brand">{q.topic}</StatusPill>
+                  ) : null}
                 </div>
 
                 <p className="mt-3 text-[19px] leading-snug tracking-[-0.02em]">

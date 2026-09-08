@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, RefreshCw } from "lucide-react";
-import { Badge, Card, SectionTitle } from "@/design-system";
+import { StatusPill, Card, SectionTitle } from "@/design-system";
 import { useAdminStatus } from "@/features/admin/hooks";
 
 const TIME = new Intl.DateTimeFormat("en-IN", {
@@ -44,7 +44,7 @@ export function PipelinePanel() {
         <ul className="divide-line divide-y">
           {data.runs.map((run) => (
             <li key={run.runId} className="flex items-center gap-3 py-2.5">
-              <Badge
+              <StatusPill
                 tone={
                   run.status === "done"
                     ? "ok"
@@ -54,7 +54,7 @@ export function PipelinePanel() {
                 }
               >
                 {run.status}
-              </Badge>
+              </StatusPill>
               <span className="tnum text-ink-3 shrink-0 text-[13px]">
                 {TIME.format(new Date(run.startedAt))}
               </span>

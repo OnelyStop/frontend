@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase-server";
 import { getRole } from "@/features/auth/roles";
-import { Badge, Card, PageHeader, SectionTitle } from "@/design-system";
+import { StatusPill, Card, PageHeader, SectionTitle } from "@/design-system";
 import { PipelinePanel } from "./pipeline-panel";
 
 export const metadata: Metadata = { title: "Admin" };
@@ -69,9 +69,9 @@ export default async function Page() {
         <SectionTitle
           aside={
             failing.length === 0 ? (
-              <Badge tone="ok">All checks passing</Badge>
+              <StatusPill tone="ok">All checks passing</StatusPill>
             ) : (
-              <Badge tone="bad">{failing.length} failing</Badge>
+              <StatusPill tone="bad">{failing.length} failing</StatusPill>
             )
           }
         >

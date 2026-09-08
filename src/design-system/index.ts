@@ -45,7 +45,6 @@ export {
 
 export {
   Avatar,
-  Badge,
   Kbd,
   Table,
   TargetBar,

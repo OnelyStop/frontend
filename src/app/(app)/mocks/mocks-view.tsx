@@ -394,14 +394,14 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           sub="Nothing has been imported at this stage yet. Switch the filter to All to see everything there is."
         />
       ) : (
-        <div className="border-line grid grid-cols-1 border-t border-l lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           {shown.map((m) => {
             const cleared = m.score !== null && m.score >= m.target;
             const scale = Math.max(m.target, m.score ?? 0) * 1.3;
             return (
               <div
                 key={m.id}
-                className="border-line hover:bg-brand-soft/40 relative flex items-start gap-4 border-r border-b p-7 transition-colors duration-200"
+                className="card card-lift relative flex items-start gap-4 p-7"
               >
                 <div className="min-w-0 flex-1">
                   <p className="text-[19px] tracking-[-0.02em]">

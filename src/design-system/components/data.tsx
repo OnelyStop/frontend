@@ -12,28 +12,6 @@ const TONE: Record<Tone, string> = {
   brand: "bg-brand-soft text-brand",
 };
 
-export function Badge({
-  children,
-  tone = "neutral",
-  className,
-}: {
-  children: ReactNode;
-  tone?: Tone;
-  className?: string;
-}) {
-  return (
-    <span
-      className={cn(
-        "rounded-pill inline-flex items-center gap-1.5 px-4 py-2 text-[14px] font-semibold",
-        TONE[tone],
-        className,
-      )}
-    >
-      {children}
-    </span>
-  );
-}
-
 // `outline` is the not-yet state — no fill, because nothing has happened yet.
 export function Tile({
   value,

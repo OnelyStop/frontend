@@ -2,7 +2,13 @@
 
 import { useMemo, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { Badge, Empty, Input, PageHeader, Segmented } from "@/design-system";
+import {
+  StatusPill,
+  Empty,
+  Input,
+  PageHeader,
+  Segmented,
+} from "@/design-system";
 import {
   SECTION_FROM_DB,
   SECTION_KEY,
@@ -146,9 +152,9 @@ export function NotesView({ notes }: { notes: NoteSummary[] }) {
                               {n.summary}
                             </p>
                             {n.difficulty ? (
-                              <Badge tone="neutral" className="mt-3">
+                              <StatusPill tone="neutral" className="mt-3">
                                 {n.difficulty}
-                              </Badge>
+                              </StatusPill>
                             ) : null}
                           </a>
                         </li>

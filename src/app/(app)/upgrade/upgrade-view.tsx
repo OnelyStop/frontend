@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Badge, Button, Card, PageHeader, SectionTitle } from "@/design-system";
+import {
+  StatusPill,
+  Button,
+  Card,
+  PageHeader,
+  SectionTitle,
+} from "@/design-system";
 import { PLAN_LIMITS, PLAN_NAME } from "@/features/billing/limits";
 import type { BillingStatus, PlanPrice } from "@/features/billing/types";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
@@ -46,9 +52,9 @@ function ManagePlan({ status }: { status: BillingStatus }) {
     <Card className="mb-6">
       <SectionTitle
         aside={
-          <Badge tone={windingDown ? "warn" : "ok"}>
+          <StatusPill tone={windingDown ? "warn" : "ok"}>
             {windingDown ? "Cancels" : "Active"}
-          </Badge>
+          </StatusPill>
         }
       >
         Your plan

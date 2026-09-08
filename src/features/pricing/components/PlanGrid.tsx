@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
 import {
-  Badge,
+  StatusPill,
   Button,
   ButtonLink,
   Card,
@@ -191,7 +191,7 @@ export function PlanGrid({
                       price.currency,
                     )}
                   </span>
-                  <Badge tone="ok">{off}% off</Badge>
+                  <StatusPill tone="ok">{off}% off</StatusPill>
                 </p>
               ) : null}
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Lock } from "lucide-react";
-import { Badge, ButtonLink } from "@/design-system";
+import { StatusPill, ButtonLink } from "@/design-system";
 import type { TopicPreview } from "../types";
 
 const DIFFICULTY_TONE = {
@@ -35,9 +35,9 @@ export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
           {topic.title}
         </h1>
         <div className="mt-3 flex flex-wrap items-center gap-2.5">
-          <Badge tone={DIFFICULTY_TONE[topic.difficulty]}>
+          <StatusPill tone={DIFFICULTY_TONE[topic.difficulty]}>
             {topic.difficulty}
-          </Badge>
+          </StatusPill>
           <span className="tnum text-ink-3 text-[13px]">
             {topic.estimatedMinutes} min read
           </span>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {
-  Badge,
+  StatusPill,
   Divider,
   Empty,
   PageHeader,
@@ -63,12 +63,12 @@ export function SubjectView({
                 >
                   {chapter.name}
                 </SectionTitle>
-                <div className="border-line border-t border-l">
+                <div className="grid gap-3">
                   {chapter.topics.map((t) => (
                     <Link
                       key={t.slug}
                       href={`/study/${subjectSlug}/${chapter.slug}/${t.slug}`}
-                      className="border-line hover:bg-brand-soft/40 flex items-start gap-4 border-r border-b p-5 transition-colors"
+                      className="card card-lift flex items-start gap-4 p-6"
                     >
                       <div className="min-w-0 flex-1">
                         <p className="text-[15.5px]">{t.title}</p>
@@ -77,9 +77,9 @@ export function SubjectView({
                         </p>
                       </div>
                       <div className="flex shrink-0 items-center gap-3">
-                        <Badge tone={DIFFICULTY_TONE[t.difficulty]}>
+                        <StatusPill tone={DIFFICULTY_TONE[t.difficulty]}>
                           {t.difficulty}
-                        </Badge>
+                        </StatusPill>
                         <span className="tnum text-ink-4 text-[13px]">
                           {t.estimatedMinutes} min
                         </span>

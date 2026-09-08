@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  Badge,
+  StatusPill,
   ButtonLink,
   Card,
   OptionRow,
@@ -101,7 +101,7 @@ function QuestionRow({
           {q.timeMs !== null ? `${Math.round(q.timeMs / 1000)}s` : "—"}
         </Td>
         <Td align="right">
-          <Badge
+          <StatusPill
             tone={
               verdict === "correct"
                 ? "ok"
@@ -115,7 +115,7 @@ function QuestionRow({
               : verdict === "wrong"
                 ? "✗ Wrong"
                 : "– Skipped"}
-          </Badge>
+          </StatusPill>
         </Td>
       </Tr>
       <AnimatePresence initial={false}>
@@ -158,12 +158,12 @@ function QuestionRow({
                           ) : null}
                         </OptionRow>
                         {isChosen ? (
-                          <Badge
+                          <StatusPill
                             tone={isRight ? "ok" : "bad"}
                             className="absolute top-1/2 right-3 -translate-y-1/2"
                           >
                             Your pick
-                          </Badge>
+                          </StatusPill>
                         ) : null}
                       </div>
                     );

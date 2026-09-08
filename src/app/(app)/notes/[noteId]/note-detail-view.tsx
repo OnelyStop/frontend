@@ -1,6 +1,6 @@
 import {
   ButtonLink,
-  Badge,
+  StatusPill,
   Card,
   Divider,
   SectionTitle,
@@ -38,22 +38,22 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
 
       <div className="mt-5 flex flex-wrap gap-2">
         {note.difficulty ? (
-          <Badge tone="neutral">{note.difficulty}</Badge>
+          <StatusPill tone="neutral">{note.difficulty}</StatusPill>
         ) : null}
         {note.examRelevance.exams.map((e) => (
-          <Badge key={e} tone="brand">
+          <StatusPill key={e} tone="brand">
             {e.replaceAll("_", " ")}
-          </Badge>
+          </StatusPill>
         ))}
         {note.examRelevance.stage.map((s) => (
-          <Badge key={s} tone="neutral">
+          <StatusPill key={s} tone="neutral">
             {s}
-          </Badge>
+          </StatusPill>
         ))}
         {note.aliases.map((a) => (
-          <Badge key={a} tone="neutral">
+          <StatusPill key={a} tone="neutral">
             aka {a}
-          </Badge>
+          </StatusPill>
         ))}
       </div>
 
@@ -154,9 +154,9 @@ export function NoteDetailView({ note }: { note: NoteDetail }) {
           <SectionTitle>Practice from this topic</SectionTitle>
           <div className="flex flex-wrap gap-2">
             {note.relatedQuestionIds.map((id) => (
-              <Badge key={id} tone="neutral">
+              <StatusPill key={id} tone="neutral">
                 {id}
-              </Badge>
+              </StatusPill>
             ))}
           </div>
         </Card>
