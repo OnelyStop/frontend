@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { AVATAR_KEYS } from "./avatars";
 import {
   EXAMS,
   SECTIONS,
@@ -11,6 +12,8 @@ import {
 export const profileUpdate = z
   .object({
     displayName: z.string().trim().max(80).nullable(),
+    // The enum is the server-side allowlist for the settings path.
+    avatar: z.enum(AVATAR_KEYS).nullable(),
     bio: z.string().trim().max(500).nullable(),
     school: z.string().trim().max(120).nullable(),
     targetYear: z.number().int().min(2000).max(2100).nullable(),
@@ -29,6 +32,7 @@ export const accountClose = z.object({
 export type Profile = {
   id: string;
   displayName: string | null;
+  avatar: string | null;
   bio: string | null;
   country: string;
   school: string | null;

@@ -22,6 +22,7 @@ type AuthContextValue = {
     email: string,
     password: string,
     fullName: string,
+    avatar?: string | null,
   ) => Promise<AuthResult>;
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signInWithGoogle: () => Promise<AuthResult>;
@@ -73,13 +74,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loading,
       configured: isSupabaseConfigured,
 
-      signUp: async (email, password, fullName) => {
+      signUp: async (email, password, fullName, avatar) => {
         if (!supabase) return NOT_CONFIGURED;
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            data: { full_name: fullName },
+            data: avatar
+              ? { full_name: fullName, avatar }
+              : { full_name: fullName },
             emailRedirectTo: AUTH_CONFIRM_URL,
           },
         });
