@@ -6,10 +6,14 @@ import Link from "next/link";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
 import { EXAMS, SECTIONS, SECTION_LABEL } from "@/data/navigation";
 import type { Profile, ProfileUpdate } from "@/features/profile/types";
+import { useApp } from "@/context/AppContext";
+import { isAvatarKey, type AvatarKey } from "@/features/profile/avatars";
+import { AvatarPicker } from "@/features/profile/components/AvatarPicker";
 import { CloseAccountCard } from "./close-account-card";
 
 type Draft = {
   displayName: string;
+  avatar: AvatarKey | null;
   school: string;
   targetYear: string;
   bio: string;
@@ -20,6 +24,7 @@ type Draft = {
 function toDraft(profile: Profile | null): Draft {
   return {
     displayName: profile?.displayName ?? "",
+    avatar: isAvatarKey(profile?.avatar) ? profile.avatar : null,
     school: profile?.school ?? "",
     targetYear: profile?.targetYear ? String(profile.targetYear) : "",
     bio: profile?.bio ?? "",
@@ -34,6 +39,7 @@ const orNull = (v: string) => (v.trim() === "" ? null : v.trim());
 function toPatch(d: Draft): ProfileUpdate {
   return {
     displayName: orNull(d.displayName),
+    avatar: d.avatar,
     school: orNull(d.school),
     bio: orNull(d.bio),
     targetYear: d.targetYear.trim() === "" ? null : Number(d.targetYear),
@@ -71,6 +77,7 @@ function Field({
 
 export function SettingsView({ profile }: { profile: Profile | null }) {
   const router = useRouter();
+  const { initials } = useApp();
   const [draft, setDraft] = useState<Draft>(() => toDraft(profile));
   const [state, setState] = useState<"idle" | "saving" | "saved" | "error">(
     "idle",
@@ -135,6 +142,17 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
 
       <Card>
         <SectionTitle>Your details</SectionTitle>
+        <div className="border-line mb-5 border-b pb-5">
+          <p className="text-ink-2 text-[13px]">Avatar</p>
+          <p className="text-ink-3 mt-0.5 mb-2.5 text-[12.5px]">
+            Without one you keep your initials.
+          </p>
+          <AvatarPicker
+            value={draft.avatar}
+            onChange={(next) => setDraft((d) => ({ ...d, avatar: next }))}
+            initials={initials}
+          />
+        </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field
             id="displayName"

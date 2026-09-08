@@ -15,6 +15,13 @@
       "when": 1788719728249,
       "tag": "0001_functions_and_grants",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788872766739,
+      "tag": "0002_profile_avatar",
+      "breakpoints": true
     }
   ]
 }

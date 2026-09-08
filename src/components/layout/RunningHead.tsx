@@ -8,6 +8,7 @@ import { useRetrieval } from "@/features/retrieval/RetrievalContext";
 import { TARGETS } from "@/features/retrieval/targets";
 import { ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
+import { AvatarMark } from "@/features/profile/components/AvatarMark";
 import { ACCOUNT_GROUP, HeaderNav, MAIN_GROUPS } from "./HeaderNav";
 import { EXAMS, type ExamBoard, type Subject } from "@/data/navigation";
 
@@ -89,7 +90,7 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
 }
 
 export function RunningHead() {
-  const { subject, board, setBoard, initials } = useApp();
+  const { subject, board, setBoard, initials, avatar } = useApp();
   const { signOut, user, loading } = useAuth();
   // Neither state renders until auth resolves, so the header never flashes either way.
   const signedOut = !loading && !user;
@@ -279,9 +280,9 @@ export function RunningHead() {
             aria-expanded={account}
             aria-label="Account"
             onClick={() => setAccount((v) => !v)}
-            className="press border-line-2 hover:border-ink/25 grid size-10 place-items-center rounded-full border text-[13px]"
+            className="press border-line-2 hover:border-ink/25 grid size-10 place-items-center overflow-hidden rounded-full border text-[13px]"
           >
-            {initials}
+            {avatar ? <AvatarMark avatar={avatar} /> : initials}
           </button>
 
           {account ? (
