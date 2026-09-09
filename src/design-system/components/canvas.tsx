@@ -90,9 +90,9 @@ export function EventCard({
 
   return (
     <article
-      className={cn("shadow-card mb-3 rounded-xl p-2.5", card, className)}
+      className={cn("shadow-card mb-2.5 rounded-xl p-2", card, className)}
     >
-      <div className="mb-2.5 flex items-center gap-2.5 px-3.5 pt-2">
+      <div className="mb-2 flex items-center gap-2.5 px-2.5 pt-1">
         {icon ? <span className="shrink-0">{icon}</span> : null}
         <span className="text-[15px] font-bold">{kind}</span>
         <span className="ml-auto text-[13px] font-semibold opacity-70">
@@ -101,19 +101,19 @@ export function EventCard({
       </div>
       <div
         className={cn(
-          "rounded-ctl p-3.5 text-[13.5px] leading-[1.55] text-black/65",
+          "rounded-ctl px-3 py-2.5 text-[13.5px] leading-[1.45] text-black/65",
           panel,
         )}
       >
         {children}
       </div>
       {at ? (
-        <div className="bg-canvas rounded-ctl mt-2.5 flex items-center justify-center gap-2 py-2.5 text-[13.5px] font-semibold">
+        <div className="bg-canvas rounded-ctl mt-2 flex items-center justify-center gap-2 py-2 text-[13.5px] font-semibold">
           <Clock className="size-4 shrink-0" strokeWidth={2} aria-hidden />
           {at}
         </div>
       ) : null}
-      {footer ? <div className="mt-2.5">{footer}</div> : null}
+      {footer ? <div className="mt-2">{footer}</div> : null}
     </article>
   );
 }

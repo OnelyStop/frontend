@@ -290,7 +290,7 @@ export function DesignView() {
       </Section>
 
       <Section title="Event card" note="What is scheduled, and when">
-        <div className="grid max-w-md gap-0">
+        <div className="grid max-w-96 gap-0">
           <EventCard
             kind="Mock"
             when="Tu, 25.03"
