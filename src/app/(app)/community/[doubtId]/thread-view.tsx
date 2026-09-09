@@ -156,7 +156,7 @@ export function ThreadView({ thread }: { thread: DoubtThread }) {
                 kind={r.author}
                 when={WHEN.format(new Date(r.createdAt))}
                 tone={REPLY_TONES[i % REPLY_TONES.length]}
-                mark={<Avatar initials={initials(r.author)} size={28} />}
+                mark={<Avatar size={28}>{initials(r.author)}</Avatar>}
               >
                 <span className="whitespace-pre-wrap">{r.body}</span>
               </EventCard>

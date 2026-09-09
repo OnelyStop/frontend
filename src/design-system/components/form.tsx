@@ -1,10 +1,9 @@
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-// One height, one radius, one focus treatment (border to brand). No fills, no rings.
-
+// Recessed grey that lifts to white paper on focus; the hairline-on-white was the old language.
 const CONTROL =
-  "w-full rounded-ctl border border-line bg-canvas text-[14px] outline-none transition-colors focus:border-brand disabled:opacity-50";
+  "w-full rounded-ctl bg-panel text-ink placeholder:text-ink-4 text-[14px] outline-none transition-[background-color,box-shadow] duration-200 ease-[var(--ease-swift)] focus:bg-canvas focus:shadow-card disabled:opacity-50";
 
 export function Field({
   label,
@@ -21,7 +20,10 @@ export function Field({
 }) {
   return (
     <div className="block">
-      <label htmlFor={htmlFor} className="text-ink-2 block text-[13px]">
+      <label
+        htmlFor={htmlFor}
+        className="text-ink-2 block text-[13px] font-medium"
+      >
         {label}
       </label>
       <div className="mt-1.5">{children}</div>
@@ -66,7 +68,7 @@ export function Checkbox({
     >
       <input
         type="checkbox"
-        className="accent-brand mt-0.5 size-4 shrink-0"
+        className="accent-brand rounded-ctl mt-0.5 size-4.5 shrink-0"
         {...rest}
       />
       <span>

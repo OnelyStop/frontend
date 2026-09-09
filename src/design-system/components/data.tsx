@@ -58,10 +58,18 @@ export function TargetBar({
     `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
 
   return (
-    <div className={cn("rounded-pill bg-track relative h-3.5", className)}>
+    <div
+      className={cn(
+        "rounded-pill bg-track relative h-4 overflow-visible",
+        className,
+      )}
+    >
       {value !== null ? (
         <div
-          className={cn("rounded-pill h-full", cleared ? "bg-ok" : "bg-bad")}
+          className={cn(
+            "rounded-pill h-full transition-[width] duration-500 ease-[var(--ease-decelerate)]",
+            cleared ? "bg-ok" : "bg-bad",
+          )}
           style={{ width: pct(value) }}
         />
       ) : null}
@@ -74,25 +82,31 @@ export function TargetBar({
   );
 }
 
+/** A mark on a tinted disc — the same face the avatar stack overlaps. */
 export function Avatar({
-  initials,
-  size = 40,
+  children,
+  tint,
+  size = 36,
   className,
 }: {
-  initials: string;
+  children: ReactNode;
+  /** A canvas tint; falls back to the recessed grey. */
+  tint?: string;
   size?: number;
   className?: string;
 }) {
   return (
     <span
-      style={{ width: size, height: size, fontSize: size / 3 }}
-      className={cn(
-        "border-line-2 grid shrink-0 place-items-center rounded-full border",
-        className,
-      )}
+      style={{
+        width: size,
+        height: size,
+        fontSize: size / 2.1,
+        background: tint ?? "var(--color-panel)",
+      }}
+      className={cn("grid shrink-0 place-items-center rounded-full", className)}
       aria-hidden
     >
-      {initials}
+      {children}
     </span>
   );
 }

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
+import { Avatar } from "./data";
 
 // The card family the canvas is built from, and the controls that sit on them.
 export type PillTone =
@@ -139,16 +140,17 @@ export function AvatarStack({
   return (
     <div className="flex">
       {people.map((p) => (
-        <span
+        <Avatar
           key={p.id}
+          tint={p.tint}
+          size={44}
           className={cn(
-            "-ml-3 grid size-11 place-items-center rounded-full border-3 text-[19px] first:ml-0",
+            "-ml-3 border-3 first:ml-0",
             ring === "active" ? "border-active-soft" : "border-canvas",
           )}
-          style={{ background: p.tint ?? "var(--color-panel)" }}
         >
           {p.mark}
-        </span>
+        </Avatar>
       ))}
     </div>
   );

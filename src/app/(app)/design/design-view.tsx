@@ -546,8 +546,10 @@ export function DesignView() {
           <div>
             <p className="text-ink-3 mb-3 text-[13px]">Avatar and Kbd</p>
             <div className="flex items-center gap-4">
-              <Avatar initials="AM" />
-              <Avatar initials="AM" size={32} />
+              <Avatar>🧑🏻</Avatar>
+              <Avatar tint="#f7dcc4" size={32}>
+                AM
+              </Avatar>
               <Kbd>⌘K</Kbd>
             </div>
 
