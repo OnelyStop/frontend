@@ -79,16 +79,6 @@
 
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
-  /* EventCard's dials. It sets no width or height — these and the content are
-     what the box is made of, so a caller resizes it by overriding one. */
-  --card-pad: 10px;
-  --card-inset-x: 14px;
-  --card-inset-y: 20px;
-  --card-gap: 24px;
-  --card-gutter: 104px;
-  --card-measure: 30ch;
-  --card-radius: 2rem;
-
   --radius-ctl: 16px;
   --radius-card: 28px;
   --radius-xl: 22px;
