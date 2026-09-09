@@ -7,6 +7,9 @@ import { useApp } from "@/context/AppContext";
 import {
   Button,
   Card,
+  EventCard,
+  EventMark,
+  type EventTone,
   OptionRow,
   PageHeader,
   SECTION_TINT,
@@ -18,6 +21,7 @@ import {
 import {
   SECTIONS,
   SECTION_DB,
+  SECTION_KEY,
   SECTION_LABEL,
   type Subject,
 } from "@/data/navigation";
@@ -27,6 +31,15 @@ import type { DrillQuestion } from "@/features/question-bank/types";
 const LENGTHS = [10, 20, 30] as const;
 /* The pace the drill is budgeted at, and what the readout counts against. */
 const SECONDS_PER_Q = 45;
+
+/* Positional, in SECTIONS order, so a section keeps its own colour across the app. */
+const SECTION_EVENT_TONE: EventTone[] = [
+  "quant",
+  "reasoning",
+  "english",
+  "ga",
+  "computer",
+];
 
 type Recorded = { chosen: string | null; timeMs: number };
 
@@ -54,6 +67,9 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
   const near = !over && elapsed >= SECONDS_PER_Q * 0.75;
   const pick = (from: DrillQuestion[]) =>
     from.filter((q) => q.section === SECTION_DB[section]).slice(0, len);
+  // Counted per section rather than for the selected one, so every card can say what is behind it.
+  const poolFor = (s: Subject) =>
+    pool.filter((q) => q.section === SECTION_DB[s]).length;
 
   // Before the drill starts this previews the page's pool; once running it is the set the server recorded.
   const set = running ? sat : pick(pool);
@@ -241,49 +257,81 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
         }
       />
 
-      <Card
-        tone={set.length === 0 ? "warn" : "plain"}
-        className={cn(set.length > 0 && fill)}
-      >
-        <SectionTitle>Set up</SectionTitle>
-        <div className="grid gap-5">
-          <Field label="Section">
-            {SECTIONS.map((s) => (
-              <Pick key={s} on={section === s} onClick={() => setSection(s)}>
-                {SECTION_LABEL[s]}
-              </Pick>
-            ))}
-          </Field>
-          <Field label="Length">
+      <SectionTitle aside={`drawn at random · ${SECONDS_PER_Q}s a question`}>
+        What do you want to drill?
+      </SectionTitle>
+
+      {/* The card IS the choice: a row of identical pills made the section an afterthought rather than the decision. */}
+      <div className="mb-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {SECTIONS.map((s) => {
+          const poolSize = poolFor(s);
+          const chosen = section === s;
+          return (
+            <button
+              key={s}
+              type="button"
+              onClick={() => setSection(s)}
+              aria-pressed={chosen}
+              className="rounded-4xl text-left transition-transform focus-visible:outline-2"
+            >
+              <EventCard
+                kind={SECTION_LABEL[s]}
+                when={`${poolSize} in pool`}
+                tone={SECTION_EVENT_TONE[SECTIONS.indexOf(s)]!}
+                className={cn(
+                  "h-full",
+                  chosen ? "shadow-pop" : "opacity-70 hover:opacity-100",
+                )}
+                mark={
+                  <EventMark disc>
+                    <i
+                      className="size-2.5 rounded-full"
+                      style={{
+                        background: `var(--color-${SECTION_KEY[s]})`,
+                      }}
+                    />
+                  </EventMark>
+                }
+                footer={
+                  <StatusPill
+                    tone="live"
+                    className={chosen ? "text-ink" : "text-ink-3"}
+                  >
+                    {chosen ? "Selected" : "Choose"}
+                  </StatusPill>
+                }
+              >
+                {poolSize === 0 ? (
+                  "Nothing in the bank for this section yet."
+                ) : (
+                  <>
+                    <span className="tnum text-ink block text-[26px] leading-none tracking-[-0.03em]">
+                      {Math.min(len, poolSize)}
+                    </span>
+                    <span className="mt-1.5 block text-[13px]">
+                      questions this drill would draw
+                      {poolSize < len ? ` — all ${poolSize} there are` : ""}
+                    </span>
+                  </>
+                )}
+              </EventCard>
+            </button>
+          );
+        })}
+      </div>
+
+      <Card tone="plain">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="text-ink-3 w-20 shrink-0 text-[13px]">Length</span>
+          <div className="flex flex-wrap gap-2">
             {LENGTHS.map((l) => (
               <Pick key={l} on={len === l} onClick={() => setLen(l)}>
-                {l}
+                {l} questions · {Math.round((l * SECONDS_PER_Q) / 60)} min
               </Pick>
             ))}
-          </Field>
+          </div>
         </div>
-
-        <p className="border-line text-ink-3 mt-6 border-t pt-4 text-[13px] leading-relaxed">
-          {set.length === 0
-            ? `No ${SECTION_LABEL[section]} questions in the pool right now.`
-            : `Questions are drawn at random from the section — nothing here reads your attempt map yet. Budgeted at ${SECONDS_PER_Q} seconds each.`}
-        </p>
       </Card>
-    </div>
-  );
-}
-
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-wrap items-center gap-3">
-      <span className="text-ink-3 w-20 shrink-0 text-[13px]">{label}</span>
-      <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
 }

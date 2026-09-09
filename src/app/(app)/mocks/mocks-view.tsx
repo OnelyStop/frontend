@@ -3,25 +3,39 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
+import { FileText } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import {
   Button,
   ButtonLink,
-  Card,
   Empty,
+  EventCard,
+  EventMark,
+  type EventTone,
   OptionRow,
   PageHeader,
   Segmented,
   StatusPill,
+  TargetBar,
   questionVariants,
-  tintFor,
 } from "@/design-system";
 import {
+  NEGATIVE_MARK,
   SECTIONS,
   SECTION_DB,
   SECTION_LABEL,
   type Subject,
 } from "@/data/navigation";
+
+// Walked by position on the shelf: a paper's identity is its name, not a colour, so the tone only keeps neighbours apart.
+const PAPER_TONES: EventTone[] = [
+  "info",
+  "quant",
+  "english",
+  "ga",
+  "reasoning",
+  "computer",
+];
 import { startMockAttempt, submitAttempt } from "@/features/attempts/actions";
 import type { Mock } from "@/features/question-bank/types";
 import type { DrillQuestion } from "@/features/question-bank/types";
@@ -397,45 +411,42 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           sub="Nothing has been imported at this stage yet. Switch the filter to All to see everything there is."
         />
       ) : (
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          {shown.map((m) => {
+        <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
+          {shown.map((m, i) => {
             const cleared = m.score !== null && m.score >= m.target;
-            const scale = Math.max(m.target, m.score ?? 0) * 1.3;
             return (
-              // The fill is the paper's own, so a shelf of cleared papers isn't one green block; the pill carries the verdict.
-              <Card
+              // The paper's own tone, so a shelf of cleared papers is not one green block; the pill carries the verdict.
+              <EventCard
                 key={m.id}
-                lift
-                pad={false}
-                className={`relative flex items-start gap-4 p-6 ${tintFor(m.id)}`}
-              >
-                <div className="min-w-0 flex-1">
-                  <p className="text-[16px] tracking-[-0.02em]">
-                    {m.name} {m.year}
-                  </p>
-                  <p className="tnum text-ink-3 mt-1.5 text-[13px]">
-                    {m.stage} · {m.qs} questions · {m.mins} min
-                  </p>
-
-                  <div className="mt-7 flex items-baseline gap-2">
-                    <span
-                      className={`tnum text-[21px] leading-none tracking-[-0.03em] ${
+                kind={m.year ? `${m.name} ${m.year}` : m.name}
+                when={`${m.mins} min`}
+                tone={PAPER_TONES[i % PAPER_TONES.length]!}
+                mark={
+                  <EventMark disc>
+                    <FileText size={15} strokeWidth={2} />
+                  </EventMark>
+                }
+                footer={
+                  <div className="flex items-center gap-2.5">
+                    <Button
+                      size="sm"
+                      disabled={starting !== null}
+                      onClick={() => void handleStart(m)}
+                    >
+                      {starting === m.id
+                        ? "Loading…"
+                        : m.score !== null
+                          ? "Retake"
+                          : "Start"}
+                    </Button>
+                    <StatusPill
+                      tone="live"
+                      className={
                         m.score === null
-                          ? "text-ink-4"
+                          ? "text-ink-2"
                           : cleared
                             ? "text-ok"
                             : "text-bad"
-                      }`}
-                    >
-                      {m.score ?? "—"}
-                    </span>
-                    <span className="text-ink-3 text-[13px]">
-                      55% target {m.target}
-                    </span>
-                    <span className="flex-1" />
-                    <StatusPill
-                      tone={
-                        m.score === null ? "neutral" : cleared ? "ok" : "bad"
                       }
                     >
                       {m.score === null
@@ -445,38 +456,38 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                           : "Missed"}
                     </StatusPill>
                   </div>
+                }
+              >
+                <p className="tnum text-ink-2 text-[13px]">
+                  {m.stage} · {m.qs} questions · −{NEGATIVE_MARK} a wrong answer
+                </p>
 
-                  <div className="rounded-pill bg-canvas relative mt-3 h-1.5">
-                    {m.score !== null ? (
-                      <div
-                        className={`rounded-pill h-full ${cleared ? "bg-ok" : "bg-bad"}`}
-                        style={{ width: `${(m.score / scale) * 100}%` }}
-                      />
-                    ) : null}
-                    <span
-                      className="bg-ink-3 absolute -top-1 h-[14px] w-px"
-                      style={{ left: `${(m.target / scale) * 100}%` }}
-                      aria-hidden
+                {/* The result is white paper that only exists once the paper has been sat, so a sat card differs in shape, not just in a pill. */}
+                {m.score === null ? (
+                  <p className="text-ink-3 mt-4 text-[13px]">
+                    Target is {m.target} — 55% of this paper&rsquo;s questions.
+                  </p>
+                ) : (
+                  <div className="bg-canvas rounded-ctl mt-4 px-4 py-3.5">
+                    <div className="flex items-baseline gap-2">
+                      <span
+                        className={`tnum text-[22px] leading-none tracking-[-0.03em] ${cleared ? "text-ok" : "text-bad"}`}
+                      >
+                        {m.score}
+                      </span>
+                      <span className="text-ink-3 text-[13px]">
+                        of {m.qs} · target {m.target}
+                      </span>
+                    </div>
+                    <TargetBar
+                      value={m.score}
+                      target={m.target}
+                      max={m.qs}
+                      className="mt-3"
                     />
                   </div>
-
-                  <span
-                    aria-hidden
-                    className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
-                  />
-                </div>
-                <button
-                  disabled={starting !== null}
-                  className="rounded-pill bg-ink hover:bg-ink/90 h-10 shrink-0 px-5 text-[14px] font-medium text-white transition-colors disabled:opacity-50"
-                  onClick={() => void handleStart(m)}
-                >
-                  {starting === m.id
-                    ? "Loading…"
-                    : m.score !== null
-                      ? "Retake"
-                      : "Start"}
-                </button>
-              </Card>
+                )}
+              </EventCard>
             );
           })}
         </div>
