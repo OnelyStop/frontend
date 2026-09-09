@@ -9,7 +9,10 @@ import {
   Card,
   OptionRow,
   PageHeader,
+  SECTION_TINT,
   SectionTitle,
+  StatusPill,
+  cn,
   questionVariants,
 } from "@/design-system";
 import {
@@ -45,6 +48,10 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
   const startReqIdRef = useRef(0);
 
   const mins = Math.round((len * SECONDS_PER_Q) / 60);
+  const fill = SECTION_TINT[SECTIONS.indexOf(section)]!;
+  // Amber from three quarters of the budget, red past it; nothing is coloured while on pace.
+  const over = elapsed > SECONDS_PER_Q;
+  const near = !over && elapsed >= SECONDS_PER_Q * 0.75;
   const pick = (from: DrillQuestion[]) =>
     from.filter((q) => q.section === SECTION_DB[section]).slice(0, len);
 
@@ -143,19 +150,24 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
           }
         />
 
-        <Card tone="brand" className="p-6">
+        <Card className={cn("p-6", fill)}>
           <div className="mb-6 flex items-center gap-3">
-            <div className="rounded-pill bg-line h-1.5 flex-1 overflow-hidden">
+            <div className="rounded-pill bg-canvas h-1.5 flex-1 overflow-hidden">
               <div
-                className="rounded-pill bg-brand h-full"
+                className={cn(
+                  "rounded-pill h-full",
+                  over ? "bg-bad" : near ? "bg-warn" : "bg-ok",
+                )}
                 style={{
                   width: `${Math.min(100, (elapsed / SECONDS_PER_Q) * 100)}%`,
                 }}
               />
             </div>
-            <span className="tnum text-ink-3 text-[13px]">
-              {elapsed}s / {SECONDS_PER_Q}s
-            </span>
+            <StatusPill tone={over ? "bad" : near ? "warn" : "live"}>
+              <span className="tnum">
+                {elapsed}s / {SECONDS_PER_Q}s
+              </span>
+            </StatusPill>
           </div>
 
           {/* min-h so mode="wait" doesn't collapse the card to 0 between the outgoing and incoming question. */}
@@ -229,7 +241,10 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
         }
       />
 
-      <Card>
+      <Card
+        tone={set.length === 0 ? "warn" : "plain"}
+        className={cn(set.length > 0 && fill)}
+      >
         <SectionTitle>Set up</SectionTitle>
         <div className="grid gap-5">
           <Field label="Section">

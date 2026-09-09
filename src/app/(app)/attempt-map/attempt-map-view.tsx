@@ -7,10 +7,12 @@ import { useApp } from "@/context/AppContext";
 import {
   ButtonLink,
   Card,
+  type CardTone,
   Empty,
   PageHeader,
   SectionTitle,
   Segmented,
+  StatusPill,
   Tile,
 } from "@/design-system";
 import {
@@ -46,6 +48,7 @@ function topicId(t: TopicMapRow) {
 
 type Zone = "first" | "iftime" | "fix" | "skip";
 
+// `tone` names both the pill and the card fill, so a verdict looks the same wherever it is shown.
 const ZONES: Record<
   Zone,
   {
@@ -55,7 +58,7 @@ const ZONES: Record<
     dot: string;
     ring: string;
     text: string;
-    chip: string;
+    tone: Extract<CardTone, "ok" | "warn" | "bad" | "brand">;
   }
 > = {
   first: {
@@ -66,7 +69,7 @@ const ZONES: Record<
     dot: "bg-ok",
     ring: "ring-ok/20",
     text: "text-ok",
-    chip: "bg-ok-soft text-ok",
+    tone: "ok",
   },
   iftime: {
     label: "Attempt if time",
@@ -76,7 +79,7 @@ const ZONES: Record<
     dot: "bg-brand",
     ring: "ring-brand/20",
     text: "text-brand",
-    chip: "bg-brand-soft text-brand",
+    tone: "brand",
   },
   fix: {
     label: "Fix the errors",
@@ -86,7 +89,7 @@ const ZONES: Record<
     dot: "bg-warn",
     ring: "ring-warn/20",
     text: "text-warn",
-    chip: "bg-warn-soft text-warn",
+    tone: "warn",
   },
   skip: {
     label: "Skip in the exam",
@@ -95,7 +98,7 @@ const ZONES: Record<
     dot: "bg-bad",
     ring: "ring-bad/20",
     text: "text-bad",
-    chip: "bg-bad-soft text-bad",
+    tone: "bad",
   },
 };
 
@@ -480,7 +483,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
 
         <div className="grid content-start gap-5">
           {open ? (
-            <Card>
+            <Card tone={ZONES[zoneOf(open)].tone}>
               <div className="flex items-start gap-3">
                 <div className="min-w-0 flex-1">
                   <p className="text-[22px] leading-snug tracking-[-0.02em]">
@@ -505,8 +508,9 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                 </button>
               </div>
 
+              {/* No pill here: the card is already filled with the verdict's own tone, so a pill in that tone would vanish. */}
               <p
-                className={`rounded-pill mt-5 inline-flex px-3 py-1 text-[13px] ${ZONES[zoneOf(open)].chip}`}
+                className={`mt-5 text-[13px] font-semibold ${ZONES[zoneOf(open)].text}`}
               >
                 {ZONES[zoneOf(open)].label}
               </p>
@@ -564,7 +568,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
               </Link>
             </Card>
           ) : (
-            <Card>
+            <Card tone={skipList.length === 0 ? "ok" : "bad"}>
               <SectionTitle
                 aside={
                   <span className="text-ink-3 text-[12px]">
@@ -588,7 +592,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                         onClick={() => setOpen(t)}
                         onMouseEnter={() => setHover(t)}
                         onMouseLeave={() => setHover(null)}
-                        className="rounded-ctl hover:bg-brand-soft/50 flex w-full items-center gap-3 px-2 py-1.5 text-left transition-colors"
+                        className="rounded-ctl hover:bg-canvas flex w-full items-center gap-3 px-2 py-1.5 text-left transition-colors"
                       >
                         <span className="tnum text-ink-4 w-4 shrink-0 text-[13px]">
                           {i + 1}
@@ -699,11 +703,9 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                       </span>
                     </td>
                     <td className="px-3 py-4">
-                      <span
-                        className={`rounded-pill inline-flex px-2.5 py-1 text-[12.5px] ${ZONES[z].chip}`}
-                      >
+                      <StatusPill tone={ZONES[z].tone}>
                         {ZONES[z].label}
-                      </span>
+                      </StatusPill>
                     </td>
                     <td className="tnum text-ink-2 px-3 py-4 text-right text-[14px]">
                       {t.attempted}

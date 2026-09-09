@@ -44,9 +44,10 @@ export function MarksWaterfall({ scorecard }: { scorecard: Scorecard }) {
     },
   ];
   const scale = Math.max(scorecard.maxScore, 1);
+  const forgone = foregoneWrong + lostToNegative + foregoneBlank;
 
   return (
-    <Card>
+    <Card tone={forgone === 0 ? "ok" : "warn"}>
       <SectionTitle aside={`${scorecard.score} / ${scorecard.maxScore}`}>
         Where the marks went
       </SectionTitle>

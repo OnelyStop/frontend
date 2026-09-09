@@ -8,6 +8,7 @@ import { SectionBreakdown } from "@/features/attempts/components/section-breakdo
 import { TopicScatter } from "@/features/attempts/components/topic-scatter";
 import { TopicTheorySection } from "@/features/attempts/components/topic-theory";
 import type { Scorecard } from "@/features/attempts/types";
+import { verdictTone } from "@/features/attempts/verdict";
 
 export function ResultView({ scorecard }: { scorecard: Scorecard }) {
   // The total is not the exam: a paper is cleared only if every section is.
@@ -32,7 +33,7 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
         }`}
       />
 
-      <Card tone="info" className="mb-6">
+      <Card tone={verdictTone(scorecard)} className="mb-6">
         <p className="text-ink-2 text-[13px]">
           {scorecard.mode === "paper" ? "This sitting" : "This drill"}
         </p>

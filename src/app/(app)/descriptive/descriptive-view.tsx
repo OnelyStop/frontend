@@ -22,6 +22,9 @@ function fmt(s: number) {
   return `${String(m).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 }
 
+// Letter and Essay are a real category, so the writing card is filled by the task you are on.
+const TASK_TONE = ["info", "brand"] as const;
+
 export function DescriptiveView({
   history,
   used,
@@ -150,7 +153,7 @@ export function DescriptiveView({
       />
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <Card className="min-w-0">
+        <Card tone={TASK_TONE[idx]!} className="min-w-0">
           <div className="rounded-pill border-line mb-6 inline-flex gap-1 border p-1">
             {TASKS.map((t, i) => (
               <button
@@ -250,7 +253,7 @@ export function DescriptiveView({
           {marking ? <MarkingCard marking={marking} /> : null}
         </Card>
 
-        <Card className="h-fit">
+        <Card tone={passed.every(Boolean) ? "ok" : "warn"} className="h-fit">
           <SectionTitle
             aside={
               <span className="tnum text-ink-3 text-[13px]">

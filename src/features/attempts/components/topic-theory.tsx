@@ -1,4 +1,4 @@
-import { ButtonLink, Card, SectionTitle } from "@/design-system";
+import { ButtonLink, Card, SectionTitle, tintFor } from "@/design-system";
 import { SECTION_FROM_DB, SECTION_KEY } from "@/data/navigation";
 import type { TopicTheory } from "../types";
 
@@ -22,7 +22,8 @@ function TopicTheoryCard({ theory: t }: { theory: TopicTheory }) {
   const subject = SECTION_FROM_DB[t.section];
 
   return (
-    <Card>
+    // Filled by section, the same signal the label above it already carries — three revise cards in a row must not read as one block.
+    <Card className={tintFor(t.section)}>
       <p
         className="text-[13px]"
         style={
