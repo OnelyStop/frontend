@@ -9,8 +9,8 @@ import { useRetrieval } from "@/features/retrieval/RetrievalContext";
 import { TARGETS } from "@/features/retrieval/targets";
 import { ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
-import { AvatarMark } from "@/features/profile/components/AvatarMark";
-import { Divider, Kbd, MenuRow, Popover } from "@/design-system";
+import { AVATARS } from "@/features/profile/avatars";
+import { Avatar, Divider, Kbd, MenuRow, Popover } from "@/design-system";
 import { ACCOUNT_GROUP, HeaderNav, MAIN_GROUPS } from "./HeaderNav";
 import { EXAMS, type ExamBoard, type Subject } from "@/data/navigation";
 
@@ -91,7 +91,15 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
   return `/${segs.slice(0, -1).join("/")}`;
 }
 
-export function RunningHead() {
+const initialsOf = (name: string | null | undefined) =>
+  (name ?? "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("") || "?";
+
+export function RunningHead({ isAdmin = false }: { isAdmin?: boolean }) {
   const { subject, board, setBoard, avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
   // Neither state renders until auth resolves, so the header never flashes either way.
@@ -283,9 +291,11 @@ export function RunningHead() {
             className="press rounded-pill hover:bg-frame-2 flex items-center gap-2 py-1 pr-1.5 pl-1"
           >
             {/* Every account gets a mark: initials on a dark disc read as a placeholder. */}
-            <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-full">
-              <AvatarMark avatar={avatar ?? "indigo"} />
-            </span>
+            <Avatar size={36} tint={AVATARS[avatar ?? "indigo"].wash}>
+              <span style={{ color: AVATARS[avatar ?? "indigo"].ink }}>
+                {initialsOf(profile.name)}
+              </span>
+            </Avatar>
             <span className="hidden max-w-44 text-left leading-tight md:block">
               <span className="text-on-frame block truncate text-[13.5px] font-semibold">
                 {profile.name || "Your account"}
@@ -313,6 +323,14 @@ export function RunningHead() {
                   onClick={() => setAccount(false)}
                 />
               ))}
+              {isAdmin ? (
+                <MenuRow
+                  href="/admin"
+                  label="Control room"
+                  hint="Question bank, papers and access"
+                  onClick={() => setAccount(false)}
+                />
+              ) : null}
               <Divider className="my-1" />
               <MenuRow
                 label="Sign out"

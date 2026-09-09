@@ -1,6 +1,7 @@
 import { AppLayout } from "@/components/layout/AppLayout";
 import { unreadCount } from "@/features/notifications/queries.server";
 import { currentUserId } from "@/lib/auth.server";
+import { getRole } from "@/features/auth/roles";
 
 // The bell reads on every route, which is why the count is a partial-index scan.
 export default async function Layout({
@@ -9,6 +10,13 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const userId = await currentUserId();
-  const unread = userId ? await unreadCount(userId) : 0;
-  return <AppLayout unread={unread}>{children}</AppLayout>;
+  const [unread, role] = await Promise.all([
+    userId ? unreadCount(userId) : 0,
+    getRole(),
+  ]);
+  return (
+    <AppLayout unread={unread} isAdmin={role === "admin"}>
+      {children}
+    </AppLayout>
+  );
 }

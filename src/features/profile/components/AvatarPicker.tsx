@@ -1,8 +1,8 @@
 "use client";
 
 import { Check } from "lucide-react";
+import { Avatar } from "@/design-system";
 import { AVATARS, AVATAR_KEYS, type AvatarKey } from "../avatars";
-import { AvatarMark } from "./AvatarMark";
 
 // null is a real choice, not an empty state: it keeps the initials monogram.
 export function AvatarPicker({
@@ -41,7 +41,9 @@ export function AvatarPicker({
             }`}
           >
             {option ? (
-              <AvatarMark avatar={option} />
+              <Avatar size={44} tint={AVATARS[option].wash}>
+                <span style={{ color: AVATARS[option].ink }}>{initials}</span>
+              </Avatar>
             ) : (
               <span className="text-ink-3 text-[13px]">{initials}</span>
             )}

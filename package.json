@@ -20,6 +20,7 @@
     "db:studio": "drizzle-kit studio",
     "study:validate": "node scripts/study-validate.mjs",
     "study:import": "bun scripts/study-import.ts",
+    "seed:demo": "bun scripts/seed-demo.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "pipeline": "bun scripts/run-stage.ts",
