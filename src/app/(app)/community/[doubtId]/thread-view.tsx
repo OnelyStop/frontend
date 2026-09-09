@@ -101,13 +101,15 @@ export function ThreadView({ thread }: { thread: DoubtThread }) {
       ) : (
         <ul className="mb-8 grid gap-3">
           {replies.map((r) => (
-            <li key={r.id} className="card bg-info-soft p-5">
-              <p className="text-[14.5px] leading-relaxed whitespace-pre-wrap">
-                {r.body}
-              </p>
-              <p className="text-ink-3 mt-4 text-[12.5px]">
-                {r.author} · {WHEN.format(new Date(r.createdAt))}
-              </p>
+            <li key={r.id}>
+              <Card>
+                <p className="text-[14.5px] leading-relaxed whitespace-pre-wrap">
+                  {r.body}
+                </p>
+                <p className="text-ink-3 mt-4 text-[12.5px]">
+                  {r.author} · {WHEN.format(new Date(r.createdAt))}
+                </p>
+              </Card>
             </li>
           ))}
         </ul>

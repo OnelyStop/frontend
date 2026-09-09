@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Button, Empty, PageHeader, Segmented } from "@/design-system";
+import { Button, Card, Empty, PageHeader, Segmented } from "@/design-system";
 import { SECTIONS, SECTION_LABEL, type Subject } from "@/data/navigation";
 import {
   useDoubts,
@@ -133,51 +133,53 @@ function DoubtCard({
   onToggle: () => void;
 }) {
   return (
-    <li
-      className={`card card-lift flex gap-4 p-5 ${
-        doubt.stuckByMe ? "bg-brand-soft" : ""
-      }`}
-    >
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-pressed={doubt.stuckByMe}
-        className={`rounded-ctl h-fit w-14 shrink-0 border py-2 text-center transition-colors ${
-          doubt.stuckByMe
-            ? "border-brand bg-brand-soft text-brand"
-            : "border-line bg-canvas text-ink-3 hover:border-line-2 hover:text-ink"
-        }`}
+    <li>
+      <Card
+        lift
+        tone={doubt.stuckByMe ? "brand" : "plain"}
+        className="flex gap-4"
       >
-        <span className="tnum block text-[15px]">{doubt.stuckCount}</span>
-        <span className="block text-[10px] leading-tight">stuck</span>
-      </button>
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-pressed={doubt.stuckByMe}
+          className={`rounded-ctl h-fit w-14 shrink-0 border py-2 text-center transition-colors ${
+            doubt.stuckByMe
+              ? "border-brand bg-brand-soft text-brand"
+              : "border-line bg-canvas text-ink-3 hover:border-line-2 hover:text-ink"
+          }`}
+        >
+          <span className="tnum block text-[15px]">{doubt.stuckCount}</span>
+          <span className="block text-[10px] leading-tight">stuck</span>
+        </button>
 
-      {/* The stuck button is its own control, so only the body opens the thread. */}
-      <Link href={`/community/${doubt.id}`} className="group min-w-0 flex-1">
-        <div className="text-ink-3 flex items-center gap-2 text-[13px]">
-          <span className="text-ink-2 font-medium">
-            {SECTION_LABEL[doubt.section]}
-          </span>
-          <span aria-hidden>·</span>
-          <span>{doubt.topic}</span>
-        </div>
-        <h3 className="group-hover:text-brand mt-1 flex items-start gap-1.5 text-[15px] leading-snug font-semibold transition-colors">
-          {doubt.title}
-          <ArrowUpRight
-            size={15}
-            strokeWidth={2}
-            className="text-ink-4 group-hover:text-brand mt-0.5 shrink-0"
-          />
-        </h3>
-        <p className="text-ink-3 mt-1 line-clamp-2 max-w-[70ch] text-[13px] leading-relaxed">
-          {doubt.body}
-        </p>
-        <div className="text-ink-3 mt-2 flex items-center gap-3 text-[13px]">
-          <span>{doubt.author}</span>
-          <span aria-hidden>·</span>
-          <span>{ago(doubt.createdAt)}</span>
-        </div>
-      </Link>
+        {/* The stuck button is its own control, so only the body opens the thread. */}
+        <Link href={`/community/${doubt.id}`} className="group min-w-0 flex-1">
+          <div className="text-ink-3 flex items-center gap-2 text-[13px]">
+            <span className="text-ink-2 font-medium">
+              {SECTION_LABEL[doubt.section]}
+            </span>
+            <span aria-hidden>·</span>
+            <span>{doubt.topic}</span>
+          </div>
+          <h3 className="group-hover:text-brand mt-1 flex items-start gap-1.5 text-[15px] leading-snug font-semibold transition-colors">
+            {doubt.title}
+            <ArrowUpRight
+              size={15}
+              strokeWidth={2}
+              className="text-ink-4 group-hover:text-brand mt-0.5 shrink-0"
+            />
+          </h3>
+          <p className="text-ink-3 mt-1 line-clamp-2 max-w-[70ch] text-[13px] leading-relaxed">
+            {doubt.body}
+          </p>
+          <div className="text-ink-3 mt-2 flex items-center gap-3 text-[13px]">
+            <span>{doubt.author}</span>
+            <span aria-hidden>·</span>
+            <span>{ago(doubt.createdAt)}</span>
+          </div>
+        </Link>
+      </Card>
     </li>
   );
 }
@@ -210,6 +212,7 @@ function DoubtForm({
         e.preventDefault();
         onSubmit({ section, topic, title, body });
       }}
+      /* A Card renders a section, and a form cannot be one — this keeps the same paper. */
     >
       <p className="text-ink-3 text-[13px]">
         A doubt has to name its section and topic — that is what makes it
