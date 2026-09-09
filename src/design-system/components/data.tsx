@@ -31,7 +31,7 @@ export function Tile({
         outline ? "border-line-2 border-2 border-dashed" : TONE[tone],
       )}
     >
-      <p className="tnum text-[21px] leading-none font-bold tracking-[-0.03em]">
+      <p className="tnum text-[18px] leading-none font-bold tracking-[-0.02em]">
         {value}
       </p>
       <p className="text-ink-2 mt-1.5 text-[12.5px]">{label}</p>

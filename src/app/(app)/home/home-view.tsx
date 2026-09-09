@@ -109,16 +109,15 @@ export function HomeView({ progress }: { progress: Progress }) {
 
             {/* At most one in-progress card per screen, or being in progress stops meaning anything. */}
             <ActiveCard
-              title={`Drill ${weakestName}`}
+              title={weakestName}
               resumeLabel={`Drill ${weakestName}`}
               onResume={() => router.push("/drills")}
               status={
-                <StatusPill tone="live">🕐 {weakestAcc}% accuracy</StatusPill>
+                <StatusPill tone="live">{weakestAcc}% · your lowest</StatusPill>
               }
               className="mb-3"
             >
-              {weakestName} is your lowest section. A drill pulls from the same
-              bank, timed like the section it came from.
+              A drill pulls from the same bank, timed like the section.
             </ActiveCard>
 
             <div className="grid gap-3">
@@ -183,7 +182,9 @@ export function HomeView({ progress }: { progress: Progress }) {
 
                   <div className="rounded-pill bg-track h-2 overflow-hidden">
                     <div
-                      className="rounded-pill bg-ok h-full"
+                      className={`rounded-pill h-full ${
+                        a >= 75 ? "bg-ok" : a >= 60 ? "bg-warn" : "bg-bad"
+                      }`}
                       style={{ width: `${a}%` }}
                     />
                   </div>

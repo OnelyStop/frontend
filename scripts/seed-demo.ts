@@ -1,12 +1,13 @@
 /** Fills one account with enough graded work that every page has something to render. Re-runnable: it clears its own rows first. */
 import { config } from "dotenv";
-import { eq } from "drizzle-orm";
+import { eq, like } from "drizzle-orm";
 
 config({ path: ".env.local" });
 
 import { db } from "../src/db";
 import {
   articles,
+  currentAffairsQuestions,
   attemptAnswers,
   attempts,
   bankQuestions,
@@ -27,13 +28,13 @@ if (!EMAIL) {
 
 const PAPER = "demo-ibps-po-2025";
 
-// Section, topic, how many attempted, how many of those were right.
+// Section (a SECTION_DB value, or every query drops it), topic, attempted, correct.
 const SECTIONS = [
-  ["quant", "Percentages", 18, 13],
-  ["reasoning", "Seating arrangement", 15, 8],
-  ["english", "Error spotting", 20, 17],
-  ["ga", "Banking awareness", 12, 6],
-  ["computer", "Networking basics", 10, 9],
+  ["Quantitative", "Percentages", 18, 13],
+  ["Reasoning", "Seating arrangement", 15, 8],
+  ["English", "Error spotting", 20, 17],
+  ["GA", "Banking awareness", 12, 6],
+  ["Computer", "Networking basics", 10, 9],
 ] as const;
 
 const NOTES = [
@@ -52,7 +53,16 @@ const DOUBTS = [
   ["Reasoning Ability", "Floor puzzles", "When do I branch on a floor puzzle?"],
 ] as const;
 
+// `dev` is the id AUTH_DISABLED runs as, so a local run can see the same pages.
+const DEV_USER_ID = "00000000-0000-0000-0000-000000000001";
+
 async function userIdFor(email: string): Promise<string> {
+  if (email === "dev") {
+    await db.execute(
+      `insert into auth.users (id, email) values ('${DEV_USER_ID}', 'dev@onelystop.local') on conflict (id) do nothing`,
+    );
+    return DEV_USER_ID;
+  }
   const [row] = await db.execute<{ id: string }>(
     `select id from auth.users where email = '${email.replace(/'/g, "''")}' limit 1`,
   );
@@ -70,17 +80,34 @@ async function main() {
   await db.delete(userTopicStats).where(eq(userTopicStats.userId, userId));
   await db.delete(notifications).where(eq(notifications.userId, userId));
   await db.delete(doubts).where(eq(doubts.authorId, userId));
+  // Answers go first: the FK points at bank_questions, and a stale q_num loses the new rows.
+  await db.execute(
+    `delete from public.attempt_answers where q_id like '${PAPER}-%'`,
+  );
   await db.delete(bankQuestions).where(eq(bankQuestions.paperId, PAPER));
-  await db.delete(papers).where(eq(papers.paperId, PAPER));
 
-  await db.insert(papers).values({
-    paperId: PAPER,
-    examKey: "ibps-po",
-    bank: "IBPS",
-    role: "PO",
-    year: 2025,
-    shift: "demo",
-  });
+  await db
+    .insert(papers)
+    .values({
+      paperId: PAPER,
+      examKey: "ibps-po",
+      bank: "IBPS",
+      role: "PO",
+      // listMockPapers filters on these three; without them the paper never lists.
+      examType: "Prelims",
+      durationMin: 60,
+      year: 2025,
+      shift: "demo",
+    })
+    .onConflictDoUpdate({
+      target: papers.paperId,
+      set: {
+        examType: "Prelims",
+        durationMin: 60,
+        isActive: true,
+        isCanonical: true,
+      },
+    });
 
   const rows: (typeof bankQuestions.$inferInsert)[] = [];
   for (const [section, topic, attempted] of SECTIONS) {
@@ -99,7 +126,7 @@ async function main() {
       });
     }
   }
-  await db.insert(bankQuestions).values(rows);
+  await db.insert(bankQuestions).values(rows).onConflictDoNothing();
 
   // Two modes: mocks read as full papers, drills as short pulls from the bank.
   const MODES = ["paper", "paper", "paper", "bank", "bank"] as const;
@@ -185,6 +212,22 @@ async function main() {
       scope: scope as "national" | "international",
       contentHash: `demo-article-${i}`,
       status: "used" as const,
+    })),
+  );
+
+  await db
+    .delete(currentAffairsQuestions)
+    .where(like(currentAffairsQuestions.explanation, "Demo card%"));
+  await db.insert(currentAffairsQuestions).values(
+    Array.from({ length: 8 }, (_, i) => ({
+      extractedDay: new Date(Date.now() - i * 86_400_000)
+        .toISOString()
+        .slice(0, 10),
+      questionText: `Which body set the policy change reported on day ${i + 1}?`,
+      options: { A: "RBI", B: "SEBI", C: "IRDAI", D: "NABARD" },
+      answer: "A",
+      explanation: `Demo card ${i + 1} — the exam asks the body, not the number.`,
+      topic: "Banking awareness",
     })),
   );
 

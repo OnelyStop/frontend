@@ -17,10 +17,12 @@ export function AppLayout({
   children,
   unread = 0,
   isAdmin = false,
+  onTopPlan = false,
 }: {
   children: React.ReactNode;
   unread?: number;
   isAdmin?: boolean;
+  onTopPlan?: boolean;
 }) {
   const { subject } = useApp();
 
@@ -34,7 +36,7 @@ export function AppLayout({
           {/* Full bleed: the frame is the page, not a card floating on one. */}
           <div className="flex min-h-svh w-full flex-col">
             <Suspense fallback={<div className="h-20" />}>
-              <RunningHead isAdmin={isAdmin} />
+              <RunningHead isAdmin={isAdmin} onTopPlan={onTopPlan} />
             </Suspense>
 
             <Stage unread={unread}>{children}</Stage>

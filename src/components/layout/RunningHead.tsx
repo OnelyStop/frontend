@@ -91,7 +91,13 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
   return `/${segs.slice(0, -1).join("/")}`;
 }
 
-export function RunningHead({ isAdmin = false }: { isAdmin?: boolean }) {
+export function RunningHead({
+  isAdmin = false,
+  onTopPlan = false,
+}: {
+  isAdmin?: boolean;
+  onTopPlan?: boolean;
+}) {
   const { subject, board, setBoard, avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
   // Neither state renders until auth resolves, so the header never flashes either way.
@@ -265,7 +271,7 @@ export function RunningHead({ isAdmin = false }: { isAdmin?: boolean }) {
 
         <Link
           href="/upgrade"
-          className={`rounded-pill text-frame h-9.5 items-center bg-white px-4.5 text-[12.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn ? "hidden sm:flex" : "hidden"}`}
+          className={`rounded-pill text-frame h-9.5 items-center bg-white px-4.5 text-[12.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn && !onTopPlan ? "hidden sm:flex" : "hidden"}`}
         >
           Upgrade
         </Link>
@@ -304,15 +310,17 @@ export function RunningHead({ isAdmin = false }: { isAdmin?: boolean }) {
               width={260}
               className="top-11.5"
             >
-              {ACCOUNT_GROUP.items.map((i) => (
-                <MenuRow
-                  key={i.id}
-                  href={i.path}
-                  label={i.label}
-                  hint={i.hint}
-                  onClick={() => setAccount(false)}
-                />
-              ))}
+              {ACCOUNT_GROUP.items
+                .filter((i) => !(onTopPlan && i.id === "upgrade"))
+                .map((i) => (
+                  <MenuRow
+                    key={i.id}
+                    href={i.path}
+                    label={i.label}
+                    hint={i.hint}
+                    onClick={() => setAccount(false)}
+                  />
+                ))}
               {isAdmin ? (
                 <MenuRow
                   href="/admin"
