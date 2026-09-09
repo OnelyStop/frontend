@@ -177,6 +177,8 @@ async function main() {
         userId,
         topicId: published[i % published.length].id,
         bodyMarkdown: body,
+        // color is NOT NULL default 'yellow', so unset means a page of one colour.
+        color: (["yellow", "blue", "green", "pink"] as const)[i % 4],
       })),
     );
   }

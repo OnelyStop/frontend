@@ -7,11 +7,15 @@ import {
   StatusPill,
   Button,
   Card,
+  type CardTone,
   Empty,
   Input,
   PageHeader,
   cn,
 } from "@/design-system";
+
+// Unanswered, every question was the same white card; the tint walks so the list is scannable.
+const OPEN_TONES: CardTone[] = ["info", "brand", "warn", "active"];
 import type {
   CurrentAffairsQuestion,
   OptionKey,
@@ -101,7 +105,13 @@ export function CurrentAffairsView({
             return (
               <Card
                 key={q.id}
-                tone={isLocked ? (right ? "ok" : "bad") : "plain"}
+                tone={
+                  isLocked
+                    ? right
+                      ? "ok"
+                      : "bad"
+                    : OPEN_TONES[i % OPEN_TONES.length]
+                }
                 className="p-6"
               >
                 <div className="flex items-center gap-3">

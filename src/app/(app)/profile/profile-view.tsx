@@ -2,7 +2,17 @@
 
 import Link from "next/link";
 import { useApp } from "@/context/AppContext";
-import { ButtonLink, Card, Empty, PageHeader } from "@/design-system";
+import {
+  ButtonLink,
+  Card,
+  Empty,
+  PageHeader,
+  Tile,
+  type Tone,
+} from "@/design-system";
+
+// Four identical white boxes read as one; the tone says which figure you are looking at.
+const STAT_TONES: Tone[] = ["info", "ok", "warn", "brand"];
 import type { ProfileStats } from "@/features/attempts/progress.server";
 import type { Profile } from "@/features/profile/types";
 
@@ -102,11 +112,13 @@ export function ProfileView({
               "Last sitting",
               stats.lastSatAt === null ? "—" : fmtDate(stats.lastSatAt),
             ],
-          ].map(([label, value]) => (
-            <Card key={label} className="p-5">
-              <div className="tnum text-[22px] leading-none">{value}</div>
-              <div className="text-ink-3 mt-2 text-[13px]">{label}</div>
-            </Card>
+          ].map(([label, value], i) => (
+            <Tile
+              key={label}
+              value={String(value)}
+              label={String(label)}
+              tone={STAT_TONES[i % STAT_TONES.length]}
+            />
           ))}
         </div>
       )}

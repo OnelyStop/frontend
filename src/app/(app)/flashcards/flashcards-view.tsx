@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button, Card, Empty, PageHeader } from "@/design-system";
+import { Button, Card, Empty, PageHeader, cn } from "@/design-system";
+
+// The deck was one white face for every card; the tint walks so turning one reads as progress.
+const FACE_TONES = [
+  "bg-info-soft",
+  "bg-brand-soft",
+  "bg-warn-soft",
+  "bg-ok-soft",
+];
 import type { CurrentAffairsQuestion } from "@/features/current-affairs/types";
 
 const MONTHS = [
@@ -104,7 +112,10 @@ export function FlashcardsView({
             <div className="rounded-t-card border-line absolute inset-x-6 -top-3 h-6 border" />
             <div className="rounded-t-card border-line bg-canvas absolute inset-x-3 -top-1.5 h-6 border" />
             <button
-              className="card hover:bg-brand-soft/40 relative w-full p-10 text-left transition-colors duration-200"
+              className={cn(
+                "card relative w-full p-10 text-left transition-colors duration-200",
+                FACE_TONES[i % FACE_TONES.length],
+              )}
               onClick={() => setShown(true)}
             >
               <span className="tnum text-ink-4 text-[13px]">
