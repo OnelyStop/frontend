@@ -1,5 +1,9 @@
 import type { CardTone } from "@/design-system";
 
+/** Our own benchmarks, not a board's published cutoff: the seconds a question is budgeted at, and the accuracy a section is judged against. */
+export const PACE_TARGET = 45;
+export const ACC_LINE = 70;
+
 type Verdict = {
   target: number | null;
   score: number;

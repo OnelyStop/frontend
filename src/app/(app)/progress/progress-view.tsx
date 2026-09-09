@@ -4,17 +4,24 @@ import {
   ButtonLink,
   Card,
   Empty,
+  EventCard,
+  EventMark,
+  type EventTone,
   PageHeader,
   SectionTitle,
+  StatusPill,
+  TargetBar,
   Tile,
 } from "@/design-system";
 import { useApp } from "@/context/AppContext";
 import {
   NEGATIVE_MARK,
   SECTION_FROM_DB,
+  SECTION_KEY,
   SECTION_LABEL,
 } from "@/data/navigation";
 import type { Progress } from "@/features/attempts/progress.server";
+import { ACC_LINE, PACE_TARGET } from "@/features/attempts/verdict";
 
 // The bars are the last seven days ending today, not Monday to Sunday.
 const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
@@ -26,6 +33,19 @@ const dayInitial = (date: string) =>
 // The bank stores one-word sections; anything outside that vocabulary shows as stored.
 function sectionLabel(section: string) {
   return SECTION_LABEL[SECTION_FROM_DB[section]] ?? section;
+}
+
+// A section's own colour, so five cards in a row are five sections rather than one blue wall.
+const SECTION_EVENT_TONE: Record<string, EventTone> = {
+  quant: "quant",
+  reasoning: "reasoning",
+  english: "english",
+  ga: "ga",
+  computer: "computer",
+};
+
+function sectionTone(section: string): EventTone {
+  return SECTION_EVENT_TONE[SECTION_KEY[SECTION_FROM_DB[section]]] ?? "info";
 }
 
 export function ProgressView({ progress }: { progress: Progress }) {
@@ -76,44 +96,74 @@ export function ProgressView({ progress }: { progress: Progress }) {
         />
       </div>
 
+      <SectionTitle aside={`accuracy against the ${ACC_LINE}% line`}>
+        By section
+      </SectionTitle>
+      <div className="mb-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {sections.map((r) => {
+          const a = Math.round((r.correct / r.attempted) * 100);
+          // Untimed answers report no pace at all; a zero here would read as instant rather than unknown.
+          const fast = r.avgSec !== null && r.avgSec <= PACE_TARGET;
+          return (
+            <EventCard
+              key={r.section}
+              kind={sectionLabel(r.section)}
+              when={r.avgSec === null ? "no pace yet" : `${r.avgSec}s`}
+              tone={sectionTone(r.section)}
+              mark={
+                <EventMark disc>
+                  <i
+                    className="size-2.5 rounded-full"
+                    style={{
+                      background: `var(--color-${SECTION_KEY[SECTION_FROM_DB[r.section]] ?? "ink-4"})`,
+                    }}
+                  />
+                </EventMark>
+              }
+              footer={
+                <StatusPill
+                  tone="live"
+                  className={
+                    r.avgSec === null
+                      ? "text-ink-2"
+                      : fast
+                        ? "text-ok"
+                        : "text-bad"
+                  }
+                >
+                  {r.avgSec === null
+                    ? "Accuracy only"
+                    : fast
+                      ? `Inside the ${PACE_TARGET}s budget`
+                      : `${r.avgSec - PACE_TARGET}s over budget`}
+                </StatusPill>
+              }
+            >
+              <span className="tnum text-ink block text-[26px] leading-none tracking-[-0.03em]">
+                {a}%
+              </span>
+              <span className="text-ink-2 mt-1.5 block text-[13px]">
+                {r.correct} of {r.attempted} correct
+              </span>
+              <TargetBar
+                value={a}
+                target={ACC_LINE}
+                max={100}
+                className="mt-4"
+              />
+            </EventCard>
+          );
+        })}
+      </div>
+
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
         <Card tone="info">
-          <SectionTitle aside="accuracy · seconds per question">
-            By section
-          </SectionTitle>
-
-          <div className="grid gap-5">
-            {sections.map((r) => {
-              const a = Math.round((r.correct / r.attempted) * 100);
-              const fast = r.avgSec !== null && r.avgSec <= 45;
-              return (
-                <div key={r.section} className="grid gap-2">
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-[14.5px]">
-                      {sectionLabel(r.section)}
-                    </span>
-                    <span className="flex-1" />
-                    <span className="tnum text-[14.5px]">{a}%</span>
-                    <span
-                      className={`tnum w-10 text-right text-[13px] ${r.avgSec === null ? "text-ink-4" : fast ? "text-ok" : "text-bad"}`}
-                    >
-                      {r.avgSec === null ? "—" : `${r.avgSec}s`}
-                    </span>
-                  </div>
-                  <div className="rounded-pill bg-line h-1.5 overflow-hidden">
-                    <div
-                      className="rounded-pill bg-ink h-full"
-                      style={{ width: `${a}%` }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <p className="border-line text-ink-3 mt-7 border-t pt-5 text-[13px] leading-relaxed">
+          <SectionTitle>What the pace costs</SectionTitle>
+          <p className="text-ink-2 text-[14px] leading-relaxed">
             A section can be accurate and still cost you the paper if it is
-            slow.
+            slow. The notch on each bar is the {ACC_LINE}% line; the number
+            beside the section name is what a question actually takes you
+            against a {PACE_TARGET}s budget.
           </p>
         </Card>
 
@@ -126,8 +176,9 @@ export function ProgressView({ progress }: { progress: Progress }) {
             {week.map((d) => (
               <div key={d.date} className="flex flex-1 flex-col gap-2">
                 <div className="flex flex-1 items-end">
+                  {/* A day you sat and a day you skipped are different facts; one black fill said neither. */}
                   <div
-                    className={`w-full rounded-t-sm transition-all ${d.count ? "bg-ink" : "bg-line"}`}
+                    className={`w-full rounded-t-sm transition-all ${d.count ? "bg-brand" : "bg-ink/10"}`}
                     style={{
                       height: `${Math.max(3, (d.count / weekPeak) * 100)}%`,
                     }}

@@ -55,21 +55,15 @@ export function TargetBar({
   const scale = max ?? Math.max(target, value ?? 0) * 1.3;
   // Cleared by a hair and cleared comfortably are different facts; one colour hid that.
   const ratio = value === null || target === 0 ? 0 : value / target;
-  const band =
-    value === null
-      ? "bg-track"
-      : ratio >= 1.1
-        ? "bg-ok"
-        : ratio >= 1
-          ? "bg-warn"
-          : "bg-bad";
+  const band = ratio >= 1.1 ? "bg-ok" : ratio >= 1 ? "bg-warn" : "bg-bad";
   const pct = (n: number) =>
     `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
 
   return (
+    // Track and ring are translucent, not solid: a bar on a tinted card kept the grey track and a white gash for a notch.
     <div
       className={cn(
-        "rounded-pill bg-track relative h-4 overflow-visible",
+        "rounded-pill bg-ink/10 relative h-4 overflow-visible",
         className,
       )}
     >
@@ -83,7 +77,7 @@ export function TargetBar({
         />
       ) : null}
       <span
-        className="bg-ink ring-canvas absolute -top-2 -bottom-2 w-1 rounded-full ring-2"
+        className="bg-ink absolute -top-2 -bottom-2 w-1 rounded-full ring-2 ring-white/75"
         style={{ left: pct(target) }}
         aria-hidden
       />
