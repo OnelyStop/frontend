@@ -3,8 +3,10 @@ import type { Scorecard } from "../types";
 
 /** Section identity is carried by the row label, never by colour: the quant/reasoning tokens are ΔE 0.9 apart under protanopia. */
 export function SectionBreakdown({ scorecard }: { scorecard: Scorecard }) {
+  const allCleared = scorecard.sections.every((s) => s.cleared);
+
   return (
-    <Card>
+    <Card tone={allCleared ? "ok" : "bad"}>
       <SectionTitle
         aside={
           <span className="flex items-center gap-3 text-[12.5px]">

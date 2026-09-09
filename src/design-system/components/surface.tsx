@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { cn } from "../lib/cn";
 
 // `tone` fills the card when the card itself is what carries the state.
@@ -64,7 +65,8 @@ export function Popover({
       aria-label={label}
       style={{ width }}
       className={cn(
-        "border-line bg-canvas shadow-pop absolute top-11 z-50 rounded-[18px] border p-1.5",
+        // text-ink is not optional: a popover opened from the dark frame inherits white otherwise.
+        "border-line bg-canvas text-ink shadow-pop absolute top-11 z-50 rounded-[18px] border p-1.5",
         align === "right" ? "right-0" : "left-0",
         className,
       )}
@@ -102,10 +104,17 @@ export function MenuRow({
     </>
   );
 
+  // next/link, not an anchor: a menu row that full-reloads the app is not a menu row.
   return href ? (
-    <a href={href} role="menuitem" onClick={onClick} className={classes}>
+    <Link
+      href={href}
+      role="menuitem"
+      aria-current={current ? "page" : undefined}
+      onClick={onClick}
+      className={classes}
+    >
       {body}
-    </a>
+    </Link>
   ) : (
     <button type="button" role="menuitem" onClick={onClick} className={classes}>
       {body}

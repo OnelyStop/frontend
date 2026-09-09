@@ -133,9 +133,11 @@ export function Dropdown<T extends string>({
         }}
         onKeyDown={onKeyDown}
         className={cn(
-          "rounded-ctl border-line bg-canvas flex h-10 w-full items-center gap-2 border px-3.5 text-left text-[14px] transition-colors outline-none",
-          "focus:border-brand disabled:opacity-50",
-          open && "border-brand",
+          // Recessed like every other control; it lifts to white paper when it takes focus.
+          "rounded-ctl bg-panel text-ink flex h-10 w-full items-center gap-2 px-3.5 text-left text-[14px] outline-none",
+          "transition-[background-color,box-shadow] duration-200 ease-[var(--ease-swift)]",
+          "focus:bg-canvas focus:shadow-card disabled:opacity-50",
+          open && "bg-canvas shadow-card",
         )}
       >
         {selected?.icon}

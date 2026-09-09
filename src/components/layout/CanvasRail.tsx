@@ -26,7 +26,7 @@ export function CanvasRail({ unread = 0 }: { unread?: number }) {
   return (
     <aside
       aria-label="Shortcuts"
-      className="sticky top-6 hidden max-h-[calc(100svh-9rem)] min-h-112 flex-col items-center gap-2.5 lg:flex"
+      className="sticky top-6 hidden h-[calc(100svh-9rem)] flex-col items-center gap-2.5 lg:flex"
     >
       {SHORTCUTS.map(({ href, label, icon: Icon }) => (
         <Link
@@ -41,7 +41,7 @@ export function CanvasRail({ unread = 0 }: { unread?: number }) {
         </Link>
       ))}
 
-      <div className="relative mt-auto">
+      <div className="relative mt-auto mb-19">
         {unread > 0 ? (
           <span className="bg-bad text-canvas tnum absolute -top-1 -right-1 z-2 grid min-w-5 place-items-center rounded-full px-1.5 py-0.5 text-[10.5px] font-bold">
             {unread > 99 ? "99+" : unread}

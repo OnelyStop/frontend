@@ -21,7 +21,7 @@ export function TopicScatter({ scorecard }: { scorecard: Scorecard }) {
   const topics = scorecard.topics.filter((t) => t.attempted > 0);
 
   return (
-    <Card>
+    <Card tone="info">
       <SectionTitle aside={`${topics.length} topics touched`}>
         Accuracy vs pace, by topic
       </SectionTitle>

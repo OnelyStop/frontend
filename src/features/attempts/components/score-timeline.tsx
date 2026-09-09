@@ -30,7 +30,7 @@ export function ScoreTimeline({ scorecard }: { scorecard: Scorecard }) {
   ];
 
   return (
-    <Card>
+    <Card tone={finalScore >= 0 ? "brand" : "bad"}>
       <SectionTitle aside={`ended at ${finalScore.toFixed(2)}`}>
         Score over the attempt
       </SectionTitle>

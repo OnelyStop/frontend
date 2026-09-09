@@ -2,7 +2,10 @@
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import { CompanionPanel } from "@/features/companion/CompanionPanel";
-import { CompanionProvider } from "@/features/companion/CompanionContext";
+import {
+  CompanionProvider,
+  useCompanion,
+} from "@/features/companion/CompanionContext";
 import { SelectionAsk } from "@/features/companion/SelectionAsk";
 import { RetrievalProvider } from "@/features/retrieval/RetrievalContext";
 import { RetrievalSlip } from "@/features/retrieval/RetrievalSlip";
@@ -13,9 +16,13 @@ import { RunningHead, SUBJECT_INK } from "./RunningHead";
 export function AppLayout({
   children,
   unread = 0,
+  isAdmin = false,
+  onTopPlan = false,
 }: {
   children: React.ReactNode;
   unread?: number;
+  isAdmin?: boolean;
+  onTopPlan?: boolean;
 }) {
   const { subject } = useApp();
 
@@ -28,28 +35,49 @@ export function AppLayout({
         >
           {/* Full bleed: the frame is the page, not a card floating on one. */}
           <div className="flex min-h-svh w-full flex-col">
-            <Suspense fallback={<div className="h-19" />}>
-              <RunningHead />
+            <Suspense fallback={<div className="h-20" />}>
+              <RunningHead isAdmin={isAdmin} onTopPlan={onTopPlan} />
             </Suspense>
 
-            <div className="relative flex flex-1 flex-col px-3 pb-3">
-              <div className="bg-stage relative flex-1 rounded-[26px] px-6 pt-11 pb-16 sm:px-10">
-                <Bump />
-                <div className="grid gap-x-9 lg:grid-cols-[64px_minmax(0,1fr)]">
-                  <CanvasRail unread={unread} />
-                  {/* No z-index: a stacking context traps full-screen overlays. */}
-                  <main className="relative min-w-0">{children}</main>
-                </div>
-              </div>
-            </div>
+            <Stage unread={unread}>{children}</Stage>
           </div>
 
           <SelectionAsk />
-          <CompanionPanel />
           <RetrievalSlip />
         </div>
       </RetrievalProvider>
     </CompanionProvider>
+  );
+}
+
+// Ask Onely is a column, not an overlay: opening it reflows the page rather than covering it.
+function Stage({
+  children,
+  unread,
+}: {
+  children: React.ReactNode;
+  unread: number;
+}) {
+  const { open } = useCompanion();
+
+  return (
+    <div className="relative flex flex-1 flex-col px-3 pb-3">
+      <div className="bg-stage relative flex-1 rounded-[26px] px-6 pt-11 pb-16 sm:px-10">
+        <Bump />
+        <div
+          className={`grid gap-x-9 ${
+            open
+              ? "lg:grid-cols-[64px_minmax(0,1fr)_360px]"
+              : "lg:grid-cols-[64px_minmax(0,1fr)]"
+          }`}
+        >
+          <CanvasRail unread={unread} />
+          {/* No z-index: a stacking context traps full-screen overlays. */}
+          <main className="relative min-w-0">{children}</main>
+          <CompanionPanel />
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -79,16 +107,17 @@ function Bump() {
   }, []);
 
   return (
+    // Two pixels of the base sit inside the stage; flush, the two fills leave an antialiased seam.
     <svg
       ref={ref}
       aria-hidden
       viewBox="0 0 64 12"
-      className="pointer-events-none absolute -top-2.75 hidden h-3 w-16 -translate-x-1/2 lg:block"
+      className="pointer-events-none absolute -top-3 hidden h-3.5 w-14.5 -translate-x-1/2 lg:block"
       style={{ left: x ?? -999 }}
     >
-      {/* Eased into the edge at both ends, so it grows out of the stage. */}
+      {/* The first quarter runs flat along the baseline, so it grows out of the stage rather than starting as a step. */}
       <path
-        d="M0 12 C 10 12 14 6 20 3.2 Q32 -2.4 44 3.2 C 50 6 54 12 64 12 Z"
+        d="M0 12 C 16 12 19 7 24 3.6 Q32 -2.4 40 3.6 C 45 7 48 12 64 12 Z"
         fill="var(--color-stage)"
       />
     </svg>

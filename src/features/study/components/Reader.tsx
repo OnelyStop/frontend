@@ -2,7 +2,8 @@
 
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { StatusPill, Button } from "@/design-system";
+import { ArrowUp, Layers, NotebookPen } from "lucide-react";
+import { Dock, DockButton, StatusPill, Button } from "@/design-system";
 import { blockMeta } from "../blocks";
 import { Markdown } from "../markdown";
 import type {
@@ -11,7 +12,6 @@ import type {
   StudyNote,
   TopicOutline,
 } from "../types";
-import { CompanionFab } from "@/features/companion/CompanionFab";
 import { NotesPanel } from "./NotesPanel";
 import { AddNoteButton, BlockNoteChips } from "./StickyNote";
 import { FlashcardPlayer } from "./FlashcardPlayer";
@@ -71,7 +71,6 @@ export function Reader({
   const [focusNoteId, setFocusNoteId] = useState<string | null>(null);
   const [notes, setNotes] = useState<StudyNote[]>(initialNotes);
   const [cardsOpen, setCardsOpen] = useState(false);
-  const [sourcesOpen, setSourcesOpen] = useState(false);
   const articleRef = useRef<HTMLElement>(null);
 
   const blockTitles = useMemo(
@@ -190,43 +189,7 @@ export function Reader({
             >
               Study flashcards
             </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => setSourcesOpen((v) => !v)}
-            >
-              Sources ({outline.sources.length})
-            </Button>
           </div>
-
-          {sourcesOpen ? (
-            <div className="border-line rounded-ctl mt-4 border p-4">
-              <p className="text-ink-3 mb-2 text-[12px]">
-                Facts cross-checked against these; explanations, examples and
-                questions are original.
-              </p>
-              <ul className="space-y-2">
-                {outline.sources.map((s) => (
-                  <li key={s.url} className="text-[13px] leading-snug">
-                    <a
-                      href={s.url}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="text-brand underline underline-offset-2"
-                    >
-                      {s.title}
-                    </a>
-                    <span className="text-ink-3">
-                      {" "}
-                      — {s.publisher}
-                      {s.license ? `, ${s.license}` : ""} · {s.usageMode} ·
-                      retrieved {fmtDate(s.retrievedAt)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
         </header>
 
         {/* table of contents */}
@@ -305,6 +268,32 @@ export function Reader({
             <span />
           )}
         </div>
+        <Dock>
+          <DockButton
+            label="Notes"
+            tint="var(--color-info-soft)"
+            onClick={() => {
+              setSelectedBlockKey(null);
+              setFocusNoteId(null);
+              setPanel("notes");
+            }}
+          >
+            <NotebookPen size={18} strokeWidth={1.9} />
+          </DockButton>
+          <DockButton
+            label="Study flashcards"
+            tint="var(--color-brand-soft)"
+            onClick={() => setCardsOpen(true)}
+          >
+            <Layers size={18} strokeWidth={1.9} />
+          </DockButton>
+          <DockButton
+            label="Back to top"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <ArrowUp size={18} strokeWidth={1.9} />
+          </DockButton>
+        </Dock>
       </div>
 
       {panel === "notes" ? (
@@ -326,8 +315,6 @@ export function Reader({
           onClose={() => setCardsOpen(false)}
         />
       ) : null}
-
-      <CompanionFab seed={`${outline.title} — ${outline.summary}`} />
     </div>
   );
 }

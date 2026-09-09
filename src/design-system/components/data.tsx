@@ -31,10 +31,10 @@ export function Tile({
         outline ? "border-line-2 border-2 border-dashed" : TONE[tone],
       )}
     >
-      <p className="tnum text-[26px] leading-none font-bold tracking-[-0.035em]">
+      <p className="tnum text-[18px] leading-none font-bold tracking-[-0.02em]">
         {value}
       </p>
-      <p className="text-ink-2 mt-1.5 text-[13px]">{label}</p>
+      <p className="text-ink-2 mt-1.5 text-[12.5px]">{label}</p>
     </div>
   );
 }
@@ -53,20 +53,37 @@ export function TargetBar({
   className?: string;
 }) {
   const scale = max ?? Math.max(target, value ?? 0) * 1.3;
-  const cleared = value !== null && value >= target;
+  // Cleared by a hair and cleared comfortably are different facts; one colour hid that.
+  const ratio = value === null || target === 0 ? 0 : value / target;
+  const band =
+    value === null
+      ? "bg-track"
+      : ratio >= 1.1
+        ? "bg-ok"
+        : ratio >= 1
+          ? "bg-warn"
+          : "bg-bad";
   const pct = (n: number) =>
     `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
 
   return (
-    <div className={cn("rounded-pill bg-track relative h-3", className)}>
+    <div
+      className={cn(
+        "rounded-pill bg-track relative h-4 overflow-visible",
+        className,
+      )}
+    >
       {value !== null ? (
         <div
-          className={cn("rounded-pill h-full", cleared ? "bg-ok" : "bg-bad")}
+          className={cn(
+            "rounded-pill h-full transition-[width] duration-500 ease-[var(--ease-decelerate)]",
+            band,
+          )}
           style={{ width: pct(value) }}
         />
       ) : null}
       <span
-        className="bg-ink absolute -top-1.5 -bottom-1.5 w-0.5 rounded-full"
+        className="bg-ink ring-canvas absolute -top-2 -bottom-2 w-1 rounded-full ring-2"
         style={{ left: pct(target) }}
         aria-hidden
       />
@@ -74,25 +91,31 @@ export function TargetBar({
   );
 }
 
+/** A mark on a tinted disc — the same face the avatar stack overlaps. */
 export function Avatar({
-  initials,
-  size = 40,
+  children,
+  tint,
+  size = 36,
   className,
 }: {
-  initials: string;
+  children: ReactNode;
+  /** A canvas tint; falls back to the recessed grey. */
+  tint?: string;
   size?: number;
   className?: string;
 }) {
   return (
     <span
-      style={{ width: size, height: size, fontSize: size / 3 }}
-      className={cn(
-        "border-line-2 grid shrink-0 place-items-center rounded-full border",
-        className,
-      )}
+      style={{
+        width: size,
+        height: size,
+        fontSize: size / 2.1,
+        background: tint ?? "var(--color-panel)",
+      }}
+      className={cn("grid shrink-0 place-items-center rounded-full", className)}
       aria-hidden
     >
-      {initials}
+      {children}
     </span>
   );
 }

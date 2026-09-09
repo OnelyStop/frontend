@@ -1,21 +1,35 @@
 "use client";
 
 import Link from "next/link";
+import { Compass, Layers, Mountain } from "lucide-react";
 import {
   StatusPill,
   Divider,
   Empty,
+  EventCard,
+  EventMark,
+  type EventTone,
   PageHeader,
-  PlanCard,
   SectionTitle,
 } from "@/design-system";
 import type { ChapterOutline } from "@/features/study/types";
 
-const DIFFICULTY_TONE = {
-  beginner: "ok",
-  intermediate: "warn",
-  advanced: "bad",
+// White pill, coloured ink: a tinted pill vanishes whenever the card shares its hue.
+const DIFFICULTY_INK = {
+  beginner: "text-ok",
+  intermediate: "text-warn",
+  advanced: "text-bad",
 } as const;
+
+// The mark says how far in the topic is, so the card is readable before the pill.
+const DIFFICULTY_MARK = {
+  beginner: Compass,
+  intermediate: Layers,
+  advanced: Mountain,
+} as const;
+
+// Walked per card, not per chapter: neighbours should never share a fill.
+const TONES: EventTone[] = ["info", "brand", "warn", "ok"];
 
 export function SubjectView({
   subjectSlug,
@@ -57,7 +71,7 @@ export function SubjectView({
         <div className="space-y-10">
           {chapters
             .filter((c) => c.topics.length > 0)
-            .map((chapter) => (
+            .map((chapter, i) => (
               <section key={chapter.slug}>
                 <SectionTitle
                   aside={`${chapter.topics.length} topic${chapter.topics.length === 1 ? "" : "s"}`}
@@ -66,31 +80,38 @@ export function SubjectView({
                 </SectionTitle>
                 {/* Three up: a full-width row per topic is a scroll, not a scan. */}
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                  {chapter.topics.map((t) => (
-                    <Link
-                      key={t.slug}
-                      href={`/study/${subjectSlug}/${chapter.slug}/${t.slug}`}
-                      className="block h-full"
-                    >
-                      <PlanCard
-                        size="sm"
-                        title={t.title}
-                        className="mb-0 h-full"
-                        status={
-                          <span className="flex flex-wrap items-center gap-2">
-                            <StatusPill tone={DIFFICULTY_TONE[t.difficulty]}>
+                  {chapter.topics.map((t, j) => {
+                    const Mark = DIFFICULTY_MARK[t.difficulty];
+                    return (
+                      <Link
+                        key={t.slug}
+                        href={`/study/${subjectSlug}/${chapter.slug}/${t.slug}`}
+                        className="block h-full"
+                      >
+                        <EventCard
+                          kind={t.title}
+                          when={`${t.estimatedMinutes} min`}
+                          tone={TONES[(i + j) % TONES.length]}
+                          className="h-full"
+                          mark={
+                            <EventMark disc>
+                              <Mark strokeWidth={2} />
+                            </EventMark>
+                          }
+                          footer={
+                            <StatusPill
+                              tone="live"
+                              className={DIFFICULTY_INK[t.difficulty]}
+                            >
                               {t.difficulty}
                             </StatusPill>
-                            <StatusPill tone="neutral">
-                              {t.estimatedMinutes} min
-                            </StatusPill>
-                          </span>
-                        }
-                      >
-                        {t.summary}
-                      </PlanCard>
-                    </Link>
-                  ))}
+                          }
+                        >
+                          {t.summary}
+                        </EventCard>
+                      </Link>
+                    );
+                  })}
                 </div>
               </section>
             ))}

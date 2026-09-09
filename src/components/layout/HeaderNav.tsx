@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ChevronDown,
@@ -11,6 +10,7 @@ import {
   Target,
   TrendingUp,
 } from "lucide-react";
+import { MenuRow, Popover } from "@/design-system";
 import { NAV_GROUPS, type NavGroup } from "@/data/navigation";
 
 const GROUP_ICON: Record<string, typeof GraduationCap> = {
@@ -22,7 +22,7 @@ const GROUP_ICON: Record<string, typeof GraduationCap> = {
 
 function GroupIcon({ id }: { id: string }) {
   const Icon = GROUP_ICON[id] ?? Sparkle;
-  return <Icon size={19} strokeWidth={1.8} />;
+  return <Icon size={20} strokeWidth={1.8} />;
 }
 
 export function HeaderNav({ groups }: { groups: NavGroup[] }) {
@@ -70,7 +70,7 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
               aria-label={g.label}
               data-nav-active={live ? "" : undefined}
               onClick={() => setOpen(isOpen ? null : g.id)}
-              className={`rounded-pill hover:text-on-frame flex h-10 items-center gap-2 text-[14px] font-medium transition-colors ${
+              className={`rounded-pill hover:text-on-frame flex h-9.5 items-center gap-2 text-[13px] font-medium transition-colors ${
                 on
                   ? "bg-frame-2 text-on-frame px-4"
                   : "text-on-frame-2 justify-center px-3"
@@ -81,7 +81,7 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
                 <>
                   {g.label}
                   <ChevronDown
-                    size={13}
+                    size={14}
                     className={`text-on-frame-3 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                   />
                 </>
@@ -89,31 +89,17 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
             </button>
 
             {isOpen ? (
-              <div
-                role="menu"
-                aria-label={g.label}
-                className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-72 rounded-[16px] border p-1.5"
-              >
-                {g.items.map((i) => {
-                  const on = pathname.startsWith(i.path);
-                  return (
-                    <Link
-                      key={i.id}
-                      href={i.path}
-                      role="menuitem"
-                      aria-current={on ? "page" : undefined}
-                      className={`rounded-ctl block px-3 py-2.5 transition-colors ${
-                        on ? "bg-brand-soft" : "hover:bg-brand-soft"
-                      }`}
-                    >
-                      <span className="block text-[14px]">{i.label}</span>
-                      <span className="text-ink-3 mt-0.5 block text-[13px] leading-snug">
-                        {i.hint}
-                      </span>
-                    </Link>
-                  );
-                })}
-              </div>
+              <Popover label={g.label} width={272} className="top-10.5">
+                {g.items.map((i) => (
+                  <MenuRow
+                    key={i.id}
+                    href={i.path}
+                    label={i.label}
+                    hint={i.hint}
+                    current={pathname.startsWith(i.path)}
+                  />
+                ))}
+              </Popover>
             ) : null}
           </div>
         );

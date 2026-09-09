@@ -1,13 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import {
+  ActiveCard,
   ButtonLink,
   Canvas,
   CanvasTitle,
   Card,
+  DropSlot,
   Empty,
   EventCard,
+  EventTime,
   SectionTitle,
+  StatusPill,
   Tile,
 } from "@/design-system";
 import { useApp } from "@/context/AppContext";
@@ -24,6 +29,7 @@ function sectionLabel(section: string) {
 }
 
 export function HomeView({ progress }: { progress: Progress }) {
+  const router = useRouter();
   const { board, profile } = useApp();
   const { attempted, correct, wrong, avgSec, sections } = progress;
 
@@ -99,34 +105,27 @@ export function HomeView({ progress }: { progress: Progress }) {
         }
         aside={
           <>
-            <h2 className="mb-6 text-[20px] font-bold tracking-[-0.03em]">
-              What to do next
-            </h2>
+            <SectionTitle>What to do next</SectionTitle>
+
+            {/* At most one in-progress card per screen, or being in progress stops meaning anything. */}
+            <ActiveCard
+              title={weakestName}
+              resumeLabel={`Drill ${weakestName}`}
+              onResume={() => router.push("/drills")}
+              status={
+                <StatusPill tone="live">{weakestAcc}% · your lowest</StatusPill>
+              }
+              className="mb-3"
+            >
+              A drill pulls from the same bank, timed like the section.
+            </ActiveCard>
 
             <div className="grid gap-3">
-              <EventCard
-                kind="Drill"
-                when="now"
-                tone="brand"
-                footer={
-                  <ButtonLink href="/drills" size="sm">
-                    Drill {weakestName}
-                  </ButtonLink>
-                }
-              >
-                {weakestName} is at {weakestAcc}%, your lowest. A drill pulls
-                from the same bank, timed like the section it came from.
-              </EventCard>
-
               <EventCard
                 kind="Mock"
                 when={board}
                 tone="info"
-                footer={
-                  <ButtonLink href="/mocks" size="sm" variant="secondary">
-                    Sit a mock
-                  </ButtonLink>
-                }
+                footer={<EventTime>Full paper · 60 min</EventTime>}
               >
                 A full paper under real sectional timing, so pace is measured
                 the way the hall measures it.
@@ -152,6 +151,7 @@ export function HomeView({ progress }: { progress: Progress }) {
                   topics they came from.
                 </EventCard>
               ) : null}
+              <DropSlot label="Nothing else scheduled" />
             </div>
           </>
         }
@@ -168,13 +168,13 @@ export function HomeView({ progress }: { progress: Progress }) {
               return (
                 <div key={r.section} className="grid gap-2">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[14.5px]">
+                    <span className="text-[13.5px]">
                       {sectionLabel(r.section)}
                     </span>
                     <span className="flex-1" />
-                    <span className="tnum text-[14.5px]">{a}%</span>
+                    <span className="tnum text-[13.5px]">{a}%</span>
                     <span
-                      className={`tnum w-10 text-right text-[13px] ${r.avgSec === null ? "text-ink-4" : fast ? "text-ok" : "text-bad"}`}
+                      className={`tnum w-10 text-right text-[12.5px] ${r.avgSec === null ? "text-ink-4" : fast ? "text-ok" : "text-bad"}`}
                     >
                       {r.avgSec === null ? "—" : `${r.avgSec}s`}
                     </span>
@@ -182,7 +182,9 @@ export function HomeView({ progress }: { progress: Progress }) {
 
                   <div className="rounded-pill bg-track h-2 overflow-hidden">
                     <div
-                      className="rounded-pill bg-ok h-full"
+                      className={`rounded-pill h-full ${
+                        a >= 75 ? "bg-ok" : a >= 60 ? "bg-warn" : "bg-bad"
+                      }`}
                       style={{ width: `${a}%` }}
                     />
                   </div>
@@ -215,7 +217,7 @@ function Row({
     <div className="border-line flex items-baseline justify-between border-b py-3 last:border-b-0">
       <span className="text-ink-2 text-[14px]">{label}</span>
       <span
-        className={`tnum text-[15px] font-semibold ${tone === "bad" ? "text-bad" : tone === "ok" ? "text-ok" : ""}`}
+        className={`tnum text-[13.5px] font-semibold ${tone === "bad" ? "text-bad" : tone === "ok" ? "text-ok" : ""}`}
       >
         {value}
       </span>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Sparkles } from "lucide-react";
 import { useCompanion } from "./CompanionContext";
 
 const MIN_LENGTH = 8;
@@ -71,7 +70,6 @@ export function SelectionAsk() {
         window.getSelection()?.removeAllRanges();
       }}
     >
-      <Sparkles size={13} strokeWidth={2} />
       Ask Onely
     </button>
   );

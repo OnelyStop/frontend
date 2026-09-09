@@ -9,7 +9,8 @@ import { useRetrieval } from "@/features/retrieval/RetrievalContext";
 import { TARGETS } from "@/features/retrieval/targets";
 import { ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
-import { AvatarMark } from "@/features/profile/components/AvatarMark";
+import { AVATARS } from "@/features/profile/avatars";
+import { Avatar, Divider, Kbd, MenuRow, Popover } from "@/design-system";
 import { ACCOUNT_GROUP, HeaderNav, MAIN_GROUPS } from "./HeaderNav";
 import { EXAMS, type ExamBoard, type Subject } from "@/data/navigation";
 
@@ -90,7 +91,13 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
   return `/${segs.slice(0, -1).join("/")}`;
 }
 
-export function RunningHead() {
+export function RunningHead({
+  isAdmin = false,
+  onTopPlan = false,
+}: {
+  isAdmin?: boolean;
+  onTopPlan?: boolean;
+}) {
   const { subject, board, setBoard, avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
   // Neither state renders until auth resolves, so the header never flashes either way.
@@ -175,7 +182,7 @@ export function RunningHead() {
 
   return (
     <header className="text-white">
-      <div className="flex h-19 items-center gap-5 px-6 sm:px-8">
+      <div className="flex h-20 items-center gap-5 px-6 sm:px-8">
         <Link
           href="/home"
           className="shrink-0 text-[22px] font-bold tracking-[-0.03em]"
@@ -189,7 +196,7 @@ export function RunningHead() {
             aria-haspopup="menu"
             aria-expanded={switching}
             onClick={() => setSwitching((v) => !v)}
-            className="press rounded-pill text-on-frame-2 hover:text-on-frame flex h-9 items-center gap-2 pr-2.5 pl-2 text-[14px]"
+            className="press rounded-pill text-on-frame-2 hover:text-on-frame flex h-9 items-center gap-2 pr-2.5 pl-2 text-[13px]"
           >
             <span
               className="size-1.5 rounded-full"
@@ -201,12 +208,8 @@ export function RunningHead() {
           </button>
 
           {switching ? (
-            <div
-              role="menu"
-              aria-label="Exams covered"
-              className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-65 overflow-hidden rounded-[16px] border p-1.5"
-            >
-              <p className="text-ink-3 px-2.5 pt-2 pb-1.5 text-[13px]">
+            <Popover label="Exams covered" width={248} className="top-10.5">
+              <p className="text-ink-3 px-2.5 pt-1.5 pb-1 text-[12px]">
                 Exams covered
               </p>
               {EXAMS.map((e, i) => (
@@ -220,14 +223,14 @@ export function RunningHead() {
                     e === board ? "bg-brand-soft" : "hover:bg-brand-soft"
                   }`}
                 >
-                  <span className="min-w-0 flex-1 text-[14px]">{e}</span>
-                  <kbd className="rounded-pill border-line text-ink-3 border px-2 py-0.5 text-[11px]">
+                  <span className="min-w-0 flex-1 text-[13px]">{e}</span>
+                  <Kbd>
                     {mod}
                     {i + 1}
-                  </kbd>
+                  </Kbd>
                 </button>
               ))}
-            </div>
+            </Popover>
           ) : null}
         </div>
 
@@ -268,7 +271,7 @@ export function RunningHead() {
 
         <Link
           href="/upgrade"
-          className={`rounded-pill text-frame h-10 items-center bg-white px-4.5 text-[13.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn ? "hidden sm:flex" : "hidden"}`}
+          className={`rounded-pill text-frame h-9.5 items-center bg-white px-4.5 text-[12.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn && !onTopPlan ? "hidden sm:flex" : "hidden"}`}
         >
           Upgrade
         </Link>
@@ -286,14 +289,14 @@ export function RunningHead() {
             className="press rounded-pill hover:bg-frame-2 flex items-center gap-2 py-1 pr-1.5 pl-1"
           >
             {/* Every account gets a mark: initials on a dark disc read as a placeholder. */}
-            <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-full">
-              <AvatarMark avatar={avatar ?? "indigo"} />
-            </span>
-            <span className="hidden text-left leading-tight 2xl:block">
-              <span className="text-on-frame block text-[14px] font-semibold">
+            <Avatar size={36} tint={AVATARS[avatar ?? "indigo"].wash}>
+              {AVATARS[avatar ?? "indigo"].face}
+            </Avatar>
+            <span className="hidden max-w-44 text-left leading-tight md:block">
+              <span className="text-on-frame block truncate text-[13.5px] font-semibold">
                 {profile.name || "Your account"}
               </span>
-              <span className="text-on-frame-3 block text-[12px]">
+              <span className="text-on-frame-3 block truncate text-[12px]">
                 {profile.email}
               </span>
             </span>
@@ -301,37 +304,40 @@ export function RunningHead() {
           </button>
 
           {account ? (
-            <div
-              role="menu"
-              aria-label="Account"
-              className="border-line bg-canvas text-ink shadow-pop absolute top-12 right-0 z-50 w-68 rounded-[16px] border p-1.5"
+            <Popover
+              label="Account"
+              align="right"
+              width={260}
+              className="top-11.5"
             >
-              {ACCOUNT_GROUP.items.map((i) => (
-                <Link
-                  key={i.id}
-                  href={i.path}
-                  role="menuitem"
+              {ACCOUNT_GROUP.items
+                .filter((i) => !(onTopPlan && i.id === "upgrade"))
+                .map((i) => (
+                  <MenuRow
+                    key={i.id}
+                    href={i.path}
+                    label={i.label}
+                    hint={i.hint}
+                    onClick={() => setAccount(false)}
+                  />
+                ))}
+              {isAdmin ? (
+                <MenuRow
+                  href="/admin"
+                  label="Control room"
+                  hint="Question bank, papers and access"
                   onClick={() => setAccount(false)}
-                  className="press rounded-ctl hover:bg-brand-soft block px-3 py-2.5"
-                >
-                  <span className="block text-[14px]">{i.label}</span>
-                  <span className="text-ink-3 mt-0.5 block text-[13px] leading-snug">
-                    {i.hint}
-                  </span>
-                </Link>
-              ))}
-              <button
-                type="button"
-                role="menuitem"
+                />
+              ) : null}
+              <Divider className="my-1" />
+              <MenuRow
+                label="Sign out"
                 onClick={() => {
                   setAccount(false);
                   void signOut().then(() => router.replace("/"));
                 }}
-                className="press rounded-ctl border-line text-ink-2 hover:bg-brand-soft hover:text-ink mt-1 block w-full border-t px-3 py-2.5 text-left text-[14px]"
-              >
-                Sign out
-              </button>
-            </div>
+              />
+            </Popover>
           ) : null}
         </div>
       </div>

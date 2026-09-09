@@ -6,6 +6,7 @@ import {
   Check,
   FileText,
   Lock,
+  BookOpen,
   MoreHorizontal,
   Pin,
   X,
@@ -25,6 +26,7 @@ import {
   Empty,
   Field,
   IconButton,
+  IndexCard,
   Input,
   Kbd,
   MenuRow,
@@ -33,7 +35,6 @@ import {
   Popover,
   SectionTitle,
   Segmented,
-  Select,
   Table,
   TargetBar,
   Td,
@@ -54,9 +55,9 @@ import {
   PlanCard,
   Rationale,
   RoundAction,
-  SearchField,
   StatusPill,
   Tile,
+  tintFor,
 } from "@/design-system";
 
 // The tints, not the inks — the tint is the half that fills a surface.
@@ -254,11 +255,44 @@ export function DesignView() {
           <Tile value="2" label="Cleared" tone="ok" />
           <Tile value="23" label="Upcoming" outline />
         </div>
-        <div className="mt-6 max-w-md">
-          <SearchField
-            placeholder="Search papers, topics and notes"
-            hint="⌘K"
-          />
+      </Section>
+
+      <Section
+        title="Index card"
+        note="The way into a section — the count sits on the floor of every card"
+      >
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {[
+            [
+              "Quantitative Aptitude",
+              "Arithmetic, interest, work and motion.",
+              "35 topics",
+            ],
+            [
+              "English",
+              "Grammar foundations and the exam question types: error detection, sentence improvement, reading comprehension.",
+              "28 topics",
+            ],
+            [
+              "Reasoning Ability",
+              "Coding, blood relations, directions.",
+              "20 topics",
+            ],
+          ].map(([name, blurb, count]) => (
+            <IndexCard
+              key={name}
+              className={tintFor(name)}
+              title={name}
+              badge={
+                <CornerBadge tone="quiet">
+                  <BookOpen size={20} />
+                </CornerBadge>
+              }
+              footer={<StatusPill tone="soon">{count}</StatusPill>}
+            >
+              {blurb}
+            </IndexCard>
+          ))}
         </div>
       </Section>
 
@@ -512,8 +546,10 @@ export function DesignView() {
           <div>
             <p className="text-ink-3 mb-3 text-[13px]">Avatar and Kbd</p>
             <div className="flex items-center gap-4">
-              <Avatar initials="AM" />
-              <Avatar initials="AM" size={32} />
+              <Avatar>🧑🏻</Avatar>
+              <Avatar tint="#f7dcc4" size={32}>
+                AM
+              </Avatar>
               <Kbd>⌘K</Kbd>
             </div>
 
@@ -579,12 +615,17 @@ export function DesignView() {
             <Field label="Full name" htmlFor="ds-name">
               <Input id="ds-name" defaultValue="Aarav Mehta" />
             </Field>
-            <Field label="Exam" htmlFor="ds-exam" hint="Sets every target">
-              <Select id="ds-exam" defaultValue="IBPS PO">
-                <option>IBPS PO</option>
-                <option>SBI PO</option>
-              </Select>
-            </Field>
+            <div>
+              <Dropdown
+                value={board}
+                options={BOARDS}
+                onChange={setBoard}
+                label="Exam"
+              />
+              <p className="text-ink-3 mt-1.5 text-[12.5px]">
+                Sets every target
+              </p>
+            </div>
           </div>
           <div className="mt-5 grid gap-5">
             <Field label="Bio" htmlFor="ds-bio">

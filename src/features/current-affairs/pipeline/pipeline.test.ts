@@ -83,7 +83,7 @@ let db: ReturnType<typeof drizzle<typeof schema>>;
 
 beforeAll(async () => {
   ({ client, db } = await freshDb());
-}, 30_000);
+});
 
 afterAll(async () => {
   await client.close();

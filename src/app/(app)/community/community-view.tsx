@@ -2,8 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { Button, Card, Empty, PageHeader, Segmented } from "@/design-system";
+import { ArrowUpRight, MessageCircleQuestion } from "lucide-react";
+import {
+  Button,
+  Card,
+  Dropdown,
+  Empty,
+  EventCard,
+  EventMark,
+  type EventTone,
+  PageHeader,
+  Segmented,
+  StatusPill,
+} from "@/design-system";
 import { SECTIONS, SECTION_LABEL, type Subject } from "@/data/navigation";
 import {
   useDoubts,
@@ -11,6 +22,15 @@ import {
   useToggleStuck,
 } from "@/features/community/hooks";
 import type { Doubt, Sort } from "@/features/community/types";
+
+// Each section keeps one fill, so a mixed feed is scannable by colour.
+const SECTION_TONE: Record<string, EventTone> = {
+  quant: "info",
+  reasoning: "brand",
+  english: "ok",
+  ga: "warn",
+  computer: "info",
+};
 
 const RELATIVE = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
@@ -134,52 +154,44 @@ function DoubtCard({
 }) {
   return (
     <li>
-      <Card
-        lift
-        tone={doubt.stuckByMe ? "brand" : "plain"}
-        className="flex gap-4"
+      <EventCard
+        kind={doubt.title}
+        when={ago(doubt.createdAt)}
+        tone={doubt.stuckByMe ? "brand" : SECTION_TONE[doubt.section]}
+        mark={
+          <EventMark disc>
+            <MessageCircleQuestion strokeWidth={2} />
+          </EventMark>
+        }
+        footer={
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={onToggle}
+              aria-pressed={doubt.stuckByMe}
+              className="press"
+            >
+              <StatusPill tone={doubt.stuckByMe ? "brand" : "soon"}>
+                {doubt.stuckCount} stuck
+              </StatusPill>
+            </button>
+            <StatusPill tone="neutral">
+              {SECTION_LABEL[doubt.section]} · {doubt.topic}
+            </StatusPill>
+            <Link
+              href={`/community/${doubt.id}`}
+              aria-label={`Open ${doubt.title}`}
+              className="press ml-auto"
+            >
+              <StatusPill tone="live">
+                Open <ArrowUpRight size={14} strokeWidth={2} />
+              </StatusPill>
+            </Link>
+          </div>
+        }
       >
-        <button
-          type="button"
-          onClick={onToggle}
-          aria-pressed={doubt.stuckByMe}
-          className={`rounded-ctl h-fit w-14 shrink-0 border py-2 text-center transition-colors ${
-            doubt.stuckByMe
-              ? "border-brand bg-brand-soft text-brand"
-              : "border-line bg-canvas text-ink-3 hover:border-line-2 hover:text-ink"
-          }`}
-        >
-          <span className="tnum block text-[15px]">{doubt.stuckCount}</span>
-          <span className="block text-[10px] leading-tight">stuck</span>
-        </button>
-
-        {/* The stuck button is its own control, so only the body opens the thread. */}
-        <Link href={`/community/${doubt.id}`} className="group min-w-0 flex-1">
-          <div className="text-ink-3 flex items-center gap-2 text-[13px]">
-            <span className="text-ink-2 font-medium">
-              {SECTION_LABEL[doubt.section]}
-            </span>
-            <span aria-hidden>·</span>
-            <span>{doubt.topic}</span>
-          </div>
-          <h3 className="group-hover:text-brand mt-1 flex items-start gap-1.5 text-[15px] leading-snug font-semibold transition-colors">
-            {doubt.title}
-            <ArrowUpRight
-              size={15}
-              strokeWidth={2}
-              className="text-ink-4 group-hover:text-brand mt-0.5 shrink-0"
-            />
-          </h3>
-          <p className="text-ink-3 mt-1 line-clamp-2 max-w-[70ch] text-[13px] leading-relaxed">
-            {doubt.body}
-          </p>
-          <div className="text-ink-3 mt-2 flex items-center gap-3 text-[13px]">
-            <span>{doubt.author}</span>
-            <span aria-hidden>·</span>
-            <span>{ago(doubt.createdAt)}</span>
-          </div>
-        </Link>
-      </Card>
+        {doubt.body}
+      </EventCard>
     </li>
   );
 }
@@ -207,72 +219,71 @@ function DoubtForm({
 
   return (
     <form
-      className="card mb-6 p-5"
+      className="mb-6"
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit({ section, topic, title, body });
       }}
-      /* A Card renders a section, and a form cannot be one — this keeps the same paper. */
     >
-      <p className="text-ink-3 text-[13px]">
-        A doubt has to name its section and topic — that is what makes it
-        findable by the next person stuck there.
-      </p>
-      <input
-        autoFocus
-        required
-        minLength={10}
-        maxLength={160}
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="What exactly are you stuck on?"
-        className="border-line placeholder:text-ink-4 focus:border-brand mt-3 w-full border-b pb-2 text-[15px] outline-none"
-      />
-      <textarea
-        rows={3}
-        required
-        minLength={20}
-        maxLength={4000}
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        placeholder="What have you already tried? Which mock or paper was it in?"
-        className="placeholder:text-ink-4 mt-3 w-full resize-none text-[14px] leading-relaxed outline-none"
-      />
-      {error ? (
-        <p className="text-bad mt-2 text-[13px]">
-          {error === "quota_exceeded"
-            ? "You have used this month's posts."
-            : "Could not post. Check the title and body lengths."}
+      <Card>
+        <p className="text-ink-3 text-[13px]">
+          A doubt has to name its section and topic — that is what makes it
+          findable by the next person stuck there.
         </p>
-      ) : null}
-      <div className="border-line mt-4 flex items-center gap-3 border-t pt-4">
-        <select
-          value={section}
-          onChange={(e) => setSection(e.target.value as Subject)}
-          className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none"
-        >
-          {SECTIONS.map((s) => (
-            <option key={s} value={s}>
-              {SECTION_LABEL[s]}
-            </option>
-          ))}
-        </select>
         <input
+          autoFocus
           required
-          maxLength={80}
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          placeholder="Topic, e.g. Caselet DI"
-          className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none"
+          minLength={10}
+          maxLength={160}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="What exactly are you stuck on?"
+          className="border-line placeholder:text-ink-4 focus:border-brand mt-3 w-full border-b pb-2 text-[15px] outline-none"
         />
-        <span className="flex-1" />
-        <Button variant="ghost" type="button" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button type="submit" disabled={pending}>
-          {pending ? "Posting…" : "Post"}
-        </Button>
-      </div>
+        <textarea
+          rows={3}
+          required
+          minLength={20}
+          maxLength={4000}
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          placeholder="What have you already tried? Which mock or paper was it in?"
+          className="placeholder:text-ink-4 mt-3 w-full resize-none text-[14px] leading-relaxed outline-none"
+        />
+        {error ? (
+          <p className="text-bad mt-2 text-[13px]">
+            {error === "quota_exceeded"
+              ? "You have used this month's posts."
+              : "Could not post. Check the title and body lengths."}
+          </p>
+        ) : null}
+        <div className="border-line mt-4 flex items-center gap-3 border-t pt-4">
+          <Dropdown
+            value={section}
+            onChange={setSection}
+            label="Section"
+            options={SECTIONS.map((s) => ({
+              value: s,
+              label: SECTION_LABEL[s],
+            }))}
+          />
+          <input
+            required
+            maxLength={80}
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            placeholder="Topic, e.g. Caselet DI"
+            className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none"
+          />
+          <span className="flex-1" />
+          <Button variant="ghost" type="button" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={pending}>
+            {pending ? "Posting…" : "Post"}
+          </Button>
+        </div>
+      </Card>
     </form>
   );
 }

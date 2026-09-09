@@ -5,9 +5,9 @@ import { BookOpen } from "lucide-react";
 import {
   CornerBadge,
   Empty,
+  IndexCard,
   PageHeader,
   StatusPill,
-  cn,
   tintFor,
 } from "@/design-system";
 import type { SubjectSummary } from "@/features/study/types";
@@ -43,29 +43,28 @@ export function StudyBrowseView({ subjects }: { subjects: SubjectSummary[] }) {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {subjects.map((s) => (
-            <Link key={s.slug} href={`/study/${s.slug}`} className="block">
-              <article
-                className={cn(
-                  "card card-lift relative h-full p-6",
-                  tintFor(s.slug),
-                )}
-              >
-                <CornerBadge tone="quiet">
-                  <BookOpen size={20} />
-                </CornerBadge>
-                <h3 className="max-w-[14ch] text-[20px] leading-[1.16] font-bold tracking-[-0.03em]">
-                  {s.name}
-                </h3>
-                <p className="text-ink-2 mt-3 max-w-[34ch] text-[14.5px] leading-[1.58]">
-                  {s.description ?? BLURB[s.slug] ?? ""}
-                </p>
-                <div className="mt-6">
+            <Link
+              key={s.slug}
+              href={`/study/${s.slug}`}
+              className="block h-full"
+            >
+              <IndexCard
+                className={tintFor(s.slug)}
+                title={s.name}
+                badge={
+                  <CornerBadge tone="quiet">
+                    <BookOpen size={20} />
+                  </CornerBadge>
+                }
+                footer={
                   <StatusPill tone="soon">
                     {s.topicCount} topic{s.topicCount === 1 ? "" : "s"} ·{" "}
                     {s.chapterCount} chapter{s.chapterCount === 1 ? "" : "s"}
                   </StatusPill>
-                </div>
-              </article>
+                }
+              >
+                {s.description ?? BLURB[s.slug] ?? ""}
+              </IndexCard>
             </Link>
           ))}
         </div>

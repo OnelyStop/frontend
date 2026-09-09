@@ -49,7 +49,7 @@ let db: ReturnType<typeof drizzle<typeof schema>>;
 beforeAll(async () => {
   ({ client, db } = await freshDb());
   await client.exec(`insert into auth.users (id) values ('${USER}')`);
-}, 30_000);
+});
 
 afterAll(async () => {
   await client.close();

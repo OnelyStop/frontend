@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
+import { Avatar } from "./data";
 
 // The card family the canvas is built from, and the controls that sit on them.
 export type PillTone =
@@ -139,16 +140,17 @@ export function AvatarStack({
   return (
     <div className="flex">
       {people.map((p) => (
-        <span
+        <Avatar
           key={p.id}
+          tint={p.tint}
+          size={44}
           className={cn(
-            "-ml-3 grid size-11 place-items-center rounded-full border-3 text-[19px] first:ml-0",
+            "-ml-3 border-3 first:ml-0",
             ring === "active" ? "border-active-soft" : "border-canvas",
           )}
-          style={{ background: p.tint ?? "var(--color-panel)" }}
         >
           {p.mark}
-        </span>
+        </Avatar>
       ))}
     </div>
   );
@@ -194,7 +196,7 @@ export function PlanCard({
           "font-semibold tracking-[-0.03em]",
           lg
             ? "max-w-[16ch] text-[28px] leading-[1.12]"
-            : "max-w-[26ch] text-[17px] leading-[1.25]",
+            : "max-w-[26ch] text-[17px] leading-tight",
         )}
       >
         {title}
@@ -204,7 +206,7 @@ export function PlanCard({
           className={cn(
             "text-ink-2 max-w-[36ch]",
             lg
-              ? "mt-3 text-[15px] leading-[1.5]"
+              ? "mt-3 text-[15px] leading-normal"
               : "mt-2 text-[13.5px] leading-[1.55]",
           )}
         >
@@ -223,6 +225,41 @@ export function PlanCard({
           {actions}
         </div>
       ) : null}
+    </article>
+  );
+}
+
+/** The way into a section: a tinted card whose count sits on the floor, whatever the blurb runs to. */
+export function IndexCard({
+  title,
+  children,
+  badge,
+  footer,
+  className,
+}: {
+  title: string;
+  children?: ReactNode;
+  badge?: ReactNode;
+  footer?: ReactNode;
+  className?: string;
+}) {
+  return (
+    <article
+      className={cn(
+        "card card-lift relative flex h-full flex-col p-6",
+        className,
+      )}
+    >
+      {badge}
+      <h3 className="max-w-[14ch] text-[20px] leading-[1.16] font-bold tracking-[-0.03em]">
+        {title}
+      </h3>
+      {children ? (
+        <p className="text-ink-2 mt-3 max-w-[34ch] text-[14.5px] leading-[1.58]">
+          {children}
+        </p>
+      ) : null}
+      {footer ? <div className="mt-auto pt-6">{footer}</div> : null}
     </article>
   );
 }
@@ -268,7 +305,7 @@ export function ActiveCard({
         {title}
       </h3>
       {children ? (
-        <p className="mt-3 max-w-[32ch] text-[15px] leading-[1.5] text-black/55">
+        <p className="mt-3 max-w-[32ch] text-[15px] leading-normal text-black/55">
           {children}
         </p>
       ) : null}
@@ -281,38 +318,6 @@ export function ActiveCard({
         ) : null}
       </div>
     </article>
-  );
-}
-
-/** The search field at the head of a column. */
-export function SearchField({
-  placeholder,
-  onClick,
-  hint,
-}: {
-  placeholder: string;
-  onClick?: () => void;
-  hint?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="press bg-panel text-ink-3 hover:text-ink-2 mb-6 flex w-full items-center gap-3 rounded-full px-5 py-3.5 text-left text-[14px]"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        className="size-5 shrink-0"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <circle cx="11" cy="11" r="7" />
-        <path d="m20 20-3.5-3.5" />
-      </svg>
-      <span className="flex-1">{placeholder}</span>
-      {hint ? <span className="text-[12.5px]">{hint}</span> : null}
-    </button>
   );
 }
 
@@ -364,15 +369,26 @@ const NOTE_PAPER: Record<NoteTint, string> = {
 };
 
 /** Tilt is derived from the id so a note never shifts between renders. */
-function tiltOf(id: string): number {
+function hashOf(id: string): number {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
-  return ((h % 5) - 2) * 0.7;
+  return Math.abs(h);
+}
+
+function tiltOf(id: string): number {
+  return ((hashOf(id) % 5) - 2) * 0.7;
+}
+
+const TINTS: NoteTint[] = ["yellow", "blue", "green", "pink"];
+
+// Without a colour every note would be yellow, and a wall of notes reads as one block.
+function tintOf(id: string): NoteTint {
+  return TINTS[hashOf(id) % TINTS.length];
 }
 
 export function NoteCard({
   id,
-  tint = "yellow",
+  tint,
   source,
   quote,
   when,
@@ -381,6 +397,7 @@ export function NoteCard({
   className,
 }: {
   id: string;
+  /** Omit and it is derived from the id, so a page of notes is never one colour. */
   tint?: NoteTint;
   source?: ReactNode;
   /** The passage the note was written against. */
@@ -394,22 +411,21 @@ export function NoteCard({
     <article
       style={{ rotate: `${tiltOf(id)}deg` }}
       className={cn(
-        "shadow-card hover:shadow-lift relative h-full rounded-[14px] p-5 transition-shadow",
-        NOTE_PAPER[tint],
+        // pt-8 is one whole rule: any other top padding offsets the text from the lines and they strike through it.
+        "ruled shadow-card hover:shadow-lift relative h-full rounded-[14px] px-5 pt-8 pb-6 transition-shadow",
+        NOTE_PAPER[tint ?? tintOf(id)],
         className,
       )}
     >
       {action}
       {source ? <p className="text-[12px] text-black/45">{source}</p> : null}
       {quote ? (
-        <p className="mt-2.5 line-clamp-2 border-l-2 border-black/20 pl-2.5 text-[12.5px] leading-relaxed text-black/55">
+        <p className="line-clamp-2 border-l-2 border-black/20 pl-2.5 text-[12.5px] text-black/55">
           {quote}
         </p>
       ) : null}
-      <p className="mt-2.5 line-clamp-5 text-[13.5px] leading-relaxed text-black/80">
-        {children}
-      </p>
-      {when ? <p className="mt-3 text-[11.5px] text-black/40">{when}</p> : null}
+      <p className="line-clamp-5 text-[13.5px] text-black/80">{children}</p>
+      {when ? <p className="text-[11.5px] text-black/40">{when}</p> : null}
     </article>
   );
 }

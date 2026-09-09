@@ -172,62 +172,6 @@
   transform: none;
 }
 
-/* The Onely mascot on its floating button — a resting idle loop, and a
-   reaction on hover. Every use is behind `motion-safe:`. */
-@keyframes float-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-3px);
-  }
-}
-@keyframes mascot-blink {
-  0%,
-  92%,
-  100% {
-    transform: scaleY(1);
-  }
-  96% {
-    transform: scaleY(0.12);
-  }
-}
-@keyframes mascot-orbit {
-  from {
-    transform: rotate(0deg) translateX(12px) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(12px) rotate(-360deg);
-  }
-}
-@keyframes mascot-wave {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(20deg);
-  }
-  60% {
-    transform: rotate(-12deg);
-  }
-}
-@keyframes spark-pop {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  45% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-}
-
 /* Sticky-note affordances; every use is behind `motion-safe:`. */
 @keyframes note-nudge {
   0%,

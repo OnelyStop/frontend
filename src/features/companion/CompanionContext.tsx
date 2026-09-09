@@ -9,7 +9,12 @@ import {
   type ReactNode,
 } from "react";
 
-export type CompanionMessage = { role: "user" | "assistant"; content: string };
+export type CompanionMessage = {
+  role: "user" | "assistant";
+  content: string;
+  /** Stamped here, not in the panel, so a re-render never moves a card's time. */
+  at: string;
+};
 
 type CompanionState = {
   open: boolean;
@@ -50,7 +55,7 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
       if (!selection || busy) return;
       const next: CompanionMessage[] = [
         ...messages,
-        { role: "user", content: question },
+        { role: "user", content: question, at: new Date().toISOString() },
       ];
       setMessages(next);
       setBusy(true);
@@ -73,7 +78,14 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
           );
           return;
         }
-        setMessages([...next, { role: "assistant", content: data.text }]);
+        setMessages([
+          ...next,
+          {
+            role: "assistant",
+            content: data.text,
+            at: new Date().toISOString(),
+          },
+        ]);
       } catch {
         setError("Onely couldn't be reached. Check your connection.");
       } finally {

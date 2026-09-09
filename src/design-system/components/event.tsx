@@ -80,26 +80,28 @@ export function EventCard({
   return (
     <article
       className={cn(
-        "shadow-card h-fit w-full rounded-4xl p-2.5",
+        "shadow-card flex h-full w-full flex-col rounded-4xl p-2.5",
         card,
         className,
       )}
     >
-      <div className="mb-6 flex items-center gap-2.5 px-3.5 pt-2">
+      <div className="mb-6 flex items-start gap-2.5 px-3.5 pt-2">
         {mark}
-        <span className="text-[15px] font-bold">{kind}</span>
-        <span className="ml-auto text-[13px] font-semibold opacity-70">
+        <span className="min-w-0 flex-1 text-[15px] leading-snug font-bold">
+          {kind}
+        </span>
+        {/* Never wraps: a two-line meta is what makes a row of cards look uneven. */}
+        <span className="shrink-0 text-[13px] font-semibold whitespace-nowrap opacity-70">
           {when}
         </span>
       </div>
       <div
         className={cn(
-          "rounded-xl px-3.5 py-5 text-[13.5px] leading-[1.55] text-black/65",
+          "flex-1 rounded-xl px-3.5 py-5 text-[13.5px] leading-[1.55] text-black/65",
           panel,
         )}
       >
-        {/* The text width. The card takes the column's width, so changing this moves nothing but the wrap. */}
-        <p className="max-w-[36ch] pl-4">{children}</p>
+        {children}
       </div>
       {footer ? <div className="mt-2.5">{footer}</div> : null}
     </article>

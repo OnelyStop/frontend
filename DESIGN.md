@@ -20,7 +20,7 @@ src/design-system/
   components/
     button.tsx             Button, ButtonLink, IconButton
     surface.tsx            Card, DarkPanel, Lattice, LatticeCell, Popover, MenuRow
-    form.tsx               Field, Input, Textarea, Select, Checkbox, Segmented
+    form.tsx               Field, Input, Textarea, Checkbox, Segmented
     data.tsx               Badge, Stat, Meter, CutoffBar, Avatar, Kbd, Table
     event.tsx              EventCard, EventMark, EventTime, DropSlot
     page.tsx               PageHeader, SectionTitle, Empty, Divider
@@ -69,9 +69,14 @@ to weight 700 at `-0.03em`, and body copy stays at 400 so the contrast is
 weight, not size alone. There are no uppercase, letter-spaced micro-labels
 anywhere.
 
-**Hover.** Menus and interactive cells tint faintly with `brand-soft`. Bordered
-controls darken their border. Text controls darken their ink. A card lifts 3px
-only when it is a link to somewhere — add `lift`; a static panel stays put.
+**Hover.** Menus and interactive cells tint faintly with `brand-soft`. Text
+controls darken their ink. A card lifts 3px only when it is a link to somewhere
+— add `lift`; a static panel stays put.
+
+**Controls are recessed, not outlined.** An input, textarea or segmented track
+is `panel` grey on the stage and lifts to white paper with the card shadow on
+focus — the same move a card makes. A hairline around a white box is the
+previous language.
 
 **Actions are pills.** Primary is black, secondary is a hairline on white,
 ghost is text. One height per size, one radius.

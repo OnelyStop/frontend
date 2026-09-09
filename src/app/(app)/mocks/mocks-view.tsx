@@ -7,11 +7,14 @@ import { useApp } from "@/context/AppContext";
 import {
   Button,
   ButtonLink,
+  Card,
   Empty,
   OptionRow,
   PageHeader,
   Segmented,
+  StatusPill,
   questionVariants,
+  tintFor,
 } from "@/design-system";
 import {
   SECTIONS,
@@ -399,11 +402,12 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
             const cleared = m.score !== null && m.score >= m.target;
             const scale = Math.max(m.target, m.score ?? 0) * 1.3;
             return (
-              <div
+              // The fill is the paper's own, so a shelf of cleared papers isn't one green block; the pill carries the verdict.
+              <Card
                 key={m.id}
-                className={`card card-lift relative flex items-start gap-4 p-6 ${
-                  m.score === null ? "" : cleared ? "bg-ok-soft" : "bg-bad-soft"
-                }`}
+                lift
+                pad={false}
+                className={`relative flex items-start gap-4 p-6 ${tintFor(m.id)}`}
               >
                 <div className="min-w-0 flex-1">
                   <p className="text-[16px] tracking-[-0.02em]">
@@ -419,26 +423,33 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                         m.score === null
                           ? "text-ink-4"
                           : cleared
-                            ? ""
+                            ? "text-ok"
                             : "text-bad"
                       }`}
                     >
                       {m.score ?? "—"}
                     </span>
                     <span className="text-ink-3 text-[13px]">
-                      {m.score === null
-                        ? "not attempted"
-                        : cleared
-                          ? "cleared"
-                          : "missed"}{" "}
-                      · 55% target {m.target}
+                      55% target {m.target}
                     </span>
+                    <span className="flex-1" />
+                    <StatusPill
+                      tone={
+                        m.score === null ? "neutral" : cleared ? "ok" : "bad"
+                      }
+                    >
+                      {m.score === null
+                        ? "Not attempted"
+                        : cleared
+                          ? "Cleared"
+                          : "Missed"}
+                    </StatusPill>
                   </div>
 
-                  <div className="rounded-pill bg-line relative mt-3 h-1.5">
+                  <div className="rounded-pill bg-canvas relative mt-3 h-1.5">
                     {m.score !== null ? (
                       <div
-                        className={`rounded-pill h-full ${cleared ? "bg-ink" : "bg-bad"}`}
+                        className={`rounded-pill h-full ${cleared ? "bg-ok" : "bg-bad"}`}
                         style={{ width: `${(m.score / scale) * 100}%` }}
                       />
                     ) : null}
@@ -465,7 +476,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                       ? "Retake"
                       : "Start"}
                 </button>
-              </div>
+              </Card>
             );
           })}
         </div>
