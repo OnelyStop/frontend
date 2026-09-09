@@ -1,6 +1,6 @@
 /** Fills one account with enough graded work that every page has something to render. Re-runnable: it clears its own rows first. */
 import { config } from "dotenv";
-import { eq, like } from "drizzle-orm";
+import { and, eq, like } from "drizzle-orm";
 
 config({ path: ".env.local" });
 
@@ -229,12 +229,22 @@ async function main() {
     })),
   );
 
+  // Ordered, so a re-run lands on the same topic rather than an arbitrary one.
   const [topicForCards] = await db
     .select({ id: topics.id })
     .from(topics)
+    .orderBy(topics.slug)
     .limit(1);
   if (topicForCards) {
-    await db.delete(flashcards).where(eq(flashcards.topicId, topicForCards.id));
+    // Scoped to this script's own rows: deleting by topic alone wiped that topic's imported cards.
+    await db
+      .delete(flashcards)
+      .where(
+        and(
+          eq(flashcards.topicId, topicForCards.id),
+          like(flashcards.stableKey, "demo-card-%"),
+        ),
+      );
     const CARDS: [string, string][] = [
       ["Divisibility by 8", "Last three digits divide by 8."],
       ["Unit digit of 7^83", "Cycle length 4; 83 mod 4 = 3, so 3."],
