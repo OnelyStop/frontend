@@ -80,7 +80,7 @@ export function EventCard({
   return (
     <article
       className={cn(
-        "shadow-card h-fit w-fit max-w-full rounded-4xl p-2.5",
+        "shadow-card h-fit w-full rounded-4xl p-2.5",
         card,
         className,
       )}
@@ -94,12 +94,12 @@ export function EventCard({
       </div>
       <div
         className={cn(
-          "rounded-xl py-5 pr-8 pl-3.5 text-[13.5px] leading-[1.55] text-black/65 sm:pr-26",
+          "rounded-xl px-3.5 py-5 text-[13.5px] leading-[1.55] text-black/65",
           panel,
         )}
       >
-        {/* The text width, in characters. max-w-full is what keeps it inside the panel when the column is narrow. */}
-        <p className="w-[30ch] max-w-full">{children}</p>
+        {/* The text width. The card takes the column's width, so changing this moves nothing but the wrap. */}
+        <p className="max-w-[36ch] pl-4">{children}</p>
       </div>
       {footer ? <div className="mt-2.5">{footer}</div> : null}
     </article>
@@ -117,7 +117,7 @@ export function DropSlot({
   return (
     <div
       className={cn(
-        "border-line-2 text-ink-3 grid h-32 w-fit place-items-center rounded-xl border-2 border-dashed px-10 text-[13.5px]",
+        "border-line-2 text-ink-3 grid h-32 w-full place-items-center rounded-xl border-2 border-dashed px-10 text-[13.5px]",
         className,
       )}
     >

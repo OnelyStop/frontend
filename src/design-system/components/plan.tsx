@@ -112,9 +112,18 @@ export function CornerPlus({
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="press bg-ok-soft text-ok shadow-card absolute -top-4 -right-4 z-4 grid size-12 place-items-center rounded-full text-[21px] leading-none"
+      className="press bg-ok-soft text-ok shadow-card absolute -top-4 -right-4 z-4 grid size-12 place-items-center rounded-full"
     >
-      +
+      <svg
+        viewBox="0 0 24 24"
+        className="size-5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      >
+        <path d="M12 6v12M6 12h12" />
+      </svg>
     </button>
   );
 }
@@ -133,7 +142,7 @@ export function AvatarStack({
         <span
           key={p.id}
           className={cn(
-            "-ml-2.5 grid size-9 place-items-center rounded-full border-3 text-[15px] first:ml-0",
+            "-ml-3 grid size-11 place-items-center rounded-full border-3 text-[19px] first:ml-0",
             ring === "active" ? "border-active-soft" : "border-canvas",
           )}
           style={{ background: p.tint ?? "var(--color-panel)" }}
@@ -169,7 +178,7 @@ export function PlanCard({
     <article className={cn("card card-lift relative mb-5 p-5", className)}>
       {plus}
       {corner}
-      <h3 className="max-w-[16ch] text-[19px] leading-[1.2] font-bold tracking-tight">
+      <h3 className="max-w-[16ch] text-[28px] leading-[1.12] font-bold tracking-[-0.03em]">
         {title}
       </h3>
       {children ? (
@@ -229,7 +238,7 @@ export function ActiveCard({
         </svg>
       </button>
 
-      <h3 className="max-w-[15ch] text-[19px] leading-[1.2] font-bold tracking-tight">
+      <h3 className="max-w-[15ch] text-[28px] leading-[1.12] font-bold tracking-[-0.03em]">
         {title}
       </h3>
       {children ? (

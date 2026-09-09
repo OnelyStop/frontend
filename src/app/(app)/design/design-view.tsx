@@ -12,8 +12,11 @@ import {
 } from "lucide-react";
 import {
   Avatar,
+  Brand,
   Button,
   ButtonLink,
+  Canvas,
+  CanvasTitle,
   Card,
   Checkbox,
   Divider,
@@ -25,7 +28,9 @@ import {
   Input,
   Kbd,
   MenuRow,
+  OptionRow,
   PageHeader,
+  Popover,
   SectionTitle,
   Segmented,
   Select,
@@ -98,6 +103,7 @@ export function DesignView() {
   const [seg, setSeg] = useState<"One" | "Two" | "Three">("One");
   const [board, setBoard] = useState<Board>("ibps-po");
   const [checked, setChecked] = useState(true);
+  const [option, setOption] = useState(2);
 
   return (
     <>
@@ -292,7 +298,7 @@ export function DesignView() {
       </Section>
 
       <Section title="Event card" note="What is scheduled, and when">
-        <div className="flex flex-col items-start gap-3">
+        <div className="flex max-w-96 flex-col gap-3">
           <EventCard
             kind="Mock"
             when="Tu, 25.03"
@@ -406,6 +412,78 @@ export function DesignView() {
               state.
             </p>
           </Card>
+        </div>
+
+        <div className="relative mt-10 h-64">
+          <p className="text-ink-3 mb-3 text-[13px]">Popover</p>
+          <Popover label="Example menu" width={280}>
+            <MenuRow label="First row" current />
+            <MenuRow label="Second row" hint="⌘2" />
+            <Divider className="my-1.5" />
+            <MenuRow label="Third row" />
+          </Popover>
+        </div>
+      </Section>
+
+      <Section title="Brand" note="The wordmark — plain, or a link home">
+        <div className="flex items-center gap-8">
+          <Brand />
+          <Brand href="/home" />
+          <span className="bg-frame text-on-frame rounded-ctl px-4 py-2">
+            <Brand />
+          </span>
+        </div>
+      </Section>
+
+      <Section
+        title="Canvas"
+        note="The column layout every signed-in page is built on"
+      >
+        <div className="bg-stage rounded-card border-line border p-6">
+          <Canvas
+            mid={
+              <Card>
+                <p className="text-[15px]">Middle column</p>
+              </Card>
+            }
+            aside={
+              <EventCard kind="Mock" when="Tu, 25.03" tone="info">
+                The aside is where what happens next lives.
+              </EventCard>
+            }
+          >
+            <CanvasTitle note="CanvasTitle sits at the head of the first column.">
+              Good evening
+            </CanvasTitle>
+            <Card>
+              <p className="text-[15px]">First column</p>
+            </Card>
+          </Canvas>
+        </div>
+      </Section>
+
+      <Section
+        title="Answer option"
+        note="The MCQ control — shared by mocks and drills, never hand-rolled"
+      >
+        <div className="grid max-w-xl gap-2.5">
+          {(["A", "B", "C", "D"] as const).map((letter, i) => (
+            <OptionRow
+              key={letter}
+              label={letter}
+              selected={option === i}
+              onSelect={() => setOption(i)}
+            >
+              {
+                [
+                  "Only conclusion I follows",
+                  "Only conclusion II follows",
+                  "Both conclusions follow",
+                  "Neither conclusion follows",
+                ][i]
+              }
+            </OptionRow>
+          ))}
         </div>
       </Section>
 
