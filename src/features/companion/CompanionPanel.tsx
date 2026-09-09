@@ -132,11 +132,12 @@ export function CompanionPanel() {
           ),
         )}
 
-        {busy ? (
-          <Rationale aria-live="polite" className="p-4 sm:p-4">
-            Onely is thinking…
-          </Rationale>
-        ) : null}
+        {/* The live region has to be a DOM node: Rationale takes a closed prop list and forwards nothing. */}
+        <div aria-live="polite">
+          {busy ? (
+            <Rationale className="p-4 sm:p-4">Onely is thinking…</Rationale>
+          ) : null}
+        </div>
 
         {error ? (
           <p className="bg-bad-soft text-bad rounded-[14px] px-3.5 py-2.5 text-[13px]">
