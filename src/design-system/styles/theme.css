@@ -53,6 +53,13 @@
   --color-info: #1c5c78;
   --color-info-soft: #d9eff9;
 
+  /* A card that holds a panel needs two depths of the same tint: `-pale` is the
+     card, `-soft` the panel sitting on it. */
+  --color-ok-pale: #ddf7e4;
+  --color-warn-pale: #fef5d5;
+  --color-info-pale: #e6f5fb;
+  --color-brand-pale: #f4e6fa;
+
   /* The in-progress surface — one per screen at most. */
   --color-active-soft: #f2c9ee;
 

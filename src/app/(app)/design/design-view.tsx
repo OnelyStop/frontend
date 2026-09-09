@@ -1,7 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Lock, MoreHorizontal, X } from "lucide-react";
+import {
+  AudioLines,
+  Check,
+  FileText,
+  Lock,
+  MoreHorizontal,
+  Pin,
+  X,
+} from "lucide-react";
 import {
   Avatar,
   Button,
@@ -58,6 +66,10 @@ const TOKENS: [string, string][] = [
   ["info-soft", "var(--color-info-soft)"],
   ["brand-soft", "var(--color-brand-soft)"],
   ["active-soft", "var(--color-active-soft)"],
+  ["ok-pale", "var(--color-ok-pale)"],
+  ["warn-pale", "var(--color-warn-pale)"],
+  ["info-pale", "var(--color-info-pale)"],
+  ["brand-pale", "var(--color-brand-pale)"],
 ];
 
 const TYPE: [string, string, string][] = [
@@ -279,15 +291,37 @@ export function DesignView() {
 
       <Section title="Event card" note="What is scheduled, and when">
         <div className="grid max-w-md gap-0">
-          <EventCard kind="Mock" when="Tu, 25.03" tone="info">
+          <EventCard
+            kind="Mock"
+            when="Tu, 25.03"
+            tone="info"
+            at="Start at 12:30"
+            icon={
+              <span className="bg-canvas grid size-7 place-items-center rounded-full">
+                <FileText className="size-4" strokeWidth={2} aria-hidden />
+              </span>
+            }
+          >
             IBPS PO Prelims 2024 under real sectional timing — 100 questions, 60
-            minutes.
+            minutes across three sections.
           </EventCard>
-          <EventCard kind="Drill" when="We, 26.03" tone="brand">
-            Twenty questions drawn from the reasoning bank.
+          <EventCard
+            kind="Drill"
+            when="We, 26.03"
+            tone="brand"
+            icon={<AudioLines className="size-4" strokeWidth={2} aria-hidden />}
+          >
+            Twenty questions drawn from the reasoning bank, timed like the
+            section they came from.
           </EventCard>
-          <EventCard kind="Marking" when="Th, 27.03" tone="warn">
-            Two descriptive answers submitted. Twenty-eight of thirty left.
+          <EventCard
+            kind="Marking"
+            when="Th, 27.03"
+            tone="warn"
+            icon={<Pin className="size-4" strokeWidth={2} aria-hidden />}
+          >
+            Two descriptive answers submitted and marked. Twenty-eight of thirty
+            left in this month&rsquo;s allowance.
           </EventCard>
           <DropSlot label="Drop a session here" />
         </div>
