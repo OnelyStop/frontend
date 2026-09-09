@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Maximize2, Minimize2, Sparkles, X } from "lucide-react";
+import { Maximize2, Minimize2, X } from "lucide-react";
 import { Rationale } from "@/design-system";
 import { useCompanion } from "./CompanionContext";
 
@@ -11,15 +11,15 @@ export function CompanionPanel() {
   const { open, selection, messages, busy, error, ask, close } = useCompanion();
   const [draft, setDraft] = useState("");
   // false = a floating card in the corner; true = docked full-height sidebar.
-  const [docked, setDocked] = useState(false);
+  const [docked, setDocked] = useState(true);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
-      setDocked(localStorage.getItem(DOCK_KEY) === "1");
+      setDocked(localStorage.getItem(DOCK_KEY) !== "0");
     } catch {
-      /* private mode — default to the card */
+      /* private mode — default to the side panel */
     }
   }, []);
 
@@ -73,7 +73,6 @@ export function CompanionPanel() {
       }`}
     >
       <header className="border-line flex h-14 shrink-0 items-center gap-2 border-b px-4">
-        <Sparkles size={15} strokeWidth={2} className="text-brand" />
         <span className="text-[14px]">Ask Onely</span>
         <span className="flex-1" />
         <button

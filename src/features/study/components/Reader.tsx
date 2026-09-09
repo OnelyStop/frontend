@@ -11,7 +11,6 @@ import type {
   StudyNote,
   TopicOutline,
 } from "../types";
-import { CompanionFab } from "@/features/companion/CompanionFab";
 import { NotesPanel } from "./NotesPanel";
 import { AddNoteButton, BlockNoteChips } from "./StickyNote";
 import { FlashcardPlayer } from "./FlashcardPlayer";
@@ -71,7 +70,6 @@ export function Reader({
   const [focusNoteId, setFocusNoteId] = useState<string | null>(null);
   const [notes, setNotes] = useState<StudyNote[]>(initialNotes);
   const [cardsOpen, setCardsOpen] = useState(false);
-  const [sourcesOpen, setSourcesOpen] = useState(false);
   const articleRef = useRef<HTMLElement>(null);
 
   const blockTitles = useMemo(
@@ -190,43 +188,7 @@ export function Reader({
             >
               Study flashcards
             </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => setSourcesOpen((v) => !v)}
-            >
-              Sources ({outline.sources.length})
-            </Button>
           </div>
-
-          {sourcesOpen ? (
-            <div className="border-line rounded-ctl mt-4 border p-4">
-              <p className="text-ink-3 mb-2 text-[12px]">
-                Facts cross-checked against these; explanations, examples and
-                questions are original.
-              </p>
-              <ul className="space-y-2">
-                {outline.sources.map((s) => (
-                  <li key={s.url} className="text-[13px] leading-snug">
-                    <a
-                      href={s.url}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="text-brand underline underline-offset-2"
-                    >
-                      {s.title}
-                    </a>
-                    <span className="text-ink-3">
-                      {" "}
-                      — {s.publisher}
-                      {s.license ? `, ${s.license}` : ""} · {s.usageMode} ·
-                      retrieved {fmtDate(s.retrievedAt)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
         </header>
 
         {/* table of contents */}
@@ -326,8 +288,6 @@ export function Reader({
           onClose={() => setCardsOpen(false)}
         />
       ) : null}
-
-      <CompanionFab seed={`${outline.title} — ${outline.summary}`} />
     </div>
   );
 }
