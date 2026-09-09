@@ -260,7 +260,7 @@ export function DesignView() {
         title="Note card"
         note="Paper, tinted by the colour the note was written in"
       >
-        <div className="grid max-w-3xl gap-5 sm:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-[repeat(3,minmax(0,24rem))]">
           <NoteCard
             id="n1"
             tint="yellow"
@@ -292,7 +292,7 @@ export function DesignView() {
       </Section>
 
       <Section title="Event card" note="What is scheduled, and when">
-        <div className="grid max-w-96 gap-0">
+        <div className="">
           <EventCard
             kind="Mock"
             when="Tu, 25.03"

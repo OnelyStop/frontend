@@ -79,9 +79,9 @@ export function EventCard({
 
   return (
     <article
-      className={cn("shadow-card mb-3 rounded-xl p-2.5", card, className)}
+      className={cn("shadow-card mb-3 rounded-3xl p-2.5", card, className)}
     >
-      <div className="mb-2.5 flex items-center gap-2.5 px-3.5 pt-2">
+      <div className="mb-5 flex items-center gap-2.5 px-3.5 pt-2">
         {mark}
         <span className="text-[15px] font-bold">{kind}</span>
         <span className="ml-auto text-[13px] font-semibold opacity-70">
@@ -102,9 +102,20 @@ export function EventCard({
 }
 
 /** The dashed slot a card is dragged into — an empty schedule, not an error. */
-export function DropSlot({ label }: { label: string }) {
+export function DropSlot({
+  label,
+  className,
+}: {
+  label: string;
+  className?: string;
+}) {
   return (
-    <div className="border-line-2 text-ink-3 grid h-32 place-items-center rounded-xl border-2 border-dashed text-[13.5px]">
+    <div
+      className={cn(
+        "border-line-2 text-ink-3 grid h-32 w-full max-w-76 place-items-center rounded-xl border-2 border-dashed text-[13.5px]",
+        className,
+      )}
+    >
       {label}
     </div>
   );

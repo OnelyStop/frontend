@@ -79,7 +79,7 @@ export function NotesView({ notes }: { notes: OwnNote[] }) {
               sub="No note mentions that. Try a shorter word, or clear the filter."
             />
           ) : (
-            <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <ul className="grid gap-5 sm:grid-cols-[repeat(2,minmax(0,24rem))] xl:grid-cols-[repeat(3,minmax(0,24rem))]">
               {shown.map((n) => (
                 <li key={n.id}>
                   <Link href={n.href} className="group block h-full">
