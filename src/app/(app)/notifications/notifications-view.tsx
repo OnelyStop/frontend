@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { MessageSquare, PenLine, Info } from "lucide-react";
-import { Card, Empty, PageHeader, StatusPill } from "@/design-system";
+import {
+  Card,
+  Empty,
+  EventCard,
+  EventMark,
+  PageHeader,
+  StatusPill,
+} from "@/design-system";
 import type { Notification } from "@/features/notifications/types";
 
 const WHEN = new Intl.DateTimeFormat("en-IN", {
@@ -18,7 +25,7 @@ const KIND = {
 
 export function NotificationsView({ items }: { items: Notification[] }) {
   return (
-    <div className="max-w-[72ch]">
+    <div>
       <PageHeader
         title="Notifications"
         sub="Replies to your doubts, markings that came back, and anything we need to tell you."
@@ -34,37 +41,40 @@ export function NotificationsView({ items }: { items: Notification[] }) {
           />
         </Card>
       ) : (
-        <ul className="grid gap-3">
+        <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {items.map((n) => {
             const kind = KIND[n.kind];
             const Icon = kind.icon;
-            const body = (
-              <>
-                <div className="flex items-center gap-2.5">
-                  <Icon size={16} strokeWidth={1.9} className="text-ink-3" />
-                  <StatusPill tone={kind.tone}>{kind.label}</StatusPill>
-                  {!n.read ? <StatusPill tone="ok">New</StatusPill> : null}
-                  <span className="text-ink-3 ml-auto text-[12.5px]">
-                    {WHEN.format(new Date(n.createdAt))}
-                  </span>
-                </div>
-                <p className="mt-2.5 text-[15px] font-semibold">{n.title}</p>
-                {n.body ? (
-                  <p className="text-ink-2 mt-1 text-[13.5px] leading-relaxed">
-                    {n.body}
-                  </p>
-                ) : null}
-              </>
+            const card = (
+              <EventCard
+                kind={n.title}
+                when={WHEN.format(new Date(n.createdAt))}
+                tone={kind.tone}
+                className="h-full"
+                mark={
+                  <EventMark disc>
+                    <Icon strokeWidth={2} />
+                  </EventMark>
+                }
+                footer={
+                  <div className="flex flex-wrap items-center gap-2">
+                    <StatusPill tone="live">{kind.label}</StatusPill>
+                    {!n.read ? <StatusPill tone="ok">New</StatusPill> : null}
+                  </div>
+                }
+              >
+                {n.body}
+              </EventCard>
             );
 
             return (
-              <li key={n.id}>
+              <li key={n.id} className="h-full">
                 {n.href ? (
-                  <Link href={n.href} className="card card-lift block p-5">
-                    {body}
+                  <Link href={n.href} className="block h-full">
+                    {card}
                   </Link>
                 ) : (
-                  <div className="card p-5">{body}</div>
+                  card
                 )}
               </li>
             );

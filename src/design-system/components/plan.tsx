@@ -194,7 +194,7 @@ export function PlanCard({
           "font-semibold tracking-[-0.03em]",
           lg
             ? "max-w-[16ch] text-[28px] leading-[1.12]"
-            : "max-w-[26ch] text-[17px] leading-[1.25]",
+            : "max-w-[26ch] text-[17px] leading-tight",
         )}
       >
         {title}
@@ -204,7 +204,7 @@ export function PlanCard({
           className={cn(
             "text-ink-2 max-w-[36ch]",
             lg
-              ? "mt-3 text-[15px] leading-[1.5]"
+              ? "mt-3 text-[15px] leading-normal"
               : "mt-2 text-[13.5px] leading-[1.55]",
           )}
         >
@@ -268,7 +268,7 @@ export function ActiveCard({
         {title}
       </h3>
       {children ? (
-        <p className="mt-3 max-w-[32ch] text-[15px] leading-[1.5] text-black/55">
+        <p className="mt-3 max-w-[32ch] text-[15px] leading-normal text-black/55">
           {children}
         </p>
       ) : null}

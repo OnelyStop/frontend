@@ -175,7 +175,7 @@ export function RunningHead() {
 
   return (
     <header className="text-white">
-      <div className="flex h-19 items-center gap-5 px-6 sm:px-8">
+      <div className="flex h-20 items-center gap-5 px-6 sm:px-8">
         <Link
           href="/home"
           className="shrink-0 text-[22px] font-bold tracking-[-0.03em]"
@@ -189,7 +189,7 @@ export function RunningHead() {
             aria-haspopup="menu"
             aria-expanded={switching}
             onClick={() => setSwitching((v) => !v)}
-            className="press rounded-pill text-on-frame-2 hover:text-on-frame flex h-9 items-center gap-2 pr-2.5 pl-2 text-[14px]"
+            className="press rounded-pill text-on-frame-2 hover:text-on-frame flex h-9 items-center gap-2 pr-2.5 pl-2 text-[13px]"
           >
             <span
               className="size-1.5 rounded-full"
@@ -204,9 +204,9 @@ export function RunningHead() {
             <div
               role="menu"
               aria-label="Exams covered"
-              className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-65 overflow-hidden rounded-[16px] border p-1.5"
+              className="border-line bg-canvas text-ink shadow-pop rounded-ctl absolute top-10.5 left-0 z-50 w-62 overflow-hidden border p-1.5"
             >
-              <p className="text-ink-3 px-2.5 pt-2 pb-1.5 text-[13px]">
+              <p className="text-ink-3 px-2.5 pt-2 pb-1.5 text-[12px]">
                 Exams covered
               </p>
               {EXAMS.map((e, i) => (
@@ -220,7 +220,7 @@ export function RunningHead() {
                     e === board ? "bg-brand-soft" : "hover:bg-brand-soft"
                   }`}
                 >
-                  <span className="min-w-0 flex-1 text-[14px]">{e}</span>
+                  <span className="min-w-0 flex-1 text-[13px]">{e}</span>
                   <kbd className="rounded-pill border-line text-ink-3 border px-2 py-0.5 text-[11px]">
                     {mod}
                     {i + 1}
@@ -268,7 +268,7 @@ export function RunningHead() {
 
         <Link
           href="/upgrade"
-          className={`rounded-pill text-frame h-8.5 items-center bg-white px-4 text-[11.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn ? "hidden sm:flex" : "hidden"}`}
+          className={`rounded-pill text-frame h-9.5 items-center bg-white px-4.5 text-[12.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn ? "hidden sm:flex" : "hidden"}`}
         >
           Upgrade
         </Link>
@@ -286,25 +286,25 @@ export function RunningHead() {
             className="press rounded-pill hover:bg-frame-2 flex items-center gap-2 py-1 pr-1.5 pl-1"
           >
             {/* Every account gets a mark: initials on a dark disc read as a placeholder. */}
-            <span className="grid size-8 shrink-0 place-items-center overflow-hidden rounded-full">
+            <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-full">
               <AvatarMark avatar={avatar ?? "indigo"} />
             </span>
             <span className="hidden max-w-44 text-left leading-tight md:block">
-              <span className="text-on-frame block truncate text-[12px] font-semibold">
+              <span className="text-on-frame block truncate text-[13.5px] font-semibold">
                 {profile.name || "Your account"}
               </span>
-              <span className="text-on-frame-3 block truncate text-[10.5px]">
+              <span className="text-on-frame-3 block truncate text-[12px]">
                 {profile.email}
               </span>
             </span>
-            <ChevronDown size={14} className="text-on-frame-3 shrink-0" />
+            <ChevronDown size={16} className="text-on-frame-3 shrink-0" />
           </button>
 
           {account ? (
             <div
               role="menu"
               aria-label="Account"
-              className="border-line bg-canvas text-ink shadow-pop absolute top-12 right-0 z-50 w-68 rounded-[16px] border p-1.5"
+              className="border-line bg-canvas text-ink shadow-pop rounded-ctl absolute top-11.5 right-0 z-50 w-65 border p-1.5"
             >
               {ACCOUNT_GROUP.items.map((i) => (
                 <Link
@@ -314,8 +314,8 @@ export function RunningHead() {
                   onClick={() => setAccount(false)}
                   className="press rounded-ctl hover:bg-brand-soft block px-3 py-2.5"
                 >
-                  <span className="block text-[14px]">{i.label}</span>
-                  <span className="text-ink-3 mt-0.5 block text-[13px] leading-snug">
+                  <span className="block text-[13px]">{i.label}</span>
+                  <span className="text-ink-3 mt-0.5 block text-[12px] leading-snug">
                     {i.hint}
                   </span>
                 </Link>
@@ -327,7 +327,7 @@ export function RunningHead() {
                   setAccount(false);
                   void signOut().then(() => router.replace("/"));
                 }}
-                className="press rounded-ctl border-line text-ink-2 hover:bg-brand-soft hover:text-ink mt-1 block w-full border-t px-3 py-2.5 text-left text-[14px]"
+                className="press rounded-ctl border-line text-ink-2 hover:bg-brand-soft hover:text-ink mt-1 block w-full border-t px-3 py-2.5 text-left text-[13px]"
               >
                 Sign out
               </button>
