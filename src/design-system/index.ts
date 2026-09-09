@@ -19,7 +19,15 @@ export { Card, MenuRow, Popover, type CardTone } from "./components/surface";
 
 export { Rationale } from "./components/rationale";
 
-export { Canvas, CanvasTitle, DropSlot, EventCard } from "./components/canvas";
+export { Canvas, CanvasTitle } from "./components/canvas";
+
+export {
+  DropSlot,
+  EventCard,
+  EventMark,
+  EventTime,
+  type EventTone,
+} from "./components/event";
 
 export {
   ActiveCard,

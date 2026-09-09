@@ -22,6 +22,7 @@ src/design-system/
     surface.tsx            Card, DarkPanel, Lattice, LatticeCell, Popover, MenuRow
     form.tsx               Field, Input, Textarea, Select, Checkbox, Segmented
     data.tsx               Badge, Stat, Meter, CutoffBar, Avatar, Kbd, Table
+    event.tsx              EventCard, EventMark, EventTime, DropSlot
     page.tsx               PageHeader, SectionTitle, Empty, Divider
     option.tsx             OptionRow — the MCQ answer control
 ```

@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { Clock } from "lucide-react";
 import { cn } from "../lib/cn";
 
 // Up to three columns of cards on the stage; the frame and rail live in AppLayout.
@@ -55,74 +54,5 @@ export function CanvasTitle({
         </p>
       ) : null}
     </header>
-  );
-}
-
-/** A tinted card in the right column: what is scheduled, and when. */
-export function EventCard({
-  kind,
-  when,
-  icon,
-  tone = "info",
-  children,
-  at,
-  footer,
-  className,
-}: {
-  kind: string;
-  when: string;
-  icon?: ReactNode;
-  tone?: "info" | "brand" | "warn" | "ok";
-  children: ReactNode;
-  /** The start time, as its own white row — the one thing you act on. */
-  at?: string;
-  footer?: ReactNode;
-  className?: string;
-}) {
-  const TONE = {
-    info: ["bg-info-pale", "bg-info-soft"],
-    brand: ["bg-brand-pale", "bg-brand-soft"],
-    warn: ["bg-warn-pale", "bg-warn-soft"],
-    ok: ["bg-ok-pale", "bg-ok-soft"],
-  } as const;
-
-  const [card, panel] = TONE[tone];
-
-  return (
-    <article
-      className={cn("shadow-card mb-3 rounded-xl p-2.5", card, className)}
-    >
-      <div className="mb-2.5 flex items-center gap-2.5 px-3.5 pt-2">
-        {icon ? <span className="shrink-0">{icon}</span> : null}
-        <span className="text-[15px] font-bold">{kind}</span>
-        <span className="ml-auto text-[13px] font-semibold opacity-70">
-          {when}
-        </span>
-      </div>
-      <div
-        className={cn(
-          "rounded-ctl p-3.5 text-[13.5px] leading-[1.55] text-black/65",
-          panel,
-        )}
-      >
-        {children}
-      </div>
-      {at ? (
-        <div className="bg-canvas rounded-ctl mt-2.5 flex items-center justify-center gap-2 py-2.5 text-[13.5px] font-semibold">
-          <Clock className="size-4 shrink-0" strokeWidth={2} aria-hidden />
-          {at}
-        </div>
-      ) : null}
-      {footer ? <div className="mt-2.5">{footer}</div> : null}
-    </article>
-  );
-}
-
-/** The dashed slot a card is dragged into — an empty schedule, not an error. */
-export function DropSlot({ label }: { label: string }) {
-  return (
-    <div className="border-line-2 text-ink-3 grid h-32 place-items-center rounded-xl border-2 border-dashed text-[13.5px]">
-      {label}
-    </div>
   );
 }

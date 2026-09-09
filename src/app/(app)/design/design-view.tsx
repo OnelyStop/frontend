@@ -43,6 +43,8 @@ import {
   DockButton,
   DropSlot,
   EventCard,
+  EventMark,
+  EventTime,
   NoteCard,
   PlanCard,
   Rationale,
@@ -295,12 +297,12 @@ export function DesignView() {
             kind="Mock"
             when="Tu, 25.03"
             tone="info"
-            at="Start at 12:30"
-            icon={
-              <span className="bg-canvas grid size-7 place-items-center rounded-full">
-                <FileText className="size-4" strokeWidth={2} aria-hidden />
-              </span>
+            mark={
+              <EventMark disc>
+                <FileText strokeWidth={2} />
+              </EventMark>
             }
+            footer={<EventTime>Start at 12:30</EventTime>}
           >
             IBPS PO Prelims 2024 under real sectional timing — 100 questions, 60
             minutes across three sections.
@@ -309,7 +311,11 @@ export function DesignView() {
             kind="Drill"
             when="We, 26.03"
             tone="brand"
-            icon={<AudioLines className="size-4" strokeWidth={2} aria-hidden />}
+            mark={
+              <EventMark>
+                <AudioLines strokeWidth={2} />
+              </EventMark>
+            }
           >
             Twenty questions drawn from the reasoning bank, timed like the
             section they came from.
@@ -318,7 +324,11 @@ export function DesignView() {
             kind="Marking"
             when="Th, 27.03"
             tone="warn"
-            icon={<Pin className="size-4" strokeWidth={2} aria-hidden />}
+            mark={
+              <EventMark>
+                <Pin className="rotate-45" strokeWidth={2} />
+              </EventMark>
+            }
           >
             Two descriptive answers submitted and marked. Twenty-eight of thirty
             left in this month&rsquo;s allowance.
