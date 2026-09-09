@@ -2,7 +2,16 @@ import type { Metadata } from "next";
 import { AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase-server";
 import { getRole } from "@/features/auth/roles";
-import { Badge, Card, PageHeader, SectionTitle } from "@/design-system";
+import Link from "next/link";
+import {
+  Badge,
+  Card,
+  Lattice,
+  LatticeCell,
+  PageHeader,
+  SectionTitle,
+  Stat,
+} from "@/design-system";
 import { PipelinePanel } from "./pipeline-panel";
 
 export const metadata: Metadata = { title: "Admin" };
@@ -54,8 +63,36 @@ async function runChecks(): Promise<Check[]> {
   return checks;
 }
 
+type Count = { label: string; value: string; note: string };
+
+// head:true asks for the count alone, so an empty table costs nothing to read.
+async function runCounts(): Promise<Count[]> {
+  const supabase = await createClient();
+
+  const of = async (table: string, note: string, label: string) => {
+    const { count, error } = await supabase
+      .from(table)
+      .select("*", { count: "exact", head: true });
+    // A denial and an empty table look the same to a reader, so say which.
+    return {
+      label,
+      value: error ? "—" : String(count ?? 0),
+      note: error ? `blocked: ${error.code}` : note,
+    };
+  };
+
+  return Promise.all([
+    of("bank_questions", "in the question bank", "Questions"),
+    of("papers", "mock papers assembled", "Papers"),
+    of("topics", "study topics imported", "Topics"),
+    of("profiles", "accounts created", "Users"),
+    of("entitlements", "rows granting access", "Entitlements"),
+    of("doubts", "threads in the community", "Doubts"),
+  ]);
+}
+
 export default async function Page() {
-  const checks = await runChecks();
+  const [checks, counts] = await Promise.all([runChecks(), runCounts()]);
   const failing = checks.filter((c) => !c.ok);
 
   return (
@@ -108,16 +145,46 @@ export default async function Page() {
 
       <PipelinePanel />
 
+      <Card className="mt-5">
+        <SectionTitle aside="what an admin actually reads under RLS">
+          By the numbers
+        </SectionTitle>
+        <Lattice cols={3}>
+          {counts.map((c) => (
+            <LatticeCell key={c.label}>
+              <Stat label={c.label} value={c.value} note={c.note} />
+            </LatticeCell>
+          ))}
+        </Lattice>
+      </Card>
+
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {[
-          { label: "Questions", hint: "Import, edit, and retire questions" },
-          { label: "Papers", hint: "Group questions into full mock papers" },
-          { label: "Users", hint: "Roles and plan management" },
+          { label: "Question bank", hint: "Import a paper", href: "/mocks" },
+          { label: "Knowledge base", hint: "Published topics", href: "/study" },
+          { label: "Community", hint: "Open doubts", href: "/community" },
+          {
+            label: "Current affairs",
+            hint: "Pipeline output",
+            href: "/current-affairs",
+          },
+          {
+            label: "Attempt map",
+            hint: "Where marks are lost",
+            href: "/attempt-map",
+          },
+          {
+            label: "Plans",
+            hint: "Pricing and entitlements",
+            href: "/upgrade",
+          },
         ].map((card) => (
-          <Card key={card.label} pad={false} className="p-5">
-            <div className="text-[15px] font-medium">{card.label}</div>
-            <div className="text-ink-3 mt-1 text-[13.5px]">{card.hint}</div>
-          </Card>
+          <Link key={card.label} href={card.href} className="block">
+            <Card pad={false} className="p-5">
+              <div className="text-[15px] font-medium">{card.label}</div>
+              <div className="text-ink-3 mt-1 text-[13.5px]">{card.hint}</div>
+            </Card>
+          </Link>
         ))}
       </div>
     </>
