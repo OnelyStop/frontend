@@ -63,7 +63,7 @@ export function RoundAction({
       aria-label={label}
       onClick={onClick}
       className={cn(
-        "press grid size-9 shrink-0 place-items-center rounded-full",
+        "press grid size-11 shrink-0 place-items-center rounded-full",
         TONE[tone],
       )}
     >
@@ -175,14 +175,14 @@ export function PlanCard({
   className?: string;
 }) {
   return (
-    <article className={cn("card card-lift relative mb-5 p-5", className)}>
+    <article className={cn("card card-lift relative mb-5 p-7", className)}>
       {plus}
       {corner}
-      <h3 className="max-w-[16ch] text-[28px] leading-[1.12] font-bold tracking-[-0.03em]">
+      <h3 className="max-w-[16ch] text-[28px] leading-[1.12] font-semibold tracking-[-0.03em]">
         {title}
       </h3>
       {children ? (
-        <p className="text-ink-2 mt-2 max-w-[36ch] text-[13px] leading-[1.6]">
+        <p className="text-ink-2 mt-3 max-w-[36ch] text-[15px] leading-[1.5]">
           {children}
         </p>
       ) : null}
@@ -223,26 +223,27 @@ export function ActiveCard({
   return (
     <article
       className={cn(
-        "bg-active-soft rounded-card shadow-lift relative mb-5 p-5 pr-28",
+        "bg-active-soft rounded-card shadow-lift relative mb-5 p-7 pr-36",
         className,
       )}
     >
+      {/* outline rather than a box-shadow ring: outline-offset leaves the card's own tint showing in the gap. */}
       <button
         type="button"
         aria-label={resumeLabel}
         onClick={onResume}
-        className="press absolute top-1/2 right-6 grid size-16 -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_0_0_10px_rgb(255_255_255/0.42),0_0_0_22px_rgb(255_255_255/0.2)]"
+        className="press absolute top-1/2 right-8 grid size-20 -translate-y-1/2 place-items-center rounded-full bg-white outline-2 outline-offset-8 outline-white/70"
       >
-        <svg viewBox="0 0 24 24" className="ml-1 size-7 fill-current">
+        <svg viewBox="0 0 24 24" className="ml-1 size-8 fill-current">
           <path d="M8 5v14l11-7z" />
         </svg>
       </button>
 
-      <h3 className="max-w-[15ch] text-[28px] leading-[1.12] font-bold tracking-[-0.03em]">
+      <h3 className="max-w-[15ch] text-[28px] leading-[1.12] font-semibold tracking-[-0.03em]">
         {title}
       </h3>
       {children ? (
-        <p className="mt-2 max-w-[32ch] text-[13px] leading-[1.6] text-black/55">
+        <p className="mt-3 max-w-[32ch] text-[15px] leading-[1.5] text-black/55">
           {children}
         </p>
       ) : null}
