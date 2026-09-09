@@ -163,6 +163,7 @@ export function PlanCard({
   actions,
   corner,
   plus,
+  size = "lg",
   className,
 }: {
   title: string;
@@ -172,17 +173,41 @@ export function PlanCard({
   actions?: ReactNode;
   corner?: ReactNode;
   plus?: ReactNode;
+  /** `sm` is for a grid of many; the display title only reads at `lg`, one or two to a row. */
+  size?: "sm" | "lg";
   className?: string;
 }) {
+  const lg = size === "lg";
+
   return (
-    <article className={cn("card card-lift relative mb-5 p-7", className)}>
+    <article
+      className={cn(
+        "card card-lift relative mb-5",
+        lg ? "p-7" : "p-5",
+        className,
+      )}
+    >
       {plus}
       {corner}
-      <h3 className="max-w-[16ch] text-[28px] leading-[1.12] font-semibold tracking-[-0.03em]">
+      <h3
+        className={cn(
+          "font-semibold tracking-[-0.03em]",
+          lg
+            ? "max-w-[16ch] text-[28px] leading-[1.12]"
+            : "max-w-[26ch] text-[17px] leading-[1.25]",
+        )}
+      >
         {title}
       </h3>
       {children ? (
-        <p className="text-ink-2 mt-3 max-w-[36ch] text-[15px] leading-[1.5]">
+        <p
+          className={cn(
+            "text-ink-2 max-w-[36ch]",
+            lg
+              ? "mt-3 text-[15px] leading-[1.5]"
+              : "mt-2 text-[13.5px] leading-[1.55]",
+          )}
+        >
           {children}
         </p>
       ) : null}
@@ -192,7 +217,7 @@ export function PlanCard({
         </div>
       ) : null}
       {status || actions ? (
-        <div className="mt-6 flex items-center gap-2.5">
+        <div className={cn("flex items-center gap-2.5", lg ? "mt-6" : "mt-4")}>
           {status}
           <span className="flex-1" />
           {actions}

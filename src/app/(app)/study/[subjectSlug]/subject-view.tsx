@@ -6,6 +6,7 @@ import {
   Divider,
   Empty,
   PageHeader,
+  PlanCard,
   SectionTitle,
 } from "@/design-system";
 import type { ChapterOutline } from "@/features/study/types";
@@ -15,13 +16,6 @@ const DIFFICULTY_TONE = {
   intermediate: "warn",
   advanced: "bad",
 } as const;
-
-// The fill answers the question you are actually asking: is this one for me yet?
-const DIFFICULTY_FILL: Record<string, string> = {
-  beginner: "bg-ok-soft",
-  intermediate: "bg-warn-soft",
-  advanced: "bg-bad-soft",
-};
 
 export function SubjectView({
   subjectSlug,
@@ -76,22 +70,25 @@ export function SubjectView({
                     <Link
                       key={t.slug}
                       href={`/study/${subjectSlug}/${chapter.slug}/${t.slug}`}
-                      className={`card card-lift flex h-full flex-col p-5 ${DIFFICULTY_FILL[t.difficulty] ?? ""}`}
+                      className="block h-full"
                     >
-                      <p className="text-[15px] leading-snug font-semibold">
-                        {t.title}
-                      </p>
-                      <p className="text-ink-2 mt-2 line-clamp-3 text-[13px] leading-relaxed">
+                      <PlanCard
+                        size="sm"
+                        title={t.title}
+                        className="mb-0 h-full"
+                        status={
+                          <span className="flex flex-wrap items-center gap-2">
+                            <StatusPill tone={DIFFICULTY_TONE[t.difficulty]}>
+                              {t.difficulty}
+                            </StatusPill>
+                            <StatusPill tone="neutral">
+                              {t.estimatedMinutes} min
+                            </StatusPill>
+                          </span>
+                        }
+                      >
                         {t.summary}
-                      </p>
-                      <div className="mt-auto flex items-center gap-2 pt-4">
-                        <StatusPill tone={DIFFICULTY_TONE[t.difficulty]}>
-                          {t.difficulty}
-                        </StatusPill>
-                        <StatusPill tone="neutral">
-                          {t.estimatedMinutes} min
-                        </StatusPill>
-                      </div>
+                      </PlanCard>
                     </Link>
                   ))}
                 </div>
