@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { cn } from "../lib/cn";
 
 // `tone` fills the card when the card itself is what carries the state.
@@ -102,10 +103,17 @@ export function MenuRow({
     </>
   );
 
+  // next/link, not an anchor: a menu row that full-reloads the app is not a menu row.
   return href ? (
-    <a href={href} role="menuitem" onClick={onClick} className={classes}>
+    <Link
+      href={href}
+      role="menuitem"
+      aria-current={current ? "page" : undefined}
+      onClick={onClick}
+      className={classes}
+    >
       {body}
-    </a>
+    </Link>
   ) : (
     <button type="button" role="menuitem" onClick={onClick} className={classes}>
       {body}

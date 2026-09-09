@@ -3,8 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, MessageCircleQuestion, User } from "lucide-react";
+import { ArrowLeft, MessageCircleQuestion } from "lucide-react";
 import {
+  Avatar,
   Button,
   Canvas,
   CanvasTitle,
@@ -19,6 +20,13 @@ import {
 } from "@/design-system";
 import { SECTION_LABEL, SECTION_FROM_DB } from "@/data/navigation";
 import type { DoubtThread } from "@/features/community/types";
+
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("") || "?";
 
 // Walked per reply so a long thread stays scannable rather than one block of colour.
 const REPLY_TONES: EventTone[] = ["info", "ok", "warn", "brand"];
@@ -148,11 +156,7 @@ export function ThreadView({ thread }: { thread: DoubtThread }) {
                 kind={r.author}
                 when={WHEN.format(new Date(r.createdAt))}
                 tone={REPLY_TONES[i % REPLY_TONES.length]}
-                mark={
-                  <EventMark disc>
-                    <User strokeWidth={2} />
-                  </EventMark>
-                }
+                mark={<Avatar initials={initials(r.author)} size={28} />}
               >
                 <span className="whitespace-pre-wrap">{r.body}</span>
               </EventCard>

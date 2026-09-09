@@ -10,6 +10,7 @@ import { TARGETS } from "@/features/retrieval/targets";
 import { ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { AvatarMark } from "@/features/profile/components/AvatarMark";
+import { Divider, Kbd, MenuRow, Popover } from "@/design-system";
 import { ACCOUNT_GROUP, HeaderNav, MAIN_GROUPS } from "./HeaderNav";
 import { EXAMS, type ExamBoard, type Subject } from "@/data/navigation";
 
@@ -201,12 +202,8 @@ export function RunningHead() {
           </button>
 
           {switching ? (
-            <div
-              role="menu"
-              aria-label="Exams covered"
-              className="border-line bg-canvas text-ink shadow-pop rounded-ctl absolute top-10.5 left-0 z-50 w-62 overflow-hidden border p-1.5"
-            >
-              <p className="text-ink-3 px-2.5 pt-2 pb-1.5 text-[12px]">
+            <Popover label="Exams covered" width={248} className="top-10.5">
+              <p className="text-ink-3 px-2.5 pt-1.5 pb-1 text-[12px]">
                 Exams covered
               </p>
               {EXAMS.map((e, i) => (
@@ -221,13 +218,13 @@ export function RunningHead() {
                   }`}
                 >
                   <span className="min-w-0 flex-1 text-[13px]">{e}</span>
-                  <kbd className="rounded-pill border-line text-ink-3 border px-2 py-0.5 text-[11px]">
+                  <Kbd>
                     {mod}
                     {i + 1}
-                  </kbd>
+                  </Kbd>
                 </button>
               ))}
-            </div>
+            </Popover>
           ) : null}
         </div>
 
@@ -301,37 +298,30 @@ export function RunningHead() {
           </button>
 
           {account ? (
-            <div
-              role="menu"
-              aria-label="Account"
-              className="border-line bg-canvas text-ink shadow-pop rounded-ctl absolute top-11.5 right-0 z-50 w-65 border p-1.5"
+            <Popover
+              label="Account"
+              align="right"
+              width={260}
+              className="top-11.5"
             >
               {ACCOUNT_GROUP.items.map((i) => (
-                <Link
+                <MenuRow
                   key={i.id}
                   href={i.path}
-                  role="menuitem"
+                  label={i.label}
+                  hint={i.hint}
                   onClick={() => setAccount(false)}
-                  className="press rounded-ctl hover:bg-brand-soft block px-3 py-2.5"
-                >
-                  <span className="block text-[13px]">{i.label}</span>
-                  <span className="text-ink-3 mt-0.5 block text-[12px] leading-snug">
-                    {i.hint}
-                  </span>
-                </Link>
+                />
               ))}
-              <button
-                type="button"
-                role="menuitem"
+              <Divider className="my-1" />
+              <MenuRow
+                label="Sign out"
                 onClick={() => {
                   setAccount(false);
                   void signOut().then(() => router.replace("/"));
                 }}
-                className="press rounded-ctl border-line text-ink-2 hover:bg-brand-soft hover:text-ink mt-1 block w-full border-t px-3 py-2.5 text-left text-[13px]"
-              >
-                Sign out
-              </button>
-            </div>
+              />
+            </Popover>
           ) : null}
         </div>
       </div>

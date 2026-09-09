@@ -2,7 +2,8 @@
 
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { StatusPill, Button } from "@/design-system";
+import { ArrowUp, Layers, NotebookPen } from "lucide-react";
+import { Dock, DockButton, StatusPill, Button } from "@/design-system";
 import { blockMeta } from "../blocks";
 import { Markdown } from "../markdown";
 import type {
@@ -267,6 +268,32 @@ export function Reader({
             <span />
           )}
         </div>
+        <Dock>
+          <DockButton
+            label="Notes"
+            tint="var(--color-info-soft)"
+            onClick={() => {
+              setSelectedBlockKey(null);
+              setFocusNoteId(null);
+              setPanel("notes");
+            }}
+          >
+            <NotebookPen size={18} strokeWidth={1.9} />
+          </DockButton>
+          <DockButton
+            label="Study flashcards"
+            tint="var(--color-brand-soft)"
+            onClick={() => setCardsOpen(true)}
+          >
+            <Layers size={18} strokeWidth={1.9} />
+          </DockButton>
+          <DockButton
+            label="Back to top"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <ArrowUp size={18} strokeWidth={1.9} />
+          </DockButton>
+        </Dock>
       </div>
 
       {panel === "notes" ? (
