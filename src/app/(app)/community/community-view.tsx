@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, MessageCircleQuestion } from "lucide-react";
 import {
   Button,
+  Card,
   Dropdown,
   Empty,
   EventCard,
@@ -218,70 +219,71 @@ function DoubtForm({
 
   return (
     <form
-      className="card mb-6 p-5"
+      className="mb-6"
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit({ section, topic, title, body });
       }}
-      /* A Card renders a section, and a form cannot be one — this keeps the same paper. */
     >
-      <p className="text-ink-3 text-[13px]">
-        A doubt has to name its section and topic — that is what makes it
-        findable by the next person stuck there.
-      </p>
-      <input
-        autoFocus
-        required
-        minLength={10}
-        maxLength={160}
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="What exactly are you stuck on?"
-        className="border-line placeholder:text-ink-4 focus:border-brand mt-3 w-full border-b pb-2 text-[15px] outline-none"
-      />
-      <textarea
-        rows={3}
-        required
-        minLength={20}
-        maxLength={4000}
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        placeholder="What have you already tried? Which mock or paper was it in?"
-        className="placeholder:text-ink-4 mt-3 w-full resize-none text-[14px] leading-relaxed outline-none"
-      />
-      {error ? (
-        <p className="text-bad mt-2 text-[13px]">
-          {error === "quota_exceeded"
-            ? "You have used this month's posts."
-            : "Could not post. Check the title and body lengths."}
+      <Card>
+        <p className="text-ink-3 text-[13px]">
+          A doubt has to name its section and topic — that is what makes it
+          findable by the next person stuck there.
         </p>
-      ) : null}
-      <div className="border-line mt-4 flex items-center gap-3 border-t pt-4">
-        <Dropdown
-          value={section}
-          onChange={setSection}
-          label="Section"
-          options={SECTIONS.map((s) => ({
-            value: s,
-            label: SECTION_LABEL[s],
-          }))}
-        />
         <input
+          autoFocus
           required
-          maxLength={80}
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          placeholder="Topic, e.g. Caselet DI"
-          className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none"
+          minLength={10}
+          maxLength={160}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="What exactly are you stuck on?"
+          className="border-line placeholder:text-ink-4 focus:border-brand mt-3 w-full border-b pb-2 text-[15px] outline-none"
         />
-        <span className="flex-1" />
-        <Button variant="ghost" type="button" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button type="submit" disabled={pending}>
-          {pending ? "Posting…" : "Post"}
-        </Button>
-      </div>
+        <textarea
+          rows={3}
+          required
+          minLength={20}
+          maxLength={4000}
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          placeholder="What have you already tried? Which mock or paper was it in?"
+          className="placeholder:text-ink-4 mt-3 w-full resize-none text-[14px] leading-relaxed outline-none"
+        />
+        {error ? (
+          <p className="text-bad mt-2 text-[13px]">
+            {error === "quota_exceeded"
+              ? "You have used this month's posts."
+              : "Could not post. Check the title and body lengths."}
+          </p>
+        ) : null}
+        <div className="border-line mt-4 flex items-center gap-3 border-t pt-4">
+          <Dropdown
+            value={section}
+            onChange={setSection}
+            label="Section"
+            options={SECTIONS.map((s) => ({
+              value: s,
+              label: SECTION_LABEL[s],
+            }))}
+          />
+          <input
+            required
+            maxLength={80}
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            placeholder="Topic, e.g. Caselet DI"
+            className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none"
+          />
+          <span className="flex-1" />
+          <Button variant="ghost" type="button" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={pending}>
+            {pending ? "Posting…" : "Post"}
+          </Button>
+        </div>
+      </Card>
     </form>
   );
 }
