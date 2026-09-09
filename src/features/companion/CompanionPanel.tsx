@@ -69,7 +69,7 @@ export function CompanionPanel() {
       className={`pop-in bg-canvas border-line shadow-pop ease-soft fixed right-0 bottom-0 z-90 flex w-95 max-w-[92vw] flex-col border transition-[height,right,bottom,border-radius,border-width] duration-300 ${
         docked
           ? "h-dvh rounded-none border-y-0 border-r-0"
-          : "right-4 bottom-4 h-[min(620px,calc(100dvh-2rem))] rounded-[22px]"
+          : "right-4 bottom-4 h-[min(620px,calc(100dvh-2rem))] rounded-xl"
       }`}
     >
       <header className="border-line flex h-14 shrink-0 items-center gap-2 border-b px-4">

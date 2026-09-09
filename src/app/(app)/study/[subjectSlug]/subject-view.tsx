@@ -7,6 +7,7 @@ import {
   Empty,
   PageHeader,
   PlanCard,
+  SECTION_TINT,
   SectionTitle,
 } from "@/design-system";
 import type { ChapterOutline } from "@/features/study/types";
@@ -57,7 +58,7 @@ export function SubjectView({
         <div className="space-y-10">
           {chapters
             .filter((c) => c.topics.length > 0)
-            .map((chapter) => (
+            .map((chapter, i) => (
               <section key={chapter.slug}>
                 <SectionTitle
                   aside={`${chapter.topics.length} topic${chapter.topics.length === 1 ? "" : "s"}`}
@@ -75,7 +76,7 @@ export function SubjectView({
                       <PlanCard
                         size="sm"
                         title={t.title}
-                        className="mb-0 h-full"
+                        className={`mb-0 h-full ${SECTION_TINT[i % SECTION_TINT.length]}`}
                         status={
                           <span className="flex flex-wrap items-center gap-2">
                             <StatusPill tone={DIFFICULTY_TONE[t.difficulty]}>

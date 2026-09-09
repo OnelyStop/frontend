@@ -6,6 +6,7 @@ import {
   paymentPlans,
   payments,
   subscriptions,
+  userRoles,
 } from "@/db/schema";
 import type { RazorpayPayment, RazorpaySubscription } from "./razorpay.server";
 import type { BillingStatus, Entitlement } from "./types";
@@ -39,15 +40,24 @@ export async function getEntitlement(
   userId: string,
   now = new Date(),
 ): Promise<Entitlement> {
-  const [row] = await db
-    .select()
-    .from(entitlements)
-    .where(eq(entitlements.userId, userId))
-    .limit(1);
-  const active = !!row && row.accessUntil > now;
+  // The role grants access here so no caller has to learn about roles to gate a page.
+  const [[row], [admin]] = await Promise.all([
+    db
+      .select()
+      .from(entitlements)
+      .where(eq(entitlements.userId, userId))
+      .limit(1),
+    db
+      .select({ role: userRoles.role })
+      .from(userRoles)
+      .where(and(eq(userRoles.userId, userId), eq(userRoles.role, "admin")))
+      .limit(1),
+  ]);
+
+  const active = !!admin || (!!row && row.accessUntil > now);
   return {
     // Expired collapses to free; `school` is sold per seat at the Pro+ ceiling.
-    plan: !active ? "free" : row.plan === "pro" ? "pro" : "pro_plus",
+    plan: !active ? "free" : admin || row?.plan !== "pro" ? "pro_plus" : "pro",
     active,
     accessUntil: row?.accessUntil.toISOString() ?? null,
   };

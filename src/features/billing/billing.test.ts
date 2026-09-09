@@ -59,7 +59,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await client.exec(
-    "truncate payments, entitlements, subscriptions, payment_events, payment_plans restart identity cascade",
+    "truncate payments, entitlements, subscriptions, payment_events, payment_plans, user_roles restart identity cascade",
   );
   const [plan] = await db
     .insert(schema.paymentPlans)
@@ -351,6 +351,43 @@ describe("webhook refuses", () => {
       }),
     ).toBe("processed");
     expect((await entitlement("2026-09-10T00:00:00Z")).active).toBe(true);
+  });
+});
+
+describe("the admin role carries access", () => {
+  const grant = () =>
+    client.query(
+      `insert into user_roles (user_id, role) values ('${USER}', 'admin')`,
+    );
+
+  it("free with no entitlement row and no role", async () => {
+    const e = await entitlement("2026-09-10T00:00:00Z");
+    expect([e.plan, e.active]).toEqual(["free", false]);
+  });
+
+  it("pro_plus on the role alone, with no entitlement row", async () => {
+    await grant();
+    const e = await entitlement("2026-09-10T00:00:00Z");
+    expect([e.plan, e.active, e.accessUntil]).toEqual(["pro_plus", true, null]);
+  });
+
+  it("still pro_plus once the paid access has expired", async () => {
+    await grant();
+    await deliver("evt_a", "subscription.activated", "2026-09-01T00:01:00Z", {
+      id: "sub_1",
+      current_end: Math.floor(Date.UTC(2026, 8, 5) / 1000),
+    });
+    // Past current_end: a paying user would be free here.
+    const e = await entitlement("2026-10-01T00:00:00Z");
+    expect([e.plan, e.active]).toEqual(["pro_plus", true]);
+  });
+
+  it("a non-admin role grants nothing", async () => {
+    await client.query(
+      `insert into user_roles (user_id, role) values ('${USER}', 'editor')`,
+    );
+    const e = await entitlement("2026-09-10T00:00:00Z");
+    expect([e.plan, e.active]).toEqual(["free", false]);
   });
 });
 

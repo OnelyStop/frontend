@@ -3,7 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Button, Card, Empty, PageHeader, Segmented } from "@/design-system";
+import {
+  Button,
+  Card,
+  Empty,
+  PageHeader,
+  Segmented,
+  tintFor,
+} from "@/design-system";
 import { SECTIONS, SECTION_LABEL, type Subject } from "@/data/navigation";
 import {
   useDoubts,
@@ -134,10 +141,11 @@ function DoubtCard({
 }) {
   return (
     <li>
+      {/* Tinted by section so a long feed is scannable; brand still means you marked it. */}
       <Card
         lift
         tone={doubt.stuckByMe ? "brand" : "plain"}
-        className="flex gap-4"
+        className={`flex gap-4 ${doubt.stuckByMe ? "" : tintFor(doubt.section)}`}
       >
         <button
           type="button"

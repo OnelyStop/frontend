@@ -268,7 +268,7 @@ export function RunningHead() {
 
         <Link
           href="/upgrade"
-          className={`rounded-pill text-frame h-10 items-center bg-white px-4.5 text-[13.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn ? "hidden sm:flex" : "hidden"}`}
+          className={`rounded-pill text-frame h-8.5 items-center bg-white px-4 text-[11.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn ? "hidden sm:flex" : "hidden"}`}
         >
           Upgrade
         </Link>
@@ -286,18 +286,18 @@ export function RunningHead() {
             className="press rounded-pill hover:bg-frame-2 flex items-center gap-2 py-1 pr-1.5 pl-1"
           >
             {/* Every account gets a mark: initials on a dark disc read as a placeholder. */}
-            <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-full">
+            <span className="grid size-8 shrink-0 place-items-center overflow-hidden rounded-full">
               <AvatarMark avatar={avatar ?? "indigo"} />
             </span>
-            <span className="hidden text-left leading-tight 2xl:block">
-              <span className="text-on-frame block text-[14px] font-semibold">
+            <span className="hidden max-w-44 text-left leading-tight md:block">
+              <span className="text-on-frame block truncate text-[12px] font-semibold">
                 {profile.name || "Your account"}
               </span>
-              <span className="text-on-frame-3 block text-[12px]">
+              <span className="text-on-frame-3 block truncate text-[10.5px]">
                 {profile.email}
               </span>
             </span>
-            <ChevronDown size={16} className="text-on-frame-3 shrink-0" />
+            <ChevronDown size={14} className="text-on-frame-3 shrink-0" />
           </button>
 
           {account ? (

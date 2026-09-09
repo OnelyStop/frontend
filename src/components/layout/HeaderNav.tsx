@@ -70,10 +70,10 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
               aria-label={g.label}
               data-nav-active={live ? "" : undefined}
               onClick={() => setOpen(isOpen ? null : g.id)}
-              className={`rounded-pill hover:text-on-frame flex h-10 items-center gap-2 text-[14px] font-medium transition-colors ${
+              className={`rounded-pill hover:text-on-frame flex h-8.5 items-center gap-1.5 text-[12px] font-medium transition-colors ${
                 on
-                  ? "bg-frame-2 text-on-frame px-4"
-                  : "text-on-frame-2 justify-center px-3"
+                  ? "bg-frame-2 text-on-frame px-3.5"
+                  : "text-on-frame-2 justify-center px-2.5"
               }`}
             >
               <GroupIcon id={g.id} />
