@@ -22,10 +22,6 @@ export const noteUpdate = z
     message: "nothing_to_update",
   });
 
-export const progressUpdate = z.object({
-  progressPercent: z.number().min(0).max(100),
-});
-
 export type BlockType =
   | "introduction"
   | "objectives"
