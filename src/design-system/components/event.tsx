@@ -80,7 +80,7 @@ export function EventCard({
   return (
     <article
       className={cn(
-        "shadow-card h-fit w-fit rounded-4xl p-2.5",
+        "shadow-card h-fit w-fit max-w-full rounded-4xl p-2.5",
         card,
         className,
       )}
@@ -94,12 +94,12 @@ export function EventCard({
       </div>
       <div
         className={cn(
-          "rounded-xl py-5 pr-26 pl-3.5 text-[13.5px] leading-[1.55] text-black/65",
+          "rounded-xl py-5 pr-8 pl-3.5 text-[13.5px] leading-[1.55] text-black/65 sm:pr-26",
           panel,
         )}
       >
-        {/* Without a wrap point the card runs to the container; padding cannot cause a line break. */}
-        <p className="max-w-[30ch]">{children}</p>
+        {/* The text width, in characters. max-w-full is what keeps it inside the panel when the column is narrow. */}
+        <p className="w-[30ch] max-w-full">{children}</p>
       </div>
       {footer ? <div className="mt-2.5">{footer}</div> : null}
     </article>

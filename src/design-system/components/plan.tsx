@@ -169,7 +169,7 @@ export function PlanCard({
     <article className={cn("card card-lift relative mb-5 p-5", className)}>
       {plus}
       {corner}
-      <h3 className="max-w-[16ch] text-[19px] leading-[1.2] font-bold tracking-[-0.025em]">
+      <h3 className="max-w-[16ch] text-[19px] leading-[1.2] font-bold tracking-tight">
         {title}
       </h3>
       {children ? (
@@ -229,7 +229,7 @@ export function ActiveCard({
         </svg>
       </button>
 
-      <h3 className="max-w-[15ch] text-[19px] leading-[1.2] font-bold tracking-[-0.025em]">
+      <h3 className="max-w-[15ch] text-[19px] leading-[1.2] font-bold tracking-tight">
         {title}
       </h3>
       {children ? (
