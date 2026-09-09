@@ -117,7 +117,7 @@ export function ProgressView({ progress }: { progress: Progress }) {
           </p>
         </Card>
 
-        <Card tone="info">
+        <Card tone="brand">
           <SectionTitle aside={`${weekTotal} questions`}>
             This week
           </SectionTitle>

@@ -6,10 +6,12 @@ config({ path: ".env.local" });
 
 import { db } from "../src/db";
 import {
+  articles,
   attemptAnswers,
   attempts,
   bankQuestions,
   doubts,
+  flashcards,
   notifications,
   papers,
   topics,
@@ -99,15 +101,16 @@ async function main() {
   }
   await db.insert(bankQuestions).values(rows);
 
-  // Three sittings across the last month, so the 30-day windows have shape.
-  for (let sitting = 0; sitting < 3; sitting++) {
+  // Two modes: mocks read as full papers, drills as short pulls from the bank.
+  const MODES = ["paper", "paper", "paper", "bank", "bank"] as const;
+  for (let sitting = 0; sitting < MODES.length; sitting++) {
     const startedAt = new Date(Date.now() - (sitting + 1) * 6 * 86_400_000);
     const [attempt] = await db
       .insert(attempts)
       .values({
         userId,
-        mode: "paper",
-        paperId: PAPER,
+        mode: MODES[sitting],
+        paperId: MODES[sitting] === "paper" ? PAPER : null,
         startedAt,
         submittedAt: new Date(startedAt.getTime() + 3_600_000),
         score: "42.50",
@@ -165,6 +168,52 @@ async function main() {
     })),
   );
 
+  // Current affairs and flashcards read from their own tables, not from attempts.
+  await db.delete(articles).where(eq(articles.source, "rbi_rss"));
+  await db.insert(articles).values(
+    [
+      ["RBI holds the repo rate at 6.50%", "national"],
+      ["SEBI tightens disclosure for AIF managers", "national"],
+      ["IMF revises India growth to 6.8%", "international"],
+      ["New UPI limit for tax payments", "national"],
+    ].map(([title, scope], i) => ({
+      source: "rbi_rss" as const,
+      title,
+      summary: `${title} — what the exam asks from it.`,
+      url: `https://example.invalid/demo-${i}`,
+      publishedAt: new Date(Date.now() - i * 86_400_000),
+      scope: scope as "national" | "international",
+      contentHash: `demo-article-${i}`,
+      status: "used" as const,
+    })),
+  );
+
+  const [topicForCards] = await db
+    .select({ id: topics.id })
+    .from(topics)
+    .limit(1);
+  if (topicForCards) {
+    await db.delete(flashcards).where(eq(flashcards.topicId, topicForCards.id));
+    const CARDS: [string, string][] = [
+      ["Divisibility by 8", "Last three digits divide by 8."],
+      ["Unit digit of 7^83", "Cycle length 4; 83 mod 4 = 3, so 3."],
+      ["Factors of 360", "2^3·3^2·5 → (3+1)(2+1)(1+1) = 24."],
+    ];
+    // draft is the default and never renders; these have to be approved to show.
+    await db.insert(flashcards).values(
+      CARDS.map(([front, back], i) => ({
+        topicId: topicForCards.id,
+        contentVersion: 1,
+        stableKey: `demo-card-${i}`,
+        position: i,
+        front,
+        back,
+        difficulty: "easy",
+        status: "approved" as const,
+      })),
+    );
+  }
+
   await db.insert(notifications).values([
     {
       userId,
@@ -181,7 +230,7 @@ async function main() {
   ]);
 
   console.log(
-    `done — 3 sittings, ${rows.length} questions, ${NOTES.length} notes, ${DOUBTS.length} doubts`,
+    `done — ${MODES.length} sittings, ${rows.length} questions, ${NOTES.length} notes, ${DOUBTS.length} doubts, 4 articles`,
   );
   process.exit(0);
 }

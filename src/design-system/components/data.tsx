@@ -31,10 +31,10 @@ export function Tile({
         outline ? "border-line-2 border-2 border-dashed" : TONE[tone],
       )}
     >
-      <p className="tnum text-[26px] leading-none font-bold tracking-[-0.035em]">
+      <p className="tnum text-[21px] leading-none font-bold tracking-[-0.03em]">
         {value}
       </p>
-      <p className="text-ink-2 mt-1.5 text-[13px]">{label}</p>
+      <p className="text-ink-2 mt-1.5 text-[12.5px]">{label}</p>
     </div>
   );
 }
@@ -53,7 +53,16 @@ export function TargetBar({
   className?: string;
 }) {
   const scale = max ?? Math.max(target, value ?? 0) * 1.3;
-  const cleared = value !== null && value >= target;
+  // Cleared by a hair and cleared comfortably are different facts; one colour hid that.
+  const ratio = value === null || target === 0 ? 0 : value / target;
+  const band =
+    value === null
+      ? "bg-track"
+      : ratio >= 1.1
+        ? "bg-ok"
+        : ratio >= 1
+          ? "bg-warn"
+          : "bg-bad";
   const pct = (n: number) =>
     `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
 
@@ -68,7 +77,7 @@ export function TargetBar({
         <div
           className={cn(
             "rounded-pill h-full transition-[width] duration-500 ease-[var(--ease-decelerate)]",
-            cleared ? "bg-ok" : "bg-bad",
+            band,
           )}
           style={{ width: pct(value) }}
         />

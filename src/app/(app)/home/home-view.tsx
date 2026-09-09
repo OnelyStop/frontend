@@ -169,13 +169,13 @@ export function HomeView({ progress }: { progress: Progress }) {
               return (
                 <div key={r.section} className="grid gap-2">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[14.5px]">
+                    <span className="text-[13.5px]">
                       {sectionLabel(r.section)}
                     </span>
                     <span className="flex-1" />
-                    <span className="tnum text-[14.5px]">{a}%</span>
+                    <span className="tnum text-[13.5px]">{a}%</span>
                     <span
-                      className={`tnum w-10 text-right text-[13px] ${r.avgSec === null ? "text-ink-4" : fast ? "text-ok" : "text-bad"}`}
+                      className={`tnum w-10 text-right text-[12.5px] ${r.avgSec === null ? "text-ink-4" : fast ? "text-ok" : "text-bad"}`}
                     >
                       {r.avgSec === null ? "—" : `${r.avgSec}s`}
                     </span>
@@ -216,7 +216,7 @@ function Row({
     <div className="border-line flex items-baseline justify-between border-b py-3 last:border-b-0">
       <span className="text-ink-2 text-[14px]">{label}</span>
       <span
-        className={`tnum text-[15px] font-semibold ${tone === "bad" ? "text-bad" : tone === "ok" ? "text-ok" : ""}`}
+        className={`tnum text-[13.5px] font-semibold ${tone === "bad" ? "text-bad" : tone === "ok" ? "text-ok" : ""}`}
       >
         {value}
       </span>
