@@ -359,7 +359,7 @@ export function NoteCard({
     <article
       style={{ rotate: `${tiltOf(id)}deg` }}
       className={cn(
-        "shadow-card hover:shadow-lift relative h-full w-full max-w-96 rounded-[14px] p-5 transition-shadow",
+        "shadow-card hover:shadow-lift relative h-full rounded-[14px] p-5 transition-shadow",
         NOTE_PAPER[tint],
         className,
       )}

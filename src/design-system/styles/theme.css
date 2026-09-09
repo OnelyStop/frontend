@@ -38,7 +38,7 @@
   /* Actions are black. The accent is for data, not for chrome. */
   --color-brand: #7b3fa0;
   --color-brand-2: #9a5cc0;
-  --color-brand-soft: #eed8f7;
+  --color-brand-soft: #e7ccf5;
 
   /* Meaning. Each pair is a tint you can fill a whole card with, and an ink
      that stays legible on it — the reason state reads at a glance. */
@@ -58,7 +58,7 @@
   --color-ok-pale: #ddf7e4;
   --color-warn-pale: #fef5d5;
   --color-info-pale: #e6f5fb;
-  --color-brand-pale: #f4e6fa;
+  --color-brand-pale: #efdef8;
 
   /* The in-progress surface — one per screen at most. */
   --color-active-soft: #f2c9ee;
@@ -78,6 +78,16 @@
   --color-computer-soft: #fbdbe9;
 
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  /* EventCard's dials. It sets no width or height — these and the content are
+     what the box is made of, so a caller resizes it by overriding one. */
+  --card-pad: 10px;
+  --card-inset-x: 14px;
+  --card-inset-y: 20px;
+  --card-gap: 24px;
+  --card-gutter: 104px;
+  --card-measure: 30ch;
+  --card-radius: 2rem;
 
   --radius-ctl: 16px;
   --radius-card: 28px;

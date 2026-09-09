@@ -50,11 +50,10 @@ most of the language. A card that carries state fills with its own tint
 (`tone="ok" | "warn" | "bad" | "info" | "active"`) instead of announcing it in
 text alone.
 
-**A card carries its own width.** Every card is `w-full` with its own
-`max-w-*`, so it fills a narrow column and stops at a readable width in a wide
-one. A page setting `max-w-*` on a wrapper to make a card look right is a bug —
-the number belongs on the component, where every page gets it. Override it with
-`className` on the one screen that genuinely differs.
+**No card hardcodes a width.** A card fills the column it is given and sizes
+itself with padding; the layout around it decides how wide that column is. A
+`w-*` or `max-w-*` on a card is a bug — it stops the card being usable on the
+next screen.
 
 **Ruled ground.** The signature layout is `Lattice` — cells divided by
 hairlines with a marker on every intersection. Reach for it whenever you have a

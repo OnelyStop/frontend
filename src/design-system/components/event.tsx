@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Clock } from "lucide-react";
 import { cn } from "../lib/cn";
 
@@ -6,10 +6,10 @@ import { cn } from "../lib/cn";
 export type EventTone = "info" | "brand" | "warn" | "ok";
 
 const TONE: Record<EventTone, [card: string, panel: string]> = {
-  info: ["bg-info-pale", "bg-info-soft"],
-  brand: ["bg-brand-pale", "bg-brand-soft"],
-  warn: ["bg-warn-pale", "bg-warn-soft"],
-  ok: ["bg-ok-pale", "bg-ok-soft"],
+  info: ["bg-info-soft", "bg-info-pale"],
+  brand: ["bg-brand-soft", "bg-brand-pale"],
+  warn: ["bg-warn-soft", "bg-warn-pale"],
+  ok: ["bg-ok-soft", "bg-ok-pale"],
 };
 
 /** The mark before an event's name. `disc` is for a person or a place; a kind of work goes bare. */
@@ -66,6 +66,7 @@ export function EventCard({
   children,
   footer,
   className,
+  style,
 }: {
   kind: string;
   when: string;
@@ -74,14 +75,21 @@ export function EventCard({
   children: ReactNode;
   footer?: ReactNode;
   className?: string;
+  /** Resize the card by overriding a `--card-*` dial here, not by setting a width. */
+  style?: CSSProperties;
 }) {
   const [card, panel] = TONE[tone];
 
   return (
     <article
-      className={cn("shadow-card mb-3 rounded-3xl p-2.5", card, className)}
+      style={style}
+      className={cn(
+        "shadow-card h-fit w-fit rounded-(--card-radius) p-(--card-pad)",
+        card,
+        className,
+      )}
     >
-      <div className="mb-5 flex items-center gap-2.5 px-3.5 pt-2">
+      <div className="mb-(--card-gap) flex items-center gap-2.5 px-(--card-inset-x) pt-2">
         {mark}
         <span className="text-[15px] font-bold">{kind}</span>
         <span className="ml-auto text-[13px] font-semibold opacity-70">
@@ -90,11 +98,12 @@ export function EventCard({
       </div>
       <div
         className={cn(
-          "rounded-ctl p-3.5 text-[13.5px] leading-[1.55] text-black/65",
+          "rounded-xl py-(--card-inset-y) pr-(--card-gutter) pl-(--card-inset-x) text-[13.5px] leading-[1.55] text-black/65",
           panel,
         )}
       >
-        {children}
+        {/* The measure, not a width: the card shrink-wraps whatever this wraps to. */}
+        <p className="max-w-(--card-measure)">{children}</p>
       </div>
       {footer ? <div className="mt-2.5">{footer}</div> : null}
     </article>
@@ -112,7 +121,7 @@ export function DropSlot({
   return (
     <div
       className={cn(
-        "border-line-2 text-ink-3 grid h-32 w-full max-w-76 place-items-center rounded-xl border-2 border-dashed text-[13.5px]",
+        "border-line-2 text-ink-3 grid h-32 w-fit place-items-center rounded-xl border-2 border-dashed px-10 text-[13.5px]",
         className,
       )}
     >

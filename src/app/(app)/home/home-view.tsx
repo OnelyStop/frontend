@@ -103,50 +103,56 @@ export function HomeView({ progress }: { progress: Progress }) {
               What to do next
             </h2>
 
-            <EventCard
-              kind="Drill"
-              when="now"
-              tone="brand"
-              footer={
-                <ButtonLink href="/drills" size="sm">
-                  Drill {weakestName}
-                </ButtonLink>
-              }
-            >
-              {weakestName} is at {weakestAcc}%, your lowest. A drill pulls from
-              the same bank, timed like the section it came from.
-            </EventCard>
-
-            <EventCard
-              kind="Mock"
-              when={board}
-              tone="info"
-              footer={
-                <ButtonLink href="/mocks" size="sm" variant="secondary">
-                  Sit a mock
-                </ButtonLink>
-              }
-            >
-              A full paper under real sectional timing, so pace is measured the
-              way the hall measures it.
-            </EventCard>
-
-            {wrong > 0 ? (
+            <div className="grid gap-3">
               <EventCard
-                kind="Review"
-                when={`−${lost.toFixed(2)}`}
-                tone="warn"
+                kind="Drill"
+                when="now"
+                tone="brand"
                 footer={
-                  <ButtonLink href="/attempt-map" size="sm" variant="secondary">
-                    Open attempt map
+                  <ButtonLink href="/drills" size="sm">
+                    Drill {weakestName}
                   </ButtonLink>
                 }
               >
-                {wrong} wrong {wrong === 1 ? "answer has" : "answers have"} cost
-                you {lost.toFixed(2)} marks. The attempt map shows which topics
-                they came from.
+                {weakestName} is at {weakestAcc}%, your lowest. A drill pulls
+                from the same bank, timed like the section it came from.
               </EventCard>
-            ) : null}
+
+              <EventCard
+                kind="Mock"
+                when={board}
+                tone="info"
+                footer={
+                  <ButtonLink href="/mocks" size="sm" variant="secondary">
+                    Sit a mock
+                  </ButtonLink>
+                }
+              >
+                A full paper under real sectional timing, so pace is measured
+                the way the hall measures it.
+              </EventCard>
+
+              {wrong > 0 ? (
+                <EventCard
+                  kind="Review"
+                  when={`−${lost.toFixed(2)}`}
+                  tone="warn"
+                  footer={
+                    <ButtonLink
+                      href="/attempt-map"
+                      size="sm"
+                      variant="secondary"
+                    >
+                      Open attempt map
+                    </ButtonLink>
+                  }
+                >
+                  {wrong} wrong {wrong === 1 ? "answer has" : "answers have"}{" "}
+                  cost you {lost.toFixed(2)} marks. The attempt map shows which
+                  topics they came from.
+                </EventCard>
+              ) : null}
+            </div>
           </>
         }
       >
