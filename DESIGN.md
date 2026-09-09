@@ -20,7 +20,7 @@ src/design-system/
   components/
     button.tsx             Button, ButtonLink, IconButton
     surface.tsx            Card, DarkPanel, Lattice, LatticeCell, Popover, MenuRow
-    form.tsx               Field, Input, Textarea, Select, Checkbox, Segmented
+    form.tsx               Field, Input, Textarea, Checkbox, Segmented
     data.tsx               Badge, Stat, Meter, CutoffBar, Avatar, Kbd, Table
     event.tsx              EventCard, EventMark, EventTime, DropSlot
     page.tsx               PageHeader, SectionTitle, Empty, Divider

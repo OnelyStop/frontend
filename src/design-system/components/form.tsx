@@ -51,18 +51,6 @@ export function Textarea({ className, ...rest }: ComponentProps<"textarea">) {
   );
 }
 
-export function Select({
-  className,
-  children,
-  ...rest
-}: ComponentProps<"select">) {
-  return (
-    <select className={cn(CONTROL, "h-10 px-3", className)} {...rest}>
-      {children}
-    </select>
-  );
-}
-
 export function Checkbox({
   label,
   hint,
@@ -109,12 +97,7 @@ export function Segmented<T extends string>({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "rounded-pill border-line inline-flex border p-1",
-        className,
-      )}
-    >
+    <div className={cn("rounded-pill bg-panel inline-flex p-1", className)}>
       {options.map((o) => (
         <button
           key={o}
@@ -122,7 +105,9 @@ export function Segmented<T extends string>({
           onClick={() => onChange(o)}
           className={cn(
             "rounded-pill inline-flex items-center gap-2 px-4 py-1.5 text-[14px] transition-colors duration-150",
-            value === o ? "bg-ink text-white" : "text-ink-3 hover:text-ink",
+            value === o
+              ? "bg-canvas text-ink shadow-xs"
+              : "text-ink-3 hover:text-ink",
           )}
         >
           {labels?.[o] ?? o}

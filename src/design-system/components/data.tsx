@@ -58,7 +58,7 @@ export function TargetBar({
     `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
 
   return (
-    <div className={cn("rounded-pill bg-track relative h-3", className)}>
+    <div className={cn("rounded-pill bg-track relative h-3.5", className)}>
       {value !== null ? (
         <div
           className={cn("rounded-pill h-full", cleared ? "bg-ok" : "bg-bad")}
@@ -66,7 +66,7 @@ export function TargetBar({
         />
       ) : null}
       <span
-        className="bg-ink absolute -top-1.5 -bottom-1.5 w-0.5 rounded-full"
+        className="bg-ink ring-canvas absolute -top-2 -bottom-2 w-1 rounded-full ring-2"
         style={{ left: pct(target) }}
         aria-hidden
       />

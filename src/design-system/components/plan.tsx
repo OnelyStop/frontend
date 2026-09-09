@@ -227,6 +227,41 @@ export function PlanCard({
   );
 }
 
+/** The way into a section: a tinted card whose count sits on the floor, whatever the blurb runs to. */
+export function IndexCard({
+  title,
+  children,
+  badge,
+  footer,
+  className,
+}: {
+  title: string;
+  children?: ReactNode;
+  badge?: ReactNode;
+  footer?: ReactNode;
+  className?: string;
+}) {
+  return (
+    <article
+      className={cn(
+        "card card-lift relative flex h-full flex-col p-6",
+        className,
+      )}
+    >
+      {badge}
+      <h3 className="max-w-[14ch] text-[20px] leading-[1.16] font-bold tracking-[-0.03em]">
+        {title}
+      </h3>
+      {children ? (
+        <p className="text-ink-2 mt-3 max-w-[34ch] text-[14.5px] leading-[1.58]">
+          {children}
+        </p>
+      ) : null}
+      {footer ? <div className="mt-auto pt-6">{footer}</div> : null}
+    </article>
+  );
+}
+
 /** The one card in progress. At most one per screen, or it stops meaning anything. */
 export function ActiveCard({
   title,
@@ -281,38 +316,6 @@ export function ActiveCard({
         ) : null}
       </div>
     </article>
-  );
-}
-
-/** The search field at the head of a column. */
-export function SearchField({
-  placeholder,
-  onClick,
-  hint,
-}: {
-  placeholder: string;
-  onClick?: () => void;
-  hint?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="press bg-panel text-ink-3 hover:text-ink-2 mb-6 flex w-full items-center gap-3 rounded-full px-5 py-3.5 text-left text-[14px]"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        className="size-5 shrink-0"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <circle cx="11" cy="11" r="7" />
-        <path d="m20 20-3.5-3.5" />
-      </svg>
-      <span className="flex-1">{placeholder}</span>
-      {hint ? <span className="text-[12.5px]">{hint}</span> : null}
-    </button>
   );
 }
 
@@ -394,7 +397,8 @@ export function NoteCard({
     <article
       style={{ rotate: `${tiltOf(id)}deg` }}
       className={cn(
-        "shadow-card hover:shadow-lift relative h-full rounded-[14px] p-5 transition-shadow",
+        // pt-8 is one whole rule: any other top padding offsets the text from the lines and they strike through it.
+        "ruled shadow-card hover:shadow-lift relative h-full rounded-[14px] px-5 pt-8 pb-6 transition-shadow",
         NOTE_PAPER[tint],
         className,
       )}
@@ -402,14 +406,12 @@ export function NoteCard({
       {action}
       {source ? <p className="text-[12px] text-black/45">{source}</p> : null}
       {quote ? (
-        <p className="mt-2.5 line-clamp-2 border-l-2 border-black/20 pl-2.5 text-[12.5px] leading-relaxed text-black/55">
+        <p className="line-clamp-2 border-l-2 border-black/20 pl-2.5 text-[12.5px] text-black/55">
           {quote}
         </p>
       ) : null}
-      <p className="mt-2.5 line-clamp-5 text-[13.5px] leading-relaxed text-black/80">
-        {children}
-      </p>
-      {when ? <p className="mt-3 text-[11.5px] text-black/40">{when}</p> : null}
+      <p className="line-clamp-5 text-[13.5px] text-black/80">{children}</p>
+      {when ? <p className="text-[11.5px] text-black/40">{when}</p> : null}
     </article>
   );
 }

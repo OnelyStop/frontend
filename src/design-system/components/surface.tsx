@@ -65,7 +65,8 @@ export function Popover({
       aria-label={label}
       style={{ width }}
       className={cn(
-        "border-line bg-canvas shadow-pop absolute top-11 z-50 rounded-[18px] border p-1.5",
+        // text-ink is not optional: a popover opened from the dark frame inherits white otherwise.
+        "border-line bg-canvas text-ink shadow-pop absolute top-11 z-50 rounded-[18px] border p-1.5",
         align === "right" ? "right-0" : "left-0",
         className,
       )}
