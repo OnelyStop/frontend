@@ -85,7 +85,7 @@ export function NotesView({ notes }: { notes: OwnNote[] }) {
                   <Link href={n.href} className="group block h-full">
                     <NoteCard
                       id={n.id}
-                      tint={n.color}
+                      tint={n.color || undefined}
                       source={`${n.subjectName} · ${n.topicTitle}`}
                       quote={n.selectedText}
                       when={DATE.format(new Date(n.updatedAt))}

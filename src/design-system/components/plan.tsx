@@ -369,15 +369,26 @@ const NOTE_PAPER: Record<NoteTint, string> = {
 };
 
 /** Tilt is derived from the id so a note never shifts between renders. */
-function tiltOf(id: string): number {
+function hashOf(id: string): number {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
-  return ((h % 5) - 2) * 0.7;
+  return Math.abs(h);
+}
+
+function tiltOf(id: string): number {
+  return ((hashOf(id) % 5) - 2) * 0.7;
+}
+
+const TINTS: NoteTint[] = ["yellow", "blue", "green", "pink"];
+
+// Without a colour every note would be yellow, and a wall of notes reads as one block.
+function tintOf(id: string): NoteTint {
+  return TINTS[hashOf(id) % TINTS.length];
 }
 
 export function NoteCard({
   id,
-  tint = "yellow",
+  tint,
   source,
   quote,
   when,
@@ -386,6 +397,7 @@ export function NoteCard({
   className,
 }: {
   id: string;
+  /** Omit and it is derived from the id, so a page of notes is never one colour. */
   tint?: NoteTint;
   source?: ReactNode;
   /** The passage the note was written against. */
@@ -401,7 +413,7 @@ export function NoteCard({
       className={cn(
         // pt-8 is one whole rule: any other top padding offsets the text from the lines and they strike through it.
         "ruled shadow-card hover:shadow-lift relative h-full rounded-[14px] px-5 pt-8 pb-6 transition-shadow",
-        NOTE_PAPER[tint],
+        NOTE_PAPER[tint ?? tintOf(id)],
         className,
       )}
     >

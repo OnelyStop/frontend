@@ -91,14 +91,6 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
   return `/${segs.slice(0, -1).join("/")}`;
 }
 
-const initialsOf = (name: string | null | undefined) =>
-  (name ?? "")
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0].toUpperCase())
-    .join("") || "?";
-
 export function RunningHead({ isAdmin = false }: { isAdmin?: boolean }) {
   const { subject, board, setBoard, avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
@@ -292,9 +284,7 @@ export function RunningHead({ isAdmin = false }: { isAdmin?: boolean }) {
           >
             {/* Every account gets a mark: initials on a dark disc read as a placeholder. */}
             <Avatar size={36} tint={AVATARS[avatar ?? "indigo"].wash}>
-              <span style={{ color: AVATARS[avatar ?? "indigo"].ink }}>
-                {initialsOf(profile.name)}
-              </span>
+              {AVATARS[avatar ?? "indigo"].face}
             </Avatar>
             <span className="hidden max-w-44 text-left leading-tight md:block">
               <span className="text-on-frame block truncate text-[13.5px] font-semibold">

@@ -18,13 +18,13 @@ export function isAvatarKey(value: unknown): value is AvatarKey {
   );
 }
 
-type Look = { label: string; ink: string; wash: string; brow: number };
+type Look = { label: string; face: string; ink: string; wash: string };
 
 export const AVATARS: Record<AvatarKey, Look> = {
-  indigo: { label: "Indigo", ink: "#4f46e5", wash: "#eeecff", brow: 0 },
-  violet: { label: "Violet", ink: "#9333ea", wash: "#f4ebff", brow: -2 },
-  cyan: { label: "Cyan", ink: "#0891b2", wash: "#e3f6fa", brow: 2 },
-  amber: { label: "Amber", ink: "#ea7317", wash: "#fdf0e3", brow: -1 },
-  rose: { label: "Rose", ink: "#db2777", wash: "#fdeaf3", brow: 1 },
-  moss: { label: "Moss", ink: "#0f9d70", wash: "#e7f7f1", brow: 0 },
+  indigo: { label: "Indigo", face: "🧑🏻", ink: "#4f46e5", wash: "#eeecff" },
+  violet: { label: "Violet", face: "👩🏽", ink: "#9333ea", wash: "#f4ebff" },
+  cyan: { label: "Cyan", face: "🧑🏾", ink: "#0891b2", wash: "#e3f6fa" },
+  amber: { label: "Amber", face: "👨🏼", ink: "#ea7317", wash: "#fdf0e3" },
+  rose: { label: "Rose", face: "👩🏻", ink: "#db2777", wash: "#fdeaf3" },
+  moss: { label: "Moss", face: "🧑🏽", ink: "#0f9d70", wash: "#e7f7f1" },
 };

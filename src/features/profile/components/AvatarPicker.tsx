@@ -42,7 +42,7 @@ export function AvatarPicker({
           >
             {option ? (
               <Avatar size={44} tint={AVATARS[option].wash}>
-                <span style={{ color: AVATARS[option].ink }}>{initials}</span>
+                {AVATARS[option].face}
               </Avatar>
             ) : (
               <span className="text-ink-3 text-[13px]">{initials}</span>
