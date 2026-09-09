@@ -80,11 +80,7 @@ async function main() {
   await db.delete(userTopicStats).where(eq(userTopicStats.userId, userId));
   await db.delete(notifications).where(eq(notifications.userId, userId));
   await db.delete(doubts).where(eq(doubts.authorId, userId));
-  // Answers go first: the FK points at bank_questions, and a stale q_num loses the new rows.
-  await db.execute(
-    `delete from public.attempt_answers where q_id like '${PAPER}-%'`,
-  );
-  await db.delete(bankQuestions).where(eq(bankQuestions.paperId, PAPER));
+  // Shared paper: ids are deterministic and both inserts upsert, so seeding a second user keeps the first user's answers.
 
   await db
     .insert(papers)
