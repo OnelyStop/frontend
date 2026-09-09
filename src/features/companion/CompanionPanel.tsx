@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Maximize2, Minimize2, Sparkles, X } from "lucide-react";
+import { Rationale } from "@/design-system";
 import { useCompanion } from "./CompanionContext";
 
 const DOCK_KEY = "onely.companion.dock";
@@ -116,27 +117,27 @@ export function CompanionPanel() {
           </p>
         ) : null}
 
-        {messages.map((m, i) => (
-          <div
-            key={i}
-            className={`rounded-[14px] px-3.5 py-2.5 text-[14px] leading-relaxed whitespace-pre-wrap ${
-              m.role === "user"
-                ? "bg-brand ml-6 text-white"
-                : "bg-canvas text-ink-2 ring-line ring-1"
-            }`}
-          >
-            {m.content}
-          </div>
-        ))}
+        {messages.map((m, i) =>
+          m.role === "user" ? (
+            <div
+              key={i}
+              className="bg-panel text-ink ml-6 rounded-[14px] px-3.5 py-2.5 text-[14px] leading-relaxed whitespace-pre-wrap"
+            >
+              {m.content}
+            </div>
+          ) : (
+            <Rationale key={i} className="p-4 whitespace-pre-wrap sm:p-4">
+              {m.content}
+            </Rationale>
+          ),
+        )}
 
-        {busy ? (
-          <div
-            aria-live="polite"
-            className="bg-canvas text-ink-3 ring-line rounded-[14px] px-3.5 py-2.5 text-[14px] ring-1"
-          >
-            Onely is thinking…
-          </div>
-        ) : null}
+        {/* The live region has to be a DOM node: Rationale takes a closed prop list and forwards nothing. */}
+        <div aria-live="polite">
+          {busy ? (
+            <Rationale className="p-4 sm:p-4">Onely is thinking…</Rationale>
+          ) : null}
+        </div>
 
         {error ? (
           <p className="bg-bad-soft text-bad rounded-[14px] px-3.5 py-2.5 text-[13px]">

@@ -1,46 +1,96 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { CompanionPanel } from "@/features/companion/CompanionPanel";
 import { CompanionProvider } from "@/features/companion/CompanionContext";
 import { SelectionAsk } from "@/features/companion/SelectionAsk";
 import { RetrievalProvider } from "@/features/retrieval/RetrievalContext";
 import { RetrievalSlip } from "@/features/retrieval/RetrievalSlip";
 import { useApp } from "@/context/AppContext";
+import { CanvasRail } from "./CanvasRail";
 import { RunningHead, SUBJECT_INK } from "./RunningHead";
 
-export function AppLayout({ children }: { children: React.ReactNode }) {
+export function AppLayout({
+  children,
+  unread = 0,
+}: {
+  children: React.ReactNode;
+  unread?: number;
+}) {
   const { subject } = useApp();
 
   return (
     <CompanionProvider>
       <RetrievalProvider>
         <div
-          className="bg-canvas min-h-screen"
+          className="bg-frame min-h-screen"
           style={{ ["--subj" as string]: SUBJECT_INK[subject] }}
         >
-          {/* RunningHead reads search params; that needs a boundary. */}
-          <Suspense fallback={<div className="border-line h-16 border-b" />}>
-            <RunningHead />
-          </Suspense>
+          {/* Full bleed: the frame is the page, not a card floating on one. */}
+          <div className="flex min-h-svh w-full flex-col">
+            <Suspense fallback={<div className="h-19" />}>
+              <RunningHead />
+            </Suspense>
 
-          <div
-            aria-hidden
-            className="pointer-events-none fixed inset-y-0 left-1/2 z-0 hidden w-full max-w-[1200px] -translate-x-1/2 lg:block"
-          >
-            <span className="bg-line absolute inset-y-0 left-8 w-px" />
-            <span className="bg-line absolute inset-y-0 right-8 w-px" />
+            <div className="relative flex flex-1 flex-col px-3 pb-3">
+              <div className="bg-stage relative flex-1 rounded-[26px] px-6 pt-11 pb-16 sm:px-10">
+                <Bump />
+                <div className="grid gap-x-9 lg:grid-cols-[64px_minmax(0,1fr)]">
+                  <CanvasRail unread={unread} />
+                  {/* No z-index: a stacking context traps full-screen overlays. */}
+                  <main className="relative min-w-0">{children}</main>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* No z-index: a stacking context traps full-screen overlays. */}
-          <main className="relative mx-auto w-full max-w-[1200px] px-8 pt-14 pb-32 lg:px-16">
-            {children}
-          </main>
           <SelectionAsk />
           <CompanionPanel />
           <RetrievalSlip />
         </div>
       </RetrievalProvider>
     </CompanionProvider>
+  );
+}
+
+// Measured, not computed: the nav is a sibling, so nothing knows both boxes.
+function Bump() {
+  const ref = useRef<SVGSVGElement>(null);
+  const [x, setX] = useState<number | null>(null);
+
+  useEffect(() => {
+    const read = () => {
+      const el = document.querySelector<HTMLElement>("[data-nav-active]");
+      const box = ref.current?.parentElement;
+      if (!el || !box) return setX(null);
+      const nav = el.getBoundingClientRect();
+      // Both boxes are viewport-relative; `left` is relative to the stage.
+      const stage = box.getBoundingClientRect();
+      setX(nav.left + nav.width / 2 - stage.left);
+    };
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(document.body, { attributes: true, subtree: true });
+    window.addEventListener("resize", read);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", read);
+    };
+  }, []);
+
+  return (
+    <svg
+      ref={ref}
+      aria-hidden
+      viewBox="0 0 64 12"
+      className="pointer-events-none absolute -top-2.75 hidden h-3 w-16 -translate-x-1/2 lg:block"
+      style={{ left: x ?? -999 }}
+    >
+      {/* Eased into the edge at both ends, so it grows out of the stage. */}
+      <path
+        d="M0 12 C 10 12 14 6 20 3.2 Q32 -2.4 44 3.2 C 50 6 54 12 64 12 Z"
+        fill="var(--color-stage)"
+      />
+    </svg>
   );
 }

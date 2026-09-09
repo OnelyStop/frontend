@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useApp } from "@/context/AppContext";
+import { useModifierKey } from "@/lib/platform";
 import { useRetrieval } from "@/features/retrieval/RetrievalContext";
 import { TARGETS } from "@/features/retrieval/targets";
 import { ChevronDown, Search } from "lucide-react";
@@ -90,7 +91,7 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
 }
 
 export function RunningHead() {
-  const { subject, board, setBoard, initials, avatar } = useApp();
+  const { subject, board, setBoard, avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
   // Neither state renders until auth resolves, so the header never flashes either way.
   const signedOut = !loading && !user;
@@ -99,6 +100,7 @@ export function RunningHead() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
+  const mod = useModifierKey();
   const [switching, setSwitching] = useState(false);
   const [account, setAccount] = useState(false);
   const idRef = useRef<HTMLDivElement>(null);
@@ -172,11 +174,11 @@ export function RunningHead() {
   useEffect(() => setAccount(false), [pathname]);
 
   return (
-    <header className="border-line bg-canvas/85 sticky top-0 z-30 border-b backdrop-blur-xl">
-      <div className="mx-auto flex h-[72px] max-w-[1600px] items-center gap-5 px-8 lg:px-16">
+    <header className="text-white">
+      <div className="flex h-19 items-center gap-5 px-6 sm:px-8">
         <Link
           href="/home"
-          className="shrink-0 text-[18px] font-semibold tracking-[-0.03em]"
+          className="shrink-0 text-[22px] font-bold tracking-[-0.03em]"
         >
           onelystop
         </Link>
@@ -187,7 +189,7 @@ export function RunningHead() {
             aria-haspopup="menu"
             aria-expanded={switching}
             onClick={() => setSwitching((v) => !v)}
-            className="press rounded-pill hover:text-ink flex h-9 items-center gap-2 pr-2.5 pl-2 text-[14px]"
+            className="press rounded-pill text-on-frame-2 hover:text-on-frame flex h-9 items-center gap-2 pr-2.5 pl-2 text-[14px]"
           >
             <span
               className="size-1.5 rounded-full"
@@ -195,14 +197,14 @@ export function RunningHead() {
               aria-hidden
             />
             <span>{board}</span>
-            <ChevronDown size={14} className="text-ink-4" />
+            <ChevronDown size={14} className="text-on-frame-3" />
           </button>
 
           {switching ? (
             <div
               role="menu"
               aria-label="Exams covered"
-              className="border-line bg-canvas shadow-pop absolute top-11 left-0 z-50 w-72 overflow-hidden rounded-[18px] border p-1.5"
+              className="border-line bg-canvas text-ink shadow-pop absolute top-11 left-0 z-50 w-65 overflow-hidden rounded-[16px] border p-1.5"
             >
               <p className="text-ink-3 px-2.5 pt-2 pb-1.5 text-[13px]">
                 Exams covered
@@ -220,7 +222,8 @@ export function RunningHead() {
                 >
                   <span className="min-w-0 flex-1 text-[14px]">{e}</span>
                   <kbd className="rounded-pill border-line text-ink-3 border px-2 py-0.5 text-[11px]">
-                    ⌘{i + 1}
+                    {mod}
+                    {i + 1}
                   </kbd>
                 </button>
               ))}
@@ -235,14 +238,14 @@ export function RunningHead() {
         <button
           type="button"
           onClick={() => setRetrievalOpen(true)}
-          className="press rounded-pill border-line-2 text-ink-3 hover:border-ink/25 flex h-10 items-center gap-5 border pr-2 pl-4 text-[14px]"
+          className="press rounded-pill border-on-frame-line text-on-frame-2 hover:border-on-frame-3 flex h-10 items-center gap-3 border pr-1.5 pl-3.5 text-[13.5px]"
         >
           <span className="flex items-center gap-2">
             <Search size={14} />
             Search
           </span>
-          <kbd className="rounded-pill border-line border px-2 py-0.5 text-[11px]">
-            ⌘K
+          <kbd className="rounded-pill border-on-frame-line border px-2 py-0.5 text-[11px]">
+            {mod}K
           </kbd>
         </button>
 
@@ -250,13 +253,13 @@ export function RunningHead() {
           <>
             <Link
               href="/login"
-              className="text-ink-2 hover:text-ink hidden h-10 items-center px-2 text-[14px] transition-colors sm:flex"
+              className="text-on-frame-2 hover:text-on-frame hidden h-11 items-center px-3 text-[14px] transition-colors sm:flex"
             >
               Sign in
             </Link>
             <Link
               href="/signup"
-              className="rounded-pill bg-ink hover:bg-ink/85 flex h-10 shrink-0 items-center px-5 text-[14px] text-white transition-colors"
+              className="rounded-pill text-frame flex h-11 shrink-0 items-center bg-white px-6 text-[14px] font-semibold transition-colors hover:bg-white/90"
             >
               Start free
             </Link>
@@ -265,7 +268,7 @@ export function RunningHead() {
 
         <Link
           href="/upgrade"
-          className={`rounded-pill bg-ink hover:bg-ink/85 h-10 items-center px-5 text-[14px] text-white transition-colors ${signedIn ? "hidden sm:flex" : "hidden"}`}
+          className={`rounded-pill text-frame h-10 items-center bg-white px-4.5 text-[13.5px] font-semibold transition-colors hover:bg-white/90 ${signedIn ? "hidden sm:flex" : "hidden"}`}
         >
           Upgrade
         </Link>
@@ -280,16 +283,28 @@ export function RunningHead() {
             aria-expanded={account}
             aria-label="Account"
             onClick={() => setAccount((v) => !v)}
-            className="press border-line-2 hover:border-ink/25 grid size-10 place-items-center overflow-hidden rounded-full border text-[13px]"
+            className="press rounded-pill hover:bg-frame-2 flex items-center gap-2 py-1 pr-1.5 pl-1"
           >
-            {avatar ? <AvatarMark avatar={avatar} /> : initials}
+            {/* Every account gets a mark: initials on a dark disc read as a placeholder. */}
+            <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-full">
+              <AvatarMark avatar={avatar ?? "indigo"} />
+            </span>
+            <span className="hidden text-left leading-tight 2xl:block">
+              <span className="text-on-frame block text-[14px] font-semibold">
+                {profile.name || "Your account"}
+              </span>
+              <span className="text-on-frame-3 block text-[12px]">
+                {profile.email}
+              </span>
+            </span>
+            <ChevronDown size={16} className="text-on-frame-3 shrink-0" />
           </button>
 
           {account ? (
             <div
               role="menu"
               aria-label="Account"
-              className="border-line bg-canvas shadow-pop absolute top-12 right-0 z-50 w-[300px] rounded-[18px] border p-1.5"
+              className="border-line bg-canvas text-ink shadow-pop absolute top-12 right-0 z-50 w-68 rounded-[16px] border p-1.5"
             >
               {ACCOUNT_GROUP.items.map((i) => (
                 <Link

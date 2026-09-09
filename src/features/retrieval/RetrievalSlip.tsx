@@ -1,5 +1,6 @@
 "use client";
 
+import { useModifierKey } from "@/lib/platform";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/features/auth/AuthContext";
@@ -9,6 +10,7 @@ import { RESTING, type Target } from "./targets";
 
 export function RetrievalSlip() {
   const { open, setOpen } = useRetrieval();
+  const mod = useModifierKey();
   const { signOut } = useAuth();
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -88,7 +90,7 @@ export function RetrievalSlip() {
             className="bg-line text-ink-3 rounded-md px-1.5 py-0.5 text-[11px] font-medium"
             aria-hidden
           >
-            ⌘K
+            {mod}K
           </span>
           <input
             ref={inputRef}
@@ -117,7 +119,7 @@ export function RetrievalSlip() {
 
         {results.length === 0 ? (
           <p className="text-ink-3 px-5 py-8 text-center text-[13px] leading-relaxed">
-            Nothing matches that. ⌘K reads your syllabus, your papers, and
+            Nothing matches that. {mod}K reads your syllabus, your papers, and
             everything you can do.
           </p>
         ) : (

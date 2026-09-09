@@ -115,6 +115,18 @@ export type TopicOutline = {
   next: TopicRef | null;
 };
 
+/** A learner's own note, listed away from the topic it was written on. */
+export type OwnNote = {
+  id: string;
+  bodyMarkdown: string;
+  color: NoteColor;
+  selectedText: string | null;
+  updatedAt: string;
+  topicTitle: string;
+  subjectName: string;
+  href: string;
+};
+
 export type StudyNote = {
   id: string;
   topicId: string;

@@ -22,7 +22,7 @@ export function AuthShell({ title, subtitle, children, footer }: Props) {
         <Brand href="/" className="self-start" />
 
         <div className="mx-auto flex w-full max-w-95 flex-1 flex-col justify-center py-8">
-          <h1 className="text-[24px] font-semibold tracking-[-0.03em]">
+          <h1 className="text-[20px] font-semibold tracking-[-0.03em]">
             {title}
           </h1>
           <p className="text-ink-2 mt-1.5 text-[14px]">{subtitle}</p>

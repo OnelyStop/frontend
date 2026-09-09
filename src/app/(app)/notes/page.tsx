@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { listNotes } from "@/features/notes/notes.server";
+import { listAllNotes } from "@/features/study/queries.server";
+import { currentUserId } from "@/lib/auth.server";
 import { NotesView } from "./notes-view";
 
 export const metadata: Metadata = { title: "Notes" };
@@ -8,6 +9,7 @@ export const metadata: Metadata = { title: "Notes" };
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-  const notes = await listNotes();
+  const userId = await currentUserId();
+  const notes = userId ? await listAllNotes(userId) : [];
   return <NotesView notes={notes} />;
 }

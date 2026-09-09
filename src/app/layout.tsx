@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 // Cookieless and unlinked to a person, so it needs no consent banner.
 import { Analytics } from "@vercel/analytics/next";
-import { instrument, jakarta } from "./fonts";
+import { instrument, jakarta, poppins } from "./fonts";
 import { AppProvider } from "@/context/AppContext";
 import { AuthProvider } from "@/features/auth/AuthContext";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
@@ -93,7 +93,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN" className={`${instrument.variable} ${jakarta.variable}`}>
+    <html
+      lang="en-IN"
+      className={`${instrument.variable} ${jakarta.variable} ${poppins.variable}`}
+    >
       <body suppressHydrationWarning>
         <JsonLd data={ORGANISATION} />
         <JsonLd data={WEBSITE} />

@@ -1,15 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { X } from "lucide-react";
+import {
+  AudioLines,
+  Check,
+  FileText,
+  Lock,
+  MoreHorizontal,
+  Pin,
+  X,
+} from "lucide-react";
 import {
   Avatar,
-  Badge,
+  Brand,
   Button,
   ButtonLink,
+  Canvas,
+  CanvasTitle,
   Card,
   Checkbox,
-  DarkPanel,
   Divider,
   Dropdown,
   type DropdownOption,
@@ -18,41 +27,67 @@ import {
   IconButton,
   Input,
   Kbd,
-  Lattice,
-  LatticeCell,
   MenuRow,
-  Meter,
+  OptionRow,
   PageHeader,
+  Popover,
   SectionTitle,
   Segmented,
   Select,
-  Stat,
   Table,
   TargetBar,
   Td,
   Textarea,
   Th,
   Tr,
+  ActiveCard,
+  AvatarStack,
+  CornerBadge,
+  CornerPlus,
+  Dock,
+  DockButton,
+  DropSlot,
+  EventCard,
+  EventMark,
+  EventTime,
+  NoteCard,
+  PlanCard,
+  Rationale,
+  RoundAction,
+  SearchField,
+  StatusPill,
+  Tile,
 } from "@/design-system";
 
+// The tints, not the inks — the tint is the half that fills a surface.
 const TOKENS: [string, string][] = [
+  ["stage", "var(--color-stage)"],
   ["canvas", "var(--color-canvas)"],
-  ["panel", "var(--color-panel)"],
-  ["line", "var(--color-line)"],
+  ["frame", "var(--color-frame)"],
   ["ink", "var(--color-ink)"],
   ["ink-2", "var(--color-ink-2)"],
   ["ink-3", "var(--color-ink-3)"],
-  ["brand", "var(--color-brand)"],
-  ["ok", "var(--color-ok)"],
-  ["warn", "var(--color-warn)"],
-  ["bad", "var(--color-bad)"],
+  ["ok-soft", "var(--color-ok-soft)"],
+  ["warn-soft", "var(--color-warn-soft)"],
+  ["bad-soft", "var(--color-bad-soft)"],
+  ["info-soft", "var(--color-info-soft)"],
+  ["brand-soft", "var(--color-brand-soft)"],
+  ["active-soft", "var(--color-active-soft)"],
+  ["ok-pale", "var(--color-ok-pale)"],
+  ["warn-pale", "var(--color-warn-pale)"],
+  ["info-pale", "var(--color-info-pale)"],
+  ["brand-pale", "var(--color-brand-pale)"],
 ];
 
 const TYPE: [string, string, string][] = [
-  ["Page title", "text-[48px] leading-[1.05] tracking-[-0.03em]", "48 / 400"],
-  ["Card title", "text-[24px] tracking-[-0.02em]", "24 / 400"],
-  ["Panel label", "text-[16px] font-medium", "16 / 500"],
-  ["Body", "text-[15px] leading-[1.55] text-ink-2", "15 / 400"],
+  [
+    "Page title",
+    "text-[32px] font-bold leading-[1.05] tracking-[-0.03em]",
+    "44 / 700",
+  ],
+  ["Card title", "text-[20px] font-bold tracking-[-0.03em]", "30 / 700"],
+  ["Panel label", "text-[16px] font-semibold", "16 / 600"],
+  ["Body", "text-[15px] leading-[1.58] text-ink-2", "15 / 400"],
   ["Meta", "text-[13px] text-ink-3", "13 / 400"],
 ];
 
@@ -68,19 +103,20 @@ export function DesignView() {
   const [seg, setSeg] = useState<"One" | "Two" | "Three">("One");
   const [board, setBoard] = useState<Board>("ibps-po");
   const [checked, setChecked] = useState(true);
+  const [option, setOption] = useState(2);
 
   return (
     <>
       <PageHeader
         title="Design system"
         sub="Every primitive in one place. Change a component here and the whole app follows — nothing on a page should reinvent these."
-        actions={<Badge tone="brand">v1</Badge>}
+        actions={<StatusPill tone="brand">v1</StatusPill>}
       />
 
       <Section title="Colour" note="Functional only — never decorative">
         <div className="flex flex-wrap gap-3">
           {TOKENS.map(([name, value]) => (
-            <div key={name} className="w-[112px]">
+            <div key={name} className="w-28">
               <div
                 className="rounded-ctl border-line h-16 border"
                 style={{ background: value }}
@@ -91,7 +127,10 @@ export function DesignView() {
         </div>
       </Section>
 
-      <Section title="Type" note="Headings are light; weight contrast is size">
+      <Section
+        title="Type"
+        note="Headings are heavy and tight; body stays light"
+      >
         <div className="grid gap-5">
           {TYPE.map(([name, cls, meta]) => (
             <div key={name} className="flex items-baseline gap-6">
@@ -105,6 +144,235 @@ export function DesignView() {
             </div>
           ))}
         </div>
+      </Section>
+
+      <Section
+        title="Plan card"
+        note="Title, state, and what you can do to it — the canvas is built from these"
+      >
+        <div className="grid gap-6 lg:grid-cols-2">
+          <PlanCard
+            title="Quantitative Aptitude"
+            meta={
+              <>
+                <span>
+                  Net <b className="text-ink font-semibold">23.75</b> vs 19.25
+                </span>
+                <span>
+                  Pace <b className="text-ink font-semibold">34s</b>
+                </span>
+              </>
+            }
+            plus={<CornerPlus label="Add a topic" />}
+            status={<StatusPill tone="ok">Cleared 👏</StatusPill>}
+            actions={
+              <>
+                <RoundAction label="More">
+                  <MoreHorizontal size={18} />
+                </RoundAction>
+                <RoundAction label="Dismiss">
+                  <X size={18} />
+                </RoundAction>
+                <RoundAction label="Mark done" tone="dark">
+                  <Check size={18} />
+                </RoundAction>
+              </>
+            }
+          >
+            Simplification, number series and data interpretation under
+            sectional timing.
+          </PlanCard>
+
+          <PlanCard
+            title="General Awareness"
+            corner={
+              <CornerBadge>
+                <Lock size={20} />
+              </CornerBadge>
+            }
+            status={<StatusPill tone="soon">Upcoming ⏳</StatusPill>}
+          >
+            Banking awareness, RBI and SEBI updates, and the last six months of
+            current affairs.
+          </PlanCard>
+        </div>
+      </Section>
+
+      <Section
+        title="Active card"
+        note="At most one per screen, or being in progress stops meaning anything"
+      >
+        <ActiveCard
+          title="Reasoning Ability"
+          resumeLabel="Resume drill"
+          status={<StatusPill tone="live">🕐 Drilling 00:30</StatusPill>}
+          people={[
+            { id: "a", mark: "🧑🏻", tint: "#cfe3f7" },
+            { id: "b", mark: "👩🏽", tint: "#f7dcc4" },
+            { id: "c", mark: "🧑🏾", tint: "#f3c9d6" },
+          ]}
+          className="max-w-2xl"
+        >
+          Floor puzzles, seating arrangement and syllogism — the section that
+          eats the clock.
+        </ActiveCard>
+      </Section>
+
+      <Section title="Status pill" note="State, never an action">
+        <div className="flex flex-wrap items-center gap-3">
+          <StatusPill tone="ok">Cleared 👏</StatusPill>
+          <StatusPill tone="bad">Missed by 4.50</StatusPill>
+          <StatusPill tone="warn">Locked 🔒</StatusPill>
+          <StatusPill tone="soon">Upcoming ⏳</StatusPill>
+          <StatusPill tone="live">🕐 Drilling 00:30</StatusPill>
+        </div>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <RoundAction label="More">
+            <MoreHorizontal size={18} />
+          </RoundAction>
+          <RoundAction label="Dismiss">
+            <X size={18} />
+          </RoundAction>
+          <RoundAction label="Confirm" tone="dark">
+            <Check size={18} />
+          </RoundAction>
+          <AvatarStack
+            people={[
+              { id: "a", mark: "🧑🏻", tint: "#cfe3f7" },
+              { id: "b", mark: "👩🏽", tint: "#f7dcc4" },
+            ]}
+          />
+        </div>
+      </Section>
+
+      <Section
+        title="Figures"
+        note="Tinted by meaning; the not-yet state has no fill"
+      >
+        <div className="grid max-w-2xl grid-cols-3 gap-4">
+          <Tile value="26" label="Papers" tone="info" />
+          <Tile value="2" label="Cleared" tone="ok" />
+          <Tile value="23" label="Upcoming" outline />
+        </div>
+        <div className="mt-6 max-w-md">
+          <SearchField
+            placeholder="Search papers, topics and notes"
+            hint="⌘K"
+          />
+        </div>
+      </Section>
+
+      <Section
+        title="Note card"
+        note="Paper, tinted by the colour the note was written in"
+      >
+        <div className="grid gap-5 sm:grid-cols-3">
+          <NoteCard
+            id="n1"
+            tint="yellow"
+            source="Quantitative Aptitude · Simplification"
+            quote="BODMAS applies left to right within a bracket"
+            when="12 Mar"
+          >
+            Always clear the bracket before the power. Cost me two marks in the
+            last sitting.
+          </NoteCard>
+          <NoteCard
+            id="n2"
+            tint="blue"
+            source="English · Error spotting"
+            when="9 Mar"
+          >
+            Subject–verb agreement with "one of the" takes the plural noun but a
+            singular verb.
+          </NoteCard>
+          <NoteCard
+            id="n3"
+            tint="pink"
+            source="Reasoning · Floor puzzles"
+            when="6 Mar"
+          >
+            Draw the grid before reading the third clue, never after.
+          </NoteCard>
+        </div>
+      </Section>
+
+      <Section title="Event card" note="What is scheduled, and when">
+        <div className="flex max-w-96 flex-col gap-3">
+          <EventCard
+            kind="Mock"
+            when="Tu, 25.03"
+            tone="info"
+            mark={
+              <EventMark disc>
+                <FileText strokeWidth={2} />
+              </EventMark>
+            }
+            footer={<EventTime>Start at 12:30</EventTime>}
+          >
+            IBPS PO Prelims 2024 under real sectional timing — 100 questions, 60
+            minutes across three sections.
+          </EventCard>
+          <EventCard
+            kind="Drill"
+            when="We, 26.03"
+            tone="brand"
+            mark={
+              <EventMark>
+                <AudioLines strokeWidth={2} />
+              </EventMark>
+            }
+          >
+            Twenty questions drawn from the reasoning bank, timed like the
+            section they came from.
+          </EventCard>
+          <EventCard
+            kind="Marking"
+            when="Th, 27.03"
+            tone="warn"
+            mark={
+              <EventMark>
+                <Pin className="rotate-45" strokeWidth={2} />
+              </EventMark>
+            }
+          >
+            Two descriptive answers submitted and marked. Twenty-eight of thirty
+            left in this month&rsquo;s allowance.
+          </EventCard>
+          <DropSlot label="Drop a session here" />
+        </div>
+      </Section>
+
+      <Section
+        title="Onely"
+        note="Machine-written text never renders like a person's"
+      >
+        <Rationale quota="247 of 250 left" onReport={() => undefined}>
+          Eight wrong answers cost you 2.00 marks, and eight more were left
+          blank. Error spotting is where you lose most — 61% accuracy against
+          84% in comprehension.
+        </Rationale>
+      </Section>
+
+      <Section
+        title="Dock"
+        note="The floating toolbar; each button a tinted disc"
+      >
+        <Dock>
+          <DockButton label="Text" tint="#cfc2f7">
+            T
+          </DockButton>
+          <DockButton label="Highlight" tint="#bfe0f7">
+            A
+          </DockButton>
+          <DockButton label="Note" tint="#f7c2d4">
+            ✎
+          </DockButton>
+          <DockButton label="Ask Onely" tint="#dcc6f7">
+            ?
+          </DockButton>
+          <DockButton label="Add">+</DockButton>
+        </Dock>
       </Section>
 
       <Section title="Button" note="Every action is a pill">
@@ -126,30 +394,6 @@ export function DesignView() {
         </div>
       </Section>
 
-      <Section
-        title="Lattice"
-        note="The signature layout — ruled ground, not objects"
-      >
-        <Lattice cols={4}>
-          <LatticeCell>
-            <Stat
-              label="Marks per minute"
-              value="1.97"
-              note="1.26 if you attempt everything"
-            />
-          </LatticeCell>
-          <LatticeCell>
-            <Stat label="Bankable topics" value="9" note="fast and accurate" />
-          </LatticeCell>
-          <LatticeCell>
-            <Stat label="On your skip list" value="8" note="slow and wrong" />
-          </LatticeCell>
-          <LatticeCell onClick={() => undefined}>
-            <Stat label="Median pace" value="38s" note="clickable cell" />
-          </LatticeCell>
-        </Lattice>
-      </Section>
-
       <Section title="Surfaces">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
           <Card>
@@ -161,26 +405,98 @@ export function DesignView() {
             <Divider className="my-5" />
             <p className="text-ink-3 text-[13px]">Divider above.</p>
           </Card>
-          <DarkPanel>
-            <p className="text-[14px] text-white/50">DarkPanel</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-white/85">
-              One dark object per screen at most — the payoff, or the thing you
-              cannot miss.
+          <Card tone="info">
+            <p className="text-ink-2 text-[14px]">Tinted card</p>
+            <p className="mt-3 text-[15px] leading-relaxed">
+              A card fills with its own tint when the card is what carries the
+              state.
             </p>
-          </DarkPanel>
+          </Card>
+        </div>
+
+        <div className="relative mt-10 h-64">
+          <p className="text-ink-3 mb-3 text-[13px]">Popover</p>
+          <Popover label="Example menu" width={280}>
+            <MenuRow label="First row" current />
+            <MenuRow label="Second row" hint="⌘2" />
+            <Divider className="my-1.5" />
+            <MenuRow label="Third row" />
+          </Popover>
+        </div>
+      </Section>
+
+      <Section title="Brand" note="The wordmark — plain, or a link home">
+        <div className="flex items-center gap-8">
+          <Brand />
+          <Brand href="/home" />
+          <span className="bg-frame text-on-frame rounded-ctl px-4 py-2">
+            <Brand />
+          </span>
+        </div>
+      </Section>
+
+      <Section
+        title="Canvas"
+        note="The column layout every signed-in page is built on"
+      >
+        <div className="bg-stage rounded-card border-line border p-6">
+          <Canvas
+            mid={
+              <Card>
+                <p className="text-[15px]">Middle column</p>
+              </Card>
+            }
+            aside={
+              <EventCard kind="Mock" when="Tu, 25.03" tone="info">
+                The aside is where what happens next lives.
+              </EventCard>
+            }
+          >
+            <CanvasTitle note="CanvasTitle sits at the head of the first column.">
+              Good evening
+            </CanvasTitle>
+            <Card>
+              <p className="text-[15px]">First column</p>
+            </Card>
+          </Canvas>
+        </div>
+      </Section>
+
+      <Section
+        title="Answer option"
+        note="The MCQ control — shared by mocks and drills, never hand-rolled"
+      >
+        <div className="grid max-w-xl gap-2.5">
+          {(["A", "B", "C", "D"] as const).map((letter, i) => (
+            <OptionRow
+              key={letter}
+              label={letter}
+              selected={option === i}
+              onSelect={() => setOption(i)}
+            >
+              {
+                [
+                  "Only conclusion I follows",
+                  "Only conclusion II follows",
+                  "Both conclusions follow",
+                  "Neither conclusion follows",
+                ][i]
+              }
+            </OptionRow>
+          ))}
         </div>
       </Section>
 
       <Section title="Data">
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
-            <p className="text-ink-3 mb-3 text-[13px]">Badge</p>
+            <p className="text-ink-3 mb-3 text-[13px]">StatusPill</p>
             <div className="flex flex-wrap gap-2">
-              <Badge>Neutral</Badge>
-              <Badge tone="ok">Cleared</Badge>
-              <Badge tone="warn">Partial</Badge>
-              <Badge tone="bad">Missed</Badge>
-              <Badge tone="brand">Brand</Badge>
+              <StatusPill>Neutral</StatusPill>
+              <StatusPill tone="ok">Cleared</StatusPill>
+              <StatusPill tone="warn">Partial</StatusPill>
+              <StatusPill tone="bad">Missed</StatusPill>
+              <StatusPill tone="brand">Brand</StatusPill>
             </div>
 
             <p className="text-ink-3 mt-8 mb-3 text-[13px]">
@@ -191,9 +507,6 @@ export function DesignView() {
               <TargetBar value={54} target={56} />
               <TargetBar value={null} target={62} />
             </div>
-
-            <p className="text-ink-3 mt-8 mb-3 text-[13px]">Meter</p>
-            <Meter value={71} />
           </div>
 
           <div>
@@ -235,7 +548,7 @@ export function DesignView() {
             <Tr onClick={() => undefined} active>
               <Td>Simplification</Td>
               <Td>
-                <Badge tone="ok">Attempt first</Badge>
+                <StatusPill tone="ok">Attempt first</StatusPill>
               </Td>
               <Td align="right" className="tnum">
                 92%
@@ -247,7 +560,7 @@ export function DesignView() {
             <Tr onClick={() => undefined}>
               <Td>Puzzles &amp; Seating</Td>
               <Td>
-                <Badge tone="bad">Skip in the exam</Badge>
+                <StatusPill tone="bad">Skip in the exam</StatusPill>
               </Td>
               <Td align="right" className="tnum">
                 66%

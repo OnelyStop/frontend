@@ -1,173 +1,111 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronDown } from "lucide-react";
-import {
-  Badge,
-  Empty,
-  Input,
-  Lattice,
-  LatticeCell,
-  PageHeader,
-  Segmented,
-} from "@/design-system";
-import {
-  SECTION_FROM_DB,
-  SECTION_KEY,
-  SECTION_LABEL,
-  SECTIONS,
-  type Subject,
-} from "@/data/navigation";
-import type { NoteSummary } from "@/features/notes/types";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { Empty, Input, NoteCard, PageHeader, Segmented } from "@/design-system";
+import type { OwnNote } from "@/features/study/types";
 
-export function NotesView({ notes }: { notes: NoteSummary[] }) {
-  const [section, setSection] = useState<Subject | "All">("All");
+const DATE = new Intl.DateTimeFormat("en-IN", {
+  day: "numeric",
+  month: "short",
+});
+
+export function NotesView({ notes }: { notes: OwnNote[] }) {
+  const [subject, setSubject] = useState<string>("All");
   const [q, setQ] = useState("");
-  const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
 
-  const toggleTopic = (key: string) => {
-    setCollapsed((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-  };
+  const subjects = useMemo(
+    () => Array.from(new Set(notes.map((n) => n.subjectName))).sort(),
+    [notes],
+  );
 
   const shown = useMemo(() => {
-    const query = q.trim().toLowerCase();
+    const needle = q.trim().toLowerCase();
     return notes.filter((n) => {
-      const subject = SECTION_FROM_DB[n.section];
-      if (section !== "All" && subject !== section) return false;
-      if (!query) return true;
-      const haystack = [n.title, n.summary, n.subtopic ?? "", ...n.tags]
-        .join(" ")
-        .toLowerCase();
-      return haystack.includes(query);
+      if (subject !== "All" && n.subjectName !== subject) return false;
+      if (!needle) return true;
+      return (
+        n.bodyMarkdown.toLowerCase().includes(needle) ||
+        n.topicTitle.toLowerCase().includes(needle) ||
+        (n.selectedText ?? "").toLowerCase().includes(needle)
+      );
     });
-  }, [notes, section, q]);
-
-  // `shown` is pre-sorted by topicOrder/subtopicOrder — this only stable-sorts by section, then buckets by topic.
-  const grouped = useMemo(() => {
-    const bySection = [...shown].sort(
-      (a, b) =>
-        SECTIONS.indexOf(SECTION_FROM_DB[a.section]) -
-        SECTIONS.indexOf(SECTION_FROM_DB[b.section]),
-    );
-    const groups: { key: string; topicTitle: string; items: NoteSummary[] }[] =
-      [];
-    for (const n of bySection) {
-      const key = `${n.section}::${n.topic}`;
-      const last = groups.at(-1);
-      if (last?.key === key) last.items.push(n);
-      else groups.push({ key, topicTitle: n.topicTitle, items: [n] });
-    }
-    return groups;
-  }, [shown]);
+  }, [notes, subject, q]);
 
   return (
-    <div data-companion>
+    <div>
       <PageHeader
         title="Notes"
-        sub="Formulae, shortcuts and the traps you keep falling for — filed by section so you can find one mid-drill."
+        sub="Everything you have written while reading. Each one opens the passage it came from."
         actions={
-          <Input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search notes…"
-            className="w-60"
-          />
+          notes.length > 0 ? (
+            <Input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Search your notes"
+              aria-label="Search your notes"
+            />
+          ) : undefined
         }
       />
 
-      <div className="mb-6 flex flex-wrap items-center gap-4">
-        <Segmented
-          value={section}
-          options={["All", ...SECTIONS] as const}
-          onChange={(v) => setSection(v as Subject | "All")}
-          labels={{ ...SECTION_LABEL, All: "All" }}
-        />
-        <span className="text-ink-3 text-[13px]">
-          {shown.length} of {notes.length}
-        </span>
-      </div>
-
       {notes.length === 0 ? (
         <Empty
+          mark="✎"
+          tone="brand"
           title="No notes yet"
-          sub="Notes are imported with the study content. Once a topic is published its formulae and traps appear here."
-        />
-      ) : shown.length === 0 ? (
-        <Empty
-          title="Nothing matches"
-          sub="Try a different section, or clear the search."
+          sub="Select any passage in the knowledge base and write a note on it. Every note you keep lands here, with a way back to where you wrote it."
         />
       ) : (
-        grouped.map((g, i) => {
-          const isOpen = !collapsed.has(g.key);
-          return (
-            <div
-              key={g.key}
-              className={`mb-10 ${i > 0 ? "border-line border-t pt-8" : ""}`}
-            >
-              <button
-                type="button"
-                onClick={() => toggleTopic(g.key)}
-                aria-expanded={isOpen}
-                className="mb-6 flex w-full items-baseline justify-between gap-4 text-left"
-              >
-                <span className="text-ink flex items-center gap-2 text-[16px] font-medium tracking-[-0.01em]">
-                  <ChevronDown
-                    size={15}
-                    className={`text-ink-4 transition-transform duration-200 ${isOpen ? "" : "-rotate-90"}`}
-                  />
-                  {g.topicTitle}
-                </span>
-                <span className="text-ink-3 text-[13px]">{g.items.length}</span>
-              </button>
-              <div
-                className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
-              >
-                <div className="overflow-hidden">
-                  <Lattice cols={3} as="ul">
-                    {g.items.map((n) => {
-                      const subject = SECTION_FROM_DB[n.section];
-                      return (
-                        <LatticeCell
-                          key={n.noteId}
-                          as="li"
-                          href={`/notes/${encodeURIComponent(n.noteId)}`}
-                          className="hover:shadow-pop transition-all duration-200 hover:z-10 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] active:shadow-none"
-                        >
-                          <span
-                            className="text-[13px]"
-                            style={{
-                              color: `var(--color-${SECTION_KEY[subject]})`,
-                            }}
-                          >
-                            {SECTION_LABEL[subject]}
-                            {n.subtopic ? ` · ${n.subtopic}` : ""}
-                          </span>
-                          <h3 className="mt-2.5 text-[15.5px] leading-snug">
-                            {n.title}
-                          </h3>
-                          <p className="text-ink-2 mt-2 text-[14px] leading-relaxed">
-                            {n.summary}
-                          </p>
-                          {n.difficulty ? (
-                            <Badge tone="neutral" className="mt-3">
-                              {n.difficulty}
-                            </Badge>
-                          ) : null}
-                        </LatticeCell>
-                      );
-                    })}
-                  </Lattice>
-                </div>
-              </div>
+        <>
+          {subjects.length > 1 ? (
+            <div className="mb-6 flex flex-wrap items-center gap-4">
+              <Segmented
+                value={subject}
+                options={["All", ...subjects]}
+                onChange={setSubject}
+              />
+              <span className="text-ink-3 text-[13px]">
+                {shown.length} of {notes.length}
+              </span>
             </div>
-          );
-        })
+          ) : null}
+
+          {shown.length === 0 ? (
+            <Empty
+              mark="⌕"
+              title="Nothing matches"
+              sub="No note mentions that. Try a shorter word, or clear the filter."
+            />
+          ) : (
+            <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {shown.map((n) => (
+                <li key={n.id}>
+                  <Link href={n.href} className="group block h-full">
+                    <NoteCard
+                      id={n.id}
+                      tint={n.color}
+                      source={`${n.subjectName} · ${n.topicTitle}`}
+                      quote={n.selectedText}
+                      when={DATE.format(new Date(n.updatedAt))}
+                      action={
+                        <span
+                          aria-hidden
+                          className="absolute top-4 right-4 grid size-7 place-items-center rounded-full bg-black/5 text-black/40 transition-colors group-hover:bg-black/10 group-hover:text-black/70"
+                        >
+                          <ArrowUpRight size={15} strokeWidth={2} />
+                        </span>
+                      }
+                    >
+                      {n.bodyMarkdown}
+                    </NoteCard>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
       )}
     </div>
   );

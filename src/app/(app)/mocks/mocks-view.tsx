@@ -223,7 +223,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
             section {secIdx + 1} of {sections.length}
           </span>
           <span
-            className={`tnum rounded-pill px-3 py-1 text-[24px] tracking-[-0.02em] transition-colors duration-150 ease-[var(--ease-swift)] ${
+            className={`tnum rounded-pill px-3 py-1 text-[20px] tracking-[-0.02em] transition-colors duration-150 ease-[var(--ease-swift)] ${
               low ? "bg-bad/15 text-bad" : "text-ink"
             }`}
           >
@@ -394,17 +394,19 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           sub="Nothing has been imported at this stage yet. Switch the filter to All to see everything there is."
         />
       ) : (
-        <div className="border-line grid grid-cols-1 border-t border-l lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           {shown.map((m) => {
             const cleared = m.score !== null && m.score >= m.target;
             const scale = Math.max(m.target, m.score ?? 0) * 1.3;
             return (
               <div
                 key={m.id}
-                className="border-line hover:bg-brand-soft/40 relative flex items-start gap-4 border-r border-b p-7 transition-colors duration-200"
+                className={`card card-lift relative flex items-start gap-4 p-6 ${
+                  m.score === null ? "" : cleared ? "bg-ok-soft" : "bg-bad-soft"
+                }`}
               >
                 <div className="min-w-0 flex-1">
-                  <p className="text-[19px] tracking-[-0.02em]">
+                  <p className="text-[16px] tracking-[-0.02em]">
                     {m.name} {m.year}
                   </p>
                   <p className="tnum text-ink-3 mt-1.5 text-[13px]">
@@ -413,7 +415,7 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
 
                   <div className="mt-7 flex items-baseline gap-2">
                     <span
-                      className={`tnum text-[26px] leading-none tracking-[-0.03em] ${
+                      className={`tnum text-[21px] leading-none tracking-[-0.03em] ${
                         m.score === null
                           ? "text-ink-4"
                           : cleared

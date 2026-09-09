@@ -1,4 +1,5 @@
 export { cn } from "./lib/cn";
+export { SECTION_TINT, tintFor } from "./lib/tints";
 export * from "./lib/motion";
 
 export { Brand } from "./components/brand";
@@ -14,14 +15,35 @@ export {
   type ButtonVariant,
 } from "./components/button";
 
+export { Card, MenuRow, Popover, type CardTone } from "./components/surface";
+
+export { Rationale } from "./components/rationale";
+
+export { Canvas, CanvasTitle } from "./components/canvas";
+
 export {
-  Card,
-  DarkPanel,
-  Lattice,
-  LatticeCell,
-  MenuRow,
-  Popover,
-} from "./components/surface";
+  DropSlot,
+  EventCard,
+  EventMark,
+  EventTime,
+  type EventTone,
+} from "./components/event";
+
+export {
+  ActiveCard,
+  AvatarStack,
+  CornerBadge,
+  CornerPlus,
+  Dock,
+  DockButton,
+  NoteCard,
+  PlanCard,
+  RoundAction,
+  SearchField,
+  StatusPill,
+  type NoteTint,
+  type PillTone,
+} from "./components/plan";
 
 export {
   Checkbox,
@@ -34,14 +56,12 @@ export {
 
 export {
   Avatar,
-  Badge,
   Kbd,
-  Meter,
-  Stat,
   Table,
   TargetBar,
   Td,
   Th,
+  Tile,
   Tr,
   type Tone,
 } from "./components/data";

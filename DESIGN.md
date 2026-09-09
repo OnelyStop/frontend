@@ -22,6 +22,7 @@ src/design-system/
     surface.tsx            Card, DarkPanel, Lattice, LatticeCell, Popover, MenuRow
     form.tsx               Field, Input, Textarea, Select, Checkbox, Segmented
     data.tsx               Badge, Stat, Meter, CutoffBar, Avatar, Kbd, Table
+    event.tsx              EventCard, EventMark, EventTime, DropSlot
     page.tsx               PageHeader, SectionTitle, Empty, Divider
     option.tsx             OptionRow — the MCQ answer control
 ```
@@ -42,10 +43,17 @@ be imported by app pages — the landing page still runs on the old stylesheet.
 These are the decisions the components encode. Breaking them is what makes a
 screen look off.
 
-**Surfaces.** The page is white. A panel is white inside a hairline — no fill,
-no shadow. Only things that genuinely float get a shadow: menus, the ⌘K
-palette. Grey fills are not used as surfaces; grey blocks made every screen
-read as a dashboard.
+**Surfaces.** The page is the warm grey `stage`; a `Card` is white paper
+floating on it, held by a three-step soft shadow and no border. One hard shadow
+reads as a template card, three soft ones read as paper — that difference is
+most of the language. A card that carries state fills with its own tint
+(`tone="ok" | "warn" | "bad" | "info" | "active"`) instead of announcing it in
+text alone.
+
+**No card hardcodes a width.** A card fills the column it is given and sizes
+itself with padding; the layout around it decides how wide that column is. A
+`w-*` or `max-w-*` on a card is a bug — it stops the card being usable on the
+next screen.
 
 **Ruled ground.** The signature layout is `Lattice` — cells divided by
 hairlines with a marker on every intersection. Reach for it whenever you have a
@@ -56,13 +64,14 @@ one thing, not a set.
 means partial, indigo is the accent for selection and focus. Nothing is
 coloured for decoration. If a bar is only showing volume, it is `bg-ink`.
 
-**Type.** Headings are large and light — `h1/h2/h3` default to weight 400 with
-tight tracking. Weight contrast is carried by size and colour instead. There
-are no uppercase, letter-spaced micro-labels anywhere.
+**Type.** Poppins throughout. Headings are heavy and tight — `h1/h2/h3` default
+to weight 700 at `-0.03em`, and body copy stays at 400 so the contrast is
+weight, not size alone. There are no uppercase, letter-spaced micro-labels
+anywhere.
 
 **Hover.** Menus and interactive cells tint faintly with `brand-soft`. Bordered
-controls darken their border. Text controls darken their ink. Nothing fills
-grey, and nothing lifts on hover.
+controls darken their border. Text controls darken their ink. A card lifts 3px
+only when it is a link to somewhere — add `lift`; a static panel stays put.
 
 **Actions are pills.** Primary is black, secondary is a hairline on white,
 ghost is text. One height per size, one radius.
@@ -70,6 +79,11 @@ ghost is text. One height per size, one radius.
 **Scores are read against a cutoff.** Use `CutoffBar`, not a percentage bar —
 in this domain the threshold is the whole story, so the track carries a notch
 and the fill only turns red when it misses. `Meter` is for plain proportions.
+
+**Onely never looks like a person.** Anything the model wrote goes in
+`Rationale` — brand tint, its own heading, a correction path and the quota it
+spent. A generated mark that renders identically to a human one breaks the one
+promise the product makes everywhere else.
 
 ## Motion
 
@@ -107,15 +121,15 @@ utilities (`bg-panel`, `text-ink-2`, `rounded-card`). Exception: the
 millisecond number, not a theme lookup, so those two only work via `var()`
 in raw CSS (that's how `.press` itself uses them).
 
-| Group    | Tokens                                                                                                         |
-| -------- | -------------------------------------------------------------------------------------------------------------- |
-| Ground   | `canvas` (white page), `panel` (grey — hover and recessed only), `line`, `line-2`                              |
-| Ink      | `ink`, `ink-2`, `ink-3`, `ink-4`                                                                               |
-| Meaning  | `ok`, `warn`, `bad`, `brand` — each with a `-soft` fill                                                        |
-| Sections | `quant`, `reasoning`, `english`, `ga`, `computer`                                                              |
-| Radius   | `ctl` 12, `card` 24, `xl` 28, `pill`                                                                           |
-| Shadow   | `pop` — the only one. `card` and `xs` are `none` by design.                                                    |
-| Motion   | `ease-soft`, `ease-swift`, `ease-decelerate`, `ease-accelerate`, `duration-press` 120ms, `duration-slow` 200ms |
+| Group    | Tokens                                                                                                             |
+| -------- | ------------------------------------------------------------------------------------------------------------------ |
+| Ground   | `canvas` (white page), `panel` (grey — hover and recessed only), `line`, `line-2`                                  |
+| Ink      | `ink`, `ink-2`, `ink-3`, `ink-4`                                                                                   |
+| Meaning  | `ok`, `warn`, `bad`, `info`, `brand` — a `-soft` fill each, and a paler `-pale` for a card holding a `-soft` panel |
+| Sections | `quant`, `reasoning`, `english`, `ga`, `computer`                                                                  |
+| Radius   | `ctl` 12, `card` 24, `xl` 28, `pill`                                                                               |
+| Shadow   | `pop` — the only one. `card` and `xs` are `none` by design.                                                        |
+| Motion   | `ease-soft`, `ease-swift`, `ease-decelerate`, `ease-accelerate`, `duration-press` 120ms, `duration-slow` 200ms     |
 
 Custom utilities: `tnum` (tabular figures — use on every number that changes),
 `card`, `ruled` (the answer-sheet lines), `plot-in` (staggered entrance),

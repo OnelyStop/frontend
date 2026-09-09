@@ -1,13 +1,14 @@
 import "server-only";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { doubts, doubtStuck, profiles } from "@/db/schema";
+import { doubtReplies, doubts, doubtStuck, profiles } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
 import {
   PAGE_SIZE,
   type Doubt,
   type DoubtPage,
   type DoubtQuery,
+  type DoubtThread,
 } from "./types";
 import { decodeCursor, encodeCursor } from "./cursor";
 
@@ -107,4 +108,61 @@ export async function monthlyPostCount(userId: string): Promise<number> {
       ),
     );
   return row?.n ?? 0;
+}
+
+/** One doubt and every reply on it, oldest first — the reading order of a thread. */
+export async function getThread(doubtId: string): Promise<DoubtThread | null> {
+  const userId = await currentUserId();
+
+  const [row] = await db
+    .select({
+      id: doubts.id,
+      section: doubts.section,
+      topic: doubts.topic,
+      title: doubts.title,
+      body: doubts.body,
+      stuckCount: doubts.stuckCount,
+      createdAt: doubts.createdAt,
+      author: profiles.displayName,
+      stuckByMe: sql<boolean>`${doubtStuck.userId} is not null`,
+    })
+    .from(doubts)
+    .innerJoin(profiles, eq(profiles.id, doubts.authorId))
+    .leftJoin(
+      doubtStuck,
+      userId
+        ? and(eq(doubtStuck.doubtId, doubts.id), eq(doubtStuck.userId, userId))
+        : sql`false`,
+    )
+    .where(eq(doubts.id, doubtId))
+    .limit(1);
+
+  if (!row) return null;
+
+  const replies = await db
+    .select({
+      id: doubtReplies.id,
+      body: doubtReplies.body,
+      createdAt: doubtReplies.createdAt,
+      author: profiles.displayName,
+    })
+    .from(doubtReplies)
+    .innerJoin(profiles, eq(profiles.id, doubtReplies.authorId))
+    .where(eq(doubtReplies.doubtId, doubtId))
+    .orderBy(doubtReplies.createdAt, doubtReplies.id);
+
+  return {
+    doubt: {
+      ...row,
+      // displayName is nullable; the feed already falls back the same way.
+      author: row.author ?? "Anonymous",
+      createdAt: row.createdAt.toISOString(),
+      stuckByMe: Boolean(row.stuckByMe),
+    },
+    replies: replies.map((r) => ({
+      ...r,
+      author: r.author ?? "Anonymous",
+      createdAt: r.createdAt.toISOString(),
+    })),
+  };
 }

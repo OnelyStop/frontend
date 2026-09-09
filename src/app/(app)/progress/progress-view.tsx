@@ -6,6 +6,7 @@ import {
   Empty,
   PageHeader,
   SectionTitle,
+  Tile,
 } from "@/design-system";
 import { useApp } from "@/context/AppContext";
 import {
@@ -57,26 +58,26 @@ export function ProgressView({ progress }: { progress: Progress }) {
     <>
       <PageHeader title="Progress" sub={sub} />
 
-      <div className="border-line mb-10 grid grid-cols-1 border-t border-l md:grid-cols-3">
-        <Stat
-          label="Accuracy"
+      <div className="mb-10 grid gap-4 sm:grid-cols-3">
+        <Tile
           value={`${acc}%`}
-          note={`${correct} of ${attempted} attempted`}
+          label={`Accuracy · ${correct} of ${attempted}`}
+          tone="info"
         />
-        <Stat
-          label="Marks lost to negatives"
+        <Tile
           value={`−${lost.toFixed(2)}`}
-          note={`${wrong} wrong × ${NEGATIVE_MARK}`}
+          label={`Marks lost · ${wrong} wrong × ${NEGATIVE_MARK}`}
+          tone="bad"
         />
-        <Stat
-          label="Average pace"
+        <Tile
           value={avgSec === null ? "—" : `${avgSec}s`}
-          note="target is 45s a question"
+          label="Average pace · target 45s"
+          tone={avgSec !== null && avgSec <= 45 ? "ok" : "neutral"}
         />
       </div>
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <Card>
+        <Card tone="info">
           <SectionTitle aside="accuracy · seconds per question">
             By section
           </SectionTitle>
@@ -116,7 +117,7 @@ export function ProgressView({ progress }: { progress: Progress }) {
           </p>
         </Card>
 
-        <Card>
+        <Card tone="info">
           <SectionTitle aside={`${weekTotal} questions`}>
             This week
           </SectionTitle>
@@ -146,29 +147,5 @@ export function ProgressView({ progress }: { progress: Progress }) {
         </Card>
       </div>
     </>
-  );
-}
-
-function Stat({
-  label,
-  value,
-  note,
-}: {
-  label: string;
-  value: string;
-  note: string;
-}) {
-  return (
-    <div className="border-line relative border-r border-b p-7">
-      <p className="text-ink-2 text-[14px]">{label}</p>
-      <p className="tnum mt-3 text-[38px] leading-none tracking-[-0.03em]">
-        {value}
-      </p>
-      <p className="text-ink-3 mt-3 text-[13px] leading-relaxed">{note}</p>
-      <span
-        aria-hidden
-        className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
-      />
-    </div>
   );
 }

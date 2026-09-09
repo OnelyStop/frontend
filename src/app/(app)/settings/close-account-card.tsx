@@ -52,7 +52,7 @@ export function CloseAccountCard() {
   };
 
   return (
-    <Card className="mt-5">
+    <Card tone="bad" className="mt-5">
       <SectionTitle>Close account</SectionTitle>
       <p className="text-ink-3 -mt-2 mb-4 max-w-[60ch] text-[13px]">
         Deletes your mocks, drills, notes, doubts and marks, and cancels Pro.

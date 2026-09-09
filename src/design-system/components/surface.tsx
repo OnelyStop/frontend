@@ -1,133 +1,46 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-// Panels are hairline, no shadow; only things that float (menus, palettes) lift.
+// `tone` fills the card when the card itself is what carries the state.
+
+export type CardTone =
+  "plain" | "ok" | "warn" | "bad" | "info" | "brand" | "active";
+
+const CARD_TONE: Record<CardTone, string> = {
+  plain: "",
+  ok: "bg-ok-soft",
+  warn: "bg-warn-soft",
+  bad: "bg-bad-soft",
+  info: "bg-info-soft",
+  brand: "bg-brand-soft",
+  active: "bg-active-soft",
+};
 
 export function Card({
   children,
   className,
   pad = true,
+  tone = "plain",
+  lift,
 }: {
   children: ReactNode;
   className?: string;
   pad?: boolean;
+  tone?: CardTone;
+  lift?: boolean;
 }) {
   return (
-    <section className={cn("card", pad && "p-8", className)}>
-      {children}
-    </section>
-  );
-}
-
-export function DarkPanel({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <section className={cn("rounded-card bg-ink p-8 text-white", className)}>
-      {children}
-    </section>
-  );
-}
-
-// Container draws top and left, cells their own bottom and right — any column count.
-
-const COLS: Record<number, string> = {
-  1: "grid-cols-1",
-  2: "grid-cols-1 sm:grid-cols-2",
-  3: "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3",
-  4: "grid-cols-1 sm:grid-cols-2 xl:grid-cols-4",
-};
-
-export function Lattice({
-  children,
-  cols = 4,
-  className,
-  as: As = "div",
-}: {
-  children: ReactNode;
-  cols?: 1 | 2 | 3 | 4;
-  className?: string;
-  as?: "div" | "ul" | "ol";
-}) {
-  return (
-    <As
+    <section
       className={cn(
-        "border-line grid border-t border-l",
-        COLS[cols],
+        "card",
+        pad && "p-5",
+        CARD_TONE[tone],
+        lift && "card-lift",
         className,
       )}
     >
       {children}
-    </As>
-  );
-}
-
-type CellProps = {
-  children: ReactNode;
-  className?: string;
-  /** Square from two columns up; sizes to content at one. */
-  square?: boolean;
-  href?: string;
-  onClick?: () => void;
-  as?: "div" | "li";
-};
-
-export function LatticeCell({
-  children,
-  className,
-  square,
-  href,
-  onClick,
-  as = "div",
-}: CellProps) {
-  const interactive = Boolean(href || onClick);
-  const classes = cn(
-    "relative border-b border-r border-line p-7",
-    square && "sm:aspect-square",
-    interactive &&
-      "block w-full text-left transition-colors duration-200 hover:bg-brand-soft/40",
-    className,
-  );
-
-  const marker = (
-    <span
-      aria-hidden
-      className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-1.25 rounded-full"
-    />
-  );
-
-  const body = (
-    <>
-      {children}
-      {marker}
-    </>
-  );
-
-  if (href)
-    return (
-      <a href={href} className={classes}>
-        {body}
-      </a>
-    );
-  if (onClick)
-    return (
-      <button type="button" onClick={onClick} className={classes}>
-        {body}
-      </button>
-    );
-
-  return As(as, classes, body);
-}
-
-function As(tag: "div" | "li", className: string, body: ReactNode) {
-  return tag === "li" ? (
-    <li className={className}>{body}</li>
-  ) : (
-    <div className={className}>{body}</div>
+    </section>
   );
 }
 

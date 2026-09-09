@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Badge, Button } from "@/design-system";
+import { StatusPill, Button } from "@/design-system";
 import { blockMeta } from "../blocks";
 import { Markdown } from "../markdown";
 import type {
@@ -155,9 +155,9 @@ export function Reader({
             {outline.title}
           </h1>
           <div className="mt-3 flex flex-wrap items-center gap-2.5">
-            <Badge tone={DIFFICULTY_TONE[outline.difficulty]}>
+            <StatusPill tone={DIFFICULTY_TONE[outline.difficulty]}>
               {outline.difficulty}
-            </Badge>
+            </StatusPill>
             <span className="tnum text-ink-3 text-[13px]">
               {outline.estimatedMinutes} min read
             </span>
@@ -262,7 +262,7 @@ export function Reader({
                 <div className="mb-1.5 flex items-center gap-2">
                   <span className="text-ink-3 text-[13px]">{meta.label}</span>
                 </div>
-                <h2 className="mb-3 text-[19px] tracking-[-0.02em]">
+                <h2 className="mb-3 text-[16px] tracking-[-0.02em]">
                   {b.title}
                 </h2>
                 <Markdown source={b.bodyMarkdown} />

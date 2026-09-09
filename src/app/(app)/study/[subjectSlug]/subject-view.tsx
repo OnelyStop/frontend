@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import {
-  Badge,
+  StatusPill,
   Divider,
   Empty,
   PageHeader,
+  PlanCard,
   SectionTitle,
 } from "@/design-system";
 import type { ChapterOutline } from "@/features/study/types";
@@ -63,27 +64,31 @@ export function SubjectView({
                 >
                   {chapter.name}
                 </SectionTitle>
-                <div className="border-line border-t border-l">
+                {/* Three up: a full-width row per topic is a scroll, not a scan. */}
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                   {chapter.topics.map((t) => (
                     <Link
                       key={t.slug}
                       href={`/study/${subjectSlug}/${chapter.slug}/${t.slug}`}
-                      className="border-line hover:bg-brand-soft/40 flex items-start gap-4 border-r border-b p-5 transition-colors"
+                      className="block h-full"
                     >
-                      <div className="min-w-0 flex-1">
-                        <p className="text-[15.5px]">{t.title}</p>
-                        <p className="text-ink-3 mt-1 max-w-[70ch] text-[13.5px] leading-relaxed">
-                          {t.summary}
-                        </p>
-                      </div>
-                      <div className="flex shrink-0 items-center gap-3">
-                        <Badge tone={DIFFICULTY_TONE[t.difficulty]}>
-                          {t.difficulty}
-                        </Badge>
-                        <span className="tnum text-ink-4 text-[13px]">
-                          {t.estimatedMinutes} min
-                        </span>
-                      </div>
+                      <PlanCard
+                        size="sm"
+                        title={t.title}
+                        className="mb-0 h-full"
+                        status={
+                          <span className="flex flex-wrap items-center gap-2">
+                            <StatusPill tone={DIFFICULTY_TONE[t.difficulty]}>
+                              {t.difficulty}
+                            </StatusPill>
+                            <StatusPill tone="neutral">
+                              {t.estimatedMinutes} min
+                            </StatusPill>
+                          </span>
+                        }
+                      >
+                        {t.summary}
+                      </PlanCard>
                     </Link>
                   ))}
                 </div>

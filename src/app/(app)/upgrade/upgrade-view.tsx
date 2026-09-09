@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShieldCheck } from "lucide-react";
-import { Badge, Button, Card, PageHeader, SectionTitle } from "@/design-system";
-import { SUPPORT_EMAIL } from "@/config/site";
+import {
+  StatusPill,
+  Button,
+  Card,
+  PageHeader,
+  SectionTitle,
+} from "@/design-system";
 import { PLAN_LIMITS, PLAN_NAME } from "@/features/billing/limits";
 import type { BillingStatus, PlanPrice } from "@/features/billing/types";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
@@ -48,9 +52,9 @@ function ManagePlan({ status }: { status: BillingStatus }) {
     <Card className="mb-6">
       <SectionTitle
         aside={
-          <Badge tone={windingDown ? "warn" : "ok"}>
+          <StatusPill tone={windingDown ? "warn" : "ok"}>
             {windingDown ? "Cancels" : "Active"}
-          </Badge>
+          </StatusPill>
         }
       >
         Your plan
@@ -106,21 +110,6 @@ export function UpgradeView({
         currentPlan={status.plan}
         billingEnabled={billingEnabled}
       />
-
-      <div className="card mt-8 flex items-start gap-3 p-5">
-        <ShieldCheck size={18} strokeWidth={1.75} className="mt-0.5 shrink-0" />
-        <p className="text-ink-2 max-w-[74ch] text-[13.5px] leading-relaxed">
-          <strong className="text-ink font-semibold">Target promise.</strong>{" "}
-          Sit at least eight full mocks on a paid plan in three months. If your
-          weakest section has not crossed its 55% sectional target on any of
-          them, we refund the three months in full. Nothing counts this for you:
-          claim it by writing to{" "}
-          <a href={`mailto:${SUPPORT_EMAIL}`} className="underline">
-            {SUPPORT_EMAIL}
-          </a>{" "}
-          and we check the condition against your sittings before refunding.
-        </p>
-      </div>
     </>
   );
 }

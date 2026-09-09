@@ -1,75 +1,40 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-export type Tone = "neutral" | "ok" | "warn" | "bad" | "brand";
+export type Tone = "neutral" | "ok" | "warn" | "bad" | "info" | "brand";
 
 const TONE: Record<Tone, string> = {
-  neutral: "bg-line text-ink-2",
+  neutral: "bg-panel text-ink-2",
   ok: "bg-ok-soft text-ok",
   warn: "bg-warn-soft text-warn",
   bad: "bg-bad-soft text-bad",
+  info: "bg-info-soft text-info",
   brand: "bg-brand-soft text-brand",
 };
 
-export function Badge({
-  children,
-  tone = "neutral",
-  className,
-}: {
-  children: ReactNode;
-  tone?: Tone;
-  className?: string;
-}) {
-  return (
-    <span
-      className={cn(
-        "rounded-pill inline-flex items-center px-2.5 py-1 text-[12.5px]",
-        TONE[tone],
-        className,
-      )}
-    >
-      {children}
-    </span>
-  );
-}
-
-export function Stat({
+// `outline` is the not-yet state — no fill, because nothing has happened yet.
+export function Tile({
+  value,
   label,
-  value,
-  note,
+  tone = "info",
+  outline,
 }: {
-  label: string;
   value: string;
-  note?: string;
-}) {
-  return (
-    <>
-      <p className="text-ink-2 text-[14px]">{label}</p>
-      <p className="tnum mt-3 text-[38px] leading-none tracking-[-0.03em]">
-        {value}
-      </p>
-      {note ? (
-        <p className="text-ink-3 mt-3 text-[13px] leading-relaxed">{note}</p>
-      ) : null}
-    </>
-  );
-}
-
-export function Meter({
-  value,
-  className,
-}: {
-  value: number;
-  className?: string;
+  label: string;
+  tone?: Tone;
+  outline?: boolean;
 }) {
   return (
     <div
-      className={cn("rounded-pill bg-line h-1.5 overflow-hidden", className)}
+      className={cn(
+        "rounded-xl px-2 py-4 text-center",
+        outline ? "border-line-2 border-2 border-dashed" : TONE[tone],
+      )}
     >
-      <div
-        className="rounded-pill bg-ink h-full"
-        style={{ width: `${Math.max(0, Math.min(100, value))}%` }}
-      />
+      <p className="tnum text-[26px] leading-none font-bold tracking-[-0.035em]">
+        {value}
+      </p>
+      <p className="text-ink-2 mt-1.5 text-[13px]">{label}</p>
     </div>
   );
 }
@@ -93,15 +58,15 @@ export function TargetBar({
     `${Math.max(0, Math.min(100, (n / scale) * 100))}%`;
 
   return (
-    <div className={cn("rounded-pill bg-line relative h-1.5", className)}>
+    <div className={cn("rounded-pill bg-track relative h-3", className)}>
       {value !== null ? (
         <div
-          className={cn("rounded-pill h-full", cleared ? "bg-ink" : "bg-bad")}
+          className={cn("rounded-pill h-full", cleared ? "bg-ok" : "bg-bad")}
           style={{ width: pct(value) }}
         />
       ) : null}
       <span
-        className="bg-ink-3 absolute -top-1 h-3.5 w-px"
+        className="bg-ink absolute -top-1.5 -bottom-1.5 w-0.5 rounded-full"
         style={{ left: pct(target) }}
         aria-hidden
       />

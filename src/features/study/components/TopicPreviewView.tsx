@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Lock } from "lucide-react";
-import { Badge, ButtonLink } from "@/design-system";
+import { StatusPill, ButtonLink } from "@/design-system";
 import type { TopicPreview } from "../types";
 
 const DIFFICULTY_TONE = {
@@ -35,9 +35,9 @@ export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
           {topic.title}
         </h1>
         <div className="mt-3 flex flex-wrap items-center gap-2.5">
-          <Badge tone={DIFFICULTY_TONE[topic.difficulty]}>
+          <StatusPill tone={DIFFICULTY_TONE[topic.difficulty]}>
             {topic.difficulty}
-          </Badge>
+          </StatusPill>
           <span className="tnum text-ink-3 text-[13px]">
             {topic.estimatedMinutes} min read
           </span>
@@ -48,7 +48,7 @@ export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
 
         {topic.learningObjectives.length > 0 ? (
           <section className="mt-10">
-            <h2 className="text-[19px] tracking-[-0.02em]">
+            <h2 className="text-[16px] tracking-[-0.02em]">
               What you will be able to do
             </h2>
             <ul className="mt-3 max-w-[68ch] space-y-2">
@@ -66,7 +66,7 @@ export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
 
         {topic.sectionTitles.length > 0 ? (
           <section className="mt-10">
-            <h2 className="text-[19px] tracking-[-0.02em]">
+            <h2 className="text-[16px] tracking-[-0.02em]">
               What is inside this lesson
             </h2>
             <ol className="border-line mt-3 max-w-[68ch] border-t">

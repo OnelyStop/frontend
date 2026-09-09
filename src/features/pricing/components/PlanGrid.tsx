@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
 import {
-  Badge,
+  StatusPill,
   Button,
   ButtonLink,
   Card,
@@ -145,14 +145,16 @@ export function PlanGrid({
             <>
               Yearly
               {savingPct > 0 ? (
-                <Badge tone="ok">Save {savingPct}%</Badge>
+                <span className="text-ok-2 text-[12px] font-semibold">
+                  −{savingPct}%
+                </span>
               ) : null}
             </>
           ),
         }}
       />
 
-      <div className="mt-7 grid items-start gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-7 grid items-stretch gap-5 text-left sm:grid-cols-2 lg:grid-cols-3">
         {PLAN_COPY.map((plan) => {
           const price = priceFor(plan);
           const off = price
@@ -175,7 +177,7 @@ export function PlanGrid({
               <p className="text-ink-2 mt-0.5 text-[14px]">{plan.tagline}</p>
 
               <div className="mt-4 flex items-baseline gap-1.5">
-                <span className="tnum text-[30px] font-semibold tracking-[-0.03em]">
+                <span className="tnum text-[20px] font-semibold tracking-[-0.03em]">
                   {headline(plan)}
                 </span>
                 <span className="text-ink-3 text-[14px]">/ month</span>
@@ -189,7 +191,7 @@ export function PlanGrid({
                       price.currency,
                     )}
                   </span>
-                  <Badge tone="ok">{off}% off</Badge>
+                  <StatusPill tone="ok">{off}% off</StatusPill>
                 </p>
               ) : null}
 

@@ -11,6 +11,7 @@ import {
   PageHeader,
   SectionTitle,
   Segmented,
+  Tile,
 } from "@/design-system";
 import {
   NEGATIVE_MARK,
@@ -258,27 +259,19 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
         }
       />
 
-      <div className="border-line mb-10 grid grid-cols-1 border-t border-l sm:grid-cols-2 xl:grid-cols-4">
-        <Stat
-          label="Accuracy"
+      <div className="mb-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <Tile
           value={`${stats.accuracy}%`}
-          note={`${stats.correct} of ${stats.attempted} attempted`}
+          label={`Accuracy · ${stats.correct} of ${stats.attempted}`}
+          tone="info"
         />
-        <Stat
-          label="Median pace"
+        <Tile
           value={`${stats.median}s`}
-          note={`target is ${PACE}s a question`}
+          label={`Median pace · target ${PACE}s`}
+          tone={stats.median <= PACE ? "ok" : "warn"}
         />
-        <Stat
-          label="Bankable topics"
-          value={String(stats.banked)}
-          note={`${PACE}s or faster and ${ACC_LINE}% or better`}
-        />
-        <Stat
-          label="On your skip list"
-          value={String(stats.skip)}
-          note={`slower than ${PACE}s and under ${ACC_LINE}%`}
-        />
+        <Tile value={String(stats.banked)} label="Bankable topics" tone="ok" />
+        <Tile value={String(stats.skip)} label="On your skip list" outline />
       </div>
 
       <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_360px]">
@@ -784,29 +777,5 @@ function SortHead({
         ) : null}
       </button>
     </th>
-  );
-}
-
-function Stat({
-  label,
-  value,
-  note,
-}: {
-  label: string;
-  value: string;
-  note: string;
-}) {
-  return (
-    <div className="border-line relative border-r border-b p-7">
-      <p className="text-ink-2 text-[14px]">{label}</p>
-      <p className="tnum mt-3 text-[38px] leading-none tracking-[-0.03em]">
-        {value}
-      </p>
-      <p className="text-ink-3 mt-3 text-[13px] leading-relaxed">{note}</p>
-      <span
-        aria-hidden
-        className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
-      />
-    </div>
   );
 }

@@ -1,40 +1,67 @@
 @import "tailwindcss";
 
-/* onelystop design system — light, spacious, elevated.
-   Surfaces do the work: a white card lifted off a cool off-white ground, with
-   colour reserved for the two or three things on a screen that carry meaning. */
+/* onelystop design system — the canvas language.
+   A white card floating on a warm-grey stage inside a black frame. Depth is a
+   shadow ladder rather than a hairline, and tints carry state so a screen can
+   be read before it is read word by word. */
 @theme {
-  /* Grounds. The page is white; a card is a flat grey panel with no border and
-     no shadow; anything inset inside a card goes back to white. Depth comes
-     from that alternation, never from a drop shadow. */
+  /* Grounds. `canvas` is the card, `stage` the ground it floats on, `frame` the
+     black chrome around both. */
   /* Deliberately NOT named --color-surface: the legacy marketing palette in
      tokens.css owns that name and loads after this file, so anything shared
      silently reverts to its value. */
   --color-canvas: #ffffff;
-  --color-panel: #f0f0f1;
-  --color-inset: #ffffff;
-  --color-track: #e2e2e4;
-  --color-line: rgb(10 10 10 / 0.08);
-  --color-line-2: rgb(10 10 10 / 0.14);
+  --color-stage: #f6f7f8;
+  --color-frame: #131316;
+  --color-frame-2: #26262c;
+  --color-sky: #cfeef7;
 
-  /* Ink */
+  /* Ink on the frame. Hard-coded white/40 in a class is not themeable, and it
+     was why every nav item read as the same flat white. */
+  --color-on-frame: #ffffff;
+  --color-on-frame-2: #9a9ca6;
+  --color-on-frame-3: #6b6d78;
+  --color-on-frame-line: #33343c;
+  --color-panel: #f1f2f4;
+  --color-inset: #ffffff;
+  --color-track: #ecedf0;
+  --color-line: rgb(10 10 10 / 0.07);
+  --color-line-2: rgb(10 10 10 / 0.13);
+
+  /* Ink. These are #59's AA-contrast values; the canvas language wanted a
+     lighter ink-3 and lost, because that was taste against accessibility. */
   --color-ink: #0a0a0a;
   --color-ink-2: #67676d;
   --color-ink-3: #73737d;
   --color-ink-4: #b2b2b9;
 
   /* Actions are black. The accent is for data, not for chrome. */
-  --color-brand: #4f46e5;
-  --color-brand-2: #6d63f0;
-  --color-brand-soft: #eeecff;
+  --color-brand: #7b3fa0;
+  --color-brand-2: #9a5cc0;
+  --color-brand-soft: #e7ccf5;
 
-  /* Meaning, kept low-chroma so nothing shouts */
-  --color-ok: #0f9d70;
-  --color-ok-soft: #e7f7f1;
-  --color-warn: #c07a00;
-  --color-warn-soft: #fcf3e2;
-  --color-bad: #dc4b41;
-  --color-bad-soft: #fdeeec;
+  /* Meaning. Each pair is a tint you can fill a whole card with, and an ink
+     that stays legible on it — the reason state reads at a glance. */
+  --color-ok: #1b6b2d;
+  /* For an annotation on white; ok is tuned for legibility on ok-soft. */
+  --color-ok-2: #2e9d51;
+  --color-ok-soft: #cbf3d5;
+  --color-warn: #8a6410;
+  --color-warn-soft: #fdefbe;
+  --color-bad: #a83a2c;
+  --color-bad-soft: #fbd6d0;
+  --color-info: #1c5c78;
+  --color-info-soft: #d9eff9;
+
+  /* A card that holds a panel needs two depths of the same tint: `-pale` is the
+     card, `-soft` the panel sitting on it. */
+  --color-ok-pale: #ddf7e4;
+  --color-warn-pale: #fef5d5;
+  --color-info-pale: #e6f5fb;
+  --color-brand-pale: #efdef8;
+
+  /* The in-progress surface — one per screen at most. */
+  --color-active-soft: #f2c9ee;
 
   /* Sections — the switcher and the graph, nothing else */
   --color-quant: #4f46e5;
@@ -43,18 +70,31 @@
   --color-ga: #ea7317;
   --color-computer: #db2777;
 
-  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  /* Soft pairs, so a card can be filled by which section it belongs to. */
+  --color-quant-soft: #e2e0fb;
+  --color-reasoning-soft: #eedcfa;
+  --color-english-soft: #d5eff5;
+  --color-ga-soft: #fbe6d2;
+  --color-computer-soft: #fbdbe9;
 
-  --radius-ctl: 12px;
-  --radius-card: 24px;
-  --radius-xl: 28px;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-ctl: 16px;
+  --radius-card: 28px;
+  --radius-xl: 22px;
   --radius-pill: 999px;
 
-  /* Only things that genuinely float get a shadow: the palette, a tooltip. */
-  --shadow-xs: none;
-  --shadow-card: none;
+  /* Three soft shadows read as paper; one hard shadow reads as a Bootstrap
+     card. This is most of the difference between the two languages. */
+  --shadow-xs: 0 1px 2px rgb(19 19 22 / 0.05);
+  --shadow-card:
+    0 1px 2px rgb(19 19 22 / 0.04), 0 4px 12px rgb(19 19 22 / 0.04),
+    0 12px 32px rgb(19 19 22 / 0.05);
+  --shadow-lift:
+    0 2px 6px rgb(19 19 22 / 0.06), 0 10px 24px rgb(19 19 22 / 0.08),
+    0 26px 60px rgb(19 19 22 / 0.1);
   --shadow-pop:
-    0 2px 6px rgb(10 10 10 / 0.05), 0 20px 50px -12px rgb(10 10 10 / 0.22);
+    0 8px 24px rgb(19 19 22 / 0.18), 0 24px 60px rgb(19 19 22 / 0.22);
 
   --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
 
@@ -218,13 +258,34 @@
   }
 }
 
-/* A panel is white ground inside a hairline, like the code block on a ruled
-   page. No fill and no shadow — grey blocks made every screen look like a
-   dashboard, so the rule does the work instead. */
+/* A card is white paper lifted off the stage. The hairline is gone: at this
+   radius a border and a shadow together read as two competing edges. */
 @utility card {
   background: var(--color-canvas);
-  border: 1px solid var(--color-line);
   border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Hover lift. Kept off `card` itself so a static panel does not animate. */
+@utility card-lift {
+  transition-property: transform, box-shadow;
+  transition-timing-function: var(--ease-swift);
+  transition-duration: var(--duration-slow);
+}
+
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-lift:hover {
+    transform: none;
+  }
+}
+
+[data-reduce-motion] .card-lift:hover {
+  transform: none;
 }
 
 /* Inside a panel there is nothing left to distinguish: an inset is the same
@@ -318,7 +379,7 @@
 
   body {
     margin: 0;
-    background: var(--color-canvas);
+    background: var(--color-stage);
     color: var(--color-ink);
     font-family: var(--font-sans);
     letter-spacing: -0.005em;
@@ -334,13 +395,15 @@
     margin: 0;
   }
 
-  /* Headings are large and light, not small and bold. Weight contrast is
-     carried by size and colour instead. */
+  /* Headings are heavy and tight. The old weight-400 rule came from the
+     Mercury/Attio reference set; the canvas language carries hierarchy with
+     weight instead, so body copy can stay light and roomy. */
   h1,
   h2,
   h3 {
-    font-weight: 400;
-    letter-spacing: -0.025em;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
   }
 
   a {

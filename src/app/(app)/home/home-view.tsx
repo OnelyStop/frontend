@@ -2,11 +2,13 @@
 
 import {
   ButtonLink,
+  Canvas,
+  CanvasTitle,
   Card,
-  DarkPanel,
   Empty,
-  PageHeader,
+  EventCard,
   SectionTitle,
+  Tile,
 } from "@/design-system";
 import { useApp } from "@/context/AppContext";
 import {
@@ -32,14 +34,11 @@ export function HomeView({ progress }: { progress: Progress }) {
   if (attempted === 0) {
     return (
       <>
-        <PageHeader
-          title={greeting}
-          sub={`Nothing has been graded yet, so there is nothing here to read. Everything on this page comes from your own submitted attempts on ${board}.`}
-        />
+        <CanvasTitle>{greeting}</CanvasTitle>
         <Card pad={false}>
           <Empty
             title="No attempts yet"
-            sub="Sit a mock or a drill and this page fills in with your accuracy, your pace and the marks negative marking takes back."
+            sub={`Sit a mock or a drill and this page fills in with your accuracy, your pace and the marks negative marking takes back on ${board}.`}
             action={<ButtonLink href="/mocks">Start a mock</ButtonLink>}
           />
         </Card>
@@ -53,15 +52,110 @@ export function HomeView({ progress }: { progress: Progress }) {
     a.correct / a.attempted <= b.correct / b.attempted ? a : b,
   );
   const weakestAcc = Math.round((weakest.correct / weakest.attempted) * 100);
+  const weakestName = sectionLabel(weakest.section);
 
   return (
     <>
-      <PageHeader
-        title={greeting}
-        sub={`${board} · last 30 days. ${sectionLabel(weakest.section)} is your weakest section at ${weakestAcc}% — everything below is measured from attempts you have submitted.`}
-      />
+      <CanvasTitle
+        note={`${board} · last 30 days. ${weakestName} is your weakest section at ${weakestAcc}% — everything here is measured from attempts you have submitted.`}
+      >
+        {greeting}
+      </CanvasTitle>
 
-      <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <Canvas
+        mid={
+          <>
+            <div className="mb-8 grid grid-cols-3 gap-4">
+              <Tile value={`${acc}%`} label="Accuracy" tone="info" />
+              <Tile
+                value={`−${lost.toFixed(2)}`}
+                label="Marks lost"
+                tone="bad"
+              />
+              <Tile
+                value={avgSec === null ? "—" : `${avgSec}s`}
+                label="Average pace"
+                outline
+              />
+            </div>
+
+            <Card>
+              <SectionTitle aside={`${attempted} graded`}>
+                Where the marks go
+              </SectionTitle>
+              <Row label="Wrong answers" value={String(wrong)} />
+              <Row
+                label="Marks lost to negatives"
+                value={`−${lost.toFixed(2)}`}
+                tone="bad"
+              />
+              <Row
+                label="Average pace"
+                value={avgSec === null ? "—" : `${avgSec}s`}
+                tone={avgSec !== null && avgSec <= 45 ? "ok" : undefined}
+              />
+            </Card>
+          </>
+        }
+        aside={
+          <>
+            <h2 className="mb-6 text-[20px] font-bold tracking-[-0.03em]">
+              What to do next
+            </h2>
+
+            <div className="grid gap-3">
+              <EventCard
+                kind="Drill"
+                when="now"
+                tone="brand"
+                footer={
+                  <ButtonLink href="/drills" size="sm">
+                    Drill {weakestName}
+                  </ButtonLink>
+                }
+              >
+                {weakestName} is at {weakestAcc}%, your lowest. A drill pulls
+                from the same bank, timed like the section it came from.
+              </EventCard>
+
+              <EventCard
+                kind="Mock"
+                when={board}
+                tone="info"
+                footer={
+                  <ButtonLink href="/mocks" size="sm" variant="secondary">
+                    Sit a mock
+                  </ButtonLink>
+                }
+              >
+                A full paper under real sectional timing, so pace is measured
+                the way the hall measures it.
+              </EventCard>
+
+              {wrong > 0 ? (
+                <EventCard
+                  kind="Review"
+                  when={`−${lost.toFixed(2)}`}
+                  tone="warn"
+                  footer={
+                    <ButtonLink
+                      href="/attempt-map"
+                      size="sm"
+                      variant="secondary"
+                    >
+                      Open attempt map
+                    </ButtonLink>
+                  }
+                >
+                  {wrong} wrong {wrong === 1 ? "answer has" : "answers have"}{" "}
+                  cost you {lost.toFixed(2)} marks. The attempt map shows which
+                  topics they came from.
+                </EventCard>
+              ) : null}
+            </div>
+          </>
+        }
+      >
         <Card>
           <SectionTitle aside="accuracy · seconds per question">
             By section
@@ -86,9 +180,9 @@ export function HomeView({ progress }: { progress: Progress }) {
                     </span>
                   </div>
 
-                  <div className="rounded-pill bg-line h-1.5 overflow-hidden">
+                  <div className="rounded-pill bg-track h-2 overflow-hidden">
                     <div
-                      className="rounded-pill bg-ink h-full"
+                      className="rounded-pill bg-ok h-full"
                       style={{ width: `${a}%` }}
                     />
                   </div>
@@ -103,47 +197,28 @@ export function HomeView({ progress }: { progress: Progress }) {
             questions.
           </p>
         </Card>
-
-        <div className="grid content-start gap-4">
-          <DarkPanel>
-            <p className="text-[14px] text-white/50">{board} · last 30 days</p>
-            <p className="tnum mt-4 text-[52px] leading-none tracking-[-0.04em]">
-              {acc}%
-            </p>
-            <p className="mt-2 text-[14px] text-white/60">accuracy</p>
-            <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-5 text-[14px]">
-              <span className="text-white/60">Questions graded</span>
-              <span className="tnum">{attempted}</span>
-            </div>
-          </DarkPanel>
-
-          <Card>
-            <SectionTitle>Where the marks go</SectionTitle>
-            <div className="grid gap-4">
-              <div className="flex items-baseline justify-between">
-                <span className="text-ink-2 text-[14px]">
-                  Marks lost to negatives
-                </span>
-                <span className="tnum text-bad text-[15px]">
-                  −{lost.toFixed(2)}
-                </span>
-              </div>
-              <div className="flex items-baseline justify-between">
-                <span className="text-ink-2 text-[14px]">Wrong answers</span>
-                <span className="tnum text-[15px]">{wrong}</span>
-              </div>
-              <div className="flex items-baseline justify-between">
-                <span className="text-ink-2 text-[14px]">Average pace</span>
-                <span
-                  className={`tnum text-[15px] ${avgSec !== null && avgSec <= 45 ? "text-ok" : ""}`}
-                >
-                  {avgSec === null ? "—" : `${avgSec}s`}
-                </span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
+      </Canvas>
     </>
+  );
+}
+
+function Row({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string;
+  tone?: "ok" | "bad";
+}) {
+  return (
+    <div className="border-line flex items-baseline justify-between border-b py-3 last:border-b-0">
+      <span className="text-ink-2 text-[14px]">{label}</span>
+      <span
+        className={`tnum text-[15px] font-semibold ${tone === "bad" ? "text-bad" : tone === "ok" ? "text-ok" : ""}`}
+      >
+        {value}
+      </span>
+    </div>
   );
 }

@@ -33,7 +33,7 @@ function TopicTheoryCard({ theory: t }: { theory: TopicTheory }) {
       >
         {subject ?? t.section}
       </p>
-      <h3 className="mt-1.5 text-[24px] font-normal tracking-[-0.01em]">
+      <h3 className="mt-1.5 text-[20px] font-normal tracking-[-0.01em]">
         {t.topicTitle}
       </h3>
       <p className="text-ink-2 mt-2 max-w-[62ch] text-[15px] leading-relaxed">

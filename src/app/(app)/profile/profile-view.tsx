@@ -104,7 +104,7 @@ export function ProfileView({
             ],
           ].map(([label, value]) => (
             <Card key={label} className="p-5">
-              <div className="tnum text-[28px] leading-none">{value}</div>
+              <div className="tnum text-[22px] leading-none">{value}</div>
               <div className="text-ink-3 mt-2 text-[13px]">{label}</div>
             </Card>
           ))}
