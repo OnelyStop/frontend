@@ -50,7 +50,7 @@ beforeAll(async () => {
   process.env.RAZORPAY_WEBHOOK_SECRET = SECRET;
   ({ client, db } = await freshDb());
   await client.exec(`insert into auth.users (id) values ('${USER}')`);
-}, 30_000);
+});
 
 afterAll(async () => {
   delete process.env.RAZORPAY_WEBHOOK_SECRET;

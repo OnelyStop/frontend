@@ -108,7 +108,7 @@ describe("deleteAccount", () => {
 
   beforeAll(async () => {
     ({ client, db } = await freshDb());
-  }, 30_000);
+  });
 
   afterAll(() => client.close());
 
