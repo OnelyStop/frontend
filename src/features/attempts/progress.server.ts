@@ -266,7 +266,10 @@ export async function listRecentAttempts(
   db: Db,
   userId: string,
   limit = 5,
+  now = new Date(),
 ): Promise<RecentAttempt[]> {
+  // The same window as getProgress, so the spine never lists a sitting the figures beside it exclude.
+  const since = new Date(now.getTime() - WINDOW_DAYS * 86_400_000);
   const rows = await db
     .select({
       id: attempts.id,
@@ -281,7 +284,13 @@ export async function listRecentAttempts(
     })
     .from(attempts)
     .leftJoin(papers, eq(papers.paperId, attempts.paperId))
-    .where(and(eq(attempts.userId, userId), isNotNull(attempts.submittedAt)))
+    .where(
+      and(
+        eq(attempts.userId, userId),
+        isNotNull(attempts.submittedAt),
+        gte(attempts.submittedAt, since),
+      ),
+    )
     .orderBy(desc(attempts.submittedAt))
     .limit(limit);
 

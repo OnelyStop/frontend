@@ -5,7 +5,11 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import * as schema from "@/db/schema";
-import { getProgress, getTopicMap } from "./progress.server";
+import {
+  getProgress,
+  getTopicMap,
+  listRecentAttempts,
+} from "./progress.server";
 
 const MIGRATIONS = join(import.meta.dirname, "..", "..", "migrations");
 
@@ -193,5 +197,42 @@ describe("progress", () => {
     const p = await getProgress(db, other, NOW);
     expect(p.attempted).toBe(0);
     expect(await getTopicMap(db, other, NOW)).toEqual([]);
+  });
+
+  it("lists recent sittings inside the same 30-day window the figures use", async () => {
+    const sitter = randomUUID();
+    await client.query("insert into auth.users (id, email) values ($1, $2)", [
+      sitter,
+      "recent@example.com",
+    ]);
+    const q = await question("GA", "Banking", "A");
+    const stale = new Date("2026-02-01T10:00:00+05:30");
+    const fresh = new Date("2026-03-10T10:00:00+05:30");
+    for (const [startedAt, mode] of [
+      [stale, "paper"],
+      [fresh, "bank"],
+    ] as const) {
+      await db.insert(schema.attempts).values({
+        userId: sitter,
+        mode,
+        paperId: mode === "paper" ? PAPER : null,
+        startedAt,
+        submittedAt: startedAt,
+        score: "12.50",
+        servedQIds: [q, q, q, q],
+      });
+    }
+
+    const recent = await listRecentAttempts(db, sitter, 5, NOW);
+    // The February paper is 42 days old: the spine under "last 30 days" must not show it.
+    expect(recent).toHaveLength(1);
+    expect(recent[0]).toMatchObject({
+      mode: "bank",
+      paper: null,
+      target: null,
+      questions: 4,
+      score: 12.5,
+      submittedAt: fresh.toISOString(),
+    });
   });
 });
