@@ -56,7 +56,7 @@ export function ProfileView({
         actions={
           <Link
             href="/settings"
-            className="rounded-ctl border-line bg-canvas hover:border-line-2 inline-flex h-9 items-center border px-3.5 text-[14px] font-medium transition-colors"
+            className="rounded-ctl border-line bg-canvas hover:border-line-2 inline-flex h-10 items-center border px-3.5 text-[14px] font-medium transition-colors"
           >
             Edit in settings
           </Link>

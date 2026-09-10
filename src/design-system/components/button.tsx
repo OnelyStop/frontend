@@ -13,8 +13,9 @@ const VARIANT: Record<ButtonVariant, string> = {
   danger: "bg-bad text-white hover:bg-bad/85",
 };
 
+// `sm` is 40px, not 36: below that a thumb misses it, and this is a phone-first audience.
 const SIZE: Record<ButtonSize, string> = {
-  sm: "h-9 gap-1.5 px-4 text-[13px] font-medium",
+  sm: "h-10 gap-1.5 px-4 text-[13px] font-medium",
   md: "h-11 gap-2 px-6 text-[14px] font-medium",
   lg: "h-14 gap-2 px-8 text-[15px] font-semibold",
 };

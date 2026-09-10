@@ -31,7 +31,8 @@ export function StatusPill({
   return (
     <span
       className={cn(
-        "rounded-pill inline-flex items-center gap-2 px-3 py-1.5 text-[12.5px] font-semibold whitespace-nowrap",
+        // min-h because a pill is often wrapped in a button — see the 40px floor on Button.
+        "rounded-pill inline-flex min-h-10 items-center gap-2 px-3.5 text-[12.5px] font-semibold whitespace-nowrap",
         PILL[tone],
         className,
       )}
@@ -220,7 +221,13 @@ export function PlanCard({
         </div>
       ) : null}
       {status || actions ? (
-        <div className={cn("flex items-center gap-2.5", lg ? "mt-6" : "mt-4")}>
+        // Wraps rather than squeezing: a pill and a button on one 390px row collide.
+        <div
+          className={cn(
+            "flex flex-wrap items-center gap-x-2.5 gap-y-3",
+            lg ? "mt-6" : "mt-4",
+          )}
+        >
           {status}
           <span className="flex-1" />
           {actions}
@@ -322,7 +329,7 @@ export function ActiveCard({
           {children}
         </p>
       ) : null}
-      <div className="mt-6 flex items-center gap-3">
+      <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2.5">
         {status}
         {people?.length ? (
           <span className="ml-auto">

@@ -229,11 +229,17 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
         </div>
       </Card>
 
-      <div className="mt-6 flex items-center gap-5">
-        <Link href="/profile" className="text-ink-3 hover:text-ink text-[13px]">
+      <div className="mt-6 flex items-center gap-2">
+        <Link
+          href="/profile"
+          className="text-ink-3 hover:text-ink inline-flex h-10 items-center text-[13px]"
+        >
           View profile
         </Link>
-        <Link href="/upgrade" className="text-ink-3 hover:text-ink text-[13px]">
+        <Link
+          href="/upgrade"
+          className="text-ink-3 hover:text-ink inline-flex h-10 items-center px-3 text-[13px]"
+        >
           Manage plan
         </Link>
       </div>
