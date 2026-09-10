@@ -74,7 +74,9 @@ function Done({ title, body }: { title: string; body: string }) {
         <h1 className="mt-6 text-[32px] tracking-[-0.03em]">{title}</h1>
         <p className="text-ink-2 mt-3 text-[15px] leading-relaxed">{body}</p>
         <div className="mt-7 flex flex-wrap justify-center gap-3">
-          <Button onClick={() => router.push("/home")}>Start practising</Button>
+          <Button onClick={() => router.push("/today")}>
+            Start practising
+          </Button>
           <Button variant="secondary" onClick={() => router.push("/upgrade")}>
             Manage plan
           </Button>

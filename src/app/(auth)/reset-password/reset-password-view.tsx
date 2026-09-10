@@ -26,7 +26,7 @@ export function ResetPasswordView() {
 
   const { error, setError, busy, handleSubmit } = useAuthForm(
     () => updatePassword(password),
-    () => router.replace("/home"),
+    () => router.replace("/today"),
   );
 
   const onSubmit = (e: FormEvent) => {
@@ -45,7 +45,7 @@ export function ResetPasswordView() {
         subtitle="You'll stay signed in on this device once it's saved."
         footer={
           <>
-            Changed your mind? <Link href="/home">Back to the app</Link>
+            Changed your mind? <Link href="/today">Back to the app</Link>
           </>
         }
       >

@@ -7,7 +7,7 @@ import { cn } from "@/design-system";
 
 // Everything else lives in the nav; the rail is the few you reach for mid-session.
 const SHORTCUTS = [
-  { href: "/home", label: "Today", icon: Home },
+  { href: "/today", label: "Today", icon: Home },
   { href: "/attempt-map", label: "Attempt map", icon: Map },
   { href: "/notes", label: "Notes", icon: NotebookPen },
 ];

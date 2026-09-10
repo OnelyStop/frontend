@@ -25,7 +25,7 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
   if (deepLinked) return pathname;
   const segs = pathname.split("/").filter(Boolean);
   if (!segs.length) return null;
-  if (segs.length === 1) return segs[0] === "home" ? null : "/home";
+  if (segs.length === 1) return segs[0] === "today" ? null : "/today";
   return `/${segs.slice(0, -1).join("/")}`;
 }
 
@@ -122,7 +122,7 @@ export function RunningHead({
     <header className="text-white">
       <div className="flex h-20 items-center gap-5 px-6 sm:px-8">
         <Link
-          href="/home"
+          href="/today"
           className="shrink-0 text-[22px] font-bold tracking-[-0.03em]"
         >
           onelystop

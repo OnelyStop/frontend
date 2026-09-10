@@ -462,7 +462,7 @@ export function DesignView() {
       <Section title="Brand" note="The wordmark — plain, or a link home">
         <div className="flex items-center gap-8">
           <Brand />
-          <Brand href="/home" />
+          <Brand href="/today" />
           <span className="bg-frame text-on-frame rounded-ctl px-4 py-2">
             <Brand />
           </span>

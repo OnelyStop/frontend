@@ -1,6 +1,6 @@
 // Everything not listed is public and server-rendered; the proxy sends these to /login.
 export const PROTECTED_PREFIXES = [
-  "/home",
+  "/today",
   "/attempt-map",
   "/mocks",
   "/drills",

@@ -57,10 +57,10 @@ export async function hasPermission(p: AppPermission): Promise<boolean> {
 // Call in every admin page and server action: a server action skips the proxy.
 export async function requireRole(role: AppRole) {
   const actual = await getRole();
-  if (actual !== role) redirect("/home");
+  if (actual !== role) redirect("/today");
   return actual;
 }
 
 export async function requirePermission(p: AppPermission) {
-  if (!(await hasPermission(p))) redirect("/home");
+  if (!(await hasPermission(p))) redirect("/today");
 }

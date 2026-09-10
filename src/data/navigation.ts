@@ -99,7 +99,7 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         id: "home",
         label: "Today",
-        path: "/home",
+        path: "/today",
         hint: "Every section against its cutoff, and the next hour planned",
       },
       {

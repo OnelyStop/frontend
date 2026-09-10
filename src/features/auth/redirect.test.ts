@@ -20,12 +20,12 @@ describe("safeInternalPath", () => {
     "/home with space",
     "/" + "a".repeat(3000),
   ])("falls back for %j", (bad) => {
-    expect(safeInternalPath(bad)).toBe("/home");
+    expect(safeInternalPath(bad)).toBe("/today");
   });
 
   it("falls back for anything that is not a string", () => {
-    expect(safeInternalPath(undefined)).toBe("/home");
-    expect(safeInternalPath(["/x"])).toBe("/home");
+    expect(safeInternalPath(undefined)).toBe("/today");
+    expect(safeInternalPath(["/x"])).toBe("/today");
   });
 
   it("uses the caller's fallback", () => {

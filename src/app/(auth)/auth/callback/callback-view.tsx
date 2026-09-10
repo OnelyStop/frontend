@@ -36,7 +36,7 @@ export function CallbackView() {
   }, []);
 
   useEffect(() => {
-    if (user) router.replace("/home");
+    if (user) router.replace("/today");
   }, [user, router]);
 
   // `loading` covers the PKCE exchange, so once it clears with no user the link failed.

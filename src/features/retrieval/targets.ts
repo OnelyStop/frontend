@@ -115,7 +115,7 @@ const VERBS: Target[] = [
     label: "Sectional targets",
     does: "opens today, with every section against its target",
     keys: "target targets cutoff cutoffs sectional clearing under short readiness today plan safe",
-    href: "/home",
+    href: "/today",
     resting: true,
   },
   {
