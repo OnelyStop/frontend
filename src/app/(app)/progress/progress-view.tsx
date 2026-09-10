@@ -4,6 +4,7 @@ import {
   ButtonLink,
   Card,
   Empty,
+  Figure,
   PageHeader,
   SectionTitle,
 } from "@/design-system";
@@ -71,6 +72,7 @@ export function ProgressView({ progress }: { progress: Progress }) {
 
   const lost = wrong * NEGATIVE_MARK;
   const acc = Math.round((correct / attempted) * 100);
+  const onPace = avgSec !== null && avgSec <= PACE_TARGET;
   // Worst first: the section costing the most marks is what the page is for.
   const ranked = sections
     .map((r) => ({ ...r, acc: Math.round((r.correct / r.attempted) * 100) }))
@@ -88,72 +90,41 @@ export function ProgressView({ progress }: { progress: Progress }) {
     <>
       <PageHeader title="Progress" sub={sub} />
 
-      {/* Bare, not a card: a page where every block is a tinted box reads as heavy as a page where every block is one colour. */}
-      <div className="border-line mb-8 border-b pb-8">
+      {/* Bare on the stage: a figure in a tinted box is a block, and the page has one card already. */}
+      <section className="mb-10">
         <SectionTitle
           aside={atDesk ? `about ${atDesk} at the desk` : undefined}
         >
           {attempted} questions over 30 days
         </SectionTitle>
 
-        <div>
-          <div
-            className="flex h-3 gap-0.5 overflow-hidden rounded-full"
-            aria-hidden
-          >
-            <span
-              className="bg-ok"
-              style={{ width: `${(correct / attempted) * 100}%` }}
-            />
-            <span
-              className="bg-bad"
-              style={{ width: `${(wrong / attempted) * 100}%` }}
-            />
+        <div className="flex flex-wrap items-end gap-x-12 gap-y-7">
+          <div>
+            <p className="tnum text-[68px] leading-[0.85] font-bold tracking-[-0.05em]">
+              {correct}
+              <span className="text-ink-3 text-[30px] font-semibold">
+                {" "}
+                / {acc}%
+              </span>
+            </p>
+            <p className="text-ink-2 mt-3 text-[14px]">
+              right of {attempted} graded
+            </p>
           </div>
 
-          <dl className="mt-5 grid gap-5 sm:grid-cols-3">
-            <div>
-              <dt className="text-ink-3 text-[12.5px]">Right</dt>
-              <dd className="tnum text-ok mt-1 text-[24px] leading-none tracking-[-0.03em]">
-                {correct}
-                <span className="text-ink-3 ml-1.5 text-[14px]">/ {acc}%</span>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-ink-3 text-[12.5px]">
-                Given back to negative marking
-              </dt>
-              <dd className="tnum text-bad mt-1 text-[24px] leading-none tracking-[-0.03em]">
-                −{lost.toFixed(2)}
-                <span className="text-ink-3 ml-1.5 text-[14px]">
-                  {wrong} × {NEGATIVE_MARK}
-                </span>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-ink-3 text-[12.5px]">
-                A question · {PACE_TARGET}s budget
-              </dt>
-              <dd
-                className={`tnum mt-1 text-[24px] leading-none tracking-[-0.03em] ${
-                  avgSec === null
-                    ? "text-ink-3"
-                    : avgSec <= PACE_TARGET
-                      ? "text-ok"
-                      : "text-bad"
-                }`}
-              >
-                {avgSec === null ? "—" : `${avgSec}s`}
-                {avgSec !== null && avgSec > PACE_TARGET ? (
-                  <span className="text-ink-3 ml-1.5 text-[14px]">
-                    {avgSec - PACE_TARGET}s over
-                  </span>
-                ) : null}
-              </dd>
-            </div>
-          </dl>
+          <div className="flex flex-wrap gap-x-12 gap-y-5">
+            <Figure tone="bad" value={`−${lost.toFixed(2)}`}>
+              {wrong} wrong × {NEGATIVE_MARK} given back to negative marking
+            </Figure>
+            <Figure
+              tone={onPace ? "ok" : "warn"}
+              value={avgSec === null ? "—" : `${avgSec}s`}
+            >
+              a question, against a {PACE_TARGET}s budget
+            </Figure>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* The one card on the page: the section split is what /progress is actually for, and the tint is how it says so. */}
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
@@ -271,24 +242,22 @@ export function ProgressView({ progress }: { progress: Progress }) {
             <span className="text-ink-3 text-[17px]"> of 7 days</span>
           </p>
 
-          {/* A rhythm, not a magnitude: a day sat is a filled cell, a day missed is a hole you can count. */}
-          <div className="mt-5 grid grid-cols-7 gap-1.5">
+          {/* Volume, so the bar is ink; a day missed is a tick on the baseline, not a box waiting to be filled. */}
+          <div className="mt-5 grid grid-cols-7 gap-2">
             {week.map((d) => (
-              <div key={d.date} className="grid gap-1.5">
+              <div key={d.date} className="grid gap-2">
                 <div
-                  className={`grid h-10 place-items-center rounded-[10px] text-[12px] font-semibold ${
-                    d.count
-                      ? "bg-brand text-white"
-                      : "border-ink/15 text-ink-4 border-2 border-dashed"
-                  }`}
-                  style={
-                    d.count
-                      ? { opacity: 0.55 + 0.45 * (d.count / weekPeak) }
-                      : undefined
-                  }
+                  className="flex h-12 items-end"
                   title={`${d.date} · ${d.count} questions`}
                 >
-                  {d.count || "—"}
+                  <span
+                    className={`w-full rounded-full ${d.count ? "bg-ink" : "bg-line-2"}`}
+                    style={{
+                      height: d.count
+                        ? `${Math.max(10, (d.count / weekPeak) * 100)}%`
+                        : 2,
+                    }}
+                  />
                 </div>
                 <span className="text-ink-4 text-center text-[11.5px]">
                   {dayInitial(d.date)}

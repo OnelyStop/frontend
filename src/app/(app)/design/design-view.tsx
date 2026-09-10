@@ -56,6 +56,7 @@ import {
   Rationale,
   RoundAction,
   StatusPill,
+  Figure,
   Tile,
   tintFor,
 } from "@/design-system";
@@ -254,6 +255,21 @@ export function DesignView() {
           <Tile value="26" label="Papers" tone="info" />
           <Tile value="2" label="Cleared" tone="ok" />
           <Tile value="23" label="Upcoming" outline />
+        </div>
+
+        <p className="text-ink-3 mt-8 mb-3 text-[13px]">
+          Figure — bare on the stage, the rule carries the state
+        </p>
+        <div className="flex flex-wrap gap-x-12 gap-y-5">
+          <Figure tone="bad" value="−22.00">
+            88 wrong × 0.25 given back to negative marking
+          </Figure>
+          <Figure tone="warn" value="49s">
+            a question, against a 45s budget
+          </Figure>
+          <Figure tone="ok" value="41s">
+            a question, inside the 45s budget
+          </Figure>
         </div>
       </Section>
 

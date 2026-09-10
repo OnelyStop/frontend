@@ -49,6 +49,7 @@ export { Checkbox, Field, Input, Segmented, Textarea } from "./components/form";
 
 export {
   Avatar,
+  Figure,
   Kbd,
   Table,
   TargetBar,

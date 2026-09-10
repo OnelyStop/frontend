@@ -39,6 +39,41 @@ export function Tile({
   );
 }
 
+// `warn` keeps the number in plain ink: amber is a rule you notice, not a figure you read.
+const FIGURE_TONE: Record<"ok" | "warn" | "bad", [rule: string, ink: string]> =
+  {
+    ok: ["border-ok", "text-ok"],
+    warn: ["border-warn", "text-ink"],
+    bad: ["border-bad", "text-bad"],
+  };
+
+/** A supporting figure: a coloured rule carries the state, so the number does not need a box around it. */
+export function Figure({
+  value,
+  tone,
+  children,
+  className,
+}: {
+  value: string;
+  tone: keyof typeof FIGURE_TONE;
+  children: ReactNode;
+  className?: string;
+}) {
+  const [rule, ink] = FIGURE_TONE[tone];
+  return (
+    <div className={cn("border-l-2 pl-4", rule, className)}>
+      <p
+        className={cn("tnum text-[23px] leading-none tracking-[-0.03em]", ink)}
+      >
+        {value}
+      </p>
+      <p className="text-ink-3 mt-1.5 max-w-[26ch] text-[13px] leading-relaxed">
+        {children}
+      </p>
+    </div>
+  );
+}
+
 /* A score reads against its target, never a maximum: the notch is the target and the fill turns red only when it misses. */
 export function TargetBar({
   value,

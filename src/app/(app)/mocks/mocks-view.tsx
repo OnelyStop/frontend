@@ -9,14 +9,12 @@ import {
   Button,
   ButtonLink,
   Empty,
-  EventCard,
-  EventMark,
-  type EventTone,
   OptionRow,
   PageHeader,
   Segmented,
   StatusPill,
   TargetBar,
+  cn,
   questionVariants,
 } from "@/design-system";
 import {
@@ -26,16 +24,6 @@ import {
   SECTION_LABEL,
   type Subject,
 } from "@/data/navigation";
-
-// Walked by position on the shelf: a paper's identity is its name, not a colour, so the tone only keeps neighbours apart.
-const PAPER_TONES: EventTone[] = [
-  "info",
-  "quant",
-  "english",
-  "ga",
-  "reasoning",
-  "computer",
-];
 import { startMockAttempt, submitAttempt } from "@/features/attempts/actions";
 import type { Mock } from "@/features/question-bank/types";
 import type { DrillQuestion } from "@/features/question-bank/types";
@@ -411,64 +399,47 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           sub="Nothing has been imported at this stage yet. Switch the filter to All to see everything there is."
         />
       ) : (
-        <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
-          {shown.map((m, i) => {
+        // A ruled shelf, not a grid: it reads the same with one paper or thirty, and a paper has no colour of its own — only its verdict does.
+        <div className="border-line border-t">
+          {shown.map((m) => {
+            const sat = m.score !== null;
             const cleared = m.score !== null && m.score >= m.target;
             return (
-              // The paper's own tone, so a shelf of cleared papers is not one green block; the pill carries the verdict.
-              <EventCard
+              <article
                 key={m.id}
-                kind={m.year ? `${m.name} ${m.year}` : m.name}
-                when={`${m.mins} min`}
-                tone={PAPER_TONES[i % PAPER_TONES.length]!}
-                mark={
-                  <EventMark disc>
-                    <FileText size={15} strokeWidth={2} />
-                  </EventMark>
-                }
-                footer={
-                  <div className="flex items-center gap-2.5">
-                    <Button
-                      size="sm"
-                      disabled={starting !== null}
-                      onClick={() => void handleStart(m)}
-                    >
-                      {starting === m.id
-                        ? "Loading…"
-                        : m.score !== null
-                          ? "Retake"
-                          : "Start"}
-                    </Button>
-                    <StatusPill
-                      tone="live"
-                      className={
-                        m.score === null
-                          ? "text-ink-2"
-                          : cleared
-                            ? "text-ok"
-                            : "text-bad"
-                      }
-                    >
-                      {m.score === null
-                        ? "Not attempted"
-                        : cleared
-                          ? "Cleared"
-                          : "Missed"}
-                    </StatusPill>
-                  </div>
-                }
+                className="border-line grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-5 gap-y-4 border-b py-6 lg:grid-cols-[auto_minmax(0,1fr)_280px_auto] lg:gap-x-8"
               >
-                <p className="tnum text-ink-2 text-[13px]">
-                  {m.stage} · {m.qs} questions · −{NEGATIVE_MARK} a wrong answer
-                </p>
+                <span
+                  aria-hidden
+                  className={cn(
+                    "grid size-11 place-items-center rounded-full",
+                    !sat
+                      ? "bg-panel text-ink-3"
+                      : cleared
+                        ? "bg-ok-soft text-ok"
+                        : "bg-bad-soft text-bad",
+                  )}
+                >
+                  <FileText size={18} strokeWidth={2} />
+                </span>
 
-                {/* The result is white paper that only exists once the paper has been sat, so a sat card differs in shape, not just in a pill. */}
+                <div className="min-w-0">
+                  <h3 className="text-[18px] leading-tight font-semibold tracking-[-0.02em]">
+                    {m.year ? `${m.name} ${m.year}` : m.name}
+                  </h3>
+                  <p className="tnum text-ink-3 mt-1 text-[13px]">
+                    {m.stage} · {m.qs} questions · {m.mins} min · −
+                    {NEGATIVE_MARK} a wrong answer
+                  </p>
+                </div>
+
+                {/* The score is the only paper on the shelf, and it only exists once the paper has been sat. */}
                 {m.score === null ? (
-                  <p className="text-ink-3 mt-4 text-[13px]">
+                  <p className="text-ink-3 col-start-2 text-[13px] lg:col-start-3">
                     Target is {m.target} — 55% of this paper&rsquo;s questions.
                   </p>
                 ) : (
-                  <div className="bg-canvas rounded-ctl mt-4 px-4 py-3.5">
+                  <div className="bg-canvas rounded-ctl shadow-card col-start-2 px-4 py-3.5 lg:col-start-3">
                     <div className="flex items-baseline gap-2">
                       <span
                         className={`tnum text-[22px] leading-none tracking-[-0.03em] ${cleared ? "text-ok" : "text-bad"}`}
@@ -487,7 +458,25 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
                     />
                   </div>
                 )}
-              </EventCard>
+
+                <div className="col-start-2 flex items-center gap-2.5 lg:col-start-4">
+                  <StatusPill
+                    tone="live"
+                    className={
+                      !sat ? "text-ink-2" : cleared ? "text-ok" : "text-bad"
+                    }
+                  >
+                    {!sat ? "Not attempted" : cleared ? "Cleared" : "Missed"}
+                  </StatusPill>
+                  <Button
+                    size="sm"
+                    disabled={starting !== null}
+                    onClick={() => void handleStart(m)}
+                  >
+                    {starting === m.id ? "Loading…" : sat ? "Retake" : "Start"}
+                  </Button>
+                </div>
+              </article>
             );
           })}
         </div>

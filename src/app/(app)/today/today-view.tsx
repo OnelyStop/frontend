@@ -1,15 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ChevronRight, FileText, Map } from "lucide-react";
 import {
   ActiveCard,
   ButtonLink,
   Canvas,
   Card,
-  DropSlot,
   Empty,
-  EventCard,
-  EventTime,
+  Figure,
   PageHeader,
   SectionTitle,
   StatusPill,
@@ -73,6 +73,7 @@ export function TodayView({ progress }: { progress: Progress }) {
 
   const acc = Math.round((correct / attempted) * 100);
   const lost = wrong * NEGATIVE_MARK;
+  const onPace = avgSec !== null && avgSec <= PACE_TARGET;
   // Best first, so the sections needing work fall to the bottom of the list.
   const ranked = sections
     .map((r) => ({ ...r, acc: Math.round((r.correct / r.attempted) * 100) }))
@@ -91,47 +92,6 @@ export function TodayView({ progress }: { progress: Progress }) {
       />
 
       <Canvas
-        mid={
-          <>
-            <SectionTitle aside={`${attempted} graded`}>
-              Where the marks go
-            </SectionTitle>
-
-            {/* One figure dominates and two support it: three equal boxes gave three unrelated numbers the same weight. */}
-            <p className="tnum text-[68px] leading-[0.85] font-bold tracking-[-0.05em]">
-              {acc}
-              <span className="text-ink-3 text-[30px] font-semibold">%</span>
-            </p>
-            <p className="text-ink-2 mt-3 text-[14px]">
-              accuracy — {correct} right of {attempted} graded
-            </p>
-
-            <div className="mt-8 grid gap-5">
-              <Rule
-                ink="border-bad"
-                value={`−${lost.toFixed(2)}`}
-                tone="text-bad"
-              >
-                {wrong} wrong × {NEGATIVE_MARK} given back to negative marking
-              </Rule>
-              <Rule
-                ink={
-                  avgSec !== null && avgSec <= PACE_TARGET
-                    ? "border-ok"
-                    : "border-warn"
-                }
-                value={avgSec === null ? "—" : `${avgSec}s`}
-                tone={
-                  avgSec !== null && avgSec <= PACE_TARGET
-                    ? "text-ok"
-                    : "text-ink"
-                }
-              >
-                a question, against a {PACE_TARGET}s budget
-              </Rule>
-            </div>
-          </>
-        }
         aside={
           <>
             <SectionTitle>What to do next</SectionTitle>
@@ -144,48 +104,69 @@ export function TodayView({ progress }: { progress: Progress }) {
               status={
                 <StatusPill tone="live">{weakestAcc}% · your lowest</StatusPill>
               }
-              className="mb-3"
             >
               A drill pulls from the same bank, timed like the section.
             </ActiveCard>
 
-            <div className="grid gap-3">
-              <EventCard
-                kind="Mock"
-                when={board}
-                tone="info"
-                footer={<EventTime>Full paper · 60 min</EventTime>}
+            {/* Rows, not more cards: one card in progress means something, four stacked cards mean nothing. */}
+            <nav className="border-line divide-line divide-y border-y">
+              <NextRow
+                href="/mocks"
+                mark={<FileText size={17} strokeWidth={2} />}
+                title="Sit a full paper"
+                aside="60 min"
               >
-                A full paper under real sectional timing, so pace is measured
-                the way the hall measures it.
-              </EventCard>
-
+                Real sectional timing, so pace is measured the way the hall
+                measures it.
+              </NextRow>
               {wrong > 0 ? (
-                <EventCard
-                  kind="Review"
-                  when={`−${lost.toFixed(2)}`}
-                  tone="warn"
-                  footer={
-                    <ButtonLink
-                      href="/attempt-map"
-                      size="sm"
-                      variant="secondary"
-                    >
-                      Open attempt map
-                    </ButtonLink>
-                  }
+                <NextRow
+                  href="/attempt-map"
+                  mark={<Map size={17} strokeWidth={2} />}
+                  tone="bad"
+                  title={`Review ${wrong} wrong ${wrong === 1 ? "answer" : "answers"}`}
+                  aside={`−${lost.toFixed(2)}`}
                 >
-                  {wrong} wrong {wrong === 1 ? "answer has" : "answers have"}{" "}
-                  cost you {lost.toFixed(2)} marks. The attempt map shows which
-                  topics they came from.
-                </EventCard>
+                  The attempt map shows which topics they came from.
+                </NextRow>
               ) : null}
-              <DropSlot label="Nothing else scheduled" />
-            </div>
+            </nav>
           </>
         }
       >
-        <SectionTitle aside={`${ACC_LINE}% line · ${PACE_TARGET}s a question`}>
+        <SectionTitle aside={`${attempted} graded`}>
+          Where the marks go
+        </SectionTitle>
+
+        {/* One figure dominates and two support it: three equal boxes gave three unrelated numbers the same weight. */}
+        <div className="flex flex-wrap items-end gap-x-12 gap-y-7">
+          <div>
+            <p className="tnum text-[68px] leading-[0.85] font-bold tracking-[-0.05em]">
+              {acc}
+              <span className="text-ink-3 text-[30px] font-semibold">%</span>
+            </p>
+            <p className="text-ink-2 mt-3 text-[14px]">
+              accuracy — {correct} right of {attempted} graded
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-x-12 gap-y-5">
+            <Figure tone="bad" value={`−${lost.toFixed(2)}`}>
+              {wrong} wrong × {NEGATIVE_MARK} given back to negative marking
+            </Figure>
+            <Figure
+              tone={onPace ? "ok" : "warn"}
+              value={avgSec === null ? "—" : `${avgSec}s`}
+            >
+              a question, against a {PACE_TARGET}s budget
+            </Figure>
+          </div>
+        </div>
+
+        <SectionTitle
+          className="mt-12"
+          aside={`${ACC_LINE}% line · ${PACE_TARGET}s a question`}
+        >
           By section
         </SectionTitle>
 
@@ -245,26 +226,48 @@ export function TodayView({ progress }: { progress: Progress }) {
   );
 }
 
-/** A supporting figure: a coloured rule carries the state, so the number does not need a box around it. */
-function Rule({
-  value,
-  tone,
-  ink,
+/** One thing to do next, on a hairline. The disc is grey unless the row costs you. */
+function NextRow({
+  href,
+  mark,
+  tone = "neutral",
+  title,
+  aside,
   children,
 }: {
-  value: string;
-  tone: string;
-  ink: string;
+  href: string;
+  mark: React.ReactNode;
+  tone?: "neutral" | "bad";
+  title: string;
+  aside: string;
   children: React.ReactNode;
 }) {
   return (
-    <div className={`border-l-2 pl-4 ${ink}`}>
-      <p className={`tnum text-[23px] leading-none tracking-[-0.03em] ${tone}`}>
-        {value}
-      </p>
-      <p className="text-ink-3 mt-1.5 text-[13px] leading-relaxed">
-        {children}
-      </p>
-    </div>
+    <Link href={href} className="group flex items-center gap-4 py-4">
+      <span
+        aria-hidden
+        className={`grid size-10 shrink-0 place-items-center rounded-full ${
+          tone === "bad" ? "bg-bad-soft text-bad" : "bg-panel text-ink-2"
+        }`}
+      >
+        {mark}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="flex items-baseline gap-3">
+          <span className="min-w-0 flex-1 truncate text-[14.5px] font-semibold">
+            {title}
+          </span>
+          <span className="tnum text-ink-3 shrink-0 text-[13px]">{aside}</span>
+        </span>
+        <span className="text-ink-3 mt-0.5 block text-[13px] leading-snug">
+          {children}
+        </span>
+      </span>
+      <ChevronRight
+        size={16}
+        className="text-ink-4 group-hover:text-ink shrink-0 transition-colors"
+        aria-hidden
+      />
+    </Link>
   );
 }
