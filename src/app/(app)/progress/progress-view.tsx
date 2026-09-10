@@ -4,14 +4,8 @@ import {
   ButtonLink,
   Card,
   Empty,
-  EventCard,
-  EventMark,
-  type EventTone,
   PageHeader,
   SectionTitle,
-  StatusPill,
-  TargetBar,
-  Tile,
 } from "@/design-system";
 import { useApp } from "@/context/AppContext";
 import {
@@ -19,6 +13,7 @@ import {
   SECTION_FROM_DB,
   SECTION_KEY,
   SECTION_LABEL,
+  SECTION_SHORT,
 } from "@/data/navigation";
 import type { Progress } from "@/features/attempts/progress.server";
 import { ACC_LINE, PACE_TARGET } from "@/features/attempts/verdict";
@@ -35,17 +30,22 @@ function sectionLabel(section: string) {
   return SECTION_LABEL[SECTION_FROM_DB[section]] ?? section;
 }
 
-// A section's own colour, so five cards in a row are five sections rather than one blue wall.
-const SECTION_EVENT_TONE: Record<string, EventTone> = {
-  quant: "quant",
-  reasoning: "reasoning",
-  english: "english",
-  ga: "ga",
-  computer: "computer",
-};
+function sectionInk(section: string) {
+  const key = SECTION_KEY[SECTION_FROM_DB[section]];
+  return key ? `var(--color-${key})` : "var(--color-ink-4)";
+}
 
-function sectionTone(section: string): EventTone {
-  return SECTION_EVENT_TONE[SECTION_KEY[SECTION_FROM_DB[section]]] ?? "info";
+/** Index of the most recent empty day, or -1 when every day in the window was sat. */
+function findLastGap(week: readonly { count: number }[]): number {
+  for (let i = week.length - 1; i >= 0; i--) {
+    if (week[i]!.count === 0) return i;
+  }
+  return -1;
+}
+
+function hoursMinutes(totalSec: number): string {
+  const m = Math.round(totalSec / 60);
+  return m < 60 ? `${m}m` : `${Math.floor(m / 60)}h ${m % 60}m`;
 }
 
 export function ProgressView({ progress }: { progress: Progress }) {
@@ -71,131 +71,240 @@ export function ProgressView({ progress }: { progress: Progress }) {
 
   const lost = wrong * NEGATIVE_MARK;
   const acc = Math.round((correct / attempted) * 100);
+  // Worst first: the section costing the most marks is what the page is for.
+  const ranked = sections
+    .map((r) => ({ ...r, acc: Math.round((r.correct / r.attempted) * 100) }))
+    .sort((a, b) => a.acc - b.acc);
+  const worst = ranked.find((r) => r.acc < ACC_LINE) ?? null;
+  // Only derivable when a pace exists; untimed answers would make this read as zero minutes.
+  const atDesk = avgSec === null ? null : hoursMinutes(avgSec * attempted);
   const weekTotal = week.reduce((n, d) => n + d.count, 0);
   const weekPeak = Math.max(1, ...week.map((d) => d.count));
+  const daysSat = week.filter((d) => d.count > 0).length;
+  // Counted backwards from today, so a gap yesterday ends the run even if the days before it were unbroken.
+  const streak = week.length - 1 - findLastGap(week);
 
   return (
     <>
       <PageHeader title="Progress" sub={sub} />
 
-      <div className="mb-10 grid gap-4 sm:grid-cols-3">
-        <Tile
-          value={`${acc}%`}
-          label={`Accuracy · ${correct} of ${attempted}`}
-          tone="info"
-        />
-        <Tile
-          value={`−${lost.toFixed(2)}`}
-          label={`Marks lost · ${wrong} wrong × ${NEGATIVE_MARK}`}
-          tone="bad"
-        />
-        <Tile
-          value={avgSec === null ? "—" : `${avgSec}s`}
-          label="Average pace · target 45s"
-          tone={avgSec !== null && avgSec <= 45 ? "ok" : "neutral"}
-        />
+      {/* Bare, not a card: a page where every block is a tinted box reads as heavy as a page where every block is one colour. */}
+      <div className="border-line mb-8 border-b pb-8">
+        <SectionTitle
+          aside={atDesk ? `about ${atDesk} at the desk` : undefined}
+        >
+          {attempted} questions over 30 days
+        </SectionTitle>
+
+        <div>
+          <div
+            className="flex h-3 gap-0.5 overflow-hidden rounded-full"
+            aria-hidden
+          >
+            <span
+              className="bg-ok"
+              style={{ width: `${(correct / attempted) * 100}%` }}
+            />
+            <span
+              className="bg-bad"
+              style={{ width: `${(wrong / attempted) * 100}%` }}
+            />
+          </div>
+
+          <dl className="mt-5 grid gap-5 sm:grid-cols-3">
+            <div>
+              <dt className="text-ink-3 text-[12.5px]">Right</dt>
+              <dd className="tnum text-ok mt-1 text-[24px] leading-none tracking-[-0.03em]">
+                {correct}
+                <span className="text-ink-3 ml-1.5 text-[14px]">/ {acc}%</span>
+              </dd>
+            </div>
+            <div>
+              <dt className="text-ink-3 text-[12.5px]">
+                Given back to negative marking
+              </dt>
+              <dd className="tnum text-bad mt-1 text-[24px] leading-none tracking-[-0.03em]">
+                −{lost.toFixed(2)}
+                <span className="text-ink-3 ml-1.5 text-[14px]">
+                  {wrong} × {NEGATIVE_MARK}
+                </span>
+              </dd>
+            </div>
+            <div>
+              <dt className="text-ink-3 text-[12.5px]">
+                A question · {PACE_TARGET}s budget
+              </dt>
+              <dd
+                className={`tnum mt-1 text-[24px] leading-none tracking-[-0.03em] ${
+                  avgSec === null
+                    ? "text-ink-3"
+                    : avgSec <= PACE_TARGET
+                      ? "text-ok"
+                      : "text-bad"
+                }`}
+              >
+                {avgSec === null ? "—" : `${avgSec}s`}
+                {avgSec !== null && avgSec > PACE_TARGET ? (
+                  <span className="text-ink-3 ml-1.5 text-[14px]">
+                    {avgSec - PACE_TARGET}s over
+                  </span>
+                ) : null}
+              </dd>
+            </div>
+          </dl>
+        </div>
       </div>
 
-      <SectionTitle aside={`accuracy against the ${ACC_LINE}% line`}>
-        By section
-      </SectionTitle>
-      <div className="mb-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {sections.map((r) => {
-          const a = Math.round((r.correct / r.attempted) * 100);
-          // Untimed answers report no pace at all; a zero here would read as instant rather than unknown.
-          const fast = r.avgSec !== null && r.avgSec <= PACE_TARGET;
-          return (
-            <EventCard
-              key={r.section}
-              kind={sectionLabel(r.section)}
-              when={r.avgSec === null ? "no pace yet" : `${r.avgSec}s`}
-              tone={sectionTone(r.section)}
-              mark={
-                <EventMark disc>
-                  <i
-                    className="size-2.5 rounded-full"
-                    style={{
-                      background: `var(--color-${SECTION_KEY[SECTION_FROM_DB[r.section]] ?? "ink-4"})`,
-                    }}
-                  />
-                </EventMark>
-              }
-              footer={
-                <StatusPill
-                  tone="live"
-                  className={
-                    r.avgSec === null
-                      ? "text-ink-2"
-                      : fast
-                        ? "text-ok"
-                        : "text-bad"
-                  }
-                >
-                  {r.avgSec === null
-                    ? "Accuracy only"
-                    : fast
-                      ? `Inside the ${PACE_TARGET}s budget`
-                      : `${r.avgSec - PACE_TARGET}s over budget`}
-                </StatusPill>
-              }
-            >
-              <span className="tnum text-ink block text-[26px] leading-none tracking-[-0.03em]">
-                {a}%
-              </span>
-              <span className="text-ink-2 mt-1.5 block text-[13px]">
-                {r.correct} of {r.attempted} correct
-              </span>
-              <TargetBar
-                value={a}
-                target={ACC_LINE}
-                max={100}
-                className="mt-4"
-              />
-            </EventCard>
-          );
-        })}
-      </div>
-
-      <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
+      {/* The one card on the page: the section split is what /progress is actually for, and the tint is how it says so. */}
+      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
         <Card tone="info">
-          <SectionTitle>What the pace costs</SectionTitle>
-          <p className="text-ink-2 text-[14px] leading-relaxed">
-            A section can be accurate and still cost you the paper if it is
-            slow. The notch on each bar is the {ACC_LINE}% line; the number
-            beside the section name is what a question actually takes you
-            against a {PACE_TARGET}s budget.
+          <SectionTitle
+            aside={`${ACC_LINE}% line · ${PACE_TARGET}s a question`}
+          >
+            How far each section sits from the line
+          </SectionTitle>
+
+          {/* One shared axis, so five sections are compared against the line rather than against five separate gauges. */}
+          <div className="bg-canvas rounded-ctl px-5 py-6">
+            <div className="grid gap-1">
+              {ranked.map((r) => {
+                const over = r.acc >= ACC_LINE;
+                // Floored so a section a point or two off the line still draws a bar rather than a speck.
+                const width = Math.max(Math.abs(r.acc - ACC_LINE), 0.9);
+                const left = over ? ACC_LINE : ACC_LINE - width;
+                return (
+                  <div
+                    key={r.section}
+                    className="flex items-center gap-3 py-1.5"
+                  >
+                    <span className="flex w-24 shrink-0 items-center gap-2 sm:w-40">
+                      <i
+                        className="size-2 shrink-0 rounded-full"
+                        style={{ background: sectionInk(r.section) }}
+                        aria-hidden
+                      />
+                      {/* The short name below sm, or the label eats the chart it is labelling. */}
+                      <span className="truncate text-[13.5px] sm:hidden">
+                        {SECTION_SHORT[SECTION_FROM_DB[r.section]] ?? r.section}
+                      </span>
+                      <span className="hidden truncate text-[13.5px] sm:inline">
+                        {sectionLabel(r.section)}
+                      </span>
+                    </span>
+
+                    <span className="relative h-6 min-w-0 flex-1">
+                      <span
+                        className="bg-ink/[0.06] absolute inset-x-0 top-1/2 h-px -translate-y-1/2"
+                        aria-hidden
+                      />
+                      <span
+                        className="bg-ink/20 absolute inset-y-0 w-px"
+                        style={{ left: `${ACC_LINE}%` }}
+                        aria-hidden
+                      />
+                      <span
+                        className={`absolute top-1/2 h-2.5 -translate-y-1/2 rounded-full ${over ? "bg-ok" : "bg-bad"}`}
+                        style={{ left: `${left}%`, width: `${width}%` }}
+                        aria-hidden
+                      />
+                    </span>
+
+                    <span
+                      className={`tnum w-12 shrink-0 text-right text-[14.5px] ${over ? "text-ok" : "text-bad"}`}
+                    >
+                      {over ? "+" : "−"}
+                      {Math.abs(r.acc - ACC_LINE)}
+                    </span>
+                    {/* An untimed section reports no pace; a 0 here would read as instant rather than unknown. */}
+                    <span
+                      className={`tnum hidden w-12 shrink-0 text-right text-[13px] sm:block ${
+                        r.avgSec === null
+                          ? "text-ink-4"
+                          : r.avgSec <= PACE_TARGET
+                            ? "text-ok"
+                            : "text-bad"
+                      }`}
+                    >
+                      {r.avgSec === null ? "—" : `${r.avgSec}s`}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="text-ink-4 mt-2 flex items-center gap-3 text-[11.5px]">
+              <span className="w-24 shrink-0 sm:w-40" />
+              <span className="relative h-4 min-w-0 flex-1">
+                <span
+                  className="absolute -translate-x-1/2 whitespace-nowrap"
+                  style={{ left: `${ACC_LINE}%` }}
+                >
+                  {ACC_LINE}% line
+                </span>
+              </span>
+              <span className="w-12 shrink-0 text-right">pts</span>
+              <span className="hidden w-12 shrink-0 text-right sm:block">
+                pace
+              </span>
+            </div>
+          </div>
+
+          <p className="text-ink-2 mt-5 text-[13.5px] leading-relaxed">
+            {worst
+              ? `${sectionLabel(worst.section)} is the one costing you most — ${ACC_LINE - worst.acc} points under the line across ${worst.attempted} questions.`
+              : `Every section is at or above the ${ACC_LINE}% line.`}{" "}
+            A section can still cost you the paper if it is slow, so the pace
+            beside each one is what a question actually takes you.
           </p>
         </Card>
 
-        <Card tone="brand">
-          <SectionTitle aside={`${weekTotal} questions`}>
+        {/* Bare beside the card, so the page has one filled block and open space around it. */}
+        <div>
+          <SectionTitle
+            aside={weekTotal > 0 ? `${weekTotal} questions` : undefined}
+          >
             This week
           </SectionTitle>
 
-          <div className="flex h-40 gap-2">
+          <p className="tnum text-[30px] leading-none tracking-[-0.03em]">
+            {daysSat}
+            <span className="text-ink-3 text-[17px]"> of 7 days</span>
+          </p>
+
+          {/* A rhythm, not a magnitude: a day sat is a filled cell, a day missed is a hole you can count. */}
+          <div className="mt-5 grid grid-cols-7 gap-1.5">
             {week.map((d) => (
-              <div key={d.date} className="flex flex-1 flex-col gap-2">
-                <div className="flex flex-1 items-end">
-                  {/* A day you sat and a day you skipped are different facts; one black fill said neither. */}
-                  <div
-                    className={`w-full rounded-t-sm transition-all ${d.count ? "bg-brand" : "bg-ink/10"}`}
-                    style={{
-                      height: `${Math.max(3, (d.count / weekPeak) * 100)}%`,
-                    }}
-                    title={`${d.date} · ${d.count} questions`}
-                  />
+              <div key={d.date} className="grid gap-1.5">
+                <div
+                  className={`grid h-10 place-items-center rounded-[10px] text-[12px] font-semibold ${
+                    d.count
+                      ? "bg-brand text-white"
+                      : "border-ink/15 text-ink-4 border-2 border-dashed"
+                  }`}
+                  style={
+                    d.count
+                      ? { opacity: 0.55 + 0.45 * (d.count / weekPeak) }
+                      : undefined
+                  }
+                  title={`${d.date} · ${d.count} questions`}
+                >
+                  {d.count || "—"}
                 </div>
-                <span className="text-ink-4 text-center text-[12px]">
+                <span className="text-ink-4 text-center text-[11.5px]">
                   {dayInitial(d.date)}
                 </span>
               </div>
             ))}
           </div>
 
-          <p className="border-line text-ink-3 mt-6 border-t pt-5 text-[13px] leading-relaxed">
-            A broken streak costs more in recall than a heavy day gains.
+          <p className="text-ink-2 mt-5 text-[13px] leading-relaxed">
+            {weekTotal === 0
+              ? "Nothing in the last seven days. Everything above is the 30-day window, so it will not move until you sit something."
+              : streak > 0
+                ? `${streak} day${streak === 1 ? "" : "s"} running. A broken streak costs more in recall than a heavy day gains.`
+                : "The run is broken. A broken streak costs more in recall than a heavy day gains."}
           </p>
-        </Card>
+        </div>
       </div>
     </>
   );
