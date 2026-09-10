@@ -55,6 +55,8 @@ import {
   PlanCard,
   Rationale,
   RoundAction,
+  Spine,
+  SpineItem,
   StatusPill,
   Figure,
   Tile,
@@ -218,6 +220,47 @@ export function DesignView() {
           Floor puzzles, seating arrangement and syllogism — the section that
           eats the clock.
         </ActiveCard>
+      </Section>
+
+      <Section
+        title="Spine"
+        note="Anything in sequence: a dashed rule with a dot beside each step, the first step tilted because it is the one in hand"
+      >
+        <Spine className="max-w-xl">
+          <SpineItem>
+            <ActiveCard
+              tilt
+              kicker="Up next · your lowest section"
+              title="Drill General Awareness"
+              resumeLabel="Drill General Awareness"
+              className="mb-0"
+              status={<StatusPill tone="live">15 min</StatusPill>}
+            >
+              20 questions from the same bank, timed like the section.
+            </ActiveCard>
+          </SpineItem>
+          <SpineItem>
+            <PlanCard
+              size="sm"
+              className="mb-0"
+              title="IBPS PO 2025 · Prelims"
+              status={<StatusPill tone="ok">Cleared</StatusPill>}
+              actions={<Button size="sm">Retake</Button>}
+            >
+              Last sitting 42.5 of 75 — cleared the 41 target by a hair.
+            </PlanCard>
+          </SpineItem>
+          <SpineItem>
+            <PlanCard
+              size="sm"
+              className="mb-0"
+              title="Review 88 wrong answers"
+              status={<StatusPill tone="soon">Upcoming</StatusPill>}
+            >
+              They gave back 22.00 marks this month.
+            </PlanCard>
+          </SpineItem>
+        </Spine>
       </Section>
 
       <Section title="Status pill" note="State, never an action">

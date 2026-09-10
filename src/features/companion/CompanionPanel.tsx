@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import {
   Button,
+  ButtonLink,
   Empty,
   IconButton,
   Rationale,
@@ -88,7 +89,20 @@ export function CompanionPanel() {
         data-lenis-prevent
         className="-mr-1 flex-1 space-y-7 overflow-y-auto pr-1"
       >
-        {messages.length === 0 && !busy ? (
+        {/* Opened from the dock with nothing selected: Onely answers about a passage, so say where the passages are. */}
+        {!selection ? (
+          <Empty
+            mark="?"
+            tone="brand"
+            title="Pick a passage first"
+            sub="Select a few words in any topic of the knowledge base and Onely explains what it means, how the exam tests it, and the shortcut for it."
+            action={
+              <ButtonLink href="/study" size="sm">
+                Open the knowledge base
+              </ButtonLink>
+            }
+          />
+        ) : messages.length === 0 && !busy ? (
           <Empty
             mark="?"
             tone="brand"
@@ -128,36 +142,38 @@ export function CompanionPanel() {
         ) : null}
       </div>
 
-      <form
-        className="mt-4 shrink-0"
-        onSubmit={(e) => {
-          e.preventDefault();
-          send();
-        }}
-      >
-        <Textarea
-          ref={inputRef}
-          value={draft}
-          rows={2}
-          placeholder="Ask about the selection…"
-          aria-label="Ask Onely"
-          onChange={(e) => setDraft(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              send();
-            }
+      {selection ? (
+        <form
+          className="mt-4 shrink-0"
+          onSubmit={(e) => {
+            e.preventDefault();
+            send();
           }}
-        />
-        <Button
-          type="submit"
-          size="sm"
-          disabled={busy || !draft.trim()}
-          className="mt-2 w-full"
         >
-          Send
-        </Button>
-      </form>
+          <Textarea
+            ref={inputRef}
+            value={draft}
+            rows={2}
+            placeholder="Ask about the selection…"
+            aria-label="Ask Onely"
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                send();
+              }
+            }}
+          />
+          <Button
+            type="submit"
+            size="sm"
+            disabled={busy || !draft.trim()}
+            className="mt-2 w-full"
+          >
+            Send
+          </Button>
+        </form>
+      ) : null}
     </aside>
   );
 }

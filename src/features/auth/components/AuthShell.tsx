@@ -1,53 +1,23 @@
-import { BookOpen } from "lucide-react";
+import {
+  Bell,
+  Clock,
+  FileText,
+  GalleryVerticalEnd,
+  Newspaper,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import {
+  ActiveCard,
   Brand,
+  Button,
   CornerBadge,
-  IndexCard,
+  EventCard,
+  EventMark,
+  EventTime,
+  PlanCard,
   StatusPill,
-  tintFor,
+  Tile,
 } from "@/design-system";
-
-// The same slugs /study renders, so tintFor lands every card on the colour the user will meet after signing in.
-const SHELF = [
-  {
-    slug: "quantitative-aptitude",
-    name: "Quantitative Aptitude",
-    blurb:
-      "Arithmetic, interest, work and motion — the calculation core of every paper.",
-    topic: "Percentages",
-  },
-  {
-    slug: "reasoning-ability",
-    name: "Reasoning Ability",
-    blurb: "Seating arrangements, syllogisms, series and analytical puzzles.",
-    topic: "Seating arrangement",
-  },
-  {
-    slug: "english",
-    name: "English",
-    blurb: "Error detection, sentence improvement, reading comprehension.",
-    topic: "Error spotting",
-  },
-  {
-    slug: "banking-awareness",
-    name: "Banking Awareness",
-    blurb: "The RBI, deposits and instruments, and the payment rails.",
-    topic: "Repo and reverse repo",
-  },
-  {
-    slug: "computer-awareness",
-    name: "Computer Awareness",
-    blurb: "Memory, operating systems, databases and networks.",
-    topic: "Networking basics",
-  },
-  {
-    slug: "exam-guidance",
-    name: "Exam Guidance",
-    blurb: "Negative marking, sectional time, and how to analyse a mock.",
-    topic: "Reading a notification",
-  },
-];
 
 type Props = {
   title: string;
@@ -73,33 +43,102 @@ export function AuthShell({ title, subtitle, children, footer }: Props) {
         <div className="text-ink-2 text-center text-[14px]">{footer}</div>
       </div>
 
-      {/* A window onto the app — the frame corner, the stage, and the cards /study renders — cropped at the floor. */}
+      {/* A window onto Today with a sample day in it — the frame corner, the stage, the plan — cropped at the floor. */}
       <aside
         aria-hidden
         className="bg-frame hidden overflow-hidden pt-6 pl-6 select-none lg:block"
       >
-        <div className="bg-stage pointer-events-none h-full overflow-hidden rounded-tl-[26px] px-9 pt-11">
-          <p className="max-w-[30ch] text-[22px] leading-[1.25] font-bold tracking-[-0.03em]">
+        <div className="bg-stage pointer-events-none h-full overflow-hidden rounded-tl-[26px] px-9 pt-10">
+          <p className="max-w-[30ch] text-[22px] leading-tight font-bold tracking-[-0.03em]">
             The total is not the exam. Every section has its own cutoff, so
             every sitting here is scored one section at a time.
           </p>
 
-          <div className="mt-9 grid grid-cols-2 gap-5">
-            {SHELF.map((s) => (
-              <IndexCard
-                key={s.slug}
-                className={tintFor(s.slug)}
-                title={s.name}
-                badge={
+          <div className="mt-6 grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] items-start gap-5">
+            <div>
+              <p className="text-[22px] leading-[1.14] font-bold tracking-[-0.03em]">
+                Good evening, Aarav
+              </p>
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                <Tile value="71%" label="accuracy" tone="info" />
+                <Tile value="−22.00" label="given back" tone="bad" />
+                <Tile value="49s" label="of 45s" outline />
+              </div>
+              <ActiveCard
+                tilt
+                kicker="Up next · your lowest section"
+                title="Drill General Awareness"
+                resumeLabel="Drill General Awareness"
+                className="mt-5 mb-4 sm:pr-28"
+                status={
+                  <>
+                    <StatusPill tone="live">
+                      <Clock size={14} strokeWidth={2} />
+                      15 min
+                    </StatusPill>
+                    <StatusPill tone="live" className="text-bad">
+                      50%
+                    </StatusPill>
+                  </>
+                }
+              />
+              <PlanCard
+                size="sm"
+                className="mb-0"
+                title="IBPS PO 2025 · Prelims"
+                corner={
                   <CornerBadge tone="quiet">
-                    <BookOpen size={20} />
+                    <FileText size={18} strokeWidth={1.75} />
                   </CornerBadge>
                 }
-                footer={<StatusPill tone="soon">{s.topic}</StatusPill>}
+                status={<StatusPill tone="ok">Cleared</StatusPill>}
+                actions={<Button size="sm">Retake</Button>}
               >
-                {s.blurb}
-              </IndexCard>
-            ))}
+                Last sitting 42.5 of 75 — cleared the 41 target by a hair.
+              </PlanCard>
+            </div>
+
+            <div className="mt-11.5 grid gap-3">
+              <EventCard
+                kind="Current affairs"
+                when="Today"
+                tone="info"
+                mark={
+                  <EventMark disc>
+                    <Newspaper strokeWidth={2} />
+                  </EventMark>
+                }
+                footer={<EventTime>About 8 min</EventTime>}
+              >
+                Five questions from today&rsquo;s RBI, PIB and SEBI releases.
+              </EventCard>
+              <EventCard
+                kind="Flashcards"
+                when="12 cards"
+                tone="reasoning"
+                mark={
+                  <EventMark disc>
+                    <GalleryVerticalEnd strokeWidth={2} />
+                  </EventMark>
+                }
+                footer={<EventTime>About 6 min</EventTime>}
+              >
+                Last week&rsquo;s current-affairs questions, dated.
+              </EventCard>
+              <EventCard
+                kind="Notifications"
+                when="2 unread"
+                tone="warn"
+                mark={
+                  <EventMark disc>
+                    <Bell strokeWidth={2} />
+                  </EventMark>
+                }
+                footer={<EventTime>Open the inbox</EventTime>}
+              >
+                A descriptive answer came back marked.
+              </EventCard>
+            </div>
           </div>
         </div>
       </aside>

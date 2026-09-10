@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { db } from "@/db";
-import { getProgress } from "@/features/attempts/progress.server";
+import {
+  getProgress,
+  listRecentAttempts,
+} from "@/features/attempts/progress.server";
 import { currentUserId } from "@/lib/auth.server";
 import { ProgressView } from "./progress-view";
 
@@ -11,5 +14,10 @@ export default async function Page() {
   const userId = await currentUserId();
   if (!userId) redirect("/login?from=/progress");
 
-  return <ProgressView progress={await getProgress(db, userId)} />;
+  const [progress, recent] = await Promise.all([
+    getProgress(db, userId),
+    listRecentAttempts(db, userId, 6),
+  ]);
+
+  return <ProgressView progress={progress} recent={recent} />;
 }

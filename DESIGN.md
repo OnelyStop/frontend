@@ -19,11 +19,15 @@ src/design-system/
   lib/motion.ts            shared framer-motion constants — springs, easings, variants
   components/
     button.tsx             Button, ButtonLink, IconButton
-    surface.tsx            Card, DarkPanel, Lattice, LatticeCell, Popover, MenuRow
+    surface.tsx            Card, Popover, MenuRow
+    canvas.tsx             Canvas (the two- or three-column page), CanvasTitle
+    plan.tsx               ActiveCard, PlanCard, IndexCard, Spine, StatusPill,
+                           CornerBadge, RoundAction, Dock, NoteCard
+    event.tsx              EventCard, EventMark, EventTime, DropSlot
     form.tsx               Field, Input, Textarea, Checkbox, Segmented
     data.tsx               Tile, Figure, TargetBar, Avatar, Kbd, Table
-    event.tsx              EventCard, EventMark, EventTime, DropSlot
     page.tsx               PageHeader, SectionTitle, Empty, Divider
+    rationale.tsx          Rationale — anything Onely wrote
     option.tsx             OptionRow — the MCQ answer control
 ```
 
@@ -55,18 +59,22 @@ itself with padding; the layout around it decides how wide that column is. A
 `w-*` or `max-w-*` on a card is a bug — it stops the card being usable on the
 next screen.
 
-**Ruled ground.** The signature layout is `Lattice` — cells divided by
-hairlines with a marker on every intersection. Reach for it whenever you have a
-set of peers: stats, decks, promises, papers. Use `Card` when the content is
-one thing, not a set.
+**One card in progress per page.** `ActiveCard` is the pink one, tilted a
+degree and a half so it reads as the card picked up off the pile; everything
+else on the page is white paper (`PlanCard`, `Card`). A page with two pink
+cards has no plan. The tint on an `IndexCard` is a different thing — it is
+the subject's identity, which is why `/study` is the one page that is all
+tint.
 
-**A tint is for identity or verdict, not for a container.** A subject card on
-`/study` is tinted because the tint _is_ the subject; a paper's disc on
-`/mocks` is green because it was cleared. A figure sits bare on the stage —
-`Figure` is a coloured rule beside a number, no box. A chart sits on white
-paper inside its tint. A set of peers that have no colour of their own —
-papers, next actions — is a ruled list on hairlines. Putting three numbers in
-a flat tinted block is how a page starts looking like one colour.
+**A sequence is a `Spine`.** Anything that happens in order — the day's plan,
+a run of sittings — hangs off a dashed rule with a dot beside each step. A
+rail of `EventCard`s on the right is what is scheduled; the `Dock` on the
+stage floor carries the tools, and on a phone it is the nav.
+
+**Figures sit bare.** `Tile`s for the three numbers a page turns on, tinted
+by meaning with the not-yet state dashed; "By section" is a stack of tinted
+bands straight on the stage, never inside a card. Putting numbers in a flat
+tinted block is how a page starts looking like one colour.
 
 **Colour is functional.** Green means earned, red means it costs you, amber
 means partial, indigo is the accent for selection and focus. Nothing is

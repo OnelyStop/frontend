@@ -120,10 +120,10 @@ export function RunningHead({
 
   return (
     <header className="text-white">
-      <div className="flex h-20 items-center gap-5 px-6 sm:px-8">
+      <div className="flex h-16 items-center gap-3 px-5 sm:gap-5 sm:px-8 lg:h-20">
         <Link
           href="/today"
-          className="shrink-0 text-[22px] font-bold tracking-[-0.03em]"
+          className="shrink-0 text-[20px] font-bold tracking-[-0.03em] sm:text-[22px]"
         >
           onelystop
         </Link>
@@ -133,6 +133,7 @@ export function RunningHead({
             type="button"
             aria-haspopup="menu"
             aria-expanded={switching}
+            aria-label={`Exam: ${board}`}
             onClick={() => setSwitching((v) => !v)}
             className="press rounded-pill text-on-frame-2 hover:text-on-frame flex h-9 items-center gap-2 pr-2.5 pl-2 text-[13px]"
           >
@@ -141,7 +142,8 @@ export function RunningHead({
               style={{ background: SUBJECT_INK[subject] }}
               aria-hidden
             />
-            <span>{board}</span>
+            {/* The dot alone below sm: the board name is what pushed the header off a 390px screen. */}
+            <span className="hidden sm:inline">{board}</span>
             <ChevronDown size={14} className="text-on-frame-3" />
           </button>
 
@@ -178,14 +180,16 @@ export function RunningHead({
 
         <button
           type="button"
+          aria-label="Search"
           onClick={() => setRetrievalOpen(true)}
-          className="press rounded-pill border-on-frame-line text-on-frame-2 hover:border-on-frame-3 flex h-10 items-center gap-3 border pr-1.5 pl-3.5 text-[13.5px]"
+          className="press rounded-pill border-on-frame-line text-on-frame-2 hover:border-on-frame-3 flex h-10 shrink-0 items-center gap-3 border px-3 text-[13.5px] md:pr-1.5 md:pl-3.5"
         >
           <span className="flex items-center gap-2">
             <Search size={14} />
-            Search
+            <span className="hidden md:inline">Search</span>
           </span>
-          <kbd className="rounded-pill border-on-frame-line border px-2 py-0.5 text-[11px]">
+          {/* The shortcut hint only where the key exists: touch has no ⌘. */}
+          <kbd className="rounded-pill border-on-frame-line hidden border px-2 py-0.5 text-[11px] md:inline">
             {mod}K
           </kbd>
         </button>
