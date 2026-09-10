@@ -23,6 +23,8 @@ type AuthContextValue = {
     password: string,
     fullName: string,
     avatar?: string | null,
+    /** Onboarding's answers; the signup trigger validates their shape before writing the profile. */
+    prefs?: { examBoard?: string | null; targetYear?: number | null },
   ) => Promise<AuthResult>;
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signInWithGoogle: () => Promise<AuthResult>;
@@ -74,15 +76,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loading,
       configured: isSupabaseConfigured,
 
-      signUp: async (email, password, fullName, avatar) => {
+      signUp: async (email, password, fullName, avatar, prefs) => {
         if (!supabase) return NOT_CONFIGURED;
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            data: avatar
-              ? { full_name: fullName, avatar }
-              : { full_name: fullName },
+            data: {
+              full_name: fullName,
+              ...(avatar ? { avatar } : {}),
+              ...(prefs?.examBoard ? { exam_board: prefs.examBoard } : {}),
+              ...(prefs?.targetYear ? { target_year: prefs.targetYear } : {}),
+            },
             emailRedirectTo: AUTH_CONFIRM_URL,
           },
         });

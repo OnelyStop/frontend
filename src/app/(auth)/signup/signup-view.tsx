@@ -1,27 +1,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, MailCheck } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { MailCheck } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
-import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
 import { useEnabledProviders } from "@/features/auth/hooks/useEnabledProviders";
 import { AuthShell } from "@/features/auth/components/AuthShell";
-import {
-  AuthDivider,
-  AuthError,
-  GoogleButton,
-  SetupNotice,
-} from "@/features/auth/components/AuthBits";
+import { GoogleButton, SetupNotice } from "@/features/auth/components/AuthBits";
 import { PasswordChecklist } from "@/features/auth/components/PasswordChecklist";
 import {
   MIN_PASSWORD_LENGTH,
   passwordMeetsRules,
 } from "@/features/auth/password-rules";
+import {
+  ChoiceCard,
+  StepShell,
+} from "@/features/onboarding/components/StepShell";
+import {
+  EMPTY_ANSWERS,
+  stashAnswers,
+  targetYears,
+  type Answers,
+} from "@/features/onboarding/answers";
 import { AvatarPicker } from "@/features/profile/components/AvatarPicker";
-import type { AvatarKey } from "@/features/profile/avatars";
-import { Button, Field, Input } from "@/design-system";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Input, SECTION_TINT } from "@/design-system";
+import { EXAMS, type ExamBoard } from "@/data/navigation";
 
 const initialsOf = (name: string) =>
   name
@@ -32,39 +36,67 @@ const initialsOf = (name: string) =>
     .map((part) => part[0]!.toUpperCase())
     .join("") || "AM";
 
+// What each board is, in the words a candidate uses — not the board's own prose.
+const EXAM_HINT: Record<ExamBoard, string> = {
+  "IBPS PO": "Probationary Officer, public sector banks",
+  "IBPS Clerk": "Clerical cadre, public sector banks",
+  "SBI PO": "Probationary Officer, State Bank of India",
+  "SBI Clerk": "Junior Associate, State Bank of India",
+  "RBI Grade B": "Officer Grade B, Reserve Bank of India",
+};
+
+const STEPS = ["exam", "year", "name", "avatar", "email", "password"] as const;
+type Step = (typeof STEPS)[number];
+
 export function SignupView() {
   const { signUp, signInWithGoogle, user, configured } = useAuth();
   const { google: googleEnabled } = useEnabledProviders();
   const router = useRouter();
-  const [name, setName] = useState("");
+  const [at, setAt] = useState<Step>("exam");
+  const [answers, setAnswers] = useState<Answers>(EMPTY_ANSWERS);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [rulesOpen, setRulesOpen] = useState(false);
-  const [avatar, setAvatar] = useState<AvatarKey | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
-
-  const rulesMet = passwordMeetsRules(password);
-  const mismatch = confirm.length > 0 && password !== confirm;
-  const canSubmit = rulesMet && confirm.length > 0 && !mismatch;
 
   useEffect(() => {
     if (user) router.replace("/today");
   }, [user, router]);
 
-  const { error, setError, busy, handleSubmit } = useAuthForm(
-    () => signUp(email, password, name, avatar),
-    (result) => {
-      // Supabase withholds the session when email confirmation is required
-      if (result.needsConfirmation) setSent(true);
-      else router.replace("/today");
-    },
-  );
+  const index = STEPS.indexOf(at);
+  const set = <K extends keyof Answers>(key: K, value: Answers[K]) =>
+    setAnswers((prev) => ({ ...prev, [key]: value }));
+
+  const go = (delta: 1 | -1) => {
+    setError(null);
+    const next = STEPS[index + delta];
+    if (next) setAt(next);
+  };
 
   const handleGoogle = async () => {
     setError(null);
+    // The redirect leaves the page, so the answers ride in sessionStorage and the callback applies them.
+    stashAnswers(answers);
     const { error: err } = await signInWithGoogle();
     if (err) setError(err);
+  };
+
+  const create = async () => {
+    setBusy(true);
+    setError(null);
+    const res = await signUp(email, password, answers.name, answers.avatar, {
+      examBoard: answers.examBoard,
+      targetYear: answers.targetYear,
+    });
+    setBusy(false);
+    if (res.error) {
+      setError(res.error);
+      return;
+    }
+    // Supabase withholds the session when email confirmation is required.
+    if (res.needsConfirmation) setSent(true);
+    else router.replace("/today");
   };
 
   if (sent) {
@@ -96,116 +128,185 @@ export function SignupView() {
     );
   }
 
+  const shell = {
+    step: index + 1,
+    total: STEPS.length,
+    onBack: index > 0 ? () => go(-1) : undefined,
+    error,
+  };
+  const signIn = (
+    <>
+      Already have an account?{" "}
+      <Link href="/login" className="text-ink font-medium">
+        Sign in
+      </Link>
+    </>
+  );
+
+  if (at === "exam") {
+    return (
+      <StepShell
+        {...shell}
+        question="Which exam are you preparing for?"
+        hint="Every paper, drill and cutoff on the app is set to this. You can change it later in Settings."
+        canAdvance={answers.examBoard !== null}
+        onNext={() => go(1)}
+        footer={signIn}
+      >
+        <div
+          role="radiogroup"
+          aria-label="Exam"
+          className="grid gap-3 sm:grid-cols-2"
+        >
+          {EXAMS.map((exam, i) => (
+            <ChoiceCard
+              key={exam}
+              label={exam}
+              hint={EXAM_HINT[exam]}
+              tint={SECTION_TINT[i % SECTION_TINT.length]!}
+              selected={answers.examBoard === exam}
+              onSelect={() => set("examBoard", exam)}
+            />
+          ))}
+        </div>
+      </StepShell>
+    );
+  }
+
+  if (at === "year") {
+    const years = targetYears();
+    return (
+      <StepShell
+        {...shell}
+        question={`When are you sitting ${answers.examBoard}?`}
+        hint="It sets how much runway your plan assumes. Nothing is locked to it."
+        canAdvance
+        onNext={() => go(1)}
+        nextLabel={answers.targetYear === null ? "Not sure yet" : "Continue"}
+      >
+        <div
+          role="radiogroup"
+          aria-label="Target year"
+          className="flex flex-wrap justify-center gap-3"
+        >
+          {years.map((year) => (
+            <button
+              key={year}
+              type="button"
+              role="radio"
+              aria-checked={answers.targetYear === year}
+              onClick={() => set("targetYear", year)}
+              className={`press tnum rounded-pill px-7 py-3.5 text-[16px] font-semibold transition-shadow duration-200 ${
+                answers.targetYear === year
+                  ? "bg-frame shadow-lift text-white"
+                  : "bg-canvas shadow-card"
+              }`}
+            >
+              {year}
+            </button>
+          ))}
+        </div>
+      </StepShell>
+    );
+  }
+
+  if (at === "name") {
+    return (
+      <StepShell
+        {...shell}
+        question="What should we call you?"
+        hint="It goes on your account and nowhere a stranger can see it."
+        canAdvance={answers.name.trim().length > 0}
+        onNext={() => go(1)}
+      >
+        <Input
+          autoFocus
+          value={answers.name}
+          onChange={(e) => set("name", e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && answers.name.trim()) go(1);
+          }}
+          type="text"
+          autoComplete="name"
+          maxLength={80}
+          placeholder="Aarav Mehta"
+          aria-label="Full name"
+          className="mx-auto h-14 max-w-95 text-center text-[18px]"
+        />
+      </StepShell>
+    );
+  }
+
+  if (at === "avatar") {
+    return (
+      <StepShell
+        {...shell}
+        question="Pick a face for your account."
+        hint="Optional — without one you keep your initials."
+        canAdvance
+        onNext={() => go(1)}
+        nextLabel={answers.avatar === null ? "Keep my initials" : "Continue"}
+      >
+        <div className="flex justify-center">
+          <AvatarPicker
+            value={answers.avatar}
+            onChange={(next) => set("avatar", next)}
+            initials={initialsOf(answers.name)}
+          />
+        </div>
+      </StepShell>
+    );
+  }
+
+  if (at === "email") {
+    return (
+      <StepShell
+        {...shell}
+        question="What's your email?"
+        hint="We send the confirmation link here, and nothing else unless you ask."
+        canAdvance={email.includes("@") && email.trim().length > 3}
+        onNext={() => go(1)}
+      >
+        <Input
+          autoFocus
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && email.includes("@")) go(1);
+          }}
+          type="email"
+          autoComplete="email"
+          placeholder="you@example.com"
+          aria-label="Email"
+          className="mx-auto h-14 max-w-95 text-center text-[18px]"
+        />
+
+        {!configured ? <SetupNotice /> : null}
+
+        {googleEnabled ? (
+          <div className="mx-auto mt-7 max-w-95">
+            <div className="text-ink-3 mb-4 flex items-center gap-3 text-[13px] before:h-px before:flex-1 before:bg-current/20 before:content-[''] after:h-px after:flex-1 after:bg-current/20 after:content-['']">
+              or
+            </div>
+            <GoogleButton onClick={handleGoogle} disabled={busy} />
+          </div>
+        ) : null}
+      </StepShell>
+    );
+  }
+
+  const ready = passwordMeetsRules(password);
   return (
-    <AuthShell
-      title="Start practising free"
-      subtitle="No card needed. Two full mocks a month, daily current affairs and the whole knowledge base."
+    <StepShell
+      {...shell}
+      question="Set a password."
+      hint={`At least ${MIN_PASSWORD_LENGTH} characters, and something you have not used elsewhere.`}
+      canAdvance={ready && configured}
+      busy={busy}
+      onNext={() => void create()}
+      nextLabel="Create my account"
       footer={
         <>
-          Already have an account?{" "}
-          <Link href="/login" className="text-ink font-medium">
-            Sign in
-          </Link>
-        </>
-      }
-    >
-      <form className="mt-6" onSubmit={handleSubmit}>
-        {!configured && <SetupNotice />}
-
-        {googleEnabled && (
-          <>
-            <GoogleButton onClick={handleGoogle} disabled={busy} />
-            <AuthDivider />
-          </>
-        )}
-
-        <div className="grid gap-3.5">
-          <Field label="Full name" htmlFor="signup-name">
-            <Input
-              id="signup-name"
-              type="text"
-              autoComplete="name"
-              placeholder="Aarav Mehta"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </Field>
-          <div>
-            <p className="text-ink-2 text-[13px]">Avatar</p>
-            <p className="text-ink-3 mt-0.5 mb-2.5 text-[12.5px]">
-              Optional — without one you keep your initials.
-            </p>
-            <AvatarPicker
-              value={avatar}
-              onChange={setAvatar}
-              initials={initialsOf(name)}
-            />
-          </div>
-          <Field label="Email" htmlFor="signup-email">
-            <Input
-              id="signup-email"
-              type="email"
-              autoComplete="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </Field>
-          <div>
-            <Field label="Password" htmlFor="signup-password">
-              <Input
-                id="signup-password"
-                type="password"
-                autoComplete="new-password"
-                placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onFocus={() => setRulesOpen(true)}
-                minLength={MIN_PASSWORD_LENGTH}
-                aria-describedby="password-rules"
-                required
-              />
-            </Field>
-            <div id="password-rules">
-              <PasswordChecklist
-                value={password}
-                open={rulesOpen || password.length > 0}
-              />
-            </div>
-          </div>
-          <Field
-            label="Confirm password"
-            htmlFor="signup-confirm"
-            error={mismatch ? "Both passwords must match." : undefined}
-          >
-            <Input
-              id="signup-confirm"
-              type="password"
-              autoComplete="new-password"
-              placeholder="Type it again"
-              value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
-              aria-invalid={mismatch || undefined}
-              required
-            />
-          </Field>
-        </div>
-
-        {error && <AuthError message={error} />}
-
-        <Button
-          type="submit"
-          size="lg"
-          block
-          className="mt-5"
-          disabled={busy || !configured || !canSubmit}
-        >
-          {busy ? <Loader2 size={16} className="animate-spin" /> : null}
-          {busy ? "Creating account…" : "Create free account"}
-        </Button>
-        <p className="text-ink-3 mt-4 text-center text-[12.5px]">
           By creating an account you agree to the{" "}
           <Link href="/terms" className="text-ink-2 underline">
             terms
@@ -215,8 +316,29 @@ export function SignupView() {
             privacy policy
           </Link>
           .
-        </p>
-      </form>
-    </AuthShell>
+        </>
+      }
+    >
+      <div className="mx-auto max-w-95 text-left">
+        <Input
+          autoFocus
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && ready) void create();
+          }}
+          type="password"
+          autoComplete="new-password"
+          minLength={MIN_PASSWORD_LENGTH}
+          aria-label="Password"
+          aria-describedby="password-rules"
+          className="h-14 text-center text-[18px]"
+        />
+        <div id="password-rules" className="mt-1">
+          <PasswordChecklist value={password} open />
+        </div>
+        {!configured ? <SetupNotice /> : null}
+      </div>
+    </StepShell>
   );
 }
