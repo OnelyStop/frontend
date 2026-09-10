@@ -60,7 +60,7 @@ export function CurrentAffairsView({
                 type="button"
                 aria-label="Previous day"
                 onClick={() => go(shiftDay(day, -1))}
-                className="rounded-pill border-line-2 text-ink-3 hover:border-ink/25 hover:text-ink grid size-9 place-items-center border transition-colors"
+                className="rounded-pill border-line-2 text-ink-3 hover:border-ink/25 hover:text-ink grid size-10 place-items-center border transition-colors"
               >
                 <ChevronLeft size={16} />
               </button>
@@ -76,7 +76,7 @@ export function CurrentAffairsView({
                 aria-label="Next day"
                 disabled={atMax}
                 onClick={() => go(shiftDay(day, 1))}
-                className="rounded-pill border-line-2 text-ink-3 hover:border-ink/25 hover:text-ink grid size-9 place-items-center border transition-colors disabled:opacity-40"
+                className="rounded-pill border-line-2 text-ink-3 hover:border-ink/25 hover:text-ink grid size-10 place-items-center border transition-colors disabled:opacity-40"
               >
                 <ChevronRight size={16} />
               </button>

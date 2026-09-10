@@ -348,7 +348,7 @@ function Pick({
   return (
     <button
       onClick={onClick}
-      className={`press tnum rounded-ctl h-9 border px-4 text-[13px] font-medium transition-colors duration-150 ease-[var(--ease-swift)] ${
+      className={`press tnum rounded-ctl h-10 border px-4 text-[13px] font-medium transition-colors duration-150 ease-[var(--ease-swift)] ${
         on
           ? "border-ink bg-ink text-white"
           : "border-line bg-canvas text-ink-2 hover:border-line-2"

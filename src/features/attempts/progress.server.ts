@@ -1,8 +1,8 @@
 import "server-only";
-import { and, count, eq, gte, isNotNull, max, sql } from "drizzle-orm";
-import { NEGATIVE_MARK } from "@/data/navigation";
+import { and, count, desc, eq, gte, isNotNull, max, sql } from "drizzle-orm";
+import { CUTOFF_LADDER, NEGATIVE_MARK } from "@/data/navigation";
 import type { Db } from "@/db";
-import { attemptAnswers, attempts, bankQuestions } from "@/db/schema";
+import { attemptAnswers, attempts, bankQuestions, papers } from "@/db/schema";
 import { dayBack, istDayKey } from "@/lib/ist";
 import { isCorrect, round2 } from "./scoring";
 
@@ -54,6 +54,22 @@ export type Progress = {
   /** The last seven IST days, oldest first — today is the last entry. */
   week: DayCount[];
 };
+
+export type RecentAttempt = {
+  id: number;
+  mode: "paper" | "bank" | "mix";
+  /** "IBPS PO 2025 · Prelims" for a paper; null for a drill. */
+  paper: string | null;
+  questions: number;
+  score: number | null;
+  /** 55% of the questions served — the same benchmark /mocks scores against; null for a drill. */
+  target: number | null;
+  /** ISO. */
+  submittedAt: string;
+};
+
+const TARGET_PCT =
+  CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 
 const WEEK_DAYS = 7;
 
@@ -243,6 +259,62 @@ export async function getTopicMap(
     .sort(
       (x, y) => y.attempted - x.attempted || x.topic.localeCompare(y.topic),
     );
+}
+
+/** The last few submitted sittings, newest first — what the spine on /today, /mocks and /progress is built from. */
+export async function listRecentAttempts(
+  db: Db,
+  userId: string,
+  limit = 5,
+  now = new Date(),
+): Promise<RecentAttempt[]> {
+  // The same window as getProgress, so the spine never lists a sitting the figures beside it exclude.
+  const since = new Date(now.getTime() - WINDOW_DAYS * 86_400_000);
+  const rows = await db
+    .select({
+      id: attempts.id,
+      mode: attempts.mode,
+      score: attempts.score,
+      submittedAt: attempts.submittedAt,
+      questions: sql<number>`cardinality(${attempts.servedQIds})`,
+      bank: papers.bank,
+      role: papers.role,
+      examType: papers.examType,
+      year: papers.year,
+    })
+    .from(attempts)
+    .leftJoin(papers, eq(papers.paperId, attempts.paperId))
+    .where(
+      and(
+        eq(attempts.userId, userId),
+        isNotNull(attempts.submittedAt),
+        gte(attempts.submittedAt, since),
+      ),
+    )
+    .orderBy(desc(attempts.submittedAt))
+    .limit(limit);
+
+  return rows.flatMap((r) => {
+    if (!r.submittedAt) return [];
+    const isPaper = r.mode === "paper";
+    const paper = isPaper
+      ? `${r.bank ?? "Unknown"} ${r.role ?? ""} ${r.year ?? ""}`.trim() +
+        (r.examType ? ` · ${r.examType}` : "")
+      : null;
+    const questions = Number(r.questions);
+    return [
+      {
+        id: r.id,
+        mode: r.mode,
+        paper,
+        questions,
+        // score is numeric, so the driver hands it back as a string.
+        score: r.score === null ? null : Number(r.score),
+        target: isPaper ? Math.round(questions * TARGET_PCT) : null,
+        submittedAt: r.submittedAt.toISOString(),
+      },
+    ];
+  });
 }
 
 // One aggregate row per mode — "bank" and "mix" both count as drills.

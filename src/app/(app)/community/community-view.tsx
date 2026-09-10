@@ -15,7 +15,12 @@ import {
   Segmented,
   StatusPill,
 } from "@/design-system";
-import { SECTIONS, SECTION_LABEL, type Subject } from "@/data/navigation";
+import {
+  SECTIONS,
+  SECTION_LABEL,
+  SECTION_SHORT,
+  type Subject,
+} from "@/data/navigation";
 import {
   useDoubts,
   usePostDoubt,
@@ -79,18 +84,19 @@ export function CommunityView() {
           />
         ) : null}
 
-        <div className="mb-2 flex flex-wrap items-center gap-4">
+        <div className="mb-2 flex min-w-0 flex-wrap items-center gap-4">
+          {/* Short names: the full ones are what pushed this filter off a phone. */}
           <Segmented
             value={section}
             options={["All", ...SECTIONS] as const}
             onChange={setSection}
-            labels={{ ...SECTION_LABEL, All: "All" }}
+            labels={{ ...SECTION_SHORT, All: "All" }}
           />
           <span className="flex-1" />
           <button
             type="button"
             onClick={() => setSort((v) => (v === "stuck" ? "new" : "stuck"))}
-            className="text-ink-3 hover:text-ink text-[13px]"
+            className="text-ink-3 hover:text-ink inline-flex h-10 items-center text-[13px]"
           >
             {sort === "stuck" ? "Most stuck ↓" : "Newest ↓"}
           </button>

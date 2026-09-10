@@ -10,6 +10,7 @@ import {
 } from "@/lib/supabase";
 import { AuthShell } from "@/features/auth/components/AuthShell";
 import { AuthError } from "@/features/auth/components/AuthBits";
+import { takeStashedAnswers } from "@/features/onboarding/answers";
 import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -35,8 +36,24 @@ export function CallbackView() {
     setHadCode(hasPendingCodeExchange());
   }, []);
 
+  // A Google signup answered onboarding before it had a session, so the answers land here.
   useEffect(() => {
-    if (user) router.replace("/today");
+    if (!user) return;
+    const answers = takeStashedAnswers();
+    const apply = answers
+      ? fetch("/api/v1/profile", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            examBoard: answers.examBoard,
+            targetYear: answers.targetYear,
+            ...(answers.name ? { displayName: answers.name } : {}),
+            ...(answers.avatar ? { avatar: answers.avatar } : {}),
+          }),
+        }).catch(() => undefined)
+      : Promise.resolve();
+    // Landing on /today matters more than the preference: Settings can still fix it.
+    void apply.then(() => router.replace("/today"));
   }, [user, router]);
 
   // `loading` covers the PKCE exchange, so once it clears with no user the link failed.

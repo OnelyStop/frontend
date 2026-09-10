@@ -40,6 +40,8 @@ export {
   NoteCard,
   PlanCard,
   RoundAction,
+  Spine,
+  SpineItem,
   StatusPill,
   type NoteTint,
   type PillTone,

@@ -31,10 +31,11 @@ export function Tile({
         outline ? "border-line-2 border-2 border-dashed" : TONE[tone],
       )}
     >
-      <p className="tnum text-[18px] leading-none font-bold tracking-[-0.02em]">
+      <p className="tnum text-[22px] leading-none font-bold tracking-[-0.02em]">
         {value}
       </p>
-      <p className="text-ink-2 mt-1.5 text-[12.5px]">{label}</p>
+      {/* Balanced, so a two-line label splits evenly instead of leaving one word stranded. */}
+      <p className="text-ink-2 mt-2 text-[12.5px] text-balance">{label}</p>
     </div>
   );
 }

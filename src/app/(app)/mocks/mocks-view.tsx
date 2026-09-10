@@ -6,15 +6,20 @@ import { AnimatePresence, motion } from "motion/react";
 import { FileText } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import {
+  ActiveCard,
   Button,
   ButtonLink,
+  Canvas,
+  CornerBadge,
   Empty,
   OptionRow,
-  PageHeader,
+  PlanCard,
+  SectionTitle,
   Segmented,
+  Spine,
+  SpineItem,
   StatusPill,
-  TargetBar,
-  cn,
+  Tile,
   questionVariants,
 } from "@/design-system";
 import {
@@ -25,6 +30,12 @@ import {
   type Subject,
 } from "@/data/navigation";
 import { startMockAttempt, submitAttempt } from "@/features/attempts/actions";
+import { SittingCard } from "@/features/attempts/components/SittingCard";
+import type {
+  ProfileStats,
+  RecentAttempt,
+} from "@/features/attempts/progress.server";
+import { nextPaper, paperTitle } from "@/features/question-bank/next-paper";
 import type { Mock } from "@/features/question-bank/types";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
@@ -41,7 +52,15 @@ function groupBySection(questions: DrillQuestion[]): SectionGroup[] {
   })).filter((g) => g.qs.length > 0);
 }
 
-export function MocksView({ mocks }: { mocks: Mock[] }) {
+export function MocksView({
+  mocks,
+  stats,
+  recent,
+}: {
+  mocks: Mock[];
+  stats: ProfileStats | null;
+  recent: RecentAttempt[];
+}) {
   const router = useRouter();
   const { board } = useApp();
   const [stage, setStage] = useState<(typeof STAGES)[number]>("All");
@@ -375,15 +394,26 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
     );
   }
 
+  const hero = nextPaper(shown);
+  const rest = shown.filter((m) => m !== hero);
+  const heroCleared =
+    hero !== null && hero.score !== null && hero.score >= hero.target;
+  const lastSat = stats?.lastSatAt
+    ? new Intl.DateTimeFormat("en-IN", {
+        day: "numeric",
+        month: "short",
+        timeZone: "Asia/Kolkata",
+      }).format(new Date(stats.lastSatAt))
+    : null;
+
   return (
     <div data-companion>
-      <PageHeader
-        title="Mocks"
-        sub={`Full ${board} papers under real sectional timing. Each section locks when its clock ends — same as the hall. Each paper's target is 55% of its questions — our benchmark, not the board's published cutoff.`}
-        actions={
-          <Segmented value={stage} options={STAGES} onChange={setStage} />
-        }
-      />
+      <div className="mb-7 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <h1 className="text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
+          Mocks
+        </h1>
+        <Segmented value={stage} options={STAGES} onChange={setStage} />
+      </div>
 
       {error ? <p className="text-bad mb-4 text-[13px]">{error}</p> : null}
 
@@ -399,87 +429,131 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           sub="Nothing has been imported at this stage yet. Switch the filter to All to see everything there is."
         />
       ) : (
-        // A ruled shelf, not a grid: it reads the same with one paper or thirty, and a paper has no colour of its own — only its verdict does.
-        <div className="border-line border-t">
-          {shown.map((m) => {
-            const sat = m.score !== null;
-            const cleared = m.score !== null && m.score >= m.target;
-            return (
-              <article
-                key={m.id}
-                className="border-line grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-5 gap-y-4 border-b py-6 lg:grid-cols-[auto_minmax(0,1fr)_280px_auto] lg:gap-x-8"
+        <Canvas
+          aside={
+            <>
+              <SectionTitle aside="last 30 days">Your sittings</SectionTitle>
+              <div className="mb-5 grid grid-cols-3 gap-2.5">
+                <Tile
+                  value={String(stats?.mocksSat ?? 0)}
+                  label="papers sat"
+                  tone="info"
+                />
+                <Tile
+                  value={
+                    stats?.bestScore === null || !stats
+                      ? "—"
+                      : String(stats.bestScore)
+                  }
+                  label="best score"
+                  tone="ok"
+                />
+                <Tile value={lastSat ?? "—"} label="last sitting" outline />
+              </div>
+              {recent.length ? (
+                <Spine>
+                  {recent.map((s) => (
+                    <SpineItem key={s.id}>
+                      <SittingCard sitting={s} />
+                    </SpineItem>
+                  ))}
+                </Spine>
+              ) : (
+                <p className="text-ink-3 text-[13px]">
+                  Nothing submitted yet. Your sittings line up here.
+                </p>
+              )}
+            </>
+          }
+        >
+          {/* The paper to sit next shares the grid with the rest, so one paper reads as a plan column, not a banner. */}
+          <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+            {hero ? (
+              <ActiveCard
+                tilt
+                className="mb-0"
+                kicker={
+                  hero.score === null
+                    ? "Sit next · not attempted"
+                    : heroCleared
+                      ? hero.score - hero.target < 3
+                        ? "Sit next · you cleared it by a hair"
+                        : "Sit next · cleared last time"
+                      : "Sit next · missed last time"
+                }
+                title={paperTitle(hero)}
+                resumeLabel={`${hero.score === null ? "Start" : "Retake"} ${paperTitle(hero)}`}
+                onResume={() => void handleStart(hero)}
+                status={
+                  <>
+                    <StatusPill tone="live">
+                      {hero.score === null
+                        ? `${hero.qs} questions · ${hero.mins} min`
+                        : `Last sitting ${hero.score} of ${hero.qs}`}
+                    </StatusPill>
+                    <StatusPill tone="live">Target {hero.target}</StatusPill>
+                  </>
+                }
               >
-                <span
-                  aria-hidden
-                  className={cn(
-                    "grid size-11 place-items-center rounded-full",
-                    !sat
-                      ? "bg-panel text-ink-3"
-                      : cleared
-                        ? "bg-ok-soft text-ok"
-                        : "bg-bad-soft text-bad",
-                  )}
+                {hero.score === null
+                  ? `${hero.mins} minutes under real sectional timing — each section locks when its clock ends, same as the hall.`
+                  : `${hero.qs} questions, ${hero.mins} minutes, each section locks when its clock ends — same as the hall.`}
+              </ActiveCard>
+            ) : null}
+
+            {rest.map((m) => {
+              const sat = m.score !== null;
+              const cleared = m.score !== null && m.score >= m.target;
+              return (
+                <PlanCard
+                  key={m.id}
+                  size="sm"
+                  className="mb-0"
+                  title={paperTitle(m)}
+                  corner={
+                    <CornerBadge tone={sat && cleared ? "leaf" : "quiet"}>
+                      <FileText size={18} strokeWidth={1.75} />
+                    </CornerBadge>
+                  }
+                  meta={
+                    <span className="tnum">
+                      {m.qs} questions · {m.mins} min · −{NEGATIVE_MARK} a wrong
+                      answer
+                    </span>
+                  }
+                  status={
+                    <StatusPill tone={!sat ? "soon" : cleared ? "ok" : "bad"}>
+                      {!sat ? "Not attempted" : cleared ? "Cleared" : "Missed"}
+                    </StatusPill>
+                  }
+                  actions={
+                    <Button
+                      size="sm"
+                      disabled={starting !== null}
+                      onClick={() => void handleStart(m)}
+                    >
+                      {starting === m.id
+                        ? "Loading…"
+                        : sat
+                          ? "Retake"
+                          : "Start"}
+                    </Button>
+                  }
                 >
-                  <FileText size={18} strokeWidth={2} />
-                </span>
+                  {sat
+                    ? `Last sitting ${m.score} of ${m.qs} — ${cleared ? "cleared" : "missed"} the ${m.target} target.`
+                    : `Target is ${m.target} — 55% of the paper.`}
+                </PlanCard>
+              );
+            })}
+          </div>
 
-                <div className="min-w-0">
-                  <h3 className="text-[18px] leading-tight font-semibold tracking-[-0.02em]">
-                    {m.year ? `${m.name} ${m.year}` : m.name}
-                  </h3>
-                  <p className="tnum text-ink-3 mt-1 text-[13px]">
-                    {m.stage} · {m.qs} questions · {m.mins} min · −
-                    {NEGATIVE_MARK} a wrong answer
-                  </p>
-                </div>
-
-                {/* The score is the only paper on the shelf, and it only exists once the paper has been sat. */}
-                {m.score === null ? (
-                  <p className="text-ink-3 col-start-2 text-[13px] lg:col-start-3">
-                    Target is {m.target} — 55% of this paper&rsquo;s questions.
-                  </p>
-                ) : (
-                  <div className="bg-canvas rounded-ctl shadow-card col-start-2 px-4 py-3.5 lg:col-start-3">
-                    <div className="flex items-baseline gap-2">
-                      <span
-                        className={`tnum text-[22px] leading-none tracking-[-0.03em] ${cleared ? "text-ok" : "text-bad"}`}
-                      >
-                        {m.score}
-                      </span>
-                      <span className="text-ink-3 text-[13px]">
-                        of {m.qs} · target {m.target}
-                      </span>
-                    </div>
-                    <TargetBar
-                      value={m.score}
-                      target={m.target}
-                      max={m.qs}
-                      className="mt-3"
-                    />
-                  </div>
-                )}
-
-                <div className="col-start-2 flex items-center gap-2.5 lg:col-start-4">
-                  <StatusPill
-                    tone="live"
-                    className={
-                      !sat ? "text-ink-2" : cleared ? "text-ok" : "text-bad"
-                    }
-                  >
-                    {!sat ? "Not attempted" : cleared ? "Cleared" : "Missed"}
-                  </StatusPill>
-                  <Button
-                    size="sm"
-                    disabled={starting !== null}
-                    onClick={() => void handleStart(m)}
-                  >
-                    {starting === m.id ? "Loading…" : sat ? "Retake" : "Start"}
-                  </Button>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+          <p className="text-ink-3 mt-6 text-[12.5px] leading-relaxed">
+            Full {board} papers under real sectional timing. Each paper&rsquo;s
+            target is 55% of its questions — our benchmark, not the
+            board&rsquo;s published cutoff.
+          </p>
+        </Canvas>
       )}
     </div>
   );

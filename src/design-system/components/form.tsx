@@ -99,14 +99,20 @@ export function Segmented<T extends string>({
   className?: string;
 }) {
   return (
-    <div className={cn("rounded-pill bg-panel inline-flex p-1", className)}>
+    // Scrolls rather than overflowing: six section names in a pill row ran 233px off a 390px screen.
+    <div
+      className={cn(
+        "rounded-pill bg-panel inline-flex max-w-full snap-x [scrollbar-width:none] overflow-x-auto p-1 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
+        className,
+      )}
+    >
       {options.map((o) => (
         <button
           key={o}
           type="button"
           onClick={() => onChange(o)}
           className={cn(
-            "rounded-pill inline-flex items-center gap-2 px-4 py-1.5 text-[14px] transition-colors duration-150",
+            "rounded-pill inline-flex min-h-10 shrink-0 snap-start items-center gap-2 px-4 text-[14px] whitespace-nowrap transition-colors duration-150",
             value === o
               ? "bg-canvas text-ink shadow-xs"
               : "text-ink-3 hover:text-ink",

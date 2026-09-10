@@ -12,6 +12,7 @@ import { RetrievalSlip } from "@/features/retrieval/RetrievalSlip";
 import { useApp } from "@/context/AppContext";
 import { CanvasRail } from "./CanvasRail";
 import { RunningHead, SUBJECT_INK } from "./RunningHead";
+import { StageDock } from "./StageDock";
 
 export function AppLayout({
   children,
@@ -62,10 +63,10 @@ function Stage({
 
   return (
     <div className="relative flex flex-1 flex-col px-3 pb-3">
-      <div className="bg-stage relative flex-1 rounded-[26px] px-6 pt-11 pb-16 sm:px-10">
+      <div className="bg-stage relative flex flex-1 flex-col rounded-[26px] px-5 pt-8 pb-6 sm:px-10 lg:pt-11">
         <Bump />
         <div
-          className={`grid gap-x-9 ${
+          className={`grid flex-1 gap-x-9 ${
             open
               ? "lg:grid-cols-[64px_minmax(0,1fr)_360px]"
               : "lg:grid-cols-[64px_minmax(0,1fr)]"
@@ -73,9 +74,10 @@ function Stage({
         >
           <CanvasRail unread={unread} />
           {/* No z-index: a stacking context traps full-screen overlays. */}
-          <main className="relative min-w-0">{children}</main>
+          <main className="relative min-w-0 pb-24">{children}</main>
           <CompanionPanel />
         </div>
+        <StageDock />
       </div>
     </div>
   );

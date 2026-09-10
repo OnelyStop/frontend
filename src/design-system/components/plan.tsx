@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { cn } from "../lib/cn";
 import { Avatar } from "./data";
 
@@ -30,7 +31,8 @@ export function StatusPill({
   return (
     <span
       className={cn(
-        "rounded-pill inline-flex items-center gap-2 px-3 py-1.5 text-[12.5px] font-semibold whitespace-nowrap",
+        // min-h because a pill is often wrapped in a button — see the 40px floor on Button.
+        "rounded-pill inline-flex min-h-10 items-center gap-2 px-3.5 text-[12.5px] font-semibold whitespace-nowrap",
         PILL[tone],
         className,
       )}
@@ -219,7 +221,13 @@ export function PlanCard({
         </div>
       ) : null}
       {status || actions ? (
-        <div className={cn("flex items-center gap-2.5", lg ? "mt-6" : "mt-4")}>
+        // Wraps rather than squeezing: a pill and a button on one 390px row collide.
+        <div
+          className={cn(
+            "flex flex-wrap items-center gap-x-2.5 gap-y-3",
+            lg ? "mt-6" : "mt-4",
+          )}
+        >
           {status}
           <span className="flex-1" />
           {actions}
@@ -267,41 +275,53 @@ export function IndexCard({
 /** The one card in progress. At most one per screen, or it stops meaning anything. */
 export function ActiveCard({
   title,
+  kicker,
   children,
   status,
   people,
   onResume,
   resumeLabel,
+  tilt,
   className,
 }: {
   title: string;
+  /** The line above the title — what kind of thing is in progress. */
+  kicker?: string;
   children?: ReactNode;
   status?: ReactNode;
   people?: { id: string; mark: ReactNode; tint?: string }[];
   onResume?: () => void;
   resumeLabel: string;
+  /** A degree or two off square is what makes it read as the one card picked up off the pile. */
+  tilt?: boolean;
   className?: string;
 }) {
   return (
     <article
       className={cn(
-        "bg-active-soft rounded-card shadow-lift relative mb-5 p-7 pr-36",
+        "bg-active-soft rounded-card shadow-lift relative mb-5 min-w-0 p-6 pr-28 sm:p-7 sm:pr-36",
+        tilt && "-rotate-[1.5deg]",
         className,
       )}
     >
+      {kicker ? (
+        <p className="mb-2 text-[12.5px] font-semibold text-black/50">
+          {kicker}
+        </p>
+      ) : null}
       {/* outline rather than a box-shadow ring: outline-offset leaves the card's own tint showing in the gap. */}
       <button
         type="button"
         aria-label={resumeLabel}
         onClick={onResume}
-        className="press absolute top-1/2 right-8 grid size-20 -translate-y-1/2 place-items-center rounded-full bg-white outline-2 outline-offset-8 outline-white/70"
+        className="press absolute top-1/2 right-5 grid size-16 -translate-y-1/2 place-items-center rounded-full bg-white outline-2 outline-offset-6 outline-white/70 sm:right-8 sm:size-20 sm:outline-offset-8"
       >
         <svg viewBox="0 0 24 24" className="ml-1 size-8 fill-current">
           <path d="M8 5v14l11-7z" />
         </svg>
       </button>
 
-      <h3 className="max-w-[15ch] text-[28px] leading-[1.12] font-semibold tracking-[-0.03em]">
+      <h3 className="max-w-[15ch] text-[24px] leading-[1.12] font-semibold tracking-[-0.03em] sm:text-[28px]">
         {title}
       </h3>
       {children ? (
@@ -309,7 +329,7 @@ export function ActiveCard({
           {children}
         </p>
       ) : null}
-      <div className="mt-6 flex items-center gap-3">
+      <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2.5">
         {status}
         {people?.length ? (
           <span className="ml-auto">
@@ -333,28 +353,89 @@ export function Dock({ children }: { children: ReactNode }) {
 export function DockButton({
   label,
   tint,
+  href,
+  current,
   onClick,
   children,
 }: {
   label: string;
   /** A canvas tint, or omit for the dark add button. */
   tint?: string;
+  href?: string;
+  /** The page you are on: white on the frame, so the dock doubles as a where-am-I. */
+  current?: boolean;
   onClick?: () => void;
   children: ReactNode;
 }) {
-  return (
+  const classes = cn(
+    "press grid size-11 place-items-center rounded-full text-[17px] font-bold",
+    current
+      ? "bg-white text-frame"
+      : tint
+        ? "text-ink"
+        : "bg-frame-2 text-white",
+  );
+  const style = tint && !current ? { background: tint } : undefined;
+
+  return href ? (
+    <Link
+      href={href}
+      aria-label={label}
+      title={label}
+      aria-current={current ? "page" : undefined}
+      onClick={onClick}
+      className={classes}
+      style={style}
+    >
+      {children}
+    </Link>
+  ) : (
     <button
       type="button"
       aria-label={label}
+      title={label}
       onClick={onClick}
-      className={cn(
-        "press grid size-11 place-items-center rounded-full text-[17px] font-bold",
-        tint ? "text-ink" : "bg-frame-2 text-white",
-      )}
-      style={tint ? { background: tint } : undefined}
+      className={classes}
+      style={style}
     >
       {children}
     </button>
+  );
+}
+
+/** A sequence: a dashed rule down the left with a dot beside each child. */
+export function Spine({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative grid grid-cols-[minmax(0,1fr)] gap-4 pl-6",
+        className,
+      )}
+    >
+      <span
+        aria-hidden
+        className="border-ok-2 absolute top-6 bottom-6 left-1.75 border-l-2 border-dashed"
+      />
+      {children}
+    </div>
+  );
+}
+
+export function SpineItem({ children }: { children: ReactNode }) {
+  return (
+    <div className="relative min-w-0">
+      <span
+        aria-hidden
+        className="bg-ok-2 border-stage absolute top-1/2 -left-6 z-1 size-2.5 -translate-y-1/2 rounded-full border-2"
+      />
+      {children}
+    </div>
   );
 }
 

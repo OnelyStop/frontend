@@ -29,7 +29,7 @@ export function GoogleIcon() {
 
 export function AuthDivider() {
   return (
-    <div className="text-ink-3 my-5 flex items-center gap-3 text-[12px] font-semibold tracking-[0.08em] uppercase before:h-px before:flex-1 before:bg-current/20 before:content-[''] after:h-px after:flex-1 after:bg-current/20 after:content-['']">
+    <div className="text-ink-3 my-5 flex items-center gap-3 text-[13px] before:h-px before:flex-1 before:bg-current/20 before:content-[''] after:h-px after:flex-1 after:bg-current/20 after:content-['']">
       or
     </div>
   );
