@@ -41,6 +41,15 @@ export const SECTION_LABEL: Record<Subject, string> = {
   "Computer Aptitude": "Computer Aptitude",
 };
 
+/* For a filter or a chip, where the full names wrap to a second line and stretch the control. */
+export const SECTION_SHORT: Record<Subject, string> = {
+  "Quantitative Aptitude": "Quant",
+  "Reasoning Ability": "Reasoning",
+  "English Language": "English",
+  "General Awareness": "GA",
+  "Computer Aptitude": "Computer",
+};
+
 /* The question bank stores one-word section names; joining a query on the full subject name silently returns zero rows, not an error. */
 export const SECTION_DB: Record<Subject, string> = {
   "Quantitative Aptitude": "Quantitative",
@@ -90,7 +99,7 @@ export const NAV_GROUPS: NavGroup[] = [
       {
         id: "home",
         label: "Today",
-        path: "/home",
+        path: "/today",
         hint: "Every section against its cutoff, and the next hour planned",
       },
       {

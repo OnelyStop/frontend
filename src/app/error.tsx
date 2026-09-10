@@ -32,7 +32,7 @@ export default function Error({
             <RotateCw size={15} strokeWidth={2} />
             Try again
           </Button>
-          <ButtonLink href="/home" variant="secondary">
+          <ButtonLink href="/today" variant="secondary">
             Back to Today
           </ButtonLink>
         </div>

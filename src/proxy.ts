@@ -76,7 +76,7 @@ export async function proxy(request: NextRequest) {
 
     if (row?.role !== "admin") {
       const home = request.nextUrl.clone();
-      home.pathname = "/home";
+      home.pathname = "/today";
       home.search = "";
       return redirect(home);
     }

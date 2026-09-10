@@ -21,7 +21,7 @@ src/design-system/
     button.tsx             Button, ButtonLink, IconButton
     surface.tsx            Card, DarkPanel, Lattice, LatticeCell, Popover, MenuRow
     form.tsx               Field, Input, Textarea, Checkbox, Segmented
-    data.tsx               Badge, Stat, Meter, CutoffBar, Avatar, Kbd, Table
+    data.tsx               Tile, Figure, TargetBar, Avatar, Kbd, Table
     event.tsx              EventCard, EventMark, EventTime, DropSlot
     page.tsx               PageHeader, SectionTitle, Empty, Divider
     option.tsx             OptionRow — the MCQ answer control
@@ -59,6 +59,14 @@ next screen.
 hairlines with a marker on every intersection. Reach for it whenever you have a
 set of peers: stats, decks, promises, papers. Use `Card` when the content is
 one thing, not a set.
+
+**A tint is for identity or verdict, not for a container.** A subject card on
+`/study` is tinted because the tint _is_ the subject; a paper's disc on
+`/mocks` is green because it was cleared. A figure sits bare on the stage —
+`Figure` is a coloured rule beside a number, no box. A chart sits on white
+paper inside its tint. A set of peers that have no colour of their own —
+papers, next actions — is a ruled list on hairlines. Putting three numbers in
+a flat tinted block is how a page starts looking like one colour.
 
 **Colour is functional.** Green means earned, red means it costs you, amber
 means partial, indigo is the accent for selection and focus. Nothing is

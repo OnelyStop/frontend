@@ -6,7 +6,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useApp } from "@/context/AppContext";
 import { useModifierKey } from "@/lib/platform";
 import { useRetrieval } from "@/features/retrieval/RetrievalContext";
-import { TARGETS } from "@/features/retrieval/targets";
 import { ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { AVATARS } from "@/features/profile/avatars";
@@ -22,72 +21,11 @@ export const SUBJECT_INK: Record<Subject, string> = {
   "Computer Aptitude": "var(--color-computer)",
 };
 
-const SECTION: Record<string, string> = {
-  home: "Today",
-  "attempt-map": "Attempt map",
-  mocks: "Mocks",
-  drills: "Drills",
-  descriptive: "Descriptive",
-  notes: "Notes",
-  flashcards: "Flashcards",
-  progress: "Progress",
-  community: "Community",
-  profile: "Profile",
-  settings: "Settings",
-  upgrade: "Upgrade",
-  admin: "Admin",
-};
-
-function specTitle(code: string): string | null {
-  return TARGETS.find((t) => t.id === `s-${code}`)?.label ?? null;
-}
-
-function sitTitle(sit: string): string {
-  const m = /^(\d{4})-p(\d)$/.exec(sit);
-  return m ? `${m[1]} Paper ${m[2]}` : sit;
-}
-
-function pretty(seg: string): string {
-  const q = /^q(\d+)([a-z])?$/i.exec(seg);
-  if (q) return `Q${q[1]}${q[2] ? `(${q[2].toLowerCase()})` : ""}`;
-  if (/^\d+(\.\d+)+$/.test(seg)) return specTitle(seg) ?? seg;
-  return seg.replace(/-/g, " ").replace(/(^|\s)\S/g, (c) => c.toUpperCase());
-}
-
-export type Crumb = { href: string; label: string };
-
-/** The stack Esc walks back up; a deep-link param is a level of its own, so the back button agrees with Esc. */
-export function crumbTrail(
-  pathname: string,
-  spec: string | null,
-  sit: string | null,
-): Crumb[] {
-  const segs = pathname.split("/").filter(Boolean);
-  if (!segs.length || (segs.length === 1 && segs[0] === "home")) {
-    return [{ href: "/home", label: "Today" }];
-  }
-
-  const trail: Crumb[] = segs.map((seg, i) => ({
-    href: `/${segs.slice(0, i + 1).join("/")}`,
-    label: i === 0 ? (SECTION[seg] ?? pretty(seg)) : pretty(seg),
-  }));
-
-  if (spec) {
-    trail.push({
-      href: `${pathname}?spec=${spec}`,
-      label: specTitle(spec) ?? spec,
-    });
-  } else if (sit) {
-    trail.push({ href: `${pathname}?sit=${sit}`, label: sitTitle(sit) });
-  }
-  return trail;
-}
-
 export function upOne(pathname: string, deepLinked: boolean): string | null {
   if (deepLinked) return pathname;
   const segs = pathname.split("/").filter(Boolean);
   if (!segs.length) return null;
-  if (segs.length === 1) return segs[0] === "home" ? null : "/home";
+  if (segs.length === 1) return segs[0] === "today" ? null : "/today";
   return `/${segs.slice(0, -1).join("/")}`;
 }
 
@@ -184,7 +122,7 @@ export function RunningHead({
     <header className="text-white">
       <div className="flex h-20 items-center gap-5 px-6 sm:px-8">
         <Link
-          href="/home"
+          href="/today"
           className="shrink-0 text-[22px] font-bold tracking-[-0.03em]"
         >
           onelystop

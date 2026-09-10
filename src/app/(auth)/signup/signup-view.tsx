@@ -49,7 +49,7 @@ export function SignupView() {
   const canSubmit = rulesMet && confirm.length > 0 && !mismatch;
 
   useEffect(() => {
-    if (user) router.replace("/home");
+    if (user) router.replace("/today");
   }, [user, router]);
 
   const { error, setError, busy, handleSubmit } = useAuthForm(
@@ -57,7 +57,7 @@ export function SignupView() {
     (result) => {
       // Supabase withholds the session when email confirmation is required
       if (result.needsConfirmation) setSent(true);
-      else router.replace("/home");
+      else router.replace("/today");
     },
   );
 

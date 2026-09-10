@@ -22,6 +22,7 @@ import {
   SECTION_FROM_DB,
   SECTION_KEY,
   SECTION_LABEL,
+  SECTION_SHORT,
 } from "@/data/navigation";
 import type { TopicMapRow } from "@/features/attempts/progress.server";
 
@@ -33,6 +34,11 @@ const SKIP_LIST_SHOWN = 5;
 // The bank stores one-word sections; anything outside that vocabulary shows as stored.
 function sectionLabel(section: string) {
   return SECTION_LABEL[SECTION_FROM_DB[section]] ?? section;
+}
+
+// Six full section names in one Segmented wrap to a second line and stretch the control across the page.
+function sectionShort(section: string) {
+  return SECTION_SHORT[SECTION_FROM_DB[section]] ?? section;
 }
 
 function sectionDot(section: string) {
@@ -255,7 +261,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                 setOpen(null);
               }}
               labels={Object.fromEntries(
-                sections.map((s) => [s, sectionLabel(s)]),
+                sections.map((s) => [s, sectionShort(s)]),
               )}
             />
           ) : null
@@ -584,7 +590,8 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                   % accurate, so nothing lands in the skip corner.
                 </p>
               ) : (
-                <ol className="grid gap-3">
+                // Each topic is white paper on the tint: a list of bare rows on one fill was the flat block.
+                <ol className="grid gap-2">
                   {skipList.map((t, i) => (
                     <li key={topicId(t)}>
                       <button
@@ -592,7 +599,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                         onClick={() => setOpen(t)}
                         onMouseEnter={() => setHover(t)}
                         onMouseLeave={() => setHover(null)}
-                        className="rounded-ctl hover:bg-canvas flex w-full items-center gap-3 px-2 py-1.5 text-left transition-colors"
+                        className="bg-canvas rounded-ctl hover:shadow-card flex w-full items-center gap-3 px-3.5 py-3 text-left transition-shadow"
                       >
                         <span className="tnum text-ink-4 w-4 shrink-0 text-[13px]">
                           {i + 1}
@@ -605,9 +612,13 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                             {Math.round(t.accuracy)}% at {t.avgSec}s
                           </span>
                         </span>
-                        <span className="tnum text-bad shrink-0 text-[14px]">
-                          {rate(t).toFixed(2)}
-                          <span className="text-ink-4 text-[12px]">/min</span>
+                        <span className="shrink-0 text-right">
+                          <span className="tnum text-bad block text-[15px]">
+                            {rate(t).toFixed(2)}
+                          </span>
+                          <span className="text-ink-4 block text-[12px]">
+                            marks/min
+                          </span>
                         </span>
                       </button>
                     </li>

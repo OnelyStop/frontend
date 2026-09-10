@@ -1,16 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button, Card, Empty, PageHeader, cn } from "@/design-system";
-
-// The deck was one white face for every card; the tint walks so turning one reads as progress.
-const FACE_TONES = [
-  "bg-info-soft",
-  "bg-brand-soft",
-  "bg-warn-soft",
-  "bg-ok-soft",
-];
+import {
+  Button,
+  Card,
+  Empty,
+  EventCard,
+  EventMark,
+  type EventTone,
+  PageHeader,
+  StatusPill,
+} from "@/design-system";
 import type { CurrentAffairsQuestion } from "@/features/current-affairs/types";
+
+// The deck was one face for every card; the tone walks so turning one reads as progress.
+const FACE_TONES: EventTone[] = ["info", "brand", "warn", "ok", "english"];
 
 const MONTHS = [
   "Jan",
@@ -61,7 +65,7 @@ export function FlashcardsView({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  });
+  }, [done, shown]);
 
   const restart = () => {
     setShown(false);
@@ -106,49 +110,87 @@ export function FlashcardsView({
           </div>
         </Card>
       ) : (
-        <>
-          {/* The stack visibly thins — that is the whole progress indicator. */}
-          <div className="relative max-w-2xl">
-            <div className="rounded-t-card border-line absolute inset-x-6 -top-3 h-6 border" />
-            <div className="rounded-t-card border-line bg-canvas absolute inset-x-3 -top-1.5 h-6 border" />
-            <button
-              className={cn(
-                "card relative w-full p-10 text-left transition-colors duration-200",
-                FACE_TONES[i % FACE_TONES.length],
-              )}
-              onClick={() => setShown(true)}
+        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
+          {/* The stack behind visibly thins — that is the whole progress indicator. */}
+          <div className="relative pt-3">
+            <div
+              className="bg-canvas/70 absolute inset-x-8 top-0 h-10 rounded-4xl"
+              aria-hidden
+            />
+            <div
+              className="bg-canvas absolute inset-x-4 top-1.5 h-10 rounded-4xl shadow-xs"
+              aria-hidden
+            />
+            <EventCard
+              kind={card!.questionText}
+              when={shortDate(card!.day)}
+              tone={FACE_TONES[i % FACE_TONES.length]!}
+              className="relative"
+              mark={
+                <EventMark disc>
+                  <span className="text-[11px] font-bold">{i + 1}</span>
+                </EventMark>
+              }
+              footer={
+                shown ? (
+                  <Button
+                    onClick={() => {
+                      setShown(false);
+                      setI((n) => n + 1);
+                    }}
+                  >
+                    Next card
+                  </Button>
+                ) : (
+                  <Button variant="secondary" onClick={() => setShown(true)}>
+                    Reveal the answer
+                  </Button>
+                )
+              }
             >
-              <span className="tnum text-ink-4 text-[13px]">
-                {shortDate(card!.day)}
-              </span>
-              <p className="mt-4 text-[20px] leading-snug tracking-[-0.02em]">
-                {card!.questionText}
-              </p>
               {shown ? (
-                <p className="border-line text-ink-2 mt-6 border-t pt-6 text-[16px] leading-relaxed">
-                  {card!.options[card!.answer]} — {card!.explanation}
-                </p>
+                // The answer is white paper on the panel, so revealing it is a change of surface, not just more text.
+                <div className="bg-canvas rounded-ctl px-4 py-4">
+                  <span className="text-ok text-[15px] font-semibold">
+                    {card!.options[card!.answer]}
+                  </span>
+                  <p className="text-ink-2 mt-2 text-[13.5px] leading-relaxed">
+                    {card!.explanation}
+                  </p>
+                </div>
               ) : (
-                <p className="text-ink-4 mt-8 text-[13px]">
-                  Click or press Space to reveal
+                <p className="text-ink-3 py-6 text-center text-[13px]">
+                  Press Space, or use the button below.
                 </p>
               )}
-            </button>
+            </EventCard>
           </div>
 
-          {shown ? (
-            <div className="mt-6 flex max-w-2xl gap-2.5">
-              <Button
-                onClick={() => {
-                  setShown(false);
-                  setI((n) => n + 1);
-                }}
-              >
-                Next card
-              </Button>
+          <Card tone="plain" className="h-fit">
+            <p className="text-ink-3 text-[13px]">Where you are</p>
+            <p className="tnum mt-2 text-[28px] leading-none tracking-[-0.03em]">
+              {i + 1}
+              <span className="text-ink-3 text-[18px]">
+                {" "}
+                / {currentAffairs.length}
+              </span>
+            </p>
+            <div className="mt-5 flex flex-wrap gap-1.5">
+              {currentAffairs.map((c, n) => (
+                <span
+                  key={c.id}
+                  aria-hidden
+                  className={`h-1.5 flex-1 rounded-full ${n < i ? "bg-ok" : n === i ? "bg-ink" : "bg-ink/10"}`}
+                />
+              ))}
             </div>
-          ) : null}
-        </>
+            <div className="mt-5">
+              <StatusPill tone="live" className="text-ink-2">
+                Space reveals · Enter advances
+              </StatusPill>
+            </div>
+          </Card>
+        </div>
       )}
     </div>
   );

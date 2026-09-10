@@ -3,20 +3,22 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
+import { FileText } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import {
   Button,
   ButtonLink,
-  Card,
   Empty,
   OptionRow,
   PageHeader,
   Segmented,
   StatusPill,
+  TargetBar,
+  cn,
   questionVariants,
-  tintFor,
 } from "@/design-system";
 import {
+  NEGATIVE_MARK,
   SECTIONS,
   SECTION_DB,
   SECTION_LABEL,
@@ -397,86 +399,84 @@ export function MocksView({ mocks }: { mocks: Mock[] }) {
           sub="Nothing has been imported at this stage yet. Switch the filter to All to see everything there is."
         />
       ) : (
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        // A ruled shelf, not a grid: it reads the same with one paper or thirty, and a paper has no colour of its own — only its verdict does.
+        <div className="border-line border-t">
           {shown.map((m) => {
+            const sat = m.score !== null;
             const cleared = m.score !== null && m.score >= m.target;
-            const scale = Math.max(m.target, m.score ?? 0) * 1.3;
             return (
-              // The fill is the paper's own, so a shelf of cleared papers isn't one green block; the pill carries the verdict.
-              <Card
+              <article
                 key={m.id}
-                lift
-                pad={false}
-                className={`relative flex items-start gap-4 p-6 ${tintFor(m.id)}`}
+                className="border-line grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-5 gap-y-4 border-b py-6 lg:grid-cols-[auto_minmax(0,1fr)_280px_auto] lg:gap-x-8"
               >
-                <div className="min-w-0 flex-1">
-                  <p className="text-[16px] tracking-[-0.02em]">
-                    {m.name} {m.year}
-                  </p>
-                  <p className="tnum text-ink-3 mt-1.5 text-[13px]">
-                    {m.stage} · {m.qs} questions · {m.mins} min
-                  </p>
+                <span
+                  aria-hidden
+                  className={cn(
+                    "grid size-11 place-items-center rounded-full",
+                    !sat
+                      ? "bg-panel text-ink-3"
+                      : cleared
+                        ? "bg-ok-soft text-ok"
+                        : "bg-bad-soft text-bad",
+                  )}
+                >
+                  <FileText size={18} strokeWidth={2} />
+                </span>
 
-                  <div className="mt-7 flex items-baseline gap-2">
-                    <span
-                      className={`tnum text-[21px] leading-none tracking-[-0.03em] ${
-                        m.score === null
-                          ? "text-ink-4"
-                          : cleared
-                            ? "text-ok"
-                            : "text-bad"
-                      }`}
-                    >
-                      {m.score ?? "—"}
-                    </span>
-                    <span className="text-ink-3 text-[13px]">
-                      55% target {m.target}
-                    </span>
-                    <span className="flex-1" />
-                    <StatusPill
-                      tone={
-                        m.score === null ? "neutral" : cleared ? "ok" : "bad"
-                      }
-                    >
-                      {m.score === null
-                        ? "Not attempted"
-                        : cleared
-                          ? "Cleared"
-                          : "Missed"}
-                    </StatusPill>
-                  </div>
+                <div className="min-w-0">
+                  <h3 className="text-[18px] leading-tight font-semibold tracking-[-0.02em]">
+                    {m.year ? `${m.name} ${m.year}` : m.name}
+                  </h3>
+                  <p className="tnum text-ink-3 mt-1 text-[13px]">
+                    {m.stage} · {m.qs} questions · {m.mins} min · −
+                    {NEGATIVE_MARK} a wrong answer
+                  </p>
+                </div>
 
-                  <div className="rounded-pill bg-canvas relative mt-3 h-1.5">
-                    {m.score !== null ? (
-                      <div
-                        className={`rounded-pill h-full ${cleared ? "bg-ok" : "bg-bad"}`}
-                        style={{ width: `${(m.score / scale) * 100}%` }}
-                      />
-                    ) : null}
-                    <span
-                      className="bg-ink-3 absolute -top-1 h-[14px] w-px"
-                      style={{ left: `${(m.target / scale) * 100}%` }}
-                      aria-hidden
+                {/* The score is the only paper on the shelf, and it only exists once the paper has been sat. */}
+                {m.score === null ? (
+                  <p className="text-ink-3 col-start-2 text-[13px] lg:col-start-3">
+                    Target is {m.target} — 55% of this paper&rsquo;s questions.
+                  </p>
+                ) : (
+                  <div className="bg-canvas rounded-ctl shadow-card col-start-2 px-4 py-3.5 lg:col-start-3">
+                    <div className="flex items-baseline gap-2">
+                      <span
+                        className={`tnum text-[22px] leading-none tracking-[-0.03em] ${cleared ? "text-ok" : "text-bad"}`}
+                      >
+                        {m.score}
+                      </span>
+                      <span className="text-ink-3 text-[13px]">
+                        of {m.qs} · target {m.target}
+                      </span>
+                    </div>
+                    <TargetBar
+                      value={m.score}
+                      target={m.target}
+                      max={m.qs}
+                      className="mt-3"
                     />
                   </div>
+                )}
 
-                  <span
-                    aria-hidden
-                    className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-[5px] rounded-full"
-                  />
+                <div className="col-start-2 flex items-center gap-2.5 lg:col-start-4">
+                  <StatusPill
+                    tone="live"
+                    className={
+                      !sat ? "text-ink-2" : cleared ? "text-ok" : "text-bad"
+                    }
+                  >
+                    {!sat ? "Not attempted" : cleared ? "Cleared" : "Missed"}
+                  </StatusPill>
+                  <Button
+                    size="sm"
+                    disabled={starting !== null}
+                    onClick={() => void handleStart(m)}
+                  >
+                    {starting === m.id ? "Loading…" : sat ? "Retake" : "Start"}
+                  </Button>
                 </div>
-                <button
-                  disabled={starting !== null}
-                  className="rounded-pill bg-ink hover:bg-ink/90 h-10 shrink-0 px-5 text-[14px] font-medium text-white transition-colors disabled:opacity-50"
-                  onClick={() => void handleStart(m)}
-                >
-                  {starting === m.id
-                    ? "Loading…"
-                    : m.score !== null
-                      ? "Retake"
-                      : "Start"}
-                </button>
-              </Card>
+              </article>
             );
           })}
         </div>

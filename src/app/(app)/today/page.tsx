@@ -3,13 +3,13 @@ import { redirect } from "next/navigation";
 import { db } from "@/db";
 import { getProgress } from "@/features/attempts/progress.server";
 import { currentUserId } from "@/lib/auth.server";
-import { HomeView } from "./home-view";
+import { TodayView } from "./today-view";
 
-export const metadata: Metadata = { title: "Home" };
+export const metadata: Metadata = { title: "Today" };
 
 export default async function Page() {
   const userId = await currentUserId();
-  if (!userId) redirect("/login?from=/home");
+  if (!userId) redirect("/login?from=/today");
 
-  return <HomeView progress={await getProgress(db, userId)} />;
+  return <TodayView progress={await getProgress(db, userId)} />;
 }

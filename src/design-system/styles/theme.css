@@ -14,7 +14,6 @@
   --color-stage: #f6f7f8;
   --color-frame: #131316;
   --color-frame-2: #26262c;
-  --color-sky: #cfeef7;
 
   /* Ink on the frame. Hard-coded white/40 in a class is not themeable, and it
      was why every nav item read as the same flat white. */
@@ -23,7 +22,6 @@
   --color-on-frame-3: #6b6d78;
   --color-on-frame-line: #33343c;
   --color-panel: #f1f2f4;
-  --color-inset: #ffffff;
   --color-track: #ecedf0;
   --color-line: rgb(10 10 10 / 0.07);
   --color-line-2: rgb(10 10 10 / 0.13);
@@ -37,7 +35,6 @@
 
   /* Actions are black. The accent is for data, not for chrome. */
   --color-brand: #7b3fa0;
-  --color-brand-2: #9a5cc0;
   --color-brand-soft: #e7ccf5;
 
   /* Meaning. Each pair is a tint you can fill a whole card with, and an ink
@@ -53,10 +50,12 @@
   --color-info: #1c5c78;
   --color-info-soft: #d9eff9;
 
-  /* A card that holds a panel needs two depths of the same tint: `-pale` is the
-     card, `-soft` the panel sitting on it. */
+  /* A card that holds a panel needs two depths of one tint: `-soft` is the card,
+     `-pale` the panel inset on it, and white paper sits on top of both. Three
+     surfaces read as a card; one fill reads as a block. */
   --color-ok-pale: #ddf7e4;
   --color-warn-pale: #fef5d5;
+  --color-bad-pale: #fde6e3;
   --color-info-pale: #e6f5fb;
   --color-brand-pale: #efdef8;
 
@@ -76,6 +75,13 @@
   --color-english-soft: #d5eff5;
   --color-ga-soft: #fbe6d2;
   --color-computer-soft: #fbdbe9;
+
+  /* The paler step of each section, so a section card can hold a panel too. */
+  --color-quant-pale: #eeecfd;
+  --color-reasoning-pale: #f5eafc;
+  --color-english-pale: #e6f5f9;
+  --color-ga-pale: #fdf0e4;
+  --color-computer-pale: #fde9f2;
 
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 

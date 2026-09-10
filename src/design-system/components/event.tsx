@@ -3,13 +3,30 @@ import { Clock } from "lucide-react";
 import { cn } from "../lib/cn";
 
 // The schedule family: what is booked, the mark that names it, the time it starts, and an empty slot.
-export type EventTone = "info" | "brand" | "warn" | "ok";
+export type EventTone =
+  | "info"
+  | "brand"
+  | "warn"
+  | "ok"
+  | "bad"
+  | "quant"
+  | "reasoning"
+  | "english"
+  | "ga"
+  | "computer";
 
+// The section tones are here so a card keyed to a real category still gets a panel; a lone tint is the flat block.
 const TONE: Record<EventTone, [card: string, panel: string]> = {
   info: ["bg-info-soft", "bg-info-pale"],
   brand: ["bg-brand-soft", "bg-brand-pale"],
   warn: ["bg-warn-soft", "bg-warn-pale"],
   ok: ["bg-ok-soft", "bg-ok-pale"],
+  bad: ["bg-bad-soft", "bg-bad-pale"],
+  quant: ["bg-quant-soft", "bg-quant-pale"],
+  reasoning: ["bg-reasoning-soft", "bg-reasoning-pale"],
+  english: ["bg-english-soft", "bg-english-pale"],
+  ga: ["bg-ga-soft", "bg-ga-pale"],
+  computer: ["bg-computer-soft", "bg-computer-pale"],
 };
 
 /** The mark before an event's name. `disc` is for a person or a place; a kind of work goes bare. */
