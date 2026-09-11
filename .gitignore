@@ -46,3 +46,6 @@ next-env.d.ts
 # Build artifact: tracked once, it dirties every branch and lands in diffs.
 tsconfig.tsbuildinfo
 *.tsbuildinfo
+
+# Local screenshot runs; not part of the repo.
+screenshots/
