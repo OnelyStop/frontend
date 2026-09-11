@@ -12,7 +12,6 @@ import { RetrievalSlip } from "@/features/retrieval/RetrievalSlip";
 import { useApp } from "@/context/AppContext";
 import { CanvasRail } from "./CanvasRail";
 import { RunningHead, SUBJECT_INK } from "./RunningHead";
-import { StageDock } from "./StageDock";
 
 export function AppLayout({
   children,
@@ -74,10 +73,9 @@ function Stage({
         >
           <CanvasRail unread={unread} />
           {/* No z-index: a stacking context traps full-screen overlays. */}
-          <main className="relative min-w-0 pb-24">{children}</main>
+          <main className="relative min-w-0">{children}</main>
           <CompanionPanel />
         </div>
-        <StageDock />
       </div>
     </div>
   );

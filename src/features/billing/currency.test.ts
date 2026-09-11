@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { DEFAULT_CURRENCY, currencyForHost } from "./currency";
 import { formatAmount } from "./money";
@@ -26,6 +26,28 @@ describe("currency from host", () => {
     ]) {
       expect(currencyForHost(host)).toBe(DEFAULT_CURRENCY);
     }
+  });
+
+  // Pinned by default, or the landing page is a function invocation — and a cold start — per visitor.
+  it("only reads the host when SITE_CURRENCY says host", async () => {
+    const load = async (value?: string) => {
+      vi.resetModules();
+      const before = process.env.SITE_CURRENCY;
+      if (value === undefined) delete process.env.SITE_CURRENCY;
+      else process.env.SITE_CURRENCY = value;
+      const headers = vi.fn(async () => new Headers({ host: "onelystop.com" }));
+      vi.doMock("next/headers", () => ({ headers }));
+      const mod = await import("./currency");
+      const currency = await mod.requestCurrency();
+      if (before === undefined) delete process.env.SITE_CURRENCY;
+      else process.env.SITE_CURRENCY = before;
+      return { currency, read: headers.mock.calls.length };
+    };
+
+    expect(await load(undefined)).toEqual({ currency: "INR", read: 0 });
+    expect(await load("INR")).toEqual({ currency: "INR", read: 0 });
+    expect(await load("USD")).toEqual({ currency: "USD", read: 0 });
+    expect(await load("host")).toEqual({ currency: "USD", read: 1 });
   });
 
   it("falls back for previews, localhost and a missing header", () => {

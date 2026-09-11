@@ -54,7 +54,8 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
   }, [open]);
 
   return (
-    <div ref={ref} className="hidden items-center gap-0.5 lg:flex">
+    // Visible at every width: with the dock gone this is the only way between sections on a phone.
+    <div ref={ref} className="flex items-center gap-0.5">
       {groups.map((g) => {
         const live = g.items.some((i) => pathname.startsWith(i.path));
         const isOpen = open === g.id;
@@ -70,19 +71,20 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
               aria-label={g.label}
               data-nav-active={live ? "" : undefined}
               onClick={() => setOpen(isOpen ? null : g.id)}
-              className={`rounded-pill hover:text-on-frame flex h-9.5 items-center gap-2 text-[13px] font-medium transition-colors ${
+              className={`rounded-pill hover:text-on-frame flex h-10 items-center gap-2 text-[13px] font-medium transition-colors ${
                 on
-                  ? "bg-frame-2 text-on-frame px-4"
-                  : "text-on-frame-2 justify-center px-3"
+                  ? "bg-frame-2 text-on-frame px-2.5 lg:px-4"
+                  : "text-on-frame-2 justify-center px-2.5 lg:px-3"
               }`}
             >
               <GroupIcon id={g.id} />
+              {/* The label only where there is room; below lg the four icons are the nav. */}
               {on ? (
                 <>
-                  {g.label}
+                  <span className="hidden lg:inline">{g.label}</span>
                   <ChevronDown
                     size={14}
-                    className={`text-on-frame-3 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                    className={`text-on-frame-3 hidden transition-transform duration-200 lg:inline ${isOpen ? "rotate-180" : ""}`}
                   />
                 </>
               ) : null}

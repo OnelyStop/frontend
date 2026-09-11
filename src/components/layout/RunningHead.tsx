@@ -120,7 +120,7 @@ export function RunningHead({
 
   return (
     <header className="text-white">
-      <div className="flex h-16 items-center gap-3 px-5 sm:gap-5 sm:px-8 lg:h-20">
+      <div className="flex h-16 items-center gap-2 px-4 sm:gap-5 sm:px-8 lg:h-20">
         <Link
           href="/today"
           className="shrink-0 text-[20px] font-bold tracking-[-0.03em] sm:text-[22px]"
@@ -202,11 +202,12 @@ export function RunningHead({
             >
               Sign in
             </Link>
+            {/* "free" is the half that goes: the four nav icons need the room on a phone. */}
             <Link
               href="/signup"
-              className="rounded-pill text-frame flex h-11 shrink-0 items-center bg-white px-6 text-[14px] font-semibold transition-colors hover:bg-white/90"
+              className="rounded-pill text-frame flex h-10 shrink-0 items-center bg-white px-4 text-[13.5px] font-semibold transition-colors hover:bg-white/90 sm:h-11 sm:px-6 sm:text-[14px]"
             >
-              Start free
+              Start<span className="hidden sm:inline">&nbsp;free</span>
             </Link>
           </>
         ) : null}
