@@ -101,4 +101,6 @@ export type ResumeState = {
   currentSection: string | null;
   lockedSections: string[];
   sectionRemainingMs: number | null;
+  examMode: boolean;
+  flagCount: number;
 };

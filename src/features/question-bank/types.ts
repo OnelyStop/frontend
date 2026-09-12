@@ -10,6 +10,8 @@ export type Mock = {
   score: number | null;
   /** An unsubmitted attempt already exists — Resume, not Start, and never a fresh quota charge. */
   inProgress: boolean;
+  /** Only meaningful when `inProgress` — resuming must re-enter full screen before the request, not after. */
+  examMode: boolean;
   /** 55% of the question count — our practice benchmark, not a published cutoff. */
   target: number;
 };

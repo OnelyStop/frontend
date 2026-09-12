@@ -150,6 +150,10 @@ export const attempts = pgTable(
       .default(sql`'{}'`),
     // Ms left on currentSection's clock as of the last checkpoint; null means the full section duration.
     sectionRemainingMs: integer("section_remaining_ms"),
+    // Set once at start (or restart) and never changed — a resumed attempt keeps whatever mode it began in.
+    examMode: boolean("exam_mode").notNull().default(false),
+    // Window-switch strikes in exam mode; three ends the attempt immediately. Unused outside exam mode.
+    flagCount: integer("flag_count").notNull().default(0),
   },
   (t) => [
     index("attempts_user_id_idx").on(t.userId),
