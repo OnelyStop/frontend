@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, count, desc, eq, inArray, isNotNull } from "drizzle-orm";
+import { and, count, desc, eq, inArray, isNotNull, isNull } from "drizzle-orm";
 
 import { CUTOFF_LADDER, SECTION_DB } from "@/data/navigation";
 import { db } from "@/db";
@@ -52,7 +52,12 @@ export async function listMockPapers(): Promise<Mock[]> {
     .orderBy(desc(papers.year), papers.bank, papers.role);
 
   const canonical = rows.filter((r) => r.qs >= 20);
-  const bestScores = await bestScoreByPaper(canonical.map((r) => r.paperId));
+  const paperIds = canonical.map((r) => r.paperId);
+  const userId = await currentUserId();
+  const [bestScores, inProgress] = await Promise.all([
+    bestScoreByPaper(userId, paperIds),
+    inProgressPapers(userId, paperIds),
+  ]);
 
   return canonical.map((r) => {
     const stage = r.examType as Mock["stage"];
@@ -65,6 +70,7 @@ export async function listMockPapers(): Promise<Mock[]> {
       qs: r.qs,
       mins,
       score: bestScores.get(r.paperId) ?? null,
+      inProgress: inProgress.has(r.paperId),
       target: Math.round(r.qs * TARGET_PCT),
     };
   });
@@ -72,13 +78,11 @@ export async function listMockPapers(): Promise<Mock[]> {
 
 /** A retaken mock reports the best sitting, not the most recent one; empty rather than an error when signed out. */
 async function bestScoreByPaper(
+  userId: string | null,
   paperIds: string[],
 ): Promise<Map<string, number>> {
   const out = new Map<string, number>();
-  if (paperIds.length === 0) return out;
-
-  const userId = await currentUserId();
-  if (!userId) return out;
+  if (paperIds.length === 0 || !userId) return out;
 
   const rows = await db
     .select({ paperId: attempts.paperId, score: attempts.score })
@@ -98,5 +102,29 @@ async function bestScoreByPaper(
     const best = out.get(r.paperId);
     if (best === undefined || score > best) out.set(r.paperId, score);
   }
+  return out;
+}
+
+/** A paper with an unsubmitted attempt resumes on Start instead of sitting fresh. */
+async function inProgressPapers(
+  userId: string | null,
+  paperIds: string[],
+): Promise<Set<string>> {
+  const out = new Set<string>();
+  if (paperIds.length === 0 || !userId) return out;
+
+  const rows = await db
+    .select({ paperId: attempts.paperId })
+    .from(attempts)
+    .where(
+      and(
+        eq(attempts.userId, userId),
+        eq(attempts.mode, "paper"),
+        inArray(attempts.paperId, paperIds),
+        isNull(attempts.submittedAt),
+      ),
+    );
+
+  for (const r of rows) if (r.paperId) out.add(r.paperId);
   return out;
 }

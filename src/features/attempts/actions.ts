@@ -1,6 +1,6 @@
 "use server";
 
-import { and, eq, inArray, isNull, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/db";
@@ -8,17 +8,40 @@ import {
   attemptAnswers,
   attempts,
   bankQuestions,
+  papers,
   userTopicStats,
 } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
 import { checkQuota } from "@/features/billing/usage.server";
+import { SECTIONS, SECTION_DB, type Subject } from "@/data/navigation";
 import {
   listDrillPool,
   listPaperQuestions,
 } from "@/features/question-bank/questions.server";
 import type { DrillQuestion } from "@/features/question-bank/types";
 import { type GradedAnswer, isCorrect, scoreTotals } from "./scoring";
-import type { AttemptMode, SubmittedAnswer } from "./types";
+import type { AttemptMode, ResumeState, SubmittedAnswer } from "./types";
+
+/** First SECTIONS entry with a served question — the section a fresh mock attempt opens on. */
+function firstSectionOf(questions: { section: string }[]): Subject | null {
+  return (
+    SECTIONS.find((subject) =>
+      questions.some((q) => q.section === SECTION_DB[subject]),
+    ) ?? null
+  );
+}
+
+/** A blunt ceiling, not a per-section duration: cheap to compute and still rules out a client claiming hours of section time it was never served. */
+async function maxSectionMs(paperId: string | null): Promise<number> {
+  if (!paperId) return Number.MAX_SAFE_INTEGER;
+  const [paper] = await db
+    .select({ durationMin: papers.durationMin, examType: papers.examType })
+    .from(papers)
+    .where(eq(papers.paperId, paperId))
+    .limit(1);
+  const mins = paper?.durationMin ?? (paper?.examType === "Mains" ? 180 : 60);
+  return mins * 60 * 1000;
+}
 
 const GENERIC_ERROR = { error: "Something went wrong. Try again." } as const;
 const ALREADY_SUBMITTED = "Attempt already submitted.";
@@ -70,24 +93,74 @@ export async function startAttempt(
   }
 }
 
-export async function startMockAttempt(
-  paperId: string,
-): Promise<
-  { attemptId: number; questions: DrillQuestion[] } | { error: string }
+export async function startMockAttempt(paperId: string): Promise<
+  | {
+      attemptId: number;
+      questions: DrillQuestion[];
+      resume: ResumeState | null;
+    }
+  | { error: string }
 > {
   try {
     const userId = await currentUserId();
     if (!userId) return { error: "Sign in to start a mock." };
+
+    // An unsubmitted attempt on this paper picks up where it left off — for free, since it already paid its quota.
+    const [open] = await db
+      .select({
+        id: attempts.id,
+        currentSection: attempts.currentSection,
+        lockedSections: attempts.lockedSections,
+        sectionRemainingMs: attempts.sectionRemainingMs,
+      })
+      .from(attempts)
+      .where(
+        and(
+          eq(attempts.userId, userId),
+          eq(attempts.paperId, paperId),
+          eq(attempts.mode, "paper"),
+          isNull(attempts.submittedAt),
+        ),
+      )
+      .orderBy(desc(attempts.startedAt))
+      .limit(1);
+
+    const questions = await listPaperQuestions(paperId);
+    if (questions.length === 0)
+      return { error: "This paper has no answerable questions." };
+
+    if (open) {
+      const saved = await db
+        .select({
+          qId: attemptAnswers.qId,
+          chosen: attemptAnswers.chosen,
+          timeMs: attemptAnswers.timeMs,
+        })
+        .from(attemptAnswers)
+        .where(eq(attemptAnswers.attemptId, open.id));
+
+      return {
+        attemptId: open.id,
+        questions,
+        resume: {
+          answers: Object.fromEntries(
+            saved.map((a) => [
+              a.qId,
+              { chosen: a.chosen, timeMs: a.timeMs ?? 0 },
+            ]),
+          ),
+          currentSection: open.currentSection,
+          lockedSections: open.lockedSections,
+          sectionRemainingMs: open.sectionRemainingMs,
+        },
+      };
+    }
 
     const quota = await checkQuota(db, userId, "mocksPerMonth");
     if (!quota.ok)
       return {
         error: `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`,
       };
-
-    const questions = await listPaperQuestions(paperId);
-    if (questions.length === 0)
-      return { error: "This paper has no answerable questions." };
 
     const [row] = await db
       .insert(attempts)
@@ -96,9 +169,190 @@ export async function startMockAttempt(
         mode: "paper",
         paperId,
         servedQIds: questions.map((q) => q.qId),
+        currentSection: firstSectionOf(questions),
       })
       .returning({ id: attempts.id });
-    return { attemptId: row!.id, questions };
+    return { attemptId: row!.id, questions, resume: null };
+  } catch {
+    return GENERIC_ERROR;
+  }
+}
+
+/** The explicit "start over" — wipes a paused attempt's answers and section state rather than resuming them. */
+export async function restartMockAttempt(
+  paperId: string,
+): Promise<
+  | { attemptId: number; questions: DrillQuestion[]; resume: null }
+  | { error: string }
+> {
+  try {
+    const userId = await currentUserId();
+    if (!userId) return { error: "Sign in to start a mock." };
+
+    const questions = await listPaperQuestions(paperId);
+    if (questions.length === 0)
+      return { error: "This paper has no answerable questions." };
+
+    const [open] = await db
+      .select({ id: attempts.id })
+      .from(attempts)
+      .where(
+        and(
+          eq(attempts.userId, userId),
+          eq(attempts.paperId, paperId),
+          eq(attempts.mode, "paper"),
+          isNull(attempts.submittedAt),
+        ),
+      )
+      .orderBy(desc(attempts.startedAt))
+      .limit(1);
+
+    // Resets the same row instead of inserting a new one — it already paid its quota, and a second open row would confuse "is this paper in progress" everywhere else.
+    if (open) {
+      await db.transaction(async (tx) => {
+        await tx
+          .delete(attemptAnswers)
+          .where(eq(attemptAnswers.attemptId, open.id));
+        await tx
+          .update(attempts)
+          .set({
+            servedQIds: questions.map((q) => q.qId),
+            currentSection: firstSectionOf(questions),
+            lockedSections: [],
+            sectionRemainingMs: null,
+          })
+          .where(eq(attempts.id, open.id));
+      });
+      return { attemptId: open.id, questions, resume: null };
+    }
+
+    const quota = await checkQuota(db, userId, "mocksPerMonth");
+    if (!quota.ok)
+      return {
+        error: `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`,
+      };
+
+    const [row] = await db
+      .insert(attempts)
+      .values({
+        userId,
+        mode: "paper",
+        paperId,
+        servedQIds: questions.map((q) => q.qId),
+        currentSection: firstSectionOf(questions),
+      })
+      .returning({ id: attempts.id });
+    return { attemptId: row!.id, questions, resume: null };
+  } catch {
+    return GENERIC_ERROR;
+  }
+}
+
+/** Upserted, not inserted: an answer changed after autosave still overwrites cleanly on the next save. */
+export async function saveAnswer(
+  attemptId: number,
+  qId: string,
+  chosen: string | null,
+  timeMs: number | null,
+): Promise<{ ok: true } | { error: string }> {
+  try {
+    const userId = await currentUserId();
+    if (!userId) return { error: "Sign in to save progress." };
+
+    const [attempt] = await db
+      .select({ id: attempts.id, servedQIds: attempts.servedQIds })
+      .from(attempts)
+      .where(
+        and(
+          eq(attempts.id, attemptId),
+          eq(attempts.userId, userId),
+          isNull(attempts.submittedAt),
+        ),
+      )
+      .limit(1);
+    if (!attempt) return { error: "Attempt not found." };
+    if (!attempt.servedQIds.includes(qId))
+      return { error: "Question not served for this attempt." };
+
+    await db
+      .insert(attemptAnswers)
+      .values({ attemptId, qId, chosen, timeMs })
+      .onConflictDoUpdate({
+        target: [attemptAnswers.attemptId, attemptAnswers.qId],
+        set: { chosen: sql`excluded.chosen`, timeMs: sql`excluded.time_ms` },
+      });
+    return { ok: true };
+  } catch {
+    return GENERIC_ERROR;
+  }
+}
+
+/** Called on leaving mid-section (Esc, tab close) — the clock pauses here rather than running out in the background. */
+export async function checkpointSectionTime(
+  attemptId: number,
+  remainingMs: number,
+): Promise<{ ok: true } | { error: string }> {
+  try {
+    const userId = await currentUserId();
+    if (!userId) return { error: "Sign in to save progress." };
+
+    const [attempt] = await db
+      .select({ id: attempts.id, paperId: attempts.paperId })
+      .from(attempts)
+      .where(
+        and(
+          eq(attempts.id, attemptId),
+          eq(attempts.userId, userId),
+          isNull(attempts.submittedAt),
+        ),
+      )
+      .limit(1);
+    if (!attempt) return { error: "Attempt not found." };
+
+    const cap = await maxSectionMs(attempt.paperId);
+    const clamped = Math.max(0, Math.min(Math.round(remainingMs), cap));
+
+    await db
+      .update(attempts)
+      .set({ sectionRemainingMs: clamped })
+      .where(eq(attempts.id, attemptId));
+    return { ok: true };
+  } catch {
+    return GENERIC_ERROR;
+  }
+}
+
+/** Called when a section is submitted, by the user or its own clock — sections lock forward-only, same as the hall. */
+export async function advanceSection(
+  attemptId: number,
+  finishedSection: string,
+  nextSection: string | null,
+): Promise<{ ok: true } | { error: string }> {
+  try {
+    const userId = await currentUserId();
+    if (!userId) return { error: "Sign in to save progress." };
+    if (!SECTIONS.includes(finishedSection as Subject))
+      return { error: "Unknown section." };
+    if (nextSection !== null && !SECTIONS.includes(nextSection as Subject))
+      return { error: "Unknown section." };
+
+    const [row] = await db
+      .update(attempts)
+      .set({
+        lockedSections: sql`array_append(${attempts.lockedSections}, ${finishedSection})`,
+        currentSection: nextSection,
+        sectionRemainingMs: null,
+      })
+      .where(
+        and(
+          eq(attempts.id, attemptId),
+          eq(attempts.userId, userId),
+          isNull(attempts.submittedAt),
+        ),
+      )
+      .returning({ id: attempts.id });
+    if (!row) return { error: "Attempt not found." };
+    return { ok: true };
   } catch {
     return GENERIC_ERROR;
   }
@@ -195,15 +449,27 @@ export async function submitAttempt(
         .returning({ id: attempts.id });
       if (!row) return false;
 
-      await tx.insert(attemptAnswers).values(
-        graded.map((g) => ({
-          attemptId,
-          qId: g.qId,
-          chosen: g.chosen,
-          isCorrect: g.chosen === null ? null : isCorrect(g.chosen, g.correct),
-          timeMs: g.timeMs,
-        })),
-      );
+      // Upserted, not inserted: autosave during the attempt may already have written a row for this (attemptId, qId).
+      await tx
+        .insert(attemptAnswers)
+        .values(
+          graded.map((g) => ({
+            attemptId,
+            qId: g.qId,
+            chosen: g.chosen,
+            isCorrect:
+              g.chosen === null ? null : isCorrect(g.chosen, g.correct),
+            timeMs: g.timeMs,
+          })),
+        )
+        .onConflictDoUpdate({
+          target: [attemptAnswers.attemptId, attemptAnswers.qId],
+          set: {
+            chosen: sql`excluded.chosen`,
+            isCorrect: sql`excluded.is_correct`,
+            timeMs: sql`excluded.time_ms`,
+          },
+        });
 
       await upsertTopicStats(tx, userId, graded);
       return true;

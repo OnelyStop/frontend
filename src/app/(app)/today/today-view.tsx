@@ -65,6 +65,37 @@ export function TodayView({
     ? `${greeting}, ${profile.name.split(" ")[0]}`
     : greeting;
 
+  const paper = nextPaper(papers);
+
+  // A paused mock has nothing graded yet, but it's the opposite of "no attempts" — surface it, not the empty state.
+  if (attempted === 0 && paper?.inProgress) {
+    return (
+      <>
+        <PageHeader title={hello} />
+        <Card pad={false}>
+          <PlanCard
+            size="sm"
+            className="mb-0"
+            title={paperTitle(paper)}
+            corner={
+              <CornerBadge tone="quiet">
+                <FileText size={18} strokeWidth={1.75} />
+              </CornerBadge>
+            }
+            status={<StatusPill tone="warn">In progress</StatusPill>}
+            actions={
+              <Button size="sm" onClick={() => router.push("/mocks")}>
+                Resume
+              </Button>
+            }
+          >
+            Paused partway — your answers and the clock are saved.
+          </PlanCard>
+        </Card>
+      </>
+    );
+  }
+
   if (attempted === 0) {
     return (
       <>
@@ -88,7 +119,6 @@ export function TodayView({
   const weakest = ranked[ranked.length - 1]!;
   const weakestName = sectionLabel(weakest.section);
   const daysSat = week.filter((d) => d.count > 0).length;
-  const paper = nextPaper(papers);
   const cleared =
     paper?.score !== null && paper !== null && paper.score! >= paper.target;
 
@@ -249,25 +279,39 @@ export function TodayView({
                 status={
                   <StatusPill
                     tone={
-                      paper.score === null ? "soon" : cleared ? "ok" : "bad"
+                      paper.inProgress
+                        ? "warn"
+                        : paper.score === null
+                          ? "soon"
+                          : cleared
+                            ? "ok"
+                            : "bad"
                     }
                   >
-                    {paper.score === null
-                      ? "Not attempted"
-                      : cleared
-                        ? "Cleared"
-                        : "Missed"}
+                    {paper.inProgress
+                      ? "In progress"
+                      : paper.score === null
+                        ? "Not attempted"
+                        : cleared
+                          ? "Cleared"
+                          : "Missed"}
                   </StatusPill>
                 }
                 actions={
                   <Button size="sm" onClick={() => router.push("/mocks")}>
-                    {paper.score === null ? "Start" : "Retake"}
+                    {paper.inProgress
+                      ? "Resume"
+                      : paper.score === null
+                        ? "Start"
+                        : "Retake"}
                   </Button>
                 }
               >
-                {paper.score === null
-                  ? `Full paper under real sectional timing. ${paper.qs} questions, ${paper.mins} minutes, target ${paper.target}.`
-                  : `Last sitting ${paper.score} of ${paper.qs} — ${cleared ? "cleared" : "missed"} the ${paper.target} target${cleared && paper.score - paper.target < 3 ? " by a hair" : ""}.`}
+                {paper.inProgress
+                  ? "Paused partway — your answers and the clock are saved."
+                  : paper.score === null
+                    ? `Full paper under real sectional timing. ${paper.qs} questions, ${paper.mins} minutes, target ${paper.target}.`
+                    : `Last sitting ${paper.score} of ${paper.qs} — ${cleared ? "cleared" : "missed"} the ${paper.target} target${cleared && paper.score - paper.target < 3 ? " by a hair" : ""}.`}
               </PlanCard>
             </SpineItem>
           ) : null}
