@@ -178,6 +178,76 @@ export async function startMockAttempt(paperId: string): Promise<
   }
 }
 
+/** The explicit "start over" — wipes a paused attempt's answers and section state rather than resuming them. */
+export async function restartMockAttempt(
+  paperId: string,
+): Promise<
+  | { attemptId: number; questions: DrillQuestion[]; resume: null }
+  | { error: string }
+> {
+  try {
+    const userId = await currentUserId();
+    if (!userId) return { error: "Sign in to start a mock." };
+
+    const questions = await listPaperQuestions(paperId);
+    if (questions.length === 0)
+      return { error: "This paper has no answerable questions." };
+
+    const [open] = await db
+      .select({ id: attempts.id })
+      .from(attempts)
+      .where(
+        and(
+          eq(attempts.userId, userId),
+          eq(attempts.paperId, paperId),
+          eq(attempts.mode, "paper"),
+          isNull(attempts.submittedAt),
+        ),
+      )
+      .orderBy(desc(attempts.startedAt))
+      .limit(1);
+
+    // Resets the same row instead of inserting a new one — it already paid its quota, and a second open row would confuse "is this paper in progress" everywhere else.
+    if (open) {
+      await db.transaction(async (tx) => {
+        await tx
+          .delete(attemptAnswers)
+          .where(eq(attemptAnswers.attemptId, open.id));
+        await tx
+          .update(attempts)
+          .set({
+            servedQIds: questions.map((q) => q.qId),
+            currentSection: firstSectionOf(questions),
+            lockedSections: [],
+            sectionRemainingMs: null,
+          })
+          .where(eq(attempts.id, open.id));
+      });
+      return { attemptId: open.id, questions, resume: null };
+    }
+
+    const quota = await checkQuota(db, userId, "mocksPerMonth");
+    if (!quota.ok)
+      return {
+        error: `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`,
+      };
+
+    const [row] = await db
+      .insert(attempts)
+      .values({
+        userId,
+        mode: "paper",
+        paperId,
+        servedQIds: questions.map((q) => q.qId),
+        currentSection: firstSectionOf(questions),
+      })
+      .returning({ id: attempts.id });
+    return { attemptId: row!.id, questions, resume: null };
+  } catch {
+    return GENERIC_ERROR;
+  }
+}
+
 /** Upserted, not inserted: an answer changed after autosave still overwrites cleanly on the next save. */
 export async function saveAnswer(
   attemptId: number,

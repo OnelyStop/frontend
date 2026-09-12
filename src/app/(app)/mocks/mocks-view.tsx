@@ -32,6 +32,7 @@ import {
 import {
   advanceSection,
   checkpointSectionTime,
+  restartMockAttempt,
   saveAnswer,
   startMockAttempt,
   submitAttempt,
@@ -157,11 +158,13 @@ export function MocksView({
     return Math.round((live?.mins ?? 0) / Math.max(1, groupCount)) * 60;
   }
 
-  async function handleStart(m: Mock) {
+  async function handleStart(m: Mock, restart = false) {
     const reqId = ++startReqIdRef.current;
     setStarting(m.id);
     setError(null);
-    const res = await startMockAttempt(m.id);
+    const res = restart
+      ? await restartMockAttempt(m.id)
+      : await startMockAttempt(m.id);
     // A later Start click fired while this request was in flight — let it win over this stale response.
     if (startReqIdRef.current !== reqId) return;
     setStarting(null);
@@ -201,6 +204,21 @@ export function MocksView({
       setLeft(fullSectionSec);
     }
     setLive(m);
+  }
+
+  function handleRestart(m: Mock) {
+    if (confirm("Start this paper over? Your saved progress on it is lost."))
+      void handleStart(m, true);
+  }
+
+  // Saves the instant a choice is made — closing the tab right after picking, with no Save/Esc in between, must not lose it.
+  function pickAnswer(idx: number | null) {
+    setPicked(idx);
+    if (!q) return;
+    const chosen = idx !== null ? (q.options[idx]?.key ?? null) : null;
+    const timeMs = Date.now() - qStart;
+    setAnswers((prev) => ({ ...prev, [q.qId]: { chosen, timeMs } }));
+    if (attemptId !== null) void saveAnswer(attemptId, q.qId, chosen, timeMs);
   }
 
   function record(): Record<string, Recorded> {
@@ -336,7 +354,7 @@ export function MocksView({
                           key={o.key}
                           label={o.key.toUpperCase()}
                           selected={picked === i}
-                          onSelect={() => setPicked(i)}
+                          onSelect={() => pickAnswer(i)}
                         >
                           {o.text}
                         </OptionRow>
@@ -354,16 +372,7 @@ export function MocksView({
                 >
                   Previous
                 </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    setPicked(null);
-                    setAnswers((prev) => ({
-                      ...prev,
-                      [q.qId]: { chosen: null, timeMs: Date.now() - qStart },
-                    }));
-                  }}
-                >
+                <Button variant="ghost" onClick={() => pickAnswer(null)}>
                   Clear
                 </Button>
                 <span className="flex-1" />
@@ -556,9 +565,19 @@ export function MocksView({
                 onResume={() => void handleStart(hero)}
                 status={
                   hero.inProgress ? (
-                    <StatusPill tone="warn">
-                      Resume where you left off
-                    </StatusPill>
+                    <>
+                      <StatusPill tone="warn">
+                        Resume where you left off
+                      </StatusPill>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-black/55 hover:text-black/80"
+                        onClick={() => handleRestart(hero)}
+                      >
+                        Start over
+                      </Button>
+                    </>
                   ) : (
                     <>
                       <StatusPill tone="live">
@@ -625,19 +644,31 @@ export function MocksView({
                     </StatusPill>
                   }
                   actions={
-                    <Button
-                      size="sm"
-                      disabled={starting !== null}
-                      onClick={() => void handleStart(m)}
-                    >
-                      {starting === m.id
-                        ? "Loading…"
-                        : m.inProgress
-                          ? "Resume"
-                          : sat
-                            ? "Retake"
-                            : "Start"}
-                    </Button>
+                    <>
+                      {m.inProgress ? (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          disabled={starting !== null}
+                          onClick={() => handleRestart(m)}
+                        >
+                          Start over
+                        </Button>
+                      ) : null}
+                      <Button
+                        size="sm"
+                        disabled={starting !== null}
+                        onClick={() => void handleStart(m)}
+                      >
+                        {starting === m.id
+                          ? "Loading…"
+                          : m.inProgress
+                            ? "Resume"
+                            : sat
+                              ? "Retake"
+                              : "Start"}
+                      </Button>
+                    </>
                   }
                 >
                   {m.inProgress

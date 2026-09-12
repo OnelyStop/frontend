@@ -65,6 +65,37 @@ export function TodayView({
     ? `${greeting}, ${profile.name.split(" ")[0]}`
     : greeting;
 
+  const paper = nextPaper(papers);
+
+  // A paused mock has nothing graded yet, but it's the opposite of "no attempts" — surface it, not the empty state.
+  if (attempted === 0 && paper?.inProgress) {
+    return (
+      <>
+        <PageHeader title={hello} />
+        <Card pad={false}>
+          <PlanCard
+            size="sm"
+            className="mb-0"
+            title={paperTitle(paper)}
+            corner={
+              <CornerBadge tone="quiet">
+                <FileText size={18} strokeWidth={1.75} />
+              </CornerBadge>
+            }
+            status={<StatusPill tone="warn">In progress</StatusPill>}
+            actions={
+              <Button size="sm" onClick={() => router.push("/mocks")}>
+                Resume
+              </Button>
+            }
+          >
+            Paused partway — your answers and the clock are saved.
+          </PlanCard>
+        </Card>
+      </>
+    );
+  }
+
   if (attempted === 0) {
     return (
       <>
@@ -88,7 +119,6 @@ export function TodayView({
   const weakest = ranked[ranked.length - 1]!;
   const weakestName = sectionLabel(weakest.section);
   const daysSat = week.filter((d) => d.count > 0).length;
-  const paper = nextPaper(papers);
   const cleared =
     paper?.score !== null && paper !== null && paper.score! >= paper.target;
 
