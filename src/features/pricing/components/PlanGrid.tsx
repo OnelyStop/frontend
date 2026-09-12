@@ -172,12 +172,6 @@ export function PlanGrid({
                 plan.featured && "bg-frame shadow-pop",
               )}
             >
-              {plan.featured ? (
-                <span className="bg-canvas text-frame rounded-pill absolute -top-3 left-6 px-2.5 py-1 text-[11px] font-bold tracking-[0.01em]">
-                  onelystop flagship
-                </span>
-              ) : null}
-
               <PlanName
                 className={cn(
                   "text-[18px] tracking-[-0.02em]",

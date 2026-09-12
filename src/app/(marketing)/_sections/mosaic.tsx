@@ -210,15 +210,13 @@ export function Mosaic() {
           </p>
         </header>
 
-        {/* The gaps are the borders — no cell carries one, so seams never double. */}
-        <div className="bg-line-2 rounded-ctl grid gap-px overflow-hidden p-px md:grid-cols-4 lg:grid-cols-8">
+        <div className="grid gap-4 md:grid-cols-4 lg:grid-cols-8">
           {TILES.map((tile) => (
             <article
               key={tile.title}
               className={cn(
-                "bg-canvas group relative flex flex-col gap-2 overflow-hidden p-5 transition-colors md:col-span-2",
+                "card card-lift group relative flex flex-col gap-2 overflow-hidden p-6 md:col-span-2",
                 "lg:col-(--col) lg:row-(--row)",
-                tile.href && "hover:bg-panel",
               )}
               style={
                 { "--col": tile.col, "--row": tile.row } as React.CSSProperties

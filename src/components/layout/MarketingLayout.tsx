@@ -35,14 +35,6 @@ const FOOTER_COLS = [
 export function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="bg-canvas flex min-h-dvh flex-col">
-      <Link
-        href="/signup"
-        className="bg-frame text-on-frame-2 hover:text-on-frame flex items-center justify-center gap-1 px-5 py-2.5 text-center text-[13.5px] transition-colors"
-      >
-        Two full mocks a month are free, forever
-        <span aria-hidden>&nbsp;→</span>
-      </Link>
-
       <MarketingNav />
 
       {children}

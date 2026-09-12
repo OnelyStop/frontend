@@ -7,6 +7,7 @@ import type { PlanPrice } from "@/features/billing/types";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
 import { FAQ } from "./faq";
 import { AppWindow } from "./_sections/app-window";
+import { Clouds } from "./_sections/clouds";
 import { Cta } from "./_sections/cta";
 import { MarkingScene } from "./_sections/marking";
 import { Mosaic } from "./_sections/mosaic";
@@ -17,21 +18,6 @@ const PLEDGE_DATED = "5 September 2026";
 
 const GUTTER = "px-5 sm:px-8 lg:px-16";
 const SECTION_Y = "py-[clamp(64px,7vw,104px)]";
-
-// Soft white cores with colour only bleeding through underneath, not solid colour blobs — reads as cloud, not gradient.
-const HERO_GLOW: React.CSSProperties = {
-  inset: "-20% -10% -25%",
-  filter: "blur(64px)",
-  mixBlendMode: "screen",
-  background: [
-    "radial-gradient(30% 42% at 22% 22%, rgb(255 255 255 / 0.4) 0%, transparent 72%)",
-    "radial-gradient(34% 46% at 58% 8%, rgb(255 255 255 / 0.32) 0%, transparent 74%)",
-    "radial-gradient(30% 40% at 86% 28%, rgb(255 255 255 / 0.26) 0%, transparent 72%)",
-    "radial-gradient(40% 58% at 15% 20%, #4c6fff 0%, transparent 68%)",
-    "radial-gradient(38% 54% at 55% 6%, #8a5cf5 0%, transparent 70%)",
-    "radial-gradient(40% 58% at 88% 26%, #33cba3 0%, transparent 68%)",
-  ].join(","),
-};
 
 const PLEDGE = [
   {
@@ -101,14 +87,14 @@ export function LandingView({
     <main className="flex-1">
       {/* Same dark frame the signed-in app opens on — the mockup below overlaps its rounded bottom edge on purpose. */}
       <section className="bg-frame relative overflow-hidden rounded-b-[32px]">
-        <div aria-hidden className="absolute inset-0" style={HERO_GLOW} />
-        {/* The same grain the marking scene uses — it's what keeps the glow reading as mist, not a flat gradient. */}
+        <Clouds />
+        {/* The same grain the marking scene uses — it's what keeps the clouds reading as mist, not flat shapes. */}
         <div
           aria-hidden
-          className="script-grain pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay"
+          className="script-grain pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay"
         />
         <div
-          className={`${GUTTER} relative pt-[clamp(48px,7vw,88px)] pb-[clamp(150px,17vw,230px)]`}
+          className={`${GUTTER} relative pt-[clamp(120px,13vw,168px)] pb-[clamp(150px,17vw,230px)]`}
         >
           <div className="mx-auto max-w-300">
             <ul className="flex flex-wrap gap-2">
@@ -159,8 +145,8 @@ export function LandingView({
       >
         <div className="relative">
           <AppWindow />
-          {/* Off square, like ActiveCard's tilt — the phone reads as set down beside the window, not pasted on. */}
-          <div className="absolute -right-6 -bottom-16 hidden rotate-3 lg:block xl:-right-10">
+          {/* Off square, like ActiveCard's tilt — set down beside the window with only a corner tucked under it, not covering its right rail. */}
+          <div className="absolute -right-8 -bottom-10 hidden rotate-2 lg:block xl:-right-[190px]">
             <PhoneWindow />
           </div>
         </div>
@@ -186,12 +172,11 @@ export function LandingView({
             </p>
           </header>
 
-          {/* Same gap-as-border technique as the feature mosaic below — one seam, not two competing ones. */}
-          <ol className="bg-line-2 rounded-ctl grid grid-cols-1 gap-px overflow-hidden p-px sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {PLEDGE.map((c) => (
               <li
                 key={c.no}
-                className="bg-canvas hover:bg-panel relative p-7 transition-colors duration-200 sm:aspect-square"
+                className="card card-lift relative p-7 sm:aspect-square"
               >
                 <span className="tnum text-ink-3 text-[13px]">{c.no}</span>
                 <p className="text-ink mt-6 text-[17px] leading-snug font-medium tracking-[-0.01em]">
