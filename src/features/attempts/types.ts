@@ -94,3 +94,11 @@ export type SubmittedAnswer = {
   chosen: string | null;
   timeMs: number | null;
 };
+
+/** Where a paused mock left off — `startMockAttempt` returns this instead of a fresh attempt when one is already open. */
+export type ResumeState = {
+  answers: Record<string, { chosen: string | null; timeMs: number }>;
+  currentSection: string | null;
+  lockedSections: string[];
+  sectionRemainingMs: number | null;
+};

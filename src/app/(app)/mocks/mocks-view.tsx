@@ -29,7 +29,13 @@ import {
   SECTION_LABEL,
   type Subject,
 } from "@/data/navigation";
-import { startMockAttempt, submitAttempt } from "@/features/attempts/actions";
+import {
+  advanceSection,
+  checkpointSectionTime,
+  saveAnswer,
+  startMockAttempt,
+  submitAttempt,
+} from "@/features/attempts/actions";
 import { SittingCard } from "@/features/attempts/components/SittingCard";
 import type {
   ProfileStats,
@@ -109,16 +115,27 @@ export function MocksView({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- submitSectionOrFinish deliberately isn't a dependency
   }, [left, live]);
 
+  // Read through a ref, not the closure: qIdx/picked change on every question without rebinding this listener.
+  const leaveRef = useRef(() => {});
+  leaveRef.current = () => {
+    record();
+    if (attemptId !== null)
+      void checkpointSectionTime(attemptId, sectionEndsAt - Date.now());
+    setLive(null);
+  };
+
   useEffect(() => {
     if (!live) return;
     const onKey = (e: KeyboardEvent) => {
       // Can't abandon mid-submit — a stale response could navigate to /results after the user already left.
       if (submitting) return;
+      if (e.key !== "Escape") return;
       if (
-        e.key === "Escape" &&
-        confirm("Leave the mock? Your attempt is lost.")
+        confirm(
+          "Leave the mock? Your progress is saved — resume it from Mocks whenever you come back.",
+        )
       )
-        setLive(null);
+        leaveRef.current();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -154,27 +171,46 @@ export function MocksView({
     }
 
     const groups = groupBySection(res.questions);
-    const durationSec = Math.round(m.mins / Math.max(1, groups.length)) * 60;
+    const fullSectionSec = Math.round(m.mins / Math.max(1, groups.length)) * 60;
     setQuestions(res.questions);
     setAttemptId(res.attemptId);
-    setAnswers({});
-    setSecIdx(0);
-    setQIdx(0);
-    setSectionEndsAt(Date.now() + durationSec * 1000);
-    setLeft(durationSec);
+
+    const resume = res.resume;
+    const resumeIdx = resume
+      ? groups.findIndex((g) => g.subject === resume.currentSection)
+      : -1;
+    // A resumed section that no longer exists (paper reimported differently) falls back to a fresh start.
+    if (resume && resumeIdx !== -1) {
+      const group = groups[resumeIdx]!;
+      const firstUnanswered = group.qs.findIndex(
+        (qq) => !resume.answers[qq.qId]?.chosen,
+      );
+      const remainingSec = Math.round(
+        (resume.sectionRemainingMs ?? fullSectionSec * 1000) / 1000,
+      );
+      setAnswers(resume.answers);
+      setSecIdx(resumeIdx);
+      setQIdx(firstUnanswered === -1 ? 0 : firstUnanswered);
+      setSectionEndsAt(Date.now() + remainingSec * 1000);
+      setLeft(remainingSec);
+    } else {
+      setAnswers({});
+      setSecIdx(0);
+      setQIdx(0);
+      setSectionEndsAt(Date.now() + fullSectionSec * 1000);
+      setLeft(fullSectionSec);
+    }
     setLive(m);
   }
 
   function record(): Record<string, Recorded> {
     if (!q) return answers;
-    const merged = {
-      ...answers,
-      [q.qId]: {
-        chosen: picked !== null ? (q.options[picked]?.key ?? null) : null,
-        timeMs: Date.now() - qStart,
-      },
-    };
+    const chosen = picked !== null ? (q.options[picked]?.key ?? null) : null;
+    const timeMs = Date.now() - qStart;
+    const merged = { ...answers, [q.qId]: { chosen, timeMs } };
     setAnswers(merged);
+    // Fire-and-forget: an autosave failure shouldn't block the exam, and the final submit re-sends everything anyway.
+    if (attemptId !== null) void saveAnswer(attemptId, q.qId, chosen, timeMs);
     return merged;
   }
 
@@ -189,6 +225,12 @@ export function MocksView({
     const merged = record();
     if (secIdx < sections.length - 1) {
       const durationSec = sectionDurationSec(sections.length);
+      if (attemptId !== null)
+        void advanceSection(
+          attemptId,
+          sections[secIdx]!.subject,
+          sections[secIdx + 1]!.subject,
+        );
       setDir(1);
       setSecIdx(secIdx + 1);
       setQIdx(0);
@@ -499,31 +541,41 @@ export function MocksView({
                 tilt
                 className="mb-4 max-w-xl"
                 kicker={
-                  hero.score === null
-                    ? "Sit next · not attempted"
-                    : heroCleared
-                      ? hero.score - hero.target < 3
-                        ? "Sit next · you cleared it by a hair"
-                        : "Sit next · cleared last time"
-                      : "Sit next · missed last time"
+                  hero.inProgress
+                    ? "Sit next · paused partway"
+                    : hero.score === null
+                      ? "Sit next · not attempted"
+                      : heroCleared
+                        ? hero.score - hero.target < 3
+                          ? "Sit next · you cleared it by a hair"
+                          : "Sit next · cleared last time"
+                        : "Sit next · missed last time"
                 }
                 title={paperTitle(hero)}
-                resumeLabel={`${hero.score === null ? "Start" : "Retake"} ${paperTitle(hero)}`}
+                resumeLabel={`${hero.inProgress ? "Resume" : hero.score === null ? "Start" : "Retake"} ${paperTitle(hero)}`}
                 onResume={() => void handleStart(hero)}
                 status={
-                  <>
-                    <StatusPill tone="live">
-                      {hero.score === null
-                        ? `${hero.qs} questions · ${hero.mins} min`
-                        : `Last sitting ${hero.score} of ${hero.qs}`}
+                  hero.inProgress ? (
+                    <StatusPill tone="warn">
+                      Resume where you left off
                     </StatusPill>
-                    <StatusPill tone="live">Target {hero.target}</StatusPill>
-                  </>
+                  ) : (
+                    <>
+                      <StatusPill tone="live">
+                        {hero.score === null
+                          ? `${hero.qs} questions · ${hero.mins} min`
+                          : `Last sitting ${hero.score} of ${hero.qs}`}
+                      </StatusPill>
+                      <StatusPill tone="live">Target {hero.target}</StatusPill>
+                    </>
+                  )
                 }
               >
-                {hero.score === null
-                  ? `${hero.mins} minutes under real sectional timing — each section locks when its clock ends, same as the hall.`
-                  : `${hero.qs} questions, ${hero.mins} minutes, each section locks when its clock ends — same as the hall.`}
+                {hero.inProgress
+                  ? "Your answers and the section clock are saved — pick up exactly where you paused."
+                  : hero.score === null
+                    ? `${hero.mins} minutes under real sectional timing — each section locks when its clock ends, same as the hall.`
+                    : `${hero.qs} questions, ${hero.mins} minutes, each section locks when its clock ends — same as the hall.`}
               </ActiveCard>
             ) : null}
           </div>
@@ -539,7 +591,9 @@ export function MocksView({
                   className="mb-0"
                   title={paperTitle(m)}
                   corner={
-                    <CornerBadge tone={sat && cleared ? "leaf" : "quiet"}>
+                    <CornerBadge
+                      tone={!m.inProgress && sat && cleared ? "leaf" : "quiet"}
+                    >
                       <FileText size={18} strokeWidth={1.75} />
                     </CornerBadge>
                   }
@@ -550,8 +604,24 @@ export function MocksView({
                     </span>
                   }
                   status={
-                    <StatusPill tone={!sat ? "soon" : cleared ? "ok" : "bad"}>
-                      {!sat ? "Not attempted" : cleared ? "Cleared" : "Missed"}
+                    <StatusPill
+                      tone={
+                        m.inProgress
+                          ? "warn"
+                          : !sat
+                            ? "soon"
+                            : cleared
+                              ? "ok"
+                              : "bad"
+                      }
+                    >
+                      {m.inProgress
+                        ? "In progress"
+                        : !sat
+                          ? "Not attempted"
+                          : cleared
+                            ? "Cleared"
+                            : "Missed"}
                     </StatusPill>
                   }
                   actions={
@@ -562,15 +632,19 @@ export function MocksView({
                     >
                       {starting === m.id
                         ? "Loading…"
-                        : sat
-                          ? "Retake"
-                          : "Start"}
+                        : m.inProgress
+                          ? "Resume"
+                          : sat
+                            ? "Retake"
+                            : "Start"}
                     </Button>
                   }
                 >
-                  {sat
-                    ? `Last sitting ${m.score} of ${m.qs} — ${cleared ? "cleared" : "missed"} the ${m.target} target.`
-                    : `Target is ${m.target} — 55% of the paper.`}
+                  {m.inProgress
+                    ? "Paused partway — your answers and the clock are saved."
+                    : sat
+                      ? `Last sitting ${m.score} of ${m.qs} — ${cleared ? "cleared" : "missed"} the ${m.target} target.`
+                      : `Target is ${m.target} — 55% of the paper.`}
                 </PlanCard>
               );
             })}

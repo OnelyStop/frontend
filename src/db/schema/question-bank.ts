@@ -141,6 +141,15 @@ export const attempts = pgTable(
       .array()
       .notNull()
       .default(sql`'{}'`),
+    // The subject of the section a mock is paused in; null once submitted, since sections are one-way.
+    currentSection: text("current_section"),
+    // Subjects whose clock has already run out or been submitted — resume can't reopen them.
+    lockedSections: text("locked_sections")
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    // Ms left on currentSection's clock as of the last checkpoint; null means the full section duration.
+    sectionRemainingMs: integer("section_remaining_ms"),
   },
   (t) => [
     index("attempts_user_id_idx").on(t.userId),

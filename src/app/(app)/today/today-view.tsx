@@ -249,25 +249,39 @@ export function TodayView({
                 status={
                   <StatusPill
                     tone={
-                      paper.score === null ? "soon" : cleared ? "ok" : "bad"
+                      paper.inProgress
+                        ? "warn"
+                        : paper.score === null
+                          ? "soon"
+                          : cleared
+                            ? "ok"
+                            : "bad"
                     }
                   >
-                    {paper.score === null
-                      ? "Not attempted"
-                      : cleared
-                        ? "Cleared"
-                        : "Missed"}
+                    {paper.inProgress
+                      ? "In progress"
+                      : paper.score === null
+                        ? "Not attempted"
+                        : cleared
+                          ? "Cleared"
+                          : "Missed"}
                   </StatusPill>
                 }
                 actions={
                   <Button size="sm" onClick={() => router.push("/mocks")}>
-                    {paper.score === null ? "Start" : "Retake"}
+                    {paper.inProgress
+                      ? "Resume"
+                      : paper.score === null
+                        ? "Start"
+                        : "Retake"}
                   </Button>
                 }
               >
-                {paper.score === null
-                  ? `Full paper under real sectional timing. ${paper.qs} questions, ${paper.mins} minutes, target ${paper.target}.`
-                  : `Last sitting ${paper.score} of ${paper.qs} — ${cleared ? "cleared" : "missed"} the ${paper.target} target${cleared && paper.score - paper.target < 3 ? " by a hair" : ""}.`}
+                {paper.inProgress
+                  ? "Paused partway — your answers and the clock are saved."
+                  : paper.score === null
+                    ? `Full paper under real sectional timing. ${paper.qs} questions, ${paper.mins} minutes, target ${paper.target}.`
+                    : `Last sitting ${paper.score} of ${paper.qs} — ${cleared ? "cleared" : "missed"} the ${paper.target} target${cleared && paper.score - paper.target < 3 ? " by a hair" : ""}.`}
               </PlanCard>
             </SpineItem>
           ) : null}

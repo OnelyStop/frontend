@@ -8,6 +8,8 @@ export type Mock = {
   qs: number;
   mins: number;
   score: number | null;
+  /** An unsubmitted attempt already exists — Resume, not Start, and never a fresh quota charge. */
+  inProgress: boolean;
   /** 55% of the question count — our practice benchmark, not a published cutoff. */
   target: number;
 };
