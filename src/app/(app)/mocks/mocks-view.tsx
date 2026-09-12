@@ -144,12 +144,8 @@ export function MocksView({
 
   // Same pattern as leaveRef: attemptId/flagCount would go stale between renders without going through a ref.
   const flagRef = useRef(async () => {});
-  const lastFlagAtRef = useRef(0);
   flagRef.current = async () => {
     if (attemptId === null) return;
-    // A browser can fire visibilitychange twice for one real switch — one strike per switch, not per event.
-    if (Date.now() - lastFlagAtRef.current < 1500) return;
-    lastFlagAtRef.current = Date.now();
     const res = await recordFlag(attemptId);
     if (!("flagCount" in res)) return;
     setFlagCount(res.flagCount);
@@ -172,9 +168,12 @@ export function MocksView({
   // Only in exam mode, and only while an attempt is live — Normal mode carries none of this.
   useEffect(() => {
     if (!live || !examMode) return;
-    // visibilitychange/blur alone miss a macOS trackpad swipe to another Space — the poll is the real safety net.
+    // One flag per departure, not per second away: only the leaving edge fires, not the whole time spent away.
+    let wasAway = false;
     const check = () => {
-      if (document.hidden || !document.hasFocus()) void flagRef.current();
+      const away = document.hidden || !document.hasFocus();
+      if (away && !wasAway) void flagRef.current();
+      wasAway = away;
     };
     const onFullscreenChange = () => {
       setAwayFromFullscreen(!document.fullscreenElement);
@@ -182,6 +181,7 @@ export function MocksView({
     document.addEventListener("visibilitychange", check);
     window.addEventListener("blur", check);
     document.addEventListener("fullscreenchange", onFullscreenChange);
+    // visibilitychange/blur alone miss a macOS trackpad swipe to another Space — the poll is the real safety net.
     const poll = setInterval(check, 1000);
     return () => {
       document.removeEventListener("visibilitychange", check);
