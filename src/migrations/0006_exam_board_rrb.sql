@@ -1,0 +1,1 @@
+ALTER TYPE "public"."exam_board" ADD VALUE 'IBPS RRB' BEFORE 'SBI PO';

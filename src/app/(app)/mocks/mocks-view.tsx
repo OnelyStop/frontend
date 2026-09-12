@@ -84,7 +84,12 @@ export function MocksView({
   const [submitting, setSubmitting] = useState(false);
   const startReqIdRef = useRef(0);
 
-  const shown = mocks.filter((m) => stage === "All" || m.stage === stage);
+  const shown = mocks.filter(
+    (m) => m.name === board && (stage === "All" || m.stage === stage),
+  );
+
+  // The header board switcher is global state this view doesn't own, so it needs its own reset.
+  useEffect(() => setPage(1), [board]);
   const sections = groupBySection(questions);
   const section = sections[secIdx];
   const q = section?.qs[qIdx];
@@ -437,8 +442,17 @@ export function MocksView({
         />
       ) : shown.length === 0 ? (
         <Empty
-          title={`No ${stage.toLowerCase()} papers`}
-          sub="Nothing has been imported at this stage yet. Switch the filter to All to see everything there is."
+          title={`No ${board} papers${stage === "All" ? "" : ` at ${stage}`}`}
+          sub={
+            stage === "All"
+              ? "Nothing has been imported for this exam yet. Drills pull from the whole bank in the meantime."
+              : "Nothing has been imported at this stage yet. Switch the filter to All to see everything there is for this exam."
+          }
+          action={
+            stage === "All" ? (
+              <ButtonLink href="/drills">Start a drill</ButtonLink>
+            ) : undefined
+          }
         />
       ) : (
         <Canvas
@@ -478,12 +492,12 @@ export function MocksView({
             </>
           }
         >
-          {/* The paper to sit next shares the grid with the rest, so one paper reads as a plan column, not a banner. */}
-          <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+          {/* Its own row, capped to a card's width: sharing a grid row with a shorter PlanCard left dead space beneath it up to the hero's height, and going full column width would read as a banner instead of the one card picked up off the pile. */}
+          <div>
             {hero ? (
               <ActiveCard
                 tilt
-                className="mb-0"
+                className="mb-4 max-w-xl"
                 kicker={
                   hero.score === null
                     ? "Sit next · not attempted"
@@ -512,7 +526,9 @@ export function MocksView({
                   : `${hero.qs} questions, ${hero.mins} minutes, each section locks when its clock ends — same as the hall.`}
               </ActiveCard>
             ) : null}
+          </div>
 
+          <div className="grid items-stretch gap-4 lg:grid-cols-2">
             {pageRest.map((m) => {
               const sat = m.score !== null;
               const cleared = m.score !== null && m.score >= m.target;
