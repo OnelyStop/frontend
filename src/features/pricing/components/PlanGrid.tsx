@@ -74,10 +74,11 @@ function PlanCta({
       </Button>
     );
 
+  // "secondary" (opaque white) rather than "primary" (near-black) when featured — the card itself is already dark.
   return (
     <ButtonLink
       href={`/upgrade/checkout?plan=${plan.id}&interval=${interval}`}
-      variant={plan.featured ? "primary" : "secondary"}
+      variant={plan.featured ? "secondary" : "primary"}
       block
     >
       {variant === "public" ? `Get ${plan.name}` : `Upgrade to ${plan.name}`}
@@ -167,25 +168,64 @@ export function PlanGrid({
               pad={false}
               className={cn(
                 "relative flex flex-col p-6",
-                // A ring, not a shadow: the design system reserves shadows for floating things.
-                plan.featured && "ring-brand ring-1",
+                // The flagship is a dark card, not a ring on a white one — the rest of it inverts to match.
+                plan.featured && "bg-frame shadow-pop",
               )}
             >
-              <PlanName className="text-[18px] font-semibold tracking-[-0.02em]">
+              {plan.featured ? (
+                <span className="bg-canvas text-frame rounded-pill absolute -top-3 left-6 px-2.5 py-1 text-[11px] font-bold tracking-[0.01em]">
+                  onelystop flagship
+                </span>
+              ) : null}
+
+              <PlanName
+                className={cn(
+                  "text-[18px] tracking-[-0.02em]",
+                  plan.featured
+                    ? "text-on-frame text-[20px] font-bold"
+                    : "font-semibold",
+                )}
+              >
                 {plan.name}
               </PlanName>
-              <p className="text-ink-2 mt-0.5 text-[14px]">{plan.tagline}</p>
+              <p
+                className={cn(
+                  "mt-0.5 text-[14px]",
+                  plan.featured ? "text-on-frame-2" : "text-ink-2",
+                )}
+              >
+                {plan.tagline}
+              </p>
 
               <div className="mt-4 flex items-baseline gap-1.5">
-                <span className="tnum text-[20px] font-semibold tracking-[-0.03em]">
+                <span
+                  className={cn(
+                    "tnum tracking-[-0.03em]",
+                    plan.featured
+                      ? "text-on-frame text-[24px] font-bold"
+                      : "text-[20px] font-semibold",
+                  )}
+                >
                   {headline(plan)}
                 </span>
-                <span className="text-ink-3 text-[14px]">/ month</span>
+                <span
+                  className={cn(
+                    "text-[14px]",
+                    plan.featured ? "text-on-frame-3" : "text-ink-3",
+                  )}
+                >
+                  / month
+                </span>
               </div>
 
               {off && price?.listAmountMinor ? (
                 <p className="mt-1 flex items-baseline gap-2 text-[12.5px]">
-                  <span className="text-ink-3 tnum line-through">
+                  <span
+                    className={cn(
+                      "tnum line-through",
+                      plan.featured ? "text-on-frame-3" : "text-ink-3",
+                    )}
+                  >
                     {formatAmount(
                       perMonth(price.listAmountMinor),
                       price.currency,
@@ -195,17 +235,30 @@ export function PlanGrid({
                 </p>
               ) : null}
 
-              <p className="text-ink-3 mt-1 min-h-5 text-[12.5px]">
+              <p
+                className={cn(
+                  "mt-1 min-h-5 text-[12.5px]",
+                  plan.featured ? "text-on-frame-3" : "text-ink-3",
+                )}
+              >
                 {priceLine(plan)}
               </p>
 
-              <ul className="text-ink-2 mt-5 mb-6 grid gap-2.5 text-[14px]">
+              <ul
+                className={cn(
+                  "mt-5 mb-6 grid gap-2.5 text-[14px]",
+                  plan.featured ? "text-on-frame font-medium" : "text-ink-2",
+                )}
+              >
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
                     <Check
                       size={15}
                       strokeWidth={2.5}
-                      className="text-ok mt-0.5 shrink-0"
+                      className={cn(
+                        "mt-0.5 shrink-0",
+                        plan.featured ? "text-on-frame" : "text-ok",
+                      )}
                     />
                     {feature}
                   </li>

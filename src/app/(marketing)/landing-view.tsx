@@ -10,6 +10,7 @@ import { AppWindow } from "./_sections/app-window";
 import { Cta } from "./_sections/cta";
 import { MarkingScene } from "./_sections/marking";
 import { Mosaic } from "./_sections/mosaic";
+import { PhoneWindow } from "./_sections/phone-window";
 
 // The date is the point: a pledge that can be quietly edited is not one.
 const PLEDGE_DATED = "5 September 2026";
@@ -17,15 +18,18 @@ const PLEDGE_DATED = "5 September 2026";
 const GUTTER = "px-5 sm:px-8 lg:px-16";
 const SECTION_Y = "py-[clamp(64px,7vw,104px)]";
 
+// Soft white cores with colour only bleeding through underneath, not solid colour blobs — reads as cloud, not gradient.
 const HERO_GLOW: React.CSSProperties = {
-  inset: "-8% -4% 18%",
-  borderRadius: "50%",
-  filter: "blur(44px)",
-  opacity: 0.92,
+  inset: "-20% -10% -25%",
+  filter: "blur(64px)",
+  mixBlendMode: "screen",
   background: [
-    "radial-gradient(46% 62% at 20% 46%, #bcd4ff 0%, transparent 68%)",
-    "radial-gradient(42% 58% at 60% 32%, #cfc6ff 0%, transparent 70%)",
-    "radial-gradient(44% 60% at 88% 58%, #b6ecdd 0%, transparent 68%)",
+    "radial-gradient(30% 42% at 22% 22%, rgb(255 255 255 / 0.4) 0%, transparent 72%)",
+    "radial-gradient(34% 46% at 58% 8%, rgb(255 255 255 / 0.32) 0%, transparent 74%)",
+    "radial-gradient(30% 40% at 86% 28%, rgb(255 255 255 / 0.26) 0%, transparent 72%)",
+    "radial-gradient(40% 58% at 15% 20%, #4c6fff 0%, transparent 68%)",
+    "radial-gradient(38% 54% at 55% 6%, #8a5cf5 0%, transparent 70%)",
+    "radial-gradient(40% 58% at 88% 26%, #33cba3 0%, transparent 68%)",
   ].join(","),
 };
 
@@ -95,52 +99,72 @@ export function LandingView({
 }) {
   return (
     <main className="flex-1">
-      <section className={`${GUTTER} pt-[clamp(56px,8vw,120px)]`}>
-        <div className="mx-auto grid max-w-300 items-end gap-x-12 gap-y-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
-          <div>
-            <p className="text-ink-3 text-[14px]">{EXAMS.join(" · ")}</p>
-            <h1 className="mt-4 text-[36px] leading-[1.08] tracking-[-0.022em] text-balance md:text-[44px] lg:text-[52px]">
-              Clear every sectional cutoff
-            </h1>
-            <div className="mt-14 flex flex-wrap gap-4">
-              <ButtonLink href="/signup" size="lg">
+      {/* Same dark frame the signed-in app opens on — the mockup below overlaps its rounded bottom edge on purpose. */}
+      <section className="bg-frame relative overflow-hidden rounded-b-[32px]">
+        <div aria-hidden className="absolute inset-0" style={HERO_GLOW} />
+        {/* The same grain the marking scene uses — it's what keeps the glow reading as mist, not a flat gradient. */}
+        <div
+          aria-hidden
+          className="script-grain pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay"
+        />
+        <div
+          className={`${GUTTER} relative pt-[clamp(48px,7vw,88px)] pb-[clamp(150px,17vw,230px)]`}
+        >
+          <div className="mx-auto max-w-300">
+            <ul className="flex flex-wrap gap-2">
+              {EXAMS.map((exam) => (
+                <li
+                  key={exam}
+                  className="bg-on-frame-line/70 text-on-frame-2 rounded-pill px-3 py-1.5 text-[13px]"
+                >
+                  {exam}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-7 grid items-end gap-x-12 gap-y-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
+              <h1 className="text-on-frame text-[38px] leading-[1.06] tracking-[-0.025em] text-balance md:text-[50px] lg:text-[60px]">
+                Clear every sectional cutoff
+              </h1>
+              <p className="text-on-frame-2 text-[18px] leading-relaxed lg:text-[19px]">
+                Full mocks under real sectional timing, drills aimed at what
+                costs you marks, and one grounded question per current-affairs
+                story. Scored the way the paper is, negative marking included.
+              </p>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <ButtonLink
+                href="/signup"
+                size="lg"
+                className="bg-canvas text-frame hover:bg-canvas/90"
+              >
                 Sit a free mock
               </ButtonLink>
-              <ButtonLink href="#marking" size="lg" variant="secondary">
+              <ButtonLink
+                href="#marking"
+                size="lg"
+                variant="secondary"
+                className="border-on-frame-line text-on-frame bg-transparent hover:bg-white/5"
+              >
                 See a marked answer
               </ButtonLink>
             </div>
           </div>
-          <p className="text-ink-2 text-[18px] leading-relaxed lg:text-[19px]">
-            Full mocks under real sectional timing, drills aimed at what costs
-            you marks, and one grounded question per current-affairs story.
-            Scored the way the paper is, negative marking included.
-          </p>
-        </div>
-
-        <div className="relative isolate mx-auto mt-[clamp(32px,4.5vw,64px)] max-w-300">
-          <div
-            aria-hidden
-            className="absolute inset-0 -z-1"
-            style={HERO_GLOW}
-          />
-          <AppWindow />
         </div>
       </section>
 
-      <section
-        className={`${GUTTER} border-line border-y py-10`}
-        aria-label="Exams covered"
+      <div
+        className={`${GUTTER} relative z-1 mx-auto -mt-[clamp(120px,15vw,200px)] max-w-300`}
       >
-        <div className="mx-auto flex max-w-300 flex-wrap items-baseline gap-8">
-          <p className="text-ink-3 text-[14px]">Exams covered at launch</p>
-          <ul className="text-ink-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px]">
-            {EXAMS.map((exam) => (
-              <li key={exam}>{exam}</li>
-            ))}
-          </ul>
+        <div className="relative">
+          <AppWindow />
+          {/* Off square, like ActiveCard's tilt — the phone reads as set down beside the window, not pasted on. */}
+          <div className="absolute -right-6 -bottom-16 hidden rotate-3 lg:block xl:-right-10">
+            <PhoneWindow />
+          </div>
         </div>
-      </section>
+      </div>
 
       <Mosaic />
 
@@ -162,11 +186,12 @@ export function LandingView({
             </p>
           </header>
 
-          <ol className="border-line grid grid-cols-1 border-t border-l sm:grid-cols-2 lg:grid-cols-4">
+          {/* Same gap-as-border technique as the feature mosaic below — one seam, not two competing ones. */}
+          <ol className="bg-line-2 rounded-ctl grid grid-cols-1 gap-px overflow-hidden p-px sm:grid-cols-2 lg:grid-cols-4">
             {PLEDGE.map((c) => (
               <li
                 key={c.no}
-                className="border-line hover:bg-canvas relative border-r border-b p-7 transition-colors duration-200 sm:aspect-square"
+                className="bg-canvas hover:bg-panel relative p-7 transition-colors duration-200 sm:aspect-square"
               >
                 <span className="tnum text-ink-3 text-[13px]">{c.no}</span>
                 <p className="text-ink mt-6 text-[17px] leading-snug font-medium tracking-[-0.01em]">
@@ -178,7 +203,7 @@ export function LandingView({
 
                 <span
                   aria-hidden
-                  className="bg-ink-4 absolute right-[-2.5px] bottom-[-2.5px] size-1.25 rounded-full"
+                  className="bg-ink-4 absolute right-4 bottom-4 size-1.25 rounded-full"
                 />
               </li>
             ))}
@@ -267,27 +292,33 @@ export function LandingView({
       </section>
 
       <section className={`${GUTTER} ${SECTION_Y} bg-panel/40`} id="faq">
-        <div className="mx-auto max-w-300">
-          <h2 className="max-w-[16ch] text-[26px] tracking-[-0.02em] text-balance md:text-[30px]">
-            Questions people ask before signing up
-          </h2>
-          <div className="border-line mt-8 border-t">
+        <div className="mx-auto grid max-w-300 items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-[clamp(32px,6vw,88px)]">
+          <header className="lg:sticky lg:top-22">
+            <p className="text-ink-3 text-[15px]">FAQ</p>
+            <h2 className="mt-3 max-w-[14ch] text-[30px] tracking-[-0.02em] text-balance md:text-[36px]">
+              Questions people ask before signing up
+            </h2>
+          </header>
+
+          <div className="grid gap-3">
             {FAQ.map((item) => (
               <details
                 key={item.question}
                 name="faq"
-                className="border-line group border-b"
+                className="card group p-5"
               >
-                <summary className="flex cursor-pointer items-center justify-between gap-6 py-4 text-[16px] tracking-[-0.01em] md:text-[17px]">
+                <summary className="flex cursor-pointer list-none items-center gap-4 text-[16px] tracking-[-0.01em] md:text-[17px] [&::-webkit-details-marker]:hidden">
                   {item.question}
                   <span
                     aria-hidden
-                    className="text-ink-3 ease-soft shrink-0 transition-transform duration-200 group-open:rotate-45"
+                    className="bg-panel text-ink-3 group-open:bg-ink ease-soft ml-auto grid size-7 shrink-0 place-items-center rounded-full text-[16px] leading-none transition-colors duration-200 group-open:text-white"
                   >
-                    +
+                    <span className="ease-soft block transition-transform duration-200 group-open:rotate-45">
+                      +
+                    </span>
                   </span>
                 </summary>
-                <p className="text-ink-2 max-w-[74ch] pb-5 text-[15px] leading-relaxed">
+                <p className="text-ink-2 mt-4 max-w-[70ch] text-[15px] leading-relaxed">
                   {item.answer}
                 </p>
               </details>

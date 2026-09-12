@@ -43,7 +43,6 @@ export const PLAN_COPY: PlanCopy[] = [
     id: "pro",
     name: "Pro",
     tagline: "Unlimited practice, calibrated to your exam",
-    featured: true,
     features: [
       ...paidBullets(PLAN_LIMITS.pro),
       "Attempt map and progress across every sitting",
@@ -54,6 +53,8 @@ export const PLAN_COPY: PlanCopy[] = [
     id: "pro_plus",
     name: "Pro+",
     tagline: "For the descriptive papers and the last mile",
+    // The one paid plan built around a person, not a cap — the marking. Carries the card's flagship treatment.
+    featured: true,
     features: [
       "Everything in Pro",
       per(
