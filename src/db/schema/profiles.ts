@@ -15,6 +15,7 @@ import { authenticatedRole } from "drizzle-orm/supabase";
 export const examBoard = pgEnum("exam_board", [
   "IBPS PO",
   "IBPS Clerk",
+  "IBPS RRB",
   "SBI PO",
   "SBI Clerk",
   "RBI Grade B",

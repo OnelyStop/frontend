@@ -186,7 +186,7 @@ export function PlanCard({
   return (
     <article
       className={cn(
-        "card card-lift relative mb-5",
+        "card card-lift relative mb-5 flex h-full flex-col",
         lg ? "p-7" : "p-5",
         className,
       )}
@@ -221,11 +221,11 @@ export function PlanCard({
         </div>
       ) : null}
       {status || actions ? (
-        // Wraps rather than squeezing: a pill and a button on one 390px row collide.
+        // mt-auto pins this to the bottom (equal-height siblings line up); wraps rather than squeezing a pill and a button together on one 390px row.
         <div
           className={cn(
-            "flex flex-wrap items-center gap-x-2.5 gap-y-3",
-            lg ? "mt-6" : "mt-4",
+            "mt-auto flex flex-wrap items-center gap-x-2.5 gap-y-3",
+            lg ? "pt-6" : "pt-4",
           )}
         >
           {status}
@@ -341,10 +341,21 @@ export function ActiveCard({
   );
 }
 
-/** The floating toolbar. Each button is a tinted disc on the frame. */
-export function Dock({ children }: { children: ReactNode }) {
+/** The floating toolbar. `className` must set `display` (e.g. "hidden lg:flex") — a wrapper div around this instead shrinks sticky's containing block to the dock's own height and breaks the stick. */
+export function Dock({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className: string;
+}) {
   return (
-    <div className="bg-frame shadow-pop sticky bottom-6 z-8 mx-auto flex w-fit items-center gap-2.5 rounded-full p-3">
+    <div
+      className={cn(
+        "bg-frame shadow-pop sticky bottom-6 z-8 mx-auto w-fit items-center gap-2.5 rounded-full p-3",
+        className,
+      )}
+    >
       {children}
     </div>
   );

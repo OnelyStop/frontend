@@ -268,7 +268,7 @@ export function Reader({
             <span />
           )}
         </div>
-        <Dock>
+        <Dock className="flex">
           <DockButton
             label="Notes"
             tint="var(--color-info-soft)"

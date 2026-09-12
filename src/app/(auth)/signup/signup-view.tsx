@@ -40,6 +40,7 @@ const initialsOf = (name: string) =>
 const EXAM_HINT: Record<ExamBoard, string> = {
   "IBPS PO": "Probationary Officer, public sector banks",
   "IBPS Clerk": "Clerical cadre, public sector banks",
+  "IBPS RRB": "Officer and Assistant, regional rural banks",
   "SBI PO": "Probationary Officer, State Bank of India",
   "SBI Clerk": "Junior Associate, State Bank of India",
   "RBI Grade B": "Officer Grade B, Reserve Bank of India",

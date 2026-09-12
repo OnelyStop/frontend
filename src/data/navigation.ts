@@ -1,5 +1,10 @@
 export type ExamBoard =
-  "IBPS PO" | "IBPS Clerk" | "SBI PO" | "SBI Clerk" | "RBI Grade B";
+  | "IBPS PO"
+  | "IBPS Clerk"
+  | "IBPS RRB"
+  | "SBI PO"
+  | "SBI Clerk"
+  | "RBI Grade B";
 
 export type Subject =
   | "Quantitative Aptitude"
@@ -20,6 +25,7 @@ export const SECTIONS = [
 export const EXAMS = [
   "IBPS PO",
   "IBPS Clerk",
+  "IBPS RRB",
   "SBI PO",
   "SBI Clerk",
   "RBI Grade B",

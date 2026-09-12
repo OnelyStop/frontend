@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
-import { FileText } from "lucide-react";
+import { ChevronLeft, ChevronRight, FileText } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import {
   ActiveCard,
@@ -40,6 +40,8 @@ import type { Mock } from "@/features/question-bank/types";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
 const STAGES = ["All", "Prelims", "Mains"] as const;
+// The hero card is outside this count — it's the one paper always shown regardless of page.
+const PAGE_SIZE = 12;
 
 type Recorded = { chosen: string | null; timeMs: number };
 type SectionGroup = { subject: Subject; qs: DrillQuestion[] };
@@ -64,6 +66,7 @@ export function MocksView({
   const router = useRouter();
   const { board } = useApp();
   const [stage, setStage] = useState<(typeof STAGES)[number]>("All");
+  const [page, setPage] = useState(1);
   const [live, setLive] = useState<Mock | null>(null);
   const [starting, setStarting] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -81,7 +84,12 @@ export function MocksView({
   const [submitting, setSubmitting] = useState(false);
   const startReqIdRef = useRef(0);
 
-  const shown = mocks.filter((m) => stage === "All" || m.stage === stage);
+  const shown = mocks.filter(
+    (m) => m.name === board && (stage === "All" || m.stage === stage),
+  );
+
+  // The header board switcher is global state this view doesn't own, so it needs its own reset.
+  useEffect(() => setPage(1), [board]);
   const sections = groupBySection(questions);
   const section = sections[secIdx];
   const q = section?.qs[qIdx];
@@ -396,6 +404,8 @@ export function MocksView({
 
   const hero = nextPaper(shown);
   const rest = shown.filter((m) => m !== hero);
+  const totalPages = Math.max(1, Math.ceil(rest.length / PAGE_SIZE));
+  const pageRest = rest.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const heroCleared =
     hero !== null && hero.score !== null && hero.score >= hero.target;
   const lastSat = stats?.lastSatAt
@@ -412,7 +422,14 @@ export function MocksView({
         <h1 className="text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
           Mocks
         </h1>
-        <Segmented value={stage} options={STAGES} onChange={setStage} />
+        <Segmented
+          value={stage}
+          options={STAGES}
+          onChange={(s) => {
+            setStage(s);
+            setPage(1);
+          }}
+        />
       </div>
 
       {error ? <p className="text-bad mb-4 text-[13px]">{error}</p> : null}
@@ -425,8 +442,17 @@ export function MocksView({
         />
       ) : shown.length === 0 ? (
         <Empty
-          title={`No ${stage.toLowerCase()} papers`}
-          sub="Nothing has been imported at this stage yet. Switch the filter to All to see everything there is."
+          title={`No ${board} papers${stage === "All" ? "" : ` at ${stage}`}`}
+          sub={
+            stage === "All"
+              ? "Nothing has been imported for this exam yet. Drills pull from the whole bank in the meantime."
+              : "Nothing has been imported at this stage yet. Switch the filter to All to see everything there is for this exam."
+          }
+          action={
+            stage === "All" ? (
+              <ButtonLink href="/drills">Start a drill</ButtonLink>
+            ) : undefined
+          }
         />
       ) : (
         <Canvas
@@ -466,12 +492,12 @@ export function MocksView({
             </>
           }
         >
-          {/* The paper to sit next shares the grid with the rest, so one paper reads as a plan column, not a banner. */}
-          <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+          {/* Its own row, capped to a card's width: sharing a grid row with a shorter PlanCard left dead space beneath it up to the hero's height, and going full column width would read as a banner instead of the one card picked up off the pile. */}
+          <div>
             {hero ? (
               <ActiveCard
                 tilt
-                className="mb-0"
+                className="mb-4 max-w-xl"
                 kicker={
                   hero.score === null
                     ? "Sit next · not attempted"
@@ -500,8 +526,10 @@ export function MocksView({
                   : `${hero.qs} questions, ${hero.mins} minutes, each section locks when its clock ends — same as the hall.`}
               </ActiveCard>
             ) : null}
+          </div>
 
-            {rest.map((m) => {
+          <div className="grid items-stretch gap-4 lg:grid-cols-2">
+            {pageRest.map((m) => {
               const sat = m.score !== null;
               const cleared = m.score !== null && m.score >= m.target;
               return (
@@ -553,6 +581,32 @@ export function MocksView({
             target is 55% of its questions — our benchmark, not the
             board&rsquo;s published cutoff.
           </p>
+
+          {totalPages > 1 ? (
+            <div className="mt-5 flex items-center justify-center gap-3">
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={page === 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+              >
+                <ChevronLeft size={16} strokeWidth={1.75} />
+                Previous
+              </Button>
+              <span className="tnum text-ink-3 text-[13px]">
+                Page {page} of {totalPages}
+              </span>
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={page === totalPages}
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              >
+                Next
+                <ChevronRight size={16} strokeWidth={1.75} />
+              </Button>
+            </div>
+          ) : null}
         </Canvas>
       )}
     </div>
