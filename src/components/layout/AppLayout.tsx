@@ -73,8 +73,8 @@ function Stage({
           }`}
         >
           <CanvasRail unread={unread} />
-          {/* No z-index: a stacking context traps full-screen overlays. */}
-          <main className="relative min-w-0 pb-24">{children}</main>
+          {/* No z-index: a stacking context traps full-screen overlays. pb clears the phone dock. */}
+          <main className="relative min-w-0 pb-24 lg:pb-0">{children}</main>
           <CompanionPanel />
         </div>
         <StageDock />
