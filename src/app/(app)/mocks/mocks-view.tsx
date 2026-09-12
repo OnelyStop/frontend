@@ -172,17 +172,22 @@ export function MocksView({
   // Only in exam mode, and only while an attempt is live — Normal mode carries none of this.
   useEffect(() => {
     if (!live || !examMode) return;
-    const onVisibility = () => {
-      if (document.hidden) void flagRef.current();
+    // visibilitychange/blur alone miss a macOS trackpad swipe to another Space — the poll is the real safety net.
+    const check = () => {
+      if (document.hidden || !document.hasFocus()) void flagRef.current();
     };
     const onFullscreenChange = () => {
       setAwayFromFullscreen(!document.fullscreenElement);
     };
-    document.addEventListener("visibilitychange", onVisibility);
+    document.addEventListener("visibilitychange", check);
+    window.addEventListener("blur", check);
     document.addEventListener("fullscreenchange", onFullscreenChange);
+    const poll = setInterval(check, 1000);
     return () => {
-      document.removeEventListener("visibilitychange", onVisibility);
+      document.removeEventListener("visibilitychange", check);
+      window.removeEventListener("blur", check);
       document.removeEventListener("fullscreenchange", onFullscreenChange);
+      clearInterval(poll);
     };
   }, [live, examMode]);
 
@@ -437,24 +442,39 @@ export function MocksView({
             {flagNotice}
           </p>
         ) : null}
-        {examMode && awayFromFullscreen && !flagNotice ? (
-          <div className="bg-warn-soft text-warn flex items-center justify-center gap-3 px-8 py-2 text-[13px]">
-            <span>
-              You've left full screen — return to keep sitting this exam-mode
-              attempt.
-            </span>
-            <button
-              type="button"
-              onClick={() => void document.documentElement.requestFullscreen()}
-              className="press inline-flex items-center gap-1 font-semibold underline"
-            >
-              <Maximize size={13} strokeWidth={2.25} />
-              Re-enter full screen
-            </button>
-          </div>
-        ) : null}
 
-        <div className="flex min-h-0 flex-1">
+        <div className="relative flex min-h-0 flex-1">
+          {/* Opaque, not just visually obscured — a covering div this high also blocks every click from reaching the paper underneath. */}
+          {examMode && awayFromFullscreen ? (
+            <div className="bg-canvas/95 absolute inset-0 z-10 grid place-items-center backdrop-blur-2xl">
+              <div className="text-center">
+                <Maximize
+                  size={28}
+                  strokeWidth={1.5}
+                  className="text-ink-3 mx-auto"
+                />
+                <p className="mt-4 text-[17px] font-semibold">
+                  Return to full screen to continue
+                </p>
+                <p className="text-ink-3 mt-1.5 text-[13.5px]">
+                  The paper is hidden while you're outside it — the clock keeps
+                  running.
+                </p>
+                <p className="tnum mt-4 text-[28px] tracking-[-0.02em]">
+                  {mm}:{ss}
+                </p>
+                <Button
+                  className="mt-5"
+                  onClick={() =>
+                    void document.documentElement.requestFullscreen()
+                  }
+                >
+                  Re-enter full screen
+                </Button>
+              </div>
+            </div>
+          ) : null}
+
           <div className="flex-1 overflow-y-auto px-8 py-12" data-lenis-prevent>
             <div className="mx-auto max-w-[680px]">
               {/* min-h so mode="wait" doesn't collapse the column to 0 between the outgoing and incoming question. */}
@@ -570,7 +590,7 @@ export function MocksView({
           <span className="flex-1" />
           <Button
             variant="secondary"
-            disabled={submitting}
+            disabled={submitting || (examMode && awayFromFullscreen)}
             onClick={() => void submitSectionOrFinish()}
           >
             {submitting
