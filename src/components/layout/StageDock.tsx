@@ -67,51 +67,43 @@ export function StageDock() {
 
   return (
     <>
-      <div className="hidden lg:block">
-        <Dock>
-          {TOOLS.map(({ href, label, tint, icon: Icon }) => (
-            <DockButton
-              key={href}
-              href={href}
-              label={label}
-              tint={tint}
-              current={here(href)}
-            >
-              <Icon size={18} strokeWidth={2} />
-            </DockButton>
-          ))}
+      {/* className sets display itself — see Dock's own comment for why a wrapper div can't. */}
+      <Dock className="hidden lg:flex">
+        {TOOLS.map(({ href, label, tint, icon: Icon }) => (
           <DockButton
-            label="Search"
-            tint="var(--color-ga-soft)"
-            onClick={() => setSearchOpen(true)}
+            key={href}
+            href={href}
+            label={label}
+            tint={tint}
+            current={here(href)}
           >
-            <Search size={18} strokeWidth={2} />
+            <Icon size={18} strokeWidth={2} />
           </DockButton>
-          {onely}
-        </Dock>
-      </div>
+        ))}
+        <DockButton
+          label="Search"
+          tint="var(--color-ga-soft)"
+          onClick={() => setSearchOpen(true)}
+        >
+          <Search size={18} strokeWidth={2} />
+        </DockButton>
+        {onely}
+      </Dock>
 
-      <div className="lg:hidden">
-        <Dock>
-          {PLACES.map(({ href, label, icon: Icon }) => (
-            <DockButton
-              key={href}
-              href={href}
-              label={label}
-              current={here(href)}
-            >
-              <Icon size={20} strokeWidth={1.8} />
-            </DockButton>
-          ))}
-          <DockButton
-            label="Ask Onely"
-            tint="var(--color-brand-soft)"
-            onClick={() => openWith("")}
-          >
-            <BookOpen size={18} strokeWidth={2.25} />
+      <Dock className="flex lg:hidden">
+        {PLACES.map(({ href, label, icon: Icon }) => (
+          <DockButton key={href} href={href} label={label} current={here(href)}>
+            <Icon size={20} strokeWidth={1.8} />
           </DockButton>
-        </Dock>
-      </div>
+        ))}
+        <DockButton
+          label="Ask Onely"
+          tint="var(--color-brand-soft)"
+          onClick={() => openWith("")}
+        >
+          <BookOpen size={18} strokeWidth={2.25} />
+        </DockButton>
+      </Dock>
     </>
   );
 }

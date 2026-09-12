@@ -341,10 +341,21 @@ export function ActiveCard({
   );
 }
 
-/** The floating toolbar. Each button is a tinted disc on the frame. */
-export function Dock({ children }: { children: ReactNode }) {
+/** The floating toolbar. `className` must set `display` (e.g. "hidden lg:flex") — a wrapper div around this instead shrinks sticky's containing block to the dock's own height and breaks the stick. */
+export function Dock({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className: string;
+}) {
   return (
-    <div className="bg-frame shadow-pop sticky bottom-6 z-8 mx-auto flex w-fit items-center gap-2.5 rounded-full p-3">
+    <div
+      className={cn(
+        "bg-frame shadow-pop sticky bottom-6 z-8 mx-auto w-fit items-center gap-2.5 rounded-full p-3",
+        className,
+      )}
+    >
       {children}
     </div>
   );

@@ -451,7 +451,7 @@ export function DesignView() {
         title="Dock"
         note="The floating toolbar; each button a tinted disc"
       >
-        <Dock>
+        <Dock className="flex">
           <DockButton label="Text" tint="#cfc2f7">
             T
           </DockButton>
