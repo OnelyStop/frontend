@@ -54,9 +54,9 @@ export async function listMockPapers(): Promise<Mock[]> {
   const canonical = rows.filter((r) => r.qs >= 20);
   const paperIds = canonical.map((r) => r.paperId);
   const userId = await currentUserId();
-  const [bestScores, inProgress] = await Promise.all([
+  const [bestScores, openAttempts] = await Promise.all([
     bestScoreByPaper(userId, paperIds),
-    inProgressPapers(userId, paperIds),
+    openAttemptsByPaper(userId, paperIds),
   ]);
 
   return canonical.map((r) => {
@@ -70,7 +70,9 @@ export async function listMockPapers(): Promise<Mock[]> {
       qs: r.qs,
       mins,
       score: bestScores.get(r.paperId) ?? null,
-      inProgress: inProgress.has(r.paperId),
+      inProgress: openAttempts.has(r.paperId),
+      // Resuming has to request full screen before, not after, its own server call — the client needs this up front.
+      examMode: openAttempts.get(r.paperId) ?? false,
       target: Math.round(r.qs * TARGET_PCT),
     };
   });
@@ -105,16 +107,16 @@ async function bestScoreByPaper(
   return out;
 }
 
-/** A paper with an unsubmitted attempt resumes on Start instead of sitting fresh. */
-async function inProgressPapers(
+/** A paper with an unsubmitted attempt resumes on Start instead of sitting fresh — the map's value is that attempt's exam mode. */
+async function openAttemptsByPaper(
   userId: string | null,
   paperIds: string[],
-): Promise<Set<string>> {
-  const out = new Set<string>();
+): Promise<Map<string, boolean>> {
+  const out = new Map<string, boolean>();
   if (paperIds.length === 0 || !userId) return out;
 
   const rows = await db
-    .select({ paperId: attempts.paperId })
+    .select({ paperId: attempts.paperId, examMode: attempts.examMode })
     .from(attempts)
     .where(
       and(
@@ -125,6 +127,6 @@ async function inProgressPapers(
       ),
     );
 
-  for (const r of rows) if (r.paperId) out.add(r.paperId);
+  for (const r of rows) if (r.paperId) out.set(r.paperId, r.examMode);
   return out;
 }

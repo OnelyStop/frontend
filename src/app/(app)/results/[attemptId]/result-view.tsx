@@ -10,7 +10,14 @@ import { TopicTheorySection } from "@/features/attempts/components/topic-theory"
 import type { Scorecard } from "@/features/attempts/types";
 import { verdictTone } from "@/features/attempts/verdict";
 
-export function ResultView({ scorecard }: { scorecard: Scorecard }) {
+export function ResultView({
+  scorecard,
+  flagged = false,
+}: {
+  scorecard: Scorecard;
+  /** Exam mode ended this early, at three window-switch flags, rather than the paper being finished. */
+  flagged?: boolean;
+}) {
   // The total is not the exam: a paper is cleared only if every section is.
   const missed = scorecard.sections.filter((s) => !s.cleared);
   const cleared =
@@ -32,6 +39,13 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
             : ""
         }`}
       />
+
+      {flagged ? (
+        <p className="bg-warn-soft text-warn rounded-ctl mb-6 px-4 py-3 text-[13.5px] leading-relaxed">
+          This attempt ended early — exam mode logged three window switches and
+          submitted it exactly as it stood at that moment.
+        </p>
+      ) : null}
 
       <Card tone={verdictTone(scorecard)} className="mb-6">
         <p className="text-ink-2 text-[13px]">

@@ -93,7 +93,10 @@ export async function startAttempt(
   }
 }
 
-export async function startMockAttempt(paperId: string): Promise<
+export async function startMockAttempt(
+  paperId: string,
+  examMode = false,
+): Promise<
   | {
       attemptId: number;
       questions: DrillQuestion[];
@@ -112,6 +115,8 @@ export async function startMockAttempt(paperId: string): Promise<
         currentSection: attempts.currentSection,
         lockedSections: attempts.lockedSections,
         sectionRemainingMs: attempts.sectionRemainingMs,
+        examMode: attempts.examMode,
+        flagCount: attempts.flagCount,
       })
       .from(attempts)
       .where(
@@ -152,6 +157,8 @@ export async function startMockAttempt(paperId: string): Promise<
           currentSection: open.currentSection,
           lockedSections: open.lockedSections,
           sectionRemainingMs: open.sectionRemainingMs,
+          examMode: open.examMode,
+          flagCount: open.flagCount,
         },
       };
     }
@@ -170,6 +177,7 @@ export async function startMockAttempt(paperId: string): Promise<
         paperId,
         servedQIds: questions.map((q) => q.qId),
         currentSection: firstSectionOf(questions),
+        examMode,
       })
       .returning({ id: attempts.id });
     return { attemptId: row!.id, questions, resume: null };
@@ -181,6 +189,7 @@ export async function startMockAttempt(paperId: string): Promise<
 /** The explicit "start over" — wipes a paused attempt's answers and section state rather than resuming them. */
 export async function restartMockAttempt(
   paperId: string,
+  examMode = false,
 ): Promise<
   | { attemptId: number; questions: DrillQuestion[]; resume: null }
   | { error: string }
@@ -220,6 +229,8 @@ export async function restartMockAttempt(
             currentSection: firstSectionOf(questions),
             lockedSections: [],
             sectionRemainingMs: null,
+            examMode,
+            flagCount: 0,
           })
           .where(eq(attempts.id, open.id));
       });
@@ -240,9 +251,37 @@ export async function restartMockAttempt(
         paperId,
         servedQIds: questions.map((q) => q.qId),
         currentSection: firstSectionOf(questions),
+        examMode,
       })
       .returning({ id: attempts.id });
     return { attemptId: row!.id, questions, resume: null };
+  } catch {
+    return GENERIC_ERROR;
+  }
+}
+
+/** A window-switch strike in exam mode. Three ends the attempt — the client acts once this reports >= 3. */
+export async function recordFlag(
+  attemptId: number,
+): Promise<{ flagCount: number } | { error: string }> {
+  try {
+    const userId = await currentUserId();
+    if (!userId) return { error: "Sign in to save progress." };
+
+    const [row] = await db
+      .update(attempts)
+      .set({ flagCount: sql`${attempts.flagCount} + 1` })
+      .where(
+        and(
+          eq(attempts.id, attemptId),
+          eq(attempts.userId, userId),
+          eq(attempts.examMode, true),
+          isNull(attempts.submittedAt),
+        ),
+      )
+      .returning({ flagCount: attempts.flagCount });
+    if (!row) return { error: "Attempt not found." };
+    return { flagCount: row.flagCount };
   } catch {
     return GENERIC_ERROR;
   }

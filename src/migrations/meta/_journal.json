@@ -57,6 +57,13 @@
       "when": 1789208532127,
       "tag": "0007_attempt_resume_state",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1789210745612,
+      "tag": "0008_attempt_exam_mode",
+      "breakpoints": true
     }
   ]
 }

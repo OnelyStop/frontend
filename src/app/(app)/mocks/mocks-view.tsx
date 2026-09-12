@@ -3,7 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronLeft, ChevronRight, FileText } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  FileText,
+  Flag,
+  Maximize,
+} from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import {
   ActiveCard,
@@ -32,11 +38,13 @@ import {
 import {
   advanceSection,
   checkpointSectionTime,
+  recordFlag,
   restartMockAttempt,
   saveAnswer,
   startMockAttempt,
   submitAttempt,
 } from "@/features/attempts/actions";
+import { ExamModePrompt } from "@/features/attempts/components/ExamModePrompt";
 import { SittingCard } from "@/features/attempts/components/SittingCard";
 import type {
   ProfileStats,
@@ -89,6 +97,14 @@ export function MocksView({
   const [answers, setAnswers] = useState<Record<string, Recorded>>({});
   const [qStart, setQStart] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+  const [modePrompt, setModePrompt] = useState<{
+    mock: Mock;
+    restart: boolean;
+  } | null>(null);
+  const [examMode, setExamMode] = useState(false);
+  const [flagCount, setFlagCount] = useState(0);
+  const [flagNotice, setFlagNotice] = useState<string | null>(null);
+  const [awayFromFullscreen, setAwayFromFullscreen] = useState(false);
   const startReqIdRef = useRef(0);
 
   const shown = mocks.filter(
@@ -122,8 +138,58 @@ export function MocksView({
     record();
     if (attemptId !== null)
       void checkpointSectionTime(attemptId, sectionEndsAt - Date.now());
+    if (document.fullscreenElement) void document.exitFullscreen();
     setLive(null);
   };
+
+  // Same pattern as leaveRef: attemptId/flagCount would go stale between renders without going through a ref.
+  const flagRef = useRef(async () => {});
+  flagRef.current = async () => {
+    if (attemptId === null) return;
+    const res = await recordFlag(attemptId);
+    if (!("flagCount" in res)) return;
+    setFlagCount(res.flagCount);
+    if (res.flagCount >= 3) {
+      setFlagNotice(
+        "Three flags — this attempt ended and was submitted as it stood.",
+      );
+      await forceEndExam();
+      return;
+    }
+    setFlagNotice(
+      `Flag ${res.flagCount} of 3 — one more window switch ends this attempt immediately.`,
+    );
+    setTimeout(
+      () => setFlagNotice((cur) => (cur?.startsWith("Flag") ? null : cur)),
+      6000,
+    );
+  };
+
+  // Only in exam mode, and only while an attempt is live — Normal mode carries none of this.
+  useEffect(() => {
+    if (!live || !examMode) return;
+    // One flag per departure, not per second away: only the leaving edge fires, not the whole time spent away.
+    let wasAway = false;
+    const check = () => {
+      const away = document.hidden || !document.hasFocus();
+      if (away && !wasAway) void flagRef.current();
+      wasAway = away;
+    };
+    const onFullscreenChange = () => {
+      setAwayFromFullscreen(!document.fullscreenElement);
+    };
+    document.addEventListener("visibilitychange", check);
+    window.addEventListener("blur", check);
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    // visibilitychange/blur alone miss a macOS trackpad swipe to another Space — the poll is the real safety net.
+    const poll = setInterval(check, 1000);
+    return () => {
+      document.removeEventListener("visibilitychange", check);
+      window.removeEventListener("blur", check);
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
+      clearInterval(poll);
+    };
+  }, [live, examMode]);
 
   useEffect(() => {
     if (!live) return;
@@ -158,13 +224,13 @@ export function MocksView({
     return Math.round((live?.mins ?? 0) / Math.max(1, groupCount)) * 60;
   }
 
-  async function handleStart(m: Mock, restart = false) {
+  async function handleStart(m: Mock, restart: boolean, newExamMode: boolean) {
     const reqId = ++startReqIdRef.current;
     setStarting(m.id);
     setError(null);
     const res = restart
-      ? await restartMockAttempt(m.id)
-      : await startMockAttempt(m.id);
+      ? await restartMockAttempt(m.id, newExamMode)
+      : await startMockAttempt(m.id, newExamMode);
     // A later Start click fired while this request was in flight — let it win over this stale response.
     if (startReqIdRef.current !== reqId) return;
     setStarting(null);
@@ -179,6 +245,11 @@ export function MocksView({
     setAttemptId(res.attemptId);
 
     const resume = res.resume;
+    // A resumed attempt keeps the mode and strikes it already carried; a fresh one starts clean.
+    setExamMode(resume ? resume.examMode : newExamMode);
+    setFlagCount(resume ? resume.flagCount : 0);
+    setFlagNotice(null);
+    setAwayFromFullscreen(false);
     const resumeIdx = resume
       ? groups.findIndex((g) => g.subject === resume.currentSection)
       : -1;
@@ -206,9 +277,27 @@ export function MocksView({
     setLive(m);
   }
 
-  function handleRestart(m: Mock) {
-    if (confirm("Start this paper over? Your saved progress on it is lost."))
-      void handleStart(m, true);
+  // The mode choice only applies to a fresh start — resuming keeps whatever mode the paused attempt began in.
+  async function enterFullscreen() {
+    try {
+      await document.documentElement.requestFullscreen();
+    } catch {
+      // Some browsers/embedded contexts refuse fullscreen — proceed rather than block the exam over it.
+    }
+  }
+
+  async function chooseMode(examModeChosen: boolean) {
+    const target = modePrompt;
+    setModePrompt(null);
+    if (!target) return;
+    if (examModeChosen) await enterFullscreen();
+    void handleStart(target.mock, target.restart, examModeChosen);
+  }
+
+  // Resume skips the mode prompt entirely, so a paused exam-mode attempt re-enters full screen here instead.
+  async function resumeAttempt(m: Mock) {
+    if (m.examMode) await enterFullscreen();
+    void handleStart(m, false, false);
   }
 
   // Saves the instant a choice is made — closing the tab right after picking, with no Save/Esc in between, must not lose it.
@@ -239,6 +328,36 @@ export function MocksView({
     setQIdx(nextQIdx);
   }
 
+  // Shared by a normal finish and a 3-flag forced end — both grade whatever's answered and leave fullscreen behind.
+  async function finishAttempt(
+    merged: Record<string, Recorded>,
+    ended?: string,
+  ) {
+    if (attemptId === null) {
+      setLive(null);
+      return;
+    }
+    if (document.fullscreenElement) void document.exitFullscreen();
+    setSubmitting(true);
+    setError(null);
+    const submitted = questions.map((qq) => ({
+      qId: qq.qId,
+      chosen: merged[qq.qId]?.chosen ?? null,
+      timeMs: merged[qq.qId]?.timeMs ?? null,
+    }));
+    const res = await submitAttempt(attemptId, submitted);
+    if ("ok" in res) {
+      router.push(
+        ended
+          ? `/results/${res.attemptId}?ended=${ended}`
+          : `/results/${res.attemptId}`,
+      );
+      return;
+    }
+    setSubmitting(false);
+    setError(res.error);
+  }
+
   async function submitSectionOrFinish() {
     const merged = record();
     if (secIdx < sections.length - 1) {
@@ -256,24 +375,13 @@ export function MocksView({
       setLeft(durationSec);
       return;
     }
-    if (attemptId === null) {
-      setLive(null);
-      return;
-    }
-    setSubmitting(true);
-    setError(null);
-    const submitted = questions.map((qq) => ({
-      qId: qq.qId,
-      chosen: merged[qq.qId]?.chosen ?? null,
-      timeMs: merged[qq.qId]?.timeMs ?? null,
-    }));
-    const res = await submitAttempt(attemptId, submitted);
-    if ("ok" in res) {
-      router.push(`/results/${res.attemptId}`);
-      return;
-    }
-    setSubmitting(false);
-    setError(res.error);
+    await finishAttempt(merged);
+  }
+
+  // The exam ends here, whatever section it's on — a flagged attempt doesn't get to finish the paper.
+  async function forceEndExam() {
+    const merged = record();
+    await finishAttempt(merged, "flagged");
   }
 
   // Exam conditions: the palette mirrors the real IBPS interface every aspirant already knows.
@@ -311,6 +419,12 @@ export function MocksView({
 
           <span className="flex-1" />
 
+          {examMode ? (
+            <span className="rounded-pill bg-warn-soft text-warn flex items-center gap-1.5 px-2.5 py-1 text-[12px] font-medium">
+              <Flag size={12} strokeWidth={2.25} />
+              Exam mode · {flagCount} of 3 flags
+            </span>
+          ) : null}
           <span className="text-ink-3 text-[13px]">
             section {secIdx + 1} of {sections.length}
           </span>
@@ -323,7 +437,44 @@ export function MocksView({
           </span>
         </header>
 
-        <div className="flex min-h-0 flex-1">
+        {flagNotice ? (
+          <p className="bg-bad-soft text-bad px-8 py-2 text-center text-[13px] font-medium">
+            {flagNotice}
+          </p>
+        ) : null}
+
+        <div className="relative flex min-h-0 flex-1">
+          {/* Opaque, not just visually obscured — a covering div this high also blocks every click from reaching the paper underneath. */}
+          {examMode && awayFromFullscreen ? (
+            <div className="bg-canvas/95 absolute inset-0 z-10 grid place-items-center backdrop-blur-2xl">
+              <div className="text-center">
+                <Maximize
+                  size={28}
+                  strokeWidth={1.5}
+                  className="text-ink-3 mx-auto"
+                />
+                <p className="mt-4 text-[17px] font-semibold">
+                  Return to full screen to continue
+                </p>
+                <p className="text-ink-3 mt-1.5 text-[13.5px]">
+                  The paper is hidden while you're outside it — the clock keeps
+                  running.
+                </p>
+                <p className="tnum mt-4 text-[28px] tracking-[-0.02em]">
+                  {mm}:{ss}
+                </p>
+                <Button
+                  className="mt-5"
+                  onClick={() =>
+                    void document.documentElement.requestFullscreen()
+                  }
+                >
+                  Re-enter full screen
+                </Button>
+              </div>
+            </div>
+          ) : null}
+
           <div className="flex-1 overflow-y-auto px-8 py-12" data-lenis-prevent>
             <div className="mx-auto max-w-[680px]">
               {/* min-h so mode="wait" doesn't collapse the column to 0 between the outgoing and incoming question. */}
@@ -439,7 +590,7 @@ export function MocksView({
           <span className="flex-1" />
           <Button
             variant="secondary"
-            disabled={submitting}
+            disabled={submitting || (examMode && awayFromFullscreen)}
             onClick={() => void submitSectionOrFinish()}
           >
             {submitting
@@ -469,6 +620,16 @@ export function MocksView({
 
   return (
     <div data-companion>
+      {modePrompt ? (
+        <ExamModePrompt
+          paperTitle={paperTitle(modePrompt.mock)}
+          mins={modePrompt.mock.mins}
+          discardsProgress={modePrompt.restart}
+          onChoose={(chosen) => void chooseMode(chosen)}
+          onCancel={() => setModePrompt(null)}
+        />
+      ) : null}
+
       <div className="mb-7 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
         <h1 className="text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
           Mocks
@@ -562,7 +723,11 @@ export function MocksView({
                 }
                 title={paperTitle(hero)}
                 resumeLabel={`${hero.inProgress ? "Resume" : hero.score === null ? "Start" : "Retake"} ${paperTitle(hero)}`}
-                onResume={() => void handleStart(hero)}
+                onResume={() =>
+                  hero.inProgress
+                    ? void resumeAttempt(hero)
+                    : setModePrompt({ mock: hero, restart: false })
+                }
                 status={
                   hero.inProgress ? (
                     <>
@@ -573,7 +738,9 @@ export function MocksView({
                         variant="ghost"
                         size="sm"
                         className="text-black/55 hover:text-black/80"
-                        onClick={() => handleRestart(hero)}
+                        onClick={() =>
+                          setModePrompt({ mock: hero, restart: true })
+                        }
                       >
                         Start over
                       </Button>
@@ -650,7 +817,9 @@ export function MocksView({
                           variant="ghost"
                           size="sm"
                           disabled={starting !== null}
-                          onClick={() => handleRestart(m)}
+                          onClick={() =>
+                            setModePrompt({ mock: m, restart: true })
+                          }
                         >
                           Start over
                         </Button>
@@ -658,7 +827,11 @@ export function MocksView({
                       <Button
                         size="sm"
                         disabled={starting !== null}
-                        onClick={() => void handleStart(m)}
+                        onClick={() =>
+                          m.inProgress
+                            ? void resumeAttempt(m)
+                            : setModePrompt({ mock: m, restart: false })
+                        }
                       >
                         {starting === m.id
                           ? "Loading…"
