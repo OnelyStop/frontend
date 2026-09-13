@@ -1,11 +1,10 @@
-import { Poppins } from "next/font/google";
+import { Instrument_Sans } from "next/font/google";
 
-// The only family in the app: theme.css sets --font-sans to this and nothing else.
-export const poppins = Poppins({
+// A grotesque, not a geometric: Poppins' round bowls and heavy 700 read bulky at display sizes.
+export const display = Instrument_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-poppins",
-  // Without a stated fallback the swap reflows against Times, not a sans.
+  variable: "--font-display",
   fallback: ["Arial", "Helvetica", "sans-serif"],
 });

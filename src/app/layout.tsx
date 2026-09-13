@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { GA_MEASUREMENT_ID } from "@/config/analytics";
-import { poppins } from "./fonts";
+import { display } from "./fonts";
 import { AppProvider } from "@/context/AppContext";
 import { AuthProvider } from "@/features/auth/AuthContext";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
@@ -100,7 +100,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN" className={poppins.variable}>
+    <html lang="en-IN" className={display.variable}>
       <body suppressHydrationWarning>
         <JsonLd data={ORGANISATION} />
         <JsonLd data={WEBSITE} />

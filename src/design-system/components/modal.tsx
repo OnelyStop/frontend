@@ -1,0 +1,51 @@
+"use client";
+
+import { useEffect, type ReactNode } from "react";
+import { cn } from "../lib/cn";
+
+/** Backdrop, panel, Esc and click-outside. The caller draws its own close button, since some sit in a header and some in the corner. */
+export function Modal({
+  label,
+  onClose,
+  className,
+  children,
+}: {
+  label: string;
+  onClose: () => void;
+  className?: string;
+  children: ReactNode;
+}) {
+  useEffect(() => {
+    // Capture and stop it dead, or the running head's Esc also fires and walks up the URL behind the modal.
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      onClose();
+    };
+    window.addEventListener("keydown", onKey, { capture: true });
+    return () =>
+      window.removeEventListener("keydown", onKey, { capture: true });
+  }, [onClose]);
+
+  return (
+    <div
+      className="bg-ink/20 fixed inset-0 z-90 grid place-items-center p-4"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        role="dialog"
+        aria-modal
+        aria-label={label}
+        className={cn(
+          "pop-in border-line bg-canvas shadow-pop relative max-h-[85vh] max-w-full rounded-[24px] border",
+          className,
+        )}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}

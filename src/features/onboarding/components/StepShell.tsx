@@ -35,14 +35,14 @@ export function StepShell({
   children: ReactNode;
 }) {
   return (
-    <div className="bg-stage flex min-h-dvh flex-col px-5 py-6 sm:px-8">
-      <header className="flex items-center gap-4">
+    <div className="bg-frame flex min-h-dvh flex-col px-3 pt-5 pb-3 sm:px-4">
+      <header className="flex items-center gap-4 px-2 pb-5 sm:px-4">
         {onBack ? (
           <button
             type="button"
             onClick={onBack}
             aria-label="Back a step"
-            className="press bg-canvas text-ink-2 hover:text-ink shadow-card grid size-11 shrink-0 place-items-center rounded-full"
+            className="press bg-frame-2 text-on-frame-2 hover:text-on-frame grid size-11 shrink-0 place-items-center rounded-full"
           >
             <ArrowLeft size={18} strokeWidth={2} />
           </button>
@@ -50,7 +50,7 @@ export function StepShell({
           <Link
             href="/"
             aria-label="Leave signup"
-            className="press bg-canvas text-ink-2 hover:text-ink shadow-card grid size-11 shrink-0 place-items-center rounded-full"
+            className="press bg-frame-2 text-on-frame-2 hover:text-on-frame grid size-11 shrink-0 place-items-center rounded-full"
           >
             <ArrowLeft size={18} strokeWidth={2} />
           </Link>
@@ -69,18 +69,18 @@ export function StepShell({
             <span
               key={i}
               className={`h-1.5 flex-1 rounded-full transition-colors duration-200 ${
-                i < step ? "bg-frame" : "bg-line-2"
+                i < step ? "bg-white" : "bg-white/20"
               }`}
             />
           ))}
         </div>
 
-        <Brand href="/" className="text-ink hidden shrink-0 sm:block" />
+        <Brand href="/" className="hidden shrink-0 text-white sm:block" />
       </header>
 
-      <div className="flex flex-1 items-center justify-center py-10">
+      <div className="bg-stage flex flex-1 items-center justify-center rounded-[26px] px-5 py-10">
         <div className="w-full max-w-135 text-center">
-          <h1 className="text-[26px] leading-[1.16] font-bold tracking-[-0.03em] text-balance sm:text-[32px]">
+          <h1 className="text-[23px] leading-[1.18] font-bold tracking-[-0.03em] text-balance sm:text-[27px]">
             {question}
           </h1>
           {hint ? (
@@ -116,49 +116,5 @@ export function StepShell({
         </div>
       </div>
     </div>
-  );
-}
-
-/** A choice on a step: a tinted card that fills when it is the answer. */
-export function ChoiceCard({
-  label,
-  hint,
-  tint,
-  selected,
-  onSelect,
-  disabled,
-}: {
-  label: string;
-  hint?: string;
-  /** A section tint, so the exam a user picks carries the colour they will live in. */
-  tint: string;
-  selected: boolean;
-  onSelect: () => void;
-  /** A track we have not built yet: shown so the list reads as a roadmap, but never selectable. */
-  disabled?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      role="radio"
-      aria-checked={selected}
-      aria-disabled={disabled}
-      disabled={disabled}
-      onClick={onSelect}
-      className={`press rounded-card relative flex flex-col items-start gap-1 p-5 text-left transition-shadow duration-200 ${
-        disabled
-          ? "opacity-45 shadow-none grayscale"
-          : selected
-            ? "shadow-lift outline-frame outline-2"
-            : "shadow-card"
-      } ${tint}`}
-    >
-      <span className="text-[16px] leading-tight font-bold tracking-[-0.02em]">
-        {label}
-      </span>
-      {hint ? (
-        <span className="text-[12.5px] leading-snug text-black/55">{hint}</span>
-      ) : null}
-    </button>
   );
 }

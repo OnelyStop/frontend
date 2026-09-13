@@ -3,7 +3,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
+import {
+  Button,
+  Card,
+  Field,
+  Input,
+  PageHeader,
+  SectionTitle,
+  Textarea,
+} from "@/design-system";
 import {
   EXAM_TYPES,
   SECTIONS,
@@ -51,33 +59,6 @@ function toPatch(d: Draft): ProfileUpdate {
     examBoard: d.examBoard,
     defaultSection: d.defaultSection,
   };
-}
-
-function Field({
-  label,
-  id,
-  value,
-  onChange,
-  inputMode,
-}: {
-  label: string;
-  id: string;
-  value: string;
-  onChange: (v: string) => void;
-  inputMode?: "numeric";
-}) {
-  return (
-    <label htmlFor={id} className="block">
-      <span className="text-ink-3 block text-[13px]">{label}</span>
-      <input
-        id={id}
-        value={value}
-        inputMode={inputMode}
-        onChange={(e) => onChange(e.target.value)}
-        className="rounded-ctl border-line bg-canvas focus:border-brand mt-1 h-10 w-full border px-3 text-[14px] transition-colors outline-none"
-      />
-    </label>
-  );
 }
 
 export function SettingsView({ profile }: { profile: Profile | null }) {
@@ -159,34 +140,37 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
           />
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field
-            id="displayName"
-            label="Full name"
-            value={draft.displayName}
-            onChange={(v) => set("displayName", v)}
-          />
-          <Field
-            id="school"
-            label="Coaching / college"
-            value={draft.school}
-            onChange={(v) => set("school", v)}
-          />
-          <Field
-            id="targetYear"
-            label="Target year"
-            inputMode="numeric"
-            value={draft.targetYear}
-            onChange={(v) => set("targetYear", v)}
-          />
+          <Field label="Full name" htmlFor="displayName">
+            <Input
+              id="displayName"
+              value={draft.displayName}
+              onChange={(e) => set("displayName", e.target.value)}
+            />
+          </Field>
+          <Field label="Coaching / college" htmlFor="school">
+            <Input
+              id="school"
+              value={draft.school}
+              onChange={(e) => set("school", e.target.value)}
+            />
+          </Field>
+          <Field label="Target year" htmlFor="targetYear">
+            <Input
+              id="targetYear"
+              inputMode="numeric"
+              value={draft.targetYear}
+              onChange={(e) => set("targetYear", e.target.value)}
+            />
+          </Field>
         </div>
         <label htmlFor="bio" className="mt-4 block">
           <span className="text-ink-3 block text-[13px]">Bio</span>
-          <textarea
+          <Textarea
             id="bio"
             rows={3}
             value={draft.bio}
             onChange={(e) => set("bio", e.target.value)}
-            className="rounded-ctl border-line bg-canvas focus:border-brand mt-1 w-full resize-none border px-3 py-2 text-[14px] leading-relaxed transition-colors outline-none"
+            className="mt-1"
           />
         </label>
       </Card>

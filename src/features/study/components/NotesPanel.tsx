@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
+import { Button, Modal, Textarea } from "@/design-system";
 import type { NoteColor, StudyNote } from "../types";
 import { NOTE_COLORS, NOTE_SWATCH } from "./StickyNote";
 
@@ -31,19 +32,6 @@ export function NotesPanel({
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
-
-  // Esc closes the modal, not the running head walking up the URL.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      e.stopImmediatePropagation();
-      e.preventDefault();
-      onClose();
-    };
-    window.addEventListener("keydown", onKey, { capture: true });
-    return () =>
-      window.removeEventListener("keydown", onKey, { capture: true });
-  }, [onClose]);
 
   // Opened from a chip: bring that note into view and flash a ring on it.
   useEffect(() => {
@@ -113,101 +101,88 @@ export function NotesPanel({
   };
 
   return (
-    <div
-      className="bg-ink/20 fixed inset-0 z-90 grid place-items-center p-4"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+    <Modal
+      label="Notes"
+      onClose={onClose}
+      className="flex w-115 flex-col overflow-hidden"
     >
-      <aside
-        aria-label="Notes"
-        className="pop-in border-line bg-canvas shadow-pop relative flex max-h-[85vh] w-115 max-w-full flex-col overflow-hidden rounded-[24px] border"
-      >
-        <header className="border-line flex h-14 shrink-0 items-center gap-2 border-b px-5">
-          <span className="text-[14px]">Notes</span>
-          <span className="text-ink-4 text-[12px]">private</span>
-          <span className="flex-1" />
-          <button
-            onClick={onClose}
-            aria-label="Close notes"
-            className="rounded-ctl text-ink-3 hover:bg-line hover:text-ink grid size-8 place-items-center transition-colors"
-          >
-            <X size={16} strokeWidth={1.75} />
-          </button>
-        </header>
-
-        <div className="border-line shrink-0 border-b p-4">
-          {anchorBlockKey ? (
-            <p className="text-ink-3 mb-2 text-[12px]">
-              Anchored to: {blockTitles[anchorBlockKey] ?? anchorBlockKey}
-            </p>
-          ) : (
-            <p className="text-ink-3 mb-2 text-[12px]">Anchored to the topic</p>
-          )}
-          <textarea
-            value={draft}
-            maxLength={MAX}
-            rows={3}
-            placeholder="Write a note — formula, trap, mnemonic…"
-            onChange={(e) => setDraft(e.target.value)}
-            className="rounded-ctl border-line bg-canvas placeholder:text-ink-4 focus:border-brand w-full resize-none border px-3 py-2 text-[14px] leading-relaxed outline-none"
-          />
-          <div className="mt-2 flex items-center justify-between">
-            <div className="flex gap-1.5">
-              {NOTE_COLORS.map((c) => (
-                <button
-                  key={c}
-                  onClick={() => setColor(c)}
-                  aria-label={c}
-                  className={`size-5 rounded-full transition-transform ${
-                    color === c ? "ring-ink scale-110 ring-2" : ""
-                  }`}
-                  style={{ background: NOTE_SWATCH[c] }}
-                />
-              ))}
-            </div>
-            <button
-              onClick={create}
-              disabled={busy || !draft.trim()}
-              className="rounded-pill bg-ink hover:bg-ink/85 h-8 px-4 text-[13px] text-white transition-colors disabled:opacity-40"
-            >
-              Save
-            </button>
-          </div>
-          {error ? <p className="text-bad mt-2 text-[12px]">{error}</p> : null}
-        </div>
-
-        <div
-          ref={listRef}
-          data-lenis-prevent
-          className="flex-1 space-y-3 overflow-y-auto p-4"
+      <header className="border-line flex h-14 shrink-0 items-center gap-2 border-b px-5">
+        <span className="text-[14px]">Notes</span>
+        <span className="text-ink-4 text-[12px]">private</span>
+        <span className="flex-1" />
+        <button
+          onClick={onClose}
+          aria-label="Close notes"
+          className="rounded-ctl text-ink-3 hover:bg-line hover:text-ink grid size-8 place-items-center transition-colors"
         >
-          {notes.length === 0 ? (
-            <p className="text-ink-3 text-[13px] leading-relaxed">
-              No notes yet. Notes are private to you and stay attached to this
-              topic.
-            </p>
-          ) : (
-            notes.map((n) => (
-              <NoteCard
-                key={n.id}
-                note={n}
-                blockTitle={
-                  n.blockStableKey ? blockTitles[n.blockStableKey] : undefined
-                }
-                onDelete={() => removeNote(n.id)}
-                onPatched={(updated) =>
-                  onChange(
-                    notes.map((x) => (x.id === updated.id ? updated : x)),
-                  )
-                }
-                patchNote={patchNote}
+          <X size={16} strokeWidth={1.75} />
+        </button>
+      </header>
+
+      <div className="border-line shrink-0 border-b p-4">
+        {anchorBlockKey ? (
+          <p className="text-ink-3 mb-2 text-[12px]">
+            Anchored to: {blockTitles[anchorBlockKey] ?? anchorBlockKey}
+          </p>
+        ) : (
+          <p className="text-ink-3 mb-2 text-[12px]">Anchored to the topic</p>
+        )}
+        <Textarea
+          value={draft}
+          maxLength={MAX}
+          rows={3}
+          placeholder="Write a note — formula, trap, mnemonic…"
+          onChange={(e) => setDraft(e.target.value)}
+        />
+        <div className="mt-2 flex items-center justify-between">
+          <div className="flex gap-1.5">
+            {NOTE_COLORS.map((c) => (
+              <button
+                key={c}
+                onClick={() => setColor(c)}
+                aria-label={c}
+                className={`size-5 rounded-full transition-transform ${
+                  color === c ? "ring-ink scale-110 ring-2" : ""
+                }`}
+                style={{ background: NOTE_SWATCH[c] }}
               />
-            ))
-          )}
+            ))}
+          </div>
+          <Button size="sm" onClick={create} disabled={busy || !draft.trim()}>
+            Save
+          </Button>
         </div>
-      </aside>
-    </div>
+        {error ? <p className="text-bad mt-2 text-[12px]">{error}</p> : null}
+      </div>
+
+      <div
+        ref={listRef}
+        data-lenis-prevent
+        className="flex-1 space-y-3 overflow-y-auto p-4"
+      >
+        {notes.length === 0 ? (
+          <p className="text-ink-3 text-[13px] leading-relaxed">
+            No notes yet. Notes are private to you and stay attached to this
+            topic.
+          </p>
+        ) : (
+          notes.map((n) => (
+            <NoteCard
+              key={n.id}
+              note={n}
+              blockTitle={
+                n.blockStableKey ? blockTitles[n.blockStableKey] : undefined
+              }
+              onDelete={() => removeNote(n.id)}
+              onPatched={(updated) =>
+                onChange(notes.map((x) => (x.id === updated.id ? updated : x)))
+              }
+              patchNote={patchNote}
+            />
+          ))
+        )}
+      </div>
+    </Modal>
   );
 }
 

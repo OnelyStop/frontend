@@ -17,6 +17,8 @@ export {
 
 export { Card, MenuRow, Popover, type CardTone } from "./components/surface";
 
+export { Modal } from "./components/modal";
+
 export { Rationale } from "./components/rationale";
 
 export { Canvas, CanvasTitle } from "./components/canvas";
