@@ -39,6 +39,10 @@ const RECOMMENDED: Requirement[] = [
     name: "NEXT_PUBLIC_SENTRY_DSN",
     breaks: "nothing visible, but a 3am failure goes unreported",
   },
+  {
+    name: "NEXT_PUBLIC_GA_MEASUREMENT_ID",
+    breaks: "nothing visible, but Google Analytics counts no page views",
+  },
 ];
 
 export type EnvReport = {
