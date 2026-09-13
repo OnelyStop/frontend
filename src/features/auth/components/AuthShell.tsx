@@ -54,7 +54,7 @@ export function AuthShell({ title, subtitle, children, footer }: Props) {
             kicker="Up next · your lowest section"
             title="Drill General Awareness"
             resumeLabel="Drill General Awareness"
-            className="mb-0 max-w-115"
+            className="max-w-115"
             status={
               <>
                 <StatusPill tone="live">

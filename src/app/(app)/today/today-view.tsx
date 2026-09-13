@@ -245,7 +245,6 @@ export function TodayView({
               title={`Drill ${weakestName}`}
               resumeLabel={`Drill ${weakestName}`}
               onResume={() => router.push("/drills")}
-              className="mb-0"
               status={
                 <>
                   <StatusPill tone="live">

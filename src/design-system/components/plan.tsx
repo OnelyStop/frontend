@@ -299,8 +299,10 @@ export function ActiveCard({
   return (
     <article
       className={cn(
-        "bg-active-soft rounded-card shadow-lift relative mb-5 min-w-0 p-6 pr-28 sm:p-7 sm:pr-36",
-        tilt && "-rotate-[1.5deg]",
+        // No margin of its own: every caller was cancelling one, and a card that sets its own spacing loses to whatever the layout wants.
+        "bg-active-soft rounded-card shadow-lift relative min-w-0 p-6 pr-28 sm:p-7 sm:pr-36",
+        // my-1 pays back the overhang: rotating a ~360px card 1.5deg grows its box ~9px, and without it the corner crowds whatever sits below.
+        tilt && "my-1 rotate-[-1.5deg]",
         className,
       )}
     >
@@ -429,9 +431,10 @@ export function Spine({
         className,
       )}
     >
+      {/* left-1 puts the 2px rule's centre on 5px, which is where SpineItem's dot centres from pl-6; at left-1.75 the dots sat 3px off it. */}
       <span
         aria-hidden
-        className="border-ok-2 absolute top-6 bottom-6 left-1.75 border-l-2 border-dashed"
+        className="border-ok-2 absolute top-6 bottom-6 left-1 border-l-2 border-dashed"
       />
       {children}
     </div>
