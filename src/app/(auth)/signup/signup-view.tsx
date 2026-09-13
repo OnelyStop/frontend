@@ -264,7 +264,7 @@ export function SignupView() {
       <StepShell
         {...shell}
         question="What's your email?"
-        hint="We send the confirmation link here, and nothing else unless you ask."
+        hint="How you sign in, and the only way to reset a password. Nothing else unless you ask."
         canAdvance={email.includes("@") && email.trim().length > 3}
         onNext={() => go(1)}
       >
