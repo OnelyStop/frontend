@@ -10,6 +10,8 @@ export type DropdownOption<T extends string> = {
   label: string;
   hint?: string;
   icon?: ReactNode;
+  /** Listed so the menu reads as a roadmap, but never selectable. */
+  disabled?: boolean;
 };
 
 type Props<T extends string> = {
@@ -65,7 +67,7 @@ export function Dropdown<T extends string>({
 
   const commit = (i: number) => {
     const o = options[i];
-    if (!o) return;
+    if (!o || o.disabled) return;
     onChange(o.value);
     setOpen(false);
   };
@@ -163,7 +165,7 @@ export function Dropdown<T extends string>({
           aria-label={label}
           data-lenis-prevent
           className={cn(
-            "border-line bg-canvas shadow-pop absolute z-50 mt-1.5 max-h-[min(28rem,60vh)] w-full min-w-max overflow-y-auto overscroll-contain rounded-[14px] border p-1.5",
+            "border-line bg-canvas shadow-pop absolute z-50 mt-1.5 max-h-[min(28rem,60vh)] w-full min-w-max overflow-y-auto overscroll-contain rounded-[14px] border p-1.5 text-left",
             align === "end" ? "right-0" : "left-0",
           )}
         >
@@ -176,12 +178,16 @@ export function Dropdown<T extends string>({
                 data-i={i}
                 role="option"
                 aria-selected={isSel}
+                aria-disabled={o.disabled}
                 onMouseEnter={() => setActive(i)}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => commit(i)}
                 className={cn(
-                  "rounded-ctl flex cursor-pointer items-center gap-2.5 px-2.5 py-2 text-[14px] transition-colors",
-                  i === active && "bg-brand-soft",
+                  "rounded-ctl flex items-center gap-2.5 px-2.5 py-2 text-[14px] transition-colors",
+                  o.disabled
+                    ? "cursor-not-allowed opacity-45"
+                    : "cursor-pointer",
+                  i === active && !o.disabled && "bg-brand-soft",
                 )}
               >
                 {o.icon}

@@ -48,10 +48,8 @@ export async function POST(request: Request) {
       notes: { user_id: userId },
     });
   } catch (err) {
-    log.error("billing.subscription.create_failed", {
-      userId,
-      error: (err as Error).message,
-    });
+    // A provider rejecting every checkout is the one billing failure nobody sees until sales stop.
+    captureError(err, { at: "billing.subscription.create_failed", userId });
     return fail("payment_provider", 502);
   }
 

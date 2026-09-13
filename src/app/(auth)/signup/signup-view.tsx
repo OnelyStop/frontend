@@ -13,10 +13,7 @@ import {
   MIN_PASSWORD_LENGTH,
   passwordMeetsRules,
 } from "@/features/auth/password-rules";
-import {
-  ChoiceCard,
-  StepShell,
-} from "@/features/onboarding/components/StepShell";
+import { StepShell } from "@/features/onboarding/components/StepShell";
 import {
   EMPTY_ANSWERS,
   stashAnswers,
@@ -24,8 +21,8 @@ import {
   type Answers,
 } from "@/features/onboarding/answers";
 import { AvatarPicker } from "@/features/profile/components/AvatarPicker";
-import { Input, SECTION_TINT } from "@/design-system";
-import { EXAM_TYPES } from "@/data/navigation";
+import { Dropdown, Input } from "@/design-system";
+import { EXAM_TYPES, type ExamBoard } from "@/data/navigation";
 
 const initialsOf = (name: string) =>
   name
@@ -144,22 +141,18 @@ export function SignupView() {
         onNext={() => go(1)}
         footer={signIn}
       >
-        <div
-          role="radiogroup"
-          aria-label="Track"
-          className="grid gap-3 sm:grid-cols-2"
-        >
-          {EXAM_TYPES.map(({ value, detail, live }, i) => (
-            <ChoiceCard
-              key={value}
-              label={value}
-              hint={detail}
-              tint={SECTION_TINT[i % SECTION_TINT.length]!}
-              selected={live && answers.examBoard === value}
-              disabled={!live}
-              onSelect={() => set("examBoard", value)}
-            />
-          ))}
+        <div className="mx-auto max-w-95">
+          <Dropdown
+            value={answers.examBoard ?? ""}
+            placeholder="Choose your exam"
+            options={EXAM_TYPES.map(({ value, detail, live }) => ({
+              value,
+              label: value,
+              hint: detail,
+              disabled: !live,
+            }))}
+            onChange={(v) => set("examBoard", v as ExamBoard)}
+          />
         </div>
       </StepShell>
     );
@@ -176,27 +169,18 @@ export function SignupView() {
         onNext={() => go(1)}
         nextLabel={answers.targetYear === null ? "Not sure yet" : "Continue"}
       >
-        <div
-          role="radiogroup"
-          aria-label="Target year"
-          className="flex flex-wrap justify-center gap-3"
-        >
-          {years.map((year) => (
-            <button
-              key={year}
-              type="button"
-              role="radio"
-              aria-checked={answers.targetYear === year}
-              onClick={() => set("targetYear", year)}
-              className={`press tnum rounded-pill px-7 py-3.5 text-[16px] font-semibold transition-shadow duration-200 ${
-                answers.targetYear === year
-                  ? "bg-frame shadow-lift text-white"
-                  : "bg-canvas shadow-card"
-              }`}
-            >
-              {year}
-            </button>
-          ))}
+        <div className="mx-auto max-w-95">
+          <Dropdown
+            value={
+              answers.targetYear === null ? "" : String(answers.targetYear)
+            }
+            placeholder="Not sure yet"
+            options={years.map((year) => ({
+              value: String(year),
+              label: String(year),
+            }))}
+            onChange={(v) => set("targetYear", Number(v))}
+          />
         </div>
       </StepShell>
     );
