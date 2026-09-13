@@ -11,6 +11,7 @@ import {
   EventCard,
   EventMark,
   type EventTone,
+  Input,
   PageHeader,
   Segmented,
   StatusPill,
@@ -273,13 +274,13 @@ function DoubtForm({
               label: SECTION_LABEL[s],
             }))}
           />
-          <input
+          <Input
             required
             maxLength={80}
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
             placeholder="Topic, e.g. Caselet DI"
-            className="rounded-ctl border-line bg-canvas h-9 border px-2.5 text-[13px] outline-none"
+            className="w-48"
           />
           <span className="flex-1" />
           <Button variant="ghost" type="button" onClick={onCancel}>

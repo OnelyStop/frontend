@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
+import { Button } from "@/design-system";
 import type { NoteColor, StudyNote } from "../types";
 import { NOTE_COLORS, NOTE_SWATCH } from "./StickyNote";
 
@@ -166,13 +167,9 @@ export function NotesPanel({
                 />
               ))}
             </div>
-            <button
-              onClick={create}
-              disabled={busy || !draft.trim()}
-              className="rounded-pill bg-ink hover:bg-ink/85 h-8 px-4 text-[13px] text-white transition-colors disabled:opacity-40"
-            >
+            <Button size="sm" onClick={create} disabled={busy || !draft.trim()}>
               Save
-            </button>
+            </Button>
           </div>
           {error ? <p className="text-bad mt-2 text-[12px]">{error}</p> : null}
         </div>

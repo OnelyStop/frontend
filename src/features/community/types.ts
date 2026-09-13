@@ -55,4 +55,3 @@ export type DoubtPage = {
 export const replyCreate = z.object({
   body: z.string().trim().min(2).max(4000),
 });
-export type ReplyCreate = z.infer<typeof replyCreate>;
