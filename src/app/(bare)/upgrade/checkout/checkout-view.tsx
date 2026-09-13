@@ -4,7 +4,7 @@ import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, CheckCircle2, Loader2, Lock } from "lucide-react";
+import { ArrowLeft, Check, CheckCircle2, Loader2, Lock } from "lucide-react";
 import { Brand, Button, Card, SectionTitle } from "@/design-system";
 import {
   PLAN_LIMITS,
@@ -49,6 +49,30 @@ type Step =
 const POLL_MS = 2000;
 const POLL_TRIES = 15;
 
+const GLOW: React.CSSProperties = {
+  filter: "blur(56px)",
+  opacity: 0.55,
+  background: [
+    "radial-gradient(40% 55% at 18% 30%, #bcd4ff 0%, transparent 70%)",
+    "radial-gradient(38% 52% at 62% 18%, #cfc6ff 0%, transparent 72%)",
+    "radial-gradient(40% 55% at 92% 34%, #b6ecdd 0%, transparent 70%)",
+  ].join(","),
+};
+
+/** What the money buys, in the order it matters. Named against the free plan, because that is what the reader is leaving. */
+function included(plan: PaidPlan): string[] {
+  const l = PLAN_LIMITS[plan];
+  const free = PLAN_LIMITS.free;
+  return [
+    `Unlimited mocks, up from ${free.mocksPerMonth} a month`,
+    `Unlimited drills, up from ${free.drillsPerDay} a day`,
+    `${l.descriptiveMarkingsPerMonth} descriptive markings a month`,
+    `${l.askOnelyPerMonth} Ask Onely questions a month`,
+    "The whole current-affairs archive, not the last week",
+    "The attempt map: what to bank and what to skip",
+  ];
+}
+
 // The app's frame and stage, but no nav or rail — fewer exits on the payment step.
 function Shell({ children }: { children: ReactNode }) {
   return (
@@ -64,7 +88,13 @@ function Shell({ children }: { children: ReactNode }) {
         </header>
 
         <div className="flex flex-1 flex-col px-3 pb-3">
-          <div className="bg-stage flex flex-1 flex-col rounded-[26px] px-5 pt-8 pb-10 sm:px-10 lg:pt-11">
+          <div className="bg-stage relative isolate flex flex-1 flex-col overflow-hidden rounded-[26px] px-5 pt-8 pb-10 sm:px-10 lg:pt-11">
+            {/* The landing hero's device, dimmed: a flat stage under two white cards reads as an unfinished page. */}
+            <div
+              aria-hidden
+              className="absolute inset-x-0 top-0 -z-1 h-140"
+              style={GLOW}
+            />
             <div className="mx-auto w-full max-w-275">{children}</div>
           </div>
         </div>
@@ -279,7 +309,7 @@ export function CheckoutView({
           </p>
         </Card>
 
-        <Card>
+        <Card tone="brand">
           <SectionTitle>Order summary</SectionTitle>
           <div className="border-line flex items-start justify-between gap-4 border-b pb-4">
             <div>
@@ -310,6 +340,19 @@ export function CheckoutView({
           <p className="text-ink-3 mt-4 text-[13px] leading-relaxed">
             Active the moment Razorpay confirms the payment.
           </p>
+
+          <ul className="border-line mt-5 grid gap-2 border-t pt-5">
+            {included(plan).map((line) => (
+              <li key={line} className="flex items-start gap-2.5 text-[13.5px]">
+                <Check
+                  size={15}
+                  strokeWidth={2.5}
+                  className="text-ok mt-0.5 shrink-0"
+                />
+                {line}
+              </li>
+            ))}
+          </ul>
         </Card>
       </div>
     </Shell>
