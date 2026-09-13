@@ -4,8 +4,22 @@ import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Check, CheckCircle2, Loader2, Lock } from "lucide-react";
-import { Brand, Button, Card, SectionTitle } from "@/design-system";
+import {
+  ArrowLeft,
+  Check,
+  CheckCircle2,
+  Loader2,
+  Lock,
+  Receipt,
+} from "lucide-react";
+import {
+  Brand,
+  Button,
+  Card,
+  CornerBadge,
+  SectionTitle,
+  StatusPill,
+} from "@/design-system";
 import {
   PLAN_LIMITS,
   PLAN_NAME,
@@ -49,16 +63,6 @@ type Step =
 const POLL_MS = 2000;
 const POLL_TRIES = 15;
 
-const GLOW: React.CSSProperties = {
-  filter: "blur(56px)",
-  opacity: 0.55,
-  background: [
-    "radial-gradient(40% 55% at 18% 30%, #bcd4ff 0%, transparent 70%)",
-    "radial-gradient(38% 52% at 62% 18%, #cfc6ff 0%, transparent 72%)",
-    "radial-gradient(40% 55% at 92% 34%, #b6ecdd 0%, transparent 70%)",
-  ].join(","),
-};
-
 /** What the money buys, in the order it matters. Named against the free plan, because that is what the reader is leaving. */
 function included(plan: PaidPlan): string[] {
   const l = PLAN_LIMITS[plan];
@@ -88,13 +92,7 @@ function Shell({ children }: { children: ReactNode }) {
         </header>
 
         <div className="flex flex-1 flex-col px-3 pb-3">
-          <div className="bg-stage relative isolate flex flex-1 flex-col overflow-hidden rounded-[26px] px-5 pt-8 pb-10 sm:px-10 lg:pt-11">
-            {/* The landing hero's device, dimmed: a flat stage under two white cards reads as an unfinished page. */}
-            <div
-              aria-hidden
-              className="absolute inset-x-0 top-0 -z-1 h-140"
-              style={GLOW}
-            />
+          <div className="bg-stage flex flex-1 flex-col rounded-[26px] px-5 pt-8 pb-10 sm:px-10 lg:pt-11">
             <div className="mx-auto w-full max-w-275">{children}</div>
           </div>
         </div>
@@ -277,9 +275,12 @@ export function CheckoutView({
       </h1>
 
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-        <Card>
+        <Card tone="info" className="relative">
+          <CornerBadge tone="quiet">
+            <Lock size={18} strokeWidth={2} />
+          </CornerBadge>
           <SectionTitle>Payment</SectionTitle>
-          <p className="text-ink-2 text-[14px] leading-relaxed">
+          <p className="text-ink-2 max-w-[38ch] text-[14px] leading-relaxed">
             Razorpay opens a secure window for the card, UPI or net-banking
             details. Nothing about your payment method is stored here.
           </p>
@@ -309,7 +310,10 @@ export function CheckoutView({
           </p>
         </Card>
 
-        <Card tone="brand">
+        <Card tone="brand" className="relative">
+          <CornerBadge tone="quiet">
+            <Receipt size={18} strokeWidth={1.75} />
+          </CornerBadge>
           <SectionTitle>Order summary</SectionTitle>
           <div className="border-line flex items-start justify-between gap-4 border-b pb-4">
             <div>
@@ -329,17 +333,17 @@ export function CheckoutView({
               </Link>
             ) : null}
           </div>
-          <dl className="mt-4 grid gap-2.5 text-[14px]">
-            <div className="border-line flex justify-between text-[16px] font-semibold">
-              <dt>Due today</dt>
-              <dd className="tnum">
+          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+            <StatusPill tone="live" className="text-[15px]">
+              <span className="text-ink-3 font-medium">Due today</span>
+              <span className="tnum font-bold">
                 {price ? formatAmount(price.amountMinor, price.currency) : "—"}
-              </dd>
-            </div>
-          </dl>
-          <p className="text-ink-3 mt-4 text-[13px] leading-relaxed">
-            Active the moment Razorpay confirms the payment.
-          </p>
+              </span>
+            </StatusPill>
+            <span className="text-ink-3 text-[12.5px]">
+              Active the moment Razorpay confirms it
+            </span>
+          </div>
 
           <ul className="border-line mt-5 grid gap-2 border-t pt-5">
             {included(plan).map((line) => (

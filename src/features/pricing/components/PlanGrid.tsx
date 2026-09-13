@@ -9,6 +9,7 @@ import {
   Card,
   Segmented,
   cn,
+  tintFor,
 } from "@/design-system";
 import { SUPPORT_EMAIL } from "@/config/site";
 import type { PlanTier } from "@/features/billing/limits";
@@ -167,6 +168,8 @@ export function PlanGrid({
               pad={false}
               className={cn(
                 "relative flex flex-col p-6",
+                // Tinted like the knowledge base, so the three read as a set rather than one white block repeated.
+                tintFor(plan.id),
                 // A ring, not a shadow: the design system reserves shadows for floating things.
                 plan.featured && "ring-brand ring-1",
               )}
