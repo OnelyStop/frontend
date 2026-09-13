@@ -5,7 +5,7 @@ export const SITE_URL =
     ? "http://localhost:3000"
     : "https://www.onelystop.in");
 
-export const SUPPORT_EMAIL = "hello@onelystop.in";
+export const SUPPORT_EMAIL = "support@onelystop.in";
 
 export const SITE_NAME = "onelystop";
 export const SITE_TAGLINE = "clear every sectional cutoff";
