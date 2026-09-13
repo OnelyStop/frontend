@@ -4,7 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
-import { EXAMS, SECTIONS, SECTION_LABEL } from "@/data/navigation";
+import {
+  EXAM_TYPES,
+  SECTIONS,
+  SECTION_LABEL,
+  type ExamBoard,
+} from "@/data/navigation";
 import type { Profile, ProfileUpdate } from "@/features/profile/types";
 import { useApp } from "@/context/AppContext";
 import { isAvatarKey, type AvatarKey } from "@/features/profile/avatars";
@@ -17,7 +22,7 @@ type Draft = {
   school: string;
   targetYear: string;
   bio: string;
-  examBoard: (typeof EXAMS)[number];
+  examBoard: ExamBoard;
   defaultSection: (typeof SECTIONS)[number];
 };
 
@@ -28,7 +33,7 @@ function toDraft(profile: Profile | null): Draft {
     school: profile?.school ?? "",
     targetYear: profile?.targetYear ? String(profile.targetYear) : "",
     bio: profile?.bio ?? "",
-    examBoard: profile?.examBoard ?? EXAMS[0],
+    examBoard: profile?.examBoard ?? "Banking",
     defaultSection: profile?.defaultSection ?? SECTIONS[0],
   };
 }
@@ -189,21 +194,26 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
       <Card tone="brand" className="mt-5">
         <SectionTitle>Exam you are preparing for</SectionTitle>
         <p className="text-ink-3 -mt-2 mb-4 text-[13px]">
-          Sets the targets, sectional timing and paper pattern used everywhere.
+          Sets the question bank, the drills and the cutoffs you are measured
+          against.
         </p>
         <div className="flex flex-wrap gap-2">
-          {EXAMS.map((b) => (
+          {EXAM_TYPES.map(({ value, live }) => (
             <button
-              key={b}
+              key={value}
               type="button"
-              onClick={() => set("examBoard", b)}
+              disabled={!live}
+              onClick={() => set("examBoard", value)}
               className={`rounded-pill h-10 border px-4 text-[13px] font-medium transition-colors ${
-                draft.examBoard === b
-                  ? "border-ink bg-ink text-white"
-                  : "border-line bg-canvas hover:border-line-2"
+                !live
+                  ? "border-line text-ink-3 cursor-not-allowed opacity-55"
+                  : draft.examBoard === value
+                    ? "border-ink bg-ink text-white"
+                    : "border-line bg-canvas hover:border-line-2"
               }`}
             >
-              {b}
+              {value}
+              {live ? null : <span className="ml-1.5 text-[11px]">soon</span>}
             </button>
           ))}
         </div>

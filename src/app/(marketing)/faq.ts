@@ -1,4 +1,4 @@
-import { EXAMS, DESCRIPTIVE_EXAMS } from "@/data/navigation";
+import { BANKING_EXAMS, DESCRIPTIVE_EXAMS } from "@/data/navigation";
 import { PLAN_LIMITS } from "@/features/billing/limits";
 
 const free = PLAN_LIMITS.free;
@@ -11,7 +11,7 @@ export const FAQ: { question: string; answer: string }[] = [
   },
   {
     question: "Which exams does it cover?",
-    answer: `${EXAMS.slice(0, -1).join(", ")} and ${EXAMS[EXAMS.length - 1]}. Mocks run to each paper's own sectional structure and timing rather than a single generic pattern.`,
+    answer: `${BANKING_EXAMS.slice(0, -1).join(", ")} and ${BANKING_EXAMS[BANKING_EXAMS.length - 1]}. Mocks run to each paper's own sectional structure and timing rather than a single generic pattern.`,
   },
   {
     question: "Does it account for negative marking?",

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Brand, ButtonLink } from "@/design-system";
 import { SUPPORT_EMAIL } from "@/config/site";
-import { EXAMS } from "@/data/navigation";
+import { BANKING_EXAMS } from "@/data/navigation";
 
 const NAV = [
   { href: "#features", label: "Features" },
@@ -19,7 +19,7 @@ const FOOTER_COLS = [
   },
   {
     title: "Exams",
-    items: EXAMS.map((label) => ({ label, href: null })),
+    items: BANKING_EXAMS.map((label) => ({ label, href: null })),
   },
   {
     title: "Practise",

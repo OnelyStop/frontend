@@ -64,6 +64,13 @@
       "when": 1789210745612,
       "tag": "0008_attempt_exam_mode",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1789305537351,
+      "tag": "0009_exam_type",
+      "breakpoints": true
     }
   ]
 }

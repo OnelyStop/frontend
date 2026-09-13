@@ -1,10 +1,5 @@
-export type ExamBoard =
-  | "IBPS PO"
-  | "IBPS Clerk"
-  | "IBPS RRB"
-  | "SBI PO"
-  | "SBI Clerk"
-  | "RBI Grade B";
+/** The broad exam a learner is preparing for. Specific boards are a property of a paper, never something a learner picks. */
+export type ExamBoard = "Banking" | "NEET" | "IIT JEE";
 
 export type Subject =
   | "Quantitative Aptitude"
@@ -22,14 +17,32 @@ export const SECTIONS = [
   "Computer Aptitude",
 ] as const satisfies readonly Subject[];
 
-export const EXAMS = [
+/** Picked at signup and changeable in Settings. The unbuilt ones are shown, not hidden, so the list reads as a roadmap. */
+export const EXAM_TYPES: {
+  value: ExamBoard;
+  detail: string;
+  live: boolean;
+}[] = [
+  {
+    value: "Banking",
+    detail: "SBI, IBPS and RRB — every prelims and mains paper",
+    live: true,
+  },
+  { value: "NEET", detail: "Coming soon", live: false },
+  { value: "IIT JEE", detail: "Coming soon", live: false },
+];
+
+export const EXAM_TYPE_VALUES = ["Banking", "NEET", "IIT JEE"] as const;
+
+/** Named on the marketing pages because these are the words people search for; no learner selects one. */
+export const BANKING_EXAMS = [
   "IBPS PO",
   "IBPS Clerk",
   "IBPS RRB",
   "SBI PO",
   "SBI Clerk",
   "RBI Grade B",
-] as const satisfies readonly ExamBoard[];
+] as const;
 
 export const SECTION_KEY: Record<Subject, string> = {
   "Quantitative Aptitude": "quant",
@@ -210,11 +223,5 @@ export const CUTOFF_LADDER = [
   { band: "Strong", threshold: 85 },
 ] as const;
 
-/* Descriptive papers exist only in SBI PO Mains and RBI Grade B. */
-export const DESCRIPTIVE_EXAMS: ExamBoard[] = ["SBI PO", "RBI Grade B"];
-
-export function getMarkerLabel(exam: ExamBoard): string {
-  return DESCRIPTIVE_EXAMS.includes(exam)
-    ? "Descriptive"
-    : "Descriptive (Mains)";
-}
+/* Descriptive papers exist only in SBI PO Mains and RBI Grade B; the FAQ names them. */
+export const DESCRIPTIVE_EXAMS = ["SBI PO", "RBI Grade B"] as const;

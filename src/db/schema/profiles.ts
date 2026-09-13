@@ -12,14 +12,8 @@ import {
 } from "drizzle-orm/pg-core";
 import { authenticatedRole } from "drizzle-orm/supabase";
 
-export const examBoard = pgEnum("exam_board", [
-  "IBPS PO",
-  "IBPS Clerk",
-  "IBPS RRB",
-  "SBI PO",
-  "SBI Clerk",
-  "RBI Grade B",
-]);
+// The broad exam a learner is preparing for. The specific boards it replaced live on papers, which are not an enum.
+export const examBoard = pgEnum("exam_board", ["Banking", "NEET", "IIT JEE"]);
 
 export const examSection = pgEnum("exam_section", [
   "Quantitative Aptitude",
@@ -40,7 +34,7 @@ export const profiles = pgTable(
     country: char("country", { length: 2 }).notNull().default("IN"),
     school: text("school"),
     targetYear: integer("target_year"),
-    examBoard: examBoard("exam_board").notNull().default("IBPS PO"),
+    examBoard: examBoard("exam_board").notNull().default("Banking"),
     defaultSection: examSection("default_section")
       .notNull()
       .default("Quantitative Aptitude"),

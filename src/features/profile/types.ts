@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { AVATAR_KEYS } from "./avatars";
 import {
-  EXAMS,
+  EXAM_TYPE_VALUES,
   SECTIONS,
   type ExamBoard,
   type Subject,
@@ -17,7 +17,7 @@ export const profileUpdate = z
     bio: z.string().trim().max(500).nullable(),
     school: z.string().trim().max(120).nullable(),
     targetYear: z.number().int().min(2000).max(2100).nullable(),
-    examBoard: z.enum(EXAMS),
+    examBoard: z.enum(EXAM_TYPE_VALUES),
     defaultSection: z.enum(SECTIONS),
   })
   .partial()

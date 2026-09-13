@@ -10,11 +10,7 @@ import {
 } from "react";
 import { MotionConfig } from "motion/react";
 import { useAuth } from "@/features/auth/AuthContext";
-import {
-  getMarkerLabel,
-  type ExamBoard,
-  type Subject,
-} from "@/data/navigation";
+import { type ExamBoard, type Subject } from "@/data/navigation";
 import type { Profile } from "@/features/profile/types";
 import { isAvatarKey, type AvatarKey } from "@/features/profile/avatars";
 
@@ -35,7 +31,6 @@ type AppContextValue = {
   board: ExamBoard;
   setSubject: (s: Subject) => void;
   setBoard: (b: ExamBoard) => void;
-  markerLabel: string;
   profile: UserProfile;
   setProfile: (p: UserProfile) => void;
   settings: UserSettings;
@@ -56,7 +51,7 @@ function getInitials(name: string) {
 export function AppProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const [subject, setSubject] = useState<Subject>("Quantitative Aptitude");
-  const [board, setBoard] = useState<ExamBoard>("IBPS PO");
+  const [board, setBoard] = useState<ExamBoard>("Banking");
   const [avatar, setAvatar] = useState<AvatarKey | null>(null);
   const [profile, setProfile] = useState<UserProfile>({
     name: "",
@@ -109,7 +104,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       board,
       setSubject,
       setBoard,
-      markerLabel: getMarkerLabel(board),
       profile,
       setProfile,
       settings,

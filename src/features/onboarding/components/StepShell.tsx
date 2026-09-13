@@ -126,6 +126,7 @@ export function ChoiceCard({
   tint,
   selected,
   onSelect,
+  disabled,
 }: {
   label: string;
   hint?: string;
@@ -133,15 +134,23 @@ export function ChoiceCard({
   tint: string;
   selected: boolean;
   onSelect: () => void;
+  /** A track we have not built yet: shown so the list reads as a roadmap, but never selectable. */
+  disabled?: boolean;
 }) {
   return (
     <button
       type="button"
       role="radio"
       aria-checked={selected}
+      aria-disabled={disabled}
+      disabled={disabled}
       onClick={onSelect}
       className={`press rounded-card relative flex flex-col items-start gap-1 p-5 text-left transition-shadow duration-200 ${
-        selected ? "shadow-lift outline-frame outline-2" : "shadow-card"
+        disabled
+          ? "opacity-45 shadow-none grayscale"
+          : selected
+            ? "shadow-lift outline-frame outline-2"
+            : "shadow-card"
       } ${tint}`}
     >
       <span className="text-[16px] leading-tight font-bold tracking-[-0.02em]">

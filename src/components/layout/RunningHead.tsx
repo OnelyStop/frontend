@@ -9,9 +9,9 @@ import { useRetrieval } from "@/features/retrieval/RetrievalContext";
 import { ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { AVATARS } from "@/features/profile/avatars";
-import { Avatar, Divider, Kbd, MenuRow, Popover } from "@/design-system";
+import { Avatar, Divider, MenuRow, Popover } from "@/design-system";
 import { ACCOUNT_GROUP, HeaderNav, MAIN_GROUPS } from "./HeaderNav";
-import { EXAMS, type ExamBoard, type Subject } from "@/data/navigation";
+import { type Subject } from "@/data/navigation";
 
 export const SUBJECT_INK: Record<Subject, string> = {
   "Quantitative Aptitude": "var(--color-quant)",
@@ -36,7 +36,7 @@ export function RunningHead({
   isAdmin?: boolean;
   onTopPlan?: boolean;
 }) {
-  const { subject, board, setBoard, avatar, profile } = useApp();
+  const { avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
   // Neither state renders until auth resolves, so the header never flashes either way.
   const signedOut = !loading && !user;
@@ -46,38 +46,19 @@ export function RunningHead({
   const pathname = usePathname();
   const params = useSearchParams();
   const mod = useModifierKey();
-  const [switching, setSwitching] = useState(false);
   const [account, setAccount] = useState(false);
-  const idRef = useRef<HTMLDivElement>(null);
   const accountRef = useRef<HTMLDivElement>(null);
 
   const spec = params.get("spec");
   const sit = params.get("sit");
   const parent = upOne(pathname, Boolean(spec || sit));
 
-  const switchTo = (next: ExamBoard) => {
-    setBoard(next);
-    setSwitching(false);
-  };
-
   useEffect(() => {
     const onKey = (ev: KeyboardEvent) => {
-      if ((ev.metaKey || ev.ctrlKey) && /^[1-9]$/.test(ev.key)) {
-        const next = EXAMS[Number(ev.key) - 1];
-        if (!next) return;
-        ev.preventDefault();
-        switchTo(next);
-        return;
-      }
-
       if (ev.key !== "Escape") return;
       // Exam conditions owns its own exit, and it asks first.
       if (document.documentElement.dataset.mode === "exam") return;
       if (retrievalOpen) return;
-      if (switching) {
-        setSwitching(false);
-        return;
-      }
 
       // A first Esc leaves the field you are typing in; the second goes up.
       const el = document.activeElement as HTMLElement | null;
@@ -99,15 +80,6 @@ export function RunningHead({
   });
 
   useEffect(() => {
-    if (!switching) return;
-    const onDown = (ev: MouseEvent) => {
-      if (!idRef.current?.contains(ev.target as Node)) setSwitching(false);
-    };
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, [switching]);
-
-  useEffect(() => {
     if (!account) return;
     const onDown = (ev: MouseEvent) => {
       if (!accountRef.current?.contains(ev.target as Node)) setAccount(false);
@@ -127,52 +99,6 @@ export function RunningHead({
         >
           onelystop
         </Link>
-
-        <div className="relative shrink-0" ref={idRef}>
-          <button
-            type="button"
-            aria-haspopup="menu"
-            aria-expanded={switching}
-            aria-label={`Exam: ${board}`}
-            onClick={() => setSwitching((v) => !v)}
-            className="press rounded-pill text-on-frame-2 hover:text-on-frame flex h-9 items-center gap-2 pr-2.5 pl-2 text-[13px]"
-          >
-            <span
-              className="size-1.5 rounded-full"
-              style={{ background: SUBJECT_INK[subject] }}
-              aria-hidden
-            />
-            {/* The dot alone below sm: the board name is what pushed the header off a 390px screen. */}
-            <span className="hidden sm:inline">{board}</span>
-            <ChevronDown size={14} className="text-on-frame-3" />
-          </button>
-
-          {switching ? (
-            <Popover label="Exams covered" width={248} className="top-10.5">
-              <p className="text-ink-3 px-2.5 pt-1.5 pb-1 text-[12px]">
-                Exams covered
-              </p>
-              {EXAMS.map((e, i) => (
-                <button
-                  key={e}
-                  type="button"
-                  role="menuitemradio"
-                  aria-checked={e === board}
-                  onClick={() => switchTo(e)}
-                  className={`press rounded-ctl flex w-full items-center gap-2 px-2.5 py-2 text-left ${
-                    e === board ? "bg-brand-soft" : "hover:bg-brand-soft"
-                  }`}
-                >
-                  <span className="min-w-0 flex-1 text-[13px]">{e}</span>
-                  <Kbd>
-                    {mod}
-                    {i + 1}
-                  </Kbd>
-                </button>
-              ))}
-            </Popover>
-          ) : null}
-        </div>
 
         <HeaderNav groups={MAIN_GROUPS} />
 
