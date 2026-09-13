@@ -105,8 +105,9 @@ export default function Page() {
             and device type, and pages requested.
           </li>
           <li>
-            Essential cookies that keep you signed in. No advertising cookies,
-            no third-party trackers.
+            Essential cookies that keep you signed in, and Google Analytics
+            cookies that count visits. No advertising cookies, and nothing we
+            run builds a profile to sell.
           </li>
         </ul>
       </section>
@@ -208,8 +209,14 @@ export default function Page() {
             <strong>Vercel.</strong> Hosts and runs the site. Sees the technical
             data any web server sees. Vercel Analytics also counts page views
             for us: it sets no cookie, stores no identifier for you, and cannot
-            follow you to any other site. That is why there is no cookie banner
-            here — the only cookies we set are the ones that keep you signed in.
+            follow you to any other site.
+          </li>
+          <li>
+            <strong>Google Analytics.</strong> Counts visits and which pages get
+            used, so we know what to build next. It sets its own cookies and
+            gives you an identifier that lasts across visits. We do not send it
+            your name, email or answers, and we have not turned on advertising
+            features, so it is not used to target ads at you.
           </li>
           <li>
             <strong>Supabase.</strong> Holds the database and handles sign-in,
