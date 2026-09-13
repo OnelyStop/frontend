@@ -10,6 +10,7 @@ import {
   Input,
   PageHeader,
   SectionTitle,
+  Textarea,
 } from "@/design-system";
 import {
   EXAM_TYPES,
@@ -164,12 +165,12 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
         </div>
         <label htmlFor="bio" className="mt-4 block">
           <span className="text-ink-3 block text-[13px]">Bio</span>
-          <textarea
+          <Textarea
             id="bio"
             rows={3}
             value={draft.bio}
             onChange={(e) => set("bio", e.target.value)}
-            className="rounded-ctl border-line bg-canvas focus:border-brand mt-1 w-full resize-none border px-3 py-2 text-[14px] leading-relaxed transition-colors outline-none"
+            className="mt-1"
           />
         </label>
       </Card>
