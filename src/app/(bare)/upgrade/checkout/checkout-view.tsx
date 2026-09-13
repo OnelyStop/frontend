@@ -49,18 +49,26 @@ type Step =
 const POLL_MS = 2000;
 const POLL_TRIES = 15;
 
-// Outside both shells — fewer exits on the payment step.
+// The app's frame and stage, but no nav or rail — fewer exits on the payment step.
 function Shell({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-canvas min-h-dvh">
-      <header className="border-line flex h-14 items-center justify-between border-b px-5 sm:px-8 lg:px-16">
-        <Brand href="/" />
-        <span className="text-ink-3 inline-flex items-center gap-1.5 text-[13px]">
-          <Lock size={12} strokeWidth={2} />
-          Secure checkout by Razorpay
-        </span>
-      </header>
-      <div className="mx-auto max-w-275 px-5 py-10 sm:px-8">{children}</div>
+    <div className="bg-frame min-h-screen">
+      <div className="flex min-h-svh w-full flex-col">
+        <header className="flex h-16 shrink-0 items-center justify-between px-5 text-white sm:px-8 lg:h-20">
+          <Brand href="/" className="text-[20px] font-bold sm:text-[22px]" />
+          <span className="text-on-frame-3 inline-flex shrink-0 items-center gap-1.5 text-[13px]">
+            <Lock size={12} strokeWidth={2} />
+            Secure checkout
+            <span className="hidden sm:inline">by Razorpay</span>
+          </span>
+        </header>
+
+        <div className="flex flex-1 flex-col px-3 pb-3">
+          <div className="bg-stage flex flex-1 flex-col rounded-[26px] px-5 pt-8 pb-10 sm:px-10 lg:pt-11">
+            <div className="mx-auto w-full max-w-275">{children}</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -71,7 +79,9 @@ function Done({ title, body }: { title: string; body: string }) {
     <Shell>
       <div className="mx-auto max-w-130 py-16 text-center">
         <CheckCircle2 size={56} strokeWidth={1.5} className="text-ok mx-auto" />
-        <h1 className="mt-6 text-[32px] tracking-[-0.03em]">{title}</h1>
+        <h1 className="mt-6 text-[26px] leading-[1.14] font-bold tracking-[-0.03em] sm:text-[29px]">
+          {title}
+        </h1>
         <p className="text-ink-2 mt-3 text-[15px] leading-relaxed">{body}</p>
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <Button onClick={() => router.push("/today")}>
@@ -232,7 +242,7 @@ export function CheckoutView({
         Back to plans
       </button>
 
-      <h1 className="mt-5 mb-8 text-[32px] tracking-[-0.03em]">
+      <h1 className="mt-4 mb-8 text-[26px] leading-[1.14] font-bold tracking-[-0.03em] sm:text-[29px]">
         Upgrade to {planName}
       </h1>
 
