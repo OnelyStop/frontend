@@ -18,7 +18,6 @@ import {
   Card,
   CornerBadge,
   SectionTitle,
-  StatusPill,
 } from "@/design-system";
 import {
   PLAN_LIMITS,
@@ -280,11 +279,11 @@ export function CheckoutView({
             <Lock size={18} strokeWidth={2} />
           </CornerBadge>
           <SectionTitle>Payment</SectionTitle>
-          <p className="text-ink-2 max-w-[38ch] text-[14px] leading-relaxed">
+          <p className="bg-info-pale rounded-ctl text-ink-2 p-4 text-[14px] leading-relaxed">
             Razorpay opens a secure window for the card, UPI or net-banking
             details. Nothing about your payment method is stored here.
           </p>
-          <div className="mt-6">
+          <div className="mt-4">
             <Button
               size="lg"
               block
@@ -304,7 +303,7 @@ export function CheckoutView({
               {message}
             </p>
           ) : null}
-          <p className="text-ink-3 mt-4 text-[12.5px] leading-relaxed">
+          <p className="bg-info-pale rounded-ctl text-ink-3 mt-3 p-4 text-[12.5px] leading-relaxed">
             Renews automatically. Cancel any time from the upgrade page; access
             runs to the end of the paid period.
           </p>
@@ -315,7 +314,8 @@ export function CheckoutView({
             <Receipt size={18} strokeWidth={1.75} />
           </CornerBadge>
           <SectionTitle>Order summary</SectionTitle>
-          <div className="border-line flex items-start justify-between gap-4 border-b pb-4">
+
+          <div className="bg-brand-pale rounded-ctl flex items-start justify-between gap-4 p-4">
             <div>
               <div className="text-[15px] font-medium">
                 onelystop {planName}
@@ -333,19 +333,20 @@ export function CheckoutView({
               </Link>
             ) : null}
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-            <StatusPill tone="live" className="text-[15px]">
-              <span className="text-ink-3 font-medium">Due today</span>
-              <span className="tnum font-bold">
-                {price ? formatAmount(price.amountMinor, price.currency) : "—"}
-              </span>
-            </StatusPill>
-            <span className="text-ink-3 text-[12.5px]">
+
+          <div className="bg-canvas rounded-ctl shadow-card mt-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 p-4">
+            <span className="text-ink-2 text-[14px] font-medium">
+              Due today
+            </span>
+            <span className="tnum text-[22px] font-bold tracking-[-0.02em]">
+              {price ? formatAmount(price.amountMinor, price.currency) : "—"}
+            </span>
+            <span className="text-ink-3 w-full text-[12.5px]">
               Active the moment Razorpay confirms it
             </span>
           </div>
 
-          <ul className="border-line mt-5 grid gap-2 border-t pt-5">
+          <ul className="bg-brand-pale rounded-ctl mt-3 grid gap-2.5 p-4">
             {included(plan).map((line) => (
               <li key={line} className="flex items-start gap-2.5 text-[13.5px]">
                 <Check
