@@ -85,7 +85,7 @@ export default function Image() {
         <span>·</span>
         <span>SBI PO</span>
         <span>·</span>
-        <span>RBI Grade B</span>
+        <span>IBPS Clerk</span>
       </div>
     </div>,
     size,

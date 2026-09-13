@@ -30,7 +30,6 @@ type AppContextValue = {
   subject: Subject;
   board: ExamBoard;
   setSubject: (s: Subject) => void;
-  setBoard: (b: ExamBoard) => void;
   profile: UserProfile;
   setProfile: (p: UserProfile) => void;
   settings: UserSettings;
@@ -74,7 +73,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
   }, [user]);
 
-  // The board Settings persists is what every surface reads, so the stored profile — not the "IBPS PO" default — has to win once it arrives.
+  // The exam type Settings persists is what every surface reads, so the stored profile has to win over the default once it arrives.
   useEffect(() => {
     if (!user) return;
     const ac = new AbortController();
@@ -103,7 +102,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       subject,
       board,
       setSubject,
-      setBoard,
       profile,
       setProfile,
       settings,

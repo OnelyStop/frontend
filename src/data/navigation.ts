@@ -1,5 +1,8 @@
 /** The broad exam a learner is preparing for. Specific boards are a property of a paper, never something a learner picks. */
-export type ExamBoard = "Banking" | "NEET" | "IIT JEE";
+export const EXAM_TYPE_VALUES = ["Banking", "NEET", "IIT JEE"] as const;
+
+// Derived, so the zod enum and the column type cannot drift apart.
+export type ExamBoard = (typeof EXAM_TYPE_VALUES)[number];
 
 export type Subject =
   | "Quantitative Aptitude"
@@ -32,16 +35,13 @@ export const EXAM_TYPES: {
   { value: "IIT JEE", detail: "Coming soon", live: false },
 ];
 
-export const EXAM_TYPE_VALUES = ["Banking", "NEET", "IIT JEE"] as const;
-
-/** Named on the marketing pages because these are the words people search for; no learner selects one. */
+/** Named on the marketing pages because these are the words people search for; no learner selects one. Every entry has papers behind it — RBI Grade B was listed here with none. */
 export const BANKING_EXAMS = [
   "IBPS PO",
   "IBPS Clerk",
   "IBPS RRB",
   "SBI PO",
   "SBI Clerk",
-  "RBI Grade B",
 ] as const;
 
 export const SECTION_KEY: Record<Subject, string> = {
@@ -222,6 +222,3 @@ export const CUTOFF_LADDER = [
   { band: "Safe", threshold: 70 },
   { band: "Strong", threshold: 85 },
 ] as const;
-
-/* Descriptive papers exist only in SBI PO Mains and RBI Grade B; the FAQ names them. */
-export const DESCRIPTIVE_EXAMS = ["SBI PO", "RBI Grade B"] as const;
