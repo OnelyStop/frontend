@@ -149,14 +149,14 @@ async function main() {
         amountMinor: p.amountMinor,
         listAmountMinor: p.listAmountMinor,
       })
-      // The index is partial, so Postgres needs the predicate to infer the target.
+      // targetWhere, not where: the deprecated `where` becomes the DO UPDATE condition, and Postgres cannot infer a partial index without the predicate on the target.
       .onConflictDoUpdate({
         target: [
           paymentPlans.plan,
           paymentPlans.interval,
           paymentPlans.currency,
         ],
-        where: sql`${paymentPlans.active}`,
+        targetWhere: sql`${paymentPlans.active}`,
         // Only a pending row: a real id belongs to subscribers already on it.
         set: {
           razorpayPlanId: sql`case when ${paymentPlans.razorpayPlanId} like 'pending\\_%'
