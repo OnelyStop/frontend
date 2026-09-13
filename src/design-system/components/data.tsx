@@ -16,11 +16,13 @@ const TONE: Record<Tone, string> = {
 export function Tile({
   value,
   label,
+  note,
   tone = "info",
   outline,
 }: {
   value: string;
   label: string;
+  note?: string;
   tone?: Tone;
   outline?: boolean;
 }) {
@@ -36,6 +38,9 @@ export function Tile({
       </p>
       {/* Balanced, so a two-line label splits evenly instead of leaving one word stranded. */}
       <p className="text-ink-2 mt-2 text-[12.5px] text-balance">{label}</p>
+      {note && (
+        <p className="mt-1 text-[11.5px] text-balance opacity-70">{note}</p>
+      )}
     </div>
   );
 }

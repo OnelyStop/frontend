@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase-server";
 import { getRole } from "@/features/auth/roles";
+import { getBankStats } from "@/features/admin/queries.server";
 import Link from "next/link";
 import {
   StatusPill,
@@ -90,8 +91,13 @@ async function runCounts(): Promise<Count[]> {
 }
 
 export default async function Page() {
-  const [checks, counts] = await Promise.all([runChecks(), runCounts()]);
+  const [checks, counts, bank] = await Promise.all([
+    runChecks(),
+    runCounts(),
+    getBankStats(),
+  ]);
   const failing = checks.filter((c) => !c.ok);
+  const hidden = bank.papersTotal - bank.papersServable;
 
   return (
     <>
@@ -153,9 +159,54 @@ export default async function Page() {
               key={c.label}
               value={c.value}
               label={c.label}
+              note={c.note}
               tone={c.value === "—" ? "bad" : "info"}
             />
           ))}
+        </div>
+      </Card>
+
+      <Card className="mt-5">
+        <SectionTitle
+          aside={
+            hidden === 0 ? (
+              <StatusPill tone="ok">Every paper reachable</StatusPill>
+            ) : (
+              <StatusPill tone="warn">{hidden} not reachable</StatusPill>
+            )
+          }
+        >
+          Question bank
+        </SectionTitle>
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <Tile
+            value={String(bank.papersServable)}
+            label="Papers a learner can open"
+            note={`of ${bank.papersTotal} stored`}
+            tone={hidden === 0 ? "ok" : "warn"}
+          />
+          <Tile
+            value={String(bank.questionsServable)}
+            label="Questions a learner can sit"
+            note={`of ${bank.questionsTotal} stored`}
+            tone={
+              bank.questionsServable === bank.questionsTotal ? "ok" : "warn"
+            }
+          />
+          <Tile
+            value={String(bank.questionsTotal - bank.questionsServable)}
+            label="Questions out of reach"
+            note="inactive, or on an unreachable paper"
+            tone={
+              bank.questionsTotal === bank.questionsServable ? "ok" : "warn"
+            }
+          />
+          <Tile
+            value={String(bank.examKeysCollapsed)}
+            label="Exam keys with more than one paper"
+            note="shifts sharing an identity"
+            tone={bank.examKeysCollapsed === 0 ? "ok" : "info"}
+          />
         </div>
       </Card>
 

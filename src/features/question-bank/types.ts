@@ -4,6 +4,8 @@ export type Mock = {
   id: string;
   name: string;
   year: number;
+  /** Which sitting, e.g. "18 Dec · S1" — without it every shift of one exam renders the same title. Null when the source never recorded it. */
+  sitting: string | null;
   stage: "Prelims" | "Mains";
   qs: number;
   mins: number;
