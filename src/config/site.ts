@@ -1,9 +1,9 @@
-// Vercel provides the production hostname; SITE_URL overrides it for any other host.
-const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-
+// A constant, not an env lookup: the old VERCEL_PROJECT_PRODUCTION_URL branch baked localhost into every canonical.
 export const SITE_URL =
   process.env.SITE_URL ??
-  (vercelHost ? `https://${vercelHost}` : "http://localhost:3000");
+  (process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://www.onelystop.in");
 
 export const SUPPORT_EMAIL = "hello@onelystop.in";
 

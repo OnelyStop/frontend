@@ -33,7 +33,7 @@ export async function generateMetadata({
     title,
     description: summary || undefined,
     alternates: { canonical: path },
-    openGraph: { url: `${SITE_URL}${path}`, title, description: summary },
+    /* No openGraph block: it replaced the layout's, so every shared topic lost og:image. */
   };
 }
 
