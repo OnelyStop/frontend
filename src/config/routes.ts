@@ -7,6 +7,9 @@ export const PROTECTED_PREFIXES = [
   "/descriptive",
   // /study is absent on purpose: public for search, and it gates its own bodies.
   "/progress",
+  // Both are per-user reads that answered empty when signed out, so the proxy never sent them to /login.
+  "/notifications",
+  "/results",
   "/notes",
   "/flashcards",
   "/current-affairs",
