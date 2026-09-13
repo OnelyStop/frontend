@@ -12,6 +12,7 @@ import {
   userTopicStats,
 } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
+import { captureError } from "@/lib/observability.server";
 import { checkQuota } from "@/features/billing/usage.server";
 import { SECTIONS, SECTION_DB, type Subject } from "@/data/navigation";
 import {
@@ -45,6 +46,12 @@ async function maxSectionMs(paperId: string | null): Promise<number> {
 
 const GENERIC_ERROR = { error: "Something went wrong. Try again." } as const;
 const ALREADY_SUBMITTED = "Attempt already submitted.";
+
+// Every action below funnels its catch here: a bare `catch {}` showed the learner this string and told no one a three-hour submit had failed.
+const failed = (at: string, err: unknown) => {
+  captureError(err, { at });
+  return GENERIC_ERROR;
+};
 
 /** The server picks the questions and records them on the row; `submitAttempt` never grades outside that set. */
 export async function startAttempt(
@@ -88,8 +95,8 @@ export async function startAttempt(
       })
       .returning({ id: attempts.id });
     return { attemptId: row!.id, questions };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("startAttempt", err);
   }
 }
 
@@ -181,8 +188,8 @@ export async function startMockAttempt(
       })
       .returning({ id: attempts.id });
     return { attemptId: row!.id, questions, resume: null };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("startMockAttempt", err);
   }
 }
 
@@ -255,8 +262,8 @@ export async function restartMockAttempt(
       })
       .returning({ id: attempts.id });
     return { attemptId: row!.id, questions, resume: null };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("restartMockAttempt", err);
   }
 }
 
@@ -282,8 +289,8 @@ export async function recordFlag(
       .returning({ flagCount: attempts.flagCount });
     if (!row) return { error: "Attempt not found." };
     return { flagCount: row.flagCount };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("recordFlag", err);
   }
 }
 
@@ -321,8 +328,8 @@ export async function saveAnswer(
         set: { chosen: sql`excluded.chosen`, timeMs: sql`excluded.time_ms` },
       });
     return { ok: true };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("saveAnswer", err);
   }
 }
 
@@ -356,8 +363,8 @@ export async function checkpointSectionTime(
       .set({ sectionRemainingMs: clamped })
       .where(eq(attempts.id, attemptId));
     return { ok: true };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("checkpointSectionTime", err);
   }
 }
 
@@ -392,8 +399,8 @@ export async function advanceSection(
       .returning({ id: attempts.id });
     if (!row) return { error: "Attempt not found." };
     return { ok: true };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("advanceSection", err);
   }
 }
 
@@ -519,8 +526,8 @@ export async function submitAttempt(
     revalidatePath("/drills");
     revalidatePath(`/results/${attemptId}`);
     return { ok: true, attemptId };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("submitAttempt", err);
   }
 }
 
