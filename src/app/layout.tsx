@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 // Cookieless and unlinked to a person, so it needs no consent banner.
 import { Analytics } from "@vercel/analytics/next";
-import { instrument, jakarta, poppins } from "./fonts";
+import { poppins } from "./fonts";
 import { AppProvider } from "@/context/AppContext";
 import { AuthProvider } from "@/features/auth/AuthContext";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
@@ -42,18 +42,23 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  openGraph: {
-    type: "website",
-    siteName: SITE_NAME,
-    locale: "en_IN",
-    title: TITLE,
-    description: SITE_DESCRIPTION,
+  // No title or description here: stating them pinned every share card to the home page's.
+  openGraph: { type: "website", siteName: SITE_NAME, locale: "en_IN" },
+  twitter: { card: "summary_large_image" },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: { url: "/apple-icon.png", sizes: "180x180" },
   },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: SITE_DESCRIPTION,
-  },
+  manifest: "/manifest.webmanifest",
+};
+
+export const viewport: Viewport = {
+  // The frame is black, so a white browser chrome above it reads as a rendering fault.
+  themeColor: "#131316",
+  colorScheme: "light",
 };
 
 const ORGANISATION = {
@@ -93,10 +98,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en-IN"
-      className={`${instrument.variable} ${jakarta.variable} ${poppins.variable}`}
-    >
+    <html lang="en-IN" className={poppins.variable}>
       <body suppressHydrationWarning>
         <JsonLd data={ORGANISATION} />
         <JsonLd data={WEBSITE} />

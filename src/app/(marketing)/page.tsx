@@ -13,8 +13,7 @@ export const metadata: Metadata = {
   title: { absolute: LANDING_TITLE },
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
-  openGraph: { url: SITE_URL, title: LANDING_TITLE },
-  twitter: { title: LANDING_TITLE },
+  // No openGraph/twitter block: either one replaces the layout's whole object and drops og:image.
 };
 
 export default async function Page() {

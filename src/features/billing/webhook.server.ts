@@ -46,6 +46,46 @@ const webhookEvent = z.object({
     .passthrough(),
 });
 
+type WebhookEvent = z.infer<typeof webhookEvent>;
+
+/** Razorpay's entities carry the payer's email, phone, UPI VPA and card metadata, and `.passthrough()` kept every one of them; this is the audit row, so it whitelists what reconciliation and disputes actually need. */
+function auditPayload(data: WebhookEvent) {
+  const sub = data.payload.subscription?.entity;
+  const pay = data.payload.payment?.entity;
+  return {
+    event: data.event,
+    created_at: data.created_at,
+    subscription: sub
+      ? {
+          id: sub.id,
+          plan_id: sub.plan_id,
+          status: sub.status,
+          current_start: sub.current_start ?? null,
+          current_end: sub.current_end ?? null,
+          charge_at: sub.charge_at ?? null,
+          // Our own user_id, not the provider's contact details.
+          notes: sub.notes ?? null,
+        }
+      : null,
+    payment: pay
+      ? {
+          id: pay.id,
+          amount: pay.amount,
+          currency: pay.currency,
+          status: pay.status,
+          method: pay.method ?? null,
+          created_at: pay.created_at,
+          order_id: pay.order_id ?? null,
+          invoice_id: pay.invoice_id ?? null,
+          amount_refunded: pay.amount_refunded ?? null,
+          refund_status: pay.refund_status ?? null,
+          error_code: pay.error_code ?? null,
+          error_description: pay.error_description ?? null,
+        }
+      : null,
+  };
+}
+
 export type WebhookOutcome =
   | "invalid_signature"
   | "malformed"
@@ -91,7 +131,7 @@ export async function handleWebhook(
   return db.transaction(async (tx) => {
     const stored = await tx
       .insert(paymentEvents)
-      .values({ eventId, eventType: event, payload: parsed.data })
+      .values({ eventId, eventType: event, payload: auditPayload(parsed.data) })
       .onConflictDoNothing({ target: paymentEvents.eventId })
       .returning({ id: paymentEvents.id });
     if (stored.length === 0) return "duplicate";

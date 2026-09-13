@@ -20,9 +20,8 @@ const STATIC_PAGES: Entry[] = [
 
 export const revalidate = 3600;
 
+// No lastModified: nothing records when content changed, and a stamp that moves every revalidate teaches Google to ignore the field.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const lastModified = new Date();
-
   // A failed read must not take the whole sitemap down with it.
   const [subjects, topics] = await Promise.all([
     listSubjects().catch(() => []),
@@ -32,19 +31,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...STATIC_PAGES.map(({ path, changeFrequency, priority }) => ({
       url: `${SITE_URL}${path}`,
-      lastModified,
       changeFrequency,
       priority,
     })),
     ...subjects.map((subject) => ({
       url: `${SITE_URL}/study/${subject.slug}`,
-      lastModified,
       changeFrequency: "weekly" as const,
       priority: 0.7,
     })),
     ...topics.map(({ subjectSlug, chapterSlug, topicSlug }) => ({
       url: `${SITE_URL}/study/${subjectSlug}/${chapterSlug}/${topicSlug}`,
-      lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),

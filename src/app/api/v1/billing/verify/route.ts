@@ -13,6 +13,7 @@ import {
 import { checkoutCallback } from "@/features/billing/types";
 import { currentUserId } from "@/lib/auth.server";
 import { log } from "@/lib/log";
+import { captureError } from "@/lib/observability.server";
 import { rateLimit } from "@/lib/rate-limit";
 
 const fail = (error: string, status: number) =>
@@ -63,10 +64,11 @@ export async function POST(request: Request) {
     const sub = await fetchSubscription(razorpay_subscription_id);
     await applySubscription(db, sub, { observedAt: new Date() });
   } catch (err) {
-    log.error("billing.verify.reconcile_failed", {
+    // Paid at Razorpay but not applied here: the one billing failure a learner feels, so it pages.
+    captureError(err, {
+      at: "billing.verify.reconcile_failed",
       userId,
       subscription: razorpay_subscription_id,
-      error: (err as Error).message,
     });
   }
 

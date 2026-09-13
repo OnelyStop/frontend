@@ -1,6 +1,7 @@
-import { isAuthSessionMissingError } from "@supabase/supabase-js";
+import { cache } from "react";
 import { redirect } from "next/navigation";
 import { captureError } from "@/lib/observability.server";
+import { currentUser } from "@/lib/auth.server";
 import { createClient } from "@/lib/supabase-server";
 
 export type AppRole = "admin" | "editor";
@@ -24,18 +25,12 @@ const PERMISSIONS: Record<AppRole, AppPermission[]> = {
 };
 
 // Reads user_roles directly, not a JWT claim, so there is no auth hook to configure.
-export async function getRole(): Promise<AppRole | null> {
-  const supabase = await createClient();
-
-  // getUser validates against the auth server; getSession would trust a cookie
-  const {
-    data: { user },
-    error: authError,
-  } = await supabase.auth.getUser();
-  if (authError && !isAuthSessionMissingError(authError))
-    captureError(authError, { at: "getRole" });
+export const getRole = cache(async (): Promise<AppRole | null> => {
+  // Same getUser() validation, already cached: its own call was a second auth round trip per render.
+  const user = await currentUser();
   if (!user) return null;
 
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from("user_roles")
     .select("role")
@@ -47,7 +42,7 @@ export async function getRole(): Promise<AppRole | null> {
   if (error || !data) return null;
   const role = data.role as string;
   return role === "admin" || role === "editor" ? role : null;
-}
+});
 
 export async function hasPermission(p: AppPermission): Promise<boolean> {
   const role = await getRole();

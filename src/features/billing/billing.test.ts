@@ -90,7 +90,9 @@ type SubFields = Partial<{
   current_end: number | null;
   notes: Record<string, string>;
 }>;
-type PayFields = Partial<{ id: string; amount: number; status: string }>;
+// Open-ended: a real payment entity carries far more than these three, including the payer's contact details.
+type PayFields = Partial<{ id: string; amount: number; status: string }> &
+  Record<string, unknown>;
 
 function signed(
   type: string,
@@ -397,6 +399,51 @@ describe("getEntitlement", () => {
       plan: "free",
       active: false,
       accessUntil: null,
+    });
+  });
+});
+
+describe("the stored event", () => {
+  // Razorpay sends these on a real capture and .passthrough() used to keep every one.
+  const PII = {
+    email: "learner@example.com",
+    contact: "+919876543210",
+    vpa: "learner@okhdfcbank",
+    card: { last4: "1111", name: "A Learner" },
+    customer_id: "cust_1",
+    acquirer_data: { upi_transaction_id: "31415926535" },
+  };
+
+  const stored = () =>
+    client
+      .query<{ payload: unknown }>("select payload from payment_events limit 1")
+      .then((r) => r.rows[0].payload);
+
+  it("keeps no payer email, phone, VPA or card", async () => {
+    await deliver(
+      "evt_pii",
+      "subscription.charged",
+      "2026-09-05T00:01:00Z",
+      {},
+      PII,
+    );
+    expect(JSON.stringify(await stored())).not.toMatch(
+      /learner@example\.com|9876543210|okhdfcbank|1111|cust_1|31415926535/,
+    );
+  });
+
+  it("still keeps what reconciling a payment needs", async () => {
+    await deliver(
+      "evt_audit",
+      "subscription.charged",
+      "2026-09-05T00:01:00Z",
+      {},
+      PII,
+    );
+    expect(await stored()).toMatchObject({
+      event: "subscription.charged",
+      subscription: { id: "sub_1", plan_id: "plan_test", status: "active" },
+      payment: { id: "pay_1", amount: 49_900, currency: "INR" },
     });
   });
 });
