@@ -10,5 +10,7 @@ export function nextPaper(papers: Mock[]): Mock | null {
 }
 
 export function paperTitle(p: Mock): string {
-  return p.year ? `${p.name} ${p.year} · ${p.stage}` : `${p.name} · ${p.stage}`;
+  const head = p.year ? `${p.name} ${p.year}` : p.name;
+  // The sitting is what separates two shifts of one exam; without it a board can show a dozen cards reading the same thing.
+  return [head, p.stage, p.sitting].filter(Boolean).join(" · ");
 }

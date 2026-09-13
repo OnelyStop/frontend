@@ -13,7 +13,10 @@ import {
   contentHash,
   directionsOf,
   examKey,
+  hasAnswer,
   isActive,
+  roleOf,
+  sittingOf,
   type RawPaper,
 } from "../src/features/question-bank/import-rules";
 
@@ -117,6 +120,7 @@ async function main() {
   const canonicalIds = computeCanonical(loaded);
 
   let totalQuestions = 0;
+  let totalAnswered = 0;
   let totalActive = 0;
   let totalDirections = 0;
   let totalSectioned = 0;
@@ -126,6 +130,7 @@ async function main() {
   for (const { paper } of loaded) {
     totalQuestions += paper.questions.length;
     for (const q of paper.questions) {
+      if (hasAnswer(q)) totalAnswered++;
       if (isActive(q)) totalActive++;
       if (q.section) totalSectioned++;
       if (q.topic) totalTopiced++;
@@ -140,6 +145,9 @@ async function main() {
     `  papers found        ${loaded.length}  (${skippedFiles} non-paper files skipped)`,
   );
   console.log(`  questions           ${totalQuestions}`);
+  console.log(
+    `  answered            ${totalAnswered}  (${totalQuestions - totalAnswered} skipped — no answer to grade against)`,
+  );
   console.log(`  active questions    ${totalActive}`);
   console.log(
     `  section filled      ${totalSectioned} (${((totalSectioned / totalQuestions) * 100).toFixed(1)}%)`,
@@ -166,10 +174,10 @@ async function main() {
         .values({
           paperId: paper.paper_id,
           bank: paper.bank ?? null,
-          role: paper.role ?? null,
+          role: roleOf(paper),
           examType: paper.exam_type ?? null,
           year: paper.year ?? null,
-          shift: paper.shift ?? null,
+          shift: sittingOf(paper),
           memoryBased: paper.memory_based ?? false,
           examKey: examKey(paper),
           isCanonical: canonicalIds.has(paper.paper_id),
@@ -179,10 +187,10 @@ async function main() {
           target: papers.paperId,
           set: {
             bank: paper.bank ?? null,
-            role: paper.role ?? null,
+            role: roleOf(paper),
             examType: paper.exam_type ?? null,
             year: paper.year ?? null,
-            shift: paper.shift ?? null,
+            shift: sittingOf(paper),
             memoryBased: paper.memory_based ?? false,
             examKey: examKey(paper),
             isCanonical: canonicalIds.has(paper.paper_id),
@@ -210,7 +218,8 @@ async function main() {
       }
       const resolvedDirectionIds = new Set(dirRows.map((d) => d.directionId));
 
-      const qRows = paper.questions.map((q) => {
+      // questions.server.ts requires `answer` to serve a question, so importing one without it only inflates the bank; step 4 backfills, and a re-run picks it up.
+      const qRows = paper.questions.filter(hasAnswer).map((q) => {
         // A rare extraction gap (1 of 15,399) leaves a direction_id with no matching direction_text — import as standalone rather than fail the FK.
         let directionId = q.direction_id ?? null;
         if (directionId && !resolvedDirectionIds.has(directionId)) {
