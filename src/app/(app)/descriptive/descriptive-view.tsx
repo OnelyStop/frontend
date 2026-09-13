@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useApp } from "@/context/AppContext";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
 import type { Marking, SavedMarking } from "@/features/descriptive/marking";
 import { TASKS, wordCount } from "@/features/descriptive/tasks";
@@ -34,7 +33,6 @@ export function DescriptiveView({
   used: number;
   limit: number | null;
 }) {
-  const { board } = useApp();
   const [idx, setIdx] = useState(0);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [markings, setMarkings] = useState<Record<string, Marking>>(() =>
@@ -125,7 +123,7 @@ export function DescriptiveView({
     <div>
       <PageHeader
         title="Descriptive"
-        sub={`${board} Mains · one letter and one essay in 30 minutes. Most marks here are lost to format and length, not to ideas.`}
+        sub="Mains · one letter and one essay in 30 minutes. Most marks here are lost to format and length, not to ideas."
         actions={
           <>
             <span

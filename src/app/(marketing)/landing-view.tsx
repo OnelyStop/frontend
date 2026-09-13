@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { ButtonLink } from "@/design-system";
 import { SUPPORT_EMAIL } from "@/config/site";
-import { EXAMS } from "@/data/navigation";
+import { BANKING_EXAMS } from "@/data/navigation";
 import { PLAN_LIMITS } from "@/features/billing/limits";
 import type { PlanPrice } from "@/features/billing/types";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
@@ -98,7 +98,9 @@ export function LandingView({
       <section className={`${GUTTER} pt-[clamp(56px,8vw,120px)]`}>
         <div className="mx-auto grid max-w-300 items-end gap-x-12 gap-y-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
           <div>
-            <p className="text-ink-3 text-[14px]">{EXAMS.join(" · ")}</p>
+            <p className="text-ink-3 text-[14px]">
+              {BANKING_EXAMS.join(" · ")}
+            </p>
             <h1 className="mt-4 text-[36px] leading-[1.08] tracking-[-0.022em] text-balance md:text-[44px] lg:text-[52px]">
               Clear every sectional cutoff
             </h1>
@@ -135,7 +137,7 @@ export function LandingView({
         <div className="mx-auto flex max-w-300 flex-wrap items-baseline gap-8">
           <p className="text-ink-3 text-[14px]">Exams covered at launch</p>
           <ul className="text-ink-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px]">
-            {EXAMS.map((exam) => (
+            {BANKING_EXAMS.map((exam) => (
               <li key={exam}>{exam}</li>
             ))}
           </ul>

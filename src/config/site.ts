@@ -19,7 +19,7 @@ export const EXAM_KEYWORDS = [
   "IBPS Clerk",
   "SBI PO",
   "SBI Clerk",
-  "RBI Grade B",
+  "IBPS RRB",
   "bank exam mock test",
   "sectional cutoff",
   "descriptive paper marking",

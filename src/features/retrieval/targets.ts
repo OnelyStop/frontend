@@ -54,7 +54,7 @@ const MOCKS: Array<[string, number, string]> = [
   ["SBI PO", 2024, "Prelims"],
   ["SBI PO", 2023, "Mains"],
   ["IBPS Clerk", 2024, "Prelims"],
-  ["RBI Grade B", 2024, "Phase 1"],
+  ["IBPS RRB", 2024, "Prelims"],
 ];
 
 const VERBS: Target[] = [

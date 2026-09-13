@@ -10,7 +10,6 @@ import {
   Flag,
   Maximize,
 } from "lucide-react";
-import { useApp } from "@/context/AppContext";
 import {
   ActiveCard,
   Button,
@@ -79,7 +78,7 @@ export function MocksView({
   recent: RecentAttempt[];
 }) {
   const router = useRouter();
-  const { board } = useApp();
+  const [exam, setExam] = useState("All");
   const [stage, setStage] = useState<(typeof STAGES)[number]>("All");
   const [page, setPage] = useState(1);
   const [live, setLive] = useState<Mock | null>(null);
@@ -107,12 +106,16 @@ export function MocksView({
   const [awayFromFullscreen, setAwayFromFullscreen] = useState(false);
   const startReqIdRef = useRef(0);
 
+  // Built from the papers themselves: a learner picks a broad exam now, and the board is only ever a property of a paper.
+  const exams = ["All", ...new Set(mocks.map((m) => m.name))];
+
   const shown = mocks.filter(
-    (m) => m.name === board && (stage === "All" || m.stage === stage),
+    (m) =>
+      (exam === "All" || m.name === exam) &&
+      (stage === "All" || m.stage === stage),
   );
 
-  // The header board switcher is global state this view doesn't own, so it needs its own reset.
-  useEffect(() => setPage(1), [board]);
+  useEffect(() => setPage(1), [exam]);
   const sections = groupBySection(questions);
   const section = sections[secIdx];
   const q = section?.qs[qIdx];
@@ -634,14 +637,17 @@ export function MocksView({
         <h1 className="text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
           Mocks
         </h1>
-        <Segmented
-          value={stage}
-          options={STAGES}
-          onChange={(s) => {
-            setStage(s);
-            setPage(1);
-          }}
-        />
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
+          <Segmented value={exam} options={exams} onChange={setExam} />
+          <Segmented
+            value={stage}
+            options={STAGES}
+            onChange={(s) => {
+              setStage(s);
+              setPage(1);
+            }}
+          />
+        </div>
       </div>
 
       {error ? <p className="text-bad mb-4 text-[13px]">{error}</p> : null}
@@ -654,7 +660,7 @@ export function MocksView({
         />
       ) : shown.length === 0 ? (
         <Empty
-          title={`No ${board} papers${stage === "All" ? "" : ` at ${stage}`}`}
+          title={`No ${exam === "All" ? "" : `${exam} `}papers${stage === "All" ? "" : ` at ${stage}`}`}
           sub={
             stage === "All"
               ? "Nothing has been imported for this exam yet. Drills pull from the whole bank in the meantime."
@@ -855,9 +861,9 @@ export function MocksView({
           </div>
 
           <p className="text-ink-3 mt-6 text-[12.5px] leading-relaxed">
-            Full {board} papers under real sectional timing. Each paper&rsquo;s
-            target is 55% of its questions — our benchmark, not the
-            board&rsquo;s published cutoff.
+            Full papers under real sectional timing. Each paper&rsquo;s target
+            is 55% of its questions — our benchmark, not the board&rsquo;s
+            published cutoff.
           </p>
 
           {totalPages > 1 ? (

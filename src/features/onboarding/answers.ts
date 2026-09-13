@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { EXAMS, type ExamBoard } from "@/data/navigation";
+import { EXAM_TYPE_VALUES, type ExamBoard } from "@/data/navigation";
 import { AVATAR_KEYS, type AvatarKey } from "@/features/profile/avatars";
 
 export type Answers = {
@@ -26,7 +26,7 @@ export function targetYears(now = new Date()): number[] {
 const STASH_KEY = "onelystop:onboarding";
 
 const stashed = z.object({
-  examBoard: z.enum(EXAMS),
+  examBoard: z.enum(EXAM_TYPE_VALUES),
   targetYear: z.number().int().min(2000).max(2100).nullable(),
   name: z.string().max(80),
   avatar: z.enum(AVATAR_KEYS).nullable(),

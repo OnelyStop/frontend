@@ -25,7 +25,7 @@ import {
 } from "@/features/onboarding/answers";
 import { AvatarPicker } from "@/features/profile/components/AvatarPicker";
 import { Input, SECTION_TINT } from "@/design-system";
-import { EXAMS, type ExamBoard } from "@/data/navigation";
+import { EXAM_TYPES } from "@/data/navigation";
 
 const initialsOf = (name: string) =>
   name
@@ -35,16 +35,6 @@ const initialsOf = (name: string) =>
     .slice(0, 2)
     .map((part) => part[0]!.toUpperCase())
     .join("") || "AM";
-
-// What each board is, in the words a candidate uses — not the board's own prose.
-const EXAM_HINT: Record<ExamBoard, string> = {
-  "IBPS PO": "Probationary Officer, public sector banks",
-  "IBPS Clerk": "Clerical cadre, public sector banks",
-  "IBPS RRB": "Officer and Assistant, regional rural banks",
-  "SBI PO": "Probationary Officer, State Bank of India",
-  "SBI Clerk": "Junior Associate, State Bank of India",
-  "RBI Grade B": "Officer Grade B, Reserve Bank of India",
-};
 
 const STEPS = ["exam", "year", "name", "avatar", "email", "password"] as const;
 type Step = (typeof STEPS)[number];
@@ -148,25 +138,26 @@ export function SignupView() {
     return (
       <StepShell
         {...shell}
-        question="Which exam are you preparing for?"
-        hint="Every paper, drill and cutoff on the app is set to this. You can change it later in Settings."
+        question="What are you preparing for?"
+        hint="It sets the question bank, the drills and the cutoffs you are measured against."
         canAdvance={answers.examBoard !== null}
         onNext={() => go(1)}
         footer={signIn}
       >
         <div
           role="radiogroup"
-          aria-label="Exam"
+          aria-label="Track"
           className="grid gap-3 sm:grid-cols-2"
         >
-          {EXAMS.map((exam, i) => (
+          {EXAM_TYPES.map(({ value, detail, live }, i) => (
             <ChoiceCard
-              key={exam}
-              label={exam}
-              hint={EXAM_HINT[exam]}
+              key={value}
+              label={value}
+              hint={detail}
               tint={SECTION_TINT[i % SECTION_TINT.length]!}
-              selected={answers.examBoard === exam}
-              onSelect={() => set("examBoard", exam)}
+              selected={live && answers.examBoard === value}
+              disabled={!live}
+              onSelect={() => set("examBoard", value)}
             />
           ))}
         </div>
@@ -179,8 +170,8 @@ export function SignupView() {
     return (
       <StepShell
         {...shell}
-        question={`When are you sitting ${answers.examBoard}?`}
-        hint="It sets how much runway your plan assumes. Nothing is locked to it."
+        question="Which year are you targeting?"
+        hint="It goes on your profile. Nothing is locked to it, and you can change it in Settings."
         canAdvance
         onNext={() => go(1)}
         nextLabel={answers.targetYear === null ? "Not sure yet" : "Continue"}
@@ -264,7 +255,7 @@ export function SignupView() {
       <StepShell
         {...shell}
         question="What's your email?"
-        hint="We send the confirmation link here, and nothing else unless you ask."
+        hint="How you sign in, and the only way to reset a password. Nothing else unless you ask."
         canAdvance={email.includes("@") && email.trim().length > 3}
         onNext={() => go(1)}
       >
