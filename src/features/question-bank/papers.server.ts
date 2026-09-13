@@ -12,6 +12,12 @@ import type { Mock } from "./types";
 const TARGET_PCT =
   CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 
+/** Below this a paper is a fragment, not a sitting. Exported so the admin count reports the same set this serves, rather than drifting from it. */
+export const SERVABLE_MIN_QS = 20;
+
+/** The exam stages a mock can be sat from; the bank also holds section-only extracts that are not whole papers. */
+export const SERVABLE_STAGES = ["Prelims", "Mains"] as const;
+
 /** `qs` counts only questions carrying an `answer`, so it matches the exam `listPaperQuestions` actually serves. */
 export async function listMockPapers(): Promise<Mock[]> {
   const rows = await db
@@ -39,7 +45,7 @@ export async function listMockPapers(): Promise<Mock[]> {
     .where(
       and(
         eq(papers.isActive, true),
-        inArray(papers.examType, ["Prelims", "Mains"]),
+        inArray(papers.examType, [...SERVABLE_STAGES]),
       ),
     )
     .groupBy(
@@ -53,7 +59,7 @@ export async function listMockPapers(): Promise<Mock[]> {
     )
     .orderBy(desc(papers.year), papers.bank, papers.role);
 
-  const servable = rows.filter((r) => r.qs >= 20);
+  const servable = rows.filter((r) => r.qs >= SERVABLE_MIN_QS);
   const paperIds = servable.map((r) => r.paperId);
   const userId = await currentUserId();
   const [bestScores, openAttempts] = await Promise.all([

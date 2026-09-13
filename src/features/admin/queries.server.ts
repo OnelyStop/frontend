@@ -1,7 +1,12 @@
 import "server-only";
 import { desc, sql } from "drizzle-orm";
+import { SECTION_DB } from "@/data/navigation";
 import { db } from "@/db";
 import { generateRuns } from "@/db/schema";
+import {
+  SERVABLE_MIN_QS,
+  SERVABLE_STAGES,
+} from "@/features/question-bank/papers.server";
 import type { AdminStatus, BankStats, GenerateRun } from "./types";
 
 const RUN_LIMIT = 10;
@@ -27,8 +32,9 @@ export async function getAdminStatus(): Promise<AdminStatus> {
   return { runs };
 }
 
-// Mirrors the filters in question-bank/papers.server.ts and questions.server.ts — if those change, this number stops being the truth.
+// The predicates come from listMockPapers' own constants rather than being retyped, because a count that quietly disagrees with what /mocks serves is worse than no count.
 export async function getBankStats(): Promise<BankStats> {
+  const sections = Object.values(SECTION_DB);
   const [row] = await db.execute<{
     papers_total: number;
     papers_servable: number;
@@ -36,14 +42,24 @@ export async function getBankStats(): Promise<BankStats> {
     questions_servable: number;
     exam_keys_collapsed: number;
   }>(sql`
+    with servable as (
+      select p.paper_id, count(q.q_id) as qs
+      from papers p
+      join bank_questions q
+        on q.paper_id = p.paper_id
+       and q.is_active
+       and q.answer is not null
+       and q.section = any(${sections})
+      where p.is_active
+        and p.exam_type = any(${[...SERVABLE_STAGES]})
+      group by p.paper_id
+      having count(q.q_id) >= ${SERVABLE_MIN_QS}
+    )
     select
       (select count(*) from papers)::int as papers_total,
-      (select count(*) from papers where is_active and is_canonical)::int as papers_servable,
+      (select count(*) from servable)::int as papers_servable,
       (select count(*) from bank_questions)::int as questions_total,
-      (select count(*) from bank_questions q
-         join papers p on p.paper_id = q.paper_id
-        where q.is_active and q.answer is not null
-          and p.is_active and p.is_canonical)::int as questions_servable,
+      (select coalesce(sum(qs), 0) from servable)::int as questions_servable,
       (select count(*) from (
          select exam_key from papers group by exam_key having count(*) > 1
        ) x)::int as exam_keys_collapsed
