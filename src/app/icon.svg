@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- The small cut: below ~20px the mark's 1.9-unit inline turns to mud, so a tab icon drops it. -->
+  <!-- Drops the inline that MARK_FULL carries: below ~20px the gap fills in. -->
   <rect width="64" height="64" rx="14" fill="#131316"/>
   <g transform="translate(32 32) scale(.72) translate(-32 -32)">
     <path fill="#fff" fill-rule="evenodd" d="M32 5a27 27 0 1 1 0 54a27 27 0 1 1 0-54ZM32 17a15 15 0 1 1 0 30a15 15 0 1 1 0-30Z"/>

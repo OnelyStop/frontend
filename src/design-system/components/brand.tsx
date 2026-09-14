@@ -15,7 +15,7 @@ export function Brand({
   );
   const lockup = (
     <>
-      {/* Sized in em so the mark tracks whatever text size the lockup is set at. */}
+      {/* em, not a fixed size: callers set the lockup at three different text sizes. */}
       <svg
         viewBox={MARK_VIEW_BOX}
         aria-hidden
