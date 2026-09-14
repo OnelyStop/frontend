@@ -3,7 +3,6 @@ import Link from "next/link";
 import { cn } from "../lib/cn";
 import { Avatar } from "./data";
 
-// The card family the canvas is built from, and the controls that sit on them.
 export type PillTone =
   "neutral" | "ok" | "warn" | "bad" | "info" | "brand" | "soon" | "live";
 
@@ -18,7 +17,6 @@ const PILL: Record<PillTone, string> = {
   live: "bg-canvas text-ink shadow-card",
 };
 
-/** State, not an action — a pill says where a thing stands. */
 export function StatusPill({
   tone = "neutral",
   children,
@@ -42,7 +40,6 @@ export function StatusPill({
   );
 }
 
-/** The round buttons in a card's action row: dismiss, more, confirm. */
 export function RoundAction({
   label,
   tone = "quiet",
@@ -75,7 +72,6 @@ export function RoundAction({
   );
 }
 
-/** The disc in a card's top-right corner: locked, or the subject's mark. */
 export function CornerBadge({
   tone = "quiet",
   children,
@@ -102,7 +98,6 @@ export function CornerBadge({
   );
 }
 
-/** The affordance that hangs off a card's corner rather than sitting inside it. */
 export function CornerPlus({
   label,
   onClick,
@@ -131,7 +126,6 @@ export function CornerPlus({
   );
 }
 
-/** Who else is on this — overlapped, ringed in the card's own ground. */
 export function AvatarStack({
   people,
   ring = "canvas",
@@ -158,7 +152,6 @@ export function AvatarStack({
   );
 }
 
-/** A card in the plan: what it is, where it stands, what you can do to it. */
 export function PlanCard({
   title,
   children,
@@ -237,7 +230,6 @@ export function PlanCard({
   );
 }
 
-/** The way into a section: a tinted card whose count sits on the floor, whatever the blurb runs to. */
 export function IndexCard({
   title,
   children,
@@ -272,7 +264,6 @@ export function IndexCard({
   );
 }
 
-/** The one card in progress. At most one per screen, or it stops meaning anything. */
 export function ActiveCard({
   title,
   kicker,
@@ -285,7 +276,6 @@ export function ActiveCard({
   className,
 }: {
   title: string;
-  /** The line above the title — what kind of thing is in progress. */
   kicker?: string;
   children?: ReactNode;
   status?: ReactNode;
@@ -416,7 +406,6 @@ export function DockButton({
   );
 }
 
-/** A sequence: a dashed rule down the left with a dot beside each child. */
 export function Spine({
   children,
   className,
