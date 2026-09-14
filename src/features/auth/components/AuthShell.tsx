@@ -10,7 +10,6 @@ type Props = {
   footer: ReactNode | null;
 };
 
-// The five tints a signed-in user lives in, named — the whole palette in one row.
 const SECTION_TINT: Record<string, string> = {
   "Quantitative Aptitude": "bg-quant-soft",
   "Reasoning Ability": "bg-reasoning-soft",

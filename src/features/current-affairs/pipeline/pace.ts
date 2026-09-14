@@ -1,4 +1,3 @@
-// Spaces LLM calls so a run never exceeds the key's requests-per-minute.
 export type Pacer = {
   next: () => Promise<void>;
   delay: (ms: number) => void;
@@ -28,7 +27,6 @@ export function createPacer(
   };
 }
 
-// The shapes a provider's 429 takes; a bare number is milliseconds.
 const RETRY_DELAY =
   /retry(?:_?delay|[\s-]?(?:after|in))[^0-9]*([0-9]+(?:\.[0-9]+)?)\s*(m?s)?/i;
 

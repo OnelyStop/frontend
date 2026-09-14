@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Brand, Button } from "@/design-system";
 
-/** One question, centred on the stage, with a rail that shows how far in you are. */
 export function StepShell({
   step,
   total,
@@ -24,7 +23,6 @@ export function StepShell({
   total: number;
   question: string;
   hint?: string;
-  /** Omitted on the first step, where back means leaving signup. */
   onBack?: () => void;
   onNext: () => void;
   nextLabel?: string;
@@ -75,7 +73,7 @@ export function StepShell({
           ))}
         </div>
 
-        <Brand href="/" className="hidden shrink-0 text-white sm:block" />
+        <Brand href="/" className="hidden shrink-0 text-white sm:inline-flex" />
       </header>
 
       <div className="bg-stage flex flex-1 items-center justify-center rounded-[26px] px-5 py-10">

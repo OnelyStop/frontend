@@ -30,7 +30,6 @@ export const articleStatus = pgEnum("article_status", [
   "new",
   "duplicate",
   "used",
-  // passed over, as against `used`, which means a question was produced
   "skipped",
 ]);
 
@@ -49,7 +48,6 @@ export const articles = pgTable(
     // sha256 of normalized title+summary; unique so a racing dedup cannot double-insert.
     contentHash: text("content_hash").notNull().unique(),
     status: articleStatus("status").notNull().default("new"),
-    // thin_source | non_english | irrelevant:prefilter | irrelevant:model
     skipReason: text("skip_reason"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
@@ -66,7 +64,6 @@ export const articles = pgTable(
   ],
 ).enableRLS();
 
-// No FK back to articles: by the time Generate runs the event is already known-unique.
 export const currentAffairsQuestions = pgTable(
   "questions",
   {
@@ -74,7 +71,6 @@ export const currentAffairsQuestions = pgTable(
       .primaryKey()
       .default(sql`gen_random_uuid()`),
     articleId: uuid("article_id"),
-    // The day the news happened, not the day it was generated.
     extractedDay: date("extracted_day").notNull(),
     questionText: text("question_text").notNull(),
     options: jsonb("options")
@@ -98,7 +94,6 @@ export const currentAffairsQuestions = pgTable(
   ],
 ).enableRLS();
 
-// Incremented by the per-article jobs, so "is last night's run stuck" is one SELECT.
 export const generateRuns = pgTable(
   "generate_runs",
   {

@@ -5,9 +5,7 @@ export type ClientDefaults = {
   fallbackModel?: string;
   temperature?: number;
   maxTokens?: number;
-  /** Ceiling on a single attempt. */
   timeoutMs?: number;
-  /** Ceiling across every attempt and both models. */
   totalTimeoutMs?: number;
   maxAttempts?: number;
 };
@@ -41,7 +39,6 @@ export class AiError extends Error {
     readonly kind: AiFailure,
     readonly status?: number,
     message = "",
-    /** From a Retry-After header, when the provider sent one. */
     readonly retryAfterMs?: number,
   ) {
     super(message);

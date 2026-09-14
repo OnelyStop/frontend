@@ -50,7 +50,6 @@ export async function pipelineHealth(
       stage: name,
       lastAt: at?.toISOString() ?? null,
       ageHours: ageHours === null ? null : Math.round(ageHours * 10) / 10,
-      // A table with no rows at all has never run, which is just as worth knowing.
       stale: ageHours === null || ageHours > STALE_HOURS,
     };
   };

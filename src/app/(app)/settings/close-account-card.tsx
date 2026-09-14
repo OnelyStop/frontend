@@ -42,7 +42,6 @@ export function CloseAccountCard() {
         setBusy(false);
         return;
       }
-      // Stays busy: the account is gone and the page is about to be left.
       await signOut();
       router.replace("/");
     } catch {

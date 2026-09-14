@@ -13,11 +13,16 @@ This exists because the gates get skipped when work arrives as conversation
 ("can we also…", "just fix it") rather than as an obvious task boundary. There
 is no boundary to notice. Run them anyway.
 
+**Load this skill before touching the repo, every time.** Not only when an issue
+number is named — a one-line fix asked for mid-conversation runs the same
+checklist. If you are already editing files and have not stated the checklist,
+you skipped step one; stop and state it.
+
 ## The checklist
 
 | #   | Step                                      | Done when                                                                 |
 | --- | ----------------------------------------- | ------------------------------------------------------------------------- |
-| 1   | Issue first, with the Gate 1 output in it | Issue open and linked; CI blocks a PR that closes nothing                 |
+| 1   | Issue only if the work is major           | Major: issue open and linked. Minor: straight to the PR, `no-issue` label |
 | 2   | Branch off `origin/main`                  | `git fetch origin && git checkout -b <area>/<what> origin/main`           |
 | 3   | Build against the plan                    | Scope stays inside what was asked                                         |
 | 4   | Production comments pass on the full diff | Every added or touched comment listed, justified or deleted               |
@@ -27,16 +32,40 @@ is no boundary to notice. Run them anyway.
 
 ## Step detail
 
-**1. Issue before PR.** `AGENTS.md` Gate 0. Give each issue its own keyword —
+**1. An issue is for major work only.** Not for everything. An issue costs a
+read, and a backlog of them for one-line fixes is noise that buries the ones
+worth arguing.
+
+Open an issue when the change is worth arguing before it is built — a feature, a
+schema change, anything touching money, auth or a third party, anything whose
+design could reasonably go two ways, or work large enough that the Gate 1 output
+(prior art, security review, production plan) would actually change what gets
+built.
+
+**Do not open one for anything Tushar points out in conversation.** A fix he
+names is already decided; writing it up as an issue restates his own words back
+at him and slows the thing down. It goes straight onto a PR — the open one if
+there is one, a new branch if there is not — with the `no-issue` label so CI's
+closes-an-issue gate passes. Same for a typo, a revert, a stale default, a
+comment sweep, or a fix for something already broken on `main`.
+
+When in doubt, no issue. A PR that turns out to deserve one can have it opened
+and linked afterwards; an unnecessary issue is never reclaimed.
+
+`AGENTS.md` Gate 0 still holds for the major case. Give each issue its own keyword —
 `Closes #12, closes #13`, never `Closes #12, #13`, which closes one and leaves
 the other open silently. **A closing reference only registers when the PR's base
 is the default branch.** A stacked PR shows `closingIssuesReferences: []`, so
 check it with `gh pr view <n> --json closingIssuesReferences` rather than
 trusting the text, and say so in the PR body if it will not link until retarget.
 
-CI enforces this: a PR closing no issue fails before anything else runs. The
-exceptions `AGENTS.md` names — a typo, a revert, a fix for something already
-broken on `main` — carry the `no-issue` label instead.
+CI enforces this: a PR closing no issue fails before anything else runs, so a
+minor PR needs the label or it cannot merge. Add it as the PR is opened, not
+after CI has already gone red:
+
+```bash
+gh pr create --title "..." --body-file <file> --label no-issue
+```
 
 **2. Branch.** Off `origin/main`, never a stale local one. `main` is protected:
 squash-only, one approving review, strict status checks.

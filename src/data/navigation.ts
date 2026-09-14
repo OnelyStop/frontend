@@ -11,7 +11,6 @@ export type Subject =
   | "General Awareness"
   | "Computer Aptitude";
 
-// `as const` so z.enum() infers the literal union the column type needs.
 export const SECTIONS = [
   "Quantitative Aptitude",
   "Reasoning Ability",

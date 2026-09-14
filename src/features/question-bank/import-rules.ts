@@ -62,7 +62,6 @@ export function isActive(q: RawQuestion): boolean {
   if (!(q.stem ?? "").trim()) return false;
   if (Object.keys(q.options ?? {}).length < MIN_OPTIONS) return false;
 
-  // A figure the extraction never produced makes the question unanswerable.
   const needsImage = q.has_image || q.direction_has_image;
   const hasImageRef =
     (q.image_refs && q.image_refs.length > 0) ||

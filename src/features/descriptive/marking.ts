@@ -57,7 +57,6 @@ export type Marking = {
   verdict: string;
 };
 
-/** Marks land on the half — no exam board awards 7.3 out of 10. */
 const toHalf = (n: number) => Math.round(n * 2) / 2;
 
 /** Half-mark units with largest-remainder: rounding each band on its own lets the bands total more than the paper is worth — 15 marks split 35/20/30/15 rounds to 15.5. */

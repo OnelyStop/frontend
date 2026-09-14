@@ -10,7 +10,6 @@ import { deleteAccount } from "./mutations.server";
 
 type SubscriptionStatus = (typeof subscriptions.$inferSelect)["status"];
 
-// The states in which Razorpay still holds a mandate it can charge.
 const CHARGEABLE: SubscriptionStatus[] = [
   "authenticated",
   "active",

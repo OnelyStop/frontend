@@ -36,7 +36,6 @@ describe("captureError", () => {
     expect(captureException).toHaveBeenCalledTimes(1);
   });
 
-  // Sentry needs an Error to have anything to group on.
   it("wraps a thrown non-Error", () => {
     captureError("just a string", { route: "/x" });
 

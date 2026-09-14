@@ -2,7 +2,6 @@ import "server-only";
 import { z } from "zod";
 import type { ArticleRow } from "@/db/schema";
 
-// Topics come from the caller: a prompt reaching into a feature inverts the dependency.
 export const currentAffairsSystem = (
   topics: string[],
 ) => `You prepare current-affairs multiple-choice questions for Indian banking-recruitment exams (IBPS, SBI, RBI Grade B and similar).
@@ -65,7 +64,6 @@ export const MCQ_RESPONSE_JSON_SCHEMA = {
     answer: { type: ["string", "null"], enum: ["A", "B", "C", "D", null] },
     explanation: { type: ["string", "null"] },
   },
-  // strict:true requires every property here, so the optional ones are nullable.
   required: [
     "relevant",
     "topic",
@@ -77,7 +75,6 @@ export const MCQ_RESPONSE_JSON_SCHEMA = {
   additionalProperties: false,
 } as const;
 
-// Structured output is not a guarantee, so validate what comes back.
 export const McqResponse = z
   .object({
     relevant: z.boolean(),

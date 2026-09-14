@@ -5,7 +5,6 @@ import { useCompanion } from "./CompanionContext";
 
 const MIN_LENGTH = 8;
 
-// Not selectionchange, which fires per character while dragging.
 export function SelectionAsk() {
   const { openWith } = useCompanion();
   const [anchor, setAnchor] = useState<{ x: number; y: number } | null>(null);
@@ -35,7 +34,6 @@ export function SelectionAsk() {
     };
 
     const clear = (e: Event) => {
-      // Let the button's own click land before the selection collapses.
       if ((e.target as Element | null)?.closest(".ask-onely")) return;
       setAnchor(null);
     };

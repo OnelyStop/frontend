@@ -62,16 +62,13 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
 
   const mins = Math.round((len * SECONDS_PER_Q) / 60);
   const fill = SECTION_TINT[SECTIONS.indexOf(section)]!;
-  // Amber from three quarters of the budget, red past it; nothing is coloured while on pace.
   const over = elapsed > SECONDS_PER_Q;
   const near = !over && elapsed >= SECONDS_PER_Q * 0.75;
   const pick = (from: DrillQuestion[]) =>
     from.filter((q) => q.section === SECTION_DB[section]).slice(0, len);
-  // Counted per section rather than for the selected one, so every card can say what is behind it.
   const poolFor = (s: Subject) =>
     pool.filter((q) => q.section === SECTION_DB[s]).length;
 
-  // Before the drill starts this previews the page's pool; once running it is the set the server recorded.
   const set = running ? sat : pick(pool);
   const q = set[qIdx];
 

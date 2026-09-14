@@ -5,7 +5,6 @@ import { log } from "@/lib/log";
 
 export const dynamic = "force-dynamic";
 
-// Subscribe to every subscription.* event plus payment.captured and payment.failed.
 export async function POST(request: Request) {
   // The signature is over the bytes as sent — read them before anything parses.
   const rawBody = await request.text();

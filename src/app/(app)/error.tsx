@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import * as Sentry from "@sentry/nextjs";
 import { Button, ButtonLink, Card, Empty } from "@/design-system";
 
-// Scoped to (app) so a failed page keeps the frame, nav and rail; the root boundary takes them.
 export default function AppError({
   error,
   reset,

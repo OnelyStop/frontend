@@ -15,7 +15,6 @@ export function ResultView({
   flagged = false,
 }: {
   scorecard: Scorecard;
-  /** Exam mode ended this early, at three window-switch flags, rather than the paper being finished. */
   flagged?: boolean;
 }) {
   // The total is not the exam: a paper is cleared only if every section is.

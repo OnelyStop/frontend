@@ -36,13 +36,11 @@ export function rankSections(
     .sort((a, b) => (order === "best" ? b.acc - a.acc : a.acc - b.acc));
 }
 
-/** Bare on the stage: a band per section in its own tint, white paper for the track, a notch on the line. */
 export function SectionBands({
   sections,
   attempted,
 }: {
   sections: RankedSection[];
-  /** Show how many questions each figure rests on. */
   attempted?: boolean;
 }) {
   return (

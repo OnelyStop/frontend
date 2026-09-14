@@ -1,5 +1,3 @@
-// Preset marks, not uploads: only the key is stored, and an unknown one falls back to initials.
-
 export const AVATAR_KEYS = [
   "indigo",
   "violet",

@@ -18,7 +18,6 @@ export type ExamProfile = {
   maxQuestionsPerGenerate: number;
   llmMaxRpm: number;
   generationModel: string;
-  /** Salient-facts dedup compares against this many days. */
   recentWindowDays: number;
   /** NewsData only; drops on a negative term with no positive — the model gate in generation is the real filter. */
   relevanceLexicon: { positive: string[]; negative: string[] };
@@ -56,12 +55,10 @@ export const BANKING_EXAM_PROFILE: ExamProfile = {
     },
   ],
   maxArticlesPerIngest: 120,
-  // One model request per candidate, and the ceiling on what a run can spend.
   maxQuestionsPerGenerate: 40,
   get llmMaxRpm() {
     return env.GENERATION_RPM;
   },
-  // A getter so importing this module does not read env at load time.
   get generationModel() {
     return openrouterConfig.generationModel;
   },

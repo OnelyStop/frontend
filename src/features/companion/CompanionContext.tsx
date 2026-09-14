@@ -44,7 +44,6 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
 
   const openWith = useCallback((text: string) => {
     setSelection(text);
-    // A new selection starts a new conversation about that passage.
     setMessages([]);
     setError(null);
     setOpen(true);

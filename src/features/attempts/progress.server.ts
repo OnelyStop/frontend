@@ -15,12 +15,10 @@ export type SectionProgress = {
   section: string;
   attempted: number;
   correct: number;
-  /** Averaged over answers that recorded a time; null when none did. */
   avgSec: number | null;
 };
 
 export type DayCount = {
-  /** IST calendar date, `YYYY-MM-DD` — the view labels from this, never from its own clock. */
   date: string;
   count: number;
 };
@@ -29,7 +27,6 @@ export type ProfileStats = {
   mocksSat: number;
   drillsSat: number;
   bestScore: number | null;
-  /** ISO, the most recent submitted attempt of any mode. */
   lastSatAt: string | null;
 };
 
@@ -38,9 +35,7 @@ export type TopicMapRow = {
   section: string;
   attempted: number;
   correct: number;
-  /** Percent, 0-100, against attempted — a blank is never counted here. */
   accuracy: number;
-  /** Averaged over answers that recorded a time; 0 when none did, never a pace. */
   avgSec: number;
   marksLost: number;
 };
@@ -51,20 +46,16 @@ export type Progress = {
   wrong: number;
   avgSec: number | null;
   sections: SectionProgress[];
-  /** The last seven IST days, oldest first — today is the last entry. */
   week: DayCount[];
 };
 
 export type RecentAttempt = {
   id: number;
   mode: "paper" | "bank" | "mix";
-  /** "IBPS PO 2025 · Prelims" for a paper; null for a drill. */
   paper: string | null;
   questions: number;
   score: number | null;
-  /** 55% of the questions served — the same benchmark /mocks scores against; null for a drill. */
   target: number | null;
-  /** ISO. */
   submittedAt: string;
 };
 
@@ -153,7 +144,6 @@ export async function getProgress(
     }
     bySection.set(key, s);
 
-    // Bucketed by IST calendar day so the bar always sits under its own date.
     const i = weekIndex.get(istDayKey(r.startedAt));
     if (i !== undefined) week[i]!.count += 1;
   }
@@ -168,7 +158,6 @@ export async function getProgress(
         section,
         attempted: s.a,
         correct: s.c,
-        // Over timed answers only — dividing by every attempt reads an untimed one as instant.
         avgSec: s.timed > 0 ? Math.round(s.ms / s.timed / 1000) : null,
       }))
       .sort((x, y) => y.attempted - x.attempted),
@@ -176,7 +165,6 @@ export async function getProgress(
   };
 }
 
-/** Topics under `MIN_TOPIC_ATTEMPTS` are dropped rather than shown at 0% or 100%: /attempt-map reads a row as "bank this" or "skip this", and a verdict off one question is worse than none. */
 export async function getTopicMap(
   db: Db,
   userId: string,
@@ -252,7 +240,6 @@ export async function getTopicMap(
       attempted: b.attempted,
       correct: b.correct,
       accuracy: round2((b.correct / b.attempted) * 100),
-      // Averaged over the timed answers only, so untimed rows don't read as instant.
       avgSec: b.timed > 0 ? Math.round(b.ms / b.timed / 1000) : 0,
       marksLost: round2((b.attempted - b.correct) * NEGATIVE_MARK),
     }))
@@ -261,7 +248,6 @@ export async function getTopicMap(
     );
 }
 
-/** The last few submitted sittings, newest first — what the spine on /today, /mocks and /progress is built from. */
 export async function listRecentAttempts(
   db: Db,
   userId: string,
@@ -317,7 +303,6 @@ export async function listRecentAttempts(
   });
 }
 
-// One aggregate row per mode — "bank" and "mix" both count as drills.
 export async function getProfileStats(
   db: Db,
   userId: string,
@@ -341,7 +326,6 @@ export async function getProfileStats(
   for (const r of rows) {
     if (r.mode === "paper") {
       mocksSat = r.sat;
-      // score is numeric, so the driver hands it back as a string.
       if (r.bestScore !== null) bestScore = Number(r.bestScore);
     } else {
       drillsSat += r.sat;

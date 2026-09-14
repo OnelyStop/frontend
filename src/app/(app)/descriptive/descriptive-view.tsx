@@ -21,7 +21,6 @@ function fmt(s: number) {
   return `${String(m).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 }
 
-// Letter and Essay are a real category, so the writing card is filled by the task you are on.
 const TASK_TONE = ["info", "brand"] as const;
 
 export function DescriptiveView({
@@ -36,7 +35,6 @@ export function DescriptiveView({
   const [idx, setIdx] = useState(0);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [markings, setMarkings] = useState<Record<string, Marking>>(() =>
-    // The newest marking per task, so a reload does not lose what a marking cost.
     history.reduce<Record<string, Marking>>(
       (acc, m) => (m.taskId in acc ? acc : { ...acc, [m.taskId]: m.marking }),
       {},
@@ -69,7 +67,6 @@ export function DescriptiveView({
     [draft, task],
   );
 
-  // A band, not a hard cut: examiners tolerate overshoot better than a short answer.
   const lengthBand =
     words === 0
       ? "empty"

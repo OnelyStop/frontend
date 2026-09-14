@@ -26,7 +26,6 @@ export const doubts = pgTable(
     topic: text("topic").notNull(),
     title: text("title").notNull(),
     body: text("body").notNull(),
-    // Denormalised so "most stuck" is an index scan, not a count on every page.
     stuckCount: integer("stuck_count").notNull().default(0),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
@@ -41,7 +40,6 @@ export const doubts = pgTable(
       "doubts_body_len_check",
       sql`char_length(${t.body}) between 20 and 4000`,
     ),
-    // Both tie-break on id so keyset pagination cannot skip or repeat a row.
     index("doubts_stuck_idx").on(t.section, t.stuckCount.desc(), t.id.desc()),
     index("doubts_created_idx").on(t.section, t.createdAt.desc(), t.id.desc()),
     index("doubts_author_idx").on(t.authorId, t.createdAt.desc()),
@@ -80,7 +78,6 @@ export const doubtReplies = pgTable(
       "doubt_replies_body_len_check",
       sql`char_length(${t.body}) between 2 and 4000`,
     ),
-    // Oldest first is the reading order, and id tie-breaks so paging is stable.
     index("doubt_replies_thread_idx").on(t.doubtId, t.createdAt, t.id),
     pgPolicy("signed-in users can read every reply", {
       for: "select",
@@ -109,7 +106,6 @@ export const doubtStuck = pgTable(
       .defaultNow(),
   },
   (t) => [
-    // The composite key makes "stuck" idempotent: a double click conflicts.
     primaryKey({ columns: [t.doubtId, t.userId] }),
     index("doubt_stuck_user_idx").on(t.userId),
     pgPolicy("signed-in users can read stuck marks", {

@@ -19,7 +19,6 @@ const WHEN = new Intl.DateTimeFormat("en-IN", {
   minute: "2-digit",
 });
 
-// A column on the stage, headed like any other section — not a panel floating over the page.
 export function CompanionPanel() {
   const { open, selection, messages, busy, error, ask, close } = useCompanion();
   const [draft, setDraft] = useState("");
@@ -35,12 +34,10 @@ export function CompanionPanel() {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
   }, [messages, busy]);
 
-  // The selection it was opened against is gone once the route changes.
   useEffect(() => {
     close();
   }, [pathname, close]);
 
-  // Esc closes the column, not the running head walking up the URL.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {

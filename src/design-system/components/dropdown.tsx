@@ -57,7 +57,6 @@ export function Dropdown<T extends string>({
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
 
-  // Keep the active row in view when arrowing past the fold.
   useEffect(() => {
     if (!open) return;
     listRef.current
@@ -135,7 +134,6 @@ export function Dropdown<T extends string>({
         }}
         onKeyDown={onKeyDown}
         className={cn(
-          // Recessed like every other control; it lifts to white paper when it takes focus.
           "rounded-ctl bg-panel text-ink flex h-10 w-full items-center gap-2 px-3.5 text-left text-[14px] outline-none",
           "transition-[background-color,box-shadow] duration-200 ease-[var(--ease-swift)]",
           "focus:bg-canvas focus:shadow-card disabled:opacity-50",

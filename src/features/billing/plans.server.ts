@@ -41,7 +41,6 @@ export async function findPlan(
     : null;
 }
 
-// Prices, never plan ids: a plan id in the page source lets the caller pick it.
 async function queryPlans(currency: Currency): Promise<PlanPrice[]> {
   const rows = await db
     .select()
@@ -59,7 +58,6 @@ async function queryPlans(currency: Currency): Promise<PlanPrice[]> {
   }));
 }
 
-// Prices change only by seeding a new row, and every visitor renders these.
 const cachedPlans = unstable_cache(queryPlans, ["billing", "plans"], {
   revalidate: 3600,
 });

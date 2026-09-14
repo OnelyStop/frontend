@@ -41,7 +41,6 @@ export type Reply = {
   createdAt: string;
 };
 
-/** A doubt with its thread — what the discussion page renders. */
 export type DoubtThread = {
   doubt: Doubt;
   replies: Reply[];

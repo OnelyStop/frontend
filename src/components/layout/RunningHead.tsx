@@ -9,7 +9,7 @@ import { useRetrieval } from "@/features/retrieval/RetrievalContext";
 import { ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { AVATARS } from "@/features/profile/avatars";
-import { Avatar, Divider, MenuRow, Popover } from "@/design-system";
+import { Avatar, Brand, Divider, MenuRow, Popover } from "@/design-system";
 import { ACCOUNT_GROUP, HeaderNav, MAIN_GROUPS } from "./HeaderNav";
 import { type Subject } from "@/data/navigation";
 
@@ -38,7 +38,6 @@ export function RunningHead({
 }) {
   const { avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
-  // Neither state renders until auth resolves, so the header never flashes either way.
   const signedOut = !loading && !user;
   const signedIn = !loading && !!user;
   const { open: retrievalOpen, setOpen: setRetrievalOpen } = useRetrieval();
@@ -56,11 +55,9 @@ export function RunningHead({
   useEffect(() => {
     const onKey = (ev: KeyboardEvent) => {
       if (ev.key !== "Escape") return;
-      // Exam conditions owns its own exit, and it asks first.
       if (document.documentElement.dataset.mode === "exam") return;
       if (retrievalOpen) return;
 
-      // A first Esc leaves the field you are typing in; the second goes up.
       const el = document.activeElement as HTMLElement | null;
       if (
         el &&
@@ -93,12 +90,7 @@ export function RunningHead({
   return (
     <header className="text-white">
       <div className="flex h-16 items-center gap-3 px-5 sm:gap-5 sm:px-8 lg:h-20">
-        <Link
-          href="/today"
-          className="shrink-0 text-[20px] font-bold tracking-[-0.03em] sm:text-[22px]"
-        >
-          onelystop
-        </Link>
+        <Brand href="/today" className="text-[20px] font-bold sm:text-[22px]" />
 
         <HeaderNav groups={MAIN_GROUPS} />
 

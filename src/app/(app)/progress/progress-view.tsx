@@ -30,14 +30,12 @@ import type {
 } from "@/features/attempts/progress.server";
 import { ACC_LINE, PACE_TARGET } from "@/features/attempts/verdict";
 
-// The cells are the last seven days ending today, not Monday to Sunday.
 const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
 
 // Labelled from the date the server bucketed by, so a cell can never sit under another day's letter.
 const dayInitial = (date: string) =>
   DAY_INITIALS[new Date(`${date}T00:00:00Z`).getUTCDay()] as string;
 
-/** Index of the most recent empty day, or -1 when every day in the window was sat. */
 function findLastGap(week: readonly { count: number }[]): number {
   for (let i = week.length - 1; i >= 0; i--) {
     if (week[i]!.count === 0) return i;
@@ -81,10 +79,8 @@ export function ProgressView({
   const lost = wrong * NEGATIVE_MARK;
   const acc = Math.round((correct / attempted) * 100);
   const onPace = avgSec !== null && avgSec <= PACE_TARGET;
-  // Worst first: the section costing the most marks is what the page is for.
   const ranked = rankSections(sections, "worst");
   const worst = ranked.find((r) => r.acc < ACC_LINE) ?? null;
-  // Only derivable when a pace exists; untimed answers would make this read as zero minutes.
   const atDesk = avgSec === null ? null : hoursMinutes(avgSec * attempted);
   const weekPeak = Math.max(1, ...week.map((d) => d.count));
   const daysSat = week.filter((d) => d.count > 0).length;

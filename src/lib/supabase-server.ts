@@ -1,7 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-// Separate from the browser client so next/headers stays out of that bundle.
 export async function createClient() {
   const cookieStore = await cookies();
 
@@ -16,9 +15,7 @@ export async function createClient() {
             toSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
             );
-          } catch {
-            // Server components can't set cookies; proxy.ts refreshes the session.
-          }
+          } catch {}
         },
       },
     },

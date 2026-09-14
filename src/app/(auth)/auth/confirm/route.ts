@@ -19,7 +19,6 @@ function isEmailLinkType(value: string | null): value is EmailLinkType {
   return (EMAIL_LINK_TYPES as readonly string[]).includes(value ?? "");
 }
 
-// Both landing pages already render this pair as an expired link.
 const EXPIRED = "error=access_denied&error_code=otp_expired";
 
 export async function GET(request: Request) {

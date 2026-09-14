@@ -19,7 +19,6 @@ export const getRole = cache(async (): Promise<AppRole | null> => {
     .eq("user_id", user.id)
     .maybeSingle();
 
-  // Failing closed is right, but silently it looks like the admin lost their role.
   if (error) captureError(error, { at: "getRole.user_roles", userId: user.id });
   if (error || !data) return null;
   const role = data.role as string;

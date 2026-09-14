@@ -17,7 +17,6 @@ function normalizeTopic(raw: string): string {
   return hit ?? "Miscellaneous";
 }
 
-// Retries, model fallback and the total deadline all live in the client.
 export async function generateQuestion(
   article: ArticleRow,
   sourceText: string,

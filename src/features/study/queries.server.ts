@@ -32,7 +32,6 @@ const {
 
 type Preview = { preview?: boolean };
 
-// cache(): the page and its generateMetadata both ask — one round-trip, not two.
 export const canPreview = cache(async (): Promise<boolean> => {
   if (AUTH_DISABLED) return true;
   return (await getRole()) !== null;
@@ -143,7 +142,6 @@ type TopicRow = typeof topics.$inferSelect;
 const isUuid = (s: string) =>
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s);
 
-/** generateMetadata only needs a title and a description, not the whole outline. */
 export const getTopicMeta = cache(
   async (topicSlug: string): Promise<{ title: string; summary: string }> => {
     const fallback = { title: "Topic", summary: "" };
@@ -179,7 +177,6 @@ export const getTopicOutline = cache(async function getTopicOutline(
   const topic = await resolveTopic(topicSlug, opts);
   if (!topic) return null;
 
-  // Each query is a remote round-trip; run the ones that only need `topic` at once.
   const [chapter, version, siblingRows] = await Promise.all([
     db.query.chapters.findFirst({ where: eq(chapters.id, topic.chapterId) }),
     db.query.contentVersions.findFirst({
@@ -347,7 +344,6 @@ export async function listNotes(
   return rows.map(toNote);
 }
 
-/** Every note a learner has written, newest first, with the topic it hangs off. */
 export async function listAllNotes(userId: string): Promise<OwnNote[]> {
   const rows = await db
     .select({
@@ -436,7 +432,6 @@ export async function updateNote(
 
   const where = [eq(userNotes.id, noteId), eq(userNotes.userId, userId)];
   if (patch.expectedUpdatedAt) {
-    // Millisecond precision: an ISO round-trip loses the column's microseconds.
     const token = new Date(patch.expectedUpdatedAt);
     if (Number.isNaN(token.getTime())) return { error: "conflict" };
     where.push(
@@ -451,7 +446,6 @@ export async function updateNote(
     .returning();
 
   if (updated.length === 0) {
-    // Distinguish "someone else's / gone" from "stale write".
     const exists = await db.query.userNotes.findFirst({
       where: and(eq(userNotes.id, noteId), eq(userNotes.userId, userId)),
     });
@@ -529,7 +523,6 @@ export const getTopicPreview = cache(async function getTopicPreview(
   };
 });
 
-/** Every published topic's URL, for the sitemap. */
 export async function listTopicPaths(): Promise<TopicPath[]> {
   return db
     .select({

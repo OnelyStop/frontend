@@ -133,7 +133,6 @@ describe("deleteAccount", () => {
       userId,
       email,
     ]);
-    // The signup trigger makes the profile; this covers a DB where it has not.
     await db
       .insert(schema.profiles)
       .values({ id: userId })

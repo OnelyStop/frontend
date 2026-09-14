@@ -64,7 +64,6 @@ const EMPTY_TONE = {
   warn: "bg-warn-soft",
 } as const;
 
-// Sized to its content: a box drawn round a 500px void only advertises the void.
 export function Empty({
   title,
   sub,
@@ -75,7 +74,6 @@ export function Empty({
   title: string;
   sub: string;
   action?: ReactNode;
-  /** A glyph, not an icon — it sits in the tinted disc above the title. */
   mark?: ReactNode;
   tone?: keyof typeof EMPTY_TONE;
 }) {

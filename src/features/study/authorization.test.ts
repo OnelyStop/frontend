@@ -80,7 +80,6 @@ describe("notes: create", () => {
     expect(createNote).toHaveBeenCalledTimes(1);
     expect(createNote.mock.calls[0][0]).toBe(AUTH_USER);
     expect(createNote.mock.calls[0][1]).toBe(TOPIC);
-    // the route never forwards a visibility field — private is enforced in the query
     expect(createNote.mock.calls[0][2]).not.toHaveProperty("visibility");
   });
 

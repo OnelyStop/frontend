@@ -33,7 +33,6 @@ export function register() {
     Sentry.init({
       dsn: SENTRY_DSN,
       tracesSampleRate: SENTRY_TRACES_SAMPLE_RATE,
-      // Headers, cookies and bodies carry answers and email addresses.
       sendDefaultPii: false,
     });
   }
@@ -42,5 +41,4 @@ export function register() {
   if (process.env.NEXT_RUNTIME === "nodejs") reportEnv();
 }
 
-// Without a DSN the SDK is uninitialised and this does nothing.
 export const onRequestError = Sentry.captureRequestError;
