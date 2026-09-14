@@ -10,20 +10,22 @@ export function Brand({
   className?: string;
 }) {
   const cls = cn(
-    "inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-[18px] font-semibold tracking-[-0.03em]",
+    "inline-flex shrink-0 items-center whitespace-nowrap text-[18px] font-semibold tracking-[-0.03em]",
     className,
   );
   const lockup = (
     <>
-      {/* em, not a fixed size: callers set the lockup at three different text sizes. */}
+      <span className="sr-only">onelystop</span>
+      {/* The mark is the o, so it stands in for the letter rather than sitting beside it and spelling it twice. */}
       <svg
         viewBox={MARK_VIEW_BOX}
         aria-hidden
-        className="size-[1.12em] shrink-0"
+        shapeRendering="geometricPrecision"
+        className="size-[0.8em] shrink-0 translate-y-[0.11em]"
       >
         <path d={MARK_FULL} fillRule="evenodd" fill="currentColor" />
       </svg>
-      onelystop
+      <span aria-hidden>nelystop</span>
     </>
   );
   return href ? (

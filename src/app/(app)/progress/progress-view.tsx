@@ -14,7 +14,7 @@ import {
   SectionTitle,
   Spine,
   SpineItem,
-  Tile,
+  Stat,
 } from "@/design-system";
 import { useApp } from "@/context/AppContext";
 import { NEGATIVE_MARK } from "@/data/navigation";
@@ -78,7 +78,6 @@ export function ProgressView({
 
   const lost = wrong * NEGATIVE_MARK;
   const acc = Math.round((correct / attempted) * 100);
-  const onPace = avgSec !== null && avgSec <= PACE_TARGET;
   const ranked = rankSections(sections, "worst");
   const worst = ranked.find((r) => r.acc < ACC_LINE) ?? null;
   const atDesk = avgSec === null ? null : hoursMinutes(avgSec * attempted);
@@ -100,16 +99,13 @@ export function ProgressView({
         mid={
           <>
             <div className="grid grid-cols-2 gap-2.5 xl:mt-11.5">
-              <Tile
+              <Stat
                 value={`−${lost.toFixed(2)}`}
                 label={`${wrong} wrong × ${NEGATIVE_MARK} given back`}
-                tone="bad"
               />
-              <Tile
+              <Stat
                 value={avgSec === null ? "—" : `${avgSec}s`}
                 label={`a question · ${PACE_TARGET}s budget`}
-                tone={onPace ? "ok" : "neutral"}
-                outline={!onPace}
               />
             </div>
 
@@ -203,8 +199,7 @@ export function ProgressView({
           </>
         }
       >
-        {/* The one tinted card on the page: the figure the whole month rolls up to. */}
-        <Card tone="info" className="p-6 sm:p-7">
+        <Card className="p-6 sm:p-7">
           <p className="text-[12.5px] font-semibold text-black/50">
             Accuracy · {attempted} questions over 30 days
           </p>

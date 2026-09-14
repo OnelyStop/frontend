@@ -26,7 +26,7 @@ import {
   Spine,
   SpineItem,
   StatusPill,
-  Tile,
+  Stat,
 } from "@/design-system";
 import { useApp } from "@/context/AppContext";
 import { NEGATIVE_MARK } from "@/data/navigation";
@@ -132,12 +132,8 @@ export function TodayView({
           <>
             {/* Two figures, not three: every band below already carries its own seconds, so an averaged pace tile said nothing new. */}
             <div className="grid grid-cols-2 gap-2.5 xl:mt-11.5">
-              <Tile value={`${acc}%`} label="accuracy" tone="info" />
-              <Tile
-                value={`−${lost.toFixed(2)}`}
-                label="given back"
-                tone="bad"
-              />
+              <Stat value={`${acc}%`} label="accuracy" />
+              <Stat value={`−${lost.toFixed(2)}`} label="given back" />
             </div>
 
             <SectionTitle

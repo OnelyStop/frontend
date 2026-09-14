@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -17,14 +18,13 @@ import {
   Canvas,
   CornerBadge,
   Empty,
+  IndexCard,
   OptionRow,
-  PlanCard,
+  PageHeader,
   SectionTitle,
   Segmented,
-  Spine,
-  SpineItem,
+  SECTION_TINT,
   StatusPill,
-  Tile,
   questionVariants,
 } from "@/design-system";
 import {
@@ -49,7 +49,11 @@ import type {
   ProfileStats,
   RecentAttempt,
 } from "@/features/attempts/progress.server";
-import { nextPaper, paperTitle } from "@/features/question-bank/next-paper";
+import {
+  examSlug,
+  nextPaper,
+  paperTitle,
+} from "@/features/question-bank/next-paper";
 import type { Mock } from "@/features/question-bank/types";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
@@ -70,13 +74,15 @@ export function MocksView({
   mocks,
   stats,
   recent,
+  exam = "All",
 }: {
   mocks: Mock[];
   stats: ProfileStats | null;
   recent: RecentAttempt[];
+  /** Set by /mocks/[exam]; the index at /mocks leaves it unset. */
+  exam?: string;
 }) {
   const router = useRouter();
-  const [exam, setExam] = useState("All");
   const [stage, setStage] = useState<(typeof STAGES)[number]>("All");
   const [page, setPage] = useState(1);
   const [live, setLive] = useState<Mock | null>(null);
@@ -112,7 +118,6 @@ export function MocksView({
       (stage === "All" || m.stage === stage),
   );
 
-  useEffect(() => setPage(1), [exam]);
   const sections = groupBySection(questions);
   const section = sections[secIdx];
   const q = section?.qs[qIdx];
@@ -598,6 +603,25 @@ export function MocksView({
   const rest = shown.filter((m) => m !== hero);
   const totalPages = Math.max(1, Math.ceil(rest.length / PAGE_SIZE));
   const pageRest = rest.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  // Pick the exam, then the paper — 200 papers in one flat grid is a list to scroll, not a choice to make.
+  const browsing = exam === "All";
+  const examCards = exams
+    .filter((e) => e !== "All")
+    .map((name, i) => {
+      const papers = mocks.filter((m) => m.name === name);
+      return {
+        name,
+        // Walked, not hashed: hashing put the same tint in the same column two rows running.
+        tint: SECTION_TINT[i % SECTION_TINT.length]!,
+        total: papers.length,
+        sat: papers.filter((m) => m.score !== null).length,
+        paused: papers.some((m) => m.inProgress),
+        mins: Math.round(
+          papers.reduce((n, m) => n + m.mins, 0) / Math.max(1, papers.length),
+        ),
+      };
+    });
   const heroCleared =
     hero !== null && hero.score !== null && hero.score >= hero.target;
   const lastSat = stats?.lastSatAt
@@ -620,22 +644,32 @@ export function MocksView({
         />
       ) : null}
 
-      <div className="mb-7 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
-        <h1 className="text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
-          Mocks
-        </h1>
-        <div className="flex min-w-0 flex-wrap items-center gap-2">
-          <Segmented value={exam} options={exams} onChange={setExam} />
-          <Segmented
-            value={stage}
-            options={STAGES}
-            onChange={(s) => {
-              setStage(s);
-              setPage(1);
-            }}
-          />
-        </div>
-      </div>
+      <PageHeader
+        title="Mocks"
+        sub={
+          browsing
+            ? "Full papers under real sectional timing. Pick an exam, then a paper — each section locks when its clock ends, and every target is 55% of the paper."
+            : `${exam} · full papers under real sectional timing. Each section locks when its clock ends; the target is 55% of the paper.`
+        }
+        actions={
+          browsing ? null : (
+            <>
+              <ButtonLink variant="secondary" size="sm" href="/mocks">
+                <ChevronLeft size={16} strokeWidth={1.75} />
+                All exams
+              </ButtonLink>
+              <Segmented
+                value={stage}
+                options={STAGES}
+                onChange={(s) => {
+                  setStage(s);
+                  setPage(1);
+                }}
+              />
+            </>
+          )
+        }
+      />
 
       {error ? <p className="text-bad mb-4 text-[13px]">{error}</p> : null}
 
@@ -663,32 +697,22 @@ export function MocksView({
         <Canvas
           aside={
             <>
-              <SectionTitle aside="last 30 days">Your sittings</SectionTitle>
-              <div className="mb-5 grid grid-cols-3 gap-2.5">
-                <Tile
-                  value={String(stats?.mocksSat ?? 0)}
-                  label="papers sat"
-                  tone="info"
-                />
-                <Tile
-                  value={
-                    stats?.bestScore === null || !stats
-                      ? "—"
-                      : String(stats.bestScore)
-                  }
-                  label="best score"
-                  tone="ok"
-                />
-                <Tile value={lastSat ?? "—"} label="last sitting" outline />
-              </div>
+              <SectionTitle
+                aside={
+                  <span className="tnum text-ink-3 text-[12.5px]">
+                    {stats?.mocksSat ?? 0} sat · best {stats?.bestScore ?? "—"}{" "}
+                    · {lastSat ?? "none yet"}
+                  </span>
+                }
+              >
+                Your sittings
+              </SectionTitle>
               {recent.length ? (
-                <Spine>
+                <div className="grid gap-3">
                   {recent.map((s) => (
-                    <SpineItem key={s.id}>
-                      <SittingCard sitting={s} />
-                    </SpineItem>
+                    <SittingCard key={s.id} sitting={s} />
                   ))}
-                </Spine>
+                </div>
               ) : (
                 <p className="text-ink-3 text-[13px]">
                   Nothing submitted yet. Your sittings line up here.
@@ -697,12 +721,44 @@ export function MocksView({
             </>
           }
         >
+          {browsing ? (
+            <div className="grid gap-5 sm:grid-cols-2">
+              {examCards.map((e) => (
+                <Link
+                  key={e.name}
+                  href={`/mocks/${examSlug(e.name)}`}
+                  className="block h-full text-left"
+                >
+                  <IndexCard
+                    className={e.tint}
+                    title={e.name}
+                    badge={
+                      <CornerBadge tone={e.paused ? "leaf" : "quiet"}>
+                        <FileText size={20} strokeWidth={1.75} />
+                      </CornerBadge>
+                    }
+                    footer={
+                      <StatusPill tone="soon">
+                        {e.total} paper{e.total === 1 ? "" : "s"} ·{" "}
+                        {e.sat ? `${e.sat} sat` : "none sat"}
+                      </StatusPill>
+                    }
+                  >
+                    {e.paused
+                      ? "One paper is paused partway — your answers and the section clock are saved."
+                      : `About ${e.mins} minutes a paper, sat under real sectional timing.`}
+                  </IndexCard>
+                </Link>
+              ))}
+            </div>
+          ) : null}
+
           {/* Its own row, capped to a card's width: sharing a grid row with a shorter PlanCard left dead space beneath it up to the hero's height, and going full column width would read as a banner instead of the one card picked up off the pile. */}
           <div>
-            {hero ? (
+            {!browsing && hero ? (
               <ActiveCard
                 tilt
-                className="mb-4 max-w-xl"
+                className="mt-0 mb-9 max-w-xl"
                 kicker={
                   hero.inProgress
                     ? "Sit next · paused partway"
@@ -759,30 +815,25 @@ export function MocksView({
             ) : null}
           </div>
 
-          <div className="grid items-stretch gap-4 lg:grid-cols-2">
-            {pageRest.map((m) => {
+          <ul className="border-line border-t">
+            {(browsing ? [] : pageRest).map((m) => {
               const sat = m.score !== null;
               const cleared = m.score !== null && m.score >= m.target;
               return (
-                <PlanCard
+                <li
                   key={m.id}
-                  size="sm"
-                  className="mb-0"
-                  title={paperTitle(m)}
-                  corner={
-                    <CornerBadge
-                      tone={!m.inProgress && sat && cleared ? "leaf" : "quiet"}
-                    >
-                      <FileText size={18} strokeWidth={1.75} />
-                    </CornerBadge>
-                  }
-                  meta={
-                    <span className="tnum">
-                      {m.qs} questions · {m.mins} min · −{NEGATIVE_MARK} a wrong
-                      answer
-                    </span>
-                  }
-                  status={
+                  className="border-line hover:bg-brand-soft/30 border-b px-2 transition-colors"
+                >
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-3 py-4">
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[15px] font-medium">
+                        {paperTitle(m)}
+                      </p>
+                      <p className="tnum text-ink-3 mt-1 text-[12.5px]">
+                        {m.qs} questions · {m.mins} min · target {m.target} · −
+                        {NEGATIVE_MARK} a wrong answer
+                      </p>
+                    </div>
                     <StatusPill
                       tone={
                         m.inProgress
@@ -798,62 +849,49 @@ export function MocksView({
                         ? "In progress"
                         : !sat
                           ? "Not attempted"
-                          : cleared
-                            ? "Cleared"
-                            : "Missed"}
+                          : `${m.score} · ${cleared ? "cleared" : "missed"}`}
                     </StatusPill>
-                  }
-                  actions={
-                    <>
-                      {m.inProgress ? (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          disabled={starting !== null}
-                          onClick={() =>
-                            setModePrompt({ mock: m, restart: true })
-                          }
-                        >
-                          Start over
-                        </Button>
-                      ) : null}
+                    {m.inProgress ? (
                       <Button
+                        variant="ghost"
                         size="sm"
                         disabled={starting !== null}
                         onClick={() =>
-                          m.inProgress
-                            ? void resumeAttempt(m)
-                            : setModePrompt({ mock: m, restart: false })
+                          setModePrompt({ mock: m, restart: true })
                         }
                       >
-                        {starting === m.id
-                          ? "Loading…"
-                          : m.inProgress
-                            ? "Resume"
-                            : sat
-                              ? "Retake"
-                              : "Start"}
+                        Start over
                       </Button>
-                    </>
-                  }
-                >
-                  {m.inProgress
-                    ? "Paused partway — your answers and the clock are saved."
-                    : sat
-                      ? `Last sitting ${m.score} of ${m.qs} — ${cleared ? "cleared" : "missed"} the ${m.target} target.`
-                      : `Target is ${m.target} — 55% of the paper.`}
-                </PlanCard>
+                    ) : null}
+                    <Button
+                      size="sm"
+                      disabled={starting !== null}
+                      onClick={() =>
+                        m.inProgress
+                          ? void resumeAttempt(m)
+                          : setModePrompt({ mock: m, restart: false })
+                      }
+                    >
+                      {starting === m.id
+                        ? "Loading…"
+                        : m.inProgress
+                          ? "Resume"
+                          : sat
+                            ? "Retake"
+                            : "Start"}
+                    </Button>
+                  </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
 
           <p className="text-ink-3 mt-6 text-[12.5px] leading-relaxed">
-            Full papers under real sectional timing. Each paper&rsquo;s target
-            is 55% of its questions — our benchmark, not the board&rsquo;s
-            published cutoff.
+            A target is 55% of a paper&rsquo;s questions — our benchmark, not
+            the board&rsquo;s published cutoff.
           </p>
 
-          {totalPages > 1 ? (
+          {!browsing && totalPages > 1 ? (
             <div className="mt-5 flex items-center justify-center gap-3">
               <Button
                 variant="secondary"

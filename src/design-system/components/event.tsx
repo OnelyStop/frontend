@@ -3,6 +3,7 @@ import { Clock } from "lucide-react";
 import { cn } from "../lib/cn";
 
 export type EventTone =
+  | "quiet"
   | "info"
   | "brand"
   | "warn"
@@ -15,6 +16,8 @@ export type EventTone =
   | "computer";
 
 const TONE: Record<EventTone, [card: string, panel: string]> = {
+  // The default on a page that already spends its colour elsewhere; a tint here would be a second claim on the eye.
+  quiet: ["bg-canvas", "bg-panel"],
   info: ["bg-info-soft", "bg-info-pale"],
   brand: ["bg-brand-soft", "bg-brand-pale"],
   warn: ["bg-warn-soft", "bg-warn-pale"],

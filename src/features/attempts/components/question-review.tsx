@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   StatusPill,
   ButtonLink,
-  Card,
   OptionRow,
   SectionTitle,
   Segmented,
@@ -36,8 +35,8 @@ export function QuestionReview({ questions }: { questions: ScoredQuestion[] }) {
   });
 
   return (
-    <Card pad={false} className="overflow-hidden">
-      <div className="p-6 pb-0">
+    <section className="border-line rounded-card border p-5">
+      <div>
         <SectionTitle aside={`${shown.length} of ${questions.length}`}>
           Question by question
         </SectionTitle>
@@ -69,7 +68,7 @@ export function QuestionReview({ questions }: { questions: ScoredQuestion[] }) {
           ))}
         </Table>
       </div>
-    </Card>
+    </section>
   );
 }
 

@@ -20,15 +20,17 @@ you skipped step one; stop and state it.
 
 ## The checklist
 
-| #   | Step                                      | Done when                                                                 |
-| --- | ----------------------------------------- | ------------------------------------------------------------------------- |
-| 1   | Issue only if the work is major           | Major: issue open and linked. Minor: straight to the PR, `no-issue` label |
-| 2   | Branch off `origin/main`                  | `git fetch origin && git checkout -b <area>/<what> origin/main`           |
-| 3   | Build against the plan                    | Scope stays inside what was asked                                         |
-| 4   | Production comments pass on the full diff | Every added or touched comment listed, justified or deleted               |
-| 5   | Verify every gate, naming real files      | `format:check`, `check:layout`, `check:source`, `tsc`, `vitest`, `build`  |
-| 6   | Prove each new check can go red           | Violation planted, check fails, restored, check passes                    |
-| 7   | Commit, push, PR, watch CI                | Only when asked. PR open, CI reported, `closingIssuesReferences` verified |
+| #   | Step                                        | Done when                                                                 |
+| --- | ------------------------------------------- | ------------------------------------------------------------------------- |
+| 1   | Issue only if the work is major             | Major: issue open and linked. Minor: straight to the PR, `no-issue` label |
+| 2   | One open PR — add to it, don't open another | New branch only when the work is genuinely large                          |
+| 3   | Build against the plan                      | Scope stays inside what was asked                                         |
+| 4   | Production comments pass on the full diff   | Every added or touched comment listed, justified or deleted               |
+| 5   | Verify every gate, naming real files        | `format:check`, `check:layout`, `check:source`, `tsc`, `vitest`, `build`  |
+| 5b  | Screenshots, if a pixel moved               | Dropped in local `screenshots/`, then **stop** — Tushar looks first       |
+| 5c  | At most one white card on the page          | `<Card>` counted; prefer rows, an identity tint, or nothing at all        |
+| 6   | Prove each new check can go red             | Violation planted, check fails, restored, check passes                    |
+| 7   | Commit, push, PR, watch CI                  | Only when asked. PR open, CI reported, `closingIssuesReferences` verified |
 
 ## Step detail
 
@@ -67,8 +69,27 @@ after CI has already gone red:
 gh pr create --title "..." --body-file <file> --label no-issue
 ```
 
-**2. Branch.** Off `origin/main`, never a stale local one. `main` is protected:
-squash-only, one approving review, strict status checks.
+**2. One open PR at a time.** Check before you branch:
+
+```bash
+gh pr list --state open
+```
+
+If one is open, the work goes **onto that branch**. Not a new one. A fix, a
+rule, a rename, a screenshot, a second thing Tushar mentions while the first is
+still in review — all of it commits to the PR already in flight.
+
+Open a second PR only when the work is genuinely large: a feature, a migration,
+a sweep across the repo. The test is whether adding it would bury the review
+that is already open, not whether it is a different topic. Two small unrelated
+changes still belong on one PR; that is cheaper for everyone than two reviews,
+two CI runs and two merges.
+
+A stack of small PRs is the failure mode here. It has happened repeatedly, and
+every one costs a review cycle on work that could have ridden along.
+
+When you do branch, branch off `origin/main`, never a stale local one. `main` is
+protected: squash-only, one approving review, strict status checks.
 
 A worktree is the right tool when the working tree holds someone else's
 uncommitted work — `git worktree add -q /tmp/x --detach origin/<branch>`, then
@@ -88,6 +109,62 @@ the file you are in — a file with no comments is telling you its convention.
 Run it as its own pass. The comment that felt necessary mid-edit almost never
 survives being read back: two passes in this repo cut 86 comment lines to 22,
 then 21 to 10, and both files read better after.
+
+**5b. A UI change stops for Tushar's eyes before it is committed.** This is a
+gate, not a deliverable. The order is:
+
+1. Empty `screenshots/` at the root of his working directory — that folder, not
+   `docs/screenshots/`, and not a worktree he cannot see.
+   ```bash
+   rm -rf screenshots/* && mkdir -p screenshots
+   ```
+2. Shoot before and after at 1440x900 and 390x844, `deviceScaleFactor: 2`, and
+   drop them there.
+3. Tell him they are there and **stop**. No commit, no push, no PR.
+4. He looks. Only when he says it is good does the work get committed and the PR
+   opened.
+
+`screenshots/` is gitignored and always has been — that is the point. It is the
+folder he opens, it is never committed, and it holds only the change in front of
+him. `docs/screenshots/` is a different thing: images a merged PR body links to.
+Do not confuse them, and do not put review shots there.
+
+Putting the shots anywhere he has not checked out is the same as not showing
+him: his working tree is usually on another branch entirely.
+
+Screenshot the page and look at it yourself first. Never judge a layout from the
+classes you just wrote — and never describe it to him instead of showing it.
+
+Once he approves and the shots are committed, verify each raw URL with `curl`
+before claiming the PR body renders them: `.gitignore` carries a bare
+`screenshots/` rule, and `git add -A` has silently skipped these before while
+the body linked six 404s.
+
+**5c. One white card per page, at most — and prefer none.** A page built out of
+white rectangles is the generic template the product is trying not to look
+like. Count `<Card>` on any page you touch: **more than one plain white card is
+a bug.** Two is not a judgement call to defend, it is a rewrite.
+
+What to reach for instead, in order:
+
+- **Nothing.** Rows on the stage, separated by a hairline. `Divider`, a
+  `border-b`, a `Spine`. Most lists and most settings need no surface at all.
+- **Identity tint.** `IndexCard` / `EventCard` in the subject's own colour —
+  what `/study` and `/mocks` are built from. Tint is identity, never a
+  container, and never a state.
+- **A recessed panel.** `inset-panel` for a plot or a table; `Input` and
+  `Segmented` already recess themselves.
+- **The black card.** `Card tone="ink"`, for the one sentence that closes a
+  page. Still counts as the page's one card.
+
+Never rebuild a card by hand either — `card`, `card-lift`, `inset-panel` and
+`ruled` are `@utility` rules in `theme.css`. A bordered white box assembled from
+`border-line rounded-card border p-6` is the previous language and is wrong
+twice over.
+
+A grid of tinted cards walks the palette by index, never by hash: `tintFor`
+hashes, which put the same tint in the same column two rows running on `/mocks`.
+Walk `SECTION_TINT` with the loop index so no two neighbours repeat.
 
 **5. Verify.** From the repo root:
 

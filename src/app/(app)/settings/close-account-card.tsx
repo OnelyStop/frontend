@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Card, Field, Input, SectionTitle } from "@/design-system";
+import { Button, Field, Input } from "@/design-system";
 import { useAuth } from "@/features/auth/AuthContext";
 
 const ERRORS: Record<string, string> = {
@@ -51,9 +51,9 @@ export function CloseAccountCard() {
   };
 
   return (
-    <Card tone="bad" className="mt-5">
-      <SectionTitle>Close account</SectionTitle>
-      <p className="text-ink-3 -mt-2 mb-4 max-w-[60ch] text-[13px]">
+    <div className="border-bad mt-10 max-w-4xl border-l-2 pl-5">
+      <p className="text-bad text-[14px] font-medium">Close account</p>
+      <p className="text-ink-3 mt-1 mb-4 max-w-[60ch] text-[12.5px] leading-relaxed">
         Deletes your mocks, drills, notes, doubts and marks, and cancels Pro.
         Payment records stay with Razorpay, as tax law requires. This cannot be
         undone.
@@ -81,6 +81,6 @@ export function CloseAccountCard() {
       >
         {busy ? "Closing…" : "Close account"}
       </Button>
-    </Card>
+    </div>
   );
 }

@@ -1,79 +1,27 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-export type Tone = "neutral" | "ok" | "warn" | "bad" | "info" | "brand";
-
-const TONE: Record<Tone, string> = {
-  neutral: "bg-panel text-ink-2",
-  ok: "bg-ok-soft text-ok",
-  warn: "bg-warn-soft text-warn",
-  bad: "bg-bad-soft text-bad",
-  info: "bg-info-soft text-info",
-  brand: "bg-brand-soft text-brand",
-};
-
-export function Tile({
+/** A number on the stage under a hairline — never in a box, because a number is not a state. */
+export function Stat({
   value,
   label,
   note,
-  tone = "info",
-  outline,
+  className,
 }: {
   value: string;
   label: string;
   note?: string;
-  tone?: Tone;
-  outline?: boolean;
-}) {
-  return (
-    <div
-      className={cn(
-        "rounded-xl px-2 py-4 text-center",
-        outline ? "border-line-2 border-2 border-dashed" : TONE[tone],
-      )}
-    >
-      <p className="tnum text-[22px] leading-none font-bold tracking-[-0.02em]">
-        {value}
-      </p>
-      {/* Balanced, so a two-line label splits evenly instead of leaving one word stranded. */}
-      <p className="text-ink-2 mt-2 text-[12.5px] text-balance">{label}</p>
-      {note && (
-        <p className="mt-1 text-[11.5px] text-balance opacity-70">{note}</p>
-      )}
-    </div>
-  );
-}
-
-const FIGURE_TONE: Record<"ok" | "warn" | "bad", [rule: string, ink: string]> =
-  {
-    ok: ["border-ok", "text-ok"],
-    warn: ["border-warn", "text-ink"],
-    bad: ["border-bad", "text-bad"],
-  };
-
-/** A supporting figure: a coloured rule carries the state, so the number does not need a box around it. */
-export function Figure({
-  value,
-  tone,
-  children,
-  className,
-}: {
-  value: string;
-  tone: keyof typeof FIGURE_TONE;
-  children: ReactNode;
   className?: string;
 }) {
-  const [rule, ink] = FIGURE_TONE[tone];
   return (
-    <div className={cn("border-l-2 pl-4", rule, className)}>
-      <p
-        className={cn("tnum text-[23px] leading-none tracking-[-0.03em]", ink)}
-      >
+    <div className={cn("border-line border-t pt-3", className)}>
+      <p className="tnum text-[23px] leading-none tracking-[-0.03em]">
         {value}
       </p>
-      <p className="text-ink-3 mt-1.5 max-w-[26ch] text-[13px] leading-relaxed">
-        {children}
-      </p>
+      <p className="text-ink-3 mt-2 text-[12.5px] leading-snug">{label}</p>
+      {note ? (
+        <p className="text-ink-4 mt-1 text-[11.5px] leading-snug">{note}</p>
+      ) : null}
     </div>
   );
 }

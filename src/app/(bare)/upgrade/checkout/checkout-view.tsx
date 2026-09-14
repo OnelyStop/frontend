@@ -271,7 +271,7 @@ export function CheckoutView({
       </h1>
 
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-        <Card tone="info" className="relative">
+        <Card className="relative">
           <CornerBadge tone="quiet">
             <Lock size={18} strokeWidth={2} />
           </CornerBadge>
@@ -306,7 +306,7 @@ export function CheckoutView({
           </p>
         </Card>
 
-        <Card tone="brand" className="relative">
+        <Card className="relative">
           <CornerBadge tone="quiet">
             <Receipt size={18} strokeWidth={1.75} />
           </CornerBadge>
