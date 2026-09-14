@@ -1,4 +1,4 @@
-import { Card, SectionTitle } from "@/design-system";
+import { SectionTitle } from "@/design-system";
 import type { Scorecard } from "../types";
 
 /** Colour means earned / lost / unclaimed and never section identity: the section tokens fail CVD separation, so every bar carries a label too. */
@@ -44,10 +44,9 @@ export function MarksWaterfall({ scorecard }: { scorecard: Scorecard }) {
     },
   ];
   const scale = Math.max(scorecard.maxScore, 1);
-  const forgone = foregoneWrong + lostToNegative + foregoneBlank;
 
   return (
-    <Card tone={forgone === 0 ? "ok" : "warn"}>
+    <section className="border-line rounded-card border p-5">
       <SectionTitle aside={`${scorecard.score} / ${scorecard.maxScore}`}>
         Where the marks went
       </SectionTitle>
@@ -79,6 +78,6 @@ export function MarksWaterfall({ scorecard }: { scorecard: Scorecard }) {
           );
         })}
       </div>
-    </Card>
+    </section>
   );
 }

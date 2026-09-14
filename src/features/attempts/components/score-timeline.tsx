@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, SectionTitle } from "@/design-system";
+import { SectionTitle } from "@/design-system";
 import type { Scorecard } from "../types";
 
 export function ScoreTimeline({ scorecard }: { scorecard: Scorecard }) {
@@ -30,7 +30,7 @@ export function ScoreTimeline({ scorecard }: { scorecard: Scorecard }) {
   ];
 
   return (
-    <Card tone={finalScore >= 0 ? "brand" : "bad"}>
+    <section className="border-line rounded-card border p-5">
       <SectionTitle aside={`ended at ${finalScore.toFixed(2)}`}>
         Score over the attempt
       </SectionTitle>
@@ -113,6 +113,6 @@ export function ScoreTimeline({ scorecard }: { scorecard: Scorecard }) {
           </div>
         ) : null}
       </div>
-    </Card>
+    </section>
   );
 }

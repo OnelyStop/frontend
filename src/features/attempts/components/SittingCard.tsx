@@ -26,7 +26,7 @@ export function SittingCard({ sitting }: { sitting: RecentAttempt }) {
   return (
     <Link
       href={`/results/${sitting.id}`}
-      className="card card-lift block rounded-xl px-4.5 py-4"
+      className="border-line rounded-card hover:border-ink/20 block border px-4.5 py-4 transition-colors"
     >
       {/* The score sits under the name below sm: side by side, a paper title truncates to "IBPS PO 2025 · Pr…". */}
       <span className="block text-[14px] font-bold">

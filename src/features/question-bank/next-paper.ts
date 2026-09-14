@@ -12,3 +12,11 @@ export function paperTitle(p: Mock): string {
   const head = p.year ? `${p.name} ${p.year}` : p.name;
   return [head, p.stage, p.sitting].filter(Boolean).join(" · ");
 }
+
+/** The exam name as a URL segment — "IBPS RRB-Clerk" becomes "ibps-rrb-clerk". */
+export function examSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}

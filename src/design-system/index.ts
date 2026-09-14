@@ -53,15 +53,13 @@ export { Checkbox, Field, Input, Segmented, Textarea } from "./components/form";
 
 export {
   Avatar,
-  Figure,
   Kbd,
+  Stat,
   Table,
   TargetBar,
   Td,
   Th,
-  Tile,
   Tr,
-  type Tone,
 } from "./components/data";
 
 export { Divider, Empty, PageHeader, SectionTitle } from "./components/page";

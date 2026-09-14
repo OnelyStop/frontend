@@ -1,12 +1,10 @@
-import { Card, SectionTitle } from "@/design-system";
+import { SectionTitle } from "@/design-system";
 import type { Scorecard } from "../types";
 
 /** Section identity is carried by the row label, never by colour: the quant/reasoning tokens are ΔE 0.9 apart under protanopia. */
 export function SectionBreakdown({ scorecard }: { scorecard: Scorecard }) {
-  const allCleared = scorecard.sections.every((s) => s.cleared);
-
   return (
-    <Card tone={allCleared ? "ok" : "bad"}>
+    <section className="border-line rounded-card border p-5">
       <SectionTitle
         aside={
           <span className="flex items-center gap-3 text-[12.5px]">
@@ -45,7 +43,7 @@ export function SectionBreakdown({ scorecard }: { scorecard: Scorecard }) {
           );
         })}
       </div>
-    </Card>
+    </section>
   );
 }
 
