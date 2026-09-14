@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
   MONTHLY_PRICE_PAISE,
-  worstCaseMonthlyCostPaise,
+  ceilingMonthlyAiCostPaise,
+  grossMarginPercent,
+  monthlyAiCostPaise,
+  monthlyCostPaise,
+  paymentFeePaise,
 } from "@/features/billing/cost";
 import {
   PLAN_LIMITS,
@@ -97,13 +101,29 @@ describe("plan limits", () => {
 
 describe("what a user costs us", () => {
   const pct = (tier: PlanTier) =>
-    (worstCaseMonthlyCostPaise(tier) / MONTHLY_PRICE_PAISE[tier]) * 100;
+    (monthlyCostPaise(tier) / MONTHLY_PRICE_PAISE[tier]) * 100;
 
-  // The ceiling, in paise a month, if someone uses every call they are owed.
-  it("prices each tier's ceiling", () => {
-    expect(worstCaseMonthlyCostPaise("free")).toBe(160); // ₹1.60
-    expect(worstCaseMonthlyCostPaise("pro")).toBe(1_800); // ₹18.00
-    expect(worstCaseMonthlyCostPaise("pro_plus")).toBe(5_200); // ₹52.00
+  it("prices a month of model calls", () => {
+    expect(monthlyAiCostPaise("free")).toBe(162);
+    expect(monthlyAiCostPaise("pro")).toBe(1_830);
+    expect(monthlyAiCostPaise("pro_plus")).toBe(5_280);
+  });
+
+  it("adds Razorpay's cut, which follows the price and not the usage", () => {
+    expect(paymentFeePaise("pro")).toBe(590);
+    expect(paymentFeePaise("pro_plus")).toBe(944);
+    expect(paymentFeePaise("free")).toBe(0);
+  });
+
+  it("totals what one subscriber costs", () => {
+    expect(monthlyCostPaise("pro")).toBe(2_420);
+    expect(monthlyCostPaise("pro_plus")).toBe(6_224);
+  });
+
+  it("leaves the margin a subscription business needs", () => {
+    expect(grossMarginPercent("pro")).toBe(90);
+    expect(grossMarginPercent("pro_plus")).toBe(84);
+    expect(grossMarginPercent("free")).toBeNull();
   });
 
   // Raising a limit unchecked is how a plan starts losing money.
@@ -112,9 +132,24 @@ describe("what a user costs us", () => {
     expect(pct("pro_plus")).toBeLessThan(40);
   });
 
-  // Free has no revenue behind it, so its ceiling is an acquisition cost.
+  // Free has no revenue behind it, so its cost is an acquisition cost.
   it("keeps a free user under ₹5 a month", () => {
-    expect(worstCaseMonthlyCostPaise("free")).toBeLessThan(500);
+    expect(monthlyAiCostPaise("free")).toBeLessThan(500);
+  });
+
+  // Pro+ reaches 78% of its own price here, so what caps the loss is call size, not the quota.
+  it("records the ceiling a determined user could reach", () => {
+    expect(ceilingMonthlyAiCostPaise("pro")).toBe(10_220);
+    expect(ceilingMonthlyAiCostPaise("pro_plus")).toBe(31_120);
+  });
+
+  it("never lets even that ceiling cost more than the subscription", () => {
+    expect(ceilingMonthlyAiCostPaise("pro")).toBeLessThan(
+      MONTHLY_PRICE_PAISE.pro,
+    );
+    expect(ceilingMonthlyAiCostPaise("pro_plus")).toBeLessThan(
+      MONTHLY_PRICE_PAISE.pro_plus,
+    );
   });
 });
 
