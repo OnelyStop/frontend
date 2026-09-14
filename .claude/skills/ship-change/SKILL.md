@@ -27,6 +27,7 @@ you skipped step one; stop and state it.
 | 3   | Build against the plan                    | Scope stays inside what was asked                                         |
 | 4   | Production comments pass on the full diff | Every added or touched comment listed, justified or deleted               |
 | 5   | Verify every gate, naming real files      | `format:check`, `check:layout`, `check:source`, `tsc`, `vitest`, `build`  |
+| 5b  | Screenshots, if a pixel moved             | `docs/screenshots/` emptied, before/after committed, linked in the body   |
 | 6   | Prove each new check can go red           | Violation planted, check fails, restored, check passes                    |
 | 7   | Commit, push, PR, watch CI                | Only when asked. PR open, CI reported, `closingIssuesReferences` verified |
 
@@ -88,6 +89,25 @@ the file you are in — a file with no comments is telling you its convention.
 Run it as its own pass. The comment that felt necessary mid-edit almost never
 survives being read back: two passes in this repo cut 86 comment lines to 22,
 then 21 to 10, and both files read better after.
+
+**5b. Every UI change ships its screenshots.** Not on request — always. A diff of
+Tailwind classes is not reviewable; a picture is.
+
+Delete what is in `docs/screenshots/` first. It holds the shots for the PR in
+front of you and nothing else, so a stale folder is worse than an empty one —
+the reviewer cannot tell which PR a leftover image belongs to.
+
+```bash
+rm -rf docs/screenshots/* && mkdir -p docs/screenshots
+```
+
+Then shoot before and after at 1440x900 and 390x844, `deviceScaleFactor: 2`,
+commit them, and link them in the PR body. Verify each URL with `curl` before
+saying they work — `.gitignore` has a bare `screenshots/` rule, and `git add -A`
+has silently skipped these before while the PR body linked six 404s.
+
+Screenshot the page and look at it before you call it done. Never judge a layout
+from the classes you just wrote.
 
 **5. Verify.** From the repo root:
 
