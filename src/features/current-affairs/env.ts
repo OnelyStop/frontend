@@ -5,8 +5,6 @@ const schema = z.object({
   // Asserted by its one caller: reading any key validates all of them, so this took generate down with it.
   NEWSDATA_API_KEY: z.string().optional(),
   CRON_SECRET: z.string().min(16, "CRON_SECRET must be at least 16 chars"),
-  // Dated, never an alias: a daily pipeline must not change model unannounced.
-  GENERATION_MODEL: z.string().min(1).default("z-ai/glm-5.3"),
   GENERATION_RPM: z.coerce.number().int().min(1).max(1000).default(12),
   SENTRY_DSN: z.string().url().optional(),
 });

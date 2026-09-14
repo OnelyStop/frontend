@@ -15,6 +15,10 @@ export const openrouterConfig = {
 
   // High volume, lower stakes: five index points over DeepSeek for one paisa.
   cheapModel: str("AI_CHEAP_MODEL", "z-ai/glm-5.3-flash"),
+
+  // Current affairs fills a schema, it does not reason: $0.16 a month against glm-5.3's $4.97.
+  generationModel: str("GENERATION_MODEL", "openai/gpt-oss-120b"),
+
   fallbackModel: str("AI_MODEL_FALLBACK", "openai/gpt-4o"),
 
   temperature: num("AI_TEMPERATURE", 0.7, 0, 2),
