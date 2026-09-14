@@ -112,10 +112,10 @@ then 21 to 10, and both files read better after.
 **5b. A UI change stops for Tushar's eyes before it is committed.** This is a
 gate, not a deliverable. The order is:
 
-1. Empty the **local** `docs/screenshots/` in his working directory — the repo
-   root he actually has open, not a worktree he cannot see.
+1. Empty `screenshots/` at the root of his working directory — that folder, not
+   `docs/screenshots/`, and not a worktree he cannot see.
    ```bash
-   rm -rf docs/screenshots/* && mkdir -p docs/screenshots
+   rm -rf screenshots/* && mkdir -p screenshots
    ```
 2. Shoot before and after at 1440x900 and 390x844, `deviceScaleFactor: 2`, and
    drop them there.
@@ -123,9 +123,13 @@ gate, not a deliverable. The order is:
 4. He looks. Only when he says it is good does the work get committed and the PR
    opened.
 
-Putting the shots in a branch he has not checked out is the same as not showing
-him: his working tree is usually on something else, so `docs/screenshots/` still
-reads as whatever his own branch holds.
+`screenshots/` is gitignored and always has been — that is the point. It is the
+folder he opens, it is never committed, and it holds only the change in front of
+him. `docs/screenshots/` is a different thing: images a merged PR body links to.
+Do not confuse them, and do not put review shots there.
+
+Putting the shots anywhere he has not checked out is the same as not showing
+him: his working tree is usually on another branch entirely.
 
 Screenshot the page and look at it yourself first. Never judge a layout from the
 classes you just wrote — and never describe it to him instead of showing it.
