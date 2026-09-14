@@ -42,7 +42,7 @@ export function LegalDoc({
   children: ReactNode;
 }) {
   return (
-    <main className="px-5 pt-[clamp(48px,6vw,96px)] sm:px-8 lg:px-16">
+    <main className="px-5 pt-[clamp(108px,11vw,140px)] sm:px-8 lg:px-16">
       <header className="border-line mx-auto max-w-300 border-b pb-[clamp(40px,5vw,72px)]">
         <p className="text-ink-3 text-[14px]">{eyebrow}</p>
         <h1 className="mt-4 max-w-[12em] text-[30px] tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
@@ -59,7 +59,7 @@ export function LegalDoc({
       </header>
 
       <div className="mx-auto grid max-w-300 gap-8 pt-[clamp(40px,5vw,72px)] pb-[clamp(64px,8vw,120px)] lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-[clamp(32px,6vw,96px)]">
-        <nav className="grid content-start gap-1 self-start text-[14px] [counter-reset:toc] lg:sticky lg:top-22">
+        <nav className="grid content-start gap-1 self-start text-[14px] [counter-reset:toc] lg:sticky lg:top-26">
           <p className="text-ink-3 mb-3 text-[14px]">Contents</p>
           {sections.map(([id, label]) => (
             <a

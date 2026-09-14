@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Loader2, MailCheck } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
-import { AuthShell } from "@/features/auth/components/AuthShell";
+import { AuthShell } from "@/app/(auth)/_sections/auth-shell";
 import { AuthError, SetupNotice } from "@/features/auth/components/AuthBits";
 import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";

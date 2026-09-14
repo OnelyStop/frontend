@@ -8,7 +8,7 @@ import {
   hasPendingCodeExchange,
   type AuthUrlError,
 } from "@/lib/supabase";
-import { AuthShell } from "@/features/auth/components/AuthShell";
+import { AuthShell } from "@/app/(auth)/_sections/auth-shell";
 import { AuthError } from "@/features/auth/components/AuthBits";
 import { takeStashedAnswers } from "@/features/onboarding/answers";
 import { Button, Field, Input } from "@/design-system";

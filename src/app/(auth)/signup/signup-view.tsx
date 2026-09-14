@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import { MailCheck } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useEnabledProviders } from "@/features/auth/hooks/useEnabledProviders";
-import { AuthShell } from "@/features/auth/components/AuthShell";
+import { AuthShell } from "@/app/(auth)/_sections/auth-shell";
 import { GoogleButton, SetupNotice } from "@/features/auth/components/AuthBits";
+import { Koala } from "@/features/auth/components/Koala";
 import { PasswordChecklist } from "@/features/auth/components/PasswordChecklist";
 import {
   MIN_PASSWORD_LENGTH,
@@ -47,12 +48,33 @@ export function SignupView() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
+  const [focused, setFocused] = useState<"text" | "password" | null>(null);
+  const [waving, setWaving] = useState(true);
+  const [climbing, setClimbing] = useState(false);
 
   useEffect(() => {
     if (user) router.replace("/today");
   }, [user, router]);
 
+  // One hello per visit, same as the login teddy.
+  useEffect(() => {
+    const t = setTimeout(() => setWaving(false), 1650);
+    return () => clearTimeout(t);
+  }, []);
+
   const index = STEPS.indexOf(at);
+  const [prevIndex, setPrevIndex] = useState(index);
+  if (index !== prevIndex) {
+    setPrevIndex(index);
+    setClimbing(true);
+  }
+
+  // Matches the rail's 1.4s slide, so the hands stop moving when the koala arrives.
+  useEffect(() => {
+    if (!climbing) return;
+    const t = setTimeout(() => setClimbing(false), 1400);
+    return () => clearTimeout(t);
+  }, [climbing, index]);
   const set = <K extends keyof Answers>(key: K, value: Answers[K]) =>
     setAnswers((prev) => ({ ...prev, [key]: value }));
 
@@ -116,11 +138,30 @@ export function SignupView() {
     );
   }
 
+  const typed = at === "name" ? answers.name : email;
   const shell = {
     step: index + 1,
     total: STEPS.length,
     onBack: index > 0 ? () => go(-1) : undefined,
     error,
+    hanger: (
+      <Koala
+        mode={
+          focused === "password"
+            ? "password"
+            : focused === "text"
+              ? "email"
+              : "idle"
+        }
+        waving={waving}
+        climbing={climbing}
+        lookX={
+          // Aim from the koala's spot on the rail toward the centred input, drifting a touch as the text grows.
+          (0.5 - (index + 0.5) / STEPS.length) * 4 +
+          (Math.min(typed.length, 24) / 24 - 0.5) * 0.4
+        }
+      />
+    ),
   };
   const signIn = (
     <>
@@ -199,6 +240,8 @@ export function SignupView() {
           autoFocus
           value={answers.name}
           onChange={(e) => set("name", e.target.value)}
+          onFocus={() => setFocused("text")}
+          onBlur={() => setFocused(null)}
           onKeyDown={(e) => {
             if (e.key === "Enter" && answers.name.trim()) go(1);
           }}
@@ -247,6 +290,8 @@ export function SignupView() {
           autoFocus
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onFocus={() => setFocused("text")}
+          onBlur={() => setFocused(null)}
           onKeyDown={(e) => {
             if (e.key === "Enter" && email.includes("@")) go(1);
           }}
@@ -300,6 +345,8 @@ export function SignupView() {
           autoFocus
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onFocus={() => setFocused("password")}
+          onBlur={() => setFocused(null)}
           onKeyDown={(e) => {
             if (e.key === "Enter" && ready) void create();
           }}

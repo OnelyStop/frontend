@@ -4,9 +4,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { GA_MEASUREMENT_ID } from "@/config/analytics";
 import { display } from "./fonts";
-import { AppProvider } from "@/context/AppContext";
-import { AuthProvider } from "@/features/auth/AuthContext";
-import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   EXAM_KEYWORDS,
@@ -102,12 +99,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <JsonLd data={ORGANISATION} />
         <JsonLd data={WEBSITE} />
-        <AuthProvider>
-          <AppProvider>
-            <SmoothScroll />
-            {children}
-          </AppProvider>
-        </AuthProvider>
+        {children}
         <Analytics />
         {/* Unset outside production, so previews and local runs do not land in the same property as real traffic. */}
         {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
