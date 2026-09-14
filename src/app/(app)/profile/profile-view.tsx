@@ -1,9 +1,19 @@
 "use client";
 
 import { useApp } from "@/context/AppContext";
-import { ButtonLink, Card, Empty, PageHeader, Stat } from "@/design-system";
-
-import type { ProfileStats } from "@/features/attempts/progress.server";
+import {
+  ButtonLink,
+  Card,
+  Empty,
+  PageHeader,
+  SectionTitle,
+  Stat,
+} from "@/design-system";
+import { SittingCard } from "@/features/attempts/components/SittingCard";
+import type {
+  ProfileStats,
+  RecentAttempt,
+} from "@/features/attempts/progress.server";
 import type { Profile } from "@/features/profile/types";
 
 // toLocaleDateString() formats per runtime locale and mismatches on hydration.
@@ -30,9 +40,11 @@ function fmtDate(iso: string): string {
 export function ProfileView({
   profile,
   stats,
+  recent,
 }: {
   profile: Profile | null;
   stats: ProfileStats;
+  recent: RecentAttempt[];
 }) {
   const { initials } = useApp();
   const board = profile?.examBoard ?? "IBPS PO";
@@ -50,19 +62,19 @@ export function ProfileView({
         }
       />
 
-      <Card className="flex flex-wrap items-center gap-5">
+      <Card tone="ink" className="flex flex-wrap items-center gap-6 px-7 py-8">
         <span
-          className="bg-ink grid size-16 shrink-0 place-items-center rounded-full text-xl text-white"
+          className="text-ink grid size-16 shrink-0 place-items-center rounded-full bg-white text-xl font-semibold"
           aria-hidden
         >
           {initials}
         </span>
         <div className="min-w-50 flex-1">
-          <p className="text-[20px]">
+          <p className="text-[20px] tracking-[-0.02em]">
             {profile?.displayName ?? "Your profile"}
           </p>
-          <p className="text-ink-3 mt-0.5 text-[14px]">{board}</p>
-          <p className="text-ink-3 text-[14px]">
+          <p className="mt-1 text-[13px] text-white/50">{board}</p>
+          <p className="text-[13px] text-white/50">
             {[
               profile?.school,
               profile?.targetYear && `Target ${profile.targetYear}`,
@@ -72,37 +84,49 @@ export function ProfileView({
           </p>
         </div>
         {profile?.bio ? (
-          <p className="border-line text-ink-2 max-w-[46ch] border-l pl-5 text-[14px] leading-relaxed">
+          <p className="max-w-[46ch] border-l border-white/20 pl-6 text-[13.5px] leading-[1.6] text-white/75">
             {profile.bio}
           </p>
         ) : null}
       </Card>
 
       {sittings === 0 ? (
-        <Card className="mt-5" pad={false}>
-          <Empty
-            title="No sittings yet"
-            sub="Your record card fills in from submitted attempts — how many mocks and drills you have sat, your best paper score, and when you last sat one."
-            action={<ButtonLink href="/mocks">Start a mock</ButtonLink>}
-          />
-        </Card>
+        <Empty
+          title="No sittings yet"
+          sub="Your record card fills in from submitted attempts — how many mocks and drills you have sat, your best paper score, and when you last sat one."
+          action={<ButtonLink href="/mocks">Start a mock</ButtonLink>}
+        />
       ) : (
-        <div className="mt-5 grid grid-cols-2 gap-5 lg:grid-cols-4">
-          {[
-            ["Mocks sat", String(stats.mocksSat)],
-            ["Drills sat", String(stats.drillsSat)],
-            [
-              "Best score",
-              stats.bestScore === null ? "—" : stats.bestScore.toFixed(2),
-            ],
-            [
-              "Last sitting",
-              stats.lastSatAt === null ? "—" : fmtDate(stats.lastSatAt),
-            ],
-          ].map(([label, value]) => (
-            <Stat key={label} value={String(value)} label={String(label)} />
-          ))}
-        </div>
+        <>
+          <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
+            {[
+              ["Mocks sat", String(stats.mocksSat)],
+              ["Drills sat", String(stats.drillsSat)],
+              [
+                "Best score",
+                stats.bestScore === null ? "—" : stats.bestScore.toFixed(2),
+              ],
+              [
+                "Last sitting",
+                stats.lastSatAt === null ? "—" : fmtDate(stats.lastSatAt),
+              ],
+            ].map(([label, value]) => (
+              <Stat key={label} value={String(value)} label={String(label)} />
+            ))}
+          </div>
+
+          <SectionTitle
+            className="mt-10"
+            aside={`${sittings} in all · newest first`}
+          >
+            Everything you have sat
+          </SectionTitle>
+          <div className="grid gap-3 lg:grid-cols-2">
+            {recent.map((s) => (
+              <SittingCard key={s.id} sitting={s} />
+            ))}
+          </div>
+        </>
       )}
     </>
   );

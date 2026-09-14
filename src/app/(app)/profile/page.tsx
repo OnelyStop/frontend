@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { db } from "@/db";
-import { getProfileStats } from "@/features/attempts/progress.server";
+import {
+  getProfileStats,
+  listRecentAttempts,
+} from "@/features/attempts/progress.server";
 import { getMyProfile } from "@/features/profile/queries.server";
 import { currentUserId } from "@/lib/auth.server";
 import { ProfileView } from "./profile-view";
@@ -12,10 +15,11 @@ export default async function Page() {
   const userId = await currentUserId();
   if (!userId) redirect("/login?from=/profile");
 
-  const [profile, stats] = await Promise.all([
+  const [profile, stats, recent] = await Promise.all([
     getMyProfile(),
     getProfileStats(db, userId),
+    listRecentAttempts(db, userId, 8),
   ]);
 
-  return <ProfileView profile={profile} stats={stats} />;
+  return <ProfileView profile={profile} stats={stats} recent={recent} />;
 }
