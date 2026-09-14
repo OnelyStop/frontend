@@ -7,7 +7,7 @@ const num = (key: string, fallback: number, min: number, max: number) => {
 
 export const openrouterConfig = {
   baseUrl: str("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"),
-  referer: str("OPENROUTER_REFERER", "https://onelystop.com"),
+  referer: str("OPENROUTER_REFERER", "https://www.onelystop.in"),
   title: str("OPENROUTER_TITLE", "OnelyStop"),
 
   // Never the -contributor tier: it trains on what we send, and we promise not.
