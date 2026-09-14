@@ -2,8 +2,6 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { cn } from "../lib/cn";
 
-// `tone` fills the card when the card itself is what carries the state.
-
 export type CardTone =
   "plain" | "ok" | "warn" | "bad" | "info" | "brand" | "active";
 
@@ -45,7 +43,6 @@ export function Card({
   );
 }
 
-/** Floating surface: menus, palettes, popovers. The only things that lift. */
 export function Popover({
   children,
   label,
@@ -65,7 +62,6 @@ export function Popover({
       aria-label={label}
       style={{ width }}
       className={cn(
-        // text-ink is not optional: a popover opened from the dark frame inherits white otherwise.
         "border-line bg-canvas text-ink shadow-pop absolute top-11 z-50 rounded-[18px] border p-1.5",
         align === "right" ? "right-0" : "left-0",
         className,
@@ -104,7 +100,6 @@ export function MenuRow({
     </>
   );
 
-  // next/link, not an anchor: a menu row that full-reloads the app is not a menu row.
   return href ? (
     <Link
       href={href}

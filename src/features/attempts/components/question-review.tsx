@@ -24,7 +24,6 @@ type Filter = (typeof FILTERS)[number];
 // Twice the drills' 45s/question target, independent of section — a question worth flagging regardless of the answer.
 const SLOW_MS = 90_000;
 
-/** The table-view twin every chart above it needs, so the scorecard is readable without reading a chart. */
 export function QuestionReview({ questions }: { questions: ScoredQuestion[] }) {
   const [filter, setFilter] = useState<Filter>("All");
   const [openId, setOpenId] = useState<string | null>(null);

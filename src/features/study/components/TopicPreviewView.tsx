@@ -9,7 +9,6 @@ const DIFFICULTY_TONE = {
   advanced: "bad",
 } as const;
 
-// What a signed-out visitor sees: the syllabus, not the lesson.
 export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
   const base = `/study/${topic.subject.slug}/${topic.chapter.slug}`;
 

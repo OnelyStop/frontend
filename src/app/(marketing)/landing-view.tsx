@@ -11,7 +11,6 @@ import { Cta } from "./_sections/cta";
 import { MarkingScene } from "./_sections/marking";
 import { Mosaic } from "./_sections/mosaic";
 
-// The date is the point: a pledge that can be quietly edited is not one.
 const PLEDGE_DATED = "5 September 2026";
 
 const GUTTER = "px-5 sm:px-8 lg:px-16";

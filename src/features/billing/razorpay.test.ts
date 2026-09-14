@@ -67,7 +67,6 @@ describe("subscription callback signature", () => {
 });
 
 describe("webhook signature", () => {
-  // Whitespace on purpose: a body that round-trips byte-identically proves nothing.
   const rawBody = '{ "event": "subscription.charged", "payload": { "a": 1 } }';
 
   it("accepts a signature over the raw body", () => {

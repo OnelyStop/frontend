@@ -2,12 +2,9 @@ import { z } from "zod";
 import type { PlanTier } from "./limits";
 import type { Currency } from "./money";
 
-// Client-safe: the pricing grid and checkout import these.
-
 export type BillingInterval = "monthly" | "yearly";
 export type PlanKey = "pro" | "pro_plus" | "school";
 
-/** The tiers you can actually check out; Institute is arranged by contact. */
 export type PaidPlan = Extract<PlanKey, "pro" | "pro_plus">;
 
 export type PlanPrice = {
@@ -15,7 +12,6 @@ export type PlanPrice = {
   interval: BillingInterval;
   currency: Currency;
   amountMinor: number;
-  /** What the price is struck through against, when the plan is on offer. */
   listAmountMinor: number | null;
 };
 
@@ -39,7 +35,6 @@ export const subscriptionCreate = z.object({
   interval: z.enum(["monthly", "yearly"]),
 });
 
-// What Checkout hands back; verified server-side before anything reads it.
 export const checkoutCallback = z.object({
   razorpay_payment_id: z.string().min(1),
   razorpay_subscription_id: z.string().min(1),

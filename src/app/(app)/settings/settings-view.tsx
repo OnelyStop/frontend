@@ -93,7 +93,6 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
         return;
       }
       setState("saved");
-      // The profile is read on the server, so the change shows only after a re-render.
       router.refresh();
       window.setTimeout(() => setState("idle"), 2000);
     } catch {

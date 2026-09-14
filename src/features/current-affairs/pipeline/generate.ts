@@ -24,7 +24,6 @@ import {
 
 const CONCURRENCY = 2;
 
-// Below this the page is fetched; still thin and it is skipped, not sent to an LLM.
 const THIN_SNIPPET_CHARS = 320;
 const MIN_SOURCE_CHARS = 160;
 const MAX_SOURCE_CHARS = 6000;
@@ -50,7 +49,6 @@ export type ArticleOutcome =
 
 export type RunOptions = {
   deps?: Partial<GenerateDeps>;
-  // Stop starting articles after this long; the rest stay `new` for next run.
   deadlineMs?: number;
   rpm?: number;
   now?: () => number;
@@ -62,7 +60,6 @@ export type GenerateResult = GenerateRunRow & {
   expired: number;
 };
 
-// IST day string -> [startUtc, endUtc) covering that day.
 function istDayBounds(day: string): [Date, Date] {
   const start = new Date(`${day}T00:00:00+05:30`);
   const end = new Date(start.getTime() + 86_400_000);

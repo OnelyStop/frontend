@@ -8,7 +8,6 @@ import type { CurrentAffairsQuestion, OptionKey } from "./types";
 
 const LIMIT = 50;
 
-// A revision deck, not the archive: enough to fill a session, not a whole quarter.
 const RECENT_LIMIT = 60;
 
 async function query(day: string): Promise<CurrentAffairsQuestion[]> {
@@ -30,7 +29,6 @@ async function query(day: string): Promise<CurrentAffairsQuestion[]> {
   }));
 }
 
-// A day's set only changes during the evening run, hence the two cache lives.
 const cachedToday = unstable_cache(query, ["current-affairs", "today"], {
   revalidate: 300,
 });

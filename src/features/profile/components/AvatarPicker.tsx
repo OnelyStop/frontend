@@ -4,7 +4,6 @@ import { Check } from "lucide-react";
 import { Avatar } from "@/design-system";
 import { AVATARS, AVATAR_KEYS, type AvatarKey } from "../avatars";
 
-// null is a real choice, not an empty state: it keeps the initials monogram.
 export function AvatarPicker({
   value,
   onChange,

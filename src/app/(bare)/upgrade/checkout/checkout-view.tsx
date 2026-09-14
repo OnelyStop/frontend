@@ -62,7 +62,6 @@ type Step =
 const POLL_MS = 2000;
 const POLL_TRIES = 15;
 
-/** What the money buys, in the order it matters. Named against the free plan, because that is what the reader is leaving. */
 function included(plan: PaidPlan): string[] {
   const l = PLAN_LIMITS[plan];
   const free = PLAN_LIMITS.free;
@@ -76,7 +75,6 @@ function included(plan: PaidPlan): string[] {
   ];
 }
 
-// The app's frame and stage, but no nav or rail — fewer exits on the payment step.
 function Shell({ children }: { children: ReactNode }) {
   return (
     <div className="bg-frame min-h-screen">
@@ -133,7 +131,6 @@ export function CheckoutView({
   plan: PaidPlan;
   interval: BillingInterval;
   prices: PlanPrice[];
-  /** The plan the caller already holds, so the page can name it rather than say "a plan". */
   held: PlanTier | null;
   billingEnabled: boolean;
 }) {

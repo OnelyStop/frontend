@@ -1,4 +1,3 @@
-/** The rules the signup form shows and enforces before it will submit. */
 export type PasswordRule = {
   id: string;
   label: string;
@@ -27,7 +26,6 @@ export const PASSWORD_RULES: PasswordRule[] = [
   {
     id: "symbol",
     label: "One special character",
-    // Anything that is not a letter, a digit or whitespace.
     test: (v) => /[^\p{L}\p{N}\s]/u.test(v),
   },
 ];

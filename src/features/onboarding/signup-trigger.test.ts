@@ -6,7 +6,6 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 const MIGRATIONS = join(import.meta.dirname, "..", "..", "migrations");
 
-/** The real auth.users shape the trigger reads, plus every migration in order. */
 async function freshDb() {
   const client = new PGlite();
   await client.exec(`

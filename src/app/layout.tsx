@@ -30,7 +30,6 @@ export const metadata: Metadata = {
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
-  // Indian phone-shaped numbers in mark schemes should not become tel: links.
   formatDetection: { telephone: false, address: false, email: false },
   // No canonical or og:url here — metadata is inherited, so every page would claim to be the home page.
   robots: {
@@ -58,7 +57,6 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // The frame is black, so a white browser chrome above it reads as a rendering fault.
   themeColor: "#131316",
   colorScheme: "light",
 };

@@ -116,7 +116,6 @@ export const topics = pgTable(
   (t) => [
     unique("topics_chapter_id_slug_key").on(t.chapterId, t.slug),
     index("topics_chapter_id_idx").on(t.chapterId),
-    // The reader resolves a topic by slug alone; the rest of the URL is presentation.
     uniqueIndex("topics_slug_key").on(t.slug),
     check(
       "topics_difficulty_check",

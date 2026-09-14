@@ -4,7 +4,6 @@ import { describe, expect, it } from "vitest";
 
 const MIGRATIONS = join(import.meta.dirname, "..", "migrations");
 
-// The only two tables supabase-js queries by name; everything else goes through drizzle.
 const REACHED_BY_POSTGREST = new Set(["user_roles", "role_permissions"]);
 
 function sql(): string {
@@ -33,7 +32,6 @@ function policies(text: string): Policy[] {
   return out;
 }
 
-// Net of both: reading only the GRANTs reports privileges a REVOKE took back.
 function grants(text: string): Set<string> {
   const grant =
     /GRANT\s+([\w\s,]+?)\s+ON\s+((?:"[^"]+"|[\w.]+))\s+TO\s+((?:"[^"]+"|\w+)(?:\s*,\s*(?:"[^"]+"|\w+))*)/gi;
@@ -150,7 +148,6 @@ describe("least privilege", () => {
   });
 });
 
-// Drizzle is forward-only: a hand-written rollback that is missing is found mid-incident.
 describe("rollbacks", () => {
   const forward = () =>
     readdirSync(MIGRATIONS)
@@ -164,7 +161,6 @@ describe("rollbacks", () => {
     expect(forward().filter((f) => !back.has(f))).toEqual([]);
   });
 
-  // A blank file passed the check above, which is how you find one mid-incident.
   it("say something, rather than being an empty file", () => {
     const empty = forward().filter(
       (f) =>
@@ -174,7 +170,6 @@ describe("rollbacks", () => {
     expect(empty).toEqual([]);
   });
 
-  // A rollback that drops a table takes the data with it, and should say so.
   it("warn when they destroy data", () => {
     const silent = forward().filter((f) => {
       const body = readFileSync(join(MIGRATIONS, "rollback", f), "utf8");
@@ -186,7 +181,6 @@ describe("rollbacks", () => {
   });
 });
 
-// Two branches can each claim 0003 under different names and still merge cleanly.
 describe("migration numbering", () => {
   const forward = () =>
     readdirSync(MIGRATIONS)

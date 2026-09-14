@@ -170,7 +170,6 @@ export function PlanCard({
   actions?: ReactNode;
   corner?: ReactNode;
   plus?: ReactNode;
-  /** `sm` is for a grid of many; the display title only reads at `lg`, one or two to a row. */
   size?: "sm" | "lg";
   className?: string;
 }) {
@@ -362,10 +361,8 @@ export function DockButton({
   children,
 }: {
   label: string;
-  /** A canvas tint, or omit for the dark add button. */
   tint?: string;
   href?: string;
-  /** The page you are on: white on the frame, so the dock doubles as a where-am-I. */
   current?: boolean;
   onClick?: () => void;
   children: ReactNode;
@@ -444,7 +441,6 @@ export function SpineItem({ children }: { children: ReactNode }) {
 
 export type NoteTint = "yellow" | "blue" | "green" | "pink";
 
-// The paper a note is written on, not a card with a note inside it.
 const NOTE_PAPER: Record<NoteTint, string> = {
   yellow: "bg-[#fdf3c8]",
   blue: "bg-[#d9ecfb]",
@@ -465,7 +461,6 @@ function tiltOf(id: string): number {
 
 const TINTS: NoteTint[] = ["yellow", "blue", "green", "pink"];
 
-// Without a colour every note would be yellow, and a wall of notes reads as one block.
 function tintOf(id: string): NoteTint {
   return TINTS[hashOf(id) % TINTS.length];
 }
@@ -484,7 +479,6 @@ export function NoteCard({
   /** Omit and it is derived from the id, so a page of notes is never one colour. */
   tint?: NoteTint;
   source?: ReactNode;
-  /** The passage the note was written against. */
   quote?: string | null;
   when?: string;
   action?: ReactNode;

@@ -4,7 +4,6 @@ export type AttemptMode = "bank" | "mix" | "paper";
 export type ScoredQuestion = {
   qId: string;
   qNum: number | null;
-  /** A question-bank section label — see SECTION_FROM_DB in data/navigation.ts. */
   section: string;
   topic: string | null;
   stem: string;
@@ -30,9 +29,7 @@ export type SectionResult = {
   skipped: number;
   marksEarned: number;
   marksLost: number;
-  /** Earned minus lost — what the sectional target is compared against. */
   net: number;
-  /** 55% of the section's questions, on the same basis as the paper's target; null off a real paper. */
   target: number | null;
   cleared: boolean;
 };
@@ -44,7 +41,6 @@ export type TopicResult = {
   correct: number;
   accuracy: number;
   avgTimeSec: number;
-  /** Marks forgone on wrong answers on this topic plus their negative-marking penalty. */
   marksLost: number;
 };
 
@@ -78,7 +74,6 @@ export type Scorecard = {
   skipped: number;
   score: number;
   maxScore: number;
-  /** 55% of the paper's questions — our practice benchmark, never a board's published cutoff. */
   target: number | null;
   accuracy: number;
   sections: SectionResult[];
@@ -95,7 +90,6 @@ export type SubmittedAnswer = {
   timeMs: number | null;
 };
 
-/** Where a paused mock left off — `startMockAttempt` returns this instead of a fresh attempt when one is already open. */
 export type ResumeState = {
   answers: Record<string, { chosen: string | null; timeMs: number }>;
   currentSection: string | null;

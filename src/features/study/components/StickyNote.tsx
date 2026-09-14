@@ -2,7 +2,6 @@
 
 import type { NoteColor, StudyNote } from "../types";
 
-// The one source for the four note colours; swatches, chips and cards all read here.
 export const NOTE_SWATCH: Record<NoteColor, string> = {
   yellow: "#facc15",
   blue: "#60a5fa",
@@ -12,7 +11,6 @@ export const NOTE_SWATCH: Record<NoteColor, string> = {
 
 export const NOTE_COLORS = Object.keys(NOTE_SWATCH) as NoteColor[];
 
-// Tilt is derived from the id so it never shifts between renders.
 function tiltOf(id: string): number {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
