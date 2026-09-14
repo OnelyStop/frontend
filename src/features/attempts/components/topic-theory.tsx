@@ -2,7 +2,6 @@ import { ButtonLink, Card, SectionTitle, tintFor } from "@/design-system";
 import { SECTION_FROM_DB, SECTION_KEY } from "@/data/navigation";
 import type { TopicTheory } from "../types";
 
-/** Every subtopic is offered as a chip rather than the card picking one: a question carries only a topic, so the reader is the one who knows which subtopic applied. */
 export function TopicTheorySection({ theory }: { theory: TopicTheory[] }) {
   if (theory.length === 0) return null;
 

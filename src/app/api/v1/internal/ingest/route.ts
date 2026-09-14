@@ -19,5 +19,4 @@ export async function POST(request: Request) {
   }
 }
 
-// Vercel Cron issues GET; accept it too.
 export const GET = POST;

@@ -1,4 +1,3 @@
-// The fill is the same signal the exam switcher dot already carries.
 export const SECTION_TINT = [
   "bg-quant-soft",
   "bg-reasoning-soft",

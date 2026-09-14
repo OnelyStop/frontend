@@ -69,7 +69,6 @@ describe("scoreTotals", () => {
   });
 
   it("computes accuracy against attempted questions, not the full set", () => {
-    // 1 correct out of 1 attempted (the blank doesn't count as a miss).
     const totals = scoreTotals([a({ chosen: "a" }), a({ chosen: null })]);
     expect(totals.accuracy).toBe(100);
   });
@@ -146,7 +145,6 @@ describe("scoreByTopic", () => {
 
   it("ranks marksLost by mark + negative-marking penalty, not by wrong-answer count", () => {
     const byTopic = scoreByTopic([
-      // One high-value wrong answer.
       a({
         topic: "A",
         marks: 2,
@@ -154,7 +152,6 @@ describe("scoreByTopic", () => {
         chosen: "b",
         correct: "a",
       }),
-      // Two low-value wrong answers — more misses, less actually lost.
       a({
         topic: "B",
         marks: 0.5,

@@ -110,7 +110,6 @@ export async function monthlyPostCount(userId: string): Promise<number> {
   return row?.n ?? 0;
 }
 
-/** One doubt and every reply on it, oldest first — the reading order of a thread. */
 export async function getThread(doubtId: string): Promise<DoubtThread | null> {
   const userId = await currentUserId();
 

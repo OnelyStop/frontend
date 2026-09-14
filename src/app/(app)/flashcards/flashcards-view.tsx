@@ -13,7 +13,6 @@ import {
 } from "@/design-system";
 import type { CurrentAffairsQuestion } from "@/features/current-affairs/types";
 
-// The deck was one face for every card; the tone walks so turning one reads as progress.
 const FACE_TONES: EventTone[] = ["info", "brand", "warn", "ok", "english"];
 
 const MONTHS = [
@@ -149,7 +148,6 @@ export function FlashcardsView({
               }
             >
               {shown ? (
-                // The answer is white paper on the panel, so revealing it is a change of surface, not just more text.
                 <div className="bg-canvas rounded-ctl px-4 py-4">
                   <span className="text-ok text-[15px] font-semibold">
                     {card!.options[card!.answer]}

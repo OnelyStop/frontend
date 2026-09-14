@@ -1,4 +1,3 @@
-// Painted the instant a topic link is clicked; mirrors Reader's two columns.
 export default function Loading() {
   return (
     <div className="lg:grid lg:grid-cols-[190px_minmax(0,1fr)] lg:gap-10">

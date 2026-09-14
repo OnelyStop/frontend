@@ -18,7 +18,6 @@ const article = {
   scope: "national",
 } as ArticleRow;
 
-// A fixture: looping over the real list would assert nothing if it were empty.
 const TOPICS = ["Banking & Finance", "Economy", "International"];
 const system = currentAffairsSystem(TOPICS);
 
@@ -83,7 +82,6 @@ describe("McqResponse", () => {
     ).toBe(true);
   });
 
-  // What strict mode actually returns when the item is not relevant.
   it("accepts an irrelevant verdict with the other fields sent as null", () => {
     expect(
       McqResponse.safeParse({

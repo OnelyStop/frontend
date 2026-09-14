@@ -8,7 +8,6 @@ type Entry = {
   priority: number;
 };
 
-// Only pages that are public, indexable and worth a crawl budget.
 const STATIC_PAGES: Entry[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/study", changeFrequency: "weekly", priority: 0.9 },
@@ -20,7 +19,6 @@ const STATIC_PAGES: Entry[] = [
 
 export const revalidate = 3600;
 
-// No lastModified: nothing records when content changed, and a stamp that moves every revalidate teaches Google to ignore the field.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // A failed read must not take the whole sitemap down with it.
   const [subjects, topics] = await Promise.all([

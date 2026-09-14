@@ -21,7 +21,6 @@ import { authenticatedRole } from "drizzle-orm/supabase";
 
 export const attemptMode = pgEnum("attempt_mode", ["bank", "mix", "paper"]);
 
-// paper_id is the source data's own stable natural key, so it's the primary key here too.
 export const papers = pgTable(
   "papers",
   {
@@ -32,11 +31,8 @@ export const papers = pgTable(
     year: integer("year"),
     shift: text("shift"),
     memoryBased: boolean("memory_based").notNull().default(false),
-    // Lowercased [bank, role, examType, year, shift].join("|") — groups every recall of the same sitting.
     examKey: text("exam_key").notNull(),
-    // The one paper of its examKey that mocks/past-papers should offer, computed at import time.
     isCanonical: boolean("is_canonical").notNull().default(true),
-    // Not in the source JSON; left null rather than invented — a mock falls back to a duration heuristic.
     durationMin: integer("duration_min"),
     totalMarks: integer("total_marks"),
     sectionTiming: jsonb("section_timing"),
@@ -55,7 +51,6 @@ export const papers = pgTable(
   ],
 ).enableRLS();
 
-// direction_id (d001..d030) is only unique *within* a paper, so the primary key is the pair — see bankQuestions' FK.
 export const directions = pgTable(
   "directions",
   {
@@ -86,7 +81,6 @@ export const bankQuestions = pgTable(
       .references(() => papers.paperId, { onDelete: "cascade" }),
     qNum: integer("q_num").notNull(),
     stem: text("stem").notNull(),
-    // Keyed a-e, not an array — `answer` stores the matching key, so 4- and 5-option papers need no branching.
     options: jsonb("options").$type<Record<string, string>>().notNull(),
     // Null on every row today — pipeline step 4 (answer) has never run; the column exists for when it does.
     answer: char("answer", { length: 1 }),
@@ -99,7 +93,6 @@ export const bankQuestions = pgTable(
     negativeMarks: numeric("negative_marks", { precision: 4, scale: 2 })
       .notNull()
       .default("0.25"),
-    // Computed at import time (generate.py::content_key, ported in import-rules.ts); indexed, not unique.
     contentHash: text("content_hash").notNull(),
     isActive: boolean("is_active").notNull().default(true),
   },
@@ -136,23 +129,17 @@ export const attempts = pgTable(
       .defaultNow(),
     submittedAt: timestamp("submitted_at", { withTimezone: true }),
     score: numeric("score", { precision: 6, scale: 2 }),
-    // Chosen by the server at start; grading never leaves it, so empty grades nothing.
     servedQIds: text("served_q_ids")
       .array()
       .notNull()
       .default(sql`'{}'`),
-    // The subject of the section a mock is paused in; null once submitted, since sections are one-way.
     currentSection: text("current_section"),
-    // Subjects whose clock has already run out or been submitted — resume can't reopen them.
     lockedSections: text("locked_sections")
       .array()
       .notNull()
       .default(sql`'{}'`),
-    // Ms left on currentSection's clock as of the last checkpoint; null means the full section duration.
     sectionRemainingMs: integer("section_remaining_ms"),
-    // Set once at start (or restart) and never changed — a resumed attempt keeps whatever mode it began in.
     examMode: boolean("exam_mode").notNull().default(false),
-    // Window-switch strikes in exam mode; three ends the attempt immediately. Unused outside exam mode.
     flagCount: integer("flag_count").notNull().default(0),
   },
   (t) => [
@@ -188,7 +175,6 @@ export const attemptAnswers = pgTable(
     unique("attempt_answers_attempt_id_q_id_key").on(t.attemptId, t.qId),
     index("attempt_answers_attempt_id_idx").on(t.attemptId),
 
-    // Ownership isn't a column here — it's read off the parent attempt, the one place that decides whose row this is.
     pgPolicy("signed-in users can read their own attempt answers", {
       for: "select",
       to: authenticatedRole,
@@ -197,7 +183,6 @@ export const attemptAnswers = pgTable(
   ],
 ).enableRLS();
 
-// Natural key, not a surrogate one — the upsert is one statement against one row per (user, topic).
 export const userTopicStats = pgTable(
   "user_topic_stats",
   {
@@ -209,7 +194,6 @@ export const userTopicStats = pgTable(
   },
   (t) => [
     primaryKey({ columns: [t.userId, t.topic] }),
-    // No stored `accuracy` — correct::numeric / nullif(attempted, 0) in the query can't drift from its counters.
 
     pgPolicy("signed-in users can read their own topic stats", {
       for: "select",
@@ -219,16 +203,13 @@ export const userTopicStats = pgTable(
   ],
 ).enableRLS();
 
-// Notes (knowledge base) imported from bank_exam/notes's JSON, never written by hand — one row per (section, topic, subtopic).
 export const notes = pgTable(
   "notes",
   {
-    // The source's own natural key ("Section::Topic::subtopic_key"), stable across re-imports.
     noteId: text("note_id").primaryKey(),
     section: text("section").notNull(),
     topic: text("topic").notNull(),
     subtopic: text("subtopic"),
-    // Curriculum order imported one-way from bank_exam's topic_taxonomy.json and each topic's subtopics[] array.
     topicTitle: text("topic_title").notNull(),
     topicOrder: integer("topic_order").notNull(),
     subtopicOrder: integer("subtopic_order").notNull(),
@@ -262,7 +243,6 @@ export const notes = pgTable(
       .$type<{ problem: string; steps: string[]; answer: string }[]>()
       .notNull()
       .default([]),
-    // Points at bankQuestions.qId, not a real FK — notes and questions import on two separate schedules.
     relatedQuestionIds: jsonb("related_question_ids")
       .$type<string[]>()
       .notNull()

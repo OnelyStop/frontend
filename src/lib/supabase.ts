@@ -27,7 +27,6 @@ function readError(raw: string): AuthUrlError | null {
   if (!error) return null;
   return {
     code: params.get("error_code") ?? error,
-    // URLSearchParams already turns "+" back into spaces
     description:
       params.get("error_description") ?? "The link could not be verified.",
   };
@@ -42,7 +41,6 @@ export function hasPendingCodeExchange(): boolean {
   return new URLSearchParams(initialQuery).has("code");
 }
 
-// Lets the UI hide OAuth buttons that would only error out.
 export async function fetchEnabledProviders(): Promise<{ google: boolean }> {
   if (!isSupabaseConfigured) return { google: false };
   try {

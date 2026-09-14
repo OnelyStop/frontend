@@ -26,7 +26,6 @@ export function ExamModePrompt({
 }: {
   paperTitle: string;
   mins: number;
-  /** True when this prompt precedes a "start over" that will discard an existing paused attempt. */
   discardsProgress: boolean;
   onChoose: (examMode: boolean) => void;
   onCancel: () => void;

@@ -85,7 +85,6 @@ export async function POST(request: NextRequest) {
         error.kind === "unauthorized" ? "not_configured" : error.kind;
       return NextResponse.json({ error: code }, { status });
     }
-    // A reply that parses as JSON but not as a marking would otherwise be silent.
     captureError(error, { route: "descriptive", taskId: task.id });
     return NextResponse.json({ error: "upstream" }, { status: 502 });
   }

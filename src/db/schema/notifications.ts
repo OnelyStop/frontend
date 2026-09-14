@@ -29,7 +29,6 @@ export const notifications = pgTable(
     kind: notificationKind("kind").notNull(),
     title: text("title").notNull(),
     body: text("body"),
-    // Where the notification takes you; nullable so a system notice can be inert.
     href: text("href"),
     readAt: timestamp("read_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -37,7 +36,6 @@ export const notifications = pgTable(
       .defaultNow(),
   },
   (t) => [
-    // The bell only ever asks for one user's unread, newest first.
     index("notifications_unread_idx")
       .on(t.userId, t.createdAt.desc())
       .where(sql`${t.readAt} is null`),

@@ -29,7 +29,6 @@ import {
 } from "@/features/community/hooks";
 import type { Doubt, Sort } from "@/features/community/types";
 
-// Each section keeps one fill, so a mixed feed is scannable by colour.
 const SECTION_TONE: Record<string, EventTone> = {
   quant: "info",
   reasoning: "brand",

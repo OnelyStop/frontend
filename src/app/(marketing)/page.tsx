@@ -28,7 +28,6 @@ export default async function Page() {
     applicationCategory: "EducationalApplication",
     operatingSystem: "Web",
     publisher: { "@id": `${SITE_URL}/#organisation` },
-    // The free plan is a product fact, not a fetched price — it never expires.
     offers: {
       "@type": "Offer",
       price: "0",

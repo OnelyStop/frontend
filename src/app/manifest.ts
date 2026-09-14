@@ -1,13 +1,11 @@
 import type { MetadataRoute } from "next";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from "@/config/site";
 
-// Installable, and the icons here are what an Android home screen uses — the SVG alone is not enough.
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: `${SITE_NAME} — ${SITE_TAGLINE}`,
     short_name: SITE_NAME,
     description: SITE_DESCRIPTION,
-    // Opens on the plan, not the marketing page: anyone installing this has an account.
     start_url: "/today",
     display: "standalone",
     orientation: "portrait",

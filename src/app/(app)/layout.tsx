@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-// The bell reads on every route, which is why the count is a partial-index scan.
 export default async function Layout({
   children,
 }: {

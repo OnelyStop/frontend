@@ -31,12 +31,10 @@ const ACC_LINE = 70;
 
 const SKIP_LIST_SHOWN = 5;
 
-// The bank stores one-word sections; anything outside that vocabulary shows as stored.
 function sectionLabel(section: string) {
   return SECTION_LABEL[SECTION_FROM_DB[section]] ?? section;
 }
 
-// Six full section names in one Segmented wrap to a second line and stretch the control across the page.
 function sectionShort(section: string) {
   return SECTION_SHORT[SECTION_FROM_DB[section]] ?? section;
 }
@@ -54,7 +52,6 @@ function topicId(t: TopicMapRow) {
 
 type Zone = "first" | "iftime" | "fix" | "skip";
 
-// `tone` names both the pill and the card fill, so a verdict looks the same wherever it is shown.
 const ZONES: Record<
   Zone,
   {
@@ -118,7 +115,6 @@ function zoneOf(t: TopicMapRow): Zone {
   return "skip";
 }
 
-/** Marks per attempt at this accuracy, after negative marking takes its share. */
 function expected(t: TopicMapRow) {
   const a = t.accuracy / 100;
   return a - (1 - a) * NEGATIVE_MARK;
@@ -129,7 +125,6 @@ function rate(t: TopicMapRow) {
   return t.avgSec > 0 ? (expected(t) / t.avgSec) * 60 : 0;
 }
 
-// Plot padding, so a dot at 0 or 100 is not half outside the frame.
 const PAD = 7;
 const y = (accPct: number) => PAD + (accPct / 100) * (100 - PAD * 2);
 
@@ -149,7 +144,6 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
 
   const sub = `${board} · last 30 days. Every topic placed by the accuracy you answer it with against the seconds it costs you. With −${NEGATIVE_MARK} for a wrong answer, the bottom-right corner takes marks off you.`;
 
-  // Only sections that actually have topics, in the exam's own section order.
   const sections = useMemo(() => {
     const present = new Set(topics.map((t) => t.section));
     return [
@@ -188,7 +182,6 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
     };
   }, [shown]);
 
-  // The x axis stretches to the slowest topic; a fixed ceiling would stack every slow topic on one edge pixel.
   const axisMax = Math.max(
     AXIS_MIN,
     Math.ceil(stats.slowest / AXIS_STEP) * AXIS_STEP,
@@ -405,7 +398,6 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                   const id = topicId(t);
                   const isOpen = open ? topicId(open) === id : false;
                   const isFocus = focus ? topicId(focus) === id : false;
-                  // Bubble size is volume: a big slow bubble is a bigger problem.
                   const r = Math.round(14 + (t.attempted / stats.widest) * 16);
                   return (
                     <button
@@ -590,7 +582,6 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                   % accurate, so nothing lands in the skip corner.
                 </p>
               ) : (
-                // Each topic is white paper on the tint: a list of bare rows on one fill was the flat block.
                 <ol className="grid gap-2">
                   {skipList.map((t, i) => (
                     <li key={topicId(t)}>

@@ -28,7 +28,6 @@ describe("currency from host", () => {
     }
   });
 
-  // Pinned by default, or the landing page is a function invocation — and a cold start — per visitor.
   it("only reads the host when SITE_CURRENCY says host", async () => {
     const load = async (value?: string) => {
       vi.resetModules();

@@ -1,4 +1,3 @@
-// Every route under (app): without it App Router holds the old page until the server answers.
 export default function Loading() {
   return (
     <div className="animate-pulse" aria-hidden>

@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-// Up to three columns of cards on the stage; the frame and rail live in AppLayout.
-
 export function Canvas({
   children,
   mid,
@@ -10,13 +8,10 @@ export function Canvas({
   className,
 }: {
   children: ReactNode;
-  /** Middle column — search, figures, secondary cards. */
   mid?: ReactNode;
-  /** Right column — what happens next. */
   aside?: ReactNode;
   className?: string;
 }) {
-  // Columns collapse rather than shrink: a card below ~380px stops being readable.
   const cols = aside
     ? mid
       ? "xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_384px]"

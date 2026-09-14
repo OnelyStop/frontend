@@ -5,7 +5,6 @@ import { NotesView } from "./notes-view";
 
 export const metadata: Metadata = { title: "Notes" };
 
-// Same reasoning as mocks/page.tsx — force-dynamic defers the query to request time.
 export const dynamic = "force-dynamic";
 
 export default async function Page() {

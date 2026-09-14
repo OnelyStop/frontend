@@ -13,7 +13,6 @@ const client = postgres(process.env.DATABASE_URL!, {
   prepare: false,
   // Fluid reuses instances, so postgres.js's default 10 becomes 10 per warm instance.
   max: int("DB_POOL_MAX", 3),
-  // The default is null — an idle connection is held until the instance dies.
   idle_timeout: int("DB_IDLE_TIMEOUT_S", 20),
   max_lifetime: int("DB_MAX_LIFETIME_S", 60 * 30),
   connect_timeout: int("DB_CONNECT_TIMEOUT_S", 10),
@@ -24,5 +23,4 @@ const client = postgres(process.env.DATABASE_URL!, {
 export const db = drizzle(client, { schema });
 export { schema };
 
-// What a data layer accepts: the app client, a transaction, or PGlite in tests.
 export type Db = PgDatabase<PgQueryResultHKT, typeof schema>;
