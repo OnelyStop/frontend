@@ -16,7 +16,6 @@ export const SITE_DESCRIPTION =
 export const EXAM_KEYWORDS = [
   "IBPS PO",
   "IBPS Clerk",
-  "IBPS RRB",
   "SBI PO",
   "SBI Clerk",
   "IBPS RRB",
