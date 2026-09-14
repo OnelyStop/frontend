@@ -35,10 +35,12 @@ export function Modal({
         if (e.target === e.currentTarget) onClose();
       }}
     >
+      {/* data-lenis-prevent: Lenis owns the wheel on window, so without it a tall modal only scrolls by dragging its bar. */}
       <div
         role="dialog"
         aria-modal
         aria-label={label}
+        data-lenis-prevent
         className={cn(
           "pop-in border-line bg-canvas shadow-pop relative max-h-[85vh] max-w-full rounded-[24px] border",
           className,

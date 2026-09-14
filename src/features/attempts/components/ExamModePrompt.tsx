@@ -11,6 +11,9 @@ const DOS = [
   "Treat every submitted section as final, because in here it is.",
 ];
 
+const SCROLL =
+  "min-h-0 flex-1 overflow-y-auto overscroll-contain p-7 pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
+
 const DONTS = [
   "Don't switch tabs or apps to check a formula, a message, or the time.",
   "Don't exit full screen to glance at anything — the hall doesn't let you either.",
@@ -36,7 +39,7 @@ export function ExamModePrompt({
     <Modal
       label="Exam conditions"
       onClose={onCancel}
-      className="w-125 overflow-y-auto p-7"
+      className="flex w-125 flex-col overflow-hidden"
     >
       <button
         onClick={onCancel}
@@ -47,7 +50,7 @@ export function ExamModePrompt({
       </button>
 
       {step === "choose" ? (
-        <>
+        <div className="p-7">
           <h2 className="max-w-[85%] text-[19px] font-semibold tracking-[-0.02em]">
             How do you want to sit {paperTitle}?
           </h2>
@@ -82,113 +85,119 @@ export function ExamModePrompt({
               </span>
             </button>
           </div>
-        </>
+        </div>
       ) : (
         <>
-          <button
-            type="button"
-            onClick={() => setStep("choose")}
-            className="text-ink-3 hover:text-ink mb-3 inline-flex items-center gap-1.5 text-[13px] transition-colors"
-          >
-            <ArrowLeft size={14} strokeWidth={2} />
-            Back
-          </button>
+          <div className={SCROLL}>
+            <button
+              type="button"
+              onClick={() => setStep("choose")}
+              className="text-ink-3 hover:text-ink mb-3 inline-flex items-center gap-1.5 text-[13px] transition-colors"
+            >
+              <ArrowLeft size={14} strokeWidth={2} />
+              Back
+            </button>
 
-          <h2 className="text-[19px] font-semibold tracking-[-0.02em]">
-            Before you begin — exam mode
-          </h2>
+            <h2 className="text-[19px] font-semibold tracking-[-0.02em]">
+              Before you begin — exam mode
+            </h2>
 
-          <ul className="mt-5 grid gap-4">
-            <li className="flex gap-3">
-              <Clock
-                size={17}
-                strokeWidth={1.75}
-                className="text-ink-3 mt-0.5 shrink-0"
-              />
-              <p className="text-[13.5px] leading-relaxed">
-                Set aside{" "}
-                <span className="font-medium">{mins} minutes, straight</span> —
-                once you begin there's no pausing partway without it costing you
-                a flag. Section timing runs exactly as it does in Normal mode;
-                the mode only changes what happens if you leave the screen.
-              </p>
-            </li>
-            <li className="flex gap-3">
-              <Maximize
-                size={17}
-                strokeWidth={1.75}
-                className="text-ink-3 mt-0.5 shrink-0"
-              />
-              <p className="text-[13.5px] leading-relaxed">
-                The screen locks to full screen. Switching to another tab, app,
-                or window is logged as a flag the moment it happens.
-              </p>
-            </li>
-            <li className="flex gap-3">
-              <Flag
-                size={17}
-                strokeWidth={1.75}
-                className="text-ink-3 mt-0.5 shrink-0"
-              />
-              <p className="text-[13.5px] leading-relaxed">
-                <span className="font-medium">Three flags end it</span> — the
-                attempt is submitted immediately, exactly as it stands at that
-                moment.
-              </p>
-            </li>
-            <li className="flex gap-3">
-              <ShieldOff
-                size={17}
-                strokeWidth={1.75}
-                className="text-ink-3 mt-0.5 shrink-0"
-              />
-              <p className="text-[13.5px] leading-relaxed">
-                <span className="font-medium">
-                  We never use your camera or microphone
-                </span>{" "}
-                — nothing here is recorded, nothing is watched. This runs
-                entirely on your own word, which is exactly why it's worth
-                taking as seriously as the real thing.
-              </p>
-            </li>
-          </ul>
+            <ul className="mt-5 grid gap-4">
+              <li className="flex gap-3">
+                <Clock
+                  size={17}
+                  strokeWidth={1.75}
+                  className="text-ink-3 mt-0.5 shrink-0"
+                />
+                <p className="text-[13.5px] leading-relaxed">
+                  Set aside{" "}
+                  <span className="font-medium">{mins} minutes, straight</span>{" "}
+                  — once you begin there's no pausing partway without it costing
+                  you a flag. Section timing runs exactly as it does in Normal
+                  mode; the mode only changes what happens if you leave the
+                  screen.
+                </p>
+              </li>
+              <li className="flex gap-3">
+                <Maximize
+                  size={17}
+                  strokeWidth={1.75}
+                  className="text-ink-3 mt-0.5 shrink-0"
+                />
+                <p className="text-[13.5px] leading-relaxed">
+                  The screen locks to full screen. Switching to another tab,
+                  app, or window is logged as a flag the moment it happens.
+                </p>
+              </li>
+              <li className="flex gap-3">
+                <Flag
+                  size={17}
+                  strokeWidth={1.75}
+                  className="text-ink-3 mt-0.5 shrink-0"
+                />
+                <p className="text-[13.5px] leading-relaxed">
+                  <span className="font-medium">Three flags end it</span> — the
+                  attempt is submitted immediately, exactly as it stands at that
+                  moment.
+                </p>
+              </li>
+              <li className="flex gap-3">
+                <ShieldOff
+                  size={17}
+                  strokeWidth={1.75}
+                  className="text-ink-3 mt-0.5 shrink-0"
+                />
+                <p className="text-[13.5px] leading-relaxed">
+                  <span className="font-medium">
+                    We never use your camera or microphone
+                  </span>{" "}
+                  — nothing here is recorded, nothing is watched. This runs
+                  entirely on your own word, which is exactly why it's worth
+                  taking as seriously as the real thing.
+                </p>
+              </li>
+            </ul>
 
-          <div className="border-line mt-6 grid gap-4 border-t pt-5 sm:grid-cols-2">
-            <div>
-              <p className="text-ink-3 text-[11.5px] font-semibold tracking-[0.02em] uppercase">
-                Do
-              </p>
-              <ul className="mt-2 grid gap-1.5">
-                {DOS.map((d) => (
-                  <li
-                    key={d}
-                    className="text-ink-2 text-[12.5px] leading-relaxed"
-                  >
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-ink-3 text-[11.5px] font-semibold tracking-[0.02em] uppercase">
-                Don't
-              </p>
-              <ul className="mt-2 grid gap-1.5">
-                {DONTS.map((d) => (
-                  <li
-                    key={d}
-                    className="text-ink-2 text-[12.5px] leading-relaxed"
-                  >
-                    {d}
-                  </li>
-                ))}
-              </ul>
+            <div className="border-line mt-6 grid gap-4 border-t pt-5 sm:grid-cols-2">
+              <div>
+                <p className="text-ink-3 text-[11.5px] font-semibold tracking-[0.02em] uppercase">
+                  Do
+                </p>
+                <ul className="mt-2 grid gap-1.5">
+                  {DOS.map((d) => (
+                    <li
+                      key={d}
+                      className="text-ink-2 text-[12.5px] leading-relaxed"
+                    >
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-ink-3 text-[11.5px] font-semibold tracking-[0.02em] uppercase">
+                  Don't
+                </p>
+                <ul className="mt-2 grid gap-1.5">
+                  {DONTS.map((d) => (
+                    <li
+                      key={d}
+                      className="text-ink-2 text-[12.5px] leading-relaxed"
+                    >
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
 
-          <Button block className="mt-6" onClick={() => onChoose(true)}>
-            Begin in exam mode
-          </Button>
+          {/* Outside the scroll, so the one action on this step is never below the fold. */}
+          <div className="border-line border-t px-7 py-4">
+            <Button block onClick={() => onChoose(true)}>
+              Begin in exam mode
+            </Button>
+          </div>
         </>
       )}
     </Modal>
