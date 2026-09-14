@@ -1,12 +1,8 @@
 import Link from "next/link";
-import { Brand, ButtonLink } from "@/design-system";
 import { SUPPORT_EMAIL } from "@/config/site";
 import { BANKING_EXAMS } from "@/data/navigation";
-
-const NAV = [
-  { href: "#features", label: "Features" },
-  { href: "#pricing", label: "Pricing" },
-];
+import { Brand } from "@/design-system";
+import { MarketingNav } from "./MarketingNav";
 
 const FOOTER_COLS = [
   {
@@ -39,43 +35,13 @@ const FOOTER_COLS = [
 
 export function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-canvas flex min-h-dvh flex-col">
-      <Link
-        href="/signup"
-        className="border-line bg-panel text-ink-2 hover:text-ink flex items-center justify-center gap-1 border-b px-5 py-2.5 text-center text-[14px] transition-colors"
-      >
-        Two full mocks a month are free, forever
-        <span aria-hidden>&nbsp;→</span>
-      </Link>
-
-      {/* Opaque: dark sections scrolling under a translucent bar go muddy. */}
-      <header className="border-line bg-canvas sticky top-0 z-50 flex h-14 items-center gap-10 border-b px-5 sm:px-8 lg:px-16">
-        <Brand href="/" />
-        <nav className="group flex flex-1 gap-6">
-          {NAV.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-ink-2 group-hover:text-ink-3 hover:text-ink! text-[14px] transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <div className="flex items-center gap-2">
-          <ButtonLink href="/login" variant="secondary" size="sm">
-            Log in
-          </ButtonLink>
-          <ButtonLink href="/signup" size="sm">
-            Start free
-          </ButtonLink>
-        </div>
-      </header>
+    <div className="flex min-h-dvh flex-col bg-[#f7f4ee]">
+      <MarketingNav />
 
       {children}
 
-      <footer className="bg-canvas mt-auto px-2 sm:px-3">
-        <div className="bg-ink rounded-t-xl px-6 pt-14 pb-8 text-white sm:px-10 lg:px-14">
+      <footer className="mt-auto bg-[#f7f4ee] px-2 sm:px-3">
+        <div className="bg-frame rounded-t-[28px] px-6 pt-14 pb-8 text-white sm:px-10 lg:px-14">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.3fr)_repeat(2,minmax(0,1fr))] lg:grid-cols-[minmax(0,1.3fr)_repeat(4,minmax(0,1fr))]">
             <div className="max-w-75">
               <Brand className="text-[20px] tracking-[-0.02em]" />
@@ -94,14 +60,14 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                     <Link
                       key={i.label}
                       href={i.href}
-                      className="text-[14px] leading-relaxed text-white/60 transition-colors hover:text-white"
+                      className="text-on-frame-2 text-[14px] leading-relaxed transition-colors hover:text-white"
                     >
                       {i.label}
                     </Link>
                   ) : (
                     <span
                       key={i.label}
-                      className="text-[14px] leading-relaxed text-white/60"
+                      className="text-on-frame-2 text-[14px] leading-relaxed"
                     >
                       {i.label}
                     </span>
@@ -111,8 +77,8 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
             ))}
           </div>
 
-          {/* 1px, not a hairline: a half-pixel white rule disappears here. */}
-          <div className="mt-14 border-t border-white/10 pt-5 text-[12.5px] text-white/50">
+          {/* on-frame-line, not white/10: the frame chrome elsewhere in the app draws its rules that way. */}
+          <div className="border-on-frame-line text-on-frame-2 mt-14 border-t pt-5 text-[12.5px]">
             <p>
               © onelystop {new Date().getFullYear()} · Made for people sitting
               these papers.

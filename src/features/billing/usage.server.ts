@@ -102,6 +102,28 @@ export async function aiCallsThisMonth(
   return Number(row?.n ?? 0);
 }
 
+export type PeriodUsage = Record<QuotaKey, number>;
+
+// Built on the same counters checkQuota enforces with, so what the profile shows cannot drift from what is allowed.
+export async function usageThisPeriod(
+  db: Db,
+  userId: string,
+  now = new Date(),
+): Promise<PeriodUsage> {
+  const [mocks, drills, askOnely, markings] = await Promise.all([
+    attemptsSince(db, userId, startOfIstDay(istMonthStartKey(now)), true),
+    attemptsSince(db, userId, startOfIstDay(istDayKey(now)), false),
+    aiCallsThisMonth(db, userId, "ask_onely", now),
+    aiCallsThisMonth(db, userId, "descriptive_marking", now),
+  ]);
+  return {
+    mocksPerMonth: mocks,
+    drillsPerDay: drills,
+    askOnelyPerMonth: askOnely,
+    descriptiveMarkingsPerMonth: markings,
+  };
+}
+
 // Only after the call succeeds: a failure the user never saw costs them nothing.
 export async function recordAiCall(
   db: Db,

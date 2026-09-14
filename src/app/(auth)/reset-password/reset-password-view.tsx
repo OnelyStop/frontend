@@ -4,7 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
-import { AuthShell } from "@/features/auth/components/AuthShell";
+import { AuthShell } from "@/app/(auth)/_sections/auth-shell";
 import { AuthError, SetupNotice } from "@/features/auth/components/AuthBits";
 import { Button, ButtonLink, Field, Input } from "@/design-system";
 import { getAuthErrorFromUrl, type AuthUrlError } from "@/lib/supabase";

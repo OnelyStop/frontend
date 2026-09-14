@@ -1,4 +1,5 @@
 import { cn } from "@/design-system";
+import { EYEBROW, H2, PANEL, Shell } from "./surface";
 
 type Clause = {
   pre?: string;
@@ -89,23 +90,25 @@ const BANDS = [
 
 export function MarkingScene() {
   return (
-    <section
-      className="marking-scene bg-canvas border-line border-t px-5 py-[clamp(64px,7vw,104px)] sm:px-8 lg:px-16"
-      id="marking"
-    >
-      <div className="mx-auto max-w-300">
-        <header className="mb-12 grid items-start gap-x-[clamp(32px,6vw,96px)] gap-y-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
-          <h2 className="max-w-[13em] text-[30px] tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
-            Four bands, weighted — and your own words quoted back
-          </h2>
-          <p className="text-ink-2 max-w-[38ch] text-[18px] leading-relaxed text-pretty lg:pt-1 lg:text-[19px]">
+    <Shell tone="bg-[#f5d9c6]" id="marking" className="marking-scene">
+      <div className="px-4 py-12 sm:px-10 lg:px-14 lg:py-16">
+        <header className="mb-10 grid items-end gap-x-[clamp(32px,6vw,96px)] gap-y-5 px-2 sm:px-0 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+          <div>
+            <p className={cn(EYEBROW, "text-[#7a4630]/75")}>
+              Descriptive marking
+            </p>
+            <h2 className={cn(H2, "mt-5 max-w-[16ch]")}>
+              Four bands, weighted, and your own words quoted back
+            </h2>
+          </div>
+          <p className="max-w-[40ch] text-[16px] leading-relaxed text-pretty text-[#5b3a2b] lg:text-[17px]">
             A descriptive letter, marked. The examiner scores content,
             organisation, language and format; every fix in the margin quotes
             the line it came from and gives you the replacement.
           </p>
         </header>
 
-        <div className="bg-canvas border-line overflow-hidden rounded-[20px] border">
+        <div className={cn(PANEL, "overflow-hidden bg-white")}>
           <div className="relative isolate px-6 pt-8 pb-12 sm:px-10">
             <div className="script-grain pointer-events-none absolute inset-0 -z-1 opacity-[0.035]" />
 
@@ -175,7 +178,7 @@ export function MarkingScene() {
           </div>
 
           {/* The fold: a perforated rule, not a border. */}
-          <div className="bg-panel relative px-6 py-10 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-[repeating-linear-gradient(to_right,var(--color-line-2)_0_6px,transparent_6px_13px)] before:content-[''] sm:px-10">
+          <div className="relative bg-[#fbf6f1] px-6 py-10 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-[repeating-linear-gradient(to_right,var(--color-line-2)_0_6px,transparent_6px_13px)] before:content-[''] sm:px-10">
             <span className="text-ink-3 absolute top-0 left-6 text-[12.5px] sm:left-10">
               The band sheet, held back until you&rsquo;ve answered
             </span>
@@ -242,7 +245,7 @@ export function MarkingScene() {
           </div>
         </div>
       </div>
-    </section>
+    </Shell>
   );
 }
 
