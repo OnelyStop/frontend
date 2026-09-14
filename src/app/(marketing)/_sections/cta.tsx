@@ -1,40 +1,85 @@
 import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/design-system";
 
-const DOT_FIELD: React.CSSProperties = {
-  backgroundImage:
-    "radial-gradient(circle at center, rgb(10 10 10 / 0.16) 1px, transparent 1.6px)",
-  backgroundSize: "10px 10px",
-  maskImage:
-    "linear-gradient(to right, #000 0%, transparent 36%, transparent 64%, #000 100%), linear-gradient(to bottom, transparent 0%, #000 24%, #000 76%, transparent 100%)",
-  maskComposite: "intersect",
-  WebkitMaskComposite: "source-in",
-};
+const STROKES = [
+  { d: "M-40 250C120 150 260 230 420 170S700 60 880 130", w: 46 },
+  { d: "M800 150L890 235L1120 -30", w: 56 },
+  { d: "M660 340C800 250 980 300 1260 170", w: 38 },
+];
+
+function Brush() {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 1200 300"
+      preserveAspectRatio="xMidYMid slice"
+      className="pointer-events-none absolute inset-0 size-full"
+    >
+      <defs>
+        {/* Displacing a clean round stroke by a little noise is what makes it read as a brush, not a vector line. */}
+        <filter id="cta-brush" x="-5%" y="-20%" width="110%" height="140%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.045"
+            numOctaves="2"
+            seed="4"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            scale="12"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </defs>
+      <g
+        filter="url(#cta-brush)"
+        fill="none"
+        stroke="white"
+        strokeOpacity="0.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {STROKES.map(({ d, w }) => (
+          <path key={d} d={d} strokeWidth={w} />
+        ))}
+      </g>
+    </svg>
+  );
+}
 
 export function Cta() {
   return (
-    <section className="bg-canvas pt-0! pb-[clamp(56px,7vw,104px)]">
-      <div className="relative mx-auto max-w-300 overflow-hidden px-5 py-[clamp(36px,4vw,56px)] sm:px-6">
+    <section className="px-2 py-[clamp(40px,5vw,72px)] sm:px-3">
+      <div className="shadow-lift relative mx-auto max-w-300 overflow-hidden rounded-[28px] bg-[#c6c0f3] sm:rounded-[32px]">
+        <Brush />
         <div
-          className="pointer-events-none absolute inset-0"
-          style={DOT_FIELD}
           aria-hidden
+          className="script-grain pointer-events-none absolute inset-0 opacity-[0.25] mix-blend-soft-light"
         />
-        <div className="relative z-1 text-center">
-          <h2 className="mx-auto max-w-[16em] text-[30px] leading-tight tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
-            Sit your first mock.
-          </h2>
-          <p className="text-ink-2 mx-auto mt-5 max-w-[46ch] text-[18px] leading-relaxed">
-            Free to start, no card. Two full mocks a month under real sectional
-            timing.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
+
+        <div className="relative flex flex-col gap-8 px-7 py-10 sm:px-12 sm:py-14 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="text-ink text-[clamp(32px,4vw,48px)] leading-[1.05] font-medium tracking-[-0.03em]">
+              Sit your first mock
+            </h2>
+            <p className="mt-3 text-[17px] text-[#3b3566] sm:text-[19px]">
+              Free to start. No card required.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3 md:flex-col md:items-stretch">
+            <ButtonLink
+              href="#pricing"
+              size="lg"
+              variant="secondary"
+              className="text-ink border-white/70 bg-white/60 shadow-[0_6px_20px_rgb(40_30_90/0.14)] backdrop-blur-md hover:bg-white/80"
+            >
+              See pricing
+            </ButtonLink>
             <ButtonLink href="/signup" size="lg">
               Start free
               <ArrowRight size={16} />
-            </ButtonLink>
-            <ButtonLink href="#pricing" size="lg" variant="secondary">
-              See pricing
             </ButtonLink>
           </div>
         </div>

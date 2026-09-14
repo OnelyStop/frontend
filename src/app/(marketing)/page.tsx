@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { requestCurrency } from "@/features/billing/currency";
 import { listPlans } from "@/features/billing/plans.server";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -9,13 +9,33 @@ import { LandingView } from "./landing-view";
 const LANDING_TITLE =
   "Bank exam mocks, drills and descriptive marking — onelystop";
 
-export const metadata: Metadata = {
-  title: { absolute: LANDING_TITLE },
-  description: SITE_DESCRIPTION,
-  alternates: { canonical: "/" },
-  openGraph: { url: SITE_URL, title: LANDING_TITLE },
-  twitter: { title: LANDING_TITLE },
-};
+// Extends the parent rather than setting openGraph outright: metadata merges shallowly, and a plain object here dropped the generated share image.
+export async function generateMetadata(
+  _props: unknown,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const { openGraph, twitter } = await parent;
+  return {
+    title: { absolute: LANDING_TITLE },
+    description: SITE_DESCRIPTION,
+    alternates: { canonical: "/" },
+    openGraph: {
+      type: "website",
+      siteName: openGraph?.siteName,
+      locale: openGraph?.locale,
+      description: openGraph?.description ?? SITE_DESCRIPTION,
+      images: openGraph?.images,
+      url: SITE_URL,
+      title: LANDING_TITLE,
+    },
+    twitter: {
+      card: "summary_large_image",
+      description: twitter?.description ?? SITE_DESCRIPTION,
+      images: twitter?.images,
+      title: LANDING_TITLE,
+    },
+  };
+}
 
 export default async function Page() {
   const currency = await requestCurrency();

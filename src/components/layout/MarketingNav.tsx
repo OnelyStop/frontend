@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import Link from "next/link";
 import { Brand, ButtonLink } from "@/design-system";
 
 const NAV = [
@@ -12,30 +11,18 @@ const NAV = [
   { href: "#faq", label: "FAQ" },
 ];
 
-// Promo strip lives here, not the layout: fixed takes the nav out of flow, so anything above it needs the same fixed stack to stay visible.
+// Fixed, not sticky: sticky still claims a row in flow, which shows as a strip of page above the hero card.
 export function MarketingNav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed inset-x-0 top-0 z-50">
-      <Link
-        href="/signup"
-        className="bg-frame text-on-frame-2 hover:text-on-frame flex items-center justify-center gap-1 px-5 py-2 text-center text-[13.5px] transition-colors"
-      >
-        Two full mocks a month are free, forever
-        <span aria-hidden>&nbsp;→</span>
-      </Link>
-
-      <div className="px-3 pt-3 sm:px-5 sm:pt-4 lg:px-8">
-        {/* Liquid glass: an opaque-enough frosted base to stay legible over both the dark hero and the white sections below it, plus a bright sheen for the shine. */}
-        <div className="bg-canvas/70 shadow-pop rounded-pill relative mx-auto flex h-14 max-w-300 items-center gap-8 overflow-hidden px-4 ring-1 ring-white/80 backdrop-blur-2xl backdrop-saturate-200 ring-inset sm:px-5">
+    <div className="fixed inset-x-0 top-5 z-50">
+      <div className="px-4 sm:px-7 lg:px-10">
+        {/* Dock glass: nearly clear fill with the saturation pushed, so what's behind shows through as colour; the rim and inner highlight give it an edge. */}
+        <div className="relative mx-auto flex h-14 max-w-300 items-center gap-8 overflow-hidden rounded-[22px] border border-white/45 bg-white/25 px-4 shadow-[inset_0_1px_0_rgb(255_255_255/0.6),inset_0_-1px_0_rgb(255_255_255/0.15),0_8px_32px_rgb(30_20_60/0.14)] backdrop-blur-xl backdrop-saturate-[1.8] sm:px-5">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/80 via-white/20 to-transparent"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-1/2 -left-1/4 h-full w-2/3 -rotate-12 bg-gradient-to-b from-white/70 to-transparent blur-md"
+            className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/30 to-transparent"
           />
           <Brand href="/" className="text-ink relative" />
 
@@ -52,6 +39,7 @@ export function MarketingNav() {
           </nav>
 
           <div className="ml-auto hidden items-center gap-2 md:flex">
+            <span aria-hidden className="mr-2 h-7 w-px bg-black/15" />
             <ButtonLink href="/login" variant="ghost" size="sm">
               Log in
             </ButtonLink>

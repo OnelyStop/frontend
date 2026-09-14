@@ -1,9 +1,9 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { Brand, Button } from "@/design-system";
+import { Brand, Button, cn } from "@/design-system";
 
 /** One question, centred on the stage, with a rail that shows how far in you are. */
 export function StepShell({
@@ -18,6 +18,7 @@ export function StepShell({
   busy,
   error,
   footer,
+  hanger,
   children,
 }: {
   step: number;
@@ -32,8 +33,18 @@ export function StepShell({
   busy?: boolean;
   error?: string | null;
   footer?: ReactNode;
+  /** Hangs from the progress rail, beside the question rather than over it. */
+  hanger?: ReactNode;
   children: ReactNode;
 }) {
+  // Derived during render, not in an effect, so the lean is right on the very frame the step changes.
+  const [prevStep, setPrevStep] = useState(step);
+  const [lean, setLean] = useState(0);
+  if (step !== prevStep) {
+    setLean(step > prevStep ? 7 : -7);
+    setPrevStep(step);
+  }
+
   return (
     <div className="bg-stage flex min-h-dvh flex-col px-5 py-6 sm:px-8">
       <header className="flex items-center gap-4">
@@ -58,7 +69,7 @@ export function StepShell({
 
         {/* Segments, not a sliding bar: the count of what is left is the useful fact. */}
         <div
-          className="flex flex-1 items-center gap-1.5"
+          className="relative flex flex-1 items-center gap-1.5"
           role="progressbar"
           aria-valuemin={1}
           aria-valuemax={total}
@@ -73,12 +84,31 @@ export function StepShell({
               }`}
             />
           ))}
+          {hanger ? (
+            <div
+              className="pointer-events-none absolute top-[calc(50%-8px)] z-10 hidden w-36 -translate-x-1/2 transition-[left] duration-[1400ms] ease-[cubic-bezier(0.45,0,0.3,1)] motion-reduce:transition-none lg:block"
+              style={{ left: `${((step - 0.5) / total) * 100}%` }}
+            >
+              <div
+                key={step}
+                className={cn(
+                  "origin-top motion-reduce:animate-none",
+                  lean === 0
+                    ? "animate-[koala-sway_5s_cubic-bezier(0.45,0,0.55,1)_both]"
+                    : "animate-[koala-settle_3.6s_ease-in-out_both]",
+                )}
+                style={{ "--koala-lean": `${lean}deg` } as CSSProperties}
+              >
+                {hanger}
+              </div>
+            </div>
+          ) : null}
         </div>
 
         <Brand href="/" className="text-ink hidden shrink-0 sm:block" />
       </header>
 
-      <div className="flex flex-1 items-center justify-center py-10">
+      <div className="flex flex-1 items-center justify-center py-10 lg:pt-28">
         <div className="w-full max-w-135 text-center">
           <h1 className="text-[26px] leading-[1.16] font-bold tracking-[-0.03em] text-balance sm:text-[32px]">
             {question}

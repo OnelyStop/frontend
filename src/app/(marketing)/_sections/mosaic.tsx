@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/design-system";
+import { EYEBROW, H2, PANEL } from "./surface";
 
 type Tile = {
   title: string;
@@ -70,7 +71,8 @@ const TILES: Tile[] = [
 ];
 
 const MOCK = "mt-5";
-const ROW = "border-line flex items-baseline gap-2 border-b pb-2 text-[12.5px]";
+const ROW =
+  "flex items-baseline gap-2 rounded-[10px] bg-[#f5f3f0] px-2.5 py-1.5 text-[12.5px]";
 
 function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
   if (kind === "band") {
@@ -80,10 +82,10 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
           <span
             key={band}
             className={cn(
-              "flex-1 border-t-2 py-1 text-center text-[13px] font-semibold",
+              "flex-1 rounded-full py-1.5 text-center text-[12.5px] font-semibold",
               band === "Safe"
-                ? "border-brand text-brand"
-                : "border-line text-ink-3",
+                ? "bg-[#d8f0e5] text-[#23634a]"
+                : "text-ink-3 bg-[#f5f3f0]",
             )}
           >
             {band}
@@ -135,10 +137,10 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
           <span
             key={f}
             className={cn(
-              "rounded-md border px-2.5 py-1.5 text-[12.5px]",
+              "rounded-[10px] px-2.5 py-1.5 text-[12.5px]",
               i === 2
-                ? "border-brand bg-brand-soft text-brand"
-                : "border-line text-ink-3",
+                ? "bg-[#e6e2fb] font-medium text-[#4d3f9e]"
+                : "text-ink-2 bg-[#f5f3f0]",
             )}
           >
             {f}
@@ -200,11 +202,14 @@ export function Mosaic() {
       id="features"
     >
       <div className="mx-auto max-w-300">
-        <header className="mb-[clamp(32px,4.5vw,64px)] grid items-start gap-x-[clamp(32px,6vw,96px)] gap-y-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-          <h2 className="max-w-[13em] text-[30px] tracking-[-0.02em] text-balance md:text-[36px] lg:text-[40px]">
-            The whole of preparation in one tab
-          </h2>
-          <p className="text-ink-2 text-[18px] leading-relaxed lg:text-[19px]">
+        <header className="mb-[clamp(32px,4.5vw,64px)] grid items-end gap-x-[clamp(32px,6vw,96px)] gap-y-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <div>
+            <p className={cn(EYEBROW, "text-ink-3")}>Features</p>
+            <h2 className={cn(H2, "mt-5 max-w-[14ch]")}>
+              The whole of preparation in one tab
+            </h2>
+          </div>
+          <p className="text-ink-2 max-w-[40ch] text-[16px] leading-relaxed lg:text-[17px]">
             Mocks, drills, current affairs, the marker and the community are one
             product, not five apps and five logins.
           </p>
@@ -215,17 +220,18 @@ export function Mosaic() {
             <article
               key={tile.title}
               className={cn(
-                "card card-lift group relative flex flex-col gap-2 overflow-hidden p-6 md:col-span-2",
+                PANEL,
+                "group relative flex flex-col gap-2 overflow-hidden p-6 transition-[transform,box-shadow] duration-300 ease-[var(--ease-soft)] hover:-translate-y-0.5 hover:shadow-[0_2px_4px_rgb(30_30_40/0.06),0_18px_40px_rgb(30_30_40/0.1)] md:col-span-2",
                 "lg:col-(--col) lg:row-(--row)",
               )}
               style={
                 { "--col": tile.col, "--row": tile.row } as React.CSSProperties
               }
             >
-              <h3 className="text-ink-3 text-[16px] font-medium">
+              <h3 className="text-ink text-[17px] font-medium tracking-[-0.01em]">
                 {tile.title}
               </h3>
-              <p className="max-w-[34ch] text-[15px] leading-relaxed">
+              <p className="text-ink-2 max-w-[34ch] text-[14.5px] leading-relaxed">
                 {tile.body}
               </p>
               {tile.mock ? <TileMock kind={tile.mock} /> : null}

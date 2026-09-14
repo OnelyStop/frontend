@@ -5,13 +5,14 @@ import { Loader2 } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useAuthForm } from "@/features/auth/hooks/useAuthForm";
 import { useEnabledProviders } from "@/features/auth/hooks/useEnabledProviders";
-import { AuthShell } from "@/features/auth/components/AuthShell";
+import { AuthShell } from "@/app/(auth)/_sections/auth-shell";
 import {
   AuthDivider,
   AuthError,
   GoogleButton,
   SetupNotice,
 } from "@/features/auth/components/AuthBits";
+import { Teddy, type TeddyMode } from "@/features/auth/components/Teddy";
 import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,10 +23,25 @@ export function LoginView({ from }: { from: string }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [focused, setFocused] = useState<"email" | "password" | null>(null);
+  const [waving, setWaving] = useState(true);
 
   useEffect(() => {
     if (user) router.replace(from);
   }, [user, from, router]);
+
+  // One hello per visit: three swings of the 0.55s wave, then the paw goes down for good.
+  useEffect(() => {
+    const t = setTimeout(() => setWaving(false), 1650);
+    return () => clearTimeout(t);
+  }, []);
+
+  const teddyMode: TeddyMode =
+    focused === "password"
+      ? "password"
+      : focused === "email"
+        ? "email"
+        : "idle";
 
   const { error, setError, busy, handleSubmit } = useAuthForm(
     () => signIn(email, password),
@@ -42,6 +58,13 @@ export function LoginView({ from }: { from: string }) {
     <AuthShell
       title="Welcome back"
       subtitle="Pick up where you left off."
+      mascot={
+        <Teddy
+          mode={teddyMode}
+          waving={waving}
+          lookX={Math.min(email.length, 28) / 14 - 1}
+        />
+      }
       footer={
         <>
           New here?{" "}
@@ -70,6 +93,8 @@ export function LoginView({ from }: { from: string }) {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setFocused("email")}
+              onBlur={() => setFocused(null)}
               required
             />
           </Field>
@@ -81,6 +106,8 @@ export function LoginView({ from }: { from: string }) {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setFocused("password")}
+              onBlur={() => setFocused(null)}
               required
             />
             <div className="mt-2 flex justify-end">

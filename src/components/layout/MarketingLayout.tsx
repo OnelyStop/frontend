@@ -34,12 +34,12 @@ const FOOTER_COLS = [
 
 export function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-canvas flex min-h-dvh flex-col">
+    <div className="flex min-h-dvh flex-col bg-[#f7f4ee]">
       <MarketingNav />
 
       {children}
 
-      <footer className="bg-canvas mt-auto px-2 sm:px-3">
+      <footer className="mt-auto bg-[#f7f4ee] px-2 sm:px-3">
         <div className="bg-frame rounded-t-[28px] px-6 pt-14 pb-8 text-white sm:px-10 lg:px-14">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.3fr)_repeat(2,minmax(0,1fr))] lg:grid-cols-[minmax(0,1.3fr)_repeat(4,minmax(0,1fr))]">
             <div className="max-w-75">

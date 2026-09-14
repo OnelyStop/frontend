@@ -3,21 +3,23 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
-import { useApp } from "@/context/AppContext";
 
 const SCROLL_DURATION = 1.4;
 
 // Exponential ease-out: a linear curve at this duration is what reads as floaty.
 const SCROLL_EASING = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
-// Renders nothing — keeps the root layout a server component.
-export function SmoothScroll() {
-  const { settings } = useApp();
+// Takes the setting as a prop rather than reading app context, so public pages can scroll smoothly without shipping auth.
+export function SmoothScroll({
+  reduceMotion = false,
+}: {
+  reduceMotion?: boolean;
+}) {
   const pathname = usePathname();
 
   useEffect(() => {
     if (
-      settings.reduceMotion ||
+      reduceMotion ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
       return;
@@ -35,7 +37,7 @@ export function SmoothScroll() {
       cancelAnimationFrame(frame);
       lenis.destroy();
     };
-  }, [settings.reduceMotion]);
+  }, [reduceMotion]);
 
   // Lenis owns window scroll, so route changes need an explicit jump to top
   useEffect(() => {
