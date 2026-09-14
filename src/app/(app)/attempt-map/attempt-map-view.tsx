@@ -7,13 +7,13 @@ import { useApp } from "@/context/AppContext";
 import {
   ButtonLink,
   Card,
-  type CardTone,
   Empty,
+  Figure,
   PageHeader,
+  type PillTone,
   SectionTitle,
   Segmented,
   StatusPill,
-  Tile,
 } from "@/design-system";
 import {
   NEGATIVE_MARK,
@@ -61,7 +61,7 @@ const ZONES: Record<
     dot: string;
     ring: string;
     text: string;
-    tone: Extract<CardTone, "ok" | "warn" | "bad" | "brand">;
+    tone: Extract<PillTone, "ok" | "warn" | "bad" | "brand">;
   }
 > = {
   first: {
@@ -261,19 +261,28 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
         }
       />
 
-      <div className="mb-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Tile
+      <div className="mb-10 grid gap-x-8 gap-y-7 sm:grid-cols-2 xl:grid-cols-4">
+        <Figure
           value={`${stats.accuracy}%`}
-          label={`Accuracy · ${stats.correct} of ${stats.attempted}`}
-          tone="info"
-        />
-        <Tile
+          tone={stats.accuracy >= ACC_LINE ? "ok" : "bad"}
+        >
+          {stats.correct} of {stats.attempted} right, against the {ACC_LINE}%
+          line
+        </Figure>
+        <Figure
           value={`${stats.median}s`}
-          label={`Median pace · target ${PACE}s`}
           tone={stats.median <= PACE ? "ok" : "warn"}
-        />
-        <Tile value={String(stats.banked)} label="Bankable topics" tone="ok" />
-        <Tile value={String(stats.skip)} label="On your skip list" outline />
+        >
+          a question at the median, against a {PACE}s budget
+        </Figure>
+        <Figure value={String(stats.banked)} tone="ok">
+          {stats.banked === 1 ? "topic" : "topics"} inside both lines — bank
+          these in the opening minutes
+        </Figure>
+        <Figure value={String(stats.skip)} tone={stats.skip > 0 ? "bad" : "ok"}>
+          {stats.skip === 1 ? "topic" : "topics"} outside both, where the time
+          and the marks go together
+        </Figure>
       </div>
 
       <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_360px]">
@@ -481,7 +490,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
 
         <div className="grid content-start gap-5">
           {open ? (
-            <Card tone={ZONES[zoneOf(open)].tone}>
+            <Card>
               <div className="flex items-start gap-3">
                 <div className="min-w-0 flex-1">
                   <p className="text-[22px] leading-snug tracking-[-0.02em]">
@@ -506,12 +515,9 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                 </button>
               </div>
 
-              {/* No pill here: the card is already filled with the verdict's own tone, so a pill in that tone would vanish. */}
-              <p
-                className={`mt-5 text-[13px] font-semibold ${ZONES[zoneOf(open)].text}`}
-              >
+              <StatusPill className="mt-5" tone={ZONES[zoneOf(open)].tone}>
                 {ZONES[zoneOf(open)].label}
-              </p>
+              </StatusPill>
               <p className="text-ink-2 mt-4 text-[14px] leading-relaxed">
                 {ZONES[zoneOf(open)].advice}
               </p>
@@ -566,7 +572,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
               </Link>
             </Card>
           ) : (
-            <Card tone={skipList.length === 0 ? "ok" : "bad"}>
+            <Card>
               <SectionTitle
                 aside={
                   <span className="text-ink-3 text-[12px]">
@@ -582,7 +588,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                   % accurate, so nothing lands in the skip corner.
                 </p>
               ) : (
-                <ol className="grid gap-2">
+                <ol className="grid gap-1">
                   {skipList.map((t, i) => (
                     <li key={topicId(t)}>
                       <button
@@ -590,7 +596,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                         onClick={() => setOpen(t)}
                         onMouseEnter={() => setHover(t)}
                         onMouseLeave={() => setHover(null)}
-                        className="bg-canvas rounded-ctl hover:shadow-card flex w-full items-center gap-3 px-3.5 py-3 text-left transition-shadow"
+                        className="rounded-ctl hover:bg-brand-soft/50 flex w-full items-center gap-3 px-2 py-1.5 text-left transition-colors"
                       >
                         <span className="tnum text-ink-4 w-4 shrink-0 text-[13px]">
                           {i + 1}
@@ -603,13 +609,9 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                             {Math.round(t.accuracy)}% at {t.avgSec}s
                           </span>
                         </span>
-                        <span className="shrink-0 text-right">
-                          <span className="tnum text-bad block text-[15px]">
-                            {rate(t).toFixed(2)}
-                          </span>
-                          <span className="text-ink-4 block text-[12px]">
-                            marks/min
-                          </span>
+                        <span className="tnum text-bad shrink-0 text-[14px]">
+                          {rate(t).toFixed(2)}
+                          <span className="text-ink-4 text-[12px]">/min</span>
                         </span>
                       </button>
                     </li>
