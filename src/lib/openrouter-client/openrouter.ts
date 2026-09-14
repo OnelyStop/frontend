@@ -50,7 +50,6 @@ function worthAnotherTry(error: unknown): error is AiError {
   );
 }
 
-// Logging an unexpected throw as `kind: undefined` loses the only description.
 function failureFields(error: unknown) {
   return error instanceof AiError
     ? { kind: error.kind, status: error.status }
@@ -99,13 +98,11 @@ function readAnswer(body: unknown, asked: string, status: number): Answer {
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Jittered, so requests failing together do not retry as one wave.
 const backoff = (attempt: number) => {
   const base = 2 ** (attempt - 1) * 250;
   return base / 2 + Math.random() * (base / 2);
 };
 
-// Settings resolve call → instance → config.
 export class OpenRouterClient {
   constructor(private readonly defaults: ClientDefaults = {}) {}
 
@@ -260,7 +257,6 @@ export class OpenRouterClient {
     }
 
     if (!response.ok) {
-      // For our logs; a provider message never reaches a user.
       const detail = await response.text().catch(() => "");
       throw new AiError(
         classify(response.status),

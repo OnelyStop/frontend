@@ -41,7 +41,6 @@ export type Reply = {
   createdAt: string;
 };
 
-/** A doubt with its thread — what the discussion page renders. */
 export type DoubtThread = {
   doubt: Doubt;
   replies: Reply[];
@@ -55,4 +54,3 @@ export type DoubtPage = {
 export const replyCreate = z.object({
   body: z.string().trim().min(2).max(4000),
 });
-export type ReplyCreate = z.infer<typeof replyCreate>;

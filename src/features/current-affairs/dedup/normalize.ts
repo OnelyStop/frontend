@@ -9,7 +9,6 @@ const BOILERPLATE = [
   /advertisement/gi,
 ];
 
-// Shared by the content hash and salient-fact shingling: both see the same text.
 export function normalizeText(input: string): string {
   let s = input.toLowerCase();
   for (const re of BOILERPLATE) s = s.replace(re, " ");

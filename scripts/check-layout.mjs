@@ -32,6 +32,8 @@ const ROOT_ALLOWED = new Set([
   "package-lock.json",
   "package.json",
   "postcss.config.mjs",
+  // Served verbatim at the origin root; the manifest and the Android icons need stable URLs, which the app/ file conventions hash.
+  "public",
   "scripts",
   "src",
   "tsconfig.json",

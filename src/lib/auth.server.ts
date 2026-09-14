@@ -7,7 +7,6 @@ import { createClient } from "@/lib/supabase-server";
 
 // No user id from the request body; cache() dedupes the lookup across page and DAL.
 
-// Matches the row init.sql seeds, so local dev satisfies the auth.users FK.
 const DEV_USER_ID = "00000000-0000-0000-0000-000000000001";
 const DEV_USER = { id: DEV_USER_ID, email: "dev@onelystop.local" };
 

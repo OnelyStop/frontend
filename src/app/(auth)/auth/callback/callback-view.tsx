@@ -52,7 +52,6 @@ export function CallbackView() {
           }),
         }).catch(() => undefined)
       : Promise.resolve();
-    // Landing on /today matters more than the preference: Settings can still fix it.
     void apply.then(() => router.replace("/today"));
   }, [user, router]);
 
@@ -83,7 +82,6 @@ export function CallbackView() {
   const expired = urlError && !denied && EXPIRED_CODES.includes(urlError.code);
   const openedElsewhere = !urlError && hadCode;
 
-  // A cancelled OAuth consent has no link to resend — send them back to sign in
   if (denied) {
     return (
       <AuthShell

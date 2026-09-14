@@ -66,8 +66,8 @@ export default function Page() {
           <span>Who can use onelystop</span>
         </h2>
         <p>
-          onelystop is for aspirants preparing for IBPS PO, IBPS Clerk, SBI PO,
-          SBI Clerk and RBI Grade B.
+          onelystop is for aspirants preparing for IBPS PO, IBPS Clerk, IBPS
+          RRB, SBI PO and SBI Clerk.
         </p>
         <p>
           You must be 18 or over to create an account. The exams themselves

@@ -34,7 +34,6 @@ const defaultDeps: IngestDeps = {
   fetchRss: fetchRssFeeds,
 };
 
-// Everything but `used` rows, which a question still points back at.
 async function pruneArticles(db: Db, now: Date): Promise<number> {
   const cutoff = new Date(now.getTime() - RETENTION_DAYS * 86_400_000);
   const rows = await db

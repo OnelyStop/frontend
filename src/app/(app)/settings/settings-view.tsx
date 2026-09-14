@@ -3,8 +3,21 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
-import { EXAMS, SECTIONS, SECTION_LABEL } from "@/data/navigation";
+import {
+  Button,
+  Card,
+  Field,
+  Input,
+  PageHeader,
+  SectionTitle,
+  Textarea,
+} from "@/design-system";
+import {
+  EXAM_TYPES,
+  SECTIONS,
+  SECTION_LABEL,
+  type ExamBoard,
+} from "@/data/navigation";
 import type { Profile, ProfileUpdate } from "@/features/profile/types";
 import { useApp } from "@/context/AppContext";
 import { isAvatarKey, type AvatarKey } from "@/features/profile/avatars";
@@ -17,7 +30,7 @@ type Draft = {
   school: string;
   targetYear: string;
   bio: string;
-  examBoard: (typeof EXAMS)[number];
+  examBoard: ExamBoard;
   defaultSection: (typeof SECTIONS)[number];
 };
 
@@ -28,7 +41,7 @@ function toDraft(profile: Profile | null): Draft {
     school: profile?.school ?? "",
     targetYear: profile?.targetYear ? String(profile.targetYear) : "",
     bio: profile?.bio ?? "",
-    examBoard: profile?.examBoard ?? EXAMS[0],
+    examBoard: profile?.examBoard ?? "Banking",
     defaultSection: profile?.defaultSection ?? SECTIONS[0],
   };
 }
@@ -46,33 +59,6 @@ function toPatch(d: Draft): ProfileUpdate {
     examBoard: d.examBoard,
     defaultSection: d.defaultSection,
   };
-}
-
-function Field({
-  label,
-  id,
-  value,
-  onChange,
-  inputMode,
-}: {
-  label: string;
-  id: string;
-  value: string;
-  onChange: (v: string) => void;
-  inputMode?: "numeric";
-}) {
-  return (
-    <label htmlFor={id} className="block">
-      <span className="text-ink-3 block text-[13px]">{label}</span>
-      <input
-        id={id}
-        value={value}
-        inputMode={inputMode}
-        onChange={(e) => onChange(e.target.value)}
-        className="rounded-ctl border-line bg-canvas focus:border-brand mt-1 h-10 w-full border px-3 text-[14px] transition-colors outline-none"
-      />
-    </label>
-  );
 }
 
 export function SettingsView({ profile }: { profile: Profile | null }) {
@@ -107,7 +93,6 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
         return;
       }
       setState("saved");
-      // The profile is read on the server, so the change shows only after a re-render.
       router.refresh();
       window.setTimeout(() => setState("idle"), 2000);
     } catch {
@@ -154,34 +139,37 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
           />
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field
-            id="displayName"
-            label="Full name"
-            value={draft.displayName}
-            onChange={(v) => set("displayName", v)}
-          />
-          <Field
-            id="school"
-            label="Coaching / college"
-            value={draft.school}
-            onChange={(v) => set("school", v)}
-          />
-          <Field
-            id="targetYear"
-            label="Target year"
-            inputMode="numeric"
-            value={draft.targetYear}
-            onChange={(v) => set("targetYear", v)}
-          />
+          <Field label="Full name" htmlFor="displayName">
+            <Input
+              id="displayName"
+              value={draft.displayName}
+              onChange={(e) => set("displayName", e.target.value)}
+            />
+          </Field>
+          <Field label="Coaching / college" htmlFor="school">
+            <Input
+              id="school"
+              value={draft.school}
+              onChange={(e) => set("school", e.target.value)}
+            />
+          </Field>
+          <Field label="Target year" htmlFor="targetYear">
+            <Input
+              id="targetYear"
+              inputMode="numeric"
+              value={draft.targetYear}
+              onChange={(e) => set("targetYear", e.target.value)}
+            />
+          </Field>
         </div>
         <label htmlFor="bio" className="mt-4 block">
           <span className="text-ink-3 block text-[13px]">Bio</span>
-          <textarea
+          <Textarea
             id="bio"
             rows={3}
             value={draft.bio}
             onChange={(e) => set("bio", e.target.value)}
-            className="rounded-ctl border-line bg-canvas focus:border-brand mt-1 w-full resize-none border px-3 py-2 text-[14px] leading-relaxed transition-colors outline-none"
+            className="mt-1"
           />
         </label>
       </Card>
@@ -189,21 +177,26 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
       <Card tone="brand" className="mt-5">
         <SectionTitle>Exam you are preparing for</SectionTitle>
         <p className="text-ink-3 -mt-2 mb-4 text-[13px]">
-          Sets the targets, sectional timing and paper pattern used everywhere.
+          Sets the question bank, the drills and the cutoffs you are measured
+          against.
         </p>
         <div className="flex flex-wrap gap-2">
-          {EXAMS.map((b) => (
+          {EXAM_TYPES.map(({ value, live }) => (
             <button
-              key={b}
+              key={value}
               type="button"
-              onClick={() => set("examBoard", b)}
+              disabled={!live}
+              onClick={() => set("examBoard", value)}
               className={`rounded-pill h-10 border px-4 text-[13px] font-medium transition-colors ${
-                draft.examBoard === b
-                  ? "border-ink bg-ink text-white"
-                  : "border-line bg-canvas hover:border-line-2"
+                !live
+                  ? "border-line text-ink-3 cursor-not-allowed opacity-55"
+                  : draft.examBoard === value
+                    ? "border-ink bg-ink text-white"
+                    : "border-line bg-canvas hover:border-line-2"
               }`}
             >
-              {b}
+              {value}
+              {live ? null : <span className="ml-1.5 text-[11px]">soon</span>}
             </button>
           ))}
         </div>

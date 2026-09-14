@@ -4,6 +4,8 @@ export type Mock = {
   id: string;
   name: string;
   year: number;
+  /** Which sitting, e.g. "18 Dec · S1" — without it every shift of one exam renders the same title. Null when the source never recorded it. */
+  sitting: string | null;
   stage: "Prelims" | "Mains";
   qs: number;
   mins: number;
@@ -12,7 +14,6 @@ export type Mock = {
   inProgress: boolean;
   /** Only meaningful when `inProgress` — resuming must re-enter full screen before the request, not after. */
   examMode: boolean;
-  /** 55% of the question count — our practice benchmark, not a published cutoff. */
   target: number;
 };
 

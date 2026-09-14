@@ -21,6 +21,8 @@ export function currencyForHost(host: string | null | undefined): Currency {
 export async function requestCurrency(): Promise<Currency> {
   const pinned = process.env.SITE_CURRENCY;
   if (pinned === "INR" || pinned === "USD") return pinned;
+  // Pinned by default: one headers() read makes the landing page a function invocation per visitor.
+  if (pinned !== "host") return DEFAULT_CURRENCY;
 
   const h = await headers();
   return currencyForHost(h.get("x-forwarded-host") ?? h.get("host"));

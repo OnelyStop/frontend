@@ -13,7 +13,6 @@ const MIGRATIONS = join(import.meta.dirname, "..", "..", "migrations");
 
 const USER = randomUUID();
 
-// 11:30 IST on 15 September: mid-day and mid-month, so neither window is on a boundary.
 const NOW = new Date("2026-09-15T06:00:00Z");
 
 /* The real migrations in PGlite, with the Supabase auth surface they reference stubbed. */
@@ -110,7 +109,6 @@ describe("mocks are capped per month", () => {
     expect(await quota("mocksPerMonth")).toMatchObject({ ok: true });
   });
 
-  // 18:00Z on the last of August is 23:30 IST in August; an hour later is 00:30 IST in September.
   it("counts the IST month, not the UTC one", async () => {
     await started(
       "paper",
@@ -146,7 +144,6 @@ describe("drills are capped per day", () => {
     expect(await quota("drillsPerDay")).toMatchObject({ ok: true });
   });
 
-  // 18:00Z is 23:30 IST yesterday; an hour later is 00:30 IST today.
   it("resets at IST midnight, not UTC midnight", async () => {
     await started("bank", "2026-09-14T18:00:00Z", "2026-09-14T19:00:00Z");
     expect(await quota("drillsPerDay")).toMatchObject({ ok: true });

@@ -6,7 +6,6 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 const MIGRATIONS = join(import.meta.dirname, "..", "..", "migrations");
 
-/** The real auth.users shape the trigger reads, plus every migration in order. */
 async function freshDb() {
   const client = new PGlite();
   await client.exec(`
@@ -62,13 +61,13 @@ describe("handle_new_user", () => {
     const row = await signUp({
       full_name: "Aarav Mehta",
       avatar: "indigo",
-      exam_board: "SBI PO",
+      exam_board: "NEET",
       target_year: 2027,
     });
     expect(row).toMatchObject({
       display_name: "Aarav Mehta",
       avatar: "indigo",
-      exam_board: "SBI PO",
+      exam_board: "NEET",
       target_year: 2027,
     });
   });
@@ -76,7 +75,7 @@ describe("handle_new_user", () => {
   it("falls back to the default board when the metadata names one that does not exist", async () => {
     // user_metadata is user-writable, so a crafted board must not raise or land in the column.
     const row = await signUp({ full_name: "Ira", exam_board: "UPSC CSE" });
-    expect(row.exam_board).toBe("IBPS PO");
+    expect(row.exam_board).toBe("Banking");
     expect(row.target_year).toBeNull();
   });
 
@@ -88,7 +87,7 @@ describe("handle_new_user", () => {
   it("drops a target year that is not a year at all", async () => {
     const row = await signUp({ full_name: "Sana", target_year: "'; drop--" });
     expect(row.target_year).toBeNull();
-    expect(row.exam_board).toBe("IBPS PO");
+    expect(row.exam_board).toBe("Banking");
   });
 
   it("still writes a profile for a signup that answered nothing", async () => {
@@ -96,7 +95,7 @@ describe("handle_new_user", () => {
     expect(row).toMatchObject({
       display_name: null,
       avatar: null,
-      exam_board: "IBPS PO",
+      exam_board: "Banking",
       target_year: null,
     });
   });

@@ -10,7 +10,6 @@ import {
   Flag,
   Maximize,
 } from "lucide-react";
-import { useApp } from "@/context/AppContext";
 import {
   ActiveCard,
   Button,
@@ -55,13 +54,11 @@ import type { Mock } from "@/features/question-bank/types";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
 const STAGES = ["All", "Prelims", "Mains"] as const;
-// The hero card is outside this count — it's the one paper always shown regardless of page.
 const PAGE_SIZE = 12;
 
 type Recorded = { chosen: string | null; timeMs: number };
 type SectionGroup = { subject: Subject; qs: DrillQuestion[] };
 
-/** Only sections with answerable questions — a zero-question section must not land on the exam. */
 function groupBySection(questions: DrillQuestion[]): SectionGroup[] {
   return SECTIONS.map((subject) => ({
     subject,
@@ -79,7 +76,7 @@ export function MocksView({
   recent: RecentAttempt[];
 }) {
   const router = useRouter();
-  const { board } = useApp();
+  const [exam, setExam] = useState("All");
   const [stage, setStage] = useState<(typeof STAGES)[number]>("All");
   const [page, setPage] = useState(1);
   const [live, setLive] = useState<Mock | null>(null);
@@ -107,12 +104,15 @@ export function MocksView({
   const [awayFromFullscreen, setAwayFromFullscreen] = useState(false);
   const startReqIdRef = useRef(0);
 
+  const exams = ["All", ...new Set(mocks.map((m) => m.name))];
+
   const shown = mocks.filter(
-    (m) => m.name === board && (stage === "All" || m.stage === stage),
+    (m) =>
+      (exam === "All" || m.name === exam) &&
+      (stage === "All" || m.stage === stage),
   );
 
-  // The header board switcher is global state this view doesn't own, so it needs its own reset.
-  useEffect(() => setPage(1), [board]);
+  useEffect(() => setPage(1), [exam]);
   const sections = groupBySection(questions);
   const section = sections[secIdx];
   const q = section?.qs[qIdx];
@@ -142,7 +142,6 @@ export function MocksView({
     setLive(null);
   };
 
-  // Same pattern as leaveRef: attemptId/flagCount would go stale between renders without going through a ref.
   const flagRef = useRef(async () => {});
   flagRef.current = async () => {
     if (attemptId === null) return;
@@ -165,7 +164,6 @@ export function MocksView({
     );
   };
 
-  // Only in exam mode, and only while an attempt is live — Normal mode carries none of this.
   useEffect(() => {
     if (!live || !examMode) return;
     // One flag per departure, not per second away: only the leaving edge fires, not the whole time spent away.
@@ -208,7 +206,6 @@ export function MocksView({
     return () => window.removeEventListener("keydown", onKey);
   }, [live, submitting]);
 
-  // Resyncs the local pick from any recorded answer and restarts the stopwatch whenever the question changes.
   useEffect(() => {
     if (!q) return;
     const rec = answers[q.qId];
@@ -245,7 +242,6 @@ export function MocksView({
     setAttemptId(res.attemptId);
 
     const resume = res.resume;
-    // A resumed attempt keeps the mode and strikes it already carried; a fresh one starts clean.
     setExamMode(resume ? resume.examMode : newExamMode);
     setFlagCount(resume ? resume.flagCount : 0);
     setFlagNotice(null);
@@ -277,7 +273,6 @@ export function MocksView({
     setLive(m);
   }
 
-  // The mode choice only applies to a fresh start — resuming keeps whatever mode the paused attempt began in.
   async function enterFullscreen() {
     try {
       await document.documentElement.requestFullscreen();
@@ -294,13 +289,11 @@ export function MocksView({
     void handleStart(target.mock, target.restart, examModeChosen);
   }
 
-  // Resume skips the mode prompt entirely, so a paused exam-mode attempt re-enters full screen here instead.
   async function resumeAttempt(m: Mock) {
     if (m.examMode) await enterFullscreen();
     void handleStart(m, false, false);
   }
 
-  // Saves the instant a choice is made — closing the tab right after picking, with no Save/Esc in between, must not lose it.
   function pickAnswer(idx: number | null) {
     setPicked(idx);
     if (!q) return;
@@ -328,7 +321,6 @@ export function MocksView({
     setQIdx(nextQIdx);
   }
 
-  // Shared by a normal finish and a 3-flag forced end — both grade whatever's answered and leave fullscreen behind.
   async function finishAttempt(
     merged: Record<string, Recorded>,
     ended?: string,
@@ -378,13 +370,11 @@ export function MocksView({
     await finishAttempt(merged);
   }
 
-  // The exam ends here, whatever section it's on — a flagged attempt doesn't get to finish the paper.
   async function forceEndExam() {
     const merged = record();
     await finishAttempt(merged, "flagged");
   }
 
-  // Exam conditions: the palette mirrors the real IBPS interface every aspirant already knows.
   if (live && q && section) {
     const mm = String(Math.floor(left / 60)).padStart(2, "0");
     const ss = String(left % 60).padStart(2, "0");
@@ -634,14 +624,17 @@ export function MocksView({
         <h1 className="text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
           Mocks
         </h1>
-        <Segmented
-          value={stage}
-          options={STAGES}
-          onChange={(s) => {
-            setStage(s);
-            setPage(1);
-          }}
-        />
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
+          <Segmented value={exam} options={exams} onChange={setExam} />
+          <Segmented
+            value={stage}
+            options={STAGES}
+            onChange={(s) => {
+              setStage(s);
+              setPage(1);
+            }}
+          />
+        </div>
       </div>
 
       {error ? <p className="text-bad mb-4 text-[13px]">{error}</p> : null}
@@ -654,7 +647,7 @@ export function MocksView({
         />
       ) : shown.length === 0 ? (
         <Empty
-          title={`No ${board} papers${stage === "All" ? "" : ` at ${stage}`}`}
+          title={`No ${exam === "All" ? "" : `${exam} `}papers${stage === "All" ? "" : ` at ${stage}`}`}
           sub={
             stage === "All"
               ? "Nothing has been imported for this exam yet. Drills pull from the whole bank in the meantime."
@@ -855,9 +848,9 @@ export function MocksView({
           </div>
 
           <p className="text-ink-3 mt-6 text-[12.5px] leading-relaxed">
-            Full {board} papers under real sectional timing. Each paper&rsquo;s
-            target is 55% of its questions — our benchmark, not the
-            board&rsquo;s published cutoff.
+            Full papers under real sectional timing. Each paper&rsquo;s target
+            is 55% of its questions — our benchmark, not the board&rsquo;s
+            published cutoff.
           </p>
 
           {totalPages > 1 ? (

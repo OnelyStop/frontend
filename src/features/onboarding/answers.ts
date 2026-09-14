@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { EXAMS, type ExamBoard } from "@/data/navigation";
+import { EXAM_TYPE_VALUES, type ExamBoard } from "@/data/navigation";
 import { AVATAR_KEYS, type AvatarKey } from "@/features/profile/avatars";
 
 export type Answers = {
@@ -16,7 +16,6 @@ export const EMPTY_ANSWERS: Answers = {
   avatar: null,
 };
 
-/** The years offered; "not sure yet" is a real answer, stored as null. */
 export function targetYears(now = new Date()): number[] {
   const y = now.getFullYear();
   return [y, y + 1, y + 2];
@@ -26,7 +25,7 @@ export function targetYears(now = new Date()): number[] {
 const STASH_KEY = "onelystop:onboarding";
 
 const stashed = z.object({
-  examBoard: z.enum(EXAMS),
+  examBoard: z.enum(EXAM_TYPE_VALUES),
   targetYear: z.number().int().min(2000).max(2100).nullable(),
   name: z.string().max(80),
   avatar: z.enum(AVATAR_KEYS).nullable(),
@@ -41,9 +40,7 @@ export function stashAnswers(answers: Answers): void {
       STASH_KEY,
       JSON.stringify({ ...answers, examBoard: answers.examBoard }),
     );
-  } catch {
-    // A private window with storage blocked just loses the answers; signup still works.
-  }
+  } catch {}
 }
 
 export function takeStashedAnswers(): StashedAnswers | null {

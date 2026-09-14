@@ -12,7 +12,6 @@ export function Rationale({
 }: {
   title?: string;
   children: ReactNode;
-  /** e.g. "247 of 250 left" — omit only where no quota is metered. */
   quota?: string;
   onReport?: () => void;
   actions?: ReactNode;
@@ -56,7 +55,6 @@ export function Rationale({
   );
 }
 
-// An open arc rather than the four-point sparkle every AI panel ships with.
 function SparkFree() {
   return (
     <svg

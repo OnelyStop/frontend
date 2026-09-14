@@ -1,5 +1,6 @@
 "use client";
 
+import { Kbd } from "@/design-system";
 import { useModifierKey } from "@/lib/platform";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -164,10 +165,7 @@ export function RetrievalSlip() {
           <span className="truncate">
             {current ? (
               <>
-                <kbd className="border-line bg-canvas mr-1.5 rounded border px-1 py-0.5 text-[11px]">
-                  ⏎
-                </kbd>
-                {current.does}
+                <Kbd>⏎</Kbd> {current.does}
               </>
             ) : (
               "nothing to open"

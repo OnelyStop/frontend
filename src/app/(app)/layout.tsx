@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { AppProviders } from "@/components/layout/AppProviders";
 import { unreadCount } from "@/features/notifications/queries.server";
@@ -6,7 +7,11 @@ import { getRole } from "@/features/auth/roles";
 import { db } from "@/db";
 import { getEntitlement } from "@/features/billing/entitlements.server";
 
-// The bell reads on every route, which is why the count is a partial-index scan.
+// Signed-in pages are private by default; the public /study subtree opts back in.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
+
 export default async function Layout({
   children,
 }: {

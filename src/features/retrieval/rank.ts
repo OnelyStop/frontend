@@ -15,7 +15,6 @@ const fuse = new Fuse(TARGETS, {
 
 const byId = new Map(TARGETS.map((t) => [t.id, t]));
 
-// Fuse scores whole strings, so "p1 2023" misses "2023 p1"; search per token instead.
 function searchToken(token: string): Map<string, number> {
   const out = new Map<string, number>();
 
@@ -48,7 +47,6 @@ export function rank(query: string): Target[] {
   }
 
   const ranked = [...hits.entries()].sort((a, b) => {
-    // Every token matching beats a good score on only one of them.
     if (a[1] !== b[1]) return b[1] - a[1];
     return (score.get(a[0]) ?? 1) - (score.get(b[0]) ?? 1);
   });

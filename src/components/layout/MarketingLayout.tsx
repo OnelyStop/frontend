@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SUPPORT_EMAIL } from "@/config/site";
-import { EXAMS } from "@/data/navigation";
+import { BANKING_EXAMS } from "@/data/navigation";
+import { Brand } from "@/design-system";
 import { MarketingNav } from "./MarketingNav";
 
 const FOOTER_COLS = [
@@ -14,7 +15,7 @@ const FOOTER_COLS = [
   },
   {
     title: "Exams",
-    items: EXAMS.map((label) => ({ label, href: null })),
+    items: BANKING_EXAMS.map((label) => ({ label, href: null })),
   },
   {
     title: "Practise",
@@ -43,10 +44,8 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
         <div className="bg-frame rounded-t-[28px] px-6 pt-14 pb-8 text-white sm:px-10 lg:px-14">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.3fr)_repeat(2,minmax(0,1fr))] lg:grid-cols-[minmax(0,1.3fr)_repeat(4,minmax(0,1fr))]">
             <div className="max-w-75">
-              <div className="text-[20px] font-semibold tracking-[-0.02em]">
-                onelystop
-              </div>
-              <p className="text-on-frame-2 mt-2 text-[14px] leading-relaxed">
+              <Brand className="text-[20px] tracking-[-0.02em]" />
+              <p className="mt-2 text-[14px] leading-relaxed text-white/50">
                 Your one stop from first mock to final list.
               </p>
             </div>

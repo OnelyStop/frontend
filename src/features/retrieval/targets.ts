@@ -1,19 +1,15 @@
 export type Target = {
   id: string;
   kind: "spec" | "paper" | "verb";
-  /** Hanging code in the slip's margin: a topic code, or the verb. */
   code: string;
   label: string;
   does: string;
-  /** Extra tokens nobody would see but everybody types. */
   keys: string;
   href?: string;
-  /** Verbs that are not navigation. */
   run?: "signout" | "lamp";
   resting?: boolean;
 };
 
-// Codes are section.topic — 1 Quant, 2 Reasoning, 3 English, 4 GA, 5 Computer.
 const TOPICS: Array<[string, string]> = [
   ["1.1", "Simplification & Approximation"],
   ["1.2", "Number Series"],
@@ -54,7 +50,7 @@ const MOCKS: Array<[string, number, string]> = [
   ["SBI PO", 2024, "Prelims"],
   ["SBI PO", 2023, "Mains"],
   ["IBPS Clerk", 2024, "Prelims"],
-  ["RBI Grade B", 2024, "Phase 1"],
+  ["IBPS RRB", 2024, "Prelims"],
 ];
 
 const VERBS: Target[] = [
@@ -215,7 +211,6 @@ function topicTarget([code, title]: (typeof TOPICS)[number]): Target {
     label: title,
     does: "opens the attempt map",
     keys: `${title} ${code} topic practise questions`,
-    // The map takes no topic param, so this opens the page rather than promising a jump it cannot make.
     href: "/attempt-map",
   };
 }

@@ -1,4 +1,3 @@
-// No `server-only`: the seeding script imports this from outside a Server Component.
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 const API = "https://api.razorpay.com/v1";
@@ -28,7 +27,6 @@ async function call<T>(
       "Content-Type": "application/json",
     },
     body: init?.body ? JSON.stringify(init.body) : undefined,
-    // A cached "create" is a charge that silently did not happen.
     cache: "no-store",
     // /billing/status calls fetchSubscription inside a user-facing GET, so a hung provider is a hung page.
     signal: AbortSignal.timeout(TIMEOUT_MS),
@@ -81,7 +79,6 @@ export function createPlan(input: {
       interval: input.interval,
       item: {
         name: input.name,
-        // Razorpay takes minor units, same as we store — no conversion on purpose.
         amount: input.amountMinor,
         currency: input.currency,
         description: input.description,
@@ -100,7 +97,6 @@ export function createSubscription(input: {
     body: {
       plan_id: input.planId,
       total_count: input.totalCount,
-      // The pre-debit notice is required in India; Razorpay sending it is one less surface.
       customer_notify: 1,
       notes: input.notes,
     },
@@ -111,7 +107,6 @@ export function fetchSubscription(id: string): Promise<RazorpaySubscription> {
   return call<RazorpaySubscription>(`/subscriptions/${id}`);
 }
 
-// At the cycle end by default: no pro-rata refund arithmetic enters the codebase.
 export function cancelSubscription(
   id: string,
   { atCycleEnd = true }: { atCycleEnd?: boolean } = {},

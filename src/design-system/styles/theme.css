@@ -83,7 +83,7 @@
   --color-ga-pale: #fdf0e4;
   --color-computer-pale: #fde9f2;
 
-  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 
   --radius-ctl: 16px;
   --radius-card: 28px;

@@ -38,7 +38,6 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
     const onDown = (e: MouseEvent) => {
       if (!ref.current?.contains(e.target as Node)) setOpen(null);
     };
-    // On document, not window: closing the menu must beat the running head's Esc.
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
       e.stopPropagation();
@@ -58,7 +57,6 @@ export function HeaderNav({ groups }: { groups: NavGroup[] }) {
       {groups.map((g) => {
         const live = g.items.some((i) => pathname.startsWith(i.path));
         const isOpen = open === g.id;
-        // Only the group you are in wears its name; the rest are icons, as in the reference.
         const on = live || isOpen;
 
         return (

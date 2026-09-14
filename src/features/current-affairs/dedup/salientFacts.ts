@@ -2,7 +2,6 @@
 
 export type SalientTokens = { numbers: Set<string>; entities: Set<string> };
 
-// Multi-word names collapse to the same canonical token as their acronym.
 const ALIASES: Record<string, string> = {
   "reserve bank of india": "rbi",
   "reserve bank": "rbi",
@@ -21,7 +20,6 @@ const ALIASES: Record<string, string> = {
   "reserve bank of india's": "rbi",
 };
 
-// Single Titlecase words this common are not distinguishing on their own.
 const ENTITY_STOPWORDS = new Set([
   "the",
   "a",
@@ -107,18 +105,15 @@ function extractNumbers(text: string): Set<string> {
 function extractEntities(text: string): Set<string> {
   const out = new Set<string>();
 
-  // ALLCAPS acronyms, 2-6 letters (RBI, SEBI, MPC, GDP, NABARD...).
   for (const m of text.matchAll(/\b[A-Z]{2,6}\b/g)) {
     out.add(m[0].toLowerCase());
   }
 
-  // Titlecase runs, allowing lowercase connectors inside (Reserve Bank of India).
   for (const m of text.matchAll(
     /\b[A-Z][a-z]+(?:\s+(?:of|and|the|for|to)\s+|\s+)(?:[A-Z][a-z]+)(?:\s+(?:of|and|the|for|to)\s+[A-Z][a-z]+|\s+[A-Z][a-z]+)*/g,
   )) {
     out.add(m[0].toLowerCase().replace(/\s+/g, " ").trim());
   }
-  // Standalone Titlecase words >=4 chars that aren't common.
   for (const m of text.matchAll(/\b[A-Z][a-z]{3,}\b/g)) {
     const w = m[0].toLowerCase();
     if (!ENTITY_STOPWORDS.has(w)) out.add(w);

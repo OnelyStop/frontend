@@ -51,7 +51,6 @@ export function AppLayout({
   );
 }
 
-// Ask Onely is a column, not an overlay: opening it reflows the page rather than covering it.
 function Stage({
   children,
   unread,
@@ -73,8 +72,8 @@ function Stage({
           }`}
         >
           <CanvasRail unread={unread} />
-          {/* No z-index: a stacking context traps full-screen overlays. */}
-          <main className="relative min-w-0 pb-24">{children}</main>
+          {/* No z-index: a stacking context traps full-screen overlays. pb clears the phone dock. */}
+          <main className="relative min-w-0 pb-24 lg:pb-0">{children}</main>
           <CompanionPanel />
         </div>
         <StageDock />
@@ -83,7 +82,6 @@ function Stage({
   );
 }
 
-// Measured, not computed: the nav is a sibling, so nothing knows both boxes.
 function Bump() {
   const ref = useRef<SVGSVGElement>(null);
   const [x, setX] = useState<number | null>(null);
@@ -94,7 +92,6 @@ function Bump() {
       const box = ref.current?.parentElement;
       if (!el || !box) return setX(null);
       const nav = el.getBoundingClientRect();
-      // Both boxes are viewport-relative; `left` is relative to the stage.
       const stage = box.getBoundingClientRect();
       setX(nav.left + nav.width / 2 - stage.left);
     };
@@ -109,7 +106,6 @@ function Bump() {
   }, []);
 
   return (
-    // Two pixels of the base sit inside the stage; flush, the two fills leave an antialiased seam.
     <svg
       ref={ref}
       aria-hidden

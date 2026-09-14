@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useApp } from "@/context/AppContext";
 import { Button, Card, PageHeader, SectionTitle } from "@/design-system";
 import type { Marking, SavedMarking } from "@/features/descriptive/marking";
 import { TASKS, wordCount } from "@/features/descriptive/tasks";
@@ -22,7 +21,6 @@ function fmt(s: number) {
   return `${String(m).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 }
 
-// Letter and Essay are a real category, so the writing card is filled by the task you are on.
 const TASK_TONE = ["info", "brand"] as const;
 
 export function DescriptiveView({
@@ -34,11 +32,9 @@ export function DescriptiveView({
   used: number;
   limit: number | null;
 }) {
-  const { board } = useApp();
   const [idx, setIdx] = useState(0);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [markings, setMarkings] = useState<Record<string, Marking>>(() =>
-    // The newest marking per task, so a reload does not lose what a marking cost.
     history.reduce<Record<string, Marking>>(
       (acc, m) => (m.taskId in acc ? acc : { ...acc, [m.taskId]: m.marking }),
       {},
@@ -71,7 +67,6 @@ export function DescriptiveView({
     [draft, task],
   );
 
-  // A band, not a hard cut: examiners tolerate overshoot better than a short answer.
   const lengthBand =
     words === 0
       ? "empty"
@@ -125,7 +120,7 @@ export function DescriptiveView({
     <div>
       <PageHeader
         title="Descriptive"
-        sub={`${board} Mains · one letter and one essay in 30 minutes. Most marks here are lost to format and length, not to ideas.`}
+        sub="Mains · one letter and one essay in 30 minutes. Most marks here are lost to format and length, not to ideas."
         actions={
           <>
             <span

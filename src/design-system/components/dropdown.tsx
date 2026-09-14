@@ -10,6 +10,8 @@ export type DropdownOption<T extends string> = {
   label: string;
   hint?: string;
   icon?: ReactNode;
+  /** Listed so the menu reads as a roadmap, but never selectable. */
+  disabled?: boolean;
 };
 
 type Props<T extends string> = {
@@ -55,7 +57,6 @@ export function Dropdown<T extends string>({
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
 
-  // Keep the active row in view when arrowing past the fold.
   useEffect(() => {
     if (!open) return;
     listRef.current
@@ -65,7 +66,7 @@ export function Dropdown<T extends string>({
 
   const commit = (i: number) => {
     const o = options[i];
-    if (!o) return;
+    if (!o || o.disabled) return;
     onChange(o.value);
     setOpen(false);
   };
@@ -133,7 +134,6 @@ export function Dropdown<T extends string>({
         }}
         onKeyDown={onKeyDown}
         className={cn(
-          // Recessed like every other control; it lifts to white paper when it takes focus.
           "rounded-ctl bg-panel text-ink flex h-10 w-full items-center gap-2 px-3.5 text-left text-[14px] outline-none",
           "transition-[background-color,box-shadow] duration-200 ease-[var(--ease-swift)]",
           "focus:bg-canvas focus:shadow-card disabled:opacity-50",
@@ -163,7 +163,7 @@ export function Dropdown<T extends string>({
           aria-label={label}
           data-lenis-prevent
           className={cn(
-            "border-line bg-canvas shadow-pop absolute z-50 mt-1.5 max-h-[min(28rem,60vh)] w-full min-w-max overflow-y-auto overscroll-contain rounded-[14px] border p-1.5",
+            "border-line bg-canvas shadow-pop absolute z-50 mt-1.5 max-h-[min(28rem,60vh)] w-full min-w-max overflow-y-auto overscroll-contain rounded-[14px] border p-1.5 text-left",
             align === "end" ? "right-0" : "left-0",
           )}
         >
@@ -176,12 +176,16 @@ export function Dropdown<T extends string>({
                 data-i={i}
                 role="option"
                 aria-selected={isSel}
+                aria-disabled={o.disabled}
                 onMouseEnter={() => setActive(i)}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => commit(i)}
                 className={cn(
-                  "rounded-ctl flex cursor-pointer items-center gap-2.5 px-2.5 py-2 text-[14px] transition-colors",
-                  i === active && "bg-brand-soft",
+                  "rounded-ctl flex items-center gap-2.5 px-2.5 py-2 text-[14px] transition-colors",
+                  o.disabled
+                    ? "cursor-not-allowed opacity-45"
+                    : "cursor-pointer",
+                  i === active && !o.disabled && "bg-brand-soft",
                 )}
               >
                 {o.icon}

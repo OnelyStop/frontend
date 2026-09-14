@@ -99,7 +99,6 @@ export function CurrentAffairsView({
           sub="The pipeline runs once the evening news has settled, around 19:00 IST. Try an earlier date."
         />
       ) : (
-        // Two up: a day of full-width questions is a scroll, not a survey.
         <div className="grid items-start gap-4 xl:grid-cols-2">
           {questions.map((q, i) => {
             const isLocked = !!locked[q.id];
@@ -153,7 +152,6 @@ export function CurrentAffairsView({
                     const isAnswer = q.answer === k;
                     const isChoice = choice === k;
                     return (
-                      // White paper on the panel: an option with only a border vanished into the card's own tint.
                       <button
                         key={k}
                         type="button"

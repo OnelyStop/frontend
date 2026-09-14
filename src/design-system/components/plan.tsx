@@ -3,7 +3,6 @@ import Link from "next/link";
 import { cn } from "../lib/cn";
 import { Avatar } from "./data";
 
-// The card family the canvas is built from, and the controls that sit on them.
 export type PillTone =
   "neutral" | "ok" | "warn" | "bad" | "info" | "brand" | "soon" | "live";
 
@@ -18,7 +17,6 @@ const PILL: Record<PillTone, string> = {
   live: "bg-canvas text-ink shadow-card",
 };
 
-/** State, not an action — a pill says where a thing stands. */
 export function StatusPill({
   tone = "neutral",
   children,
@@ -42,7 +40,6 @@ export function StatusPill({
   );
 }
 
-/** The round buttons in a card's action row: dismiss, more, confirm. */
 export function RoundAction({
   label,
   tone = "quiet",
@@ -75,7 +72,6 @@ export function RoundAction({
   );
 }
 
-/** The disc in a card's top-right corner: locked, or the subject's mark. */
 export function CornerBadge({
   tone = "quiet",
   children,
@@ -102,7 +98,6 @@ export function CornerBadge({
   );
 }
 
-/** The affordance that hangs off a card's corner rather than sitting inside it. */
 export function CornerPlus({
   label,
   onClick,
@@ -131,7 +126,6 @@ export function CornerPlus({
   );
 }
 
-/** Who else is on this — overlapped, ringed in the card's own ground. */
 export function AvatarStack({
   people,
   ring = "canvas",
@@ -158,7 +152,6 @@ export function AvatarStack({
   );
 }
 
-/** A card in the plan: what it is, where it stands, what you can do to it. */
 export function PlanCard({
   title,
   children,
@@ -177,7 +170,6 @@ export function PlanCard({
   actions?: ReactNode;
   corner?: ReactNode;
   plus?: ReactNode;
-  /** `sm` is for a grid of many; the display title only reads at `lg`, one or two to a row. */
   size?: "sm" | "lg";
   className?: string;
 }) {
@@ -237,7 +229,6 @@ export function PlanCard({
   );
 }
 
-/** The way into a section: a tinted card whose count sits on the floor, whatever the blurb runs to. */
 export function IndexCard({
   title,
   children,
@@ -272,7 +263,6 @@ export function IndexCard({
   );
 }
 
-/** The one card in progress. At most one per screen, or it stops meaning anything. */
 export function ActiveCard({
   title,
   kicker,
@@ -285,7 +275,6 @@ export function ActiveCard({
   className,
 }: {
   title: string;
-  /** The line above the title — what kind of thing is in progress. */
   kicker?: string;
   children?: ReactNode;
   status?: ReactNode;
@@ -299,8 +288,10 @@ export function ActiveCard({
   return (
     <article
       className={cn(
-        "bg-active-soft rounded-card shadow-lift relative mb-5 min-w-0 p-6 pr-28 sm:p-7 sm:pr-36",
-        tilt && "-rotate-[1.5deg]",
+        // No margin of its own: every caller was cancelling one, and a card that sets its own spacing loses to whatever the layout wants.
+        "bg-active-soft rounded-card shadow-lift relative min-w-0 p-6 pr-28 sm:p-7 sm:pr-36",
+        // my-1 pays back the overhang: rotating a ~360px card 1.5deg grows its box ~9px, and without it the corner crowds whatever sits below.
+        tilt && "my-1 rotate-[-1.5deg]",
         className,
       )}
     >
@@ -370,10 +361,8 @@ export function DockButton({
   children,
 }: {
   label: string;
-  /** A canvas tint, or omit for the dark add button. */
   tint?: string;
   href?: string;
-  /** The page you are on: white on the frame, so the dock doubles as a where-am-I. */
   current?: boolean;
   onClick?: () => void;
   children: ReactNode;
@@ -414,7 +403,6 @@ export function DockButton({
   );
 }
 
-/** A sequence: a dashed rule down the left with a dot beside each child. */
 export function Spine({
   children,
   className,
@@ -429,9 +417,10 @@ export function Spine({
         className,
       )}
     >
+      {/* left-1 puts the 2px rule's centre on 5px, which is where SpineItem's dot centres from pl-6; at left-1.75 the dots sat 3px off it. */}
       <span
         aria-hidden
-        className="border-ok-2 absolute top-6 bottom-6 left-1.75 border-l-2 border-dashed"
+        className="border-ok-2 absolute top-6 bottom-6 left-1 border-l-2 border-dashed"
       />
       {children}
     </div>
@@ -452,7 +441,6 @@ export function SpineItem({ children }: { children: ReactNode }) {
 
 export type NoteTint = "yellow" | "blue" | "green" | "pink";
 
-// The paper a note is written on, not a card with a note inside it.
 const NOTE_PAPER: Record<NoteTint, string> = {
   yellow: "bg-[#fdf3c8]",
   blue: "bg-[#d9ecfb]",
@@ -473,7 +461,6 @@ function tiltOf(id: string): number {
 
 const TINTS: NoteTint[] = ["yellow", "blue", "green", "pink"];
 
-// Without a colour every note would be yellow, and a wall of notes reads as one block.
 function tintOf(id: string): NoteTint {
   return TINTS[hashOf(id) % TINTS.length];
 }
@@ -492,7 +479,6 @@ export function NoteCard({
   /** Omit and it is derived from the id, so a page of notes is never one colour. */
   tint?: NoteTint;
   source?: ReactNode;
-  /** The passage the note was written against. */
   quote?: string | null;
   when?: string;
   action?: ReactNode;

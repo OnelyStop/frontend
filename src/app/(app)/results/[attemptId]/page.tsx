@@ -5,7 +5,6 @@ import { ResultView } from "./result-view";
 
 export const metadata: Metadata = { title: "Result" };
 
-// Same reasoning as mocks/page.tsx — force-dynamic defers the query to request time.
 export const dynamic = "force-dynamic";
 
 type Params = {

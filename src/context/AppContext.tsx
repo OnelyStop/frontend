@@ -10,11 +10,7 @@ import {
 } from "react";
 import { MotionConfig } from "motion/react";
 import { useAuth } from "@/features/auth/AuthContext";
-import {
-  getMarkerLabel,
-  type ExamBoard,
-  type Subject,
-} from "@/data/navigation";
+import { type ExamBoard, type Subject } from "@/data/navigation";
 import type { Profile } from "@/features/profile/types";
 import { isAvatarKey, type AvatarKey } from "@/features/profile/avatars";
 
@@ -34,8 +30,6 @@ type AppContextValue = {
   subject: Subject;
   board: ExamBoard;
   setSubject: (s: Subject) => void;
-  setBoard: (b: ExamBoard) => void;
-  markerLabel: string;
   profile: UserProfile;
   setProfile: (p: UserProfile) => void;
   settings: UserSettings;
@@ -56,7 +50,7 @@ function getInitials(name: string) {
 export function AppProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const [subject, setSubject] = useState<Subject>("Quantitative Aptitude");
-  const [board, setBoard] = useState<ExamBoard>("IBPS PO");
+  const [board, setBoard] = useState<ExamBoard>("Banking");
   const [avatar, setAvatar] = useState<AvatarKey | null>(null);
   const [profile, setProfile] = useState<UserProfile>({
     name: "",
@@ -79,7 +73,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
   }, [user]);
 
-  // The board Settings persists is what every surface reads, so the stored profile — not the "IBPS PO" default — has to win once it arrives.
+  // The exam type Settings persists is what every surface reads, so the stored profile has to win over the default once it arrives.
   useEffect(() => {
     if (!user) return;
     const ac = new AbortController();
@@ -108,8 +102,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       subject,
       board,
       setSubject,
-      setBoard,
-      markerLabel: getMarkerLabel(board),
       profile,
       setProfile,
       settings,

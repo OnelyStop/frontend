@@ -100,7 +100,6 @@ export function PlanGrid({
   const priceFor = (plan: PlanCopy, at: BillingInterval = interval) =>
     prices.find((p) => p.plan === plan.id && p.interval === at) ?? null;
 
-  // Quoted off Pro, which is the plan the toggle is really asking about.
   const pro = PLAN_COPY.find((p) => p.id === "pro")!;
   const proMonthly = priceFor(pro, "monthly");
   const proYearly = priceFor(pro, "yearly");
@@ -111,7 +110,6 @@ export function PlanGrid({
         )
       : 0;
 
-  // Yearly quoted per month so tiers compare; the line below says the real total.
   const perMonth = (minor: number) =>
     interval === "yearly" ? Math.round(minor / 12) : minor;
 

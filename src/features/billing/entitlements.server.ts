@@ -40,7 +40,6 @@ export async function getEntitlement(
   userId: string,
   now = new Date(),
 ): Promise<Entitlement> {
-  // The role grants access here so no caller has to learn about roles to gate a page.
   const [[row], [admin]] = await Promise.all([
     db
       .select()
@@ -56,7 +55,6 @@ export async function getEntitlement(
 
   const active = !!admin || (!!row && row.accessUntil > now);
   return {
-    // Expired collapses to free; `school` is sold per seat at the Pro+ ceiling.
     plan: !active ? "free" : admin || row?.plan !== "pro" ? "pro_plus" : "pro",
     active,
     accessUntil: row?.accessUntil.toISOString() ?? null,
@@ -146,7 +144,6 @@ export async function applySubscription(
   }
 
   if (GRANTS.has(status) && currentPeriodEnd) {
-    // The tier belongs to the plan row, never to the event.
     const [purchased] = await db
       .select({ plan: paymentPlans.plan })
       .from(paymentPlans)
@@ -167,7 +164,6 @@ export async function applySubscription(
       .onConflictDoUpdate({
         target: entitlements.userId,
         set: {
-          // Access only moves forward; the tier follows the newest subscription.
           accessUntil: sql`greatest(${entitlements.accessUntil}, excluded.access_until)`,
           plan: purchased.plan,
           status,

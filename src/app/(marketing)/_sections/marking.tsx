@@ -10,7 +10,6 @@ type Clause = {
   rewrite?: string;
 };
 
-// At most one flagged phrase per line so its margin note is unambiguous.
 const SCRIPT: Clause[] = [
   {
     pre: "Subject: Cash not dispensed at ATM on 14 March 2026, account debited.",
@@ -250,7 +249,6 @@ export function MarkingScene() {
   );
 }
 
-// Clause and margin note are grid siblings so the note stays level on reflow.
 function ScriptLine({ clause }: { clause: Clause }) {
   const flaggedFix = Boolean(clause.band);
 

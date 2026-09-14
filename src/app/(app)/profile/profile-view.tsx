@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useApp } from "@/context/AppContext";
 import {
   ButtonLink,
@@ -11,7 +10,6 @@ import {
   type Tone,
 } from "@/design-system";
 
-// Four identical white boxes read as one; the tone says which figure you are looking at.
 const STAT_TONES: Tone[] = ["info", "ok", "warn", "brand"];
 import type { ProfileStats } from "@/features/attempts/progress.server";
 import type { Profile } from "@/features/profile/types";
@@ -54,12 +52,9 @@ export function ProfileView({
         title="Profile"
         sub={`Your record card for ${board} — what you have sat and what it scored.`}
         actions={
-          <Link
-            href="/settings"
-            className="rounded-ctl border-line bg-canvas hover:border-line-2 inline-flex h-10 items-center border px-3.5 text-[14px] font-medium transition-colors"
-          >
+          <ButtonLink href="/settings" variant="secondary" size="sm">
             Edit in settings
-          </Link>
+          </ButtonLink>
         }
       />
 

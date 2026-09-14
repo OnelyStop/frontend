@@ -82,7 +82,6 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Only these — deeper marketing pages stay readable while signed in.
   if (user && ["/", "/login", "/signup"].includes(pathname)) {
     const from = request.nextUrl.searchParams.get("from");
     return redirect(new URL(safeInternalPath(from), request.url));

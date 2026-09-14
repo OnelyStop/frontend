@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
-// Cookieless and unlinked to a person, so it needs no consent banner.
+import type { Metadata, Viewport } from "next";
+// Vercel's is cookieless; Google Analytics below is not, which is why /privacy names it and its cookies.
 import { Analytics } from "@vercel/analytics/next";
-import { poppins } from "./fonts";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { GA_MEASUREMENT_ID } from "@/config/analytics";
+import { display } from "./fonts";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   EXAM_KEYWORDS,
@@ -25,7 +27,6 @@ export const metadata: Metadata = {
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
-  // Indian phone-shaped numbers in mark schemes should not become tel: links.
   formatDetection: { telephone: false, address: false, email: false },
   // No canonical or og:url here — metadata is inherited, so every page would claim to be the home page.
   robots: {
@@ -39,18 +40,22 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  openGraph: {
-    type: "website",
-    siteName: SITE_NAME,
-    locale: "en_IN",
-    title: TITLE,
-    description: SITE_DESCRIPTION,
+  // No title or description here: stating them pinned every share card to the home page's.
+  openGraph: { type: "website", siteName: SITE_NAME, locale: "en_IN" },
+  twitter: { card: "summary_large_image" },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: { url: "/apple-icon.png", sizes: "180x180" },
   },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: SITE_DESCRIPTION,
-  },
+  manifest: "/manifest.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#131316",
+  colorScheme: "light",
 };
 
 const ORGANISATION = {
@@ -90,12 +95,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN" className={poppins.variable}>
+    <html lang="en-IN" className={display.variable}>
       <body suppressHydrationWarning>
         <JsonLd data={ORGANISATION} />
         <JsonLd data={WEBSITE} />
         {children}
         <Analytics />
+        {/* Unset outside production, so previews and local runs do not land in the same property as real traffic. */}
+        {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
       </body>
     </html>
   );

@@ -1,6 +1,5 @@
 import type { Mock } from "./types";
 
-/** The paper to put on the plan: one already paused, else the best one you have sat, else the first you have not. */
 export function nextPaper(papers: Mock[]): Mock | null {
   const paused = papers.find((p) => p.inProgress);
   if (paused) return paused;
@@ -10,5 +9,6 @@ export function nextPaper(papers: Mock[]): Mock | null {
 }
 
 export function paperTitle(p: Mock): string {
-  return p.year ? `${p.name} ${p.year} · ${p.stage}` : `${p.name} · ${p.stage}`;
+  const head = p.year ? `${p.name} ${p.year}` : p.name;
+  return [head, p.stage, p.sitting].filter(Boolean).join(" · ");
 }

@@ -7,14 +7,14 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { AVATAR_KEYS, isAvatarKey } from "./avatars";
 import * as schema from "@/db/schema";
 import { profiles } from "@/db/schema";
-import { EXAMS, SECTIONS } from "@/data/navigation";
+import { EXAM_TYPE_VALUES, SECTIONS } from "@/data/navigation";
 import { deleteAccount } from "./mutations.server";
 import { accountClose, profileUpdate } from "./types";
 
 // The validator builds its enums from navigation, not drizzle, so the two lists can drift apart unwatched.
 describe("profile enums track the database", () => {
   it("exam boards match", () => {
-    expect([...profiles.examBoard.enumValues]).toEqual([...EXAMS]);
+    expect([...profiles.examBoard.enumValues]).toEqual([...EXAM_TYPE_VALUES]);
   });
 
   it("sections match", () => {
@@ -133,7 +133,6 @@ describe("deleteAccount", () => {
       userId,
       email,
     ]);
-    // The signup trigger makes the profile; this covers a DB where it has not.
     await db
       .insert(schema.profiles)
       .values({ id: userId })

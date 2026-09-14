@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { Clock } from "lucide-react";
 import { cn } from "../lib/cn";
 
-// The schedule family: what is booked, the mark that names it, the time it starts, and an empty slot.
 export type EventTone =
   | "info"
   | "brand"
@@ -15,7 +14,6 @@ export type EventTone =
   | "ga"
   | "computer";
 
-// The section tones are here so a card keyed to a real category still gets a panel; a lone tint is the flat block.
 const TONE: Record<EventTone, [card: string, panel: string]> = {
   info: ["bg-info-soft", "bg-info-pale"],
   brand: ["bg-brand-soft", "bg-brand-pale"],
@@ -29,7 +27,6 @@ const TONE: Record<EventTone, [card: string, panel: string]> = {
   computer: ["bg-computer-soft", "bg-computer-pale"],
 };
 
-/** The mark before an event's name. `disc` is for a person or a place; a kind of work goes bare. */
 export function EventMark({
   children,
   disc,
@@ -53,7 +50,6 @@ export function EventMark({
   );
 }
 
-/** The white row an event is acted on from — when it starts. */
 export function EventTime({
   children,
   className,
@@ -74,7 +70,6 @@ export function EventTime({
   );
 }
 
-/** What is scheduled, and when — a pale card holding a tinted panel. */
 export function EventCard({
   kind,
   when,
@@ -125,7 +120,6 @@ export function EventCard({
   );
 }
 
-/** The dashed slot a card is dragged into — an empty schedule, not an error. */
 export function DropSlot({
   label,
   className,

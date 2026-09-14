@@ -6,7 +6,6 @@ import Lenis from "lenis";
 
 const SCROLL_DURATION = 1.4;
 
-// Exponential ease-out: a linear curve at this duration is what reads as floaty.
 const SCROLL_EASING = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
 // Takes the setting as a prop rather than reading app context, so public pages can scroll smoothly without shipping auth.
@@ -39,7 +38,6 @@ export function SmoothScroll({
     };
   }, [reduceMotion]);
 
-  // Lenis owns window scroll, so route changes need an explicit jump to top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);

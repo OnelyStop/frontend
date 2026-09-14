@@ -12,7 +12,6 @@ type Tile = {
   mock?: "band" | "papers" | "sources" | "chips" | "queue" | "recent" | "posts";
 };
 
-// Hand-placed: the non-uniformity is the cure for the four-up grid it replaces.
 const TILES: Tile[] = [
   {
     title: "Mocks",
@@ -100,7 +99,7 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
         {[
           ["Priya", "Attempt DI before puzzles, or after?"],
           ["Rahul", "How is the 0.25 applied across sections?"],
-          ["Meera", "GA sources that actually match RBI Grade B?"],
+          ["Meera", "GA sources that actually match the IBPS pattern?"],
         ].map(([who, q]) => (
           <div key={who} className={ROW}>
             <span className="text-ink-2 shrink-0 font-semibold">{who}</span>
@@ -116,7 +115,7 @@ function TileMock({ kind }: { kind: NonNullable<Tile["mock"]> }) {
         {[
           ["IBPS PO", "Prelims · 60 min"],
           ["SBI Clerk", "Mains · 160 min"],
-          ["RBI Grade B", "Phase I · 120 min"],
+          ["IBPS RRB", "Prelims · 45 min"],
         ].map(([exam, paper]) => (
           <div key={exam} className={`${ROW} justify-between gap-3`}>
             <span className="text-[14px] font-medium">{exam}</span>

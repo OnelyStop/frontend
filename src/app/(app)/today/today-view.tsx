@@ -7,7 +7,6 @@ import {
   Clock,
   FileText,
   GalleryVerticalEnd,
-  Map,
   Newspaper,
 } from "lucide-react";
 import {
@@ -23,7 +22,6 @@ import {
   EventTime,
   PageHeader,
   PlanCard,
-  RoundAction,
   SectionTitle,
   Spine,
   SpineItem,
@@ -38,7 +36,7 @@ import {
   sectionLabel,
 } from "@/features/attempts/components/SectionBands";
 import type { Progress } from "@/features/attempts/progress.server";
-import { ACC_LINE, PACE_TARGET } from "@/features/attempts/verdict";
+import { ACC_LINE } from "@/features/attempts/verdict";
 import { nextPaper, paperTitle } from "@/features/question-bank/next-paper";
 import type { Mock } from "@/features/question-bank/types";
 
@@ -59,7 +57,7 @@ export function TodayView({
 }) {
   const router = useRouter();
   const { board, profile } = useApp();
-  const { attempted, correct, wrong, avgSec, sections, week } = progress;
+  const { attempted, correct, wrong, sections, week } = progress;
 
   const hello = profile.name
     ? `${greeting}, ${profile.name.split(" ")[0]}`
@@ -113,8 +111,6 @@ export function TodayView({
 
   const acc = Math.round((correct / attempted) * 100);
   const lost = wrong * NEGATIVE_MARK;
-  const onPace = avgSec !== null && avgSec <= PACE_TARGET;
-  // Best first, so the sections needing work fall to the bottom of the list.
   const ranked = rankSections(sections, "best");
   const weakest = ranked[ranked.length - 1]!;
   const weakestName = sectionLabel(weakest.section);
@@ -134,19 +130,13 @@ export function TodayView({
       <Canvas
         mid={
           <>
-            {/* Three figures, tinted by meaning; the pace tile is dashed because the budget is not yet met. */}
-            <div className="grid grid-cols-3 gap-2.5 xl:mt-11.5">
+            {/* Two figures, not three: every band below already carries its own seconds, so an averaged pace tile said nothing new. */}
+            <div className="grid grid-cols-2 gap-2.5 xl:mt-11.5">
               <Tile value={`${acc}%`} label="accuracy" tone="info" />
               <Tile
                 value={`−${lost.toFixed(2)}`}
                 label="given back"
                 tone="bad"
-              />
-              <Tile
-                value={avgSec === null ? "—" : `${avgSec}s`}
-                label={`a question · ${PACE_TARGET}s budget`}
-                tone={onPace ? "ok" : "neutral"}
-                outline={!onPace}
               />
             </div>
 
@@ -158,11 +148,6 @@ export function TodayView({
             </SectionTitle>
 
             <SectionBands sections={ranked} />
-
-            <p className="text-ink-3 mt-4 text-[12.5px] leading-relaxed">
-              Accuracy on what you attempted, not a sectional score. The notch
-              is the {ACC_LINE}% line.
-            </p>
           </>
         }
         aside={
@@ -245,7 +230,6 @@ export function TodayView({
               title={`Drill ${weakestName}`}
               resumeLabel={`Drill ${weakestName}`}
               onResume={() => router.push("/drills")}
-              className="mb-0"
               status={
                 <>
                   <StatusPill tone="live">
@@ -312,33 +296,6 @@ export function TodayView({
                   : paper.score === null
                     ? `Full paper under real sectional timing. ${paper.qs} questions, ${paper.mins} minutes, target ${paper.target}.`
                     : `Last sitting ${paper.score} of ${paper.qs} — ${cleared ? "cleared" : "missed"} the ${paper.target} target${cleared && paper.score - paper.target < 3 ? " by a hair" : ""}.`}
-              </PlanCard>
-            </SpineItem>
-          ) : null}
-
-          {wrong > 0 ? (
-            <SpineItem>
-              <PlanCard
-                size="sm"
-                className="mb-0"
-                title={`Review ${wrong} wrong ${wrong === 1 ? "answer" : "answers"}`}
-                corner={
-                  <span className="bg-bad-soft text-bad absolute top-4 right-4 grid size-10 place-items-center rounded-full">
-                    <Map size={18} strokeWidth={1.75} />
-                  </span>
-                }
-                status={<StatusPill tone="soon">Upcoming</StatusPill>}
-                actions={
-                  <RoundAction
-                    label="Open the attempt map"
-                    onClick={() => router.push("/attempt-map")}
-                  >
-                    <Map size={18} strokeWidth={1.75} />
-                  </RoundAction>
-                }
-              >
-                They gave back {lost.toFixed(2)} marks this month. The attempt
-                map shows which topics to bank and which to skip.
               </PlanCard>
             </SpineItem>
           ) : null}

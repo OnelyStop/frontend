@@ -31,6 +31,7 @@ export type RawPaper = {
   year?: number | null;
   shift?: string | null;
   memory_based?: boolean | null;
+  source?: string | null;
   source_pdf?: string | null;
   questions: RawQuestion[];
 };
@@ -61,7 +62,6 @@ export function isActive(q: RawQuestion): boolean {
   if (!(q.stem ?? "").trim()) return false;
   if (Object.keys(q.options ?? {}).length < MIN_OPTIONS) return false;
 
-  // A figure the extraction never produced makes the question unanswerable.
   const needsImage = q.has_image || q.direction_has_image;
   const hasImageRef =
     (q.image_refs && q.image_refs.length > 0) ||
@@ -71,9 +71,66 @@ export function isActive(q: RawQuestion): boolean {
   return true;
 }
 
-/** `[bank, role, examType, year, shift]` joined, per the spec doc's own definition. */
+/** Separate from `isActive`, which judges answerability: a question can be perfectly browsable and still have no key to grade against. */
+export function hasAnswer(q: RawQuestion): boolean {
+  return (q.answer ?? "").trim() !== "";
+}
+
+// Windows-generated rows store backslashes, and the filename carries detail the path does not — both are searched.
+function sourceOf(paper: RawPaper): string {
+  return `${paper.source_pdf ?? ""}/${paper.source ?? ""}`
+    .replace(/\\/g, "/")
+    .toLowerCase();
+}
+
+const MONTHS = "jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec";
+
+// Ordinals are matched first: "8-march-2025-4th-shift-1.pdf" ends in a copy counter that `shift[-_ ]?(\d)` would read as shift 1.
+function shiftNo(src: string): string | null {
+  const ordinal = src.match(/([1-4])(?:st|nd|rd|th)[-_ ]*shift/);
+  if (ordinal) return ordinal[1]!;
+  const labelled = src.match(/shift[-_ ]*([1-4])/);
+  if (labelled) return labelled[1]!;
+  const short = src.match(/[-_]s([1-4])(?=[-_.]|$)/);
+  return short ? short[1]! : null;
+}
+
+function sittingDate(src: string): string | null {
+  const named = src.match(new RegExp(`(\\d{1,2})[-_ ]*(${MONTHS})[a-z]*`));
+  if (named)
+    return `${Number(named[1])} ${named[2]![0]!.toUpperCase()}${named[2]!.slice(1)}`;
+  const dotted = src.match(/(\d{1,2})\.(\d{1,2})\.\d{4}/);
+  return dotted ? `${Number(dotted[1])}/${Number(dotted[2])}` : null;
+}
+
+/** Which sitting of an exam this is. The source JSON has no shift field, so the filename is the only record of it — null when even that never said. */
+export function sittingOf(paper: RawPaper): string | null {
+  if (paper.shift) return paper.shift;
+  const src = sourceOf(paper);
+  const date = sittingDate(src);
+  const no = shiftNo(src);
+  if (date && no) return `${date} · S${no}`;
+  return date ?? (no ? `S${no}` : null);
+}
+
+/** IBPS files RRB Clerk and RRB PO under one "RRB" role, so two different exams share an identity; only the filename tells them apart. */
+export function roleOf(paper: RawPaper): string | null {
+  if (paper.role !== "RRB") return paper.role ?? null;
+  const src = sourceOf(paper);
+  if (/rrb[-_ ]*clerk/.test(src)) return "RRB-Clerk";
+  if (/rrb[-_ ]*(po|officer)/.test(src)) return "RRB-PO";
+  return "RRB";
+}
+
+/** `[bank, role, examType, year, shift]` joined, per the spec doc's own definition — role and shift resolved from the source, since the JSON records neither precisely. */
 export function examKey(paper: RawPaper): string {
-  return [paper.bank, paper.role, paper.exam_type, paper.year, paper.shift]
+  return [
+    paper.bank,
+    roleOf(paper),
+    paper.exam_type,
+    paper.year,
+    sittingOf(paper),
+  ]
     .map((v) =>
       v === null || v === undefined || v === "" ? "unknown" : String(v),
     )

@@ -4,8 +4,21 @@ import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, CheckCircle2, Loader2, Lock } from "lucide-react";
-import { Brand, Button, Card, SectionTitle } from "@/design-system";
+import {
+  ArrowLeft,
+  Check,
+  CheckCircle2,
+  Loader2,
+  Lock,
+  Receipt,
+} from "lucide-react";
+import {
+  Brand,
+  Button,
+  Card,
+  CornerBadge,
+  SectionTitle,
+} from "@/design-system";
 import {
   PLAN_LIMITS,
   PLAN_NAME,
@@ -49,18 +62,38 @@ type Step =
 const POLL_MS = 2000;
 const POLL_TRIES = 15;
 
-// Outside both shells — fewer exits on the payment step.
+function included(plan: PaidPlan): string[] {
+  const l = PLAN_LIMITS[plan];
+  const free = PLAN_LIMITS.free;
+  return [
+    `Unlimited mocks, up from ${free.mocksPerMonth} a month`,
+    `Unlimited drills, up from ${free.drillsPerDay} a day`,
+    `${l.descriptiveMarkingsPerMonth} descriptive markings a month`,
+    `${l.askOnelyPerMonth} Ask Onely questions a month`,
+    "The whole current-affairs archive, not the last week",
+    "The attempt map: what to bank and what to skip",
+  ];
+}
+
 function Shell({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-canvas min-h-dvh">
-      <header className="border-line flex h-14 items-center justify-between border-b px-5 sm:px-8 lg:px-16">
-        <Brand href="/" />
-        <span className="text-ink-3 inline-flex items-center gap-1.5 text-[13px]">
-          <Lock size={12} strokeWidth={2} />
-          Secure checkout by Razorpay
-        </span>
-      </header>
-      <div className="mx-auto max-w-275 px-5 py-10 sm:px-8">{children}</div>
+    <div className="bg-frame min-h-screen">
+      <div className="flex min-h-svh w-full flex-col">
+        <header className="flex h-16 shrink-0 items-center justify-between px-5 text-white sm:px-8 lg:h-20">
+          <Brand href="/" className="text-[20px] font-bold sm:text-[22px]" />
+          <span className="text-on-frame-3 inline-flex shrink-0 items-center gap-1.5 text-[13px]">
+            <Lock size={12} strokeWidth={2} />
+            Secure checkout
+            <span className="hidden sm:inline">by Razorpay</span>
+          </span>
+        </header>
+
+        <div className="flex flex-1 flex-col px-3 pb-3">
+          <div className="bg-stage flex flex-1 flex-col rounded-[26px] px-5 pt-8 pb-10 sm:px-10 lg:pt-11">
+            <div className="mx-auto w-full max-w-275">{children}</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -71,7 +104,9 @@ function Done({ title, body }: { title: string; body: string }) {
     <Shell>
       <div className="mx-auto max-w-130 py-16 text-center">
         <CheckCircle2 size={56} strokeWidth={1.5} className="text-ok mx-auto" />
-        <h1 className="mt-6 text-[32px] tracking-[-0.03em]">{title}</h1>
+        <h1 className="mt-6 text-[26px] leading-[1.14] font-bold tracking-[-0.03em] sm:text-[29px]">
+          {title}
+        </h1>
         <p className="text-ink-2 mt-3 text-[15px] leading-relaxed">{body}</p>
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <Button onClick={() => router.push("/today")}>
@@ -96,7 +131,6 @@ export function CheckoutView({
   plan: PaidPlan;
   interval: BillingInterval;
   prices: PlanPrice[];
-  /** The plan the caller already holds, so the page can name it rather than say "a plan". */
   held: PlanTier | null;
   billingEnabled: boolean;
 }) {
@@ -232,18 +266,21 @@ export function CheckoutView({
         Back to plans
       </button>
 
-      <h1 className="mt-5 mb-8 text-[32px] tracking-[-0.03em]">
+      <h1 className="mt-4 mb-8 text-[26px] leading-[1.14] font-bold tracking-[-0.03em] sm:text-[29px]">
         Upgrade to {planName}
       </h1>
 
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-        <Card>
+        <Card tone="info" className="relative">
+          <CornerBadge tone="quiet">
+            <Lock size={18} strokeWidth={2} />
+          </CornerBadge>
           <SectionTitle>Payment</SectionTitle>
-          <p className="text-ink-2 text-[14px] leading-relaxed">
+          <p className="bg-info-pale rounded-ctl text-ink-2 p-4 text-[14px] leading-relaxed">
             Razorpay opens a secure window for the card, UPI or net-banking
             details. Nothing about your payment method is stored here.
           </p>
-          <div className="mt-6">
+          <div className="mt-4">
             <Button
               size="lg"
               block
@@ -263,15 +300,19 @@ export function CheckoutView({
               {message}
             </p>
           ) : null}
-          <p className="text-ink-3 mt-4 text-[12.5px] leading-relaxed">
+          <p className="bg-info-pale rounded-ctl text-ink-3 mt-3 p-4 text-[12.5px] leading-relaxed">
             Renews automatically. Cancel any time from the upgrade page; access
             runs to the end of the paid period.
           </p>
         </Card>
 
-        <Card>
+        <Card tone="brand" className="relative">
+          <CornerBadge tone="quiet">
+            <Receipt size={18} strokeWidth={1.75} />
+          </CornerBadge>
           <SectionTitle>Order summary</SectionTitle>
-          <div className="border-line flex items-start justify-between gap-4 border-b pb-4">
+
+          <div className="bg-brand-pale rounded-ctl flex items-start justify-between gap-4 p-4">
             <div>
               <div className="text-[15px] font-medium">
                 onelystop {planName}
@@ -289,17 +330,31 @@ export function CheckoutView({
               </Link>
             ) : null}
           </div>
-          <dl className="mt-4 grid gap-2.5 text-[14px]">
-            <div className="border-line flex justify-between text-[16px] font-semibold">
-              <dt>Due today</dt>
-              <dd className="tnum">
-                {price ? formatAmount(price.amountMinor, price.currency) : "—"}
-              </dd>
-            </div>
-          </dl>
-          <p className="text-ink-3 mt-4 text-[13px] leading-relaxed">
-            Active the moment Razorpay confirms the payment.
-          </p>
+
+          <div className="bg-canvas rounded-ctl shadow-card mt-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 p-4">
+            <span className="text-ink-2 text-[14px] font-medium">
+              Due today
+            </span>
+            <span className="tnum text-[22px] font-bold tracking-[-0.02em]">
+              {price ? formatAmount(price.amountMinor, price.currency) : "—"}
+            </span>
+            <span className="text-ink-3 w-full text-[12.5px]">
+              Active the moment Razorpay confirms it
+            </span>
+          </div>
+
+          <ul className="bg-brand-pale rounded-ctl mt-3 grid gap-2.5 p-4">
+            {included(plan).map((line) => (
+              <li key={line} className="flex items-start gap-2.5 text-[13.5px]">
+                <Check
+                  size={15}
+                  strokeWidth={2.5}
+                  className="text-ok mt-0.5 shrink-0"
+                />
+                {line}
+              </li>
+            ))}
+          </ul>
         </Card>
       </div>
     </Shell>

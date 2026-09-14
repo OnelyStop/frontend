@@ -4,7 +4,11 @@ import {
   contentHash,
   directionsOf,
   examKey,
+  hasAnswer,
   isActive,
+  roleOf,
+  sittingOf,
+  type RawPaper,
   type RawQuestion,
 } from "./import-rules";
 
@@ -137,6 +141,114 @@ describe("examKey", () => {
         questions: [],
       }),
     ).toBe("sbi|po|prelims|2024|unknown");
+  });
+
+  // The bug this whole split exists for: 12 December sittings of one exam shared a key, so 11 were binned as duplicates.
+  it("separates two shifts of the same exam", () => {
+    const paper = (source: string): RawPaper => ({
+      paper_id: source,
+      bank: "SBI",
+      role: "PO",
+      exam_type: "Prelims",
+      year: 2022,
+      source,
+      questions: [],
+    });
+    expect(examKey(paper("Prelims-18-Dec-2022-S1.pdf"))).not.toBe(
+      examKey(paper("20th-Dec-Shift-Wise-Paper-S4.pdf")),
+    );
+  });
+});
+
+describe("sittingOf", () => {
+  const from = (source: string): RawPaper => ({
+    paper_id: "p",
+    source,
+    questions: [],
+  });
+
+  it("reads a date and a shift number together", () => {
+    expect(sittingOf(from("SBI-PO-Prelims-18-Dec-2022-S1.pdf"))).toBe(
+      "18 Dec · S1",
+    );
+  });
+
+  it("prefers the ordinal, so a copy counter is not read as the shift", () => {
+    // "...-4th-shift-1.pdf": the trailing 1 is a duplicate-download counter, not shift 1.
+    expect(sittingOf(from("SBI-PO-Pre-8-March-2025-4th-shift-1.pdf"))).toBe(
+      "8 Mar · S4",
+    );
+  });
+
+  it("reads a shift written with underscores", () => {
+    // \b never fires inside an underscore run, so the pattern cannot rely on word boundaries.
+    expect(sittingOf(from("SBI_Clerk_Pre_2025_1st_shift.pdf"))).toBe("S1");
+  });
+
+  it("falls back to a dotted date", () => {
+    expect(sittingOf(from("IBPS-Clerk-Mains-Held-on-13.10.2024.pdf"))).toBe(
+      "13/10",
+    );
+  });
+
+  it("is null when the filename records no sitting at all", () => {
+    expect(
+      sittingOf(from("IBPS-PO-Mains-Previous-Year-Paper-2022-1.pdf")),
+    ).toBeNull();
+  });
+
+  it("keeps a shift the source already carried", () => {
+    expect(sittingOf({ ...from("whatever.pdf"), shift: "Shift 3" })).toBe(
+      "Shift 3",
+    );
+  });
+});
+
+describe("roleOf", () => {
+  // IBPS files RRB Clerk and RRB PO under one "RRB" role, so 44 papers shared two identities between them.
+  it("splits RRB into Clerk and PO from the filename", () => {
+    expect(
+      roleOf({
+        paper_id: "p",
+        role: "RRB",
+        source: "IBPS-RRB-Clerk-Pre-2025.pdf",
+        questions: [],
+      }),
+    ).toBe("RRB-Clerk");
+    expect(
+      roleOf({
+        paper_id: "p",
+        role: "RRB",
+        source: "IBPS-RRB-PO-Mains-2022.pdf",
+        questions: [],
+      }),
+    ).toBe("RRB-PO");
+  });
+
+  it("leaves a non-RRB role untouched", () => {
+    expect(
+      roleOf({
+        paper_id: "p",
+        role: "Clerk",
+        source: "SBI-Clerk-Pre-2024.pdf",
+        questions: [],
+      }),
+    ).toBe("Clerk");
+  });
+});
+
+describe("hasAnswer", () => {
+  const q = (answer: string | null): RawQuestion => ({
+    q_id: "q",
+    paper_id: "p",
+    q_num: 1,
+    answer,
+  });
+
+  it("rejects null and blank, since neither can grade a sitting", () => {
+    expect(hasAnswer(q(null))).toBe(false);
+    expect(hasAnswer(q("  "))).toBe(false);
+    expect(hasAnswer(q("c"))).toBe(true);
   });
 });
 

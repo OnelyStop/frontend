@@ -14,11 +14,9 @@ import { rateLimit } from "@/lib/rate-limit";
 const fail = (error: string, status: number) =>
   NextResponse.json({ error }, { status });
 
-// A mandate needs a horizon. These are "until cancelled" in practice.
 const TOTAL_COUNT = { monthly: 100, yearly: 10 } as const;
 
 export async function POST(request: Request) {
-  // Payments can be switched off without a deploy.
   if (process.env.BILLING_ENABLED !== "true")
     return fail("billing_disabled", 503);
 
@@ -48,10 +46,8 @@ export async function POST(request: Request) {
       notes: { user_id: userId },
     });
   } catch (err) {
-    log.error("billing.subscription.create_failed", {
-      userId,
-      error: (err as Error).message,
-    });
+    // A provider rejecting every checkout is the one billing failure nobody sees until sales stop.
+    captureError(err, { at: "billing.subscription.create_failed", userId });
     return fail("payment_provider", 502);
   }
 

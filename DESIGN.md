@@ -80,7 +80,7 @@ tinted block is how a page starts looking like one colour.
 means partial, indigo is the accent for selection and focus. Nothing is
 coloured for decoration. If a bar is only showing volume, it is `bg-ink`.
 
-**Type.** Poppins throughout. Headings are heavy and tight — `h1/h2/h3` default
+**Type.** Instrument Sans throughout. Headings are heavy and tight — `h1/h2/h3` default
 to weight 700 at `-0.03em`, and body copy stays at 400 so the contrast is
 weight, not size alone. There are no uppercase, letter-spaced micro-labels
 anywhere.

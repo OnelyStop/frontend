@@ -8,9 +8,13 @@ import { attempts, bankQuestions, papers } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
 import type { Mock } from "./types";
 
-// The source data carries no published cutoff, so papers are scored against CUTOFF_LADDER's 55% band scaled to question count.
 const TARGET_PCT =
   CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
+
+/** Below this a paper is a fragment, not a sitting. Exported so the admin count reports the same set this serves, rather than drifting from it. */
+export const SERVABLE_MIN_QS = 20;
+
+export const SERVABLE_STAGES = ["Prelims", "Mains"] as const;
 
 /** `qs` counts only questions carrying an `answer`, so it matches the exam `listPaperQuestions` actually serves. */
 export async function listMockPapers(): Promise<Mock[]> {
@@ -21,6 +25,7 @@ export async function listMockPapers(): Promise<Mock[]> {
       role: papers.role,
       examType: papers.examType,
       year: papers.year,
+      shift: papers.shift,
       durationMin: papers.durationMin,
       qs: count(bankQuestions.qId),
     })
@@ -34,11 +39,11 @@ export async function listMockPapers(): Promise<Mock[]> {
         inArray(bankQuestions.section, Object.values(SECTION_DB)),
       ),
     )
+    // Not filtered on isCanonical: that keeps one paper per examKey, which hid 110 of 196 papers because different shifts of one exam share a key. The duplicates it was meant to catch are removed in the bank itself now; the flag stays for diagnostics.
     .where(
       and(
         eq(papers.isActive, true),
-        eq(papers.isCanonical, true),
-        inArray(papers.examType, ["Prelims", "Mains"]),
+        inArray(papers.examType, [...SERVABLE_STAGES]),
       ),
     )
     .groupBy(
@@ -47,25 +52,27 @@ export async function listMockPapers(): Promise<Mock[]> {
       papers.role,
       papers.examType,
       papers.year,
+      papers.shift,
       papers.durationMin,
     )
     .orderBy(desc(papers.year), papers.bank, papers.role);
 
-  const canonical = rows.filter((r) => r.qs >= 20);
-  const paperIds = canonical.map((r) => r.paperId);
+  const servable = rows.filter((r) => r.qs >= SERVABLE_MIN_QS);
+  const paperIds = servable.map((r) => r.paperId);
   const userId = await currentUserId();
   const [bestScores, openAttempts] = await Promise.all([
     bestScoreByPaper(userId, paperIds),
     openAttemptsByPaper(userId, paperIds),
   ]);
 
-  return canonical.map((r) => {
+  return servable.map((r) => {
     const stage = r.examType as Mock["stage"];
     const mins = r.durationMin ?? (stage === "Mains" ? 180 : 60);
     return {
       id: r.paperId,
       name: `${r.bank ?? "Unknown"} ${r.role ?? ""}`.trim(),
       year: r.year ?? 0,
+      sitting: r.shift,
       stage,
       qs: r.qs,
       mins,
@@ -78,7 +85,6 @@ export async function listMockPapers(): Promise<Mock[]> {
   });
 }
 
-/** A retaken mock reports the best sitting, not the most recent one; empty rather than an error when signed out. */
 async function bestScoreByPaper(
   userId: string | null,
   paperIds: string[],

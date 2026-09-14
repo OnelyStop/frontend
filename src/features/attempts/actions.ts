@@ -12,6 +12,7 @@ import {
   userTopicStats,
 } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
+import { captureError } from "@/lib/observability.server";
 import { checkQuota } from "@/features/billing/usage.server";
 import { SECTIONS, SECTION_DB, type Subject } from "@/data/navigation";
 import {
@@ -22,7 +23,6 @@ import type { DrillQuestion } from "@/features/question-bank/types";
 import { type GradedAnswer, isCorrect, scoreTotals } from "./scoring";
 import type { AttemptMode, ResumeState, SubmittedAnswer } from "./types";
 
-/** First SECTIONS entry with a served question — the section a fresh mock attempt opens on. */
 function firstSectionOf(questions: { section: string }[]): Subject | null {
   return (
     SECTIONS.find((subject) =>
@@ -46,6 +46,11 @@ async function maxSectionMs(paperId: string | null): Promise<number> {
 const GENERIC_ERROR = { error: "Something went wrong. Try again." } as const;
 const ALREADY_SUBMITTED = "Attempt already submitted.";
 
+const failed = (at: string, err: unknown) => {
+  captureError(err, { at });
+  return GENERIC_ERROR;
+};
+
 /** The server picks the questions and records them on the row; `submitAttempt` never grades outside that set. */
 export async function startAttempt(
   mode: AttemptMode,
@@ -57,7 +62,6 @@ export async function startAttempt(
     const userId = await currentUserId();
     if (!userId) return { error: "Sign in to start an attempt." };
 
-    // `mode` is client-supplied, so it picks the cap — a paper is not a drill.
     const isMock = mode === "paper";
     const quota = await checkQuota(
       db,
@@ -88,8 +92,8 @@ export async function startAttempt(
       })
       .returning({ id: attempts.id });
     return { attemptId: row!.id, questions };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("startAttempt", err);
   }
 }
 
@@ -181,12 +185,11 @@ export async function startMockAttempt(
       })
       .returning({ id: attempts.id });
     return { attemptId: row!.id, questions, resume: null };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("startMockAttempt", err);
   }
 }
 
-/** The explicit "start over" — wipes a paused attempt's answers and section state rather than resuming them. */
 export async function restartMockAttempt(
   paperId: string,
   examMode = false,
@@ -255,8 +258,8 @@ export async function restartMockAttempt(
       })
       .returning({ id: attempts.id });
     return { attemptId: row!.id, questions, resume: null };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("restartMockAttempt", err);
   }
 }
 
@@ -282,12 +285,11 @@ export async function recordFlag(
       .returning({ flagCount: attempts.flagCount });
     if (!row) return { error: "Attempt not found." };
     return { flagCount: row.flagCount };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("recordFlag", err);
   }
 }
 
-/** Upserted, not inserted: an answer changed after autosave still overwrites cleanly on the next save. */
 export async function saveAnswer(
   attemptId: number,
   qId: string,
@@ -321,12 +323,11 @@ export async function saveAnswer(
         set: { chosen: sql`excluded.chosen`, timeMs: sql`excluded.time_ms` },
       });
     return { ok: true };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("saveAnswer", err);
   }
 }
 
-/** Called on leaving mid-section (Esc, tab close) — the clock pauses here rather than running out in the background. */
 export async function checkpointSectionTime(
   attemptId: number,
   remainingMs: number,
@@ -356,12 +357,11 @@ export async function checkpointSectionTime(
       .set({ sectionRemainingMs: clamped })
       .where(eq(attempts.id, attemptId));
     return { ok: true };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("checkpointSectionTime", err);
   }
 }
 
-/** Called when a section is submitted, by the user or its own clock — sections lock forward-only, same as the hall. */
 export async function advanceSection(
   attemptId: number,
   finishedSection: string,
@@ -392,8 +392,8 @@ export async function advanceSection(
       .returning({ id: attempts.id });
     if (!row) return { error: "Attempt not found." };
     return { ok: true };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("advanceSection", err);
   }
 }
 
@@ -452,7 +452,6 @@ export async function submitAttempt(
       );
     const byId = new Map(questions.map((q) => [q.qId, q]));
 
-    // A question with no answer key or from a different paper shouldn't have been served — skip it, not fail the batch.
     const graded: GradedAnswer[] = [];
     for (const a of answers) {
       const q = byId.get(a.qId);
@@ -488,7 +487,6 @@ export async function submitAttempt(
         .returning({ id: attempts.id });
       if (!row) return false;
 
-      // Upserted, not inserted: autosave during the attempt may already have written a row for this (attemptId, qId).
       await tx
         .insert(attemptAnswers)
         .values(
@@ -519,8 +517,8 @@ export async function submitAttempt(
     revalidatePath("/drills");
     revalidatePath(`/results/${attemptId}`);
     return { ok: true, attemptId };
-  } catch {
-    return GENERIC_ERROR;
+  } catch (err) {
+    return failed("submitAttempt", err);
   }
 }
 
