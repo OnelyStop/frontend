@@ -7,13 +7,17 @@ const num = (key: string, fallback: number, min: number, max: number) => {
 
 export const openrouterConfig = {
   baseUrl: str("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"),
-  referer: str("OPENROUTER_REFERER", "https://onelystop.com"),
+  referer: str("OPENROUTER_REFERER", "https://www.onelystop.in"),
   title: str("OPENROUTER_TITLE", "OnelyStop"),
 
   // Never the -contributor tier: it trains on what we send, and we promise not.
   model: str("AI_MODEL", "meta/muse-spark-1.3"),
 
   cheapModel: str("AI_CHEAP_MODEL", "z-ai/glm-5.3-flash"),
+
+  // Current affairs fills a schema, it does not reason: $0.16 a month against glm-5.3's $4.97.
+  generationModel: str("GENERATION_MODEL", "openai/gpt-oss-120b"),
+
   fallbackModel: str("AI_MODEL_FALLBACK", "openai/gpt-4o"),
 
   temperature: num("AI_TEMPERATURE", 0.7, 0, 2),

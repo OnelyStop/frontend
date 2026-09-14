@@ -26,9 +26,13 @@ async function fetchPage(
   params: Record<string, string>,
   page: string | null,
 ): Promise<NewsDataResponse> {
+  const key = env.NEWSDATA_API_KEY?.trim();
+  // Rejects here so allSettled keeps the RSS that worked; unset, this source is simply skipped.
+  if (!key) throw new Error("NEWSDATA_API_KEY is not set");
+
   const url = new URL(activeProfile.newsdata.endpoint);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
-  url.searchParams.set("apikey", env.NEWSDATA_API_KEY);
+  url.searchParams.set("apikey", key);
   if (page) url.searchParams.set("page", page);
 
   for (let attempt = 0; attempt < 2; attempt++) {

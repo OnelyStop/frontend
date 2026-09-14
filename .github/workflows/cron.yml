@@ -1,0 +1,61 @@
+name: Scheduled jobs
+
+# Vercel's own crons need a paid plan; on Hobby they are not provisioned at all,
+# which is why current affairs sat stale. These call the same authenticated
+# routes, so nothing about the app changes when the plan does — delete this file
+# and vercel.json's `crons` take over again.
+on:
+  schedule:
+    # 12:30 UTC — 18:00 IST, after the evening news the pipeline reads.
+    - cron: "30 12 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: scheduled-jobs
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      SITE: https://www.onelystop.in
+      # Masked by Actions; the routes compare it in constant time.
+      SECRET: ${{ secrets.CRON_SECRET }}
+    steps:
+      - name: Check the secret is set
+        run: |
+          if [ -z "$SECRET" ]; then
+            echo "::error::CRON_SECRET is not set — add it under Settings → Secrets → Actions"
+            exit 1
+          fi
+
+      # Sequential, not an hour apart: generate has nothing to work on until
+      # ingest returns, and waiting for the response is exact where a second
+      # schedule was a guess.
+      - name: Ingest today's articles
+        run: |
+          curl --fail-with-body -sS -X POST "$SITE/api/v1/internal/ingest" \
+            -H "Authorization: Bearer $SECRET" --max-time 330 | tee /tmp/ingest.json
+          echo
+
+      - name: Generate the questions
+        run: |
+          curl --fail-with-body -sS -X POST "$SITE/api/v1/internal/generate" \
+            -H "Authorization: Bearer $SECRET" --max-time 330 | tee /tmp/generate.json
+          echo
+
+      - name: Reconcile billing
+        run: |
+          curl --fail-with-body -sS "$SITE/api/v1/internal/billing-reconcile" \
+            -H "Authorization: Bearer $SECRET" --max-time 130
+
+      # Last, so it judges the run that just happened rather than yesterday's.
+      - name: Report pipeline freshness
+        run: |
+          curl --fail-with-body -sS "$SITE/api/v1/internal/health" \
+            -H "Authorization: Bearer $SECRET" --max-time 60 | tee /tmp/health.json
+          echo
+          if ! grep -q '"ok":true' /tmp/health.json; then
+            echo "::error::the pipeline reports itself stale — see the body above"
+            exit 1
+          fi

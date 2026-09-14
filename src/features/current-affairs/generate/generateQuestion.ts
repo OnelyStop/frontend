@@ -1,5 +1,5 @@
+import { openrouterConfig } from "@/config/openrouter";
 import { activeProfile } from "@/features/current-affairs/config/profile";
-import { env } from "@/features/current-affairs/env";
 import type { ArticleRow } from "@/db/schema";
 import type { GeneratedQuestion } from "@/features/current-affairs/types";
 import { openrouter } from "@/lib/openrouter-client/openrouter";
@@ -22,7 +22,9 @@ export async function generateQuestion(
   sourceText: string,
 ): Promise<GeneratedQuestion> {
   const answer = await openrouter.ask({
-    model: env.GENERATION_MODEL,
+    model: activeProfile.generationModel,
+    // Not the shared gpt-4o fallback, which costs 60x the call it would be replacing.
+    fallbackModel: openrouterConfig.cheapModel,
     system: currentAffairsSystem(activeProfile.topics),
     prompt: currentAffairsUserPrompt(article, sourceText),
     temperature: 0.3,

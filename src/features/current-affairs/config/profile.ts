@@ -1,3 +1,4 @@
+import { openrouterConfig } from "@/config/openrouter";
 import { env } from "@/features/current-affairs/env";
 
 type Source = "newsdata_io" | "rbi_rss" | "pib_rss" | "sebi_rss";
@@ -59,7 +60,7 @@ export const BANKING_EXAM_PROFILE: ExamProfile = {
     return env.GENERATION_RPM;
   },
   get generationModel() {
-    return env.GENERATION_MODEL;
+    return openrouterConfig.generationModel;
   },
   recentWindowDays: 3,
 
