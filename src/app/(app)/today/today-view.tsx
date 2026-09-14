@@ -20,13 +20,13 @@ import {
   EventCard,
   EventMark,
   EventTime,
-  Figure,
   PageHeader,
   PlanCard,
   SectionTitle,
   Spine,
   SpineItem,
   StatusPill,
+  Stat,
 } from "@/design-system";
 import { useApp } from "@/context/AppContext";
 import { NEGATIVE_MARK } from "@/data/navigation";
@@ -118,37 +118,22 @@ export function TodayView({
   const cleared =
     paper?.score !== null && paper !== null && paper.score! >= paper.target;
 
-  const under = ranked.filter((r) => r.acc < ACC_LINE).length;
-  const diagnosis =
-    under === 0
-      ? `Every section is clearing the ${ACC_LINE}% line. ${weakestName} is the closest to it, so it is what everything below is ordered around.`
-      : `${weakestName} is ${ACC_LINE - weakest.acc} points under the ${ACC_LINE}% line${under === 1 ? " — the only section that is" : `, one of ${under} that are`}. Everything below is ordered around fixing that.`;
-
   return (
     <>
-      <div className="mb-9">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-          <h1 className="text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
-            {hello}
-          </h1>
-          <span className="text-ink-3 text-[13px]">{today}</span>
-        </div>
-        <p className="text-ink-2 mt-2.5 max-w-[64ch] text-[14.5px] leading-relaxed">
-          {diagnosis}
-        </p>
+      <div className="mb-7 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h1 className="text-[29px] leading-[1.14] font-bold tracking-[-0.03em]">
+          {hello}
+        </h1>
+        <span className="text-ink-3 text-[13px]">{today}</span>
       </div>
 
       <Canvas
         mid={
           <>
             {/* Two figures, not three: every band below already carries its own seconds, so an averaged pace tile said nothing new. */}
-            <div className="grid grid-cols-2 gap-5 xl:mt-11.5">
-              <Figure value={`${acc}%`} tone={acc >= ACC_LINE ? "ok" : "bad"}>
-                accuracy
-              </Figure>
-              <Figure value={`−${lost.toFixed(2)}`} tone="bad">
-                given back
-              </Figure>
+            <div className="grid grid-cols-2 gap-2.5 xl:mt-11.5">
+              <Stat value={`${acc}%`} label="accuracy" />
+              <Stat value={`−${lost.toFixed(2)}`} label="given back" />
             </div>
 
             <SectionTitle
@@ -195,7 +180,7 @@ export function TodayView({
                 <EventCard
                   kind="Flashcards"
                   when={`${rail.flashcards} cards`}
-                  tone="quiet"
+                  tone="reasoning"
                   mark={
                     <EventMark disc>
                       <GalleryVerticalEnd strokeWidth={2} />
@@ -216,7 +201,7 @@ export function TodayView({
                 <EventCard
                   kind="Notifications"
                   when={rail.unread ? `${rail.unread} unread` : "All read"}
-                  tone="quiet"
+                  tone="warn"
                   mark={
                     <EventMark disc>
                       <Bell strokeWidth={2} />
@@ -236,7 +221,7 @@ export function TodayView({
           <SpineItem>
             {/* At most one in-progress card per screen, or being in progress stops meaning anything. */}
             <ActiveCard
-              quiet
+              tilt
               kicker="Up next · your lowest section"
               title={`Drill ${weakestName}`}
               resumeLabel={`Drill ${weakestName}`}

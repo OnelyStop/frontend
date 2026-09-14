@@ -1,16 +1,8 @@
 "use client";
 
 import { useApp } from "@/context/AppContext";
-import {
-  ButtonLink,
-  Card,
-  Empty,
-  PageHeader,
-  Tile,
-  type Tone,
-} from "@/design-system";
+import { ButtonLink, Card, Empty, PageHeader, Stat } from "@/design-system";
 
-const STAT_TONES: Tone[] = ["info", "ok", "warn", "brand"];
 import type { ProfileStats } from "@/features/attempts/progress.server";
 import type { Profile } from "@/features/profile/types";
 
@@ -107,13 +99,8 @@ export function ProfileView({
               "Last sitting",
               stats.lastSatAt === null ? "—" : fmtDate(stats.lastSatAt),
             ],
-          ].map(([label, value], i) => (
-            <Tile
-              key={label}
-              value={String(value)}
-              label={String(label)}
-              tone={STAT_TONES[i % STAT_TONES.length]}
-            />
+          ].map(([label, value]) => (
+            <Stat key={label} value={String(value)} label={String(label)} />
           ))}
         </div>
       )}

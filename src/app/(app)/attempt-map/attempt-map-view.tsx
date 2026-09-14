@@ -7,13 +7,13 @@ import { useApp } from "@/context/AppContext";
 import {
   ButtonLink,
   Card,
-  type CardTone,
   Empty,
   PageHeader,
+  type PillTone,
   SectionTitle,
   Segmented,
+  Stat,
   StatusPill,
-  Tile,
 } from "@/design-system";
 import {
   NEGATIVE_MARK,
@@ -61,12 +61,12 @@ const ZONES: Record<
     dot: string;
     ring: string;
     text: string;
-    tone: Extract<CardTone, "ok" | "warn" | "bad" | "brand">;
+    tone: Extract<PillTone, "ok" | "warn" | "bad" | "brand">;
   }
 > = {
   first: {
     label: "Attempt first",
-    short: `${PACE}s or faster, ${ACC_LINE}% or better`,
+    short: "Fast and accurate — bank these in the opening minutes",
     advice:
       "Inside the pace target and above the accuracy line. These are the marks you can count on — clear them before the paper gets interesting.",
     dot: "bg-ok",
@@ -76,7 +76,7 @@ const ZONES: Record<
   },
   iftime: {
     label: "Attempt if time",
-    short: `${ACC_LINE}% or better, but slower than ${PACE}s`,
+    short: "Right, but expensive — only once the fast marks are banked",
     advice:
       "You get these right, but each one costs more than the pace target allows. Come back once the fast marks are in.",
     dot: "bg-brand",
@@ -86,7 +86,7 @@ const ZONES: Record<
   },
   fix: {
     label: "Fix the errors",
-    short: `${PACE}s or faster, but under ${ACC_LINE}%`,
+    short: "Fast but wrong — the cheapest marks in the paper to recover",
     advice:
       "Inside the pace target and under the accuracy line — the time is there, the accuracy is not.",
     dot: "bg-warn",
@@ -96,7 +96,7 @@ const ZONES: Record<
   },
   skip: {
     label: "Skip in the exam",
-    short: `Slower than ${PACE}s and under ${ACC_LINE}%`,
+    short: `Slow and wrong — at −${NEGATIVE_MARK} they take marks off you`,
     advice: `Outside the pace target and under the accuracy line. At −${NEGATIVE_MARK} a wrong answer, these cost you the time and the marks together.`,
     dot: "bg-bad",
     ring: "ring-bad/20",
@@ -130,7 +130,8 @@ const y = (accPct: number) => PAD + (accPct / 100) * (100 - PAD * 2);
 
 const Y_TICKS = [0, 25, 50, 75, 100];
 const AXIS_STEP = 30;
-const AXIS_MIN = 90;
+// 120 puts the last tick at 90s, the ceiling the plot was drawn against.
+const AXIS_MIN = 120;
 
 type SortKey = "rate" | "acc" | "sec" | "attempted";
 
@@ -261,28 +262,13 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
         }
       />
 
-      <div className="mb-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Tile
-          value={`${stats.accuracy}%`}
-          label={`Accuracy · ${stats.correct} of ${stats.attempted}`}
-          tone="info"
-        />
-        <Tile
-          value={`${stats.median}s`}
-          label={`Median pace · target ${PACE}s`}
-          tone={stats.median <= PACE ? "ok" : "warn"}
-        />
-        <Tile value={String(stats.banked)} label="Bankable topics" tone="ok" />
-        <Tile value={String(stats.skip)} label="On your skip list" outline />
-      </div>
-
       <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_360px]">
         <Card>
           <SectionTitle
             aside={
               <span className="text-ink-3 text-[12px]">
-                {shown.length} {shown.length === 1 ? "topic" : "topics"} ·
-                bubble size is questions attempted
+                {shown.length} {shown.length === 1 ? "topic" : "topics"} ·{" "}
+                {board} · bubble size is volume
               </span>
             }
           >
@@ -398,7 +384,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                   const id = topicId(t);
                   const isOpen = open ? topicId(open) === id : false;
                   const isFocus = focus ? topicId(focus) === id : false;
-                  const r = Math.round(14 + (t.attempted / stats.widest) * 16);
+                  const r = Math.round(9 + (t.attempted / stats.widest) * 10);
                   return (
                     <button
                       key={id}
@@ -472,16 +458,11 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
               </div>
             ))}
           </div>
-
-          <p className="text-ink-3 mt-5 text-[13px] leading-relaxed">
-            A verdict is the two lines and nothing else: {PACE} seconds a
-            question, and {ACC_LINE}% accuracy on what you attempt.
-          </p>
         </Card>
 
         <div className="grid content-start gap-5">
           {open ? (
-            <Card tone={ZONES[zoneOf(open)].tone}>
+            <Card>
               <div className="flex items-start gap-3">
                 <div className="min-w-0 flex-1">
                   <p className="text-[22px] leading-snug tracking-[-0.02em]">
@@ -506,12 +487,9 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                 </button>
               </div>
 
-              {/* No pill here: the card is already filled with the verdict's own tone, so a pill in that tone would vanish. */}
-              <p
-                className={`mt-5 text-[13px] font-semibold ${ZONES[zoneOf(open)].text}`}
-              >
+              <StatusPill className="mt-5" tone={ZONES[zoneOf(open)].tone}>
                 {ZONES[zoneOf(open)].label}
-              </p>
+              </StatusPill>
               <p className="text-ink-2 mt-4 text-[14px] leading-relaxed">
                 {ZONES[zoneOf(open)].advice}
               </p>
@@ -566,7 +544,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
               </Link>
             </Card>
           ) : (
-            <Card tone={skipList.length === 0 ? "ok" : "bad"}>
+            <Card>
               <SectionTitle
                 aside={
                   <span className="text-ink-3 text-[12px]">
@@ -582,7 +560,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                   % accurate, so nothing lands in the skip corner.
                 </p>
               ) : (
-                <ol className="grid gap-2">
+                <ol className="grid gap-1">
                   {skipList.map((t, i) => (
                     <li key={topicId(t)}>
                       <button
@@ -590,7 +568,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                         onClick={() => setOpen(t)}
                         onMouseEnter={() => setHover(t)}
                         onMouseLeave={() => setHover(null)}
-                        className="bg-canvas rounded-ctl hover:shadow-card flex w-full items-center gap-3 px-3.5 py-3 text-left transition-shadow"
+                        className="rounded-ctl hover:bg-brand-soft/50 flex w-full items-center gap-3 px-2 py-1.5 text-left transition-colors"
                       >
                         <span className="tnum text-ink-4 w-4 shrink-0 text-[13px]">
                           {i + 1}
@@ -603,13 +581,9 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
                             {Math.round(t.accuracy)}% at {t.avgSec}s
                           </span>
                         </span>
-                        <span className="shrink-0 text-right">
-                          <span className="tnum text-bad block text-[15px]">
-                            {rate(t).toFixed(2)}
-                          </span>
-                          <span className="text-ink-4 block text-[12px]">
-                            marks/min
-                          </span>
+                        <span className="tnum text-bad shrink-0 text-[14px]">
+                          {rate(t).toFixed(2)}
+                          <span className="text-ink-4 text-[12px]">/min</span>
                         </span>
                       </button>
                     </li>
@@ -623,7 +597,7 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
             </Card>
           )}
 
-          <Card className="bg-ink text-white">
+          <Card tone="ink">
             <p className="text-[14px] text-white/50">
               What negative marking took back
             </p>
@@ -647,6 +621,19 @@ export function AttemptMapView({ topics }: { topics: TopicMapRow[] }) {
               Sit a mock
             </Link>
           </Card>
+
+          <div className="grid grid-cols-2 gap-4">
+            <Stat
+              value={`${stats.accuracy}%`}
+              label={`Accuracy · ${stats.correct} of ${stats.attempted}`}
+            />
+            <Stat
+              value={`${stats.median}s`}
+              label={`Median pace · target ${PACE}s`}
+            />
+            <Stat value={String(stats.banked)} label="Bankable topics" />
+            <Stat value={String(stats.skip)} label="On your skip list" />
+          </div>
         </div>
       </div>
 

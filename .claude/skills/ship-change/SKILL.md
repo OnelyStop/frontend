@@ -27,7 +27,8 @@ you skipped step one; stop and state it.
 | 3   | Build against the plan                      | Scope stays inside what was asked                                         |
 | 4   | Production comments pass on the full diff   | Every added or touched comment listed, justified or deleted               |
 | 5   | Verify every gate, naming real files        | `format:check`, `check:layout`, `check:source`, `tsc`, `vitest`, `build`  |
-| 5b  | Screenshots, if a pixel moved               | Dropped in local `docs/screenshots/`, then **stop** — Tushar looks first  |
+| 5b  | Screenshots, if a pixel moved               | Dropped in local `screenshots/`, then **stop** — Tushar looks first       |
+| 5c  | At most one white card on the page          | `<Card>` counted; prefer rows, an identity tint, or nothing at all        |
 | 6   | Prove each new check can go red             | Violation planted, check fails, restored, check passes                    |
 | 7   | Commit, push, PR, watch CI                  | Only when asked. PR open, CI reported, `closingIssuesReferences` verified |
 
@@ -138,6 +139,32 @@ Once he approves and the shots are committed, verify each raw URL with `curl`
 before claiming the PR body renders them: `.gitignore` carries a bare
 `screenshots/` rule, and `git add -A` has silently skipped these before while
 the body linked six 404s.
+
+**5c. One white card per page, at most — and prefer none.** A page built out of
+white rectangles is the generic template the product is trying not to look
+like. Count `<Card>` on any page you touch: **more than one plain white card is
+a bug.** Two is not a judgement call to defend, it is a rewrite.
+
+What to reach for instead, in order:
+
+- **Nothing.** Rows on the stage, separated by a hairline. `Divider`, a
+  `border-b`, a `Spine`. Most lists and most settings need no surface at all.
+- **Identity tint.** `IndexCard` / `EventCard` in the subject's own colour —
+  what `/study` and `/mocks` are built from. Tint is identity, never a
+  container, and never a state.
+- **A recessed panel.** `inset-panel` for a plot or a table; `Input` and
+  `Segmented` already recess themselves.
+- **The black card.** `Card tone="ink"`, for the one sentence that closes a
+  page. Still counts as the page's one card.
+
+Never rebuild a card by hand either — `card`, `card-lift`, `inset-panel` and
+`ruled` are `@utility` rules in `theme.css`. A bordered white box assembled from
+`border-line rounded-card border p-6` is the previous language and is wrong
+twice over.
+
+A grid of tinted cards walks the palette by index, never by hash: `tintFor`
+hashes, which put the same tint in the same column two rows running on `/mocks`.
+Walk `SECTION_TINT` with the loop index so no two neighbours repeat.
 
 **5. Verify.** From the repo root:
 

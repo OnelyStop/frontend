@@ -9,7 +9,7 @@ import {
   Card,
   PageHeader,
   SectionTitle,
-  Tile,
+  Stat,
 } from "@/design-system";
 import { PipelinePanel } from "./pipeline-panel";
 
@@ -153,13 +153,7 @@ export default async function Page() {
         </SectionTitle>
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
           {counts.map((c) => (
-            <Tile
-              key={c.label}
-              value={c.value}
-              label={c.label}
-              note={c.note}
-              tone={c.value === "—" ? "bad" : "info"}
-            />
+            <Stat key={c.label} value={c.value} label={c.label} note={c.note} />
           ))}
         </div>
       </Card>
@@ -177,33 +171,25 @@ export default async function Page() {
           Question bank
         </SectionTitle>
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <Tile
+          <Stat
             value={String(bank.papersServable)}
             label="Papers a learner can open"
             note={`of ${bank.papersTotal} stored`}
-            tone={hidden === 0 ? "ok" : "warn"}
           />
-          <Tile
+          <Stat
             value={String(bank.questionsServable)}
             label="Questions a learner can sit"
             note={`of ${bank.questionsTotal} stored`}
-            tone={
-              bank.questionsServable === bank.questionsTotal ? "ok" : "warn"
-            }
           />
-          <Tile
+          <Stat
             value={String(bank.questionsTotal - bank.questionsServable)}
             label="Questions out of reach"
             note="inactive, or on an unreachable paper"
-            tone={
-              bank.questionsTotal === bank.questionsServable ? "ok" : "warn"
-            }
           />
-          <Tile
+          <Stat
             value={String(bank.examKeysCollapsed)}
             label="Exam keys with more than one paper"
             note="shifts sharing an identity"
-            tone={bank.examKeysCollapsed === 0 ? "ok" : "info"}
           />
         </div>
       </Card>

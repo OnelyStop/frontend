@@ -3,15 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  Button,
-  Card,
-  Field,
-  Input,
-  PageHeader,
-  SectionTitle,
-  Textarea,
-} from "@/design-system";
+import { Button, Field, Input, PageHeader, Textarea } from "@/design-system";
 import {
   EXAM_TYPES,
   SECTIONS,
@@ -125,102 +117,89 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
         }
       />
 
-      <Card tone="info">
-        <SectionTitle>Your details</SectionTitle>
-        <div className="border-line mb-5 border-b pb-5">
-          <p className="text-ink-2 text-[13px]">Avatar</p>
-          <p className="text-ink-3 mt-0.5 mb-2.5 text-[12.5px]">
-            Without one you keep your initials.
-          </p>
+      <div className="border-line max-w-4xl border-t">
+        <Row label="Avatar" hint="Without one you keep your initials.">
           <AvatarPicker
             value={draft.avatar}
             onChange={(next) => setDraft((d) => ({ ...d, avatar: next }))}
             initials={initials}
           />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Full name" htmlFor="displayName">
-            <Input
-              id="displayName"
-              value={draft.displayName}
-              onChange={(e) => set("displayName", e.target.value)}
-            />
-          </Field>
-          <Field label="Coaching / college" htmlFor="school">
-            <Input
-              id="school"
-              value={draft.school}
-              onChange={(e) => set("school", e.target.value)}
-            />
-          </Field>
-          <Field label="Target year" htmlFor="targetYear">
+        </Row>
+
+        <Row label="Name">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Full name" htmlFor="displayName">
+              <Input
+                id="displayName"
+                value={draft.displayName}
+                onChange={(e) => set("displayName", e.target.value)}
+              />
+            </Field>
+            <Field label="Coaching / college" htmlFor="school">
+              <Input
+                id="school"
+                value={draft.school}
+                onChange={(e) => set("school", e.target.value)}
+              />
+            </Field>
+          </div>
+        </Row>
+
+        <Row label="Target year" hint="The year you are sitting for.">
+          <div className="max-w-44">
             <Input
               id="targetYear"
               inputMode="numeric"
+              aria-label="Target year"
               value={draft.targetYear}
               onChange={(e) => set("targetYear", e.target.value)}
             />
-          </Field>
-        </div>
-        <label htmlFor="bio" className="mt-4 block">
-          <span className="text-ink-3 block text-[13px]">Bio</span>
+          </div>
+        </Row>
+
+        <Row label="Bio" hint="Shown on your public profile.">
           <Textarea
             id="bio"
             rows={3}
+            aria-label="Bio"
             value={draft.bio}
             onChange={(e) => set("bio", e.target.value)}
-            className="mt-1"
           />
-        </label>
-      </Card>
+        </Row>
 
-      <Card tone="brand" className="mt-5">
-        <SectionTitle>Exam you are preparing for</SectionTitle>
-        <p className="text-ink-3 -mt-2 mb-4 text-[13px]">
-          Sets the question bank, the drills and the cutoffs you are measured
-          against.
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {EXAM_TYPES.map(({ value, live }) => (
-            <button
-              key={value}
-              type="button"
-              disabled={!live}
-              onClick={() => set("examBoard", value)}
-              className={`rounded-pill h-10 border px-4 text-[13px] font-medium transition-colors ${
-                !live
-                  ? "border-line text-ink-3 cursor-not-allowed opacity-55"
-                  : draft.examBoard === value
-                    ? "border-ink bg-ink text-white"
-                    : "border-line bg-canvas hover:border-line-2"
-              }`}
-            >
-              {value}
-              {live ? null : <span className="ml-1.5 text-[11px]">soon</span>}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-7">
-          <SectionTitle>Section you open on</SectionTitle>
+        <Row
+          label="Exam"
+          hint="Sets the question bank, the drills and the cutoffs you are measured against."
+        >
           <div className="flex flex-wrap gap-2">
-            {SECTIONS.map((s) => (
-              <button
-                key={s}
-                type="button"
-                onClick={() => set("defaultSection", s)}
-                className={`rounded-pill h-10 border px-4 text-[13px] font-medium transition-colors ${
-                  draft.defaultSection === s
-                    ? "border-ink bg-ink text-white"
-                    : "border-line bg-canvas hover:border-line-2"
-                }`}
+            {EXAM_TYPES.map(({ value, live }) => (
+              <Choice
+                key={value}
+                on={draft.examBoard === value}
+                disabled={!live}
+                onClick={() => set("examBoard", value)}
               >
-                {SECTION_LABEL[s]}
-              </button>
+                {value}
+                {live ? null : <span className="ml-1.5 text-[11px]">soon</span>}
+              </Choice>
             ))}
           </div>
-        </div>
-      </Card>
+        </Row>
+
+        <Row label="Opens on" hint="The section the app lands you in.">
+          <div className="flex flex-wrap gap-2">
+            {SECTIONS.map((s) => (
+              <Choice
+                key={s}
+                on={draft.defaultSection === s}
+                onClick={() => set("defaultSection", s)}
+              >
+                {SECTION_LABEL[s]}
+              </Choice>
+            ))}
+          </div>
+        </Row>
+      </div>
 
       <div className="mt-6 flex items-center gap-2">
         <Link
@@ -239,5 +218,60 @@ export function SettingsView({ profile }: { profile: Profile | null }) {
 
       <CloseAccountCard />
     </div>
+  );
+}
+
+/* A settings page is a ledger, not a stack of cards: label on the left, the control on the right, a hairline between. */
+function Row({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="border-line grid gap-x-10 gap-y-3 border-b py-6 lg:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
+      <div>
+        <p className="text-[14px] font-medium">{label}</p>
+        {hint ? (
+          <p className="text-ink-3 mt-1 max-w-[34ch] text-[12.5px] leading-relaxed">
+            {hint}
+          </p>
+        ) : null}
+      </div>
+      <div className="min-w-0">{children}</div>
+    </div>
+  );
+}
+
+function Choice({
+  on,
+  disabled,
+  onClick,
+  children,
+}: {
+  on: boolean;
+  disabled?: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onClick}
+      aria-pressed={on}
+      className={`rounded-pill press h-10 px-4 text-[13px] font-medium transition-colors ${
+        disabled
+          ? "text-ink-3 cursor-not-allowed opacity-55"
+          : on
+            ? "bg-ink text-white"
+            : "bg-panel text-ink-2 hover:bg-line-2"
+      }`}
+    >
+      {children}
+    </button>
   );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Lock } from "lucide-react";
-import { StatusPill, ButtonLink } from "@/design-system";
+import { ButtonLink, Card, StatusPill } from "@/design-system";
 import type { TopicPreview } from "../types";
 
 const DIFFICULTY_TONE = {
@@ -84,7 +84,7 @@ export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
           </section>
         ) : null}
 
-        <section className="border-line rounded-card mt-10 max-w-[68ch] border p-6">
+        <Card className="mt-10 max-w-[68ch]">
           <div className="text-ink-3 flex items-center gap-2 text-[13px]">
             <Lock size={14} strokeWidth={1.75} />
             The lesson itself is for members
@@ -103,7 +103,7 @@ export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
               Sign in
             </ButtonLink>
           </div>
-        </section>
+        </Card>
       </div>
 
       <aside className="mt-12 lg:mt-0">

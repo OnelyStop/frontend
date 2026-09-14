@@ -2,17 +2,12 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { cn } from "../lib/cn";
 
-export type CardTone =
-  "plain" | "ok" | "warn" | "bad" | "info" | "brand" | "active";
+// White paper or black — a card filled with a state colour makes the tint a container, and the state stops being findable.
+export type CardTone = "plain" | "ink";
 
 const CARD_TONE: Record<CardTone, string> = {
   plain: "",
-  ok: "bg-ok-soft",
-  warn: "bg-warn-soft",
-  bad: "bg-bad-soft",
-  info: "bg-info-soft",
-  brand: "bg-brand-soft",
-  active: "bg-active-soft",
+  ink: "bg-ink text-white",
 };
 
 export function Card({

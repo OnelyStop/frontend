@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, SectionTitle } from "@/design-system";
+import { SectionTitle } from "@/design-system";
 import type { Scorecard } from "../types";
 
 // Same coordinate mappers as /attempt-map, reused deliberately so a topic lands where the reader already expects it.
@@ -21,7 +21,7 @@ export function TopicScatter({ scorecard }: { scorecard: Scorecard }) {
   const topics = scorecard.topics.filter((t) => t.attempted > 0);
 
   return (
-    <Card tone="info">
+    <section className="border-line rounded-card border p-5">
       <SectionTitle aside={`${topics.length} topics touched`}>
         Accuracy vs pace, by topic
       </SectionTitle>
@@ -74,7 +74,7 @@ export function TopicScatter({ scorecard }: { scorecard: Scorecard }) {
             {topics.map((t) => {
               const key = `${t.section}::${t.topic}`;
               const isHover = hover === key;
-              const r = Math.max(14, Math.min(30, 10 + t.attempted * 3));
+              const r = Math.max(8, Math.min(18, 6 + t.attempted * 2));
               const xPct = x(t.avgTimeSec);
               const anchor =
                 xPct < EDGE_PCT
@@ -128,6 +128,6 @@ export function TopicScatter({ scorecard }: { scorecard: Scorecard }) {
           </div>
         </div>
       </div>
-    </Card>
+    </section>
   );
 }

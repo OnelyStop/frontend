@@ -198,7 +198,7 @@ export function PlanCard({
       {children ? (
         <p
           className={cn(
-            "text-ink-2 max-w-[36ch]",
+            "text-ink-2 max-w-[30ch]",
             lg
               ? "mt-3 text-[15px] leading-normal"
               : "mt-2 text-[13.5px] leading-[1.55]",

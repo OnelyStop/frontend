@@ -33,7 +33,6 @@ import {
   OptionRow,
   PageHeader,
   Popover,
-  SectionTitle,
   Segmented,
   Table,
   TargetBar,
@@ -58,8 +57,6 @@ import {
   Spine,
   SpineItem,
   StatusPill,
-  Figure,
-  Tile,
   tintFor,
 } from "@/design-system";
 
@@ -290,32 +287,6 @@ export function DesignView() {
       </Section>
 
       <Section
-        title="Figures"
-        note="Tinted by meaning; the not-yet state has no fill"
-      >
-        <div className="grid max-w-2xl grid-cols-3 gap-4">
-          <Tile value="26" label="Papers" tone="info" />
-          <Tile value="2" label="Cleared" tone="ok" />
-          <Tile value="23" label="Upcoming" outline />
-        </div>
-
-        <p className="text-ink-3 mt-8 mb-3 text-[13px]">
-          Figure — bare on the stage, the rule carries the state
-        </p>
-        <div className="flex flex-wrap gap-x-12 gap-y-5">
-          <Figure tone="bad" value="−22.00">
-            88 wrong × 0.25 given back to negative marking
-          </Figure>
-          <Figure tone="warn" value="49s">
-            a question, against a 45s budget
-          </Figure>
-          <Figure tone="ok" value="41s">
-            a question, inside the 45s budget
-          </Figure>
-        </div>
-      </Section>
-
-      <Section
         title="Index card"
         note="The way into a section — the count sits on the floor of every card"
       >
@@ -487,22 +458,19 @@ export function DesignView() {
       </Section>
 
       <Section title="Surfaces">
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <Card>
-            <SectionTitle aside="aside text">Card</SectionTitle>
-            <p className="text-ink-2 text-[15px] leading-relaxed">
-              White ground inside a hairline. No fill, no shadow — only menus
-              and palettes lift.
+        <div className="max-w-80">
+          <Card tone="ink">
+            <p className="text-[14px] text-white/50">Black card</p>
+            <p className="mt-4 text-[15px] leading-[1.55] text-white/85">
+              The only filled card in the system. A card in a state colour is
+              not available — state goes on a pill.
             </p>
-            <Divider className="my-5" />
-            <p className="text-ink-3 text-[13px]">Divider above.</p>
-          </Card>
-          <Card tone="info">
-            <p className="text-ink-2 text-[14px]">Tinted card</p>
-            <p className="mt-3 text-[15px] leading-relaxed">
-              A card fills with its own tint when the card is what carries the
-              state.
-            </p>
+            <button
+              type="button"
+              className="rounded-pill text-ink mt-7 flex h-10 w-full items-center justify-center bg-white text-[14px] transition-opacity hover:opacity-90"
+            >
+              Sit a mock
+            </button>
           </Card>
         </div>
 

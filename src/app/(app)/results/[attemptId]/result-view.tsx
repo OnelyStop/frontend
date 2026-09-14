@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, PageHeader, Tile, TargetBar } from "@/design-system";
+import { Card, PageHeader, StatusPill, Stat, TargetBar } from "@/design-system";
 import { MarksWaterfall } from "@/features/attempts/components/marks-waterfall";
 import { QuestionReview } from "@/features/attempts/components/question-review";
 import { ScoreTimeline } from "@/features/attempts/components/score-timeline";
@@ -8,7 +8,7 @@ import { SectionBreakdown } from "@/features/attempts/components/section-breakdo
 import { TopicScatter } from "@/features/attempts/components/topic-scatter";
 import { TopicTheorySection } from "@/features/attempts/components/topic-theory";
 import type { Scorecard } from "@/features/attempts/types";
-import { verdictTone } from "@/features/attempts/verdict";
+import { verdictLabel } from "@/features/attempts/verdict";
 
 export function ResultView({
   scorecard,
@@ -46,17 +46,21 @@ export function ResultView({
         </p>
       ) : null}
 
-      <Card tone={verdictTone(scorecard)} className="mb-6">
-        <p className="text-ink-2 text-[13px]">
-          {scorecard.mode === "paper" ? "This sitting" : "This drill"}
-        </p>
-        <p className="tnum mt-2 text-[34px] leading-none tracking-[-0.03em]">
+      <Card tone="ink" className="mb-8 px-7 py-9">
+        <div className="flex items-start justify-between gap-4">
+          <p className="text-[12px] text-white/50">
+            {scorecard.mode === "paper" ? "This sitting" : "This drill"}
+          </p>
+          {/* On the black card the pill is white paper: an amber fill on black read as a warning banner. */}
+          <StatusPill tone="live">{verdictLabel(scorecard)}</StatusPill>
+        </div>
+        <p className="tnum mt-4 text-[26px] leading-none tracking-[-0.03em]">
           {scorecard.score.toFixed(2)}
-          <span className="text-ink-3 ml-2 text-[20px]">
+          <span className="ml-2 text-[16px] text-white/45">
             / {scorecard.maxScore.toFixed(2)}
           </span>
         </p>
-        <p className="mt-3 text-[15px]">
+        <p className="mt-4 max-w-[62ch] text-[13.5px] leading-[1.6] text-white/85">
           {scorecard.target === null
             ? `${scorecard.correct} correct out of ${scorecard.attempted} attempted.`
             : cleared
@@ -85,18 +89,13 @@ export function ResultView({
       ) : null}
 
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Tile value={scorecard.score.toFixed(2)} label="Score" tone="info" />
-        <Tile
-          value={`${scorecard.accuracy.toFixed(0)}%`}
-          label="Accuracy"
-          tone={cleared ? "ok" : "bad"}
-        />
-        <Tile
+        <Stat value={scorecard.score.toFixed(2)} label="Score" />
+        <Stat value={`${scorecard.accuracy.toFixed(0)}%`} label="Accuracy" />
+        <Stat
           value={`${scorecard.attempted}/${scorecard.totalQuestions}`}
           label={`Attempted · ${scorecard.skipped} blank`}
-          outline
         />
-        <Tile value={marksPerMin} label="Marks / min" tone="neutral" />
+        <Stat value={marksPerMin} label="Marks / min" />
       </div>
 
       <div className="mb-6 grid gap-4 lg:grid-cols-2">
