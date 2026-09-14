@@ -2,7 +2,6 @@ type Fields = Record<string, string | number | boolean | null | undefined>;
 
 type Level = "debug" | "info" | "warn" | "error";
 
-// LOG_IN_TESTS turns test logging back on; read per call so a test can stub it.
 const silent = () =>
   process.env.NODE_ENV === "test" && !process.env.LOG_IN_TESTS;
 
@@ -23,7 +22,6 @@ const emit = (level: Level, event: string, fields: Fields = {}) => {
   for (const [key, value] of Object.entries(fields)) {
     if (value !== undefined) line[key] = value;
   }
-  // One JSON object per line: greppable in Vercel's log view
   console[CHANNEL[level]](JSON.stringify(line));
 };
 

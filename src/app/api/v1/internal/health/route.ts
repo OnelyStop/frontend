@@ -7,7 +7,6 @@ import { captureError } from "@/lib/observability.server";
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 
-// The dead man's switch for the other two crons: they report when they throw, never when they are not fired at all.
 export async function POST(request: Request) {
   if (!isAuthorizedCron(request)) return json({ error: "unauthorized" }, 401);
 

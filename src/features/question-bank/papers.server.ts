@@ -8,14 +8,12 @@ import { attempts, bankQuestions, papers } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
 import type { Mock } from "./types";
 
-// The source data carries no published cutoff, so papers are scored against CUTOFF_LADDER's 55% band scaled to question count.
 const TARGET_PCT =
   CUTOFF_LADDER.find((b) => b.band === "At cutoff")!.threshold / 100;
 
 /** Below this a paper is a fragment, not a sitting. Exported so the admin count reports the same set this serves, rather than drifting from it. */
 export const SERVABLE_MIN_QS = 20;
 
-/** The exam stages a mock can be sat from; the bank also holds section-only extracts that are not whole papers. */
 export const SERVABLE_STAGES = ["Prelims", "Mains"] as const;
 
 /** `qs` counts only questions carrying an `answer`, so it matches the exam `listPaperQuestions` actually serves. */
@@ -87,7 +85,6 @@ export async function listMockPapers(): Promise<Mock[]> {
   });
 }
 
-/** A retaken mock reports the best sitting, not the most recent one; empty rather than an error when signed out. */
 async function bestScoreByPaper(
   userId: string | null,
   paperIds: string[],

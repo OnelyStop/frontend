@@ -28,7 +28,6 @@ const initials = (name: string) =>
     .map((w) => w[0]?.toUpperCase() ?? "")
     .join("") || "?";
 
-// Walked per reply so a long thread stays scannable rather than one block of colour.
 const REPLY_TONES: EventTone[] = ["info", "ok", "warn", "brand"];
 
 const WHEN = new Intl.DateTimeFormat("en-IN", {

@@ -111,7 +111,6 @@ export function TodayView({
 
   const acc = Math.round((correct / attempted) * 100);
   const lost = wrong * NEGATIVE_MARK;
-  // Best first, so the sections needing work fall to the bottom of the list.
   const ranked = rankSections(sections, "best");
   const weakest = ranked[ranked.length - 1]!;
   const weakestName = sectionLabel(weakest.section);

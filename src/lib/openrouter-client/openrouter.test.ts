@@ -19,7 +19,6 @@ const bad = (status: number) => new Response("no", { status });
 
 let calls: RequestInit[];
 
-// A fresh Response per call: a body reads once, and a shared one fails oddly.
 function stubFetch(make: (call: number) => Response) {
   let n = 0;
   const f = vi.fn(async (_u: RequestInfo | URL, init?: RequestInit) => {
@@ -346,7 +345,6 @@ describe("per-feature instances", () => {
     expect(sent().max_tokens).toBe(config.maxTokens);
   });
 
-  // Why this is a class: two features configured differently at the same time.
   it("keeps two features' settings apart", async () => {
     stubFetch(() => ok());
     const tutor = new OpenRouterClient({
@@ -380,12 +378,10 @@ const badWith = (status: number, headers: Record<string, string>) =>
   new Response("no", { status, headers });
 
 describe("deadlines and attempt limits", () => {
-  // The branch that stands between a user and a multi-minute hang.
   it("stops trying once the total deadline has passed", async () => {
     const f = stubFetch(() => bad(503));
     const slow = new OpenRouterClient({ totalTimeoutMs: 1 });
     await expect(slow.ask({ prompt: "hi" })).rejects.toBeInstanceOf(AiError);
-    // One attempt at most: the deadline is blown before a second could start.
     expect(f.mock.calls.length).toBeLessThanOrEqual(2);
   });
 
@@ -393,7 +389,6 @@ describe("deadlines and attempt limits", () => {
     const f = stubFetch(() => bad(503));
     const once = new OpenRouterClient({ maxAttempts: 1 });
     await expect(once.ask({ prompt: "hi" })).rejects.toBeInstanceOf(AiError);
-    // One attempt on the primary, one on the fallback.
     expect(f).toHaveBeenCalledTimes(2);
   });
 
@@ -477,7 +472,6 @@ describe("the total deadline is a real ceiling", () => {
       maxAttempts: 2,
     });
     const started = Date.now();
-    // The second attempt fitting the budget is a race; the elapsed time is the assertion.
     await client.ask({ prompt: "hi" }).catch(() => undefined);
     expect(Date.now() - started).toBeLessThan(1_000);
   });

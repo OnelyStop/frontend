@@ -17,7 +17,6 @@ export const metadata: Metadata = { title: "Admin" };
 
 type Check = { label: string; ok: boolean; detail: string };
 
-// Walks the RBAC chain end to end so a half-finished setup is obvious now.
 async function runChecks(): Promise<Check[]> {
   const supabase = await createClient();
   const checks: Check[] = [];
@@ -64,7 +63,6 @@ async function runChecks(): Promise<Check[]> {
 
 type Count = { label: string; value: string; note: string };
 
-// head:true asks for the count alone, so an empty table costs nothing to read.
 async function runCounts(): Promise<Count[]> {
   const supabase = await createClient();
 

@@ -2,7 +2,6 @@
 
 type Requirement = { name: string; breaks: string };
 
-// Without these nothing signed-in works: every data page and the auth proxy need them.
 const FATAL: Requirement[] = [
   { name: "DATABASE_URL", breaks: "every data page and API route" },
   {
@@ -15,7 +14,6 @@ const FATAL: Requirement[] = [
   },
 ];
 
-// Checked only when billing is on, where an unset key fails at the moment money moves.
 const BILLING: Requirement[] = [
   { name: "RAZORPAY_KEY_ID", breaks: "checkout" },
   { name: "RAZORPAY_KEY_SECRET", breaks: "checkout" },

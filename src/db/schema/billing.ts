@@ -25,7 +25,6 @@ export const billingInterval = pgEnum("billing_interval", [
 
 export const currencyCode = pgEnum("currency_code", ["INR", "USD"]);
 
-// Mirrored exactly: a mistranslation silently stops granting access.
 export const subscriptionStatus = pgEnum("subscription_status", [
   "created",
   "authenticated",
@@ -52,7 +51,6 @@ export const paymentPlans = pgTable(
     razorpayPlanId: text("razorpay_plan_id").notNull(),
     // Minor units, never a float: 7.99 * 100 is 798.9999… and that is a real charge.
     amountMinor: integer("amount_minor").notNull(),
-    // Struck-through price; null means no offer and no badge.
     listAmountMinor: integer("list_amount_minor"),
     active: boolean("active").notNull().default(true),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -66,7 +64,6 @@ export const paymentPlans = pgTable(
       .where(sql`${t.active}`),
     unique("payment_plans_razorpay_plan_id_key").on(t.razorpayPlanId),
 
-    // Public on purpose: the marketing page renders prices to signed-out visitors.
     pgPolicy("anyone can read plan prices", {
       for: "select",
       to: [anonRole, authenticatedRole],
@@ -157,12 +154,9 @@ export const paymentEvents = pgTable(
   (t) => [
     unique("payment_events_event_id_key").on(t.eventId),
     index("payment_events_event_type_idx").on(t.eventType),
-
-    // No read policy: the payload is the raw provider event.
   ],
 ).enableRLS();
 
-// Separate from `subscriptions` so access survives a provider change or a support grant.
 export const entitlements = pgTable(
   "entitlements",
   {
@@ -179,7 +173,6 @@ export const entitlements = pgTable(
       .defaultNow(),
   },
   (t) => [
-    // One row per user: renewals move access_until forward, never add another.
     unique("entitlements_user_id_key").on(t.userId),
 
     pgPolicy("signed-in users can read their own entitlement", {
@@ -190,7 +183,6 @@ export const entitlements = pgTable(
   ],
 ).enableRLS();
 
-// One row per user, feature and IST day: a monthly cap sums, a daily cap reads one.
 export const aiUsage = pgTable(
   "ai_usage",
   {

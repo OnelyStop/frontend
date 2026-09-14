@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import * as Sentry from "@sentry/nextjs";
 
-// Replaces the root layout, so there is no theme.css: every style here is inline.
 const SHELL: React.CSSProperties = {
   minHeight: "100dvh",
   margin: 0,

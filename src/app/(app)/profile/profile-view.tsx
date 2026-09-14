@@ -10,7 +10,6 @@ import {
   type Tone,
 } from "@/design-system";
 
-// Four identical white boxes read as one; the tone says which figure you are looking at.
 const STAT_TONES: Tone[] = ["info", "ok", "warn", "brand"];
 import type { ProfileStats } from "@/features/attempts/progress.server";
 import type { Profile } from "@/features/profile/types";

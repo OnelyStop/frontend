@@ -38,7 +38,6 @@ export function RunningHead({
 }) {
   const { avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
-  // Neither state renders until auth resolves, so the header never flashes either way.
   const signedOut = !loading && !user;
   const signedIn = !loading && !!user;
   const { open: retrievalOpen, setOpen: setRetrievalOpen } = useRetrieval();
@@ -56,11 +55,9 @@ export function RunningHead({
   useEffect(() => {
     const onKey = (ev: KeyboardEvent) => {
       if (ev.key !== "Escape") return;
-      // Exam conditions owns its own exit, and it asks first.
       if (document.documentElement.dataset.mode === "exam") return;
       if (retrievalOpen) return;
 
-      // A first Esc leaves the field you are typing in; the second goes up.
       const el = document.activeElement as HTMLElement | null;
       if (
         el &&

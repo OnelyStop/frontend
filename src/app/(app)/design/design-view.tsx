@@ -63,7 +63,6 @@ import {
   tintFor,
 } from "@/design-system";
 
-// The tints, not the inks — the tint is the half that fills a surface.
 const TOKENS: [string, string][] = [
   ["stage", "var(--color-stage)"],
   ["canvas", "var(--color-canvas)"],

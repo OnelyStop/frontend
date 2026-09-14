@@ -8,6 +8,5 @@ export function todayIst(): string {
   return istDayKey(new Date());
 }
 
-// The oldest day a plan may open, inclusive. `days` of 7 means today plus six.
 export const oldestDayAllowed = (today: string, days: number): string =>
   dayBack(today, days - 1);

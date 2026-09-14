@@ -83,7 +83,6 @@ function tidy(text: string): string {
     .trim();
 }
 
-// Bot walls and challenge pages that some publishers serve with HTTP 200.
 const BLOCK_PAGE =
   /(enable javascript and cookies|checking your browser|verify you are (a )?human|are you a robot|access denied|request unsuccessful|attention required|cloudflare|please try again in a few minutes|too many requests)/i;
 
@@ -91,7 +90,6 @@ function looksBlocked(text: string): boolean {
   return text.length < 600 && BLOCK_PAGE.test(text);
 }
 
-// Falls back when Readability decides a short press release is not article-shaped.
 export function extractMainText(html: string): string {
   try {
     const { document } = parseHTML(html);
@@ -103,9 +101,7 @@ export function extractMainText(html: string): string {
     if (text.length >= 200 && !looksBlocked(text)) {
       return text.slice(0, MAX_BODY_CHARS);
     }
-  } catch {
-    // fall through to the regex extractor
-  }
+  } catch {}
   const fallback = htmlToText(html);
   return looksBlocked(fallback) ? "" : fallback;
 }

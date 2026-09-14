@@ -63,7 +63,6 @@ function auditPayload(data: WebhookEvent) {
           current_start: sub.current_start ?? null,
           current_end: sub.current_end ?? null,
           charge_at: sub.charge_at ?? null,
-          // Our own user_id, not the provider's contact details.
           notes: sub.notes ?? null,
         }
       : null,
@@ -123,7 +122,6 @@ export async function handleWebhook(
   const { event, created_at, payload } = parsed.data;
   const sub = payload.subscription?.entity;
   const pay = payload.payment?.entity;
-  // Razorpay always sends the header; the fallback keeps local replays honest.
   const eventId =
     input.eventId ?? `${event}:${created_at}:${sub?.id ?? pay?.id ?? "none"}`;
   const observedAt = new Date(created_at * 1000);

@@ -12,7 +12,6 @@ import {
 } from "drizzle-orm/pg-core";
 import { authenticatedRole } from "drizzle-orm/supabase";
 
-// The broad exam a learner is preparing for. The specific boards it replaced live on papers, which are not an enum.
 export const examBoard = pgEnum("exam_board", ["Banking", "NEET", "IIT JEE"]);
 
 export const examSection = pgEnum("exam_section", [
@@ -28,7 +27,6 @@ export const profiles = pgTable(
   {
     id: uuid("id").primaryKey(),
     displayName: text("display_name"),
-    // A preset key, not a URL; the render map is the allowlist.
     avatar: text("avatar"),
     bio: text("bio"),
     country: char("country", { length: 2 }).notNull().default("IN"),

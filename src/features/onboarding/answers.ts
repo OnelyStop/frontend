@@ -16,7 +16,6 @@ export const EMPTY_ANSWERS: Answers = {
   avatar: null,
 };
 
-/** The years offered; "not sure yet" is a real answer, stored as null. */
 export function targetYears(now = new Date()): number[] {
   const y = now.getFullYear();
   return [y, y + 1, y + 2];
@@ -41,9 +40,7 @@ export function stashAnswers(answers: Answers): void {
       STASH_KEY,
       JSON.stringify({ ...answers, examBoard: answers.examBoard }),
     );
-  } catch {
-    // A private window with storage blocked just loses the answers; signup still works.
-  }
+  } catch {}
 }
 
 export function takeStashedAnswers(): StashedAnswers | null {

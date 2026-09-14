@@ -8,7 +8,6 @@ const WHEN = new Intl.DateTimeFormat("en-IN", {
   timeZone: "Asia/Kolkata",
 });
 
-/** One sitting on the spine: what it was, when, and the one number that matters. */
 export function SittingCard({ sitting }: { sitting: RecentAttempt }) {
   const paper = sitting.mode === "paper";
   const cleared =

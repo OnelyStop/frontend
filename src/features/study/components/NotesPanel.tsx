@@ -33,7 +33,6 @@ export function NotesPanel({
   const [busy, setBusy] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // Opened from a chip: bring that note into view and flash a ring on it.
   useEffect(() => {
     if (!focusNoteId) return;
     const el = listRef.current?.querySelector<HTMLElement>(

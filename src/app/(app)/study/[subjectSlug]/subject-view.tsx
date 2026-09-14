@@ -14,21 +14,18 @@ import {
 } from "@/design-system";
 import type { ChapterOutline } from "@/features/study/types";
 
-// White pill, coloured ink: a tinted pill vanishes whenever the card shares its hue.
 const DIFFICULTY_INK = {
   beginner: "text-ok",
   intermediate: "text-warn",
   advanced: "text-bad",
 } as const;
 
-// The mark says how far in the topic is, so the card is readable before the pill.
 const DIFFICULTY_MARK = {
   beginner: Compass,
   intermediate: Layers,
   advanced: Mountain,
 } as const;
 
-// Walked per card, not per chapter: neighbours should never share a fill.
 const TONES: EventTone[] = ["info", "brand", "warn", "ok"];
 
 export function SubjectView({

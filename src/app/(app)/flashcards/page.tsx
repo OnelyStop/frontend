@@ -9,7 +9,6 @@ import { FlashcardsView } from "./flashcards-view";
 
 export const metadata: Metadata = { title: "Flashcards" };
 
-// How far back an uncapped plan revises; the deck is trimmed to 60 cards regardless.
 const UNCAPPED_DAYS = 60;
 
 export default async function Page() {
