@@ -54,13 +54,11 @@ import type { Mock } from "@/features/question-bank/types";
 import type { DrillQuestion } from "@/features/question-bank/types";
 
 const STAGES = ["All", "Prelims", "Mains"] as const;
-// The hero card is outside this count — it's the one paper always shown regardless of page.
 const PAGE_SIZE = 12;
 
 type Recorded = { chosen: string | null; timeMs: number };
 type SectionGroup = { subject: Subject; qs: DrillQuestion[] };
 
-/** Only sections with answerable questions — a zero-question section must not land on the exam. */
 function groupBySection(questions: DrillQuestion[]): SectionGroup[] {
   return SECTIONS.map((subject) => ({
     subject,
@@ -106,7 +104,6 @@ export function MocksView({
   const [awayFromFullscreen, setAwayFromFullscreen] = useState(false);
   const startReqIdRef = useRef(0);
 
-  // Built from the papers themselves: a learner picks a broad exam now, and the board is only ever a property of a paper.
   const exams = ["All", ...new Set(mocks.map((m) => m.name))];
 
   const shown = mocks.filter(
@@ -145,7 +142,6 @@ export function MocksView({
     setLive(null);
   };
 
-  // Same pattern as leaveRef: attemptId/flagCount would go stale between renders without going through a ref.
   const flagRef = useRef(async () => {});
   flagRef.current = async () => {
     if (attemptId === null) return;
@@ -168,7 +164,6 @@ export function MocksView({
     );
   };
 
-  // Only in exam mode, and only while an attempt is live — Normal mode carries none of this.
   useEffect(() => {
     if (!live || !examMode) return;
     // One flag per departure, not per second away: only the leaving edge fires, not the whole time spent away.
@@ -211,7 +206,6 @@ export function MocksView({
     return () => window.removeEventListener("keydown", onKey);
   }, [live, submitting]);
 
-  // Resyncs the local pick from any recorded answer and restarts the stopwatch whenever the question changes.
   useEffect(() => {
     if (!q) return;
     const rec = answers[q.qId];
@@ -248,7 +242,6 @@ export function MocksView({
     setAttemptId(res.attemptId);
 
     const resume = res.resume;
-    // A resumed attempt keeps the mode and strikes it already carried; a fresh one starts clean.
     setExamMode(resume ? resume.examMode : newExamMode);
     setFlagCount(resume ? resume.flagCount : 0);
     setFlagNotice(null);
@@ -280,7 +273,6 @@ export function MocksView({
     setLive(m);
   }
 
-  // The mode choice only applies to a fresh start — resuming keeps whatever mode the paused attempt began in.
   async function enterFullscreen() {
     try {
       await document.documentElement.requestFullscreen();
@@ -297,13 +289,11 @@ export function MocksView({
     void handleStart(target.mock, target.restart, examModeChosen);
   }
 
-  // Resume skips the mode prompt entirely, so a paused exam-mode attempt re-enters full screen here instead.
   async function resumeAttempt(m: Mock) {
     if (m.examMode) await enterFullscreen();
     void handleStart(m, false, false);
   }
 
-  // Saves the instant a choice is made — closing the tab right after picking, with no Save/Esc in between, must not lose it.
   function pickAnswer(idx: number | null) {
     setPicked(idx);
     if (!q) return;
@@ -331,7 +321,6 @@ export function MocksView({
     setQIdx(nextQIdx);
   }
 
-  // Shared by a normal finish and a 3-flag forced end — both grade whatever's answered and leave fullscreen behind.
   async function finishAttempt(
     merged: Record<string, Recorded>,
     ended?: string,
@@ -381,13 +370,11 @@ export function MocksView({
     await finishAttempt(merged);
   }
 
-  // The exam ends here, whatever section it's on — a flagged attempt doesn't get to finish the paper.
   async function forceEndExam() {
     const merged = record();
     await finishAttempt(merged, "flagged");
   }
 
-  // Exam conditions: the palette mirrors the real IBPS interface every aspirant already knows.
   if (live && q && section) {
     const mm = String(Math.floor(left / 60)).padStart(2, "0");
     const ss = String(left % 60).padStart(2, "0");

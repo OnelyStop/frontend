@@ -23,7 +23,6 @@ import type { DrillQuestion } from "@/features/question-bank/types";
 import { type GradedAnswer, isCorrect, scoreTotals } from "./scoring";
 import type { AttemptMode, ResumeState, SubmittedAnswer } from "./types";
 
-/** First SECTIONS entry with a served question — the section a fresh mock attempt opens on. */
 function firstSectionOf(questions: { section: string }[]): Subject | null {
   return (
     SECTIONS.find((subject) =>
@@ -47,7 +46,6 @@ async function maxSectionMs(paperId: string | null): Promise<number> {
 const GENERIC_ERROR = { error: "Something went wrong. Try again." } as const;
 const ALREADY_SUBMITTED = "Attempt already submitted.";
 
-// Every action below funnels its catch here: a bare `catch {}` showed the learner this string and told no one a three-hour submit had failed.
 const failed = (at: string, err: unknown) => {
   captureError(err, { at });
   return GENERIC_ERROR;
@@ -64,7 +62,6 @@ export async function startAttempt(
     const userId = await currentUserId();
     if (!userId) return { error: "Sign in to start an attempt." };
 
-    // `mode` is client-supplied, so it picks the cap — a paper is not a drill.
     const isMock = mode === "paper";
     const quota = await checkQuota(
       db,
@@ -193,7 +190,6 @@ export async function startMockAttempt(
   }
 }
 
-/** The explicit "start over" — wipes a paused attempt's answers and section state rather than resuming them. */
 export async function restartMockAttempt(
   paperId: string,
   examMode = false,
@@ -294,7 +290,6 @@ export async function recordFlag(
   }
 }
 
-/** Upserted, not inserted: an answer changed after autosave still overwrites cleanly on the next save. */
 export async function saveAnswer(
   attemptId: number,
   qId: string,
@@ -333,7 +328,6 @@ export async function saveAnswer(
   }
 }
 
-/** Called on leaving mid-section (Esc, tab close) — the clock pauses here rather than running out in the background. */
 export async function checkpointSectionTime(
   attemptId: number,
   remainingMs: number,
@@ -368,7 +362,6 @@ export async function checkpointSectionTime(
   }
 }
 
-/** Called when a section is submitted, by the user or its own clock — sections lock forward-only, same as the hall. */
 export async function advanceSection(
   attemptId: number,
   finishedSection: string,
@@ -459,7 +452,6 @@ export async function submitAttempt(
       );
     const byId = new Map(questions.map((q) => [q.qId, q]));
 
-    // A question with no answer key or from a different paper shouldn't have been served — skip it, not fail the batch.
     const graded: GradedAnswer[] = [];
     for (const a of answers) {
       const q = byId.get(a.qId);
@@ -495,7 +487,6 @@ export async function submitAttempt(
         .returning({ id: attempts.id });
       if (!row) return false;
 
-      // Upserted, not inserted: autosave during the attempt may already have written a row for this (attemptId, qId).
       await tx
         .insert(attemptAnswers)
         .values(
