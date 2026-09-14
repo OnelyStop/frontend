@@ -20,7 +20,8 @@ export function Brand({
       <svg
         viewBox={MARK_VIEW_BOX}
         aria-hidden
-        className="size-[0.66em] shrink-0 translate-y-[0.03em]"
+        shapeRendering="geometricPrecision"
+        className="size-[0.8em] shrink-0 translate-y-[0.11em]"
       >
         <path d={MARK_FULL} fillRule="evenodd" fill="currentColor" />
       </svg>

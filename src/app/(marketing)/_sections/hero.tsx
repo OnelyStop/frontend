@@ -1,4 +1,5 @@
 import { ButtonLink } from "@/design-system";
+import { MARK_FULL } from "@/design-system/lib/mark";
 import { AppWindow } from "./app-window";
 import { Clouds } from "./clouds";
 import { Collage } from "./collage";
@@ -15,23 +16,31 @@ function Wordmark() {
       preserveAspectRatio="xMidYMin meet"
       className="pointer-events-none absolute inset-x-[4%] -top-[clamp(70px,7vw,104px)] hidden h-[clamp(150px,17vw,240px)] w-[92%] md:block"
     >
-      <text
-        x="600"
-        y="222"
-        textAnchor="middle"
-        fontSize="258"
-        fontWeight="600"
-        letterSpacing="-6"
+      {/* The mark stands in for the o, the same lockup Brand draws — spelling the letter twice is what it is there to avoid. */}
+      <g
         fill="none"
         stroke="#3a3470"
         strokeOpacity="0.5"
         strokeWidth="1.3"
         strokeDasharray="7 6"
         vectorEffect="non-scaling-stroke"
-        className="font-sans"
       >
-        onelystop
-      </text>
+        <path
+          d={MARK_FULL}
+          fillRule="evenodd"
+          transform="translate(44 62) scale(2.5)"
+        />
+        <text
+          x="222"
+          y="222"
+          fontSize="240"
+          fontWeight="600"
+          letterSpacing="-6"
+          className="font-sans"
+        >
+          nelystop
+        </text>
+      </g>
     </svg>
   );
 }
