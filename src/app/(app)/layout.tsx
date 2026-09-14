@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AppLayout } from "@/components/layout/AppLayout";
+import { AppProviders } from "@/components/layout/AppProviders";
 import { unreadCount } from "@/features/notifications/queries.server";
 import { currentUserId } from "@/lib/auth.server";
 import { getRole } from "@/features/auth/roles";
@@ -23,12 +24,14 @@ export default async function Layout({
     userId ? getEntitlement(db, userId) : null,
   ]);
   return (
-    <AppLayout
-      unread={unread}
-      isAdmin={role === "admin"}
-      onTopPlan={entitlement?.plan === "pro_plus"}
-    >
-      {children}
-    </AppLayout>
+    <AppProviders>
+      <AppLayout
+        unread={unread}
+        isAdmin={role === "admin"}
+        onTopPlan={entitlement?.plan === "pro_plus"}
+      >
+        {children}
+      </AppLayout>
+    </AppProviders>
   );
 }

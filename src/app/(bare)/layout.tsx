@@ -1,11 +1,10 @@
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <SmoothScroll />
-      <MarketingLayout>{children}</MarketingLayout>
+      {children}
     </>
   );
 }
