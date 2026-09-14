@@ -1,4 +1,10 @@
 import { ImageResponse } from "next/og";
+import { MARK_FULL } from "@/design-system/lib/mark";
+
+// Satori renders a data-URI <img> reliably; its inline <svg> support is partial.
+const MARK_TILE = `data:image/svg+xml;base64,${Buffer.from(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#131316"/><g transform="translate(32 32) scale(.72) translate(-32 -32)"><path fill="#fff" fill-rule="evenodd" d="${MARK_FULL}"/></g></svg>`,
+).toString("base64")}`;
 
 export const alt =
   "onelystop — mocks, drills, current affairs and descriptive marking for IBPS, SBI and RBI";
@@ -21,36 +27,7 @@ export default function Image() {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-        <div
-          style={{
-            width: 56,
-            height: 56,
-            borderRadius: 14,
-            background: "#5b52f0",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: 7,
-            paddingLeft: 14,
-          }}
-        >
-          <div
-            style={{
-              width: 24,
-              height: 6,
-              borderRadius: 3,
-              background: "#fff",
-            }}
-          />
-          <div
-            style={{
-              width: 17,
-              height: 6,
-              borderRadius: 3,
-              background: "rgba(255,255,255,0.7)",
-            }}
-          />
-        </div>
+        <img src={MARK_TILE} width={56} height={56} alt="" />
         <div style={{ fontSize: 34, color: "#16161a", letterSpacing: -0.5 }}>
           onelystop
         </div>

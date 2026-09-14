@@ -17,7 +17,8 @@ export default function manifest(): MetadataRoute.Manifest {
       { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
       {
-        src: "/icon-512.png",
+        // Its own file: maskable crops to a circle 80% wide, cutting the tile's corners off.
+        src: "/icon-maskable-512.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",

@@ -73,7 +73,7 @@ export function StepShell({
           ))}
         </div>
 
-        <Brand href="/" className="hidden shrink-0 text-white sm:block" />
+        <Brand href="/" className="hidden shrink-0 text-white sm:inline-flex" />
       </header>
 
       <div className="bg-stage flex flex-1 items-center justify-center rounded-[26px] px-5 py-10">

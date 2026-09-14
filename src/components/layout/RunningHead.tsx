@@ -9,7 +9,7 @@ import { useRetrieval } from "@/features/retrieval/RetrievalContext";
 import { ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { AVATARS } from "@/features/profile/avatars";
-import { Avatar, Divider, MenuRow, Popover } from "@/design-system";
+import { Avatar, Brand, Divider, MenuRow, Popover } from "@/design-system";
 import { ACCOUNT_GROUP, HeaderNav, MAIN_GROUPS } from "./HeaderNav";
 import { type Subject } from "@/data/navigation";
 
@@ -90,12 +90,7 @@ export function RunningHead({
   return (
     <header className="text-white">
       <div className="flex h-16 items-center gap-3 px-5 sm:gap-5 sm:px-8 lg:h-20">
-        <Link
-          href="/today"
-          className="shrink-0 text-[20px] font-bold tracking-[-0.03em] sm:text-[22px]"
-        >
-          onelystop
-        </Link>
+        <Brand href="/today" className="text-[20px] font-bold sm:text-[22px]" />
 
         <HeaderNav groups={MAIN_GROUPS} />
 
