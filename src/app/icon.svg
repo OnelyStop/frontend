@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <!-- Drops the inline that MARK_FULL carries: below ~20px the gap fills in. -->
-  <rect width="64" height="64" rx="14" fill="#131316"/>
-  <g transform="translate(32 32) scale(.72) translate(-32 -32)">
-    <path fill="#fff" fill-rule="evenodd" d="M32 5a27 27 0 1 1 0 54a27 27 0 1 1 0-54ZM32 17a15 15 0 1 1 0 30a15 15 0 1 1 0-30Z"/>
-  </g>
+  <!-- No tile behind it, so the mark sits on the tab strip rather than on a black square; it follows the browser's theme instead, or it disappears into a dark one. -->
+  <style>
+    path { fill: #131316 }
+    @media (prefers-color-scheme: dark) { path { fill: #fff } }
+  </style>
+  <path fill-rule="evenodd" d="M32 5a27 27 0 1 1 0 54a27 27 0 1 1 0-54ZM32 17a15 15 0 1 1 0 30a15 15 0 1 1 0-30Z"/>
 </svg>

@@ -272,6 +272,7 @@ export function ActiveCard({
   onResume,
   resumeLabel,
   tilt,
+  quiet,
   className,
 }: {
   title: string;
@@ -283,13 +284,16 @@ export function ActiveCard({
   resumeLabel: string;
   /** A degree or two off square is what makes it read as the one card picked up off the pile. */
   tilt?: boolean;
+  /** White paper instead of the active tint, for a page that spends its colour on the figures. */
+  quiet?: boolean;
   className?: string;
 }) {
   return (
     <article
       className={cn(
         // No margin of its own: every caller was cancelling one, and a card that sets its own spacing loses to whatever the layout wants.
-        "bg-active-soft rounded-card shadow-lift relative min-w-0 p-6 pr-28 sm:p-7 sm:pr-36",
+        "rounded-card shadow-lift relative min-w-0 p-6 pr-28 sm:p-7 sm:pr-36",
+        quiet ? "bg-canvas" : "bg-active-soft",
         // my-1 pays back the overhang: rotating a ~360px card 1.5deg grows its box ~9px, and without it the corner crowds whatever sits below.
         tilt && "my-1 rotate-[-1.5deg]",
         className,
@@ -305,7 +309,12 @@ export function ActiveCard({
         type="button"
         aria-label={resumeLabel}
         onClick={onResume}
-        className="press absolute top-1/2 right-5 grid size-16 -translate-y-1/2 place-items-center rounded-full bg-white outline-2 outline-offset-6 outline-white/70 sm:right-8 sm:size-20 sm:outline-offset-8"
+        className={cn(
+          "press absolute top-1/2 right-5 grid size-16 -translate-y-1/2 place-items-center rounded-full outline-2 outline-offset-6 sm:right-8 sm:size-20 sm:outline-offset-8",
+          quiet
+            ? "bg-ink text-canvas outline-transparent"
+            : "bg-white outline-white/70",
+        )}
       >
         <svg viewBox="0 0 24 24" className="ml-1 size-8 fill-current">
           <path d="M8 5v14l11-7z" />
