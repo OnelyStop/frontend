@@ -27,7 +27,7 @@ you skipped step one; stop and state it.
 | 3   | Build against the plan                      | Scope stays inside what was asked                                         |
 | 4   | Production comments pass on the full diff   | Every added or touched comment listed, justified or deleted               |
 | 5   | Verify every gate, naming real files        | `format:check`, `check:layout`, `check:source`, `tsc`, `vitest`, `build`  |
-| 5b  | Screenshots, if a pixel moved               | `docs/screenshots/` emptied, before/after committed, linked in the body   |
+| 5b  | Screenshots, if a pixel moved               | Dropped in local `docs/screenshots/`, then **stop** — Tushar looks first  |
 | 6   | Prove each new check can go red             | Violation planted, check fails, restored, check passes                    |
 | 7   | Commit, push, PR, watch CI                  | Only when asked. PR open, CI reported, `closingIssuesReferences` verified |
 
@@ -109,24 +109,31 @@ Run it as its own pass. The comment that felt necessary mid-edit almost never
 survives being read back: two passes in this repo cut 86 comment lines to 22,
 then 21 to 10, and both files read better after.
 
-**5b. Every UI change ships its screenshots.** Not on request — always. A diff of
-Tailwind classes is not reviewable; a picture is.
+**5b. A UI change stops for Tushar's eyes before it is committed.** This is a
+gate, not a deliverable. The order is:
 
-Delete what is in `docs/screenshots/` first. It holds the shots for the PR in
-front of you and nothing else, so a stale folder is worse than an empty one —
-the reviewer cannot tell which PR a leftover image belongs to.
+1. Empty the **local** `docs/screenshots/` in his working directory — the repo
+   root he actually has open, not a worktree he cannot see.
+   ```bash
+   rm -rf docs/screenshots/* && mkdir -p docs/screenshots
+   ```
+2. Shoot before and after at 1440x900 and 390x844, `deviceScaleFactor: 2`, and
+   drop them there.
+3. Tell him they are there and **stop**. No commit, no push, no PR.
+4. He looks. Only when he says it is good does the work get committed and the PR
+   opened.
 
-```bash
-rm -rf docs/screenshots/* && mkdir -p docs/screenshots
-```
+Putting the shots in a branch he has not checked out is the same as not showing
+him: his working tree is usually on something else, so `docs/screenshots/` still
+reads as whatever his own branch holds.
 
-Then shoot before and after at 1440x900 and 390x844, `deviceScaleFactor: 2`,
-commit them, and link them in the PR body. Verify each URL with `curl` before
-saying they work — `.gitignore` has a bare `screenshots/` rule, and `git add -A`
-has silently skipped these before while the PR body linked six 404s.
+Screenshot the page and look at it yourself first. Never judge a layout from the
+classes you just wrote — and never describe it to him instead of showing it.
 
-Screenshot the page and look at it before you call it done. Never judge a layout
-from the classes you just wrote.
+Once he approves and the shots are committed, verify each raw URL with `curl`
+before claiming the PR body renders them: `.gitignore` carries a bare
+`screenshots/` rule, and `git add -A` has silently skipped these before while
+the body linked six 404s.
 
 **5. Verify.** From the repo root:
 
