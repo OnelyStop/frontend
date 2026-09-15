@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useApp } from "@/context/AppContext";
@@ -24,30 +24,64 @@ import type { DrillQuestion } from "@/features/question-bank/types";
 const LENGTHS = [10, 20, 30] as const;
 const MODES = ["Weak topics", "Speed", "Mixed"] as const;
 
+// Speed halves the per-question budget; the header duration and live timer both key off this.
+const SECONDS_PER_Q: Record<(typeof MODES)[number], number> = {
+  "Weak topics": 45,
+  Speed: 25,
+  Mixed: 45,
+};
+
 type Recorded = { chosen: string | null; timeMs: number };
 
-export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
+export function DrillsView({
+  pool,
+  weakTopics,
+}: {
+  pool: DrillQuestion[];
+  weakTopics: Partial<Record<Subject, string[]>>;
+}) {
   const router = useRouter();
   const { board } = useApp();
   const [section, setSection] = useState<Subject>(SECTIONS[2]);
   const [len, setLen] = useState<(typeof LENGTHS)[number]>(20);
   const [mode, setMode] = useState<(typeof MODES)[number]>("Weak topics");
   const [running, setRunning] = useState(false);
+  const [starting, setStarting] = useState(false);
   const [qIdx, setQIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [attemptId, setAttemptId] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Record<string, Recorded>>({});
   const [qStart, setQStart] = useState(0);
+  const [elapsedMs, setElapsedMs] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const startReqIdRef = useRef(0);
 
-  const mins = Math.round((len * 45) / 60);
-  // "Weak topics"/"Speed"/"Mixed" don't change the pool yet — nothing writes user_topic_stats until scoring lands.
-  const set = pool
-    .filter((q) => q.section === SECTION_DB[section])
-    .slice(0, len);
+  const budgetSec = SECONDS_PER_Q[mode];
+  const mins = Math.round((len * budgetSec) / 60);
+  const sectionPool = pool.filter((q) => q.section === SECTION_DB[section]);
+  // "Weak topics" leads with this section's lowest-accuracy topics; "Speed"/"Mixed" take the pool as delivered.
+  const sectionWeakTopics = weakTopics[section] ?? [];
+  const set =
+    mode === "Weak topics" && sectionWeakTopics.length > 0
+      ? [...sectionPool]
+          .sort((a, b) => {
+            const aWeak =
+              a.topic !== null && sectionWeakTopics.includes(a.topic) ? 0 : 1;
+            const bWeak =
+              b.topic !== null && sectionWeakTopics.includes(b.topic) ? 0 : 1;
+            return aWeak - bWeak;
+          })
+          .slice(0, len)
+      : sectionPool.slice(0, len);
   const q = set[qIdx];
+
+  // Ticks the live per-question timer while a drill is running.
+  useEffect(() => {
+    if (!running) return;
+    const t = setInterval(() => setElapsedMs(Date.now() - qStart), 250);
+    return () => clearInterval(t);
+  }, [running, qStart]);
 
   async function start() {
     const reqId = ++startReqIdRef.current;
@@ -56,14 +90,20 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
     setAnswers({});
     setAttemptId(null);
     setError(null);
-    setQStart(Date.now());
-    setRunning(true);
-    // Grading needs a row to attach answers to; if this fails, the drill still runs locally, just unscored.
+    setStarting(true);
+    // Only flip into the running view once the attempt row exists, or finish() has nowhere to submit to.
     const res = await startAttempt("bank", null);
     // A later start() call before this resolved should win, not this stale response.
     if (startReqIdRef.current !== reqId) return;
-    if ("attemptId" in res) setAttemptId(res.attemptId);
-    else setError(res.error);
+    setStarting(false);
+    if ("attemptId" in res) {
+      setAttemptId(res.attemptId);
+      setQStart(Date.now());
+      setElapsedMs(0);
+      setRunning(true);
+    } else {
+      setError(res.error);
+    }
   }
 
   // Folds the pick into a local `merged` value (not `answers`, stale until next render) that both branches act on.
@@ -81,9 +121,27 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
       setQIdx((i) => Math.min(set.length - 1, i + 1));
       setPicked(null);
       setQStart(Date.now());
+      setElapsedMs(0);
     } else {
       void finish(merged);
     }
+  }
+
+  // "End drill": folds in the current pick like recordAndProceed, then submits — never a silent discard.
+  function endEarly() {
+    if (submitting) return;
+    if (!q) {
+      void finish(answers);
+      return;
+    }
+    const merged: Record<string, Recorded> = {
+      ...answers,
+      [q.qId]: {
+        chosen: picked !== null ? (q.options[picked]?.key ?? null) : null,
+        timeMs: Date.now() - qStart,
+      },
+    };
+    void finish(merged);
   }
 
   async function finish(merged: Record<string, Recorded>) {
@@ -117,9 +175,9 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
             <Button
               variant="secondary"
               disabled={submitting}
-              onClick={() => setRunning(false)}
+              onClick={endEarly}
             >
-              End drill
+              {submitting ? "Scoring…" : "End drill"}
             </Button>
           }
         />
@@ -127,9 +185,17 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
         <Card className="p-8">
           <div className="mb-6 flex items-center gap-3">
             <div className="rounded-pill bg-line h-1.5 flex-1 overflow-hidden">
-              <div className="rounded-pill bg-brand h-full w-1/4" />
+              <div
+                className="rounded-pill bg-brand h-full"
+                style={{
+                  width: `${Math.min(100, (elapsedMs / (budgetSec * 1000)) * 100)}%`,
+                }}
+              />
             </div>
-            <span className="tnum text-ink-3 text-[13px]">11s / 45s</span>
+            <span className="tnum text-ink-3 text-[13px]">
+              {Math.min(budgetSec, Math.floor(elapsedMs / 1000))}s / {budgetSec}
+              s
+            </span>
           </div>
 
           {/* min-h so mode="wait" doesn't collapse the card to 0 in the gap
@@ -198,11 +264,16 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
         title={`${len} questions · ${SECTION_LABEL[section]} · ${mins} min`}
         sub={`Already aimed at the topics costing you marks in ${board}. Change anything, or just start.`}
         actions={
-          <Button disabled={set.length === 0} onClick={() => void start()}>
-            Start drill
+          <Button
+            disabled={set.length === 0 || starting}
+            onClick={() => void start()}
+          >
+            {starting ? "Loading…" : "Start drill"}
           </Button>
         }
       />
+
+      {error ? <p className="text-bad mb-4 text-[13px]">{error}</p> : null}
 
       <Card>
         <SectionTitle>Set up</SectionTitle>
