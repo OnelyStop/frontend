@@ -7,7 +7,7 @@ const free = PLAN_LIMITS.free;
 export const FAQ: { question: string; answer: string }[] = [
   {
     question: "Is onelystop free?",
-    answer: `Yes, and it does not expire. Free gives you the first ${free.knowledgeBaseTopicsPerSubject} topics of every subject, ${quotaPhrase(free.mocks, "full mocks")}, ${quotaPhrase(free.drills, "drills")}, the last ${free.currentAffairsDays} days of current affairs, ${free.privateNotes} private notes and ${free.mockPapers} mock papers. The two AI features are a trial rather than an allowance: ${free.descriptiveMarkings.cap} descriptive markings and ${free.askOnely.cap} Ask Onely questions in total, not per month. No card.`,
+    answer: `Yes, and it does not expire. Free gives you the first ${free.knowledgeBaseTopicsPerSubject} topics of every subject, ${quotaPhrase(free.mocks, "full mocks")}, ${quotaPhrase(free.drills, "drills")}, ${free.currentAffairsDays} days of current affairs on a ${free.currentAffairsDelayDays}-day delay, ${free.privateNotes} private notes and ${free.mockPapers} mock papers. The two AI features are a trial rather than an allowance: ${free.descriptiveMarkings.cap} descriptive markings and ${free.askOnely.cap} Ask Onely questions in total, not per month. No card.`,
   },
   {
     question: "Which exams does it cover?",

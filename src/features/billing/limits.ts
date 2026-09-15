@@ -12,6 +12,8 @@ export type PlanLimits = {
   askOnely: Quota;
   communityDoubts: Quota;
   currentAffairsDays: number | null;
+  /** How stale the newest free day is. Current affairs is worth most the day it happens, so the delay is the paywall and the window is only a taste. */
+  currentAffairsDelayDays: number | null;
   knowledgeBaseTopicsPerSubject: number | null;
   privateNotes: number | null;
   mockPapers: number | null;
@@ -28,7 +30,8 @@ export const PLAN_LIMITS: Record<PlanTier, PlanLimits> = {
     descriptiveMarkings: { cap: 2, per: "account" },
     askOnely: { cap: 3, per: "account" },
     communityDoubts: { cap: 2, per: "month" },
-    currentAffairsDays: 5,
+    currentAffairsDays: 2,
+    currentAffairsDelayDays: 5,
     knowledgeBaseTopicsPerSubject: 2,
     privateNotes: 4,
     mockPapers: 5,
@@ -41,6 +44,7 @@ export const PLAN_LIMITS: Record<PlanTier, PlanLimits> = {
     askOnely: { cap: 250, per: "month" },
     communityDoubts: { cap: 15, per: "month" },
     currentAffairsDays: null,
+    currentAffairsDelayDays: null,
     knowledgeBaseTopicsPerSubject: null,
     privateNotes: null,
     mockPapers: null,
@@ -54,6 +58,7 @@ export const PLAN_LIMITS: Record<PlanTier, PlanLimits> = {
     askOnely: { cap: 550, per: "month" },
     communityDoubts: { cap: 30, per: "month" },
     currentAffairsDays: null,
+    currentAffairsDelayDays: null,
     knowledgeBaseTopicsPerSubject: null,
     privateNotes: null,
     mockPapers: null,

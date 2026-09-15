@@ -45,11 +45,12 @@ export function listQuestionsForDay(
 // Sequential rather than parallel: a populated day carries LIMIT questions, so the cap lands within two.
 export async function listRecentQuestions(
   days: number,
+  delay = 0,
 ): Promise<CurrentAffairsQuestion[]> {
   const today = todayIst();
   const recent: CurrentAffairsQuestion[] = [];
   for (let n = 0; n < days && recent.length < RECENT_LIMIT; n++) {
-    recent.push(...(await listQuestionsForDay(dayBack(today, n))));
+    recent.push(...(await listQuestionsForDay(dayBack(today, n + delay))));
   }
   return recent.slice(0, RECENT_LIMIT);
 }

@@ -182,7 +182,9 @@ describe("pricing copy", () => {
 
     const free = PLAN_COPY.find((p) => p.id === "free")!;
     expect(free.features).toContain("2 community doubts a month");
-    expect(free.features).toContain("Current affairs, last 5 days");
+    expect(free.features).toContain(
+      "Current affairs 5 days late, 2 days at a time",
+    );
   });
 });
 
@@ -214,5 +216,13 @@ describe("knowledge base depth", () => {
     expect(topicUnlocked(PLAN_LIMITS.pro, "quantitative-aptitude", 999)).toBe(
       true,
     );
+  });
+});
+
+describe("current affairs delay", () => {
+  it("holds free back but never a paid tier", () => {
+    expect(PLAN_LIMITS.free.currentAffairsDelayDays).toBe(5);
+    expect(PLAN_LIMITS.pro.currentAffairsDelayDays).toBeNull();
+    expect(PLAN_LIMITS.pro_plus.currentAffairsDelayDays).toBeNull();
   });
 });

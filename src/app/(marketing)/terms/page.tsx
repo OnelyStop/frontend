@@ -217,11 +217,12 @@ export default function Page() {
             {PLAN_LIMITS.free.knowledgeBaseTopicsPerSubject} topics of every
             subject, {PLAN_LIMITS.free.privateNotes} private notes,{" "}
             {PLAN_LIMITS.free.mockPapers} mock papers, the last{" "}
-            {PLAN_LIMITS.free.currentAffairsDays} days of current affairs,{" "}
-            {PLAN_LIMITS.free.mocks.cap} full mocks a month under sectional
-            timing, {PLAN_LIMITS.free.drills.cap} drills a month, and{" "}
-            {PLAN_LIMITS.free.communityDoubts.cap} community doubts a month.
-            Descriptive marking and Ask Onely are a one-time trial, not a
+            {PLAN_LIMITS.free.currentAffairsDays} days of current affairs
+            released {PLAN_LIMITS.free.currentAffairsDelayDays} days after the
+            day they cover, {PLAN_LIMITS.free.mocks.cap} full mocks a month
+            under sectional timing, {PLAN_LIMITS.free.drills.cap} drills a
+            month, and {PLAN_LIMITS.free.communityDoubts.cap} community doubts a
+            month. Descriptive marking and Ask Onely are a one-time trial, not a
             monthly allowance: {PLAN_LIMITS.free.descriptiveMarkings.cap}{" "}
             markings and {PLAN_LIMITS.free.askOnely.cap} questions in total,
             which do not refill.

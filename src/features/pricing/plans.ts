@@ -36,7 +36,7 @@ export const PLAN_COPY: PlanCopy[] = [
     features: [
       `The first ${free.knowledgeBaseTopicsPerSubject} topics of every subject`,
       ...quotaBullets(free),
-      `Current affairs, last ${free.currentAffairsDays} days`,
+      `Current affairs ${free.currentAffairsDelayDays} days late, ${free.currentAffairsDays} days at a time`,
       `${free.privateNotes} private notes and ${free.mockPapers} mock papers`,
     ],
   },
