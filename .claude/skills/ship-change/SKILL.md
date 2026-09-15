@@ -145,9 +145,18 @@ its own issue and leave it out.
 
 Run `git diff origin/main...HEAD`, list every comment added **or touched**, and
 for each ask whether its absence would let someone make a mistake that fails
-silently. If it restates the code, explains what rather than why, or defends an
-ordinary choice, delete it. One line where one line does. Match the density of
-the file you are in — a file with no comments is telling you its convention.
+silently. Not "could this be useful" — only the ones you cannot do without. If
+it restates the code, explains what rather than why, or defends an ordinary
+choice, delete it. One line where one line does. Match the density of the file
+you are in — a file with no comments is telling you its convention.
+
+The repo holds **1.5%** of non-blank lines as comments, 1.7–1.8% is fine, and
+**2% is the ceiling** — past it, stop and delete. It reads 1.65% today; the
+measuring command is in `AGENTS.md` Gate 2.
+
+**The bar for a comment in your diff is higher than that average.** Default to
+deleting it. A new comment survives only by naming something the reader would
+otherwise get wrong — not because it might help. Most PRs here should add none.
 
 Run it as its own pass. The comment that felt necessary mid-edit almost never
 survives being read back: two passes in this repo cut 86 comment lines to 22,

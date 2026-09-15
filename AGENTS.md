@@ -159,7 +159,30 @@ that don't earn their place. Comment density is not a quality signal; a wrong
 or redundant comment is worse than none, because it will be trusted.
 
 **Keep a comment only if it survives this test — would a competent engineer
-reading the code be surprised, or waste time, without it?**
+reading the code be surprised, or waste time, without it?** Not "could this be
+useful". Only comments you cannot do without.
+
+The repo has a number. Comment lines as a share of non-blank lines:
+
+| Density     | Meaning                                              |
+| ----------- | ---------------------------------------------------- |
+| **1.5%**    | The target                                           |
+| 1.7–1.8%    | Fine, no action                                      |
+| **over 2%** | Hard ceiling. Stop and delete until it is back under |
+
+```
+git ls-files -z 'src/*.ts' 'src/*.tsx' 'scripts/*.ts' | xargs -0 cat > /tmp/a.txt
+awk -v c="$(grep -cE '^\s*(//|/\*|\*/|\* )' /tmp/a.txt)" \
+    -v t="$(grep -cvE '^\s*$' /tmp/a.txt)" 'BEGIN{printf "%.2f%%\n", c*100/t}'
+```
+
+It reads 1.65% today. That is the band to hold, not a budget to spend up to — a
+file that needs none is the normal case.
+
+**The bar for a comment you are adding is higher than the repo average.** A diff
+sits under review, where every line is read; the default for a new comment is
+delete, and it survives only by naming something the reader would otherwise get
+wrong. "Could be useful" is a deletion.
 
 Keep:
 
