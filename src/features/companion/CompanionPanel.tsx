@@ -63,7 +63,7 @@ export function CompanionPanel() {
   return (
     <aside
       aria-label="Ask Onely"
-      className="border-line sticky top-6 mt-10 flex h-[calc(100svh-11rem)] flex-col lg:mt-0 lg:-ml-1 lg:border-l lg:pl-8"
+      className="border-line bg-canvas shadow-pop fixed inset-x-3 top-20 bottom-3 z-60 flex flex-col rounded-[24px] p-5 lg:sticky lg:inset-auto lg:top-6 lg:z-auto lg:-ml-1 lg:h-[calc(100svh-11rem)] lg:rounded-none lg:border-l lg:bg-transparent lg:p-0 lg:pl-8 lg:shadow-none"
     >
       <SectionTitle
         aside={
