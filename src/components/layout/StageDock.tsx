@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
@@ -111,6 +111,12 @@ export function StageDock() {
 
   useEffect(() => setOpen(null), [pathname]);
 
+  // The effect above only fires on a new pathname, so a link to the page already open has to close the sheet itself; it also skips Next re-fetching that page.
+  const follow = (href: string) => (e: MouseEvent) => {
+    setOpen(null);
+    if (pathname === href) e.preventDefault();
+  };
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -175,7 +181,7 @@ export function StageDock() {
                       href={i.path}
                       role="menuitem"
                       aria-current={on ? "page" : undefined}
-                      onClick={() => setOpen(null)}
+                      onClick={follow(i.path)}
                       className={cn(
                         "flex items-center gap-3 rounded-[16px] px-2.5 py-2.5 transition-colors",
                         on ? "bg-panel" : "active:bg-panel",
@@ -211,6 +217,7 @@ export function StageDock() {
             aria-label="Today"
             title="Today"
             aria-current={here("/today") ? "page" : undefined}
+            onClick={follow("/today")}
             className={BUTTON}
           >
             {here("/today") && !open ? <Pill /> : null}
@@ -236,6 +243,7 @@ export function StageDock() {
                   aria-label={only.label}
                   title={only.label}
                   aria-current={live ? "page" : undefined}
+                  onClick={follow(only.path)}
                   className={BUTTON}
                 >
                   {on ? <Pill /> : null}
