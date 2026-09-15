@@ -32,10 +32,45 @@ EOF
   esac
 done
 
+# Pushing a brand-new branch is the moment before `gh pr create`, and the only
+# local point where the one-open-PR rule can still be cheap to obey. Once the
+# second PR exists it costs a review cycle to undo.
+if ! git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1; then
+  open=$(gh pr list --state open --base main --json number,headRefName \
+           --jq '.[] | "  #\(.number)  \(.headRefName)"' 2>/dev/null || true)
+
+  if [ -n "$open" ] && [ "${SHIP_NEW_PR:-}" != "1" ]; then
+    cat >&2 <<EOF
+
+  A pull request is already open:
+
+$open
+
+  P3 and P4 work commits onto that branch, not a second one — a small fix
+  opened separately costs a full review cycle on work that could have ridden
+  along.
+
+      git switch <that branch> && git cherry-pick $(git rev-parse --short HEAD)
+
+  If this is genuinely P0, P1, or a P2 large enough to bury that review:
+
+      SHIP_NEW_PR=1 git push -u origin $(git rev-parse --abbrev-ref HEAD)
+
+EOF
+    exit 1
+  fi
+fi
+
 echo "  types…"
 ./node_modules/.bin/tsc --noEmit || exit 1
 
 echo "  tests…"
 ./node_modules/.bin/vitest run --silent || exit 1
 
-echo "  ok"
+cat <<EOF
+  ok
+
+  Before opening the PR:
+    - one of P0 P1 P2 P3 P4 as a label
+    - Closes #N for P0-P2, or the no-issue label for P3-P4
+EOF
