@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useApp } from "@/context/AppContext";
 import {
   ButtonLink,
@@ -14,6 +15,8 @@ import type {
   ProfileStats,
   RecentAttempt,
 } from "@/features/attempts/progress.server";
+import { PLAN_NAME, type PlanTier } from "@/features/billing/limits";
+import type { UsageRow } from "@/features/billing/usage.server";
 import type { Profile } from "@/features/profile/types";
 
 // toLocaleDateString() formats per runtime locale and mismatches on hydration.
@@ -37,14 +40,70 @@ function fmtDate(iso: string): string {
   return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
 }
 
+const PERIOD_NOTE: Record<UsageRow["per"], string> = {
+  day: "today",
+  month: "this month",
+  account: "in total",
+};
+
+// Rows on the stage, not a second card: the page already spends its one card on the record card above.
+function Allowance({ rows, plan }: { rows: UsageRow[]; plan: PlanTier }) {
+  if (rows.length === 0) return null;
+
+  return (
+    <>
+      <SectionTitle className="mt-10" aside={`On ${PLAN_NAME[plan]}`}>
+        What you have used
+      </SectionTitle>
+
+      <div className="ruled">
+        {rows.map(({ key, label, used, cap, per }) => {
+          const left = Math.max(cap - used, 0);
+          return (
+            <div
+              key={key}
+              className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3"
+            >
+              <span className="text-[14.5px]">{label}</span>
+              <span className="text-ink-3 w-full text-[12.5px] sm:order-last sm:w-auto">
+                {left === 0 ? "none left" : `${left} left`} · {PERIOD_NOTE[per]}
+              </span>
+              <span className="tnum text-[14.5px] font-medium">
+                {used} of {cap}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      {plan === "free" ? (
+        <p className="text-ink-3 mt-3 text-[13px] leading-relaxed">
+          Pro lifts mocks and drills to unlimited and opens the whole knowledge
+          base. Pro+ raises the marking and Ask Onely numbers furthest.{" "}
+          <Link
+            href="/upgrade"
+            className="text-ink underline underline-offset-2"
+          >
+            See the plans
+          </Link>
+        </p>
+      ) : null}
+    </>
+  );
+}
+
 export function ProfileView({
   profile,
   stats,
   recent,
+  usage,
+  plan,
 }: {
   profile: Profile | null;
   stats: ProfileStats;
   recent: RecentAttempt[];
+  usage: UsageRow[];
+  plan: PlanTier;
 }) {
   const { initials } = useApp();
   const board = profile?.examBoard ?? "IBPS PO";
@@ -114,6 +173,8 @@ export function ProfileView({
               <Stat key={label} value={String(value)} label={String(label)} />
             ))}
           </div>
+
+          <Allowance rows={usage} plan={plan} />
 
           <SectionTitle
             className="mt-10"

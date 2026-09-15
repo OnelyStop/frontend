@@ -226,3 +226,35 @@ describe("current affairs delay", () => {
     expect(PLAN_LIMITS.pro_plus.currentAffairsDelayDays).toBeNull();
   });
 });
+
+describe("usage rows", () => {
+  const ROWS = [
+    "mocks",
+    "drills",
+    "descriptiveMarkings",
+    "askOnely",
+    "communityDoubts",
+  ] as const;
+
+  it("leaves a paid tier only the rows that still have a number", () => {
+    const capped = (tier: PlanTier) =>
+      ROWS.filter((k) => PLAN_LIMITS[tier][k].cap !== null);
+
+    expect(capped("free")).toEqual([...ROWS]);
+    expect(capped("pro")).toEqual([
+      "descriptiveMarkings",
+      "askOnely",
+      "communityDoubts",
+    ]);
+    expect(capped("pro_plus")).toEqual([
+      "descriptiveMarkings",
+      "askOnely",
+      "communityDoubts",
+    ]);
+  });
+
+  it("leaves private notes unmetered on paid", () => {
+    expect(PLAN_LIMITS.free.privateNotes).toBe(4);
+    expect(PLAN_LIMITS.pro.privateNotes).toBeNull();
+  });
+});

@@ -4,15 +4,16 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, ChevronLeft, ChevronRight, X } from "lucide-react";
 import {
-  StatusPill,
   Button,
+  ButtonLink,
   Empty,
   EventCard,
   EventMark,
-  type EventTone,
   Input,
   PageHeader,
+  StatusPill,
   cn,
+  type EventTone,
 } from "@/design-system";
 import type {
   CurrentAffairsQuestion,
@@ -97,6 +98,11 @@ export function CurrentAffairsView({
         <Empty
           title="Nothing generated for this day yet"
           sub="The pipeline runs once the evening news has settled, around 19:00 IST. Try an earlier date."
+          action={
+            <ButtonLink href="/flashcards" size="sm">
+              Review what you have read
+            </ButtonLink>
+          }
         />
       ) : (
         <div className="grid items-start gap-4 xl:grid-cols-2">
