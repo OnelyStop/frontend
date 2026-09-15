@@ -10,6 +10,9 @@ const FULL = {
   OPENROUTER_API_KEY: "sk-x",
   NEXT_PUBLIC_SENTRY_DSN: "https://x@sentry.io/1",
   NEXT_PUBLIC_GA_MEASUREMENT_ID: "G-ABCDE12345",
+  NEXT_PUBLIC_POSTHOG_KEY: "phc_x",
+  SENTRY_ORG: "onelystop",
+  SENTRY_PROJECT: "frontend",
 };
 
 describe("checkEnv", () => {

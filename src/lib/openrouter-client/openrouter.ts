@@ -2,6 +2,7 @@ import "server-only";
 
 import { openrouterConfig as config } from "@/config/openrouter";
 import { log } from "@/lib/log";
+import { countEvent } from "@/lib/metrics.server";
 
 import {
   AiError,
@@ -130,6 +131,7 @@ export class OpenRouterClient {
           completionTokens: answer.completionTokens,
           costMicros: answer.costMicros,
         });
+        countEvent("ai.call", { model: answer.model, outcome: "ok" });
         return answer;
       } catch (error) {
         lastError = error;
@@ -141,6 +143,10 @@ export class OpenRouterClient {
       models: settings.models.join(","),
       ms: Date.now() - startedAt,
       ...failureFields(lastError),
+    });
+    countEvent("ai.call", {
+      model: settings.models[0] ?? "none",
+      outcome: "failed",
     });
     throw (
       lastError ?? new AiError("upstream", undefined, "no model was attempted")

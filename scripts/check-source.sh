@@ -52,8 +52,9 @@ guard "no secret is named NEXT_PUBLIC_" \
   'NEXT_PUBLIC_[A-Z0-9_]*(SECRET|SERVICE|PRIVATE|TOKEN|PASSWORD)' \
   . ':!.github/workflows/' ':!scripts/'
 
+# PostHog's project key joins it: both are write-only ingestion credentials the vendor publishes on purpose.
 if git grep -nIE 'NEXT_PUBLIC_[A-Z0-9_]*KEY' -- . ':!.github/workflows/' ':!scripts/' \
-     | grep -v 'NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY'; then
+     | grep -vE 'NEXT_PUBLIC_(SUPABASE_PUBLISHABLE|POSTHOG)_KEY'; then
   echo "::error::a NEXT_PUBLIC_ key var that is not the publishable key"
   printf '  FAIL  no stray NEXT_PUBLIC_ key\n' >&2
   failed=1

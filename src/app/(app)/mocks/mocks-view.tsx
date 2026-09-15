@@ -56,6 +56,7 @@ import {
 } from "@/features/question-bank/next-paper";
 import type { Mock } from "@/features/question-bank/types";
 import type { DrillQuestion } from "@/features/question-bank/types";
+import { track } from "@/lib/posthog.client";
 
 const STAGES = ["All", "Prelims", "Mains"] as const;
 const PAGE_SIZE = 12;
@@ -276,6 +277,10 @@ export function MocksView({
       setLeft(fullSectionSec);
     }
     setLive(m);
+    track("mock_started", {
+      exam: m.name,
+      exam_mode: resume ? resume.examMode : newExamMode,
+    });
   }
 
   async function enterFullscreen() {

@@ -8,7 +8,8 @@ import { createSubscription } from "@/features/billing/razorpay.server";
 import { subscriptionCreate } from "@/features/billing/types";
 import { currentUserId } from "@/lib/auth.server";
 import { log } from "@/lib/log";
-import { captureError } from "@/lib/observability.server";
+import { countEvent } from "@/lib/metrics.server";
+import { captureError, flushTelemetry } from "@/lib/observability.server";
 import { rateLimit } from "@/lib/rate-limit";
 
 const fail = (error: string, status: number) =>
@@ -24,6 +25,9 @@ export async function POST(request: Request) {
   if (!userId) return fail("unauthorized", 401);
   if (!rateLimit(`billing:${userId}`, 5, 60_000).ok)
     return fail("rate_limited", 429);
+
+  // Registered once, up here, so the three failure exits below flush too and not only the happy path.
+  flushTelemetry();
 
   const parsed = subscriptionCreate.safeParse(
     await request.json().catch(() => null),
@@ -47,7 +51,11 @@ export async function POST(request: Request) {
     });
   } catch (err) {
     // A provider rejecting every checkout is the one billing failure nobody sees until sales stop.
-    captureError(err, { at: "billing.subscription.create_failed", userId });
+    captureError(err, {
+      area: "billing",
+      at: "billing.subscription.create_failed",
+      userId,
+    });
     return fail("payment_provider", 502);
   }
 
@@ -61,6 +69,7 @@ export async function POST(request: Request) {
     });
   } catch (err) {
     captureError(err, {
+      area: "billing",
       at: "billing.subscription.orphaned",
       userId,
       subscription: created.id,
@@ -73,6 +82,10 @@ export async function POST(request: Request) {
     plan: plan.plan,
     planRow: plan.id,
     currency,
+  });
+  countEvent("billing.subscription_created", {
+    plan: plan.plan,
+    interval: plan.interval,
   });
 
   return NextResponse.json({

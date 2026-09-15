@@ -18,6 +18,7 @@ export async function POST(request: Request) {
         `Current-affairs pipeline is stale: ${stale.join(", ") || "last run failed"}`,
       ),
       {
+        area: "admin",
         route: "/internal/health",
         stale: stale.join(",") || "none",
         lastRun: health.lastRun?.status ?? "none",

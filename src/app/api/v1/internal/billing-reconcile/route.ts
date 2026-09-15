@@ -6,6 +6,7 @@ import { fetchSubscription } from "@/features/billing/razorpay.server";
 import { isAuthorizedCron } from "@/lib/cron";
 import { json } from "@/lib/api";
 import { log } from "@/lib/log";
+import { flushTelemetry } from "@/lib/observability.server";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
@@ -17,6 +18,7 @@ const BATCH = 50;
 export async function GET(request: Request) {
   if (!isAuthorizedCron(request)) return json({ error: "unauthorized" }, 401);
 
+  flushTelemetry();
   const now = new Date();
   const rows = await db
     .select({ id: subscriptions.razorpaySubscriptionId })
