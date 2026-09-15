@@ -301,6 +301,36 @@
   }
 }
 
+/* Loading placeholders. `panel` is a step off the stage too faint to see, so the bone is ink; the fixed attachment runs one sweep across every block at once. */
+@keyframes skeleton-sweep {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+@utility skeleton {
+  background-color: rgb(10 10 10 / 0.065);
+  background-image: linear-gradient(
+    100deg,
+    transparent 40%,
+    rgb(255 255 255 / 0.55) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  background-attachment: fixed;
+  animation: skeleton-sweep 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+[data-reduce-motion] .skeleton {
+  animation: none;
+}
+
 /* A card is white paper lifted off the stage. The hairline is gone: at this
    radius a border and a shadow together read as two competing edges. */
 @utility card {

@@ -11,6 +11,7 @@ import { RetrievalProvider } from "@/features/retrieval/RetrievalContext";
 import { RetrievalSlip } from "@/features/retrieval/RetrievalSlip";
 import { useApp } from "@/context/AppContext";
 import { CanvasRail } from "./CanvasRail";
+import { NavProgress } from "./NavProgress";
 import { RunningHead, SUBJECT_INK } from "./RunningHead";
 import { StageDock } from "./StageDock";
 
@@ -34,10 +35,15 @@ export function AppLayout({
           className="bg-frame min-h-screen"
           style={{ ["--subj" as string]: SUBJECT_INK[subject] }}
         >
+          <NavProgress />
           {/* Full bleed: the frame is the page, not a card floating on one. */}
           <div className="flex min-h-svh w-full flex-col">
             <Suspense fallback={<div className="h-20" />}>
-              <RunningHead isAdmin={isAdmin} onTopPlan={onTopPlan} />
+              <RunningHead
+                isAdmin={isAdmin}
+                onTopPlan={onTopPlan}
+                unread={unread}
+              />
             </Suspense>
 
             <Stage unread={unread}>{children}</Stage>

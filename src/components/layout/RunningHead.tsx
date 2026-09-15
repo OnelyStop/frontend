@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useApp } from "@/context/AppContext";
 import { useModifierKey } from "@/lib/platform";
 import { useRetrieval } from "@/features/retrieval/RetrievalContext";
-import { ChevronDown, Search } from "lucide-react";
+import { Bell, ChevronDown, Search } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { AVATARS } from "@/features/profile/avatars";
 import { Avatar, Brand, Divider, MenuRow, Popover } from "@/design-system";
@@ -32,9 +32,11 @@ export function upOne(pathname: string, deepLinked: boolean): string | null {
 export function RunningHead({
   isAdmin = false,
   onTopPlan = false,
+  unread = 0,
 }: {
   isAdmin?: boolean;
   onTopPlan?: boolean;
+  unread?: number;
 }) {
   const { avatar, profile } = useApp();
   const { signOut, user, loading } = useAuth();
@@ -111,6 +113,25 @@ export function RunningHead({
             {mod}K
           </kbd>
         </button>
+
+        {/* The bell lives in the canvas rail on desktop; the rail is hidden on phones, so it moves up here. */}
+        {signedIn ? (
+          <Link
+            href="/notifications"
+            aria-label={
+              unread ? `Notifications, ${unread} unread` : "Notifications"
+            }
+            aria-current={pathname === "/notifications" ? "page" : undefined}
+            className="press border-on-frame-line text-on-frame-2 relative grid size-10 shrink-0 place-items-center rounded-full border lg:hidden"
+          >
+            <Bell size={16} />
+            {unread > 0 ? (
+              <span className="bg-bad text-canvas tnum absolute -top-1 -right-1 grid min-w-5 place-items-center rounded-full px-1.5 py-0.5 text-[10.5px] font-bold">
+                {unread > 99 ? "99+" : unread}
+              </span>
+            ) : null}
+          </Link>
+        ) : null}
 
         {signedOut ? (
           <>
