@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     const summary = await runIngest();
     return json({ ok: true, ms: Date.now() - started, ...summary });
   } catch (err) {
-    captureError(err, { route: "/internal/ingest" });
+    captureError(err, { area: "admin", route: "/internal/ingest" });
     return json({ ok: false, error: (err as Error).message }, 500);
   }
 }

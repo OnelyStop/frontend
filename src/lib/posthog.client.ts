@@ -40,7 +40,6 @@ function sampledIn(): boolean {
   }
 }
 
-/** Replay is started and stopped per route, so a client navigation into an exam or onto /reset-password ends the recording. */
 export function syncReplay(pathname: string): void {
   if (!POSTHOG_KEY) return;
   const wanted = replayAllowed(pathname) && sampledIn();

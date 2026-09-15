@@ -67,7 +67,7 @@ export async function listPlans(currency: Currency): Promise<PlanPrice[]> {
   try {
     return await cachedPlans(currency);
   } catch (error) {
-    captureError(error, { at: "listPlans", currency });
+    captureError(error, { area: "billing", at: "listPlans", currency });
     return [];
   }
 }

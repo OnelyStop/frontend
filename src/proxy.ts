@@ -11,7 +11,7 @@ import { rateLimit } from "@/lib/rate-limit";
 
 const RELAY_PREFIXES = [POSTHOG_RELAY_PATH, SENTRY_RELAY_PATH];
 
-// Replay posts every few seconds per tab, so the ceiling is generous; without one the relays are an open proxy on our own domain.
+// Unmetered, both relays are an open proxy on our own domain; replay posts every few seconds per tab, so the ceiling is high.
 const RELAY_PER_MINUTE = 300;
 
 function meterRelay(request: NextRequest) {
@@ -25,7 +25,7 @@ function meterRelay(request: NextRequest) {
 export async function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
-  // Ahead of the auth check: neither relay carries a session, and a getUser round trip per event is a cost with no answer.
+  // Ahead of the auth check: neither relay carries a session, so a getUser round trip per event buys nothing.
   if (
     RELAY_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))
   )
@@ -72,7 +72,7 @@ export async function proxy(request: NextRequest) {
 
   // An Auth outage also answers user: null, so without this a 5xx reads as "signed out".
   if (authError && !isAuthSessionMissingError(authError))
-    captureError(authError, { at: "proxy.getUser", pathname });
+    captureError(authError, { area: "auth", at: "proxy.getUser", pathname });
 
   // A fresh redirect drops the refreshed cookies, and the next token is already rotated.
   const redirect = (to: URL) => {

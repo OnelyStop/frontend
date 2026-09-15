@@ -1,5 +1,3 @@
-/** PostHog's settings, shared by the browser SDK, the server client and the rewrites that relay both. */
-
 // A project key authorises event writes and nothing else, so it ships in the bundle; it is never proof of anything.
 export const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY ?? "";
 
@@ -30,7 +28,7 @@ const REPLAY_EXCLUDED = [
 export const replayAllowed = (pathname: string): boolean =>
   !REPLAY_EXCLUDED.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
-/** One entry per funnel step, and the properties are names and counts — never a question, an answer or a score. */
+/** Names and counts only — never a question, an answer or a score. */
 export type ProductEventProps = {
   signup_completed: { method: "password" | "google" };
   drill_started: { section: string; length: number };
@@ -41,13 +39,12 @@ export type ProductEventProps = {
 
 export type ProductEvent = keyof ProductEventProps;
 
-// The recovery token, the `from` path and the plan being looked at all ride in a query string or a fragment.
 const stripQuery = (url: string): string => {
   const cut = url.search(/[?#]/);
   return cut === -1 ? url : url.slice(0, cut);
 };
 
-/** Every URL-bearing property, scrubbed of its query and fragment; `sanitize_properties` sees each event before it leaves the browser. */
+/** The recovery token, the `from` path and the plan being viewed all ride in a query string or a fragment. */
 export function scrubUrls(
   props: Record<string, unknown>,
 ): Record<string, unknown> {

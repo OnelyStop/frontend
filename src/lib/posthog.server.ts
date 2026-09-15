@@ -10,7 +10,7 @@ import { log } from "./log";
 
 const REQUEST_TIMEOUT_MS = 3_000;
 
-/** A function can freeze the moment it responds, so nothing is batched and the send is awaited; PostHog being down must never fail the caller. */
+/** A function can freeze the moment it responds, so nothing is batched and the send is awaited. */
 export async function captureServerEvent<E extends ProductEvent>(
   distinctId: string,
   event: E,

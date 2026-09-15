@@ -8,7 +8,6 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 // Handles only what study-topic.schema.json uses — a green run means nothing wider.
-
 function resolveRef(root, ref) {
   if (!ref.startsWith("#/")) throw new Error(`unsupported $ref ${ref}`);
   return ref
@@ -110,8 +109,6 @@ export function schemaErrors(schema, value, root = schema, path = "") {
   return out;
 }
 
-// --- domain gates ---------------------------------------------------------
-
 // Blocks that assert facts need an allowlisted source; guidance (spec §4.5) does not.
 const FACTUAL_BLOCK_TYPES = new Set([
   "introduction",
@@ -200,7 +197,6 @@ export function validateTopic(topic, ctx = {}) {
   );
   const allowedById = new Map((registry.sources ?? []).map((s) => [s.id, s]));
 
-  // Unique block ids / positions, positions sorted in file order.
   const blockIds = new Set();
   let lastPos = -Infinity;
   for (const [i, b] of blocks.entries()) {
@@ -218,7 +214,6 @@ export function validateTopic(topic, ctx = {}) {
     }
   }
 
-  // Unique flashcard ids / positions.
   const cardIds = new Set();
   let lastCardPos = -Infinity;
   for (const [i, c] of cards.entries()) {
@@ -243,7 +238,6 @@ export function validateTopic(topic, ctx = {}) {
     }
   }
 
-  // Sources: allowlisted, declared, not prohibited, not banned domain.
   for (const [i, s] of (topic.sources ?? []).entries()) {
     if (!s || typeof s !== "object") continue;
     if (registry.prohibitedSourceIds?.[s.sourceId])
@@ -266,7 +260,6 @@ export function validateTopic(topic, ctx = {}) {
       push(errors, `sources[${i}]: retrievedAt is not a date`);
   }
 
-  // Factual blocks need a real, declared, allowlisted source. Markdown safety.
   for (const [i, b] of blocks.entries()) {
     if (!b || typeof b !== "object") continue;
     const md = typeof b.markdown === "string" ? b.markdown : "";
@@ -341,7 +334,6 @@ export function validateTopic(topic, ctx = {}) {
     }
   }
 
-  // Flashcard text safety + provenance.
   for (const [i, c] of cards.entries()) {
     if (!c || typeof c !== "object") continue;
     const text = `${c.front ?? ""}\n${c.back ?? ""}\n${c.explanation ?? ""}`;
@@ -357,7 +349,6 @@ export function validateTopic(topic, ctx = {}) {
     }
   }
 
-  // Word budget.
   const words = blocks.reduce(
     (n, b) => n + wordCount(typeof b.markdown === "string" ? b.markdown : ""),
     0,
@@ -369,7 +360,6 @@ export function validateTopic(topic, ctx = {}) {
   if (words > 1600)
     push(errors, `word count ${words} is far above the 1400 ceiling`);
 
-  // Freshness for time-sensitive subjects.
   const timeSensitive =
     topic.subjectSlug === "banking-awareness" || topic.examCycle != null;
   if (timeSensitive) {
@@ -391,7 +381,6 @@ export function validateTopic(topic, ctx = {}) {
       push(errors, `exam-cycle topic has no officialNotificationUrl`);
   }
 
-  // Prerequisites that name a slug nothing in the corpus provides.
   for (const slug of topic.prerequisiteTopicSlugs ?? []) {
     if (corpusTopicSlugs.size && !corpusTopicSlugs.has(slug))
       push(warnings, `prerequisite "${slug}" is not an authored topic yet`);
@@ -403,8 +392,6 @@ export function validateTopic(topic, ctx = {}) {
     strictErrors: strict ? warnings : [],
   };
 }
-
-// --- runner --------------------------------------------------------------
 
 function walk(dir) {
   const out = [];

@@ -124,7 +124,6 @@ async function main() {
   }
   await db.insert(bankQuestions).values(rows).onConflictDoNothing();
 
-  // Two modes: mocks read as full papers, drills as short pulls from the bank.
   const MODES = ["paper", "paper", "paper", "bank", "bank"] as const;
   for (let sitting = 0; sitting < MODES.length; sitting++) {
     const startedAt = new Date(Date.now() - (sitting + 1) * 6 * 86_400_000);
@@ -166,7 +165,6 @@ async function main() {
     })),
   );
 
-  // Notes hang off a published topic, so they need a real one to point at.
   const published = await db
     .select({ id: topics.id })
     .from(topics)
@@ -193,7 +191,6 @@ async function main() {
     })),
   );
 
-  // Current affairs and flashcards read from their own tables, not from attempts.
   await db.delete(articles).where(eq(articles.source, "rbi_rss"));
   await db.insert(articles).values(
     [

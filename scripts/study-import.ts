@@ -16,8 +16,6 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 type Json = Record<string, unknown>;
 
-// --- pure projection (exported for tests) --------------------------------
-
 function stableStringify(value: unknown): string {
   if (value === null || typeof value !== "object") return JSON.stringify(value);
   if (Array.isArray(value)) return `[${value.map(stableStringify).join(",")}]`;
@@ -96,8 +94,6 @@ export function sourceHashOf(topic: Json): string {
   return createHash("sha256").update(stableStringify(canonical)).digest("hex");
 }
 
-// --- runner -------------------------------------------------------------
-
 function walk(dir: string): string[] {
   const out: string[] = [];
   for (const entry of readdirSync(dir)) {
@@ -115,7 +111,6 @@ async function importTopic(db: DB, file: string, topic: Json) {
   const s = schema;
 
   return db.transaction(async (tx) => {
-    // Subject.
     const subjectSlug = topic.subjectSlug as string;
     const existingSubject = await tx.query.subjects.findFirst({
       where: eq(s.subjects.slug, subjectSlug),
@@ -139,7 +134,6 @@ async function importTopic(db: DB, file: string, topic: Json) {
         .set({ name: topic.subjectName as string })
         .where(eq(s.subjects.id, subjectId));
 
-    // Chapter.
     const chapterSlug = topic.chapterSlug as string;
     const existingChapter = await tx.query.chapters.findFirst({
       where: and(
@@ -167,7 +161,6 @@ async function importTopic(db: DB, file: string, topic: Json) {
         .set({ name: topic.chapterName as string })
         .where(eq(s.chapters.id, chapterId));
 
-    // Topic.
     const topicSlug = topic.topicSlug as string;
     const status = (topic.contentStatus as string) ?? "draft";
     const version = (topic.contentVersion as number) ?? 1;
@@ -315,7 +308,6 @@ async function importTopic(db: DB, file: string, topic: Json) {
       if (src.sourceId) sourceIdByRegistryKey.set(src.sourceId as string, id);
     }
 
-    // Blocks + block->source links.
     const blocks = [...((topic.blocks as Json[] | undefined) ?? [])].sort(
       (a, b) => Number(a.position) - Number(b.position),
     );
@@ -344,7 +336,6 @@ async function importTopic(db: DB, file: string, topic: Json) {
           .onConflictDoNothing();
     }
 
-    // Flashcards.
     const cards = [...((topic.flashcards as Json[] | undefined) ?? [])].sort(
       (a, b) => Number(a.position) - Number(b.position),
     );

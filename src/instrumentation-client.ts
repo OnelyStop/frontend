@@ -7,17 +7,28 @@ import {
   scrubUrls,
 } from "@/config/posthog";
 import {
+  SENTRY_DENY_URLS,
   SENTRY_DSN,
+  SENTRY_ENVIRONMENT,
+  SENTRY_IGNORE_ERRORS,
   SENTRY_RELEASE,
   SENTRY_TRACES_SAMPLE_RATE,
+  tagEvent,
 } from "@/config/sentry";
 
 if (SENTRY_DSN) {
   Sentry.init({
     dsn: SENTRY_DSN,
     release: SENTRY_RELEASE,
+    environment: SENTRY_ENVIRONMENT,
     tracesSampleRate: SENTRY_TRACES_SAMPLE_RATE,
     sendDefaultPii: false,
+    ignoreErrors: SENTRY_IGNORE_ERRORS,
+    denyUrls: SENTRY_DENY_URLS,
+    beforeSend: (event) => {
+      tagEvent(event);
+      return event;
+    },
   });
 }
 
@@ -28,7 +39,6 @@ if (POSTHOG_KEY) {
     defaults: "2026-05-30",
     // Every option click in a drill would be an event, and the free tier is a million a month.
     autocapture: false,
-    // Sentry owns errors; running both halves of both products pays twice for one signal.
     capture_exceptions: false,
     person_profiles: "identified_only",
     // syncReplay starts it per route, which is what keeps it off the exam surfaces and off /reset-password.

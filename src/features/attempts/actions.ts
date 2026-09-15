@@ -47,7 +47,7 @@ const GENERIC_ERROR = { error: "Something went wrong. Try again." } as const;
 const ALREADY_SUBMITTED = "Attempt already submitted.";
 
 const failed = (at: string, err: unknown) => {
-  captureError(err, { at });
+  captureError(err, { area: "attempts", at });
   return GENERIC_ERROR;
 };
 

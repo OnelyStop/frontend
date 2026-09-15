@@ -1,8 +1,12 @@
 import "server-only";
 import * as Sentry from "@sentry/nextjs";
+import type { SentryArea } from "@/config/sentry";
 import { log } from "./log";
 
-type Context = Record<string, string | number | boolean | null | undefined>;
+type Context = Record<string, string | number | boolean | null | undefined> & {
+  /** Sent as a tag, not as extra: an alert rule can filter tags and cannot filter extra. */
+  area?: SentryArea;
+};
 
 // onRequestError only sees what escapes a request, so anything caught reports itself.
 export function captureError(err: unknown, context: Context = {}): void {
@@ -12,5 +16,9 @@ export function captureError(err: unknown, context: Context = {}): void {
     error: error.name,
     stack: error.stack,
   });
-  Sentry.captureException(error, { extra: context });
+  const { area, ...extra } = context;
+  Sentry.captureException(error, {
+    extra,
+    ...(area ? { tags: { area } } : {}),
+  });
 }

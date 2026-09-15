@@ -2,8 +2,11 @@ import * as Sentry from "@sentry/nextjs";
 import { checkEnv, isBuildPhase } from "@/config/env";
 import {
   SENTRY_DSN,
+  SENTRY_ENVIRONMENT,
+  SENTRY_IGNORE_ERRORS,
   SENTRY_RELEASE,
   SENTRY_TRACES_SAMPLE_RATE,
+  tagEvent,
 } from "@/config/sentry";
 import { log } from "@/lib/log";
 
@@ -37,8 +40,14 @@ export function register() {
     Sentry.init({
       dsn: SENTRY_DSN,
       release: SENTRY_RELEASE,
+      environment: SENTRY_ENVIRONMENT,
       tracesSampleRate: SENTRY_TRACES_SAMPLE_RATE,
       sendDefaultPii: false,
+      ignoreErrors: SENTRY_IGNORE_ERRORS,
+      beforeSend: (event) => {
+        tagEvent(event);
+        return event;
+      },
     });
   }
 

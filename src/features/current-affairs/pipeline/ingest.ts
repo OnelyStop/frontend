@@ -53,9 +53,9 @@ export async function runIngest(
   // allSettled, not all: a NewsData rate limit must not discard the RSS that worked.
   const [newsdata, rss] = await Promise.allSettled([fetchNews(), fetchRss()]);
   if (newsdata.status === "rejected")
-    captureError(newsdata.reason, { at: "runIngest.newsdata" });
+    captureError(newsdata.reason, { area: "admin", at: "runIngest.newsdata" });
   if (rss.status === "rejected")
-    captureError(rss.reason, { at: "runIngest.rss" });
+    captureError(rss.reason, { area: "admin", at: "runIngest.rss" });
   if (newsdata.status === "rejected" && rss.status === "rejected")
     throw new Error("every article source failed");
 

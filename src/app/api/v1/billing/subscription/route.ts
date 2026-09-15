@@ -47,7 +47,11 @@ export async function POST(request: Request) {
     });
   } catch (err) {
     // A provider rejecting every checkout is the one billing failure nobody sees until sales stop.
-    captureError(err, { at: "billing.subscription.create_failed", userId });
+    captureError(err, {
+      area: "billing",
+      at: "billing.subscription.create_failed",
+      userId,
+    });
     return fail("payment_provider", 502);
   }
 
@@ -61,6 +65,7 @@ export async function POST(request: Request) {
     });
   } catch (err) {
     captureError(err, {
+      area: "billing",
       at: "billing.subscription.orphaned",
       userId,
       subscription: created.id,

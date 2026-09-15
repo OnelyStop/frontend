@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     const run = await runGenerate(day, { deadlineMs: DEADLINE_MS });
     return json({ ok: true, ...run }, 200);
   } catch (err) {
-    captureError(err, { route: "/internal/generate" });
+    captureError(err, { area: "admin", route: "/internal/generate" });
     return json({ ok: false, error: (err as Error).message }, 500);
   }
 }

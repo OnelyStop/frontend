@@ -64,7 +64,6 @@ export default withSentryConfig(nextConfig, {
   tunnelRoute: SENTRY_RELAY_PATH,
   // Turbopack emits client chunks outside the plugin's default glob, so without this the browser frames stay minified.
   widenClientFileUpload: true,
-  // The maps are uploaded, not served: left in place they are a public copy of the source.
   sourcemaps: { deleteSourcemapsAfterUpload: true },
   release: {
     name: VERCEL_GIT_COMMIT_SHA,

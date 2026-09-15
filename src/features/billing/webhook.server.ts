@@ -101,7 +101,6 @@ export type WebhookInput = {
 
 export type WebhookResult = {
   outcome: WebhookOutcome;
-  /** Set only by the delivery that first activated a subscription, so the funnel's paid step is counted from the server and exactly once. */
   activated: { userId: string; plan: string; interval: string } | null;
 };
 

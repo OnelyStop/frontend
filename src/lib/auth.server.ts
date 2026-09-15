@@ -21,7 +21,7 @@ export const currentUserId = cache(async (): Promise<string | null> => {
   } = await supabase.auth.getUser();
   // An Auth outage also answers user: null, so every route would 401 without a trace.
   if (error && !isAuthSessionMissingError(error))
-    captureError(error, { at: "currentUserId" });
+    captureError(error, { area: "auth", at: "currentUserId" });
   return user?.id ?? null;
 });
 
@@ -33,6 +33,6 @@ export const currentUser = cache(async (): Promise<CurrentUser | null> => {
     error,
   } = await supabase.auth.getUser();
   if (error && !isAuthSessionMissingError(error))
-    captureError(error, { at: "currentUser" });
+    captureError(error, { area: "auth", at: "currentUser" });
   return user ? { id: user.id, email: user.email ?? null } : null;
 });

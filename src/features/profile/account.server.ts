@@ -56,7 +56,11 @@ export async function closeAccount(userId: string): Promise<CloseOutcome> {
     log.info("account.closed", { userId, deleted, cancelled: live.length });
     return { ok: true, deleted };
   } catch (err) {
-    captureError(err, { at: "account.close_delete_failed", userId });
+    captureError(err, {
+      area: "auth",
+      at: "account.close_delete_failed",
+      userId,
+    });
     return { ok: false, reason: "delete_failed" };
   }
 }

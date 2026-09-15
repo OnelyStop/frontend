@@ -15,7 +15,6 @@ describe("the relay path", () => {
     }
   });
 
-  // next.config builds `${path}/static/:path*` from it, and a trailing slash there rewrites to a double slash PostHog 404s.
   it("is one rooted segment with no trailing slash", () => {
     expect(POSTHOG_RELAY_PATH).toMatch(/^\/[a-z0-9-]+$/);
   });
@@ -34,7 +33,6 @@ describe("replayAllowed", () => {
     expect(replayAllowed("/upgrade")).toBe(true);
   });
 
-  // A recording of a drill is the question and the answer on video, and the recovery token is in the URL of a reset.
   it("records neither an exam nor a password reset", () => {
     expect(replayAllowed("/reset-password")).toBe(false);
     expect(replayAllowed("/upgrade/checkout")).toBe(false);
@@ -44,7 +42,6 @@ describe("replayAllowed", () => {
     expect(replayAllowed("/descriptive")).toBe(false);
   });
 
-  // /drillsomething is not /drills, and a prefix test without the boundary would exclude it.
   it("matches a path segment, not a string prefix", () => {
     expect(replayAllowed("/drills-guide")).toBe(true);
   });

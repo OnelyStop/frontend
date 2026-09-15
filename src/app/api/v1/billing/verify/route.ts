@@ -66,6 +66,7 @@ export async function POST(request: Request) {
   } catch (err) {
     // Paid at Razorpay but not applied here: the one billing failure a learner feels, so it pages.
     captureError(err, {
+      area: "billing",
       at: "billing.verify.reconcile_failed",
       userId,
       subscription: razorpay_subscription_id,
