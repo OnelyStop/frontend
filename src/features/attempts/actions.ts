@@ -63,16 +63,12 @@ export async function startAttempt(
     if (!userId) return { error: "Sign in to start an attempt." };
 
     const isMock = mode === "paper";
-    const quota = await checkQuota(
-      db,
-      userId,
-      isMock ? "mocksPerMonth" : "drillsPerDay",
-    );
+    const quota = await checkQuota(db, userId, isMock ? "mocks" : "drills");
     if (!quota.ok)
       return {
         error: isMock
           ? `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`
-          : `That is ${quota.used} of ${quota.limit} drills today. Upgrade for unlimited practice.`,
+          : `That is ${quota.used} of ${quota.limit} drills this month. Upgrade for unlimited practice.`,
       };
 
     if (isMock && !paperId) return { error: "Pick a paper to sit." };
@@ -167,7 +163,7 @@ export async function startMockAttempt(
       };
     }
 
-    const quota = await checkQuota(db, userId, "mocksPerMonth");
+    const quota = await checkQuota(db, userId, "mocks");
     if (!quota.ok)
       return {
         error: `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`,
@@ -240,7 +236,7 @@ export async function restartMockAttempt(
       return { attemptId: open.id, questions, resume: null };
     }
 
-    const quota = await checkQuota(db, userId, "mocksPerMonth");
+    const quota = await checkQuota(db, userId, "mocks");
     if (!quota.ok)
       return {
         error: `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`,

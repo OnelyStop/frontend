@@ -212,29 +212,33 @@ export default function Page() {
         </h2>
         <ul>
           <li>
-            <strong>The free plan is not a trial.</strong> It does not expire
-            and does not need a card. It includes the knowledge base, private
-            notes, the last {PLAN_LIMITS.free.currentAffairsDays} days of
-            current affairs, {PLAN_LIMITS.free.mocksPerMonth} full mocks a month
-            under sectional timing, {PLAN_LIMITS.free.drillsPerDay} drills a
-            day, {PLAN_LIMITS.free.descriptiveMarkingsPerMonth} descriptive
-            markings a month, {PLAN_LIMITS.free.askOnelyPerMonth} Ask Onely
-            questions a month, and {PLAN_LIMITS.free.communityDoubtsPerMonth}{" "}
-            community doubts a month.
+            <strong>The free plan does not expire</strong> and does not need a
+            card. It includes the first{" "}
+            {PLAN_LIMITS.free.knowledgeBaseTopicsPerSubject} topics of every
+            subject, {PLAN_LIMITS.free.privateNotes} private notes,{" "}
+            {PLAN_LIMITS.free.mockPapers} mock papers, the last{" "}
+            {PLAN_LIMITS.free.currentAffairsDays} days of current affairs,{" "}
+            {PLAN_LIMITS.free.mocks.cap} full mocks a month under sectional
+            timing, {PLAN_LIMITS.free.drills.cap} drills a month, and{" "}
+            {PLAN_LIMITS.free.communityDoubts.cap} community doubts a month.
+            Descriptive marking and Ask Onely are a one-time trial, not a
+            monthly allowance: {PLAN_LIMITS.free.descriptiveMarkings.cap}{" "}
+            markings and {PLAN_LIMITS.free.askOnely.cap} questions in total,
+            which do not refill.
           </li>
           <li>
             <strong>Pro and Pro+ renew automatically</strong> through Razorpay
             Subscriptions, monthly or yearly as you chose, until you cancel.
-            Both include unlimited mocks and drills, the full current-affairs
-            archive, and the attempt map and progress. The metered features are
-            capped, not unlimited: Pro gives{" "}
-            {PLAN_LIMITS.pro.descriptiveMarkingsPerMonth} descriptive markings,{" "}
-            {PLAN_LIMITS.pro.askOnelyPerMonth} Ask Onely questions and{" "}
-            {PLAN_LIMITS.pro.communityDoubtsPerMonth} community doubts a month;
-            Pro+ gives {PLAN_LIMITS.pro_plus.descriptiveMarkingsPerMonth},{" "}
-            {PLAN_LIMITS.pro_plus.askOnelyPerMonth} and{" "}
-            {PLAN_LIMITS.pro_plus.communityDoubtsPerMonth}. Past the cap the
-            feature stops until the month turns over.
+            Both include the whole knowledge base, every mock paper, unlimited
+            notes, unlimited mocks and drills, the full current-affairs archive,
+            and the attempt map and progress. The metered features are capped,
+            not unlimited: Pro gives {PLAN_LIMITS.pro.descriptiveMarkings.cap}{" "}
+            descriptive markings, {PLAN_LIMITS.pro.askOnely.cap} Ask Onely
+            questions and {PLAN_LIMITS.pro.communityDoubts.cap} community doubts
+            a month; Pro+ gives {PLAN_LIMITS.pro_plus.descriptiveMarkings.cap},{" "}
+            {PLAN_LIMITS.pro_plus.askOnely.cap} and{" "}
+            {PLAN_LIMITS.pro_plus.communityDoubts.cap}. Past the cap the feature
+            stops until the month turns over.
           </li>
           <li>
             <strong>Changing tier while a plan is running</strong> is done by

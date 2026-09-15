@@ -63,7 +63,7 @@ export async function postDoubt(
   input: DoubtCreate,
 ): Promise<PostOutcome> {
   // The view's remaining count is display only; the quota is decided here.
-  const limit = limitsFor(plan).communityDoubtsPerMonth;
+  const limit = limitsFor(plan).communityDoubts.cap;
   const used = await monthlyPostCount(userId);
   if (!withinLimit(limit, used))
     return { ok: false, reason: "quota_exceeded", used, limit };

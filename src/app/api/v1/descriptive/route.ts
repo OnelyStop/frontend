@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
 
-  const quota = await checkQuota(db, userId, "descriptiveMarkingsPerMonth");
+  const quota = await checkQuota(db, userId, "descriptiveMarkings");
   if (!quota.ok)
     return NextResponse.json(
       { error: "quota_exceeded", used: quota.used, limit: quota.limit },

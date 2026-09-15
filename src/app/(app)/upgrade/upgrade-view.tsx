@@ -98,7 +98,7 @@ export function UpgradeView({
             ? `You are on ${PLAN_NAME[status.plan]}.`
             : "Sit every paper you need."
         }
-        sub={`Unlimited mocks and drills with real sectional timing, the full current-affairs archive, and ${PLAN_LIMITS.pro.descriptiveMarkingsPerMonth} descriptive markings a month on Pro or ${PLAN_LIMITS.pro_plus.descriptiveMarkingsPerMonth} on Pro+. No per-paper credits.`}
+        sub={`Unlimited mocks and drills with real sectional timing, the full current-affairs archive, and ${PLAN_LIMITS.pro.descriptiveMarkings.cap} descriptive markings a month on Pro or ${PLAN_LIMITS.pro_plus.descriptiveMarkings.cap} on Pro+. No per-paper credits.`}
       />
 
       {status.active ? <ManagePlan status={status} /> : null}

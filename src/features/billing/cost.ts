@@ -35,9 +35,12 @@ export function monthlyAiCostPaise(
   perCall: CallCosts = COST_PER_CALL_PAISE,
 ): number {
   const l = PLAN_LIMITS[plan];
+  // A lifetime cap is acquisition cost, not recurring: counting it bills free forever.
+  const monthly = (q: { cap: number | null; per: string }) =>
+    q.per === "month" ? (q.cap ?? 0) : 0;
   return (
-    (l.descriptiveMarkingsPerMonth ?? 0) * perCall.descriptiveMarking +
-    (l.askOnelyPerMonth ?? 0) * perCall.askOnely
+    monthly(l.descriptiveMarkings) * perCall.descriptiveMarking +
+    monthly(l.askOnely) * perCall.askOnely
   );
 }
 

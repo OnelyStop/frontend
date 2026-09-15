@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
         .map((t) => ({ role: t.role, content: t.content.slice(0, 4000) }))
     : [];
 
-  const quota = await checkQuota(db, userId, "askOnelyPerMonth");
+  const quota = await checkQuota(db, userId, "askOnely");
   if (!quota.ok)
     return NextResponse.json(
       { error: "quota_exceeded", used: quota.used, limit: quota.limit },
