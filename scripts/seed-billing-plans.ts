@@ -79,9 +79,19 @@ const PLANS = [
 
 const INR_AFA_LIMIT_MINOR = 1_500_000; // ₹15,000 in paise
 
-// Renders the price before Razorpay exists; mode is in the string because razorpay_plan_id is unique across both.
-const pendingId = (p: (typeof PLANS)[number], mode: string) =>
-  `pending_${mode}_${p.plan}_${p.interval}_${p.currency}`.toLowerCase();
+/** The Supabase project ref, never the password: this script's one real hazard is the right keys against the wrong database. */
+function databaseRef(): string {
+  try {
+    const { username, hostname } = new URL(process.env.DATABASE_URL ?? "");
+    return `${username.split(".")[1] ?? username}@${hostname}`;
+  } catch {
+    return "unknown";
+  }
+}
+
+// Renders the price before Razorpay exists; checkout then fails loudly, not silently.
+const pendingId = (p: (typeof PLANS)[number]) =>
+  `pending_${p.plan}_${p.interval}_${p.currency}`.toLowerCase();
 
 async function main() {
   const apply = process.argv.includes("--apply");
@@ -91,8 +101,8 @@ async function main() {
     throw new Error("--apply and --prices-only do opposite things; pick one");
   }
 
-  const mode = keyMode();
-  console.log(`  ${mode} mode\n`);
+  // Announced before anything is written: seeding the wrong mode is the one mistake this script can make.
+  console.log(`  ${keyMode()} mode — database ${databaseRef()}\n`);
 
   for (const p of PLANS) {
     if (p.currency === "INR" && p.amountMinor > INR_AFA_LIMIT_MINOR) {
@@ -111,8 +121,7 @@ async function main() {
           plan: p.plan,
           interval: p.interval,
           currency: p.currency,
-          razorpayPlanId: pendingId(p, mode),
-          razorpayMode: mode,
+          razorpayPlanId: pendingId(p),
           amountMinor: p.amountMinor,
           listAmountMinor: p.listAmountMinor,
         })
@@ -121,7 +130,6 @@ async function main() {
             paymentPlans.plan,
             paymentPlans.interval,
             paymentPlans.currency,
-            paymentPlans.razorpayMode,
           ],
           where: sql`${paymentPlans.active}`,
         });
@@ -145,7 +153,6 @@ async function main() {
           eq(paymentPlans.plan, p.plan),
           eq(paymentPlans.interval, p.interval),
           eq(paymentPlans.currency, p.currency),
-          eq(paymentPlans.razorpayMode, mode),
           eq(paymentPlans.active, true),
         ),
       )
@@ -171,7 +178,6 @@ async function main() {
         interval: p.interval,
         currency: p.currency,
         razorpayPlanId: created.id,
-        razorpayMode: mode,
         amountMinor: p.amountMinor,
         listAmountMinor: p.listAmountMinor,
       })
@@ -181,7 +187,6 @@ async function main() {
           paymentPlans.plan,
           paymentPlans.interval,
           paymentPlans.currency,
-          paymentPlans.razorpayMode,
         ],
         targetWhere: sql`${paymentPlans.active}`,
         set: { razorpayPlanId: created.id },
