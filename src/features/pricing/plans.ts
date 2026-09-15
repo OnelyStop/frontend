@@ -1,5 +1,6 @@
 import {
   PLAN_LIMITS,
+  quotaPhrase,
   type PlanLimits,
   type PlanTier,
 } from "@/features/billing/limits";
@@ -17,26 +18,26 @@ export type PlanCopy = {
 };
 
 // Generated from the limits table, so the page cannot promise an unenforced number.
-const per = (n: number | null, noun: string, period: string) =>
-  n === null ? `Unlimited ${noun}` : `${n} ${noun} ${period}`;
-
-const paidBullets = (l: PlanLimits): string[] => [
-  per(l.mocksPerMonth, "full mocks", "a month"),
-  per(l.drillsPerDay, "drills", "a day"),
-  per(l.descriptiveMarkingsPerMonth, "descriptive markings", "a month"),
-  per(l.askOnelyPerMonth, "Ask Onely questions", "a month"),
-  per(l.communityDoubtsPerMonth, "community doubts", "a month"),
+const quotaBullets = (l: PlanLimits): string[] => [
+  quotaPhrase(l.mocks, "full mocks"),
+  quotaPhrase(l.drills, "drills"),
+  quotaPhrase(l.descriptiveMarkings, "descriptive markings"),
+  quotaPhrase(l.askOnely, "Ask Onely questions"),
+  quotaPhrase(l.communityDoubts, "community doubts"),
 ];
+
+const free = PLAN_LIMITS.free;
 
 export const PLAN_COPY: PlanCopy[] = [
   {
     id: "free",
     name: "Free",
-    tagline: "Enough to sit real papers and find your weak section",
+    tagline: "Enough to sit a real paper and see where you stand",
     features: [
-      "Knowledge base, private notes and flashcards",
-      ...paidBullets(PLAN_LIMITS.free),
-      `Current affairs, last ${PLAN_LIMITS.free.currentAffairsDays} days`,
+      `The first ${free.knowledgeBaseTopicsPerSubject} topics of every subject`,
+      ...quotaBullets(free),
+      `Current affairs ${free.currentAffairsDelayDays} days late, ${free.currentAffairsDays} days at a time`,
+      `${free.privateNotes} private notes and ${free.mockPapers} mock papers`,
     ],
   },
   {
@@ -44,7 +45,8 @@ export const PLAN_COPY: PlanCopy[] = [
     name: "Pro",
     tagline: "Unlimited practice, calibrated to your exam",
     features: [
-      ...paidBullets(PLAN_LIMITS.pro),
+      "The whole knowledge base, every mock paper, unlimited notes",
+      ...quotaBullets(PLAN_LIMITS.pro),
       "Attempt map and progress across every sitting",
       "Full current-affairs archive",
     ],
@@ -57,21 +59,12 @@ export const PLAN_COPY: PlanCopy[] = [
     featured: true,
     features: [
       "Everything in Pro",
-      per(
-        PLAN_LIMITS.pro_plus.descriptiveMarkingsPerMonth,
+      quotaPhrase(
+        PLAN_LIMITS.pro_plus.descriptiveMarkings,
         "descriptive markings",
-        "a month",
       ),
-      per(
-        PLAN_LIMITS.pro_plus.askOnelyPerMonth,
-        "Ask Onely questions",
-        "a month",
-      ),
-      per(
-        PLAN_LIMITS.pro_plus.communityDoubtsPerMonth,
-        "community doubts",
-        "a month",
-      ),
+      quotaPhrase(PLAN_LIMITS.pro_plus.askOnely, "Ask Onely questions"),
+      quotaPhrase(PLAN_LIMITS.pro_plus.communityDoubts, "community doubts"),
     ],
   },
 ];

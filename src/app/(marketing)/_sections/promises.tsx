@@ -17,23 +17,23 @@ const free = PLAN_LIMITS.free;
 
 const FREE_TILES = [
   {
-    n: free.mocksPerMonth,
-    label: "full mocks a month",
+    n: free.knowledgeBaseTopicsPerSubject,
+    label: "topics of every subject",
     tone: "bg-[#fde3d6] text-[#9a4b2f]",
   },
   {
-    n: free.drillsPerDay,
-    label: "drills a day",
+    n: free.mocks.cap,
+    label: "full mocks a month",
     tone: "bg-[#e6e2fb] text-[#4d3f9e]",
   },
   {
-    n: free.descriptiveMarkingsPerMonth,
-    label: "markings a month",
+    n: free.drills.cap,
+    label: "drills a month",
     tone: "bg-[#d8f0e5] text-[#23634a]",
   },
   {
-    n: free.askOnelyPerMonth,
-    label: "Ask Onely a month",
+    n: free.askOnely.cap,
+    label: "Ask Onely to try",
     tone: "bg-[#fbf0c6] text-[#7a5a12]",
   },
 ];
@@ -157,8 +157,9 @@ export function Promises() {
               }))}
             />
             <p className={NOTE}>
-              Plus the last {free.currentAffairsDays} days of current affairs
-              and {free.communityDoubtsPerMonth} community doubts a month.
+              Plus the last {free.currentAffairsDays} days of current affairs,{" "}
+              {free.communityDoubts.cap} community doubts a month and{" "}
+              {free.descriptiveMarkings.cap} descriptive markings to try.
             </p>
           </Panel>
 
@@ -216,7 +217,7 @@ export function Promises() {
                 </p>
                 <p className="text-ink-3 text-[13px] leading-snug">
                   Doubts ranked by how many people share them ·{" "}
-                  {free.communityDoubtsPerMonth} free a month
+                  {free.communityDoubts.cap} free a month
                 </p>
               </div>
             </div>

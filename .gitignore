@@ -51,3 +51,4 @@ tsconfig.tsbuildinfo
 screenshots/
 # Except the ones a PR body links to, which have to be fetchable from GitHub.
 !docs/screenshots/
+.env*

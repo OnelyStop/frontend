@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Lock } from "lucide-react";
 import { ButtonLink, Card, StatusPill } from "@/design-system";
+import { PLAN_LIMITS } from "@/features/billing/limits";
 import type { TopicPreview } from "../types";
 
 const DIFFICULTY_TONE = {
@@ -9,7 +10,14 @@ const DIFFICULTY_TONE = {
   advanced: "bad",
 } as const;
 
-export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
+export function TopicPreviewView({
+  topic,
+  locked = false,
+}: {
+  topic: TopicPreview;
+  /** Signed in on the free plan and past the free depth, rather than signed out. */
+  locked?: boolean;
+}) {
   const base = `/study/${topic.subject.slug}/${topic.chapter.slug}`;
 
   return (
@@ -87,21 +95,30 @@ export function TopicPreviewView({ topic }: { topic: TopicPreview }) {
         <Card className="mt-10 max-w-[68ch]">
           <div className="text-ink-3 flex items-center gap-2 text-[13px]">
             <Lock size={14} strokeWidth={1.75} />
-            The lesson itself is for members
+            {locked
+              ? "This topic is on Pro"
+              : "The lesson itself is for members"}
           </div>
           <p className="text-ink-2 mt-2 text-[14.5px] leading-relaxed">
-            Reading the {topic.sectionTitles.length} sections above, the worked
-            examples and the practice set is free — the whole knowledge base is
-            on the free plan, along with flashcards, private notes and Ask
-            Onely.
+            {locked
+              ? `You can read the ${topic.sectionTitles.length} sections above, and the first ${PLAN_LIMITS.free.knowledgeBaseTopicsPerSubject} topics of every subject in full. Pro opens the rest of the knowledge base, every mock paper and unlimited notes.`
+              : `Reading the ${topic.sectionTitles.length} sections above is free. A free account opens the first ${PLAN_LIMITS.free.knowledgeBaseTopicsPerSubject} topics of every subject in full, along with flashcards and private notes.`}
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
-            <ButtonLink href="/signup" size="sm">
-              Create a free account
-            </ButtonLink>
-            <ButtonLink href="/login" size="sm" variant="secondary">
-              Sign in
-            </ButtonLink>
+            {locked ? (
+              <ButtonLink href="/upgrade?from=study" size="sm">
+                See Pro
+              </ButtonLink>
+            ) : (
+              <>
+                <ButtonLink href="/signup" size="sm">
+                  Create a free account
+                </ButtonLink>
+                <ButtonLink href="/login" size="sm" variant="secondary">
+                  Sign in
+                </ButtonLink>
+              </>
+            )}
           </div>
         </Card>
       </div>

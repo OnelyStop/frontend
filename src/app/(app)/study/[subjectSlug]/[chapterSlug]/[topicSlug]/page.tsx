@@ -12,7 +12,11 @@ import {
   getTopicPreview,
   listFlashcards,
   listNotes,
+  topicRank,
 } from "@/features/study/queries.server";
+import { db } from "@/db";
+import { getEntitlement } from "@/features/billing/entitlements.server";
+import { limitsFor, topicUnlocked } from "@/features/billing/limits";
 import { currentUserId } from "@/lib/auth.server";
 
 type Params = Promise<{
@@ -93,6 +97,21 @@ export default async function Page({ params }: { params: Params }) {
     redirect(
       `/study/${outline.subject.slug}/${outline.chapter.slug}/${topicSlug}`,
     );
+
+  const [{ plan }, rank] = await Promise.all([
+    getEntitlement(db, userId),
+    topicRank(topicSlug),
+  ]);
+
+  // The syllabus view, not a redirect: a free reader should see what is behind the wall.
+  if (
+    rank &&
+    !topicUnlocked(limitsFor(plan), outline.subject.slug, rank.rank)
+  ) {
+    const topic = await getTopicPreview(topicSlug);
+    if (!topic) notFound();
+    return <TopicPreviewView topic={topic} locked />;
+  }
 
   const [subject, notes, flashcards] = await Promise.all([
     getSubjectChapters(subjectSlug, { preview }),

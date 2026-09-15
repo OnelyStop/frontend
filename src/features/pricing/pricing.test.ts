@@ -10,6 +10,7 @@ import {
 import {
   PLAN_LIMITS,
   limitsFor,
+  topicUnlocked,
   withinLimit,
   type PlanTier,
 } from "@/features/billing/limits";
@@ -59,16 +60,29 @@ describe("plan limits", () => {
   // Paying more must never buy less. null is unlimited, so it sorts last.
   it("never lets a higher tier get a lower cap", () => {
     const rank = (n: number | null) => (n === null ? Infinity : n);
-    const metered = [
-      "mocksPerMonth",
-      "drillsPerDay",
-      "descriptiveMarkingsPerMonth",
-      "askOnelyPerMonth",
-      "communityDoubtsPerMonth",
+    const quotas = [
+      "mocks",
+      "drills",
+      "descriptiveMarkings",
+      "askOnely",
+      "communityDoubts",
+    ] as const;
+    const counts = [
       "currentAffairsDays",
+      "privateNotes",
+      "mockPapers",
+      "knowledgeBaseTopicsPerSubject",
     ] as const;
 
-    for (const key of metered) {
+    for (const key of quotas) {
+      expect(rank(PLAN_LIMITS.free[key].cap)).toBeLessThanOrEqual(
+        rank(PLAN_LIMITS.pro[key].cap),
+      );
+      expect(rank(PLAN_LIMITS.pro[key].cap)).toBeLessThanOrEqual(
+        rank(PLAN_LIMITS.pro_plus[key].cap),
+      );
+    }
+    for (const key of counts) {
       expect(rank(PLAN_LIMITS.free[key])).toBeLessThanOrEqual(
         rank(PLAN_LIMITS.pro[key]),
       );
@@ -81,8 +95,8 @@ describe("plan limits", () => {
   // One model call each, so no tier may leave them uncapped.
   it("caps everything that costs a model call, on every tier", () => {
     for (const tier of TIERS) {
-      expect(PLAN_LIMITS[tier].descriptiveMarkingsPerMonth).not.toBeNull();
-      expect(PLAN_LIMITS[tier].askOnelyPerMonth).not.toBeNull();
+      expect(PLAN_LIMITS[tier].descriptiveMarkings.cap).not.toBeNull();
+      expect(PLAN_LIMITS[tier].askOnely.cap).not.toBeNull();
     }
   });
 
@@ -104,9 +118,10 @@ describe("what a user costs us", () => {
     (monthlyCostPaise(tier) / MONTHLY_PRICE_PAISE[tier]) * 100;
 
   it("prices a month of model calls", () => {
-    expect(monthlyAiCostPaise("free")).toBe(162);
-    expect(monthlyAiCostPaise("pro")).toBe(1_830);
-    expect(monthlyAiCostPaise("pro_plus")).toBe(5_280);
+    // Zero, not small: free's AI caps are lifetime, so they cost once and never again.
+    expect(monthlyAiCostPaise("free")).toBe(0);
+    expect(monthlyAiCostPaise("pro")).toBe(1_110);
+    expect(monthlyAiCostPaise("pro_plus")).toBe(3_450);
   });
 
   it("adds Razorpay's cut, which follows the price and not the usage", () => {
@@ -116,13 +131,13 @@ describe("what a user costs us", () => {
   });
 
   it("totals what one subscriber costs", () => {
-    expect(monthlyCostPaise("pro")).toBe(2_420);
-    expect(monthlyCostPaise("pro_plus")).toBe(6_224);
+    expect(monthlyCostPaise("pro")).toBe(1_700);
+    expect(monthlyCostPaise("pro_plus")).toBe(4_394);
   });
 
   it("leaves the margin a subscription business needs", () => {
-    expect(grossMarginPercent("pro")).toBe(90);
-    expect(grossMarginPercent("pro_plus")).toBe(84);
+    expect(grossMarginPercent("pro")).toBe(93);
+    expect(grossMarginPercent("pro_plus")).toBe(89);
     expect(grossMarginPercent("free")).toBeNull();
   });
 
@@ -139,8 +154,8 @@ describe("what a user costs us", () => {
 
   // Pro+ reaches 78% of its own price here, so what caps the loss is call size, not the quota.
   it("records the ceiling a determined user could reach", () => {
-    expect(ceilingMonthlyAiCostPaise("pro")).toBe(10_220);
-    expect(ceilingMonthlyAiCostPaise("pro_plus")).toBe(31_120);
+    expect(ceilingMonthlyAiCostPaise("pro")).toBe(8_240);
+    expect(ceilingMonthlyAiCostPaise("pro_plus")).toBe(20_900);
   });
 
   it("never lets even that ceiling cost more than the subscription", () => {
@@ -162,11 +177,52 @@ describe("pricing copy", () => {
   // Pins that the bullets really are generated from PLAN_LIMITS.
   it("states the limits the server enforces", () => {
     const pro = PLAN_COPY.find((p) => p.id === "pro")!;
-    expect(pro.features).toContain("30 descriptive markings a month");
+    expect(pro.features).toContain("10 descriptive markings a month");
     expect(pro.features).toContain("Unlimited full mocks");
 
     const free = PLAN_COPY.find((p) => p.id === "free")!;
-    expect(free.features).toContain("5 community doubts a month");
-    expect(free.features).toContain("Current affairs, last 7 days");
+    expect(free.features).toContain("2 community doubts a month");
+    expect(free.features).toContain(
+      "Current affairs 5 days late, 2 days at a time",
+    );
+  });
+});
+
+// A cap that quietly refills monthly looks identical to a working one until the bill arrives.
+describe("lifetime caps", () => {
+  it("meters free's two AI features per account, not per month", () => {
+    expect(PLAN_LIMITS.free.askOnely.per).toBe("account");
+    expect(PLAN_LIMITS.free.descriptiveMarkings.per).toBe("account");
+  });
+
+  it("never gives a paid tier a lifetime cap", () => {
+    for (const tier of ["pro", "pro_plus"] as const) {
+      expect(PLAN_LIMITS[tier].askOnely.per).toBe("month");
+      expect(PLAN_LIMITS[tier].descriptiveMarkings.per).toBe("month");
+    }
+  });
+});
+
+describe("knowledge base depth", () => {
+  const free = PLAN_LIMITS.free;
+
+  it("gates subject content but never the exam guidance", () => {
+    expect(topicUnlocked(free, "quantitative-aptitude", 2)).toBe(true);
+    expect(topicUnlocked(free, "quantitative-aptitude", 3)).toBe(false);
+    expect(topicUnlocked(free, "exam-guidance", 99)).toBe(true);
+  });
+
+  it("leaves every topic open on a paid tier", () => {
+    expect(topicUnlocked(PLAN_LIMITS.pro, "quantitative-aptitude", 999)).toBe(
+      true,
+    );
+  });
+});
+
+describe("current affairs delay", () => {
+  it("holds free back but never a paid tier", () => {
+    expect(PLAN_LIMITS.free.currentAffairsDelayDays).toBe(5);
+    expect(PLAN_LIMITS.pro.currentAffairsDelayDays).toBeNull();
+    expect(PLAN_LIMITS.pro_plus.currentAffairsDelayDays).toBeNull();
   });
 });

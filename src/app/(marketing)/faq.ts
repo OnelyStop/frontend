@@ -1,5 +1,5 @@
 import { BANKING_EXAMS } from "@/data/navigation";
-import { PLAN_LIMITS } from "@/features/billing/limits";
+import { PLAN_LIMITS, quotaPhrase } from "@/features/billing/limits";
 
 const free = PLAN_LIMITS.free;
 
@@ -7,7 +7,7 @@ const free = PLAN_LIMITS.free;
 export const FAQ: { question: string; answer: string }[] = [
   {
     question: "Is onelystop free?",
-    answer: `Yes, and the free plan is not a trial. It covers the whole knowledge base, your private notes, ${free.mocksPerMonth} full mocks a month, ${free.drillsPerDay} drills a day, ${free.descriptiveMarkingsPerMonth} descriptive markings a month, ${free.askOnelyPerMonth} Ask Onely questions a month and the last ${free.currentAffairsDays} days of current affairs. No card, no expiry.`,
+    answer: `Yes, and it does not expire. Free gives you the first ${free.knowledgeBaseTopicsPerSubject} topics of every subject, ${quotaPhrase(free.mocks, "full mocks")}, ${quotaPhrase(free.drills, "drills")}, ${free.currentAffairsDays} days of current affairs on a ${free.currentAffairsDelayDays}-day delay, ${free.privateNotes} private notes and ${free.mockPapers} mock papers. The two AI features are a trial rather than an allowance: ${free.descriptiveMarkings.cap} descriptive markings and ${free.askOnely.cap} Ask Onely questions in total, not per month. No card.`,
   },
   {
     question: "Which exams does it cover?",
@@ -25,8 +25,7 @@ export const FAQ: { question: string; answer: string }[] = [
   },
   {
     question: "What is in the knowledge base?",
-    answer:
-      "Structured lessons across quantitative aptitude, reasoning ability, English, banking awareness, computer awareness and exam strategy — each topic with worked examples, a practice set and flashcards. You can read the syllabus for any topic without an account.",
+    answer: `Structured lessons across quantitative aptitude, reasoning ability, English, banking awareness, computer awareness and exam strategy — each topic with worked examples, a practice set and flashcards. You can read the syllabus for any topic without an account, and a free account opens the first ${free.knowledgeBaseTopicsPerSubject} topics of every subject in full.`,
   },
   {
     question: "Do I need to install anything?",

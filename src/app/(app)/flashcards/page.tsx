@@ -16,11 +16,13 @@ export default async function Page() {
   if (!userId) redirect("/login?from=/flashcards");
 
   const { plan } = await getEntitlement(db, userId);
-  const days = limitsFor(plan).currentAffairsDays ?? UNCAPPED_DAYS;
+  const limits = limitsFor(plan);
+  const days = limits.currentAffairsDays ?? UNCAPPED_DAYS;
+  const delay = limits.currentAffairsDelayDays ?? 0;
 
   return (
     <FlashcardsView
-      currentAffairs={await listRecentQuestions(days)}
+      currentAffairs={await listRecentQuestions(days, delay)}
       currentAffairsDays={days}
     />
   );

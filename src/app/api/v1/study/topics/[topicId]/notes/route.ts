@@ -43,6 +43,9 @@ export async function POST(
   if (!parsed.success) return jsonError("invalid_body", 400);
 
   const result = await createNote(auth.userId, topicId, parsed.data);
-  if ("error" in result) return jsonError(result.error, 404);
+  // 404 for everything hid a quota denial as a missing topic; each reason has its own status.
+  const STATUS = { note_limit: 429, too_long: 400, topic_not_found: 404 };
+  if ("error" in result)
+    return jsonError(result.error, STATUS[result.error] ?? 404);
   return NextResponse.json({ note: result }, { status: 201 });
 }

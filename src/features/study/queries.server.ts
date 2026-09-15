@@ -1,10 +1,12 @@
 import "server-only";
 
 import { cache } from "react";
-import { and, asc, desc, eq, ilike, inArray, sql } from "drizzle-orm";
+import { and, asc, count, desc, eq, ilike, inArray, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { AUTH_DISABLED } from "@/config/auth";
 import { getRole } from "@/features/auth/roles";
+import { getEntitlement } from "@/features/billing/entitlements.server";
+import { limitsFor, withinLimit } from "@/features/billing/limits";
 import type {
   ChapterOutline,
   SearchHit,
@@ -389,12 +391,24 @@ export async function createNote(
     textBefore?: string | null;
     textAfter?: string | null;
   },
-): Promise<StudyNote | { error: "too_long" | "topic_not_found" }> {
+): Promise<
+  StudyNote | { error: "too_long" | "topic_not_found" | "note_limit" }
+> {
   if (input.bodyMarkdown.length > MAX_NOTE) return { error: "too_long" };
   const topic = await db.query.topics.findFirst({
     where: eq(topics.id, topicId),
   });
   if (!topic) return { error: "topic_not_found" };
+
+  // Counted here rather than in the route: every caller that writes a note passes through this.
+  const cap = limitsFor((await getEntitlement(db, userId)).plan).privateNotes;
+  if (cap !== null) {
+    const [{ n }] = await db
+      .select({ n: count() })
+      .from(userNotes)
+      .where(eq(userNotes.userId, userId));
+    if (!withinLimit(cap, n)) return { error: "note_limit" };
+  }
 
   const [row] = await db
     .insert(userNotes)
@@ -596,3 +610,28 @@ export async function searchPublic(query: string): Promise<SearchHit[]> {
     })),
   ];
 }
+
+/** Ranked within the subject by chapter then topic, so the free allowance is the same depth everywhere and does not move when a chapter is added above it. */
+export const topicRank = cache(
+  async (
+    topicSlug: string,
+  ): Promise<{ subjectSlug: string; rank: number } | null> => {
+    const rows = (await db.execute(sql`
+      select subject_slug, rank from (
+        select s.slug as subject_slug, t.slug as topic_slug,
+          row_number() over (partition by s.id order by c.position, t.position) as rank
+        from topics t
+        join chapters c on c.id = t.chapter_id
+        join subjects s on s.id = c.subject_id
+        where t.status = 'published'
+      ) ranked
+      where topic_slug = ${topicSlug}
+      limit 1
+    `)) as unknown as { subject_slug: string; rank: string }[];
+
+    const row = rows[0];
+    return row
+      ? { subjectSlug: row.subject_slug, rank: Number(row.rank) }
+      : null;
+  },
+);

@@ -1,5 +1,5 @@
 import { cn } from "@/design-system";
-import { PLAN_LIMITS } from "@/features/billing/limits";
+import { PLAN_LIMITS, quotaPhrase } from "@/features/billing/limits";
 import type { PlanPrice } from "@/features/billing/types";
 import { PlanGrid } from "@/features/pricing/components/PlanGrid";
 import { FAQ } from "./faq";
@@ -41,21 +41,24 @@ export function LandingView({
         <div className="mx-auto max-w-300 text-center">
           <p className={cn(EYEBROW, "text-[#7a5a12]/75")}>Pricing</p>
           <h2 className={cn(H2, "mx-auto mt-5 max-w-[18ch]")}>
-            The free plan is not a trial
+            Free is not a demo account
           </h2>
           <p className="mx-auto mt-6 max-w-[64ch] text-[16px] leading-relaxed text-[#5a4a2a] lg:text-[17px]">
-            Free covers the knowledge base, your private notes, a week of
-            current affairs, {PLAN_LIMITS.free.mocksPerMonth} full mocks a
-            month, {PLAN_LIMITS.free.drillsPerDay} drills a day,{" "}
-            {PLAN_LIMITS.free.descriptiveMarkingsPerMonth} descriptive markings
-            a month and {PLAN_LIMITS.free.askOnelyPerMonth} Ask Onely questions
-            a month. No card, no expiry. Pro raises those caps rather than
-            introducing them: unlimited mocks and drills, the full
-            current-affairs archive, the attempt map,{" "}
-            {PLAN_LIMITS.pro.descriptiveMarkingsPerMonth} markings and{" "}
-            {PLAN_LIMITS.pro.askOnelyPerMonth} Ask Onely questions a month. Pro+
+            Free opens the first{" "}
+            {PLAN_LIMITS.free.knowledgeBaseTopicsPerSubject} topics of every
+            subject, {quotaPhrase(PLAN_LIMITS.free.mocks, "full mocks")} and{" "}
+            {quotaPhrase(PLAN_LIMITS.free.drills, "drills")}, plus{" "}
+            {PLAN_LIMITS.free.currentAffairsDays} days of current affairs{" "}
+            {PLAN_LIMITS.free.currentAffairsDelayDays} days after they happen.
+            The two AI features are a trial rather than an allowance:{" "}
+            {PLAN_LIMITS.free.descriptiveMarkings.cap} markings and{" "}
+            {PLAN_LIMITS.free.askOnely.cap} Ask Onely questions in total. Pro
+            lifts all of it: the whole knowledge base, unlimited mocks and
+            drills, the full current-affairs archive, the attempt map,{" "}
+            {quotaPhrase(PLAN_LIMITS.pro.descriptiveMarkings, "markings")} and{" "}
+            {quotaPhrase(PLAN_LIMITS.pro.askOnely, "Ask Onely questions")}. Pro+
             is for the descriptive papers, where the marking is the point:{" "}
-            {PLAN_LIMITS.pro_plus.descriptiveMarkingsPerMonth} markings a month.
+            {quotaPhrase(PLAN_LIMITS.pro_plus.descriptiveMarkings, "markings")}.
           </p>
           <PlanGrid
             variant="public"

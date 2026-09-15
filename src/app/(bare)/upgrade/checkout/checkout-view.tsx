@@ -22,6 +22,7 @@ import {
 import {
   PLAN_LIMITS,
   PLAN_NAME,
+  quotaPhrase,
   type PlanTier,
 } from "@/features/billing/limits";
 import { formatAmount } from "@/features/billing/money";
@@ -67,10 +68,11 @@ function included(plan: PaidPlan): string[] {
   const l = PLAN_LIMITS[plan];
   const free = PLAN_LIMITS.free;
   return [
-    `Unlimited mocks, up from ${free.mocksPerMonth} a month`,
-    `Unlimited drills, up from ${free.drillsPerDay} a day`,
-    `${l.descriptiveMarkingsPerMonth} descriptive markings a month`,
-    `${l.askOnelyPerMonth} Ask Onely questions a month`,
+    `Unlimited mocks, up from ${free.mocks.cap} a month`,
+    `Unlimited drills, up from ${free.drills.cap} a month`,
+    "The whole knowledge base, every mock paper, unlimited notes",
+    quotaPhrase(l.descriptiveMarkings, "descriptive markings"),
+    quotaPhrase(l.askOnely, "Ask Onely questions"),
     "The whole current-affairs archive, not the last week",
     "The attempt map: what to bank and what to skip",
   ];
@@ -154,7 +156,7 @@ export function CheckoutView({
     return (
       <Done
         title={`You're on ${planName}`}
-        body={`Unlimited mocks and drills, ${PLAN_LIMITS[plan].descriptiveMarkingsPerMonth} descriptive markings a month and the full current-affairs archive are unlocked.`}
+        body={`Unlimited mocks and drills, the whole knowledge base, ${PLAN_LIMITS[plan].descriptiveMarkings.cap} descriptive markings a month and the full current-affairs archive are unlocked.`}
       />
     );
   if (step === "pending")

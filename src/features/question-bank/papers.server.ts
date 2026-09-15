@@ -5,6 +5,8 @@ import { and, count, desc, eq, inArray, isNotNull, isNull } from "drizzle-orm";
 import { CUTOFF_LADDER, SECTION_DB } from "@/data/navigation";
 import { db } from "@/db";
 import { attempts, bankQuestions, papers } from "@/db/schema";
+import { getEntitlement } from "@/features/billing/entitlements.server";
+import { limitsFor, PLAN_LIMITS } from "@/features/billing/limits";
 import { currentUserId } from "@/lib/auth.server";
 import type { Mock } from "./types";
 
@@ -57,9 +59,15 @@ export async function listMockPapers(): Promise<Mock[]> {
     )
     .orderBy(desc(papers.year), papers.bank, papers.role);
 
-  const servable = rows.filter((r) => r.qs >= SERVABLE_MIN_QS);
-  const paperIds = servable.map((r) => r.paperId);
   const userId = await currentUserId();
+  const cap = userId
+    ? limitsFor((await getEntitlement(db, userId)).plan).mockPapers
+    : PLAN_LIMITS.free.mockPapers;
+
+  // Sliced before the score lookups, and ordered newest first, so free sees the current papers.
+  const all = rows.filter((r) => r.qs >= SERVABLE_MIN_QS);
+  const servable = cap === null ? all : all.slice(0, cap);
+  const paperIds = servable.map((r) => r.paperId);
   const [bestScores, openAttempts] = await Promise.all([
     bestScoreByPaper(userId, paperIds),
     openAttemptsByPaper(userId, paperIds),

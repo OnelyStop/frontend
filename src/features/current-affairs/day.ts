@@ -8,5 +8,12 @@ export function todayIst(): string {
   return istDayKey(new Date());
 }
 
-export const oldestDayAllowed = (today: string, days: number): string =>
-  dayBack(today, days - 1);
+/** The window ends `delay` days back, not today: paid buys freshness, and free reads the same days late. */
+export function allowedDays(
+  today: string,
+  days: number,
+  delay = 0,
+): { newest: string; oldest: string } {
+  const newest = dayBack(today, delay);
+  return { newest, oldest: dayBack(newest, days - 1) };
+}
