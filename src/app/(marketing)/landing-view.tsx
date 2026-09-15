@@ -47,9 +47,11 @@ export function LandingView({
             Free opens the first{" "}
             {PLAN_LIMITS.free.knowledgeBaseTopicsPerSubject} topics of every
             subject, {quotaPhrase(PLAN_LIMITS.free.mocks, "full mocks")} and{" "}
-            {quotaPhrase(PLAN_LIMITS.free.drills, "drills")}, plus a week of
-            current affairs. The two AI features are a trial rather than an
-            allowance: {PLAN_LIMITS.free.descriptiveMarkings.cap} markings and{" "}
+            {quotaPhrase(PLAN_LIMITS.free.drills, "drills")}, plus{" "}
+            {PLAN_LIMITS.free.currentAffairsDays} days of current affairs{" "}
+            {PLAN_LIMITS.free.currentAffairsDelayDays} days after they happen.
+            The two AI features are a trial rather than an allowance:{" "}
+            {PLAN_LIMITS.free.descriptiveMarkings.cap} markings and{" "}
             {PLAN_LIMITS.free.askOnely.cap} Ask Onely questions in total. Pro
             lifts all of it: the whole knowledge base, unlimited mocks and
             drills, the full current-affairs archive, the attempt map,{" "}
