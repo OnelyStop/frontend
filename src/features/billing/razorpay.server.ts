@@ -13,6 +13,19 @@ function credentials() {
   return { keyId, keySecret };
 }
 
+export type RazorpayMode = "test" | "live";
+
+/** Derived from the key, never a separate env var: an env var can disagree with the key it is paired with, and a plan id from the wrong mode is a 400. */
+export function keyMode(): RazorpayMode {
+  const keyId = process.env.RAZORPAY_KEY_ID;
+  if (!keyId) throw new Error("RAZORPAY_KEY_ID is not set");
+  if (keyId.startsWith("rzp_test_")) return "test";
+  if (keyId.startsWith("rzp_live_")) return "live";
+  throw new Error(
+    "RAZORPAY_KEY_ID is neither an rzp_test_ nor an rzp_live_ key",
+  );
+}
+
 async function call<T>(
   path: string,
   init?: { method?: string; body?: unknown },

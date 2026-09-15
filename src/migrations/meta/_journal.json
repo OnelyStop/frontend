@@ -71,6 +71,13 @@
       "when": 1789311913454,
       "tag": "0009_exam_type",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1789443834200,
+      "tag": "0010_plan_razorpay_mode",
+      "breakpoints": true
     }
   ]
 }

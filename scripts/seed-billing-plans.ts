@@ -1,12 +1,12 @@
 /** Run once per environment: Razorpay plans cannot be edited, so a price change means a new plan id and existing subscribers stay on the old one. */
 import { config } from "dotenv";
-import { sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 
 config({ path: ".env.local" });
 
 import { db } from "../src/db";
 import { paymentPlans } from "../src/db/schema";
-import { createPlan } from "../src/features/billing/razorpay.server";
+import { createPlan, keyMode } from "../src/features/billing/razorpay.server";
 
 // Paise/cents, and yearly is twelve months less 10% — the toggle quotes that from these.
 const PLANS = [
@@ -79,9 +79,9 @@ const PLANS = [
 
 const INR_AFA_LIMIT_MINOR = 1_500_000; // ₹15,000 in paise
 
-// Renders the price before Razorpay exists; checkout then fails loudly, not silently.
-const pendingId = (p: (typeof PLANS)[number]) =>
-  `pending_${p.plan}_${p.interval}_${p.currency}`.toLowerCase();
+// Renders the price before Razorpay exists; mode is in the string because razorpay_plan_id is unique across both.
+const pendingId = (p: (typeof PLANS)[number], mode: string) =>
+  `pending_${mode}_${p.plan}_${p.interval}_${p.currency}`.toLowerCase();
 
 async function main() {
   const apply = process.argv.includes("--apply");
@@ -90,6 +90,9 @@ async function main() {
   if (apply && pricesOnly) {
     throw new Error("--apply and --prices-only do opposite things; pick one");
   }
+
+  const mode = keyMode();
+  console.log(`  ${mode} mode\n`);
 
   for (const p of PLANS) {
     if (p.currency === "INR" && p.amountMinor > INR_AFA_LIMIT_MINOR) {
@@ -108,7 +111,8 @@ async function main() {
           plan: p.plan,
           interval: p.interval,
           currency: p.currency,
-          razorpayPlanId: pendingId(p),
+          razorpayPlanId: pendingId(p, mode),
+          razorpayMode: mode,
           amountMinor: p.amountMinor,
           listAmountMinor: p.listAmountMinor,
         })
@@ -117,6 +121,7 @@ async function main() {
             paymentPlans.plan,
             paymentPlans.interval,
             paymentPlans.currency,
+            paymentPlans.razorpayMode,
           ],
           where: sql`${paymentPlans.active}`,
         });
@@ -128,6 +133,26 @@ async function main() {
       console.log(
         `  would create  ${name}  amount=${p.amountMinor} ${p.currency}`,
       );
+      continue;
+    }
+
+    // Checked before creating: a Razorpay plan cannot be deleted, so an upsert that declines to write strands one.
+    const [held] = await db
+      .select({ razorpayPlanId: paymentPlans.razorpayPlanId })
+      .from(paymentPlans)
+      .where(
+        and(
+          eq(paymentPlans.plan, p.plan),
+          eq(paymentPlans.interval, p.interval),
+          eq(paymentPlans.currency, p.currency),
+          eq(paymentPlans.razorpayMode, mode),
+          eq(paymentPlans.active, true),
+        ),
+      )
+      .limit(1);
+
+    if (held && !held.razorpayPlanId.startsWith("pending_")) {
+      console.log(`  kept     ${name}  ${held.razorpayPlanId}`);
       continue;
     }
 
@@ -146,6 +171,7 @@ async function main() {
         interval: p.interval,
         currency: p.currency,
         razorpayPlanId: created.id,
+        razorpayMode: mode,
         amountMinor: p.amountMinor,
         listAmountMinor: p.listAmountMinor,
       })
@@ -155,13 +181,10 @@ async function main() {
           paymentPlans.plan,
           paymentPlans.interval,
           paymentPlans.currency,
+          paymentPlans.razorpayMode,
         ],
         targetWhere: sql`${paymentPlans.active}`,
-        // Only a pending row: a real id belongs to subscribers already on it.
-        set: {
-          razorpayPlanId: sql`case when ${paymentPlans.razorpayPlanId} like 'pending\\_%'
-            then excluded.razorpay_plan_id else ${paymentPlans.razorpayPlanId} end`,
-        },
+        set: { razorpayPlanId: created.id },
       });
 
     console.log(`  created  ${name}  ${created.id}`);
