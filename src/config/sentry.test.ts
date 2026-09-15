@@ -69,23 +69,49 @@ describe("tagEvent", () => {
     });
   });
 
-  it("collapses everything below critical into one issue per area", () => {
+  it("leaves grouping to Sentry, which reads the stack trace", () => {
     const render: TaggableEvent = { transaction: "/study/quant" };
-    const fetchFailed: TaggableEvent = { transaction: "/notes" };
-    tagEvent(render);
-    tagEvent(fetchFailed);
-    expect(render.fingerprint).toEqual(["low", "study"]);
-    expect(fetchFailed.fingerprint).toEqual(["low", "study"]);
-  });
-
-  it("leaves critical errors on their own grouping", () => {
     const paid: TaggableEvent = { transaction: "/api/v1/billing/verify" };
+    tagEvent(render);
     tagEvent(paid);
+    expect(render.fingerprint).toBeUndefined();
     expect(paid.fingerprint).toBeUndefined();
   });
 
+  it("groups a failed query by area, not by the parameters in its message", () => {
+    const inr: TaggableEvent = {
+      transaction: "/upgrade",
+      exception: {
+        values: [{ value: "Failed query: select … params: INR,true" }],
+      },
+    };
+    const usd: TaggableEvent = {
+      transaction: "/upgrade",
+      exception: {
+        values: [{ value: "Failed query: select … params: USD,true" }],
+      },
+    };
+    tagEvent(inr);
+    tagEvent(usd);
+    expect(inr.fingerprint).toEqual(["failed-query", "billing"]);
+    expect(usd.fingerprint).toEqual(inr.fingerprint);
+  });
+
+  it("does not touch an ordinary error's grouping", () => {
+    const event: TaggableEvent = {
+      transaction: "/study",
+      exception: { values: [{ value: "Cannot read properties of undefined" }] },
+    };
+    tagEvent(event);
+    expect(event.fingerprint).toBeUndefined();
+  });
+
   it("keeps a fingerprint the caller set", () => {
-    const event = { transaction: "/study", fingerprint: ["mine"] };
+    const event: TaggableEvent = {
+      transaction: "/study",
+      fingerprint: ["mine"],
+      exception: { values: [{ value: "Failed query: select …" }] },
+    };
     tagEvent(event);
     expect(event.fingerprint).toEqual(["mine"]);
   });

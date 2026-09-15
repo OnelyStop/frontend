@@ -109,7 +109,11 @@ export type TaggableEvent = {
   transaction?: string;
   request?: { url?: string };
   fingerprint?: string[];
+  exception?: { values?: { value?: string }[] };
 };
+
+// Drizzle puts the whole statement and its parameters in the message, so default grouping opens one issue per parameter set.
+const SPLITS_PER_CALL = /^Failed query:/;
 
 export function tagEvent(event: TaggableEvent): void {
   const declared = event.tags?.area;
@@ -122,6 +126,8 @@ export function tagEvent(event: TaggableEvent): void {
     area,
     severity: critical ? "critical" : "normal",
   };
-  // Below the critical line every area collapses into one rolling issue, so five small faults file one ticket instead of five.
-  if (!critical && !event.fingerprint) event.fingerprint = ["low", area];
+  // Everything else keeps Sentry's stack-trace grouping, which separates two real bugs better than any key written here.
+  const message = event.exception?.values?.[0]?.value ?? "";
+  if (!event.fingerprint && SPLITS_PER_CALL.test(message))
+    event.fingerprint = ["failed-query", area];
 }
