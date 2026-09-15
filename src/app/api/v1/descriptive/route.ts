@@ -85,7 +85,11 @@ export async function POST(request: NextRequest) {
         error.kind === "unauthorized" ? "not_configured" : error.kind;
       return NextResponse.json({ error: code }, { status });
     }
-    captureError(error, { route: "descriptive", taskId: task.id });
+    captureError(error, {
+      area: "attempts",
+      route: "descriptive",
+      taskId: task.id,
+    });
     return NextResponse.json({ error: "upstream" }, { status: 502 });
   }
 }

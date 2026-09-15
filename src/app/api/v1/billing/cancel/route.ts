@@ -6,6 +6,7 @@ import { applySubscription } from "@/features/billing/entitlements.server";
 import { cancelSubscription } from "@/features/billing/razorpay.server";
 import { currentUserId } from "@/lib/auth.server";
 import { log } from "@/lib/log";
+import { captureError, flushTelemetry } from "@/lib/observability.server";
 import { rateLimit } from "@/lib/rate-limit";
 
 const fail = (error: string, status: number) =>
@@ -16,6 +17,9 @@ export async function POST() {
   if (!userId) return fail("unauthorized", 401);
   if (!rateLimit(`billing-cancel:${userId}`, 3, 60_000).ok)
     return fail("rate_limited", 429);
+
+  // Registered once, up here, so every exit below it flushes — including the 502, which carries the exception worth having.
+  flushTelemetry();
 
   const [row] = await db
     .select()
@@ -45,10 +49,12 @@ export async function POST() {
       .where(eq(subscriptions.id, row.id));
     await applySubscription(db, sub, { observedAt: new Date() });
   } catch (err) {
-    log.error("billing.cancel_failed", {
+    // A cancellation that fails leaves a learner being charged with no way out, so it files an issue rather than a log line.
+    captureError(err, {
+      area: "billing",
+      at: "billing.cancel_failed",
       userId,
       subscription: row.razorpaySubscriptionId,
-      error: (err as Error).message,
     });
     return fail("payment_provider", 502);
   }

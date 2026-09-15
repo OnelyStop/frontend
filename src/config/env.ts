@@ -41,6 +41,18 @@ const RECOMMENDED: Requirement[] = [
     name: "NEXT_PUBLIC_GA_MEASUREMENT_ID",
     breaks: "nothing visible, but Google Analytics counts no page views",
   },
+  {
+    name: "NEXT_PUBLIC_POSTHOG_KEY",
+    breaks: "nothing visible, but no product event or session is recorded",
+  },
+  {
+    name: "SENTRY_ORG",
+    breaks: "source map upload, so every production stack trace is minified",
+  },
+  {
+    name: "SENTRY_PROJECT",
+    breaks: "source map upload, so every production stack trace is minified",
+  },
 ];
 
 export type EnvReport = {

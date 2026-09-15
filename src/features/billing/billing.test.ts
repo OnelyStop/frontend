@@ -141,6 +141,9 @@ function signed(
 }
 
 const deliver = (eventId: string, ...args: Parameters<typeof signed>) =>
+  handleWebhook(db, { ...signed(...args), eventId }).then((r) => r.outcome);
+
+const deliverFull = (eventId: string, ...args: Parameters<typeof signed>) =>
   handleWebhook(db, { ...signed(...args), eventId });
 
 const entitlement = (at: string) => getEntitlement(db, USER, new Date(at));
@@ -168,6 +171,35 @@ describe("webhook grants", () => {
       accessUntil: "2026-10-05T00:00:00.000Z",
     });
     expect((await entitlement("2026-10-06T00:00:00Z")).active).toBe(false);
+  });
+
+  it("names the buyer and the tier once, so the paid step is counted from here", async () => {
+    const first = await deliverFull(
+      "evt_1",
+      "subscription.activated",
+      "2026-09-05T00:01:00Z",
+    );
+    expect(first.activated).toEqual({
+      userId: USER,
+      plan: "pro",
+      interval: "monthly",
+    });
+
+    // A renewal is the same sale counted twice, and a redelivery of the activation is a third.
+    const charged = await deliverFull(
+      "evt_2",
+      "subscription.charged",
+      "2026-10-05T00:01:00Z",
+    );
+    expect(charged.activated).toBeNull();
+
+    const again = await deliverFull(
+      "evt_1",
+      "subscription.activated",
+      "2026-09-05T00:01:00Z",
+    );
+    expect(again.outcome).toBe("duplicate");
+    expect(again.activated).toBeNull();
   });
 
   // A flat "pro" here would sell Pro+ and deliver Pro, silently.
@@ -326,11 +358,13 @@ describe("webhook refuses", () => {
       "2026-09-05T00:01:00Z",
     );
     expect(
-      await handleWebhook(db, {
-        rawBody,
-        signature: "0".repeat(64),
-        eventId: "evt_x",
-      }),
+      (
+        await handleWebhook(db, {
+          rawBody,
+          signature: "0".repeat(64),
+          eventId: "evt_x",
+        })
+      ).outcome,
     ).toBe("invalid_signature");
     expect(await count("payment_events")).toBe(0);
     expect((await subscription()).status).toBe("created");

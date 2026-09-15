@@ -31,6 +31,7 @@ import type {
   PaidPlan,
   PlanPrice,
 } from "@/features/billing/types";
+import { track } from "@/lib/posthog.client";
 
 // Checkout.js is Razorpay's hosted form: card details go to them, never here.
 const CHECKOUT_JS = "https://checkout.razorpay.com/v1/checkout.js";
@@ -207,6 +208,7 @@ export function CheckoutView({
     }
     setStep("creating");
     setMessage(null);
+    track("checkout_started", { plan, interval });
     const res = await fetch("/api/v1/billing/subscription", {
       method: "POST",
       headers: { "content-type": "application/json" },

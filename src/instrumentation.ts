@@ -1,6 +1,13 @@
 import * as Sentry from "@sentry/nextjs";
 import { checkEnv, isBuildPhase } from "@/config/env";
-import { SENTRY_DSN, SENTRY_TRACES_SAMPLE_RATE } from "@/config/sentry";
+import {
+  SENTRY_DSN,
+  SENTRY_ENVIRONMENT,
+  SENTRY_IGNORE_ERRORS,
+  SENTRY_RELEASE,
+  SENTRY_TRACES_SAMPLE_RATE,
+  tagEvent,
+} from "@/config/sentry";
 import { log } from "@/lib/log";
 
 // Reports rather than throws: a thrown register() is swallowed in some runtimes, so a loud log is the signal that actually arrives.
@@ -32,8 +39,17 @@ export function register() {
   if (SENTRY_DSN) {
     Sentry.init({
       dsn: SENTRY_DSN,
+      release: SENTRY_RELEASE,
+      environment: SENTRY_ENVIRONMENT,
       tracesSampleRate: SENTRY_TRACES_SAMPLE_RATE,
       sendDefaultPii: false,
+      // Already the SDK default; stated so an upgrade cannot silently turn log.ts's second destination off.
+      enableLogs: true,
+      ignoreErrors: SENTRY_IGNORE_ERRORS,
+      beforeSend: (event) => {
+        tagEvent(event);
+        return event;
+      },
     });
   }
 

@@ -12,6 +12,7 @@ import {
   userTopicStats,
 } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
+import { countEvent } from "@/lib/metrics.server";
 import { captureError } from "@/lib/observability.server";
 import { checkQuota } from "@/features/billing/usage.server";
 import { SECTIONS, SECTION_DB, type Subject } from "@/data/navigation";
@@ -47,7 +48,7 @@ const GENERIC_ERROR = { error: "Something went wrong. Try again." } as const;
 const ALREADY_SUBMITTED = "Attempt already submitted.";
 
 const failed = (at: string, err: unknown) => {
-  captureError(err, { at });
+  captureError(err, { area: "attempts", at });
   return GENERIC_ERROR;
 };
 
@@ -64,12 +65,14 @@ export async function startAttempt(
 
     const isMock = mode === "paper";
     const quota = await checkQuota(db, userId, isMock ? "mocks" : "drills");
-    if (!quota.ok)
+    if (!quota.ok) {
+      countEvent("quota.blocked", { limit: isMock ? "mocks" : "drills" });
       return {
         error: isMock
           ? `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`
           : `That is ${quota.used} of ${quota.limit} drills this month. Upgrade for unlimited practice.`,
       };
+    }
 
     if (isMock && !paperId) return { error: "Pick a paper to sit." };
     const questions = paperId
@@ -87,6 +90,7 @@ export async function startAttempt(
         servedQIds: questions.map((q) => q.qId),
       })
       .returning({ id: attempts.id });
+    countEvent("attempt.started", { mode });
     return { attemptId: row!.id, questions };
   } catch (err) {
     return failed("startAttempt", err);

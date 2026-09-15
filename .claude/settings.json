@@ -64,7 +64,9 @@
       "Bash(basename:*)",
       "Bash(dirname:*)",
       "Bash(printf:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(vercel env pull:*)",
+      "Bash(gh pr merge:*)"
     ]
   },
   "hooks": {

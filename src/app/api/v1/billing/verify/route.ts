@@ -13,7 +13,7 @@ import {
 import { checkoutCallback } from "@/features/billing/types";
 import { currentUserId } from "@/lib/auth.server";
 import { log } from "@/lib/log";
-import { captureError } from "@/lib/observability.server";
+import { captureError, flushTelemetry } from "@/lib/observability.server";
 import { rateLimit } from "@/lib/rate-limit";
 
 const fail = (error: string, status: number) =>
@@ -25,6 +25,8 @@ export async function POST(request: Request) {
   if (!userId) return fail("unauthorized", 401);
   if (!rateLimit(`billing-verify:${userId}`, 10, 60_000).ok)
     return fail("rate_limited", 429);
+
+  flushTelemetry();
 
   const parsed = checkoutCallback.safeParse(
     await request.json().catch(() => null),
@@ -66,6 +68,7 @@ export async function POST(request: Request) {
   } catch (err) {
     // Paid at Razorpay but not applied here: the one billing failure a learner feels, so it pages.
     captureError(err, {
+      area: "billing",
       at: "billing.verify.reconcile_failed",
       userId,
       subscription: razorpay_subscription_id,

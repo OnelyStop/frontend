@@ -2,7 +2,7 @@ import "server-only";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import type { Db } from "@/db";
-import { paymentEvents, subscriptions } from "@/db/schema";
+import { paymentEvents, paymentPlans, subscriptions } from "@/db/schema";
 import { applySubscription, recordPayment } from "./entitlements.server";
 import { verifyWebhookSignature } from "./razorpay.server";
 
@@ -99,25 +99,35 @@ export type WebhookInput = {
   eventId: string | null;
 };
 
+export type WebhookResult = {
+  outcome: WebhookOutcome;
+  activated: { userId: string; plan: string; interval: string } | null;
+};
+
 // One transaction: the event row is the idempotency key, so a redelivery is a no-op.
 export async function handleWebhook(
   db: Db,
   input: WebhookInput,
-): Promise<WebhookOutcome> {
+): Promise<WebhookResult> {
+  const refused = (outcome: WebhookOutcome): WebhookResult => ({
+    outcome,
+    activated: null,
+  });
+
   if (
     !input.signature ||
     !verifyWebhookSignature(input.rawBody, input.signature)
   )
-    return "invalid_signature";
+    return refused("invalid_signature");
 
   let json: unknown;
   try {
     json = JSON.parse(input.rawBody);
   } catch {
-    return "malformed";
+    return refused("malformed");
   }
   const parsed = webhookEvent.safeParse(json);
-  if (!parsed.success) return "malformed";
+  if (!parsed.success) return refused("malformed");
 
   const { event, created_at, payload } = parsed.data;
   const sub = payload.subscription?.entity;
@@ -132,7 +142,7 @@ export async function handleWebhook(
       .values({ eventId, eventType: event, payload: auditPayload(parsed.data) })
       .onConflictDoNothing({ target: paymentEvents.eventId })
       .returning({ id: paymentEvents.id });
-    if (stored.length === 0) return "duplicate";
+    if (stored.length === 0) return refused("duplicate");
 
     let outcome: WebhookOutcome = "processed";
     if (sub) {
@@ -167,6 +177,21 @@ export async function handleWebhook(
         );
     }
 
-    return outcome;
+    // Razorpay fires this once per mandate; subscription.charged repeats on every renewal, which would count the same sale again.
+    if (!sub || outcome !== "processed" || event !== "subscription.activated")
+      return { outcome, activated: null };
+
+    const [granted] = await tx
+      .select({
+        userId: subscriptions.userId,
+        plan: paymentPlans.plan,
+        interval: paymentPlans.interval,
+      })
+      .from(subscriptions)
+      .innerJoin(paymentPlans, eq(paymentPlans.id, subscriptions.planId))
+      .where(eq(subscriptions.razorpaySubscriptionId, sub.id))
+      .limit(1);
+
+    return { outcome, activated: granted ?? null };
   });
 }

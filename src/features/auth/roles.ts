@@ -19,7 +19,12 @@ export const getRole = cache(async (): Promise<AppRole | null> => {
     .eq("user_id", user.id)
     .maybeSingle();
 
-  if (error) captureError(error, { at: "getRole.user_roles", userId: user.id });
+  if (error)
+    captureError(error, {
+      area: "auth",
+      at: "getRole.user_roles",
+      userId: user.id,
+    });
   if (error || !data) return null;
   const role = data.role as string;
   return role === "admin" || role === "editor" ? role : null;

@@ -2,17 +2,40 @@ import { createServerClient } from "@supabase/ssr";
 import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 import { AUTH_DISABLED } from "@/config/auth";
+import { POSTHOG_RELAY_PATH } from "@/config/posthog";
 import { PROTECTED_PREFIXES } from "@/config/routes";
+import { SENTRY_RELAY_PATH } from "@/config/sentry";
 import { safeInternalPath } from "@/features/auth/redirect";
 import { captureError } from "@/lib/observability.server";
+import { rateLimit } from "@/lib/rate-limit";
+
+const RELAY_PREFIXES = [POSTHOG_RELAY_PATH, SENTRY_RELAY_PATH];
+
+// Unmetered, both relays are an open proxy on our own domain; replay posts every few seconds per tab, so the ceiling is high.
+const RELAY_PER_MINUTE = 300;
+
+function meterRelay(request: NextRequest) {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  return rateLimit(`relay:${ip}`, RELAY_PER_MINUTE, 60_000).ok
+    ? NextResponse.next({ request })
+    : new NextResponse(null, { status: 429 });
+}
 
 export async function proxy(request: NextRequest) {
+  const { pathname, search } = request.nextUrl;
+
+  // Ahead of the auth check: neither relay carries a session, so a getUser round trip per event buys nothing.
+  if (
+    RELAY_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))
+  )
+    return meterRelay(request);
+
   if (AUTH_DISABLED) return NextResponse.next({ request });
 
   // Must start from the incoming request so refreshed auth cookies survive
   let response = NextResponse.next({ request });
 
-  const { pathname, search } = request.nextUrl;
   const needsAuth = PROTECTED_PREFIXES.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
@@ -49,7 +72,7 @@ export async function proxy(request: NextRequest) {
 
   // An Auth outage also answers user: null, so without this a 5xx reads as "signed out".
   if (authError && !isAuthSessionMissingError(authError))
-    captureError(authError, { at: "proxy.getUser", pathname });
+    captureError(authError, { area: "auth", at: "proxy.getUser", pathname });
 
   // A fresh redirect drops the refreshed cookies, and the next token is already rotated.
   const redirect = (to: URL) => {

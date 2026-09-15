@@ -91,7 +91,18 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_placeholder
+          NEXT_PUBLIC_SENTRY_DSN: https://placeholder@o0.ingest.sentry.io/0
+          NEXT_PUBLIC_POSTHOG_KEY: phc_placeholder
         run: bun run build
+
+      # The placeholders above have to come out the other end. Sentry shipped
+      # for months with a DSN that was set in the dashboard and absent from
+      # every chunk, so "the variable exists" is not the thing to check.
+      - name: Public keys reached the bundle
+        env:
+          NEXT_PUBLIC_SENTRY_DSN: https://placeholder@o0.ingest.sentry.io/0
+          NEXT_PUBLIC_POSTHOG_KEY: phc_placeholder
+        run: bun run check:bundle
 
       # Asks drizzle, rather than comparing which files a PR touched — the
       # filename version failed on a PR that only reformatted schema.ts.

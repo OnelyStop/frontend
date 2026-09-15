@@ -11,6 +11,7 @@ import {
 import { AuthShell } from "@/app/(auth)/_sections/auth-shell";
 import { AuthError } from "@/features/auth/components/AuthBits";
 import { takeStashedAnswers } from "@/features/onboarding/answers";
+import { track } from "@/lib/posthog.client";
 import { Button, Field, Input } from "@/design-system";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -40,6 +41,8 @@ export function CallbackView() {
   useEffect(() => {
     if (!user) return;
     const answers = takeStashedAnswers();
+    // Stashed answers only exist when this came from /signup, which is what separates a Google signup from a Google sign-in.
+    if (answers) track("signup_completed", { method: "google" });
     const apply = answers
       ? fetch("/api/v1/profile", {
           method: "PATCH",

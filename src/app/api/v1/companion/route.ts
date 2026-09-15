@@ -4,6 +4,7 @@ import { openrouter } from "@/lib/openrouter-client/openrouter";
 import { openrouterConfig } from "@/config/openrouter";
 import { COMPANION_SYSTEM, companionUserPrompt } from "@/lib/prompts/companion";
 import { currentUserId } from "@/lib/auth.server";
+import { captureError } from "@/lib/observability.server";
 import { db } from "@/db";
 import { checkQuota, recordAiCall } from "@/features/billing/usage.server";
 import { rateLimit } from "@/lib/rate-limit";
@@ -93,6 +94,8 @@ export async function POST(request: NextRequest) {
         error.kind === "unauthorized" ? "not_configured" : error.kind;
       return NextResponse.json({ error: code }, { status });
     }
+    // Anything that is not an AiError is our bug, and this branch used to answer 502 and tell nobody.
+    captureError(error, { area: "study", at: "companion.unexpected" });
     return NextResponse.json({ error: "upstream" }, { status: 502 });
   }
 }
