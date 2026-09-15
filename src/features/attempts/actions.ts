@@ -12,6 +12,7 @@ import {
   userTopicStats,
 } from "@/db/schema";
 import { currentUserId } from "@/lib/auth.server";
+import { countEvent } from "@/lib/metrics.server";
 import { captureError } from "@/lib/observability.server";
 import { checkQuota } from "@/features/billing/usage.server";
 import { SECTIONS, SECTION_DB, type Subject } from "@/data/navigation";
@@ -68,12 +69,16 @@ export async function startAttempt(
       userId,
       isMock ? "mocksPerMonth" : "drillsPerDay",
     );
-    if (!quota.ok)
+    if (!quota.ok) {
+      countEvent("quota.blocked", {
+        limit: isMock ? "mocksPerMonth" : "drillsPerDay",
+      });
       return {
         error: isMock
           ? `That is ${quota.used} of ${quota.limit} mocks this month. Upgrade for unlimited sittings.`
           : `That is ${quota.used} of ${quota.limit} drills today. Upgrade for unlimited practice.`,
       };
+    }
 
     if (isMock && !paperId) return { error: "Pick a paper to sit." };
     const questions = paperId
@@ -91,6 +96,7 @@ export async function startAttempt(
         servedQIds: questions.map((q) => q.qId),
       })
       .returning({ id: attempts.id });
+    countEvent("attempt.started", { mode });
     return { attemptId: row!.id, questions };
   } catch (err) {
     return failed("startAttempt", err);

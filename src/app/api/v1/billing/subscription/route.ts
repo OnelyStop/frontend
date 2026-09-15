@@ -8,7 +8,8 @@ import { createSubscription } from "@/features/billing/razorpay.server";
 import { subscriptionCreate } from "@/features/billing/types";
 import { currentUserId } from "@/lib/auth.server";
 import { log } from "@/lib/log";
-import { captureError } from "@/lib/observability.server";
+import { countEvent } from "@/lib/metrics.server";
+import { captureError, flushTelemetry } from "@/lib/observability.server";
 import { rateLimit } from "@/lib/rate-limit";
 
 const fail = (error: string, status: number) =>
@@ -79,6 +80,11 @@ export async function POST(request: Request) {
     planRow: plan.id,
     currency,
   });
+  countEvent("billing.subscription_created", {
+    plan: plan.plan,
+    interval: plan.interval,
+  });
+  flushTelemetry();
 
   return NextResponse.json({
     subscriptionId: created.id,

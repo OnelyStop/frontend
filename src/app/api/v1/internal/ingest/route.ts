@@ -1,6 +1,6 @@
 import { isAuthorizedCron } from "@/lib/cron";
 import { json } from "@/lib/api";
-import { captureError } from "@/lib/observability.server";
+import { captureError, flushTelemetry } from "@/lib/observability.server";
 import { runIngest } from "@/features/current-affairs/pipeline/ingest";
 
 export const dynamic = "force-dynamic";
@@ -9,6 +9,7 @@ export const maxDuration = 300;
 export async function POST(request: Request) {
   if (!isAuthorizedCron(request)) return json({ error: "unauthorized" }, 401);
 
+  flushTelemetry();
   const started = Date.now();
   try {
     const summary = await runIngest();

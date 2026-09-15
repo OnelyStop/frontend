@@ -1,7 +1,7 @@
 import { isAuthorizedCron } from "@/lib/cron";
 import { DAY_RE } from "@/features/current-affairs/day";
 import { json } from "@/lib/api";
-import { captureError } from "@/lib/observability.server";
+import { captureError, flushTelemetry } from "@/lib/observability.server";
 import { runGenerate } from "@/features/current-affairs/pipeline/generate";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +17,7 @@ export async function POST(request: Request) {
     return json({ error: "day must be YYYY-MM-DD" }, 400);
   }
 
+  flushTelemetry();
   try {
     const run = await runGenerate(day, { deadlineMs: DEADLINE_MS });
     return json({ ok: true, ...run }, 200);

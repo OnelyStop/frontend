@@ -32,20 +32,24 @@ if (SENTRY_DSN) {
   });
 }
 
-if (POSTHOG_KEY) {
-  posthog.init(POSTHOG_KEY, {
-    api_host: POSTHOG_RELAY_PATH,
-    ui_host: POSTHOG_UI_HOST,
-    defaults: "2026-05-30",
-    // Every option click in a drill would be an event, and the free tier is a million a month.
-    autocapture: false,
-    capture_exceptions: false,
-    person_profiles: "identified_only",
-    // syncReplay starts it per route, which is what keeps it off the exam surfaces and off /reset-password.
-    disable_session_recording: true,
-    session_recording: { maskAllInputs: true },
-    sanitize_properties: scrubUrls,
-  });
+// Guarded because this module also exports Sentry's router hook: a throw here would take error reporting with it.
+try {
+  if (POSTHOG_KEY)
+    posthog.init(POSTHOG_KEY, {
+      api_host: POSTHOG_RELAY_PATH,
+      ui_host: POSTHOG_UI_HOST,
+      defaults: "2026-05-30",
+      // Every option click in a drill would be an event, and the free tier is a million a month.
+      autocapture: false,
+      capture_exceptions: false,
+      person_profiles: "identified_only",
+      // syncReplay starts it per route, which is what keeps it off the exam surfaces and off /reset-password.
+      disable_session_recording: true,
+      session_recording: { maskAllInputs: true },
+      sanitize_properties: scrubUrls,
+    });
+} catch (err) {
+  Sentry.captureException(err, { tags: { area: "app" } });
 }
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

@@ -9,22 +9,29 @@ import {
 
 const SAMPLE_KEY = "ph_replay_sampled";
 
+// Analytics is never worth an exception in a click handler or a render.
+function safely(run: () => void): void {
+  if (!POSTHOG_KEY) return;
+  try {
+    run();
+  } catch {
+    // Swallowed on purpose: a blocked or half-loaded SDK must not surface to a learner.
+  }
+}
+
 export function track<E extends ProductEvent>(
   event: E,
   props: ProductEventProps[E],
 ): void {
-  if (!POSTHOG_KEY) return;
-  posthog.capture(event, props);
+  safely(() => posthog.capture(event, props));
 }
 
 export function identifyUser(userId: string): void {
-  if (!POSTHOG_KEY) return;
-  posthog.identify(userId);
+  safely(() => posthog.identify(userId));
 }
 
 export function resetUser(): void {
-  if (!POSTHOG_KEY) return;
-  posthog.reset();
+  safely(() => posthog.reset());
 }
 
 /** Rolled once a session, not once a navigation, or a visit would be recorded in fragments with the interesting half missing. */
@@ -41,9 +48,10 @@ function sampledIn(): boolean {
 }
 
 export function syncReplay(pathname: string): void {
-  if (!POSTHOG_KEY) return;
-  const wanted = replayAllowed(pathname) && sampledIn();
-  if (wanted === posthog.sessionRecordingStarted()) return;
-  if (wanted) posthog.startSessionRecording();
-  else posthog.stopSessionRecording();
+  safely(() => {
+    const wanted = replayAllowed(pathname) && sampledIn();
+    if (wanted === posthog.sessionRecordingStarted()) return;
+    if (wanted) posthog.startSessionRecording();
+    else posthog.stopSessionRecording();
+  });
 }
