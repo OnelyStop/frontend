@@ -5,16 +5,17 @@ import Link from "next/link";
 import { ArrowUpRight, MessageCircleQuestion } from "lucide-react";
 import {
   Button,
+  ButtonLink,
   Card,
   Dropdown,
   Empty,
   EventCard,
   EventMark,
-  type EventTone,
   Input,
   PageHeader,
   Segmented,
   StatusPill,
+  type EventTone,
 } from "@/design-system";
 import {
   SECTIONS,
@@ -113,6 +114,11 @@ export function CommunityView() {
           <Empty
             title="Nothing open in this section"
             sub="Either everyone has it cold, or nobody has sat it yet. Ask the first doubt."
+            action={
+              <ButtonLink href="/drills" size="sm">
+                Sit a drill and find one
+              </ButtonLink>
+            }
           />
         ) : (
           <>

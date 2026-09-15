@@ -3,7 +3,14 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Empty, Input, NoteCard, PageHeader, Segmented } from "@/design-system";
+import {
+  ButtonLink,
+  Empty,
+  Input,
+  NoteCard,
+  PageHeader,
+  Segmented,
+} from "@/design-system";
 import type { OwnNote } from "@/features/study/types";
 
 const DATE = new Intl.DateTimeFormat("en-IN", {
@@ -56,6 +63,11 @@ export function NotesView({ notes }: { notes: OwnNote[] }) {
           tone="brand"
           title="No notes yet"
           sub="Select any passage in the knowledge base and write a note on it. Every note you keep lands here, with a way back to where you wrote it."
+          action={
+            <ButtonLink href="/study" size="sm">
+              Open the knowledge base
+            </ButtonLink>
+          }
         />
       ) : (
         <>
