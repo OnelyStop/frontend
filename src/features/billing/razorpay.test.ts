@@ -2,6 +2,7 @@ import { createHmac } from "node:crypto";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import {
+  keyMode,
   verifySubscriptionSignature,
   verifyWebhookSignature,
 } from "./razorpay.server";
@@ -94,5 +95,25 @@ describe("webhook signature", () => {
     expect(() => verifyWebhookSignature(rawBody, "whatever")).toThrow(
       /RAZORPAY_WEBHOOK_SECRET/,
     );
+  });
+});
+
+describe("key mode", () => {
+  it("reads test and live from the key prefix", () => {
+    process.env.RAZORPAY_KEY_ID = "rzp_test_abc123";
+    expect(keyMode()).toBe("test");
+    // No suffix on the live one: check-source greps rzp_live_ followed by any character.
+    process.env.RAZORPAY_KEY_ID = "rzp_live_";
+    expect(keyMode()).toBe("live");
+  });
+
+  it("throws on a key that names neither mode", () => {
+    process.env.RAZORPAY_KEY_ID = "abc123";
+    expect(() => keyMode()).toThrow(/rzp_test_/);
+  });
+
+  it("throws when the key is missing, rather than guessing a mode", () => {
+    delete process.env.RAZORPAY_KEY_ID;
+    expect(() => keyMode()).toThrow(/RAZORPAY_KEY_ID/);
   });
 });
