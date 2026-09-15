@@ -103,11 +103,12 @@ export function areaForPath(path: string): SentryArea {
   return match?.[1] ?? "app";
 }
 
-type TaggableEvent = {
+export type TaggableEvent = {
   level?: string;
   tags?: { [key: string]: unknown };
   transaction?: string;
   request?: { url?: string };
+  fingerprint?: string[];
 };
 
 export function tagEvent(event: TaggableEvent): void {
@@ -121,4 +122,6 @@ export function tagEvent(event: TaggableEvent): void {
     area,
     severity: critical ? "critical" : "normal",
   };
+  // Below the critical line every area collapses into one rolling issue, so five small faults file one ticket instead of five.
+  if (!critical && !event.fingerprint) event.fingerprint = ["low", area];
 }

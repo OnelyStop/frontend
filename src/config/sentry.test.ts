@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { areaForPath, pathOf, tagEvent } from "./sentry";
+import { areaForPath, pathOf, tagEvent, type TaggableEvent } from "./sentry";
 
 describe("areaForPath", () => {
   it("names the area a rule filters on", () => {
@@ -67,6 +67,27 @@ describe("tagEvent", () => {
     expect(event).toMatchObject({
       tags: { area: "app", severity: "critical" },
     });
+  });
+
+  it("collapses everything below critical into one issue per area", () => {
+    const render: TaggableEvent = { transaction: "/study/quant" };
+    const fetchFailed: TaggableEvent = { transaction: "/notes" };
+    tagEvent(render);
+    tagEvent(fetchFailed);
+    expect(render.fingerprint).toEqual(["low", "study"]);
+    expect(fetchFailed.fingerprint).toEqual(["low", "study"]);
+  });
+
+  it("leaves critical errors on their own grouping", () => {
+    const paid: TaggableEvent = { transaction: "/api/v1/billing/verify" };
+    tagEvent(paid);
+    expect(paid.fingerprint).toBeUndefined();
+  });
+
+  it("keeps a fingerprint the caller set", () => {
+    const event = { transaction: "/study", fingerprint: ["mine"] };
+    tagEvent(event);
+    expect(event.fingerprint).toEqual(["mine"]);
   });
 
   it("falls back to the transaction when there is no request", () => {
