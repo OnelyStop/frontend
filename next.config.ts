@@ -1,5 +1,11 @@
 import { withSentryConfig } from "@sentry/nextjs/config";
 import type { NextConfig } from "next";
+import {
+  POSTHOG_ASSET_HOST,
+  POSTHOG_INGEST_HOST,
+  POSTHOG_RELAY_PATH,
+} from "./src/config/posthog";
+import { SENTRY_RELAY_PATH } from "./src/config/sentry";
 
 /* No Content-Security-Policy here yet: Razorpay Checkout injects its own script
    and frames, and a policy written without testing against a live checkout
@@ -21,12 +27,33 @@ const SECURITY_HEADERS = [
   },
 ];
 
+const { VERCEL_GIT_COMMIT_SHA, VERCEL_GIT_REPO_OWNER, VERCEL_GIT_REPO_SLUG } =
+  process.env;
+
+const repo =
+  VERCEL_GIT_REPO_OWNER && VERCEL_GIT_REPO_SLUG
+    ? `${VERCEL_GIT_REPO_OWNER}/${VERCEL_GIT_REPO_SLUG}`
+    : undefined;
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   turbopack: {
     root: process.cwd(),
   },
+  // PostHog's ingestion API answers the SDK's paths as sent; the 308 Next would issue for a trailing slash loses the POST body.
+  skipTrailingSlashRedirect: true,
   headers: async () => [{ source: "/:path*", headers: SECURITY_HEADERS }],
+  // Static before the catch-all, or the asset requests go to the ingestion host and 404.
+  rewrites: async () => [
+    {
+      source: `${POSTHOG_RELAY_PATH}/static/:path*`,
+      destination: `${POSTHOG_ASSET_HOST}/static/:path*`,
+    },
+    {
+      source: `${POSTHOG_RELAY_PATH}/:path*`,
+      destination: `${POSTHOG_INGEST_HOST}/:path*`,
+    },
+  ],
 };
 
 // Maps upload only with SENTRY_AUTH_TOKEN, org and project all set; disableLogger's replacement is webpack-only and this build is Turbopack.
@@ -34,4 +61,17 @@ export default withSentryConfig(nextConfig, {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   silent: !process.env.CI,
+  tunnelRoute: SENTRY_RELAY_PATH,
+  // Turbopack emits client chunks outside the plugin's default glob, so without this the browser frames stay minified.
+  widenClientFileUpload: true,
+  // The maps are uploaded, not served: left in place they are a public copy of the source.
+  sourcemaps: { deleteSourcemapsAfterUpload: true },
+  release: {
+    name: VERCEL_GIT_COMMIT_SHA,
+    // ignoreMissing keeps a build green when Sentry has no commit history for the repo yet.
+    setCommits:
+      repo && VERCEL_GIT_COMMIT_SHA
+        ? { repo, commit: VERCEL_GIT_COMMIT_SHA, ignoreMissing: true }
+        : undefined,
+  },
 });

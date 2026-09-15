@@ -22,6 +22,7 @@ import {
   type Answers,
 } from "@/features/onboarding/answers";
 import { AvatarPicker } from "@/features/profile/components/AvatarPicker";
+import { track } from "@/lib/posthog.client";
 import { Dropdown, Input } from "@/design-system";
 import { EXAM_TYPES, type ExamBoard } from "@/data/navigation";
 
@@ -104,6 +105,7 @@ export function SignupView() {
       setError(res.error);
       return;
     }
+    track("signup_completed", { method: "password" });
     // Supabase withholds the session when email confirmation is required.
     if (res.needsConfirmation) setSent(true);
     else router.replace("/today");

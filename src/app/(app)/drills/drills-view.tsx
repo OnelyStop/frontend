@@ -27,6 +27,7 @@ import {
 } from "@/data/navigation";
 import { startAttempt, submitAttempt } from "@/features/attempts/actions";
 import type { DrillQuestion } from "@/features/question-bank/types";
+import { track } from "@/lib/posthog.client";
 
 const LENGTHS = [10, 20, 30] as const;
 /* The pace the drill is budgeted at, and what the readout counts against. */
@@ -103,6 +104,7 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
     setSat(pick(res.questions));
     setQStart(Date.now());
     setRunning(true);
+    track("drill_started", { section, length: len });
   }
 
   // Folds the pick into a local `merged` value (not `answers`, stale until next render) that both branches act on.

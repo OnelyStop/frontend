@@ -105,9 +105,9 @@ export default function Page() {
             and device type, and pages requested.
           </li>
           <li>
-            Essential cookies that keep you signed in, and Google Analytics
-            cookies that count visits. No advertising cookies, and nothing we
-            run builds a profile to sell.
+            Essential cookies that keep you signed in, and Google Analytics and
+            PostHog cookies that count visits. No advertising cookies, and
+            nothing we run builds a profile to sell.
           </li>
         </ul>
       </section>
@@ -217,6 +217,21 @@ export default function Page() {
             gives you an identifier that lasts across visits. We do not send it
             your name, email or answers, and we have not turned on advertising
             features, so it is not used to target ads at you.
+          </li>
+          <li>
+            <strong>PostHog.</strong> Counts the steps people take through the
+            product — signing up, starting a drill or a mock, opening checkout —
+            so we can see where it goes wrong. It receives the name of the step
+            and nothing you wrote: never a question, an answer or a score. It
+            also records a small sample of browsing sessions as a replay, with
+            every form field masked; sittings, marking and the password-reset
+            page are never recorded.
+          </li>
+          <li>
+            <strong>Sentry.</strong> Receives the errors the site throws, so a
+            failure at 3am is reported rather than silently endured. It gets the
+            error, the page it happened on and the browser, not your name or
+            email.
           </li>
           <li>
             <strong>Supabase.</strong> Holds the database and handles sign-in,

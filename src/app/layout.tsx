@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { GA_MEASUREMENT_ID } from "@/config/analytics";
+import { ReplayGuard } from "@/components/analytics/ReplayGuard";
 import { display } from "./fonts";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
@@ -100,6 +101,7 @@ export default function RootLayout({
         <JsonLd data={ORGANISATION} />
         <JsonLd data={WEBSITE} />
         {children}
+        <ReplayGuard />
         <Analytics />
         {/* Unset outside production, so previews and local runs do not land in the same property as real traffic. */}
         {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}

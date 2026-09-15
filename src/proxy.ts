@@ -2,17 +2,40 @@ import { createServerClient } from "@supabase/ssr";
 import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 import { AUTH_DISABLED } from "@/config/auth";
+import { POSTHOG_RELAY_PATH } from "@/config/posthog";
 import { PROTECTED_PREFIXES } from "@/config/routes";
+import { SENTRY_RELAY_PATH } from "@/config/sentry";
 import { safeInternalPath } from "@/features/auth/redirect";
 import { captureError } from "@/lib/observability.server";
+import { rateLimit } from "@/lib/rate-limit";
+
+const RELAY_PREFIXES = [POSTHOG_RELAY_PATH, SENTRY_RELAY_PATH];
+
+// Replay posts every few seconds per tab, so the ceiling is generous; without one the relays are an open proxy on our own domain.
+const RELAY_PER_MINUTE = 300;
+
+function meterRelay(request: NextRequest) {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  return rateLimit(`relay:${ip}`, RELAY_PER_MINUTE, 60_000).ok
+    ? NextResponse.next({ request })
+    : new NextResponse(null, { status: 429 });
+}
 
 export async function proxy(request: NextRequest) {
+  const { pathname, search } = request.nextUrl;
+
+  // Ahead of the auth check: neither relay carries a session, and a getUser round trip per event is a cost with no answer.
+  if (
+    RELAY_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))
+  )
+    return meterRelay(request);
+
   if (AUTH_DISABLED) return NextResponse.next({ request });
 
   // Must start from the incoming request so refreshed auth cookies survive
   let response = NextResponse.next({ request });
 
-  const { pathname, search } = request.nextUrl;
   const needsAuth = PROTECTED_PREFIXES.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );

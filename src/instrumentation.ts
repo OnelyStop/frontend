@@ -1,6 +1,10 @@
 import * as Sentry from "@sentry/nextjs";
 import { checkEnv, isBuildPhase } from "@/config/env";
-import { SENTRY_DSN, SENTRY_TRACES_SAMPLE_RATE } from "@/config/sentry";
+import {
+  SENTRY_DSN,
+  SENTRY_RELEASE,
+  SENTRY_TRACES_SAMPLE_RATE,
+} from "@/config/sentry";
 import { log } from "@/lib/log";
 
 // Reports rather than throws: a thrown register() is swallowed in some runtimes, so a loud log is the signal that actually arrives.
@@ -32,6 +36,7 @@ export function register() {
   if (SENTRY_DSN) {
     Sentry.init({
       dsn: SENTRY_DSN,
+      release: SENTRY_RELEASE,
       tracesSampleRate: SENTRY_TRACES_SAMPLE_RATE,
       sendDefaultPii: false,
     });

@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import type { Session, User } from "@supabase/supabase-js";
+import { identifyUser, resetUser } from "@/lib/posthog.client";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 type AuthResult = { error: string | null; needsConfirmation?: boolean };
@@ -61,9 +62,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
     });
 
-    const { data } = supabase.auth.onAuthStateChange((_event, next) => {
+    // Fires INITIAL_SESSION on subscribe, so every way in and out of an account passes through here once.
+    const { data } = supabase.auth.onAuthStateChange((event, next) => {
       setSession(next);
       setLoading(false);
+      if (next?.user) identifyUser(next.user.id);
+      else if (event === "SIGNED_OUT") resetUser();
     });
 
     return () => data.subscription.unsubscribe();
