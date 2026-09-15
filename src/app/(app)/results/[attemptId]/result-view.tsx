@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ButtonLink,
   DarkPanel,
   Lattice,
   LatticeCell,
@@ -27,6 +28,10 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
     scorecard.durationSec && scorecard.durationSec > 0
       ? (scorecard.score / (scorecard.durationSec / 60)).toFixed(2)
       : "—";
+  // A drill's buttons both require a pick, so attempted < totalQuestions only happens via "End drill".
+  const endedEarly =
+    scorecard.mode !== "paper" &&
+    scorecard.attempted < scorecard.totalQuestions;
 
   return (
     <div>
@@ -37,6 +42,13 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
             ? ` · ${Math.round(scorecard.durationSec / 60)} min`
             : ""
         }`}
+        actions={
+          scorecard.mode !== "paper" ? (
+            <ButtonLink href="/drills" variant="secondary">
+              Start another drill
+            </ButtonLink>
+          ) : undefined
+        }
       />
 
       <DarkPanel className="mb-6">
@@ -58,6 +70,12 @@ export function ResultView({ scorecard }: { scorecard: Scorecard }) {
                 ? `Short in ${missed.map((s) => s.section).join(", ")} — the total does not carry a section.`
                 : `${(scorecard.target - scorecard.score).toFixed(2)} marks short of the overall target.`}
         </p>
+        {endedEarly ? (
+          <p className="mt-1 text-[13px] text-white/50">
+            Ended early — {scorecard.attempted} of {scorecard.totalQuestions}{" "}
+            answered before you stopped.
+          </p>
+        ) : null}
       </DarkPanel>
 
       {scorecard.target !== null ? (
