@@ -68,7 +68,6 @@ beforeEach(async () => {
       interval: "monthly",
       currency: "INR",
       razorpayPlanId: "plan_test",
-      razorpayMode: "test",
       amountMinor: 49_900,
     })
     .returning({ id: schema.paymentPlans.id });
@@ -180,7 +179,6 @@ describe("webhook grants", () => {
         interval: "monthly",
         currency: "INR",
         razorpayPlanId: "plan_test_plus",
-        razorpayMode: "test",
         amountMinor: 40_000,
         listAmountMinor: 100_000,
       })
@@ -447,38 +445,5 @@ describe("the stored event", () => {
       subscription: { id: "sub_1", plan_id: "plan_test", status: "active" },
       payment: { id: "pay_1", amount: 49_900, currency: "INR" },
     });
-  });
-});
-
-describe("plan slots by razorpay mode", () => {
-  const row = (mode: "test" | "live", id: string) => ({
-    plan: "pro" as const,
-    interval: "monthly" as const,
-    currency: "INR" as const,
-    razorpayPlanId: id,
-    razorpayMode: mode,
-    amountMinor: 25_000,
-  });
-
-  it("holds a test row and a live row in the same slot", async () => {
-    await db.insert(schema.paymentPlans).values(row("live", "plan_live_pro"));
-
-    const rows = await db
-      .select({ mode: schema.paymentPlans.razorpayMode })
-      .from(schema.paymentPlans)
-      .where(eq(schema.paymentPlans.plan, "pro"));
-    expect(rows.map((r) => r.mode).sort()).toEqual(["live", "test"]);
-  });
-
-  it("still refuses a second active row in the same mode", async () => {
-    const err = await db
-      .insert(schema.paymentPlans)
-      .values(row("test", "plan_test_dupe"))
-      .catch((e: unknown) => e);
-
-    // The name is on the cause; drizzle's own message is "Failed query", which asserts nothing.
-    expect(String((err as { cause?: unknown })?.cause)).toMatch(
-      /payment_plans_active_slot_key/,
-    );
   });
 });

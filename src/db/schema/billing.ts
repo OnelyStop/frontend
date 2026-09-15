@@ -38,9 +38,6 @@ export const subscriptionStatus = pgEnum("subscription_status", [
 
 export const planKey = pgEnum("plan_key", ["pro", "pro_plus", "school"]);
 
-// Razorpay scopes plan ids to the key's mode, and one database serves both dev and production here.
-export const razorpayMode = pgEnum("razorpay_mode", ["test", "live"]);
-
 // The client sends neither amount nor currency, or a caller buys Pro for one paisa.
 export const paymentPlans = pgTable(
   "payment_plans",
@@ -52,7 +49,6 @@ export const paymentPlans = pgTable(
     interval: billingInterval("interval").notNull(),
     currency: currencyCode("currency").notNull(),
     razorpayPlanId: text("razorpay_plan_id").notNull(),
-    razorpayMode: razorpayMode("razorpay_mode").notNull(),
     // Minor units, never a float: 7.99 * 100 is 798.9999… and that is a real charge.
     amountMinor: integer("amount_minor").notNull(),
     listAmountMinor: integer("list_amount_minor"),
@@ -62,9 +58,9 @@ export const paymentPlans = pgTable(
       .defaultNow(),
   },
   (t) => [
-    // Partial, not plain: Razorpay plans are immutable, so many retired per slot, one live per mode.
+    // Partial, not plain: Razorpay plans are immutable, so many retired per slot, one live.
     uniqueIndex("payment_plans_active_slot_key")
-      .on(t.plan, t.interval, t.currency, t.razorpayMode)
+      .on(t.plan, t.interval, t.currency)
       .where(sql`${t.active}`),
     unique("payment_plans_razorpay_plan_id_key").on(t.razorpayPlanId),
 
