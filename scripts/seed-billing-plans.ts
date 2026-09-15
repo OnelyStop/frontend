@@ -101,8 +101,25 @@ async function main() {
     throw new Error("--apply and --prices-only do opposite things; pick one");
   }
 
-  // Announced before anything is written: seeding the wrong mode is the one mistake this script can make.
-  console.log(`  ${keyMode()} mode — database ${databaseRef()}\n`);
+  const mode = keyMode();
+
+  // Declared, not inferred: the key arrives from whichever of four env files wins, and printing the mode did not stop a test key from seeding production.
+  if (apply) {
+    const declared = process.argv
+      .find((arg) => arg.startsWith("--mode="))
+      ?.slice("--mode=".length);
+
+    if (declared !== "test" && declared !== "live") {
+      throw new Error("--apply needs --mode=test or --mode=live");
+    }
+    if (declared !== mode) {
+      throw new Error(
+        `--mode=${declared}, but RAZORPAY_KEY_ID is a ${mode} key — nothing written`,
+      );
+    }
+  }
+
+  console.log(`  ${mode} mode — database ${databaseRef()}\n`);
 
   for (const p of PLANS) {
     if (p.currency === "INR" && p.amountMinor > INR_AFA_LIMIT_MINOR) {
