@@ -26,6 +26,9 @@ export async function POST(request: Request) {
   if (!rateLimit(`billing:${userId}`, 5, 60_000).ok)
     return fail("rate_limited", 429);
 
+  // Registered once, up here, so the three failure exits below flush too and not only the happy path.
+  flushTelemetry();
+
   const parsed = subscriptionCreate.safeParse(
     await request.json().catch(() => null),
   );
@@ -84,7 +87,6 @@ export async function POST(request: Request) {
     plan: plan.plan,
     interval: plan.interval,
   });
-  flushTelemetry();
 
   return NextResponse.json({
     subscriptionId: created.id,

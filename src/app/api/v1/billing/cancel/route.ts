@@ -18,6 +18,9 @@ export async function POST() {
   if (!rateLimit(`billing-cancel:${userId}`, 3, 60_000).ok)
     return fail("rate_limited", 429);
 
+  // Registered once, up here, so every exit below it flushes — including the 502, which carries the exception worth having.
+  flushTelemetry();
+
   const [row] = await db
     .select()
     .from(subscriptions)
@@ -60,6 +63,5 @@ export async function POST() {
     userId,
     subscription: row.razorpaySubscriptionId,
   });
-  flushTelemetry();
   return NextResponse.json({ ok: true });
 }

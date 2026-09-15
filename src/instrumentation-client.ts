@@ -23,6 +23,7 @@ if (SENTRY_DSN) {
     environment: SENTRY_ENVIRONMENT,
     tracesSampleRate: SENTRY_TRACES_SAMPLE_RATE,
     sendDefaultPii: false,
+    enableLogs: true,
     ignoreErrors: SENTRY_IGNORE_ERRORS,
     denyUrls: SENTRY_DENY_URLS,
     beforeSend: (event) => {

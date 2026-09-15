@@ -43,6 +43,8 @@ export function register() {
       environment: SENTRY_ENVIRONMENT,
       tracesSampleRate: SENTRY_TRACES_SAMPLE_RATE,
       sendDefaultPii: false,
+      // Already the SDK default; stated so an upgrade cannot silently turn log.ts's second destination off.
+      enableLogs: true,
       ignoreErrors: SENTRY_IGNORE_ERRORS,
       beforeSend: (event) => {
         tagEvent(event);
