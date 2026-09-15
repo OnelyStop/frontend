@@ -74,6 +74,7 @@ const AREA_BY_PREFIX: readonly (readonly [string, SentryArea])[] = [
   ["/flashcards", "study"],
   ["/current-affairs", "study"],
   ["/api/v1/study", "study"],
+  ["/api/v1/companion", "study"],
   ["/community", "community"],
   ["/api/v1/community", "community"],
   ["/admin", "admin"],

@@ -207,9 +207,7 @@ export default function Page() {
         <ul>
           <li>
             <strong>Vercel.</strong> Hosts and runs the site. Sees the technical
-            data any web server sees. Vercel Analytics also counts page views
-            for us: it sets no cookie, stores no identifier for you, and cannot
-            follow you to any other site.
+            data any web server sees.
           </li>
           <li>
             <strong>Google Analytics.</strong> Counts visits and which pages get
