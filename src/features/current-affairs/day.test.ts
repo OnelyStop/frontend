@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { allowedDays, DAY_RE, istDayKey } from "./day";
+import { allowedDays, DAY_RE, EARLIEST_DAY, istDayKey } from "./day";
 
 describe("istDayKey", () => {
   it("rolls to the next day at 18:30 UTC", () => {
@@ -13,6 +13,15 @@ describe("DAY_RE", () => {
     expect(DAY_RE.test("2026-09-05")).toBe(true);
     expect(DAY_RE.test("2026-9-5")).toBe(false);
     expect(DAY_RE.test("2026-09-05T00:00")).toBe(false);
+  });
+});
+
+describe("EARLIEST_DAY", () => {
+  // The floor is compared with <= and >= against other YYYY-MM-DD strings, which only holds while it is one.
+  it("is a day key, so the string comparisons against it are date comparisons", () => {
+    expect(DAY_RE.test(EARLIEST_DAY)).toBe(true);
+    expect(EARLIEST_DAY < "2026-09-10").toBe(true);
+    expect(EARLIEST_DAY > "2026-09-08").toBe(true);
   });
 });
 

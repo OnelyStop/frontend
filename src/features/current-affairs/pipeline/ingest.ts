@@ -9,6 +9,7 @@ import {
 } from "@/features/current-affairs/dedup/deduplicator";
 import { fetchNewsData } from "@/features/current-affairs/sources/newsdata";
 import { fetchRssFeeds } from "@/features/current-affairs/sources/rss";
+import { isMostlyEnglish } from "@/features/current-affairs/sources/extract";
 import type { RawArticle } from "@/features/current-affairs/types";
 import { captureError } from "@/lib/observability.server";
 
@@ -63,8 +64,10 @@ export async function runIngest(
     ...(newsdata.status === "fulfilled" ? newsdata.value : []),
     ...(rss.status === "fulfilled" ? rss.value : []),
   ];
+  // Dropped here rather than in generation: a non-English item still took a row and a slot in the run's cap, and no fetch of the page was going to translate it.
   const candidates: RawArticle[] = fetched
     .filter((a) => a.title && a.url)
+    .filter((a) => isMostlyEnglish(`${a.title} ${a.summary}`))
     .sort((a, b) => a.publishedAt.getTime() - b.publishedAt.getTime())
     .slice(-activeProfile.maxArticlesPerIngest);
 

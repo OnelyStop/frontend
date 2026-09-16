@@ -14,6 +14,7 @@ import {
   PageHeader,
   cn,
 } from "@/design-system";
+import { EARLIEST_DAY } from "@/features/current-affairs/day";
 import type {
   CurrentAffairsQuestion,
   OptionKey,
@@ -47,6 +48,7 @@ export function CurrentAffairsView({
   const answered = questions.filter((q) => locked[q.id]);
   const correct = answered.filter((q) => picked[q.id] === q.answer).length;
   const atMax = day >= today;
+  const atMin = day <= EARLIEST_DAY;
 
   return (
     <div>
@@ -59,14 +61,16 @@ export function CurrentAffairsView({
               <button
                 type="button"
                 aria-label="Previous day"
+                disabled={atMin}
                 onClick={() => go(shiftDay(day, -1))}
-                className="rounded-pill border-line-2 text-ink-3 hover:border-ink/25 hover:text-ink grid size-10 place-items-center border transition-colors"
+                className="rounded-pill border-line-2 text-ink-3 hover:border-ink/25 hover:text-ink grid size-10 place-items-center border transition-colors disabled:opacity-40"
               >
                 <ChevronLeft size={16} />
               </button>
               <Input
                 type="date"
                 value={day}
+                min={EARLIEST_DAY}
                 max={today}
                 onChange={(e) => e.target.value && go(e.target.value)}
                 className="tnum w-38"
@@ -96,7 +100,7 @@ export function CurrentAffairsView({
       {questions.length === 0 ? (
         <Empty
           title="Nothing generated for this day yet"
-          sub="The pipeline runs once the evening news has settled, around 19:00 IST. Try an earlier date."
+          sub="The pipeline runs once the evening news has settled, around 19:00 IST. Try another date."
         />
       ) : (
         <div className="grid items-start gap-4 xl:grid-cols-2">
