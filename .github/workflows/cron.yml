@@ -71,6 +71,14 @@ jobs:
             bun run pipeline generate
           fi
 
+      # The pipeline writes from here, so nothing in the running app knows a day changed; a day cached empty before a backfill would serve empty until its window expired.
+      - name: Drop the cached days
+        if: env.STAGE == 'all' || env.STAGE == 'generate'
+        run: |
+          curl --fail-with-body -sS -X POST "$SITE/api/v1/internal/revalidate" \
+            -H "Authorization: Bearer $SECRET" --max-time 60
+          echo
+
       - name: Reconcile billing
         if: env.STAGE == 'all'
         run: |

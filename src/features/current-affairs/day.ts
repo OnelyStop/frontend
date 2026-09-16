@@ -2,6 +2,9 @@ import { dayBack, istDayKey } from "@/lib/ist";
 
 export const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 
+/** The archive starts here: no article was ingested before it, so every earlier day is empty by construction. */
+export const EARLIEST_DAY = "2026-09-09";
+
 export { dayBack, istDayKey };
 
 export function todayIst(): string {
