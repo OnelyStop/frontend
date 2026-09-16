@@ -71,16 +71,17 @@ jobs:
             bun run pipeline generate
           fi
 
-      # The pipeline writes from here, so nothing in the running app knows a day changed; a day cached empty before a backfill would serve empty until its window expired.
+      # The pipeline writes from here, so nothing in the running app knows a day changed; a day cached empty before a backfill would serve empty until its window expired. A generate that dies half way still published rows, so this runs even then.
       - name: Drop the cached days
-        if: env.STAGE == 'all' || env.STAGE == 'generate'
+        if: ${{ !cancelled() && (env.STAGE == 'all' || env.STAGE == 'generate') }}
         run: |
           curl --fail-with-body -sS -X POST "$SITE/api/v1/internal/revalidate" \
             -H "Authorization: Bearer $SECRET" --max-time 60
           echo
 
+      # Not gated on the steps above: an `if` with no status function is ANDed with success(), which would let a failed ingest skip the backstop that grants entitlements the webhook missed.
       - name: Reconcile billing
-        if: env.STAGE == 'all'
+        if: ${{ !cancelled() && env.STAGE == 'all' }}
         run: |
           curl --fail-with-body -sS "$SITE/api/v1/internal/billing-reconcile" \
             -H "Authorization: Bearer $SECRET" --max-time 130
