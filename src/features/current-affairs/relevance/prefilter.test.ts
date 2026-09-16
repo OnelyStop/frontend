@@ -32,6 +32,16 @@ describe("classifyRelevance", () => {
     ).toBe(false);
   });
 
+  it("judges a news feed by the same lexicon as NewsData", () => {
+    expect(
+      classifyRelevance({
+        source: "indian_express",
+        title: "Box office: the weekend's biggest opening",
+        summary: "",
+      }).drop,
+    ).toBe(true);
+  });
+
   it("leaves an item with neither for the model to judge", () => {
     expect(
       classifyRelevance({

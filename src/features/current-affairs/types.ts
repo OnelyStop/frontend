@@ -1,7 +1,10 @@
+import { articleScope, articleSource } from "@/db/schema";
+
 export type OptionKey = "A" | "B" | "C" | "D";
 
-export type ArticleSource = "newsdata_io" | "rbi_rss" | "pib_rss" | "sebi_rss";
-export type ArticleScope = "national" | "international";
+// Derived, not restated: three copies of this union drifted the moment a feed was added.
+export type ArticleSource = (typeof articleSource.enumValues)[number];
+export type ArticleScope = (typeof articleScope.enumValues)[number];
 
 export type RawArticle = {
   source: ArticleSource;

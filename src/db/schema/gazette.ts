@@ -17,8 +17,12 @@ import { authenticatedRole } from "drizzle-orm/supabase";
 export const articleSource = pgEnum("article_source", [
   "newsdata_io",
   "rbi_rss",
+  // Kept for the rows it already wrote; the feed itself is gone.
   "pib_rss",
   "sebi_rss",
+  "indian_express",
+  "business_standard",
+  "livemint",
 ]);
 
 export const articleScope = pgEnum("article_scope", [

@@ -24,7 +24,7 @@
     "seed:demo": "bun scripts/seed-demo.ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "pipeline": "bun scripts/run-stage.ts",
+    "pipeline": "bun --conditions react-server scripts/run-stage.ts",
     "prepare": "husky"
   },
   "dependencies": {
