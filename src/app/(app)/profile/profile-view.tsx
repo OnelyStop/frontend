@@ -60,17 +60,16 @@ function Allowance({ rows, plan }: { rows: UsageRow[]; plan: PlanTier }) {
         {rows.map(({ key, label, used, cap, per }) => {
           const left = Math.max(cap - used, 0);
           return (
-            <div
-              key={key}
-              className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3"
-            >
-              <span className="text-[14.5px]">{label}</span>
-              <span className="text-ink-3 w-full text-[12.5px] sm:order-last sm:w-auto">
+            <div key={key} className="py-3">
+              <div className="flex items-baseline justify-between gap-4">
+                <span className="text-[14.5px]">{label}</span>
+                <span className="tnum text-[14.5px] font-medium">
+                  {used} of {cap}
+                </span>
+              </div>
+              <p className="text-ink-3 mt-0.5 text-[12.5px]">
                 {left === 0 ? "none left" : `${left} left`} · {PERIOD_NOTE[per]}
-              </span>
-              <span className="tnum text-[14.5px] font-medium">
-                {used} of {cap}
-              </span>
+              </p>
             </div>
           );
         })}
