@@ -74,11 +74,15 @@ opened afterwards; an unnecessary issue is never reclaimed.
 ### 2. The issue, for P0–P2 only
 
 Carries the Gate 1 output from `AGENTS.md`: prior art, security review,
-production plan. Label it on creation — the priority is not a comment:
+production plan. Label **and assign** it on creation — an unassigned issue is
+nobody's, and the priority is not a comment:
 
 ```bash
-gh issue create --title "..." --body-file <file> --label P1
+gh issue create --title "..." --body-file <file> --label P1 --assignee Tushar98644
 ```
+
+Every issue is assigned to Tushar. He reassigns if it is going to someone else;
+that is his call to make, not a blank field to leave.
 
 Give each issue its own keyword — `Closes #12, closes #13`, never
 `Closes #12, #13`, which closes one and leaves the other open silently.
