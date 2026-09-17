@@ -3,7 +3,7 @@ import { cache } from "react";
 import { AUTH_DISABLED } from "@/config/auth";
 import {
   authErrorCode,
-  isExpectedAuthError,
+  classifyAuthError,
 } from "@/features/auth/expected-errors";
 import { log } from "@/lib/log";
 import { captureError } from "@/lib/observability.server";
@@ -11,9 +11,10 @@ import { createClient } from "@/lib/supabase-server";
 
 function reportAuth(error: unknown, at: string): void {
   if (!error) return;
-  if (isExpectedAuthError(error))
+  const verdict = classifyAuthError(error);
+  if (verdict === "session_ended")
     log.info("auth.session_ended", { at, code: authErrorCode(error) });
-  else captureError(error, { area: "auth", at });
+  else if (verdict === "report") captureError(error, { area: "auth", at });
 }
 
 // No user id from the request body; cache() dedupes the lookup across page and DAL.

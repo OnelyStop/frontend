@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import {
   authErrorCode,
-  isExpectedAuthError,
+  classifyAuthError,
 } from "@/features/auth/expected-errors";
 import { log } from "@/lib/log";
 import { NextResponse, type NextRequest } from "next/server";
@@ -75,13 +75,14 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // An Auth outage also answers user: null, so without this a 5xx reads as "signed out".
-  if (authError && isExpectedAuthError(authError))
+  const verdict = classifyAuthError(authError);
+  if (authError && verdict === "session_ended")
     log.info("auth.session_ended", {
       at: "proxy.getUser",
       code: authErrorCode(authError),
       pathname,
     });
-  else if (authError)
+  else if (authError && verdict === "report")
     captureError(authError, { area: "auth", at: "proxy.getUser", pathname });
 
   // A fresh redirect drops the refreshed cookies, and the next token is already rotated.
