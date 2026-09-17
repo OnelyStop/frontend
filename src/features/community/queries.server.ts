@@ -96,8 +96,6 @@ function toDoubt(r: {
   };
 }
 
-/** Posts this calendar month, which is what the plan quota is measured in. */
-
 export async function getThread(doubtId: string): Promise<DoubtThread | null> {
   const userId = await currentUserId();
 
