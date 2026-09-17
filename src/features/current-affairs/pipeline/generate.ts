@@ -232,7 +232,8 @@ export async function runGenerate(
   } = opts;
   const { db } = deps;
 
-  const expired = await expireStale(db, new Date(now()));
+  // Only the undated daily sweep expires: a run given a day is a deliberate backfill, and expiring first would discard the very day it was asked for.
+  const expired = day ? 0 : await expireStale(db, new Date(now()));
   const rows = await selectNewArticles(db, day);
 
   const [run] = await db
