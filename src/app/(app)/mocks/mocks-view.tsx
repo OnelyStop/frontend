@@ -517,10 +517,6 @@ export function MocksView({
                     </div>
                   </motion.div>
                 </AnimatePresence>
-
-                <div className="mt-4">
-                  <ReportQuestion qId={q.qId} />
-                </div>
               </div>
 
               <div className="mt-8 flex items-center gap-3">
