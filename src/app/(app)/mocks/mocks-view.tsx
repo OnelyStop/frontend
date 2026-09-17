@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
+import { ReportQuestion } from "@/features/question-bank/components/ReportQuestion";
 import {
   ChevronLeft,
   ChevronRight,
@@ -513,6 +514,10 @@ export function MocksView({
                     </div>
                   </motion.div>
                 </AnimatePresence>
+
+                <div className="mt-4">
+                  <ReportQuestion qId={q.qId} />
+                </div>
               </div>
 
               <div className="mt-8 flex items-center gap-3">
@@ -713,11 +718,11 @@ export function MocksView({
                 Your sittings
               </SectionTitle>
               {recent.length ? (
-                <div className="grid gap-3">
+                <ul className="border-line border-t">
                   {recent.map((s) => (
                     <SittingCard key={s.id} sitting={s} />
                   ))}
-                </div>
+                </ul>
               ) : (
                 <p className="text-ink-3 text-[13px]">
                   Nothing submitted yet. Your sittings line up here.

@@ -14,7 +14,7 @@ export function SittingCard({ sitting }: { sitting: RecentAttempt }) {
     paper && sitting.score !== null && sitting.target !== null
       ? sitting.score >= sitting.target
       : null;
-  const ink =
+  const score =
     sitting.score === null
       ? "text-ink-4"
       : cleared === null
@@ -24,21 +24,22 @@ export function SittingCard({ sitting }: { sitting: RecentAttempt }) {
           : "text-bad";
 
   return (
-    <Link
-      href={`/results/${sitting.id}`}
-      className="border-line rounded-card hover:border-ink/20 block border px-4.5 py-4 transition-colors"
-    >
-      {/* The score sits under the name below sm: side by side, a paper title truncates to "IBPS PO 2025 · Pr…". */}
-      <span className="block text-[14px] font-bold">
-        {sitting.paper ?? "Drill"}
-      </span>
-      <span className="mt-2 flex items-center gap-3">
-        <span className="text-ink-3 min-w-0 flex-1 truncate text-[12.5px]">
-          {WHEN.format(new Date(sitting.submittedAt))} · {sitting.questions}{" "}
-          questions
-        </span>
+    <li className="border-line hover:bg-brand-soft/30 border-b px-2 transition-colors">
+      <Link
+        href={`/results/${sitting.id}`}
+        className="flex flex-wrap items-center gap-x-5 gap-y-2 py-4"
+      >
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-[15px] font-medium">
+            {sitting.paper ?? "Drill"}
+          </p>
+          <p className="tnum text-ink-3 mt-1 text-[12.5px]">
+            {WHEN.format(new Date(sitting.submittedAt))} · {sitting.questions}{" "}
+            questions
+          </p>
+        </div>
         <span
-          className={`tnum shrink-0 text-[20px] leading-none font-semibold tracking-[-0.03em] ${ink}`}
+          className={`tnum shrink-0 text-[20px] leading-none font-semibold tracking-[-0.03em] ${score}`}
         >
           {sitting.score ?? "—"}
         </span>
@@ -47,7 +48,7 @@ export function SittingCard({ sitting }: { sitting: RecentAttempt }) {
             {cleared ? "Cleared" : "Missed"}
           </StatusPill>
         ) : null}
-      </span>
-    </Link>
+      </Link>
+    </li>
   );
 }

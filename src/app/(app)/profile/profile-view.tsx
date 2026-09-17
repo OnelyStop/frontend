@@ -9,6 +9,10 @@ import {
   PageHeader,
   SectionTitle,
   Stat,
+  Table,
+  Td,
+  Th,
+  Tr,
 } from "@/design-system";
 import { SittingCard } from "@/features/attempts/components/SittingCard";
 import type {
@@ -40,13 +44,13 @@ function fmtDate(iso: string): string {
   return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
 }
 
-const PERIOD_NOTE: Record<UsageRow["per"], string> = {
-  day: "today",
-  month: "this month",
-  account: "in total",
+// "Never" is the honest answer for a lifetime cap, and the one a reader needs.
+const RESETS: Record<UsageRow["per"], string> = {
+  day: "Daily",
+  month: "Monthly",
+  account: "Never",
 };
 
-// Rows on the stage, not a second card: the page already spends its one card on the record card above.
 function Allowance({ rows, plan }: { rows: UsageRow[]; plan: PlanTier }) {
   if (rows.length === 0) return null;
 
@@ -56,23 +60,32 @@ function Allowance({ rows, plan }: { rows: UsageRow[]; plan: PlanTier }) {
         What you have used
       </SectionTitle>
 
-      <div className="ruled">
-        {rows.map(({ key, label, used, cap, per }) => {
-          const left = Math.max(cap - used, 0);
-          return (
-            <div key={key} className="py-3">
-              <div className="flex items-baseline justify-between gap-4">
-                <span className="text-[14.5px]">{label}</span>
-                <span className="tnum text-[14.5px] font-medium">
-                  {used} of {cap}
-                </span>
-              </div>
-              <p className="text-ink-3 mt-0.5 text-[12.5px]">
-                {left === 0 ? "none left" : `${left} left`} · {PERIOD_NOTE[per]}
-              </p>
-            </div>
-          );
-        })}
+      {/* Thirds, so the middle column sits at the actual middle rather than wherever content pushes it. */}
+      <div className="border-line rounded-card overflow-hidden border">
+        <Table
+          minWidth={320}
+          head={
+            <>
+              <Th className="bg-info-soft w-1/3">Allowance</Th>
+              <Th className="bg-info-soft w-1/3 text-center">Resets</Th>
+              <Th align="right" className="bg-info-soft w-1/3">
+                Used
+              </Th>
+            </>
+          }
+        >
+          {rows.map(({ key, label, used, cap, per }) => (
+            <Tr key={key}>
+              <Td>{label}</Td>
+              <Td className="text-ink-3 text-center text-[13px]">
+                {RESETS[per]}
+              </Td>
+              <Td align="right" className="tnum font-medium">
+                {used} of {cap}
+              </Td>
+            </Tr>
+          ))}
+        </Table>
       </div>
 
       {plan === "free" ? (
@@ -181,11 +194,11 @@ export function ProfileView({
           >
             Everything you have sat
           </SectionTitle>
-          <div className="grid gap-3 lg:grid-cols-2">
+          <ul className="border-line border-t">
             {recent.map((s) => (
               <SittingCard key={s.id} sitting={s} />
             ))}
-          </div>
+          </ul>
         </>
       )}
     </>
