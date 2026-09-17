@@ -28,9 +28,10 @@ export function Modal({
       window.removeEventListener("keydown", onKey, { capture: true });
   }, [onClose]);
 
+  // Above every full-screen layer (the mock sitting and the retrieval slip are z-100): a dialog opened from inside one otherwise renders underneath it.
   return (
     <div
-      className="bg-ink/20 fixed inset-0 z-90 grid place-items-center p-4"
+      className="bg-ink/20 fixed inset-0 z-110 grid place-items-center p-4"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
