@@ -50,3 +50,6 @@ tsconfig.tsbuildinfo
 # Local screenshot runs; not part of the repo.
 screenshots/
 .env*
+
+# Agent config and skills; local to each machine.
+.claude/
