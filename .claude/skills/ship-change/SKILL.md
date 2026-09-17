@@ -173,8 +173,8 @@ git diff origin/main...HEAD | grep -E "^-" | grep -E "//|/\*"
 
 This is a gate, not a deliverable. The order is:
 
-1. Empty `screenshots/` at the root of his working directory — that folder, not
-   `docs/screenshots/`, and not a worktree he cannot see.
+1. Empty `screenshots/` at the root of his working directory — that folder, and
+   not a worktree he cannot see.
    ```bash
    rm -rf screenshots/* && mkdir -p screenshots
    ```
@@ -183,18 +183,14 @@ This is a gate, not a deliverable. The order is:
 4. Only when he says it is good does the work get committed.
 
 `screenshots/` is gitignored and always has been — that is the point. It is the
-folder he opens. `docs/screenshots/` is a different thing: images a merged PR
-body links to. Do not confuse them.
+folder he opens, and it is the only one: screenshots are never committed, so a
+PR body describes the change in words rather than linking an image.
 
 Putting the shots anywhere he has not checked out is the same as not showing
 him: his working tree is usually on another branch entirely.
 
 Screenshot the page and look at it yourself first. Never judge a layout from the
 classes you just wrote, and never describe it to him instead of showing it.
-
-Once approved and committed, verify each raw URL with `curl` before claiming the
-PR body renders them: `.gitignore` carries a bare `screenshots/` rule, and
-`git add -A` has silently skipped these while the body linked six 404s.
 
 **At most one white card per page, and prefer none.** A page built out of white
 rectangles is the generic template the product is trying not to look like. Count

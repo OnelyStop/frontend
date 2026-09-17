@@ -49,6 +49,4 @@ tsconfig.tsbuildinfo
 
 # Local screenshot runs; not part of the repo.
 screenshots/
-# Except the ones a PR body links to, which have to be fetchable from GitHub.
-!docs/screenshots/
 .env*

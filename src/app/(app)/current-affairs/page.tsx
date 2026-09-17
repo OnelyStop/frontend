@@ -35,17 +35,20 @@ export default async function Page({
     limitsFor(plan);
 
   let day = asked;
+  let newest = today;
   if (days !== null) {
-    const { newest, oldest } = allowedDays(today, days, delay ?? 0);
+    const window = allowedDays(today, days, delay ?? 0);
+    newest = window.newest;
     // Clamped to the newest day they may read, never to today: today is behind the delay.
-    if (asked > newest || asked < oldest) day = newest;
+    if (asked > newest || asked < window.oldest) day = newest;
   }
 
   return (
     <CurrentAffairsView
       key={day}
       day={day}
-      today={today}
+      newest={newest}
+      delayDays={delay}
       questions={await listQuestionsForDay(day)}
     />
   );
