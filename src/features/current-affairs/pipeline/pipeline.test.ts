@@ -185,6 +185,27 @@ describe("runGenerate", () => {
     });
   });
 
+  it("generates an old day it was asked for instead of expiring it", async () => {
+    const old = daysAgo(activeProfile.recentWindowDays + 2);
+    const backfill = await seed({ title: "backfill", publishedAt: old });
+    const generate = vi.fn(async () => MCQ);
+
+    const run = await runGenerate(
+      new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(
+        old,
+      ),
+      {
+        deps: { db, generate, fetchBody: async () => "" },
+        rpm: 600,
+        now: () => NOW.getTime(),
+        sleep: noSleep,
+      },
+    );
+
+    expect(run).toMatchObject({ planned: 1, published: 1, expired: 0 });
+    expect((await article(backfill.articleId)).status).toBe("used");
+  });
+
   it("stops at the deadline and leaves the rest new", async () => {
     await seed();
     await seed({ publishedAt: minutesAgo(1) });
