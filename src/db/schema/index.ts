@@ -7,3 +7,4 @@ export * from "./community";
 export * from "./question-bank";
 export * from "./descriptive";
 export * from "./notifications";
+export * from "./feedback";

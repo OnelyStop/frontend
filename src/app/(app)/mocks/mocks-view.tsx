@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
+import { ReportQuestion } from "@/features/question-bank/components/ReportQuestion";
 import {
   ChevronLeft,
   ChevronRight,
@@ -510,6 +511,9 @@ export function MocksView({
                           {o.text}
                         </OptionRow>
                       ))}
+                    </div>
+                    <div className="mt-5">
+                      <ReportQuestion key={q.qId} qId={q.qId} />
                     </div>
                   </motion.div>
                 </AnimatePresence>
