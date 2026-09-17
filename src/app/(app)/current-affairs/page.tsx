@@ -5,7 +5,12 @@ import { currentUserId } from "@/lib/auth.server";
 import { db } from "@/db";
 import { getEntitlement } from "@/features/billing/entitlements.server";
 import { limitsFor } from "@/features/billing/limits";
-import { DAY_RE, allowedDays, todayIst } from "@/features/current-affairs/day";
+import {
+  DAY_RE,
+  EARLIEST_DAY,
+  allowedDays,
+  todayIst,
+} from "@/features/current-affairs/day";
 import { CurrentAffairsView } from "./current-affairs-view";
 
 export const metadata: Metadata = { title: "Current affairs" };
@@ -20,7 +25,9 @@ export default async function Page({
 
   const today = todayIst();
   const { day: raw } = await searchParams;
-  const asked = raw && DAY_RE.test(raw) && raw <= today ? raw : today;
+  const inRange =
+    raw && DAY_RE.test(raw) && raw <= today && raw >= EARLIEST_DAY;
+  const asked = inRange ? raw : today;
 
   // The window is the plan's, not the URL's: a hand-typed day would bypass it.
   const { plan } = await getEntitlement(db, userId);

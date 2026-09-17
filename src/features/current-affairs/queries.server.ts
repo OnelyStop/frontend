@@ -6,6 +6,8 @@ import { currentAffairsQuestions } from "@/db/schema";
 import { dayBack, todayIst } from "@/features/current-affairs/day";
 import type { CurrentAffairsQuestion, OptionKey } from "./types";
 
+export const GAZETTE_TAG = "current-affairs";
+
 const LIMIT = 50;
 
 const RECENT_LIMIT = 60;
@@ -29,11 +31,14 @@ async function query(day: string): Promise<CurrentAffairsQuestion[]> {
   }));
 }
 
+// Tagged because the pipeline runs on a CI runner now, outside this process: a backfill cannot revalidate in-process, and a day cached empty before it ran would stay empty for the whole revalidate window.
 const cachedToday = unstable_cache(query, ["current-affairs", "today"], {
   revalidate: 300,
+  tags: [GAZETTE_TAG],
 });
 const cachedPast = unstable_cache(query, ["current-affairs", "past"], {
   revalidate: 86_400,
+  tags: [GAZETTE_TAG],
 });
 
 export function listQuestionsForDay(

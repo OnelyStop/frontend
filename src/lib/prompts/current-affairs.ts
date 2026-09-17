@@ -14,7 +14,7 @@ RELEVANT (set relevant=true): RBI / monetary policy / interest rates; banking re
 
 NOT RELEVANT (set relevant=false): local civic issues (roads, billboards, encroachment, water, power); crime and accident reports; recruitment notices, admit cards, answer keys, exam results; entertainment, box office, film/TV, celebrity gossip; lifestyle, health tips, recipes, horoscopes; product reviews, deals, gadget launches; routine match previews or fantasy-sport tips.
 
-If NOT relevant: set relevant=false, topic="none", and omit question_text, options, answer and explanation entirely.
+If NOT relevant: set relevant=false, topic="none", and set question_text, options, answer and explanation to null. Send all six fields every time — the response schema requires them, and a reply that leaves any out never completes.
 
 STEP 2 — If relevant, classify and write the question.
 - topic: choose exactly one of: ${topics.join("; ")}.

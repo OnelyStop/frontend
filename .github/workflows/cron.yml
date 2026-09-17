@@ -1,14 +1,24 @@
 name: Scheduled jobs
 
-# Vercel's own crons need a paid plan; on Hobby they are not provisioned at all,
-# which is why current affairs sat stale. These call the same authenticated
-# routes, so nothing about the app changes when the plan does — delete this file
-# and vercel.json's `crons` take over again.
+# The pipeline runs here, not on Vercel: Vercel's crons need a paid plan, and its
+# functions cap a run at 300s, which was cutting generation off mid-day. A runner
+# has none of those limits, so the stages are called directly and Vercel only
+# serves the site. Billing and health stay HTTP — they judge the deployment.
 on:
   schedule:
     # 12:30 UTC — 18:00 IST, after the evening news the pipeline reads.
     - cron: "30 12 * * *"
   workflow_dispatch:
+    inputs:
+      stage:
+        description: Which stages to run
+        type: choice
+        default: all
+        options: [all, ingest, generate]
+      day:
+        description: "Generate for one IST day only (YYYY-MM-DD); blank means every unprocessed article"
+        type: string
+        default: ""
 
 concurrency:
   group: scheduled-jobs
@@ -17,40 +27,68 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     env:
       SITE: https://www.onelystop.in
-      # Masked by Actions; the routes compare it in constant time.
       SECRET: ${{ secrets.CRON_SECRET }}
+      CRON_SECRET: ${{ secrets.CRON_SECRET }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      NEWSDATA_API_KEY: ${{ secrets.NEWSDATA_API_KEY }}
+      GENERATION_RPM: ${{ vars.GENERATION_RPM || '12' }}
+      STAGE: ${{ inputs.stage || 'all' }}
+      DAY: ${{ inputs.day }}
     steps:
-      - name: Check the secret is set
+      - name: Check the secrets are set
         run: |
-          if [ -z "$SECRET" ]; then
-            echo "::error::CRON_SECRET is not set — add it under Settings → Secrets → Actions"
+          missing=""
+          for name in SECRET DATABASE_URL OPENROUTER_API_KEY; do
+            [ -z "${!name}" ] && missing="$missing $name"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::missing secrets:$missing — add them under Settings → Secrets → Actions"
             exit 1
           fi
 
-      # Sequential, not an hour apart: generate has nothing to work on until
-      # ingest returns, and waiting for the response is exact where a second
-      # schedule was a guess.
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+
       - name: Ingest today's articles
-        run: |
-          curl --fail-with-body -sS -X POST "$SITE/api/v1/internal/ingest" \
-            -H "Authorization: Bearer $SECRET" --max-time 330 | tee /tmp/ingest.json
-          echo
+        if: env.STAGE == 'all' || env.STAGE == 'ingest'
+        run: bun run pipeline ingest
 
+      # Sequential, not an hour apart: generate has nothing to work on until
+      # ingest returns, and waiting for it is exact where a second schedule was a guess.
       - name: Generate the questions
+        if: env.STAGE == 'all' || env.STAGE == 'generate'
         run: |
-          curl --fail-with-body -sS -X POST "$SITE/api/v1/internal/generate" \
-            -H "Authorization: Bearer $SECRET" --max-time 330 | tee /tmp/generate.json
+          if [ -n "$DAY" ]; then
+            bun run pipeline generate "--day=$DAY"
+          else
+            bun run pipeline generate
+          fi
+
+      # The pipeline writes from here, so nothing in the running app knows a day changed; a day cached empty before a backfill would serve empty until its window expired. A generate that dies half way still published rows, so this runs even then.
+      - name: Drop the cached days
+        if: ${{ !cancelled() && (env.STAGE == 'all' || env.STAGE == 'generate') }}
+        run: |
+          curl --fail-with-body -sS -X POST "$SITE/api/v1/internal/revalidate" \
+            -H "Authorization: Bearer $SECRET" --max-time 60
           echo
 
+      # Not gated on the steps above: an `if` with no status function is ANDed with success(), which would let a failed ingest skip the backstop that grants entitlements the webhook missed.
       - name: Reconcile billing
+        if: ${{ !cancelled() && env.STAGE == 'all' }}
         run: |
           curl --fail-with-body -sS "$SITE/api/v1/internal/billing-reconcile" \
             -H "Authorization: Bearer $SECRET" --max-time 130
 
       # Last, so it judges the run that just happened rather than yesterday's.
       - name: Report pipeline freshness
+        if: env.STAGE == 'all'
         run: |
           curl --fail-with-body -sS "$SITE/api/v1/internal/health" \
             -H "Authorization: Bearer $SECRET" --max-time 60 | tee /tmp/health.json

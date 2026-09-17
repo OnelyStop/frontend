@@ -1,8 +1,10 @@
 import { openrouterConfig } from "@/config/openrouter";
 import { env } from "@/features/current-affairs/env";
 
-type Source = "newsdata_io" | "rbi_rss" | "pib_rss" | "sebi_rss";
-type Scope = "national" | "international";
+import type {
+  ArticleScope,
+  ArticleSource,
+} from "@/features/current-affairs/types";
 
 export type ExamProfile = {
   id: string;
@@ -13,13 +15,13 @@ export type ExamProfile = {
     /** NewsData bills per credit, so pagination is capped. */
     maxPages: number;
   };
-  rssFeeds: { source: Source; url: string; scope: Scope }[];
+  rssFeeds: { source: ArticleSource; url: string; scope: ArticleScope }[];
   maxArticlesPerIngest: number;
   maxQuestionsPerGenerate: number;
   llmMaxRpm: number;
   generationModel: string;
   recentWindowDays: number;
-  /** NewsData only; drops on a negative term with no positive — the model gate in generation is the real filter. */
+  /** News sources only, never a regulator's own feed; drops on a negative term with no positive — the model gate in generation is the real filter. */
   relevanceLexicon: { positive: string[]; negative: string[] };
   topics: string[];
 };
@@ -36,7 +38,7 @@ export const BANKING_EXAM_PROFILE: ExamProfile = {
     international: { language: "en", category: "world" },
     maxPages: 2,
   },
-  // A dead feed is empty, not fatal: SEBI firewalls non-India IPs, PIB returns Hindi.
+  // A dead feed is empty, not fatal: SEBI firewalls non-India IPs. PIB is gone because every item it served was Hindi, so 97 of them produced no question and crowded out the run.
   rssFeeds: [
     {
       source: "rbi_rss",
@@ -44,25 +46,37 @@ export const BANKING_EXAM_PROFILE: ExamProfile = {
       scope: "national",
     },
     {
-      source: "pib_rss",
-      url: "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
-      scope: "national",
-    },
-    {
       source: "sebi_rss",
       url: "https://www.sebi.gov.in/sebirss.xml",
       scope: "national",
     },
+    // Carries about a week of items, which is what makes a backfill possible at all.
+    {
+      source: "indian_express",
+      url: "https://indianexpress.com/section/india/feed/",
+      scope: "national",
+    },
+    {
+      source: "business_standard",
+      url: "https://www.business-standard.com/rss/economy-policy-102.rss",
+      scope: "national",
+    },
+    {
+      source: "livemint",
+      url: "https://www.livemint.com/rss/economy",
+      scope: "national",
+    },
   ],
-  maxArticlesPerIngest: 120,
-  maxQuestionsPerGenerate: 40,
+  maxArticlesPerIngest: 300,
+  maxQuestionsPerGenerate: 150,
   get llmMaxRpm() {
     return env.GENERATION_RPM;
   },
   get generationModel() {
     return openrouterConfig.generationModel;
   },
-  recentWindowDays: 3,
+  // Also the expiry: an article older than this is dropped unprocessed, so it has to cover the oldest day the feeds still carry.
+  recentWindowDays: 8,
 
   relevanceLexicon: {
     // Specific on purpose: "award" alone shows up in horoscopes and film blurbs.

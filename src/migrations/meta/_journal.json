@@ -71,6 +71,20 @@
       "when": 1789311913454,
       "tag": "0009_exam_type",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1789563133603,
+      "tag": "0010_gazette_sources",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1789662248096,
+      "tag": "0011_question_reports",
+      "breakpoints": true
     }
   ]
 }

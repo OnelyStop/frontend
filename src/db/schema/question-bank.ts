@@ -277,3 +277,48 @@ export const notes = pgTable(
     // No policy and no grant on purpose: paid theory content, served only through the route handlers that gate it.
   ],
 ).enableRLS();
+
+export const reportReason = pgEnum("report_reason", [
+  "answer_wrong",
+  "wrong_section",
+  "text_broken",
+  "options_wrong",
+  "other",
+]);
+
+export const reportStatus = pgEnum("report_status", [
+  "open",
+  "fixed",
+  "rejected",
+]);
+
+// A report is an opinion, never an input to scoring: nothing reads this to decide whether a question is right.
+export const questionReports = pgTable(
+  "question_reports",
+  {
+    id: bigint("id", { mode: "number" })
+      .primaryKey()
+      .generatedByDefaultAsIdentity(),
+    qId: text("q_id")
+      .notNull()
+      .references(() => bankQuestions.qId, { onDelete: "cascade" }),
+    userId: uuid("user_id").notNull(),
+    reason: reportReason("reason").notNull(),
+    note: text("note"),
+    status: reportStatus("status").notNull().default("open"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    // A second click is the same opinion, so it updates rather than inflating the count.
+    unique("question_reports_q_id_user_id_key").on(t.qId, t.userId),
+    index("question_reports_status_created_idx").on(t.status, t.createdAt),
+
+    pgPolicy("signed-in users can read their own reports", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`(select auth.uid()) = ${t.userId}`,
+    }),
+  ],
+).enableRLS();

@@ -67,6 +67,15 @@ describe("MCQ_RESPONSE_JSON_SCHEMA", () => {
     expect([...required].sort()).toEqual(Object.keys(properties).sort());
   });
 
+  // The prompt said "omit" while strict mode required all six, so the model answered an irrelevant item with an object it never closed, and a third of a run failed.
+  it("is asked for in the prompt the way strict mode requires", () => {
+    const system = currentAffairsSystem(["Economy & Fiscal"]);
+    expect(system).not.toMatch(/omit question_text/);
+    expect(system).toMatch(
+      /set question_text, options, answer and explanation to null/,
+    );
+  });
+
   it("makes every field a not-relevant reply omits nullable", () => {
     const { properties: p } = MCQ_RESPONSE_JSON_SCHEMA;
     for (const key of ["question_text", "options", "answer", "explanation"]) {

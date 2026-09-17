@@ -1,4 +1,4 @@
-// Calls the stage functions directly, no HTTP; bun auto-loads .env.local.
+// Calls the stage functions directly, no HTTP; bun auto-loads .env.local. Run it through `bun run pipeline`: without --conditions react-server, `server-only` throws.
 import { runGenerate } from "@/features/current-affairs/pipeline/generate";
 import { runIngest } from "@/features/current-affairs/pipeline/ingest";
 

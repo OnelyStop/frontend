@@ -15,6 +15,7 @@ import {
 } from "@/design-system";
 import { SECTION_FROM_DB, SECTION_KEY } from "@/data/navigation";
 import { SURFACE } from "@/design-system/lib/motion";
+import { ReportQuestion } from "@/features/question-bank/components/ReportQuestion";
 import type { ScoredQuestion } from "../types";
 
 const FILTERS = ["All", "Wrong", "Skipped", "Slow"] as const;
@@ -204,6 +205,10 @@ function QuestionRow({
                     </div>
                   </div>
                 ) : null}
+
+                <div className="mt-4 flex justify-end">
+                  <ReportQuestion qId={q.qId} />
+                </div>
               </motion.div>
             </td>
           </tr>

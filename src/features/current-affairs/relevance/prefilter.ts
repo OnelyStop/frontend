@@ -4,6 +4,13 @@ import type { ArticleRow } from "@/db/schema";
 
 export type RelevanceVerdict = { drop: boolean; reason?: string };
 
+// A regulator publishes nothing off-syllabus, so the lexicon only judges the news feeds.
+const OFFICIAL = new Set<ArticleRow["source"]>([
+  "rbi_rss",
+  "sebi_rss",
+  "pib_rss",
+]);
+
 function countHits(haystack: string, terms: string[]): number {
   let n = 0;
   for (const t of terms) if (haystack.includes(t)) n++;
@@ -15,7 +22,7 @@ export function classifyRelevance(article: {
   title: string;
   summary: string;
 }): RelevanceVerdict {
-  if (article.source !== "newsdata_io") return { drop: false };
+  if (OFFICIAL.has(article.source)) return { drop: false };
 
   const text = normalizeText(`${article.title} ${article.summary}`);
   const { positive, negative } = activeProfile.relevanceLexicon;

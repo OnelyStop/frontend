@@ -19,6 +19,7 @@ import type {
   GeneratedQuestion,
   RawArticle,
 } from "@/features/current-affairs/types";
+import { activeProfile } from "@/features/current-affairs/config/profile";
 import { runGenerate } from "./generate";
 import { runIngest } from "./ingest";
 
@@ -131,7 +132,11 @@ describe("runGenerate", () => {
       title: "failing",
       publishedAt: minutesAgo(2),
     });
-    const stale = await seed({ title: "stale", publishedAt: daysAgo(5) });
+    // Past the expiry window, whatever the profile sets it to.
+    const stale = await seed({
+      title: "stale",
+      publishedAt: daysAgo(activeProfile.recentWindowDays + 2),
+    });
     const done = await seed({ title: "done", status: "used" });
 
     const generate = vi.fn(async (a: ArticleRow) => {
@@ -288,6 +293,28 @@ describe("runIngest", () => {
       "new",
       "new",
     ]);
+  });
+
+  it("drops a non-English item before it takes a row", async () => {
+    const summary = await runIngest(
+      {
+        db,
+        fetchNews: async () => [raw()],
+        fetchRss: async () => [
+          raw({
+            source: "rbi_rss",
+            title: "पीएम विश्वकर्मा योजना के तीन वर्ष पूरे",
+            summary: "योजना के तहत 30 लाख कारीगर पंजीकृत हुए हैं।",
+          }),
+        ],
+      },
+      NOW,
+    );
+
+    expect(summary).toMatchObject({ fetched: 1, new: 1 });
+    const rows = await db.select().from(schema.articles);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].source).toBe("newsdata_io");
   });
 
   it("is idempotent across a double-fired cron", async () => {

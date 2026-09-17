@@ -218,6 +218,11 @@ export default async function Page() {
             hint: "Pricing and entitlements",
             href: "/upgrade",
           },
+          {
+            label: "Reported questions",
+            hint: "What learners have flagged",
+            href: "/admin/reports",
+          },
         ].map((card) => (
           <Link key={card.label} href={card.href} className="block">
             <Card lift pad={false} className="p-5">
