@@ -512,6 +512,9 @@ export function MocksView({
                         </OptionRow>
                       ))}
                     </div>
+                    <div className="mt-5">
+                      <ReportQuestion key={q.qId} qId={q.qId} />
+                    </div>
                   </motion.div>
                 </AnimatePresence>
 
