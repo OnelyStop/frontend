@@ -210,6 +210,12 @@ export const NAV_GROUPS: NavGroup[] = [
         path: "/upgrade",
         hint: "Unlimited mocks, marking and current affairs",
       },
+      {
+        id: "feedback",
+        label: "Feedback",
+        path: "/feedback",
+        hint: "Tell us what's broken, missing or good",
+      },
     ],
   },
 ];
