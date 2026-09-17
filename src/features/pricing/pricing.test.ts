@@ -120,8 +120,8 @@ describe("what a user costs us", () => {
   it("prices a month of model calls", () => {
     // Zero, not small: free's AI caps are lifetime, so they cost once and never again.
     expect(monthlyAiCostPaise("free")).toBe(0);
-    expect(monthlyAiCostPaise("pro")).toBe(1_110);
-    expect(monthlyAiCostPaise("pro_plus")).toBe(3_450);
+    expect(monthlyAiCostPaise("pro")).toBe(840);
+    expect(monthlyAiCostPaise("pro_plus")).toBe(2_850);
   });
 
   it("adds Razorpay's cut, which follows the price and not the usage", () => {
@@ -131,13 +131,13 @@ describe("what a user costs us", () => {
   });
 
   it("totals what one subscriber costs", () => {
-    expect(monthlyCostPaise("pro")).toBe(1_700);
-    expect(monthlyCostPaise("pro_plus")).toBe(4_394);
+    expect(monthlyCostPaise("pro")).toBe(1_430);
+    expect(monthlyCostPaise("pro_plus")).toBe(3_794);
   });
 
   it("leaves the margin a subscription business needs", () => {
-    expect(grossMarginPercent("pro")).toBe(93);
-    expect(grossMarginPercent("pro_plus")).toBe(89);
+    expect(grossMarginPercent("pro")).toBe(94);
+    expect(grossMarginPercent("pro_plus")).toBe(91);
     expect(grossMarginPercent("free")).toBeNull();
   });
 
@@ -154,8 +154,8 @@ describe("what a user costs us", () => {
 
   // Pro+ reaches 78% of its own price here, so what caps the loss is call size, not the quota.
   it("records the ceiling a determined user could reach", () => {
-    expect(ceilingMonthlyAiCostPaise("pro")).toBe(8_240);
-    expect(ceilingMonthlyAiCostPaise("pro_plus")).toBe(20_900);
+    expect(ceilingMonthlyAiCostPaise("pro")).toBe(5_630);
+    expect(ceilingMonthlyAiCostPaise("pro_plus")).toBe(15_100);
   });
 
   it("never lets even that ceiling cost more than the subscription", () => {
