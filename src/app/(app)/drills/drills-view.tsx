@@ -128,6 +128,22 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
     }
   }
 
+  // Submits rather than discarding: unanswered questions already score as skipped.
+  function endEarly() {
+    if (submitting) return;
+    if (!q) {
+      void finish(answers);
+      return;
+    }
+    void finish({
+      ...answers,
+      [q.qId]: {
+        chosen: picked !== null ? (q.options[picked]?.key ?? null) : null,
+        timeMs: Date.now() - qStart,
+      },
+    });
+  }
+
   async function finish(merged: Record<string, Recorded>) {
     if (attemptId === null) {
       setRunning(false);
@@ -159,9 +175,9 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
             <Button
               variant="secondary"
               disabled={submitting}
-              onClick={() => setRunning(false)}
+              onClick={endEarly}
             >
-              End drill
+              {submitting ? "Scoring…" : "End drill"}
             </Button>
           }
         />
