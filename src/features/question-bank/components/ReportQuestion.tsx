@@ -10,7 +10,13 @@ import {
 
 type Step = "idle" | "open" | "sending" | "sent" | "error";
 
-export function ReportQuestion({ qId }: { qId: string }) {
+export function ReportQuestion({
+  qId,
+  label = "Report this question",
+}: {
+  qId: string;
+  label?: string;
+}) {
   const [step, setStep] = useState<Step>("idle");
   const [reason, setReason] = useState<ReportReason | null>(null);
   const [note, setNote] = useState("");
@@ -45,7 +51,7 @@ export function ReportQuestion({ qId }: { qId: string }) {
         className="text-ink-3 hover:text-ink inline-flex items-center gap-1.5 text-[12.5px] transition-colors"
       >
         <Flag size={13} strokeWidth={2} />
-        Report
+        {label}
       </button>
 
       {step !== "idle" ? (

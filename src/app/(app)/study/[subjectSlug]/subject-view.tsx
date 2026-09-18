@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { Compass, Layers, Mountain } from "lucide-react";
 import {
-  StatusPill,
+  ButtonLink,
   Divider,
   Empty,
   EventCard,
   EventMark,
-  type EventTone,
   PageHeader,
   SectionTitle,
+  StatusPill,
+  type EventTone,
 } from "@/design-system";
 import type { ChapterOutline } from "@/features/study/types";
 
@@ -63,6 +64,11 @@ export function SubjectView({
         <Empty
           title="No published topics in this subject yet"
           sub="They will appear here once the pipeline imports and a reviewer publishes them."
+          action={
+            <ButtonLink href="/study" size="sm">
+              Browse the other subjects
+            </ButtonLink>
+          }
         />
       ) : (
         <div className="space-y-10">

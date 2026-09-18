@@ -96,20 +96,6 @@ function toDoubt(r: {
   };
 }
 
-/** Posts this calendar month, which is what the plan quota is measured in. */
-export async function monthlyPostCount(userId: string): Promise<number> {
-  const [row] = await db
-    .select({ n: sql<number>`count(*)::int` })
-    .from(doubts)
-    .where(
-      and(
-        eq(doubts.authorId, userId),
-        sql`${doubts.createdAt} >= date_trunc('month', now())`,
-      ),
-    );
-  return row?.n ?? 0;
-}
-
 export async function getThread(doubtId: string): Promise<DoubtThread | null> {
   const userId = await currentUserId();
 

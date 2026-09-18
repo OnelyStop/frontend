@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Search } from "lucide-react";
-import { Empty, PageHeader } from "@/design-system";
+import { ButtonLink, Empty, PageHeader } from "@/design-system";
 import { searchPublic } from "@/features/study/queries.server";
 
 // Google's own guidance: keep internal search results out of the index.
@@ -55,6 +55,11 @@ export default async function Page({
         <Empty
           title={`Nothing matches “${query}”`}
           sub="Try a shorter phrase, or browse the knowledge base by subject."
+          action={
+            <ButtonLink href="/study" size="sm">
+              Browse subjects
+            </ButtonLink>
+          }
         />
       ) : (
         <>

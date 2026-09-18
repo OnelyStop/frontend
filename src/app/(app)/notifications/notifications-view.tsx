@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MessageSquare, PenLine, Info } from "lucide-react";
 import {
+  ButtonLink,
   Card,
   Empty,
   EventCard,
@@ -38,6 +39,11 @@ export function NotificationsView({ items }: { items: Notification[] }) {
             tone="info"
             title="Nothing yet"
             sub="When somebody answers a doubt you asked, or a descriptive answer comes back marked, it lands here."
+            action={
+              <ButtonLink href="/community" size="sm">
+                Ask a doubt
+              </ButtonLink>
+            }
           />
         </Card>
       ) : (

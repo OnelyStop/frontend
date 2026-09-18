@@ -717,11 +717,11 @@ export function MocksView({
                 Your sittings
               </SectionTitle>
               {recent.length ? (
-                <div className="grid gap-3">
+                <ul className="border-line border-t">
                   {recent.map((s) => (
                     <SittingCard key={s.id} sitting={s} />
                   ))}
-                </div>
+                </ul>
               ) : (
                 <p className="text-ink-3 text-[13px]">
                   Nothing submitted yet. Your sittings line up here.

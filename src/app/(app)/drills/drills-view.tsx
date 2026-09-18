@@ -26,6 +26,7 @@ import {
   type Subject,
 } from "@/data/navigation";
 import { startAttempt, submitAttempt } from "@/features/attempts/actions";
+import { ReportQuestion } from "@/features/question-bank/components/ReportQuestion";
 import type { DrillQuestion } from "@/features/question-bank/types";
 import { track } from "@/lib/posthog.client";
 
@@ -214,6 +215,9 @@ export function DrillsView({ pool }: { pool: DrillQuestion[] }) {
                       {o.text}
                     </OptionRow>
                   ))}
+                </div>
+                <div className="mt-5">
+                  <ReportQuestion key={q.qId} qId={q.qId} />
                 </div>
               </motion.div>
             </AnimatePresence>

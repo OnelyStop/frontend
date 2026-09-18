@@ -1,18 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Check, ChevronLeft, ChevronRight, X } from "lucide-react";
 import {
-  StatusPill,
   Button,
+  ButtonLink,
   Empty,
   EventCard,
   EventMark,
-  type EventTone,
   Input,
   PageHeader,
+  StatusPill,
   cn,
+  type EventTone,
 } from "@/design-system";
 import { EARLIEST_DAY } from "@/features/current-affairs/day";
 import type {
@@ -33,11 +35,14 @@ function shiftDay(day: string, delta: number): string {
 
 export function CurrentAffairsView({
   day,
-  today,
+  newest,
+  delayDays,
   questions,
 }: {
   day: string;
-  today: string;
+  /** The newest day this plan may read: on free it is behind today, and the nav must stop there. */
+  newest: string;
+  delayDays: number | null;
   questions: CurrentAffairsQuestion[];
 }) {
   const router = useRouter();
@@ -47,7 +52,7 @@ export function CurrentAffairsView({
   const go = (target: string) => router.push(`/current-affairs?day=${target}`);
   const answered = questions.filter((q) => locked[q.id]);
   const correct = answered.filter((q) => picked[q.id] === q.answer).length;
-  const atMax = day >= today;
+  const atMax = day >= newest;
   const atMin = day <= EARLIEST_DAY;
 
   return (
@@ -71,7 +76,7 @@ export function CurrentAffairsView({
                 type="date"
                 value={day}
                 min={EARLIEST_DAY}
-                max={today}
+                max={newest}
                 onChange={(e) => e.target.value && go(e.target.value)}
                 className="tnum w-38"
               />
@@ -97,10 +102,29 @@ export function CurrentAffairsView({
         }
       />
 
+      {delayDays !== null ? (
+        <p className="bg-brand-pale rounded-ctl text-ink-2 mb-5 p-4 text-[13.5px] leading-relaxed">
+          You are reading current affairs {delayDays} days after the day they
+          cover. The last {delayDays} days — including today&rsquo;s — are on
+          Pro.{" "}
+          <Link
+            href="/upgrade?from=current-affairs"
+            className="text-ink underline underline-offset-2"
+          >
+            See the plans
+          </Link>
+        </p>
+      ) : null}
+
       {questions.length === 0 ? (
         <Empty
           title="Nothing generated for this day yet"
           sub="The pipeline runs once the evening news has settled, around 19:00 IST. Try another date."
+          action={
+            <ButtonLink href="/flashcards" size="sm">
+              Review what you have read
+            </ButtonLink>
+          }
         />
       ) : (
         <div className="grid items-start gap-4 xl:grid-cols-2">

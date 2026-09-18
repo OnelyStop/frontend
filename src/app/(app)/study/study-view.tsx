@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
 import {
+  ButtonLink,
   CornerBadge,
   Empty,
   IndexCard,
@@ -39,6 +40,11 @@ export function StudyBrowseView({ subjects }: { subjects: SubjectSummary[] }) {
         <Empty
           title="No subjects yet"
           sub="Content is imported from the study pipeline. Run the importer, or check back once the launch topics are published."
+          action={
+            <ButtonLink href="/mocks" size="sm">
+              Sit a paper instead
+            </ButtonLink>
+          }
         />
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">

@@ -2,12 +2,12 @@ import "server-only";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { doubtReplies, doubts, doubtStuck } from "@/db/schema";
-import { monthlyPostCount } from "./queries.server";
 import {
   limitsFor,
   withinLimit,
   type PlanTier,
 } from "@/features/billing/limits";
+import { doubtsSince, periodStart } from "@/features/billing/usage.server";
 import { notify } from "@/features/notifications/mutations.server";
 import type { DoubtCreate } from "./types";
 
@@ -63,8 +63,8 @@ export async function postDoubt(
   input: DoubtCreate,
 ): Promise<PostOutcome> {
   // The view's remaining count is display only; the quota is decided here.
-  const limit = limitsFor(plan).communityDoubts.cap;
-  const used = await monthlyPostCount(userId);
+  const { cap: limit, per } = limitsFor(plan).communityDoubts;
+  const used = await doubtsSince(db, userId, periodStart(per));
   if (!withinLimit(limit, used))
     return { ok: false, reason: "quota_exceeded", used, limit };
 

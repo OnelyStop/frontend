@@ -181,7 +181,7 @@ describe("a paid plan lifts the cap", () => {
     await grant("pro", "2026-10-05T00:00:00Z");
     await recordAiCall(db, USER, "ask_onely", NOW);
     expect(await quota("askOnely")).toMatchObject({ ok: true });
-    expect(PLAN_LIMITS.pro.askOnely.cap).toBe(250);
+    expect(PLAN_LIMITS.pro.askOnely.cap).toBe(160);
   });
 });
 

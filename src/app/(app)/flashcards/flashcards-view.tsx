@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import {
   Button,
+  ButtonLink,
   Card,
   Empty,
   EventCard,
   EventMark,
-  type EventTone,
   PageHeader,
   StatusPill,
+  type EventTone,
 } from "@/design-system";
 import type { CurrentAffairsQuestion } from "@/features/current-affairs/types";
 
@@ -80,6 +81,11 @@ export function FlashcardsView({
         <Empty
           title="Nothing to review yet"
           sub="The evening run writes one question per major story. Once it has run, the last few days appear here."
+          action={
+            <ButtonLink href="/current-affairs" size="sm">
+              Read current affairs
+            </ButtonLink>
+          }
         />
       </div>
     );

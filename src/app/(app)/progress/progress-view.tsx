@@ -12,8 +12,6 @@ import {
   EventTime,
   PageHeader,
   SectionTitle,
-  Spine,
-  SpineItem,
   Stat,
 } from "@/design-system";
 import { useApp } from "@/context/AppContext";
@@ -184,13 +182,11 @@ export function ProgressView({
               Sittings
             </SectionTitle>
             {recent.length ? (
-              <Spine>
+              <ul className="border-line border-t">
                 {recent.map((s) => (
-                  <SpineItem key={s.id}>
-                    <SittingCard sitting={s} />
-                  </SpineItem>
+                  <SittingCard key={s.id} sitting={s} />
                 ))}
-              </Spine>
+              </ul>
             ) : (
               <p className="text-ink-3 text-[13px]">
                 Nothing submitted in the last 30 days.
