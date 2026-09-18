@@ -20,6 +20,7 @@ export const SENTRY_ENVIRONMENT =
 // Blockers drop ingest.sentry.io by hostname, and Sentry's own default of /monitoring is on the same lists.
 export const SENTRY_RELAY_PATH = "/invigilator";
 
+// A dropped connection is the visitor's network, not a defect — and when it is ours, the server reports the cause itself rather than this symptom.
 export const SENTRY_IGNORE_ERRORS = [
   "ResizeObserver loop limit exceeded",
   "ResizeObserver loop completed with undelivered notifications",
@@ -28,6 +29,12 @@ export const SENTRY_IGNORE_ERRORS = [
   "Failed to fetch dynamically imported module",
   "Importing a module script failed",
   /^AbortError/,
+  "Failed to fetch",
+  "NetworkError when attempting to fetch resource",
+  "The network connection was lost",
+  "Load failed",
+  "The operation was aborted",
+  "Non-Error promise rejection captured",
 ];
 
 export const SENTRY_DENY_URLS = [

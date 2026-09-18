@@ -1,9 +1,21 @@
 import "server-only";
-import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { cache } from "react";
 import { AUTH_DISABLED } from "@/config/auth";
+import {
+  authErrorCode,
+  classifyAuthError,
+} from "@/features/auth/expected-errors";
+import { log } from "@/lib/log";
 import { captureError } from "@/lib/observability.server";
 import { createClient } from "@/lib/supabase-server";
+
+function reportAuth(error: unknown, at: string): void {
+  if (!error) return;
+  const verdict = classifyAuthError(error);
+  if (verdict === "session_ended")
+    log.info("auth.session_ended", { at, code: authErrorCode(error) });
+  else if (verdict === "report") captureError(error, { area: "auth", at });
+}
 
 // No user id from the request body; cache() dedupes the lookup across page and DAL.
 
@@ -20,8 +32,7 @@ export const currentUserId = cache(async (): Promise<string | null> => {
     error,
   } = await supabase.auth.getUser();
   // An Auth outage also answers user: null, so every route would 401 without a trace.
-  if (error && !isAuthSessionMissingError(error))
-    captureError(error, { area: "auth", at: "currentUserId" });
+  reportAuth(error, "currentUserId");
   return user?.id ?? null;
 });
 
@@ -32,7 +43,6 @@ export const currentUser = cache(async (): Promise<CurrentUser | null> => {
     data: { user },
     error,
   } = await supabase.auth.getUser();
-  if (error && !isAuthSessionMissingError(error))
-    captureError(error, { area: "auth", at: "currentUser" });
+  reportAuth(error, "currentUser");
   return user ? { id: user.id, email: user.email ?? null } : null;
 });
