@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { listQuestionsForDay } from "@/features/current-affairs/queries.server";
 import { currentUserId } from "@/lib/auth.server";
 import { db } from "@/db";
@@ -21,7 +20,6 @@ export default async function Page({
   searchParams: Promise<{ day?: string }>;
 }) {
   const userId = await currentUserId();
-  if (!userId) redirect("/login?from=/current-affairs");
 
   const today = todayIst();
   const { day: raw } = await searchParams;
@@ -29,10 +27,9 @@ export default async function Page({
     raw && DAY_RE.test(raw) && raw <= today && raw >= EARLIEST_DAY;
   const asked = inRange ? raw : today;
 
-  // The window is the plan's, not the URL's: a hand-typed day would bypass it.
-  const { plan } = await getEntitlement(db, userId);
+  // The plan's window, not the URL's, and signed out reads the free one: this page is indexed.
   const { currentAffairsDays: days, currentAffairsDelayDays: delay } =
-    limitsFor(plan);
+    limitsFor(userId ? (await getEntitlement(db, userId)).plan : "free");
 
   let day = asked;
   let newest = today;

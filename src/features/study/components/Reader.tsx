@@ -58,6 +58,7 @@ export function Reader({
   chapters,
   initialNotes,
   flashcards,
+  canAnnotate = true,
 }: {
   subjectSlug: string;
   chapterSlug: string;
@@ -65,6 +66,8 @@ export function Reader({
   chapters: ChapterOutline[];
   initialNotes: StudyNote[];
   flashcards: Flashcard[];
+  /** False for a signed-out reader: the lesson is public, writing a note is not. */
+  canAnnotate?: boolean;
 }) {
   const [panel, setPanel] = useState<Panel>(null);
   const [selectedBlockKey, setSelectedBlockKey] = useState<string | null>(null);
@@ -296,7 +299,7 @@ export function Reader({
         </Dock>
       </div>
 
-      {panel === "notes" ? (
+      {panel === "notes" && canAnnotate ? (
         <NotesPanel
           topicId={outline.id}
           contentVersion={outline.contentVersion}
