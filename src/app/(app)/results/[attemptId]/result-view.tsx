@@ -1,6 +1,13 @@
 "use client";
 
-import { Card, PageHeader, StatusPill, Stat, TargetBar } from "@/design-system";
+import {
+  ButtonLink,
+  Card,
+  PageHeader,
+  StatusPill,
+  Stat,
+  TargetBar,
+} from "@/design-system";
 import { MarksWaterfall } from "@/features/attempts/components/marks-waterfall";
 import { QuestionReview } from "@/features/attempts/components/question-review";
 import { ScoreTimeline } from "@/features/attempts/components/score-timeline";
@@ -17,6 +24,11 @@ export function ResultView({
   scorecard: Scorecard;
   flagged?: boolean;
 }) {
+  // A drill you stopped partway still scores; saying so stops the low number reading as a bad sitting.
+  const endedEarly =
+    scorecard.mode !== "paper" &&
+    scorecard.attempted < scorecard.totalQuestions;
+
   // The total is not the exam: a paper is cleared only if every section is.
   const missed = scorecard.sections.filter((s) => !s.cleared);
   const cleared =
@@ -69,6 +81,12 @@ export function ResultView({
                 ? `Short in ${missed.map((s) => s.section).join(", ")} — the total does not carry a section.`
                 : `${(scorecard.target - scorecard.score).toFixed(2)} marks short of the overall target.`}
         </p>
+        {endedEarly ? (
+          <p className="mt-1.5 text-[13px] text-white/50">
+            Ended early — {scorecard.attempted} of {scorecard.totalQuestions}{" "}
+            answered before you stopped.
+          </p>
+        ) : null}
       </Card>
 
       {scorecard.target !== null ? (
@@ -111,6 +129,12 @@ export function ResultView({
       <TopicTheorySection theory={scorecard.theory} />
 
       <QuestionReview questions={scorecard.questions} />
+
+      {scorecard.mode !== "paper" ? (
+        <div className="mt-8 flex justify-center">
+          <ButtonLink href="/drills">Start another drill</ButtonLink>
+        </div>
+      ) : null}
     </div>
   );
 }
