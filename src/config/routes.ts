@@ -12,7 +12,7 @@ export const PROTECTED_PREFIXES = [
   "/results",
   "/notes",
   "/flashcards",
-  "/current-affairs",
+  // /current-affairs is absent on purpose: a signed-out reader gets the free plan's own delayed window.
   "/community",
   "/upgrade",
   "/profile",

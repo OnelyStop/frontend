@@ -45,47 +45,6 @@ export default async function Page({ params }: { params: Params }) {
   const [userId, { subjectSlug, chapterSlug, topicSlug }, preview] =
     await Promise.all([currentUserId(), params, canPreview()]);
 
-  // Signed out gets the syllabus only: this branch never loads a block body.
-  if (!userId) {
-    const topic = await getTopicPreview(topicSlug);
-    if (!topic) notFound();
-    if (
-      topic.subject.slug !== subjectSlug ||
-      topic.chapter.slug !== chapterSlug
-    )
-      redirect(
-        `/study/${topic.subject.slug}/${topic.chapter.slug}/${topicSlug}`,
-      );
-
-    const breadcrumb = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { name: "Knowledge base", item: `${SITE_URL}/study` },
-        {
-          name: topic.subject.name,
-          item: `${SITE_URL}/study/${topic.subject.slug}`,
-        },
-        {
-          name: topic.title,
-          item: `${SITE_URL}/study/${subjectSlug}/${chapterSlug}/${topicSlug}`,
-        },
-      ].map((entry, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        name: entry.name,
-        item: entry.item,
-      })),
-    };
-
-    return (
-      <>
-        <JsonLd data={breadcrumb} />
-        <TopicPreviewView topic={topic} />
-      </>
-    );
-  }
-
   const outline = await getTopicOutline(topicSlug, { preview });
   if (!outline) notFound();
 
@@ -98,35 +57,68 @@ export default async function Page({ params }: { params: Params }) {
       `/study/${outline.subject.slug}/${outline.chapter.slug}/${topicSlug}`,
     );
 
-  const [{ plan }, rank] = await Promise.all([
-    getEntitlement(db, userId),
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { name: "Knowledge base", item: `${SITE_URL}/study` },
+      {
+        name: outline.subject.name,
+        item: `${SITE_URL}/study/${outline.subject.slug}`,
+      },
+      {
+        name: outline.title,
+        item: `${SITE_URL}/study/${subjectSlug}/${chapterSlug}/${topicSlug}`,
+      },
+    ].map((entry, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: entry.name,
+      item: entry.item,
+    })),
+  };
+
+  // Signed out reads on the free plan, never wider: these pages are indexed.
+  const [plan, rank] = await Promise.all([
+    userId
+      ? getEntitlement(db, userId).then((e) => e.plan)
+      : Promise.resolve("free" as const),
     topicRank(topicSlug),
   ]);
 
-  // The syllabus view, not a redirect: a free reader should see what is behind the wall.
+  // The syllabus view, not a redirect: a reader should see what is behind the wall.
   if (
     rank &&
     !topicUnlocked(limitsFor(plan), outline.subject.slug, rank.rank)
   ) {
     const topic = await getTopicPreview(topicSlug);
     if (!topic) notFound();
-    return <TopicPreviewView topic={topic} locked />;
+    return (
+      <>
+        <JsonLd data={breadcrumb} />
+        <TopicPreviewView topic={topic} locked={Boolean(userId)} />
+      </>
+    );
   }
 
   const [subject, notes, flashcards] = await Promise.all([
     getSubjectChapters(subjectSlug, { preview }),
-    listNotes(userId, outline.id),
+    userId ? listNotes(userId, outline.id) : Promise.resolve([]),
     listFlashcards(topicSlug, { preview }),
   ]);
 
   return (
-    <Reader
-      subjectSlug={subjectSlug}
-      chapterSlug={chapterSlug}
-      outline={outline}
-      chapters={subject?.chapters ?? []}
-      initialNotes={notes}
-      flashcards={flashcards}
-    />
+    <>
+      <JsonLd data={breadcrumb} />
+      <Reader
+        subjectSlug={subjectSlug}
+        chapterSlug={chapterSlug}
+        outline={outline}
+        chapters={subject?.chapters ?? []}
+        initialNotes={notes}
+        flashcards={flashcards}
+        canAnnotate={Boolean(userId)}
+      />
+    </>
   );
 }
